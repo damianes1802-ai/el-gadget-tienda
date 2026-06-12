@@ -1,0 +1,6541 @@
+Listado de rutas de carpetas para el volumen Windows
+El número de serie del volumen es 00000075 0854:4D24
+C:.
+|   estructura.txt
+|   estructura_proyecto.txt
+|   requirements.txt
+|   
++---config
+|   |   .env
+|   |   categorias_droppers.json
+|   |   credentials.json
+|   |   html_informes_droppers.html
+|   |   scraping_config.json
+|   |   sheets_id.txt
+|   |   token.pickle
+|   |   
+|   \---html_informes_files
+|           accordion.js.descarga
+|           adapter.js.descarga
+|           after-render.js.descarga
+|           alert.js.descarga
+|           alerts.js.descarga
+|           all.css
+|           analytics.js.descarga
+|           anchor.html
+|           animate.min.css
+|           api.js.descarga
+|           app.js.descarga
+|           arrays.js.descarga
+|           async.js.descarga
+|           authentication-popup(1).js.descarga
+|           authentication-popup.js.descarga
+|           autocomplete.js.descarga
+|           autoselect.js.descarga
+|           bind-html.js.descarga
+|           bindings.js.descarga
+|           block-loader.js.descarga
+|           bootstrap(1).js.descarga
+|           bootstrap(2).js.descarga
+|           bootstrap.css
+|           bootstrap.js.descarga
+|           bound-nodes.js.descarga
+|           button.js.descarga
+|           buttons.js.descarga
+|           calendar.css
+|           captcha.js.descarga
+|           captchaList.js.descarga
+|           cart-item-renderer.js.descarga
+|           class.js.descarga
+|           collapsible(1).js.descarga
+|           collapsible.js.descarga
+|           collection.js.descarga
+|           color-picker.js.descarga
+|           common.js.descarga
+|           compare.js.descarga
+|           compat.js.descarga
+|           confirm.js.descarga
+|           console-logger.js.descarga
+|           console-output-handler.js.descarga
+|           cookie-status.js.descarga
+|           cookies.js.descarga
+|           core.js.descarga
+|           css2
+|           customer-data-mixin.js.descarga
+|           customer-data.js.descarga
+|           customer.js.descarga
+|           data-storage.js.descarga
+|           dataPost.js.descarga
+|           DATAWEB.jpg
+|           datepicker(1).js.descarga
+|           datepicker.js.descarga
+|           decorate.js.descarga
+|           defaultCaptcha-mixin.js.descarga
+|           defaultCaptcha.js.descarga
+|           dialog.js.descarga
+|           dom-observer.js.descarga
+|           domReady.js.descarga
+|           draggable.js.descarga
+|           dropdown.js.descarga
+|           droppable.js.descarga
+|           ec.js.descarga
+|           effect-blind.js.descarga
+|           effect-bounce.js.descarga
+|           effect-clip.js.descarga
+|           effect-drop.js.descarga
+|           effect-explode.js.descarga
+|           effect-fade.js.descarga
+|           effect-fold.js.descarga
+|           effect-highlight.js.descarga
+|           effect-pulsate.js.descarga
+|           effect-scale.js.descarga
+|           effect-shake.js.descarga
+|           effect-slide.js.descarga
+|           effect-transfer.js.descarga
+|           effect.js.descarga
+|           element.js.descarga
+|           engine.js.descarga
+|           entry-factory.js.descarga
+|           entry.js.descarga
+|           escaper.js.descarga
+|           events(1).js.descarga
+|           events.js.descarga
+|           fadeVisible.js.descarga
+|           fontawesome.css
+|           form-key-provider.js.descarga
+|           form-mini.js.descarga
+|           form.js.descarga
+|           formas-de-pago-mob.png
+|           formas-de-pago.png
+|           formatter.js.descarga
+|           google-analytics.js.descarga
+|           gtm.js.descarga
+|           i18n.js.descarga
+|           ids-storage-compare.js.descarga
+|           ids-storage.js.descarga
+|           ie-class-fixer.js.descarga
+|           image.js.descarga
+|           intlTelInput.js.descarga
+|           invalidation-processor.js.descarga
+|           jarallax-video.js.descarga
+|           jarallax.js.descarga
+|           jquery(1).js.descarga
+|           jquery-migrate.js.descarga
+|           jquery-mixin.js.descarga
+|           jquery-ui.js.descarga
+|           jquery.cookie.js.descarga
+|           jquery.fancybox.css
+|           jquery.js.descarga
+|           jquery.metadata.js.descarga
+|           jquery.mobile.custom.js.descarga
+|           jquery.storageapi.extended.js.descarga
+|           jquery.storageapi.min.js.descarga
+|           jquery.validate.js.descarga
+|           js
+|           js(1)
+|           key-codes.js.descarga
+|           keyboard.js.descarga
+|           knockout-es5.js.descarga
+|           knockout-fast-foreach.js.descarga
+|           knockout-repeat.js.descarga
+|           knockout.js.descarga
+|           layout.js.descarga
+|           levels-pool.js.descarga
+|           links.js.descarga
+|           loader(1).js.descarga
+|           loader.js.descarga
+|           local.js.descarga
+|           logger-utils.js.descarga
+|           logger.js.descarga
+|           login.js.descarga
+|           loginCaptcha.js.descarga
+|           Logo-Droppers-footer_2.png
+|           Logo-Droppers-web-01.png
+|           mage-init.js.descarga
+|           mage-translation-dictionary.js.descarga
+|           mage.js.descarga
+|           main(1).js.descarga
+|           main.js.descarga
+|           matchMedia.js.descarga
+|           menu(1).js.descarga
+|           menu.js.descarga
+|           message-pool.js.descarga
+|           messageList.js.descarga
+|           messages(1).js.descarga
+|           messages(2).js.descarga
+|           messages-minxin.js.descarga
+|           messages.js.descarga
+|           minicart(1).js.descarga
+|           minicart.js.descarga
+|           misc.js.descarga
+|           mixins.js.descarga
+|           modal.js.descarga
+|           moment.js.descarga
+|           mouse.js.descarga
+|           nonInlineReCaptchaRenderer.js.descarga
+|           objects.js.descarga
+|           observable_array.js.descarga
+|           observable_source.js.descarga
+|           optgroup.js.descarga
+|           outer_click.js.descarga
+|           owl.carousel.css
+|           owl.theme.css
+|           page-cache.js.descarga
+|           player.js.descarga
+|           position.js.descarga
+|           price-utils.js.descarga
+|           print.css
+|           progressbar.js.descarga
+|           query-builder.js.descarga
+|           range.js.descarga
+|           reCaptcha.js.descarga
+|           reCaptchaScriptLoader.js.descarga
+|           recaptcha__es_419.js.descarga
+|           refresh.js.descarga
+|           registry(1).js.descarga
+|           registry.js.descarga
+|           renderer.js.descarga
+|           require.js.descarga
+|           requirejs-config.js.descarga
+|           resizable(1).js.descarga
+|           resizable.js.descarga
+|           resolver.js.descarga
+|           saved_resource(1).html
+|           saved_resource.html
+|           scope.js.descarga
+|           scripts.js.descarga
+|           section-config.js.descarga
+|           selectable.js.descarga
+|           show-on-hover.js.descarga
+|           sidebar.js.descarga
+|           simple-checked.js.descarga
+|           sitio_seguro.png
+|           skipRefreshCaptcha.js.descarga
+|           slick.js.descarga
+|           slider.js.descarga
+|           smart-keyboard-handler.js.descarga
+|           sortable.js.descarga
+|           spectrum.js.descarga
+|           spinner(1).js.descarga
+|           spinner.js.descarga
+|           staticChecked.js.descarga
+|           sticky(1).js.descarga
+|           sticky.js.descarga
+|           stickymenu.js.descarga
+|           storage-manager.js.descarga
+|           storage-service.js.descarga
+|           storage.js.descarga
+|           strings.js.descarga
+|           style.css
+|           styles(1).css
+|           styles-l.css
+|           styles-m.css
+|           styles.css
+|           styles__ltr.css
+|           tabs(1).js.descarga
+|           tabs.js.descarga
+|           telephoneValidatorAddress.js.descarga
+|           template(1).js.descarga
+|           template.js.descarga
+|           text.js.descarga
+|           theme.js.descarga
+|           timepicker.js.descarga
+|           tinycolor.js.descarga
+|           toggle.js.descarga
+|           tooltip(1).js.descarga
+|           tooltip.js.descarga
+|           totals(1).js.descarga
+|           totals.js.descarga
+|           translate.js.descarga
+|           trim-input.js.descarga
+|           types.js.descarga
+|           ui-messages-mixin.js.descarga
+|           underscore.js.descarga
+|           url.js.descarga
+|           validation(1).js.descarga
+|           validation-mixin.js.descarga
+|           validation.js.descarga
+|           vcd15cbe7772f49c399c6a5babf22c1241717689176015
+|           video-background.js.descarga
+|           vimeo-wrapper.js.descarga
+|           website-rule.js.descarga
+|           widget(1).js.descarga
+|           widget(2).js.descarga
+|           widget(3).js.descarga
+|           widget-initializer.js.descarga
+|           widget.js.descarga
+|           wp-icon.png
+|           wrapper.js.descarga
+|           
++---data
+|   |   catalogo.db
+|   |   diagnostico_completo_diagnostico_completo_sistema.json
+|   |   reporte_actualizacion_20260223_204656.json
+|   |   reporte_actualizacion_20260226_154229.json
+|   |   reporte_actualizacion_20260302_162253.json
+|   |   reporte_agotados_20260222_134444.json
+|   |   reporte_agotados_20260222_163638.json
+|   |   reporte_agotados_20260222_171111.json
+|   |   reporte_agotados_20260223_192604.json
+|   |   reporte_agotados_20260226_152757.json
+|   |   reporte_agotados_20260226_164913.json
+|   |   reporte_agotados_20260226_175243.json
+|   |   reporte_agotados_20260226_213509.json
+|   |   reporte_agotados_20260227_154722.json
+|   |   reporte_agotados_20260227_165252.json
+|   |   reporte_agotados_20260301_132639.json
+|   |   reporte_agotados_20260302_151724.json
+|   |   reporte_agotados_20260310_151602.json
+|   |   reporte_categorias_20260307_134310.json
+|   |   reporte_categorias_20260309_155255.json
+|   |   reporte_categorias_20260309_203334.json
+|   |   reporte_categorias_20260309_205231.json
+|   |   reporte_categorias_droppers.json
+|   |   reporte_fase1_productos_20260316_160037.json
+|   |   reporte_fase1_productos_20260316_191751.json
+|   |   reporte_fase1_productos_20260316_193428.json
+|   |   reporte_fase2_categorias_20260316_194618.json
+|   |   reporte_ofertas_20260308_104226.json
+|   |   reporte_ofertas_20260308_104708.json
+|   |   reporte_ofertas_20260308_105022.json
+|   |   reporte_ofertas_20260309_155323.json
+|   |   reporte_ofertas_20260310_151837.json
+|   |   reporte_ofertas_20260316_143627.json
+|   |   reporte_ofertas_20260316_194951.json
+|   |   reporte_reversion_ofertas_20260308_104636.json
+|   |   reporte_reversion_ofertas_20260308_104912.json
+|   |   reporte_scraper_maestro_20260316_143028.json
+|   |   sin_categoria_agotados.txt
+|   |   sin_categoria_detalle.json
+|   |   sin_categoria_disponibles.txt
+|   |   sin_categoria_todos.txt
+|   |   
+|   +---grupos_variantes
+|   |       sugerencias_variantes_2026-02-01_10-19-32.json
+|   |       variantes_confirmadas_2026-02-01_10-31-34.json
+|   |       variantes_confirmadas_corregido_2026-02-01_13-13-26.json
+|   |       variantes_confirmadas_corregido_2026-02-01_13-40-03.json
+|   |       variantes_con_manuales_2026-02-01_13-22-23.json
+|   |       
+|   +---precios
+|   |       config_precios.json
+|   |       config_precios_v2.json
+|   |       
+|   \---productos
+|       |   lista_imagenes.txt
+|       |   
+|       +---505524
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---515587
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           img_012.png
+|       |           img_013.png
+|       |           img_014.png
+|       |           img_015.png
+|       |           
+|       +---550371 SD
+|       |       metadata.json
+|       |       
+|       +---550382
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---560470
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---600003
+|       |   +---CE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       img_011.jpg
+|       |   |       img_012.jpg
+|       |   |       
+|       |   +---FU
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       img_011.jpg
+|       |   |       img_012.jpg
+|       |   |       img_013.jpg
+|       |   |       img_014.jpg
+|       |   |       
+|       |   +---NA
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   \---VE
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           img_011.jpg
+|       |           img_012.jpg
+|       |           img_013.jpg
+|       |           img_014.jpg
+|       |           
+|       +---600003-CE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           img_011.jpg
+|       |           img_012.jpg
+|       |           
+|       +---600003-FU
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           img_011.jpg
+|       |           img_012.jpg
+|       |           img_013.jpg
+|       |           img_014.jpg
+|       |           
+|       +---600003-NA
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           img_011.jpg
+|       |           img_012.jpg
+|       |           
+|       +---600003-VE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           img_011.jpg
+|       |           img_012.jpg
+|       |           img_013.jpg
+|       |           img_014.jpg
+|       |           
+|       +---600037-VI
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---600045
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           
+|       +---600046
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           img_011.png
+|       |           img_012.png
+|       |           
+|       +---600047
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           
+|       +---600053
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpeg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.png
+|       |           img_011.jpg
+|       |           img_012.jpg
+|       |           
+|       +---600060
+|       |   +---AZ
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       
+|       |   \---GR
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---600060-AZ
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---600060-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---600081
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---600086
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---600095SD
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           
+|       +---600111
+|       |   +---GRB
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.jpg
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.jpg
+|       |   |       img_008.png
+|       |   |       
+|       |   \---NB
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.jpg
+|       |           img_008.png
+|       |           img_009.png
+|       |           
+|       +---600111-GRB
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.jpg
+|       |           img_008.png
+|       |           
+|       +---600111-NB
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.jpg
+|       |           
+|       +---600112
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           img_012.png
+|       |           img_013.png
+|       |           img_014.png
+|       |           img_015.png
+|       |           img_016.png
+|       |           img_017.png
+|       |           img_018.png
+|       |           
+|       +---600115
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpeg
+|       |           img_003.jpeg
+|       |           img_004.jpeg
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           
+|       +---600131
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           img_012.png
+|       |           
+|       +---600136
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---600138
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           
+|       +---600146
+|       |   +---AZ
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       
+|       |   +---GR
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.jpg
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       
+|       |   +---NE
+|       |   |       img_002.jpg
+|       |   |       img_005.png
+|       |   |       
+|       |   \---ROS
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---600146-AZ
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---600146-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           img_005.png
+|       |           
+|       +---600146-NE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           
+|       +---600146-ROS
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---600167
+|       |   |   metadata.json
+|       |   |   
+|       |   +---600167
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---600168
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---600169
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---600168
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---600169
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---600184-1
+|       |       metadata.json
+|       |       
+|       +---600188
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           
+|       +---600200
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.png
+|       |           img_009.jpg
+|       |           
+|       +---600201
+|       |   |   metadata.json
+|       |   |   
+|       |   +---1
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       
+|       |   +---2
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       
+|       |   +---imagenes_originales
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---x8
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---600201-1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---600201-2
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---600203
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           img_012.png
+|       |           img_013.png
+|       |           img_014.png
+|       |           img_015.png
+|       |           
+|       +---904-1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---A-62170
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---A-62172
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---A-L1669-012
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---A-L1896-006
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---A-L1973
+|       |   +---cherry
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       
+|       |   +---cisne
+|       |   |       img_001.jpg
+|       |   |       img_003.jpg
+|       |   |       
+|       |   +---flamingo
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   \---unicornio
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---A-L1973-003
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---A-L1973-004
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---A-L1978-001
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---A-L2235-001
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---A-L2235-002
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---A-L6138
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_006.jpg
+|       |           
+|       +---A-PAS04A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---A-PAS04B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---A-PAS08A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---A-PAS08B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---A-PAS12B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---A-PAS15A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---A-PAS15B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---A-PAS17B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---A-PAS18A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---A-PAS18B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---A-PAS18C
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---A-PAS20A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---A-PAS20B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---A-PAS21B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---A-PAS22
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---A-R1986
+|       |   +---anana
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       
+|       |   +---arbol navidad
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.png
+|       |   |       
+|       |   +---arbol navidad colgante
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---cactus colgante
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---cisne
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.png
+|       |   |       
+|       |   +---flamenco colgante
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---unicornio
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   \---unicornio colgante
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---A-R1986-005
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           
+|       +---A-R1986-012
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---A-R1986-014
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_005.jpg
+|       |           
+|       +---A-R2158-003A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---A-R2234
+|       |   +---cocktails
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       
+|       |   +---ostras
+|       |   |       img_004.png
+|       |   |       
+|       |   \---sandias
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---A-R2234-013
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           
+|       +---A-R2234-014
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           
+|       +---A-R2234-023
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---A-R2234-026
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           
+|       +---A-R2234-027
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---A-R2234-028A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---A-R2234-028B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           
+|       +---A-R2234-028C
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---BWH0057-4
+|       |   +---BR
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---BRX4
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---PA
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---PAX4
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.png
+|       |           
+|       +---BWH0057-4-BR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---BWH0057-4-BRX4
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           
+|       +---BWH0057-4-PA
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---BWH0057-4-PAX4
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.png
+|       |           
+|       +---BWH0057-5-BR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---BWH0057-5-BRX4
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           
+|       +---BWH0057-5-PA
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---BWH0057-5-PAX4
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.png
+|       |           
+|       +---BWH0061
+|       |   +---MA
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       img_009.png
+|       |   |       img_010.jpg
+|       |   |       
+|       |   \---RO
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---BWH0061-MA
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.jpg
+|       |           
+|       +---BWH0061-RO
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---BWH0207
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           
+|       +---DL1032
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL1049
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           
+|       +---DL1051
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL1054
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL1063
+|       |   +---CE
+|       |   |       img_001.png
+|       |   |       
+|       |   \---RO
+|       |           img_001.png
+|       |           
+|       +---DL1063-CE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL1063-RO
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL1073
+|       |   +---GR
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       
+|       |   \---NE
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_012.png
+|       |           
+|       +---DL1073-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           
+|       +---DL1073-NE
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           img_012.png
+|       |           
+|       +---DL1076
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL1078
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL1082
+|       |   |   metadata.json
+|       |   |   
+|       |   +---1
+|       |   |       img_001.png
+|       |   |       
+|       |   +---2
+|       |   |       img_001.png
+|       |   |       
+|       |   +---DL1082
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1082-1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL1082-2
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL1083
+|       |   |   metadata.json
+|       |   |   
+|       |   +---DL1083
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---DL1083X1
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1083X1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1088
+|       |       metadata.json
+|       |       
+|       +---DL1089
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpeg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---DL1091
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---DL1097
+|       |   |   metadata.json
+|       |   |   
+|       |   +---1
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---DL1097
+|       |   |       img_001.png
+|       |   |       
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL1097-1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---DL1101-1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---DL1102
+|       |   |   metadata.json
+|       |   |   
+|       |   +---1
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---DL1102
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1102-1
+|       |       metadata.json
+|       |       
+|       +---DL1103
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---DL1113-1
+|       |   +---MAD
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   \---MET
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1113-1-MAD
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---DL1113-1-MET
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1121-1
+|       |   +---BE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.png
+|       |   |       img_009.jpg
+|       |   |       
+|       |   +---BL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---BLGR
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---GR
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   \---NE
+|       |           img_001.jpg
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           
+|       +---DL1121-1-BE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.png
+|       |           img_009.jpg
+|       |           
+|       +---DL1121-1-BL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1121-1-BLGR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---DL1121-1-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---DL1121-1-NE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           
+|       +---DL1128-FINO
+|       |   +---CA
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       
+|       |   \---MA
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---DL1128-FINO-CA
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---DL1128-GRUESO-CA
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---DL1128-MA
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---DL1128-NE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---DL1136-2
+|       |   +---3
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---BE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---CE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---CH
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       
+|       |   +---GR
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       
+|       |   \---RO
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1136-2-BE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---DL1136-2-CE
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---DL1136-2-CH
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           
+|       +---DL1136-2-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---DL1136-2-RO
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1136-3
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---DL1137BE
+|       |   +---imagenes_originales
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.jpg
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       
+|       |   \---x30
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---DL1137CE
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---DL1137FU
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.jpg
+|       |           
+|       +---DL1137LI
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           img_007.png
+|       |           
+|       +---DL1137TUR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           
+|       +---DL1143
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---DL1158
+|       |   +---BE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   \---GR
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           
+|       +---DL1158-BE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---DL1158-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           
+|       +---DL1159
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---DL1170
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           
+|       +---DL1172-3
+|       |   +---4
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---AZO
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   +---BE
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.png
+|       |   |       
+|       |   +---BL
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---GR
+|       |   |       img_001.jpg
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   \---MA
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           
+|       +---DL1172-3-BL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---DL1172-3-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---DL1172-4
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1172-5-BE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.png
+|       |           
+|       +---DL1172-5-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           
+|       +---DL1172-5-MA
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           
+|       +---DL1172-AZO
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---DL1172-CLARO-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---DL1172-OSC-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---DL1174
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---DL1175
+|       |   +---AZ
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       
+|       |   \---RO
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---DL1175-AZ
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---DL1175-NE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---DL1175-RO
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---DL1179-4
+|       |   +---L
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---M
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---S
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---XL
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---XS
+|       |           img_001.jpg
+|       |           
+|       +---DL1179-4-L
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1179-4-M
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1179-4-S
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1179-4-XL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1179-4-XS
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1181-2
+|       |   \---GR
+|       |           img_001.jpg
+|       |           
+|       +---DL1181-2-GR
+|       |       metadata.json
+|       |       
+|       +---DL1181-2-RO
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1183
+|       |   +---L
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---M
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---S
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---XL
+|       |           img_001.jpg
+|       |           
+|       +---DL1183-L
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1183-M
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1183-S
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1183-XL
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1189
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           
+|       +---DL1190
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           
+|       +---DL1193
+|       |   +---2
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---3
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---4
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---5
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   \---6
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1193-2
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1193-3
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1193-4
+|       |   \---imagenes_originales
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1193-5
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1193-6
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1203
+|       |   +---2
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       
+|       |   +---3
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---4
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---5
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---6
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       
+|       |   +---8
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---9
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---DL1203-2
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---DL1203-3
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---DL1203-4
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---DL1203-5
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---DL1203-6
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           
+|       +---DL1203-8
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1203-9
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---DL1217
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---DL1239-S
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1252
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---DL1254
+|       |   +---1X1
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       
+|       |   +---2X1
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       
+|       |   \---3X1
+|       |           img_001.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---DL1254-1X1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---DL1254-2X1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---DL1254-3X1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---DL1257
+|       |   +---GR
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.jpg
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       img_009.png
+|       |   |       img_010.jpg
+|       |   |       img_011.jpg
+|       |   |       
+|       |   +---RO
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.jpg
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       img_009.png
+|       |   |       img_010.jpg
+|       |   |       img_011.jpg
+|       |   |       
+|       |   \---TU
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.jpg
+|       |           img_011.jpg
+|       |           
+|       +---DL1257-GR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.jpg
+|       |           img_011.jpg
+|       |           
+|       +---DL1257-RO
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.jpg
+|       |           img_011.jpg
+|       |           
+|       +---DL1257-TU
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.jpg
+|       |           img_011.jpg
+|       |           
+|       +---DL1259
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---DL1268
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           
+|       +---DL1275
+|       |   +---DL1275
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---DL1276
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1276
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---DL1280
+|       |   +---1
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---UNI
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1280-1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL1280-1-POR-UNI
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL2001
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---DL2003
+|       |   |   metadata.json
+|       |   |   
+|       |   +---38cm
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_005.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       
+|       |   +---50cm
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       
+|       |   +---55cm
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---DL2004
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---DL2005
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           
+|       +---DL2008
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---DL2010
+|       |   \---imagenes_originales
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---DL2014
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---DL2018
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---DL2019
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---DL2022
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---DL2023
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---DL2024
+|       |   +---BL
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       
+|       |   \---NE
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---DL2024-BL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---DL2024-NE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---DL2029
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpeg
+|       |           img_002.jpg
+|       |           img_003.jpeg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---DL2031
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           img_012.png
+|       |           img_013.png
+|       |           img_014.png
+|       |           img_015.png
+|       |           img_016.png
+|       |           img_017.png
+|       |           img_018.png
+|       |           img_019.png
+|       |           img_020.png
+|       |           
+|       +---DL2032
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           img_012.png
+|       |           
+|       +---DL2034
+|       |   +---BL
+|       |   |       img_001.png
+|       |   |       
+|       |   \---NE
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---DL2034-BL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL2034-NE
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---DL2035-BL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---DL2035-NE
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---DWH0255
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---G1396-002
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           
+|       +---G1396-003
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---grupo_001
+|       |   +---600003-CE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       img_011.jpg
+|       |   |       img_012.jpg
+|       |   |       
+|       |   +---600003-FU
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_014.jpg
+|       |   |       
+|       |   +---600003-NA
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       img_011.jpg
+|       |   |       img_012.jpg
+|       |   |       
+|       |   \---600003-VE
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           img_011.jpg
+|       |           img_012.jpg
+|       |           img_013.jpg
+|       |           img_014.jpg
+|       |           
+|       +---grupo_002
+|       |   +---600060-AZ
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       
+|       |   \---600060-GR
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           
+|       +---grupo_003
+|       |   +---600111-GRB
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.jpg
+|       |   |       img_007.png
+|       |   |       img_008.jpg
+|       |   |       
+|       |   \---600111-NB
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           
+|       +---grupo_004
+|       |   +---600146-AZ
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.jpg
+|       |   |       img_006.png
+|       |   |       
+|       |   +---600146-GR
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       
+|       |   +---600146-NE
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       
+|       |   \---600146-ROS
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           
+|       +---grupo_005
+|       |   +---600167
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---600168
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   \---600169
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---grupo_006
+|       |   +---600201
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.png
+|       |   |       
+|       |   +---600201-1
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.png
+|       |   |       
+|       |   \---600201-2
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.png
+|       |           
+|       +---grupo_012
+|       |   +---BWH0057-4-BR
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---BWH0057-4-BRX4
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.png
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---BWH0057-4-PA
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---BWH0057-4-PAX4
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---BWH0057-5-BR
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---BWH0057-5-BRX4
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---BWH0057-5-PA
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---BWH0057-5-PAX4
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---grupo_013
+|       |   +---BWH0061-MA
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---BWH0061-RO
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---grupo_014
+|       |   +---DL1063-CE
+|       |   |       img_001.png
+|       |   |       
+|       |   \---DL1063-RO
+|       |           img_001.png
+|       |           
+|       +---grupo_015
+|       |   +---DL1073-GR
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       img_009.png
+|       |   |       
+|       |   \---DL1073-NE
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           img_012.png
+|       |           
+|       +---grupo_016
+|       |   +---DL1082
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---DL1082-1
+|       |   |       img_001.png
+|       |   |       
+|       |   \---DL1082-2
+|       |           img_001.png
+|       |           
+|       +---grupo_017
+|       |   +---DL1083
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.png
+|       |   |       
+|       |   \---DL1083X1
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           
+|       +---grupo_018
+|       |   \---DL1097-1
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---grupo_019
+|       |   +---DL1102
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---DL1102-1
+|       |           img_001.jpg
+|       |           
+|       +---grupo_020
+|       |   +---DL1113-1-MAD
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   \---DL1113-1-MET
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---grupo_021
+|       |   +---DL1121-1-BE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.png
+|       |   |       img_009.jpg
+|       |   |       
+|       |   +---DL1121-1-BL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---DL1121-1-BLGR
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---DL1121-1-GR
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---DL1121-1-NE
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       img_009.png
+|       |   |       
+|       |   \---DL1128-NE
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---grupo_022
+|       |   +---DL1128-FINO-CA
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       
+|       |   +---DL1128-GRUESO-CA
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       
+|       |   \---DL1128-MA
+|       |           img_002.jpg
+|       |           
+|       +---grupo_023
+|       |   +---DL1136-2-BE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---DL1136-2-CE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---DL1136-2-CH
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       
+|       |   +---DL1136-2-GR
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---DL1136-2-RO
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---DL1136-3
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---grupo_024
+|       |   +---DL1137BE
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       
+|       |   +---DL1137CE
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---DL1137FU
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---DL1137LI
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.png
+|       |   |       
+|       |   \---DL1137TUR
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---grupo_025
+|       |   +---DL1158-BE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   \---DL1158-GR
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           
+|       +---grupo_026
+|       |   +---DL1172-3-BL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---DL1172-3-GR
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   +---DL1172-4
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---DL1172-5-BE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---DL1172-5-GR
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---DL1172-5-MA
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---DL1172-AZO
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---DL1172-CLARO-GR
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   \---DL1172-OSC-GR
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---grupo_027
+|       |   +---DL1175-AZ
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       
+|       |   +---DL1175-NE
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       
+|       |   \---DL1175-RO
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---grupo_028
+|       |   +---DL1179-4-L
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---DL1179-4-M
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---DL1179-4-S
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---DL1179-4-XL
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---DL1179-4-XS
+|       |           img_001.jpg
+|       |           
+|       +---grupo_029
+|       |   \---DL1181-2-RO
+|       |           img_001.jpg
+|       |           
+|       +---grupo_030
+|       |   +---DL1183-L
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---DL1183-M
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---DL1183-S
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---DL1183-XL
+|       |           img_001.jpg
+|       |           
+|       +---grupo_031
+|       |   +---DL1193-2
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---DL1193-3
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---DL1193-4
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---DL1193-5
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---DL1193-6
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---grupo_032
+|       |   +---DL1203-2
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   +---DL1203-3
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---DL1203-4
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       
+|       |   +---DL1203-5
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---DL1203-6
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       
+|       |   +---DL1203-8
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---DL1203-9
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---grupo_033
+|       |   +---DL1254-1X1
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       
+|       |   +---DL1254-2X1
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       
+|       |   \---DL1254-3X1
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---grupo_034
+|       |   +---DL1257-GR
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       img_009.png
+|       |   |       img_010.jpg
+|       |   |       img_011.jpg
+|       |   |       
+|       |   +---DL1257-RO
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.png
+|       |   |       img_011.jpg
+|       |   |       
+|       |   \---DL1257-TU
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.jpg
+|       |           img_010.png
+|       |           img_011.png
+|       |           
+|       +---grupo_035
+|       |   +---DL1275
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---DL1276
+|       |           img_001.jpg
+|       |           
+|       +---grupo_036
+|       |   +---DL1280-1
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---DL1280-1-POR-UNI
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---grupo_037
+|       |   +---DL2003
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.jpg
+|       |   |       
+|       |   +---DL2004
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       
+|       |   \---DL2005
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           
+|       +---grupo_038
+|       |   +---DL2024-BL
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       
+|       |   \---DL2024-NE
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---grupo_039
+|       |   +---DL2034-BL
+|       |   |       img_001.png
+|       |   |       
+|       |   +---DL2034-NE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---DL2035-BL
+|       |   |       img_001.png
+|       |   |       
+|       |   \---DL2035-NE
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---grupo_042
+|       |   +---M-BWH0045-RO
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.png
+|       |   |       
+|       |   \---M-BWH0045-TU
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.jpeg
+|       |           img_007.png
+|       |           img_008.jpg
+|       |           img_009.png
+|       |           img_010.png
+|       |           
+|       +---grupo_043
+|       |   +---R6125
+|       |   |       img_001.png
+|       |   |       
+|       |   \---R6126
+|       |           img_001.png
+|       |           
+|       +---grupo_044
+|       |   +---RWH0180
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---RWH0181
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.png
+|       |   |       
+|       |   +---RWH0182
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---RWH0183
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---RWH0184
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   \---RWH0185
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---grupo_045
+|       |   +---RWH0188
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   \---RWH0248
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           
+|       +---grupo_047
+|       |   +---WH-MWH0210-AM
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---WH-MWH0210-AZ
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       
+|       |   +---WH-MWH0210-MA
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       
+|       |   \---WH-MWH0210-VE
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---grupo_048
+|       |   +---WH-MWH0211-AZ
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---WH-MWH0211-BE
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   \---WH-MWH0211-RO
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---grupo_049
+|       |   +---WH-RWH0133-AZ
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---WH-RWH0133-RO
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           
+|       +---grupo_050
+|       |   +---WH-RWH0149-CE
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.jpeg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---WH-RWH0149-RO
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.png
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---grupo_051
+|       |   +---WH-RWH0167-CON
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---WH-RWH0167-GAT
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       
+|       |   +---WH-RWH0167-NUB
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       
+|       |   +---WH-RWH0167-SETX4
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.png
+|       |   |       img_009.png
+|       |   |       img_010.png
+|       |   |       img_011.png
+|       |   |       img_012.png
+|       |   |       img_013.jpg
+|       |   |       img_014.jpg
+|       |   |       
+|       |   \---WH-RWH0167-UNI
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---grupo_052
+|       |   +---WH0039-AZ
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---WH0039-LI
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---WH0039-RO
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       
+|       |   \---WH0039-VE
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           
+|       +---grupo_053
+|       |   +---WH0060-CE
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---WH0060-RO
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---WH0063
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       
+|       |   +---WH0066-1
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   \---WH7034
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpeg
+|       |           img_004.jpg
+|       |           img_005.jpeg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           
+|       +---grupo_055
+|       |   +---WH0068-BL
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       
+|       |   +---WH0068-RO
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       
+|       |   \---WH0068-VI
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           
+|       +---grupo_057
+|       |   +---WH0237
+|       |   |       img_001.jpeg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       
+|       |   \---WH0238
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.jpeg
+|       |           img_004.png
+|       |           
+|       +---grupo_058
+|       |   +---WH7028
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---WH7028-1
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   \---WH7194-1
+|       |           img_001.png
+|       |           
+|       +---grupo_059
+|       |   +---WH7137
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       
+|       |   \---WH7137-1
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           
+|       +---grupo_060
+|       |   +---WH7153-4-BL
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---WH7153-4-NE
+|       |           img_001.jpg
+|       |           
+|       +---grupo_061
+|       |   +---WH7154-BE
+|       |   |       img_001.png
+|       |   |       img_002.png
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       
+|       |   +---WH7154-BL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.png
+|       |   |       
+|       |   \---WH7154-NE
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.jpg
+|       |           img_006.png
+|       |           img_007.png
+|       |           
+|       +---grupo_064
+|       |   +---WH7184
+|       |   |       img_001.jpg
+|       |   |       img_002.jpeg
+|       |   |       
+|       |   +---WH7184-1-L
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---WH7184-1-M
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   +---WH7184-1-S
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   +---WH7184-1-XL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   +---WH7184-LXL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---WH7184-SM
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---grupo_065
+|       |   +---WH7212-BL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       
+|       |   \---WH7212-NE
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---grupo_066
+|       |   +---WH7218-NE-L
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.png
+|       |   |       
+|       |   +---WH7218-NE-M
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   +---WH7218-NE-S
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.png
+|       |   |       img_010.jpg
+|       |   |       
+|       |   +---WH7218-NE-XL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.png
+|       |   |       img_010.jpg
+|       |   |       
+|       |   \---WH7218-NE-XS
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---grupo_067
+|       |   +---WH7275
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---WH7276
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---grupo_068
+|       |   +---WH7280
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.png
+|       |   |       
+|       |   \---WH7282
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---K6176
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---K6178
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---K6183
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---L6129
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---L6130
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---L6138
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---L6139
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---L6159
+|       |       metadata.json
+|       |       
+|       +---L6167
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---L6168
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           
+|       +---L6169
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           
+|       +---L6170
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---L6171
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---M-BWH0045
+|       |   +---RO
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   \---TU
+|       |           img_001.jpeg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---M-BWH0045-RO
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---M-BWH0045-TU
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpeg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.jpg
+|       |           
+|       +---M2028-001B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---M2028-001C
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           
+|       +---M2028-001D
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---M2028-001H
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---M2062-002
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           
+|       +---M2062-004
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---M2071-002
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           
+|       +---M2087-009A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           
+|       +---M2087-009B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           
+|       +---M2971-007B
+|       |       metadata.json
+|       |       
+|       +---M2974-006A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---M2974-006B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---M2999-005
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_003.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           img_012.png
+|       |           img_013.png
+|       |           img_014.png
+|       |           img_015.png
+|       |           img_016.png
+|       |           img_017.png
+|       |           img_018.png
+|       |           img_019.png
+|       |           img_020.png
+|       |           img_021.png
+|       |           img_022.png
+|       |           img_023.png
+|       |           img_024.png
+|       |           img_025.png
+|       |           img_027.png
+|       |           img_028.png
+|       |           img_029.png
+|       |           
+|       +---M3022-001A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           
+|       +---M3022-001B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           
+|       +---M3030-006A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---M3102-011A
+|       |       metadata.json
+|       |       
+|       +---M3102-011B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---M3103-001A
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---M3103-001B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           
+|       +---M6024
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---manual_001
+|       |   +---A-L1973-003
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---A-L1973-004
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---A-L2235-001
+|       |   |       img_004.png
+|       |   |       
+|       |   +---A-L2235-002
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       
+|       |   +---WH7167-59BL
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---WH7167-66BL
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---WH7170
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---manual_002
+|       |   +---A-R1986-005
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---A-R1986-012
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---A-R1986-014
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---A-R2234-023
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       
+|       |   +---A-R2234-026
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---A-R2234-028A
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       
+|       |   +---A-R2234-028B
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---A-R2234-028C
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---WH7254
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   \---WH7257-LI
+|       |           img_001.jpg
+|       |           
+|       +---manual_003
+|       |   +---A-R2234-013
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---A-R2234-014
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.png
+|       |   |       
+|       |   \---A-R2234-027
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.png
+|       |           img_004.jpg
+|       |           
+|       +---manual_004
+|       |   +---WH0067-BL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_010.jpg
+|       |   |       img_011.jpg
+|       |   |       
+|       |   +---WH0067-LI
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       
+|       |   +---WH0067-ROS
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       
+|       |   +---WH7027
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---WH7265
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---PA110AS
+|       |       metadata.json
+|       |       
+|       +---PA110B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---PA111A
+|       |       metadata.json
+|       |       
+|       +---PA111B
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           
+|       +---PA111C
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_002.png
+|       |           
+|       +---PA111D
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           
+|       +---R3239-018
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---R6125
+|       |   |   metadata.json
+|       |   |   
+|       |   +---imagenes_originales
+|       |   |       img_001.png
+|       |   |       
+|       |   +---R6125
+|       |   |       img_001.png
+|       |   |       
+|       |   \---R6126
+|       |           img_001.png
+|       |           
+|       +---R6126
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---R6127
+|       |       metadata.json
+|       |       
+|       +---RWH0180
+|       |   |   metadata.json
+|       |   |   
+|       |   +---imagenes_originales
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---RWH0180
+|       |   |       img_002.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---RWH0181
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_007.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   +---RWH0182
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---RWH0183
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---RWH0184
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   \---RWH0185
+|       |           img_003.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---RWH0181
+|       |       metadata.json
+|       |       
+|       +---RWH0182
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---RWH0183
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---RWH0184
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---RWH0185
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---RWH0187
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           
+|       +---RWH0188
+|       |   |   metadata.json
+|       |   |   
+|       |   +---imagenes_originales
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   +---RWH0188
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.png
+|       |   |       img_007.png
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   \---RWH0248
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           
+|       +---RWH0239
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpeg
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           
+|       +---RWH0248
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.png
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           img_010.png
+|       |           img_011.png
+|       |           
+|       +---S6062
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---S6064
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---T2576-008
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---T6108
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           
+|       +---T6109
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---WH-MWH0210
+|       |   +---AZ
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       
+|       |   +---MA
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_008.jpg
+|       |   |       
+|       |   \---VE
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---WH-MWH0210-AM
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---WH-MWH0210-AZ
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           
+|       +---WH-MWH0210-MA
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---WH-MWH0210-VE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---WH-MWH0211
+|       |   +---AZ
+|       |   |       img_001.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---BE
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   \---RO
+|       |           img_001.jpg
+|       |           img_004.jpg
+|       |           
+|       +---WH-MWH0211-AZ
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---WH-MWH0211-BE
+|       |       metadata.json
+|       |       
+|       +---WH-MWH0211-RO
+|       |       metadata.json
+|       |       
+|       +---WH-RWH0133-AZ
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---WH-RWH0133-RO
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_008.jpg
+|       |           
+|       +---WH-RWH0149
+|       |   \---RO
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---WH-RWH0149-CE
+|       |       metadata.json
+|       |       
+|       +---WH-RWH0149-RO
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.png
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---WH-RWH0167-CON
+|       |       metadata.json
+|       |       
+|       +---WH-RWH0167-GAT
+|       |       metadata.json
+|       |       
+|       +---WH-RWH0167-NUB
+|       |       metadata.json
+|       |       
+|       +---WH-RWH0167-SETX4
+|       |       metadata.json
+|       |       
+|       +---WH-RWH0167-UNI
+|       |       metadata.json
+|       |       
+|       +---WH0039
+|       |   \---AZ
+|       |           img_001.jpg
+|       |           
+|       +---WH0039-AZ
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH0039-LI
+|       |       metadata.json
+|       |       
+|       +---WH0039-RO
+|       |       metadata.json
+|       |       
+|       +---WH0039-VE
+|       |       metadata.json
+|       |       
+|       +---WH0060-BL
+|       |       metadata.json
+|       |       
+|       +---WH0060-CE
+|       |       metadata.json
+|       |       
+|       +---WH0060-LI
+|       |       metadata.json
+|       |       
+|       +---WH0063
+|       |       metadata.json
+|       |       
+|       +---WH0066-1
+|       |       metadata.json
+|       |       
+|       +---WH0067-BL
+|       |       metadata.json
+|       |       
+|       +---WH0067-LI
+|       |       metadata.json
+|       |       
+|       +---WH0067-ROS
+|       |       metadata.json
+|       |       
+|       +---WH0068-BL
+|       |       metadata.json
+|       |       
+|       +---WH0068-RO
+|       |       metadata.json
+|       |       
+|       +---WH0068-VI
+|       |       metadata.json
+|       |       
+|       +---WH0101
+|       |       metadata.json
+|       |       
+|       +---WH0160-1
+|       |       metadata.json
+|       |       
+|       +---WH0214
+|       |       metadata.json
+|       |       
+|       +---WH0236
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_003.jpeg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---WH0237
+|       |       metadata.json
+|       |       
+|       +---WH0238
+|       |       metadata.json
+|       |       
+|       +---WH7016
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---WH7028
+|       |   |   metadata.json
+|       |   |   
+|       |   +---1
+|       |   |       img_001.jpg
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   +---imagenes_originales
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       
+|       |   \---WH7028
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---WH7028-1
+|       |       metadata.json
+|       |       
+|       +---WH7032
+|       |       metadata.json
+|       |       
+|       +---WH7056
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---WH7079-1
+|       |       metadata.json
+|       |       
+|       +---WH7109
+|       |       metadata.json
+|       |       
+|       +---WH7127
+|       |       metadata.json
+|       |       
+|       +---WH7137
+|       |   +---1
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       
+|       |   +---imagenes_originales
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       
+|       |   \---WH7137
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---WH7137-1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---WH7153-4
+|       |   \---NE
+|       |           img_001.jpg
+|       |           
+|       +---WH7153-4-BL
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7153-4-NE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7154
+|       |   +---BE
+|       |   |       img_001.jpg
+|       |   |       img_002.png
+|       |   |       img_003.png
+|       |   |       img_004.png
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   \---NE
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---WH7154-BE
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---WH7154-BL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.png
+|       |           img_003.png
+|       |           img_004.png
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---WH7154-NE
+|       |       metadata.json
+|       |       
+|       +---WH7155
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           
+|       +---WH7156
+|       |       metadata.json
+|       |       
+|       +---WH7164
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7165
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7166
+|       |   |   metadata.json
+|       |   |   
+|       |   +---algodon 59cm
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---algodon 66cm
+|       |   |       img_001.jpg
+|       |   |       
+|       |   +---animales
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       
+|       |   +---general
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---WH7167-59BL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7167-59CR
+|       |       metadata.json
+|       |       
+|       +---WH7167-66BL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7167-66CR
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7170
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---WH7182
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.png
+|       |           img_003.jpg
+|       |           img_007.png
+|       |           img_008.png
+|       |           img_009.png
+|       |           
+|       +---WH7184
+|       |   |   metadata.json
+|       |   |   
+|       |   +---imagenes_originales
+|       |   |       img_001.jpg
+|       |   |       img_002.jpeg
+|       |   |       
+|       |   +---L
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---LXL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---M
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   +---S
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       
+|       |   +---SM
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       
+|       |   +---WH7184
+|       |   |       img_001.jpg
+|       |   |       img_002.jpeg
+|       |   |       
+|       |   \---XL
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---WH7184-1-L
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---WH7184-1-M
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---WH7184-1-S
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---WH7184-1-XL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           
+|       +---WH7184-LXL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---WH7184-SM
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           
+|       +---WH7194-1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           
+|       +---WH7199
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.jpg
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           
+|       +---WH7207
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---WH7212
+|       |   +---BL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   \---NE
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---WH7212-BL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---WH7212-NE
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---WH7218-NE
+|       |   +---L
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   +---M
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   +---S
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   +---XL
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.png
+|       |   |       img_006.jpg
+|       |   |       img_007.jpg
+|       |   |       img_008.jpg
+|       |   |       img_009.jpg
+|       |   |       img_010.jpg
+|       |   |       
+|       |   \---XS
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---WH7218-NE-L
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           img_010.jpg
+|       |           
+|       +---WH7218-NE-M
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---WH7218-NE-S
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---WH7218-NE-XL
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---WH7218-NE-XS
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           img_005.png
+|       |           img_006.jpg
+|       |           img_007.jpg
+|       |           img_008.jpg
+|       |           img_009.jpg
+|       |           img_010.jpg
+|       |           
+|       +---WH7254
+|       |   |   metadata.json
+|       |   |   
+|       |   +---general
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---imagenes_originales
+|       |   |       img_001.jpg
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       img_005.jpg
+|       |   |       img_006.jpg
+|       |   |       
+|       |   +---lila
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---verde
+|       |           img_001.jpg
+|       |           
+|       +---WH7257-LI
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7257-RO
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7257-VE
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7259
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7261
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       +---WH7265
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           
+|       +---WH7268
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7272-1
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           
+|       +---WH7275
+|       |   |   metadata.json
+|       |   |   
+|       |   +---imagenes_originales
+|       |   |       img_001.jpg
+|       |   |       
+|       |   \---WH7276
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---WH7276
+|       |   |   metadata.json
+|       |   |   
+|       |   \---imagenes_originales
+|       |           img_001.jpg
+|       |           img_002.jpg
+|       |           
+|       +---WH7280
+|       |   |   metadata.json
+|       |   |   
+|       |   +---imagenes_originales
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   +---WH7280
+|       |   |       img_001.png
+|       |   |       img_002.jpg
+|       |   |       img_003.jpg
+|       |   |       img_004.jpg
+|       |   |       
+|       |   \---WH7282
+|       |           img_001.png
+|       |           img_002.jpg
+|       |           img_003.jpg
+|       |           img_004.jpg
+|       |           
+|       \---WH7282
+|           |   metadata.json
+|           |   
+|           \---imagenes_originales
+|                   img_004.jpg
+|                   img_005.jpg
+|                   
++---logs
+|       actualizacion_maestra_2026-02-23.log
+|       actualizacion_maestra_2026-02-26.log
+|       actualizacion_maestra_2026-02-27.log
+|       actualizacion_maestra_2026-03-01.log
+|       actualizacion_maestra_2026-03-02.log
+|       agrupador_manual_2026-02-01.log
+|       aplicador_variantes_2026-02-01.log
+|       calculo_precios_2026-02-01.log
+|       calculo_precios_2026-02-04.log
+|       calculo_precios_2026-02-22.log
+|       calculo_precios_2026-02-23.log
+|       calculo_precios_2026-02-26.log
+|       calculo_precios_2026-03-01.log
+|       calculo_precios_2026-03-02.log
+|       calculo_precios_2026-03-09.log
+|       calculo_precios_2026-03-10.log
+|       calculo_precios_2026-03-16.log
+|       cloudinary_uploader_v3_2026-03-01.log
+|       cloudinary_uploader_v3_2026-03-02.log
+|       cloudinary_uploader_v3_2026-03-03.log
+|       cloudinary_uploader_v3_2026-03-09.log
+|       cloudinary_uploader_v3_2026-03-10.log
+|       cloudinary_uploader_v3_2026-03-16.log
+|       cloudinary_utils_2026-02-01.log
+|       cloudinary_utils_2026-02-26.log
+|       cloudinary_utils_2026-02-27.log
+|       cloudinary_utils_2026-03-01.log
+|       config_precios_2026-02-01.log
+|       config_precios_2026-02-04.log
+|       corrector_grupos_2026-02-01.log
+|       corrector_variantes_2026-02-01.log
+|       debug_informes_page.html
+|       debug_login_page.html
+|       debug_login_response.html
+|       debug_response_headers.txt
+|       descarga_imagenes_2026-02-01.log
+|       descarga_imagenes_paralelo_2026-03-05.log
+|       descarga_imagenes_paralelo_2026-03-09.log
+|       descarga_imagenes_paralelo_2026-03-10.log
+|       descarga_imagenes_paralelo_2026-03-16.log
+|       descarga_imagenes_simple_2026-02-01.log
+|       descarga_imagenes_simple_2026-02-26.log
+|       descarga_imagenes_simple_2026-02-27.log
+|       descarga_imagenes_simple_2026-03-01.log
+|       descarga_imagenes_simple_2026-03-02.log
+|       deteccion_agotados_2026-02-22.log
+|       deteccion_agotados_2026-02-23.log
+|       deteccion_agotados_2026-02-26.log
+|       deteccion_agotados_2026-02-27.log
+|       deteccion_agotados_2026-03-01.log
+|       deteccion_agotados_2026-03-02.log
+|       deteccion_agotados_2026-03-10.log
+|       detector_variantes_2026-02-01.log
+|       droppers_response_debug.html
+|       google_sheets_2026-02-02.log
+|       google_sheets_oauth_2026-02-02.log
+|       google_sheets_oauth_2026-02-04.log
+|       google_sheets_oauth_2026-02-16.log
+|       google_sheets_v2_2026-02-23.log
+|       google_sheets_v2_2026-03-02.log
+|       google_sheets_v3_2026-03-06.log
+|       google_sheets_v3_2026-03-07.log
+|       google_sheets_v3_2026-03-08.log
+|       google_sheets_v3_2026-03-09.log
+|       google_sheets_v3_2026-03-10.log
+|       google_sheets_v3_2026-03-16.log
+|       mapear_categorias_2026-03-16.log
+|       organizador_imagenes_2026-02-01.log
+|       reporte_aplicacion_variantes_2026-02-01_19-05-06.json
+|       reporte_cloudinary_20260202_152635.txt
+|       reporte_correccion_2026-02-01_18-57-36.json
+|       reporte_imagenes_2026-02-01_15-09-34.json
+|       reporte_imagenes_2026-02-01_18-24-48.json
+|       reporte_imagenes_paralelo_20260305_164337.json
+|       reporte_imagenes_paralelo_20260309_153433.json
+|       reporte_organizacion_2026-02-01_18-26-51.json
+|       reporte_precios_2026-02-01_10-07-09.json
+|       reporte_precios_2026-02-04_11-40-09.json
+|       reporte_precios_2026-02-04_11-48-14.json
+|       reporte_precios_2026-02-22_16-10-11.json
+|       reporte_precios_2026-02-23_20-34-08.json
+|       reporte_precios_2026-02-26_15-30-28.json
+|       reporte_precios_2026-03-01_14-21-26.json
+|       reporte_precios_2026-03-02_15-54-16.json
+|       reporte_precios_2026-03-09_15-41-39.json
+|       reporte_precios_2026-03-10_14-52-51.json
+|       reporte_precios_2026-03-16_14-36-19.json
+|       reporte_precios_2026-03-16_19-49-45.json
+|       reporte_scraping_2026-02-01_09-29-15.json
+|       reporte_scraping_2026-02-01_10-01-06.json
+|       reporte_scraping_2026-02-22_14-26-23.json
+|       reporte_scraping_2026-02-23_20-19-32.json
+|       reporte_scraping_2026-02-26_15-29-52.json
+|       reporte_scraping_2026-02-26_17-11-51.json
+|       reporte_scraping_2026-02-26_18-11-23.json
+|       reporte_scraping_2026-02-26_21-57-04.json
+|       reporte_scraping_2026-02-27_16-09-42.json
+|       reporte_scraping_2026-02-27_17-48-45.json
+|       reporte_scraping_2026-03-02_15-48-22.json
+|       reporte_scraping_2026-03-09_15-29-31.json
+|       reporte_scraping_2026-03-10_14-47-04.json
+|       reporte_sincronizacion_2026-02-16_19-11-25.json
+|       reporte_sincronizacion_2026-02-16_19-20-35.json
+|       reporte_sincronizacion_2026-02-16_19-23-44.json
+|       reporte_sincronizacion_2026-02-16_19-29-43.json
+|       reporte_sincronizacion_2026-02-16_20-14-35.json
+|       reporte_sqlite_20260304_203244.json
+|       reporte_sqlite_20260305_163525.json
+|       reporte_sqlite_20260307_134332.json
+|       reporte_sqlite_20260308_105043.json
+|       reporte_sqlite_20260309_155335.json
+|       reporte_sqlite_20260309_203428.json
+|       reporte_sqlite_20260309_205248.json
+|       reporte_sqlite_20260310_151900.json
+|       reporte_sqlite_20260316_143631.json
+|       reporte_sqlite_20260316_194952.json
+|       revisor_variantes_2026-02-01.log
+|       scraper_2026-02-01.log
+|       scraper_2026-02-22.log
+|       scraper_2026-02-23.log
+|       scraper_2026-02-26.log
+|       scraper_2026-02-27.log
+|       scraper_2026-03-01.log
+|       scraper_2026-03-02.log
+|       scraper_2026-03-09.log
+|       scraper_2026-03-10.log
+|       scraper_categorias_2026-02-22.log
+|       scraper_categorias_2026-02-23.log
+|       scraper_categorias_2026-02-26.log
+|       scraper_categorias_2026-03-01.log
+|       scraper_categorias_2026-03-02.log
+|       scraper_categorias_v3_2026-03-07.log
+|       scraper_categorias_v3_2026-03-09.log
+|       scraper_maestro_2026-03-16.log
+|       scraper_maestro_v2_2026-03-16.log
+|       sincronizacion_droppers_2026-02-16.log
+|       sincronizacion_droppers_manual_2026-02-16.log
+|       sincronizador_sqlite_2026-02-22.log
+|       sincronizador_sqlite_2026-02-23.log
+|       sincronizador_sqlite_2026-02-26.log
+|       sincronizador_sqlite_2026-03-02.log
+|       sincronizador_sqlite_optimizado_2026-03-04.log
+|       sincronizador_sqlite_optimizado_2026-03-05.log
+|       sincronizador_sqlite_optimizado_2026-03-07.log
+|       sincronizador_sqlite_optimizado_2026-03-08.log
+|       sincronizador_sqlite_optimizado_2026-03-09.log
+|       sincronizador_sqlite_optimizado_2026-03-10.log
+|       sincronizador_sqlite_optimizado_2026-03-16.log
+|       
++---pages
+|       admin.html
+|       carrito.html
+|       checkout.html
+|       confirmacion.html
+|       frontend_basico.html
+|       pago_exitoso.html
+|       pago_fallido.html
+|       pago_pendiente.html
+|       producto_detalle.html
+|       
+\---scripts
+    |   00_actualizar_sistema_completo.py
+    |   01_scraper.py
+    |   02_descargar_imagenes.py
+    |   02_descargar_imagenes_OPTIMIZADO.py
+    |   02_descarga_imagenes_simple.py
+    |   02_descarga_imagenes_v2.py
+    |   03_organizador_imagenes.py
+    |   03_subir_imagenes_cloudinary.py
+    |   04_calculo_precios.py
+    |   04_corrector_grupos_fallidos.py
+    |   05_aplicador_variantes.py
+    |   06_google_sheets_oauth.py
+    |   06_sincronizar_google_sheets.py
+    |   06_sincronizar_google_sheets_OPTIMIZADO.py
+    |   07_detector_variantes.py
+    |   08_revisor_variantes.py
+    |   08_subida_cloudinary.py
+    |   09_corrector_variantes.py
+    |   09_sincronizacion_droppers.py
+    |   09_sincronizacion_droppers_manual.py
+    |   10_agrupador_manual.py
+    |   11_sincronizar_sqlite.py
+    |   16_scraper_categorias_OPTIMIZADO.py
+    |   17_deteccion_agotados_robusto.py
+    |   ACTUALIZAR_SISTEMA_2FASES_FIXED.bat
+    |   ACTUALIZAR_SISTEMA_MAESTRO.bat
+    |   ACTUALIZAR_SISTEMA_OPTIMIZADO_V2.bat
+    |   analizar_sin_categoria.py
+    |   api_local.py
+    |   asignar_categoria_ofertas.py
+    |   cloudinary_utils.py
+    |   config_precios_interactivo.py
+    |   contar_agotados.py
+    |   crear_tablas_ordenes.py
+    |   crear_usuario_prueba_mp.py
+    |   debug_completo.py
+    |   diagnostico_categorias.py
+    |   diagnostico_completo_sistema.py
+    |   diagnostico_descarga.py
+    |   diagnostico_fitness.py
+    |   mapear_categorias_post_scraping.py
+    |   revertir_categoria_ofertas.py
+    |   scraper_maestro_unificado.py
+    |   scraper_maestro_v2_sin_categorias.py
+    |   test_categorias.py
+    |   test_droppers_debug.py
+    |   validador_sqlite.py
+    |   
+    \---utils
+        |   analizador_similitud.py
+        |   config.py
+        |   logger.py
+        |   validaciones.py
+        |   
+        \---__pycache__
+                config.cpython-311.pyc
+                logger.cpython-311.pyc
+                validaciones.cpython-311.pyc
+                

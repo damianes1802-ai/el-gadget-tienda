@@ -1,0 +1,103 @@
+{
+  "sitio": "https://droppers.com.ar",
+  "descripcion": "Configuración de categorías de Droppers con sistema de prioridad",
+  "ultima_actualizacion": "2026-03-09",
+  
+  "categorias": {
+    "Accesorios de Moda": {
+      "url": "https://droppers.com.ar/productos/accesorios-de-moda.html",
+      "activa": true,
+      "prioridad": 1,
+      "descripcion": "Accesorios de moda y vestimenta - PRIORIDAD ALTA (se scrapea primero)"
+    },
+    "Artículos Infantiles": {
+      "url": "https://droppers.com.ar/productos/articulos-infantiles.html",
+      "activa": true,
+      "prioridad": 1,
+      "descripcion": "Productos para niños - PRIORIDAD ALTA"
+    },
+    "Fitness": {
+      "url": "https://droppers.com.ar/productos/fitness.html",
+      "activa": true,
+      "prioridad": 1,
+      "descripcion": "Productos deportivos y fitness - PRIORIDAD ALTA"
+    },
+    "Estética y Belleza": {
+      "url": "https://droppers.com.ar/productos/estetica-y-belleza.html",
+      "activa": true,
+      "prioridad": 1,
+      "descripcion": "Productos de belleza y estética - PRIORIDAD ALTA"
+    },
+    "Home": {
+      "url": "https://droppers.com.ar/productos/home-y-deco/home.html",
+      "activa": true,
+      "prioridad": 2,
+      "descripcion": "Productos para el hogar"
+    },
+    "Deco": {
+      "url": "https://droppers.com.ar/productos/home-y-deco/deco.html",
+      "activa": true,
+      "prioridad": 2,
+      "descripcion": "Decoración"
+    },
+    "Bazar y Cocina": {
+      "url": "https://droppers.com.ar/productos/bazar-y-cocina.html",
+      "activa": true,
+      "prioridad": 2,
+      "descripcion": "Utensilios de cocina y bazar"
+    },
+    "Baño y Limpieza": {
+      "url": "https://droppers.com.ar/productos/ba-o-y-limpieza.html",
+      "activa": true,
+      "prioridad": 2,
+      "descripcion": "Productos de baño y limpieza"
+    },
+    "Electrónica": {
+      "url": "https://droppers.com.ar/productos/electronica.html",
+      "activa": true,
+      "prioridad": 2,
+      "descripcion": "Productos electrónicos"
+    },
+    "Accesorios para Mascotas": {
+      "url": "https://droppers.com.ar/productos/accesorios-de-mascotas.html",
+      "activa": true,
+      "prioridad": 2,
+      "descripcion": "Accesorios para mascotas"
+    },
+    "Verano": {
+      "url": "https://droppers.com.ar/productos/verano.html",
+      "activa": true,
+      "prioridad": 2,
+      "descripcion": "Productos de verano"
+    },
+    "Nuevos Ingresos": {
+      "url": "https://droppers.com.ar/productos/nuevos-ingresos.html",
+      "activa": true,
+      "prioridad": 99,
+      "descripcion": "Productos nuevos - PRIORIDAD BAJA (catch-all, se scrapea último)"
+    },
+    "Adultos": {
+      "url": "https://droppers.com.ar/productos/adultos.html",
+      "activa": false,
+      "prioridad": 0,
+      "descripcion": "Productos para adultos (DESACTIVADA - sin productos)"
+    }
+  },
+  
+  "notas": [
+    "SISTEMA DE PRIORIDADES:",
+    "  - prioridad 1: Categorías específicas (se scrapean PRIMERO)",
+    "  - prioridad 2: Categorías generales (se scrapean DESPUÉS)",
+    "  - prioridad 99: 'Nuevos Ingresos' (se scrapea ÚLTIMO como catch-all)",
+    "",
+    "¿Por qué este orden?",
+    "  Si un producto está en 'Accesorios de Moda' Y 'Nuevos Ingresos',",
+    "  queremos que la categoría principal sea 'Accesorios de Moda' (más específica).",
+    "",
+    "Para agregar una categoría nueva:",
+    "  - Prioridad 1 si es específica (ej: 'Carteras de Mujer')",
+    "  - Prioridad 2 si es general (ej: 'Hogar y Jardín')",
+    "",
+    "Para desactivar una categoría: cambiar 'activa' a false"
+  ]
+}

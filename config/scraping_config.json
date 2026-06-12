@@ -1,0 +1,112 @@
+{
+  "version": "1.0",
+  "fecha_analisis": "2026-01-30",
+  "sitio": "https://droppers.com.ar",
+  
+  "login": {
+    "url": "https://droppers.com.ar/customer/account/login/",
+    "form_action": "https://droppers.com.ar/customer/account/loginPost/",
+    "campos": {
+      "username": "login[username]",
+      "password": "login[password]",
+      "form_key": "form_key"
+    },
+    "success_indicators": [
+      "customer-name",
+      "customer-menu"
+    ],
+    "notas": [
+      "El form_key debe extraerse del HTML de la página de login",
+      "El form_key es dinámico y cambia en cada carga"
+    ]
+  },
+  
+  "listado_productos": {
+    "url_base": "https://droppers.com.ar/productos.html",
+    "selectores": {
+      "enlaces_productos": "a.product-item-link",
+      "atributo_url": "href",
+      "titulo_producto": "texto interno del enlace"
+    },
+    "paginacion": {
+      "tipo": "manual",
+      "parametro": "p",
+      "url_pattern": "https://droppers.com.ar/productos.html?p={numero_pagina}",
+      "selector_siguiente": "a.next",
+      "max_paginas": 100,
+      "notas": [
+        "El sitio tiene scroll infinito pero usaremos paginación manual",
+        "Comenzar desde p=1 e incrementar hasta que no haya más productos"
+      ]
+    }
+  },
+  
+  "producto_individual": {
+    "selectores_html": {
+      "sku": {
+        "selector": "div.value[itemprop='sku']",
+        "metodo": "text",
+        "validado": true
+      },
+      "titulo": {
+        "selector": "meta[name='title']",
+        "metodo": "content",
+        "validado": true
+      },
+      "precio_display": {
+        "selector": "span.price",
+        "metodo": "text",
+        "formato": "$ X.XXX,XX",
+        "validado": true
+      },
+      "descripcion": {
+        "selector": "div.product.attribute.description > div.value",
+        "metodo": "text",
+        "notas": [
+          "Incluye HTML interno con <p> tags",
+          "Requiere limpieza: reemplazar <p> por \\n"
+        ],
+        "validado": true
+      }
+    },
+    
+    "extraccion_json": {
+      "precio_numerico": {
+        "ubicacion": "Script JSON embebido",
+        "patron_regex": "\"final_price\":(\\d+)",
+        "tipo": "integer",
+        "validado": true
+      },
+      "imagenes": {
+        "ubicacion": "Script JSON embebido en Fotorama gallery",
+        "patron_regex": "\"full\":\"([^\"]+)\"",
+        "tipo": "array de URLs",
+        "filtro": "debe contener droppers.com.ar/media/catalog/product",
+        "formato": "URLs con \\\\/escapados (requiere reemplazo)",
+        "validado": true,
+        "ejemplo": "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1091_9_.jpg"
+      }
+    },
+    
+    "stock": {
+      "disponible": false,
+      "notas": "No se muestra información de stock en el HTML analizado"
+    }
+  },
+  
+  "rate_limiting": {
+    "delay_entre_productos_segundos": 2,
+    "delay_entre_paginas_segundos": 3,
+    "max_reintentos": 3,
+    "timeout_request": 30,
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+  },
+  
+  "validaciones": {
+    "sku_obligatorio": true,
+    "titulo_min_length": 5,
+    "precio_min_value": 1,
+    "imagenes_min_count": 1,
+    "descripcion_min_length": 10
+  }
+}

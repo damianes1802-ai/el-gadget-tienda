@@ -1,0 +1,31 @@
+# Secretos / credenciales
+config/.env
+config/credentials.json
+config/token.pickle
+config/sheets_id.txt
+
+# Datos generados (imagenes, reportes, metadata) - muy pesado para git
+data/*
+!data/catalogo.db
+
+# Logs
+logs/
+
+# Cache de informes HTML descargados
+config/html_informes_files/
+config/html_informes_droppers.html
+
+# Python
+__pycache__/
+scripts/utils/__pycache__/
+*.pyc
+*.pyo
+
+# Reportes temporales
+reporte_*.json
+debug_*.html
+debug_*.txt
+
+# OS
+Thumbs.db
+.DS_Store

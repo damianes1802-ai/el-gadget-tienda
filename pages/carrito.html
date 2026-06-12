@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de compras</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --brand: #667eea;
+            --brand-dark: #5568d3;
+            --brand-light: #eef0fd;
+            --green: #22c55e;
+            --red: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-400: #9ca3af;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --radius: 12px;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            min-height: 100vh;
+        }
+
+        /* ── NAV ── */
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 16px rgba(102,126,234,0.3);
+        }
+
+        .nav-logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 22px;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-links { display: flex; gap: 8px; align-items: center; }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.15); color: white; }
+
+        /* ── BREADCRUMB ── */
+        .breadcrumb {
+            max-width: 1000px;
+            margin: 24px auto 0;
+            padding: 0 24px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+        .breadcrumb a { color: var(--brand); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: var(--gray-400); }
+
+        /* ── LAYOUT ── */
+        .page {
+            max-width: 1000px;
+            margin: 24px auto 60px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .page { grid-template-columns: 1fr; }
+        }
+
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            color: var(--gray-800);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        /* ── ITEMS ── */
+        .items-section {}
+
+        .item-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 18px;
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            transition: transform 0.15s;
+        }
+        .item-card:hover { transform: translateY(-1px); }
+
+        .item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: var(--gray-100);
+        }
+
+        .item-img-placeholder {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background: var(--brand-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .item-info { min-width: 0; }
+
+        .item-nombre {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .item-variante {
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-bottom: 10px;
+        }
+
+        .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid var(--gray-200);
+            background: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+            transition: all 0.15s;
+            line-height: 1;
+        }
+        .qty-btn:hover { border-color: var(--brand); color: var(--brand); }
+
+        .qty-value {
+            font-weight: 700;
+            font-size: 16px;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .item-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .item-subtotal {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--brand);
+        }
+
+        .btn-eliminar {
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'DM Sans', sans-serif;
+            padding: 4px 0;
+            transition: color 0.15s;
+        }
+        .btn-eliminar:hover { color: var(--red); }
+
+        /* ── CARRITO VACÍO ── */
+        .carrito-vacio {
+            background: white;
+            border-radius: var(--radius);
+            padding: 60px 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .carrito-vacio .emoji { font-size: 56px; margin-bottom: 16px; }
+
+        .carrito-vacio h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .carrito-vacio p { color: var(--gray-400); margin-bottom: 24px; }
+
+        /* ── RESUMEN ── */
+        .resumen {
+            background: white;
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 84px;
+        }
+
+        .resumen h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .resumen-linea {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-bottom: 10px;
+        }
+
+        .resumen-linea.total {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-800);
+            padding-top: 14px;
+            margin-top: 4px;
+            border-top: 2px solid var(--gray-200);
+        }
+
+        .resumen-linea.total span:last-child { color: var(--brand); }
+
+        .envio-badge {
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-checkout {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: opacity 0.2s, transform 0.15s;
+            box-shadow: 0 4px 14px rgba(102,126,234,0.35);
+        }
+        .btn-checkout:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-checkout:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; box-shadow: none; transform: none; }
+
+        .btn-seguir {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px;
+            background: white;
+            color: var(--brand);
+            border: 2px solid var(--brand);
+            border-radius: var(--radius);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+        .btn-seguir:hover { background: var(--brand-light); }
+
+        .seguridad {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--gray-800);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.25s;
+            z-index: 999;
+        }
+        .toast.show { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a class="nav-logo" href="frontend_basico.html">🛍️ Mi Tienda</a>
+    <div class="nav-links">
+        <a href="frontend_basico.html">← Seguir comprando</a>
+    </div>
+</nav>
+
+<div class="breadcrumb">
+    <a href="frontend_basico.html">Inicio</a>
+    <span>›</span>
+    <span>Carrito</span>
+</div>
+
+<div class="page">
+
+    <!-- COLUMNA IZQUIERDA: items -->
+    <div class="items-section">
+        <h1>Tu carrito</h1>
+        <div id="items-container"></div>
+    </div>
+
+    <!-- COLUMNA DERECHA: resumen -->
+    <div class="resumen">
+        <h2>Resumen del pedido</h2>
+
+        <div class="resumen-linea">
+            <span id="resumen-cantidad">0 productos</span>
+            <span id="resumen-subtotal">$0</span>
+        </div>
+
+        <div class="resumen-linea">
+            <span>Envío</span>
+            <span class="envio-badge">A coordinar</span>
+        </div>
+
+        <div class="resumen-linea total">
+            <span>Total</span>
+            <span id="resumen-total">$0</span>
+        </div>
+
+        <a href="checkout.html" class="btn-checkout" id="btn-ir-checkout">
+            Continuar con la compra →
+        </a>
+
+        <a href="frontend_basico.html" class="btn-seguir">
+            ← Seguir comprando
+        </a>
+
+        <div class="seguridad">🔒 Compra segura</div>
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    const API = 'http://localhost:8000';
+
+    // ── UTILIDADES ──────────────────────────────────────────────
+    function getCarrito() {
+        return JSON.parse(localStorage.getItem('carrito') || '[]');
+    }
+
+    function saveCarrito(carrito) {
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+
+    function formatPrecio(n) {
+        return '$' + Number(n).toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // ── RENDERIZADO ─────────────────────────────────────────────
+    function render() {
+        const carrito = getCarrito();
+        const container = document.getElementById('items-container');
+
+        if (carrito.length === 0) {
+            container.innerHTML = `
+                <div class="carrito-vacio">
+                    <div class="emoji">🛒</div>
+                    <h2>Tu carrito está vacío</h2>
+                    <p>Todavía no agregaste ningún producto.</p>
+                    <a href="frontend_basico.html" class="btn-checkout" style="display:inline-block;width:auto;padding:12px 32px;">
+                        Ver productos
+                    </a>
+                </div>
+            `;
+            actualizarResumen([], 0);
+            document.getElementById('btn-ir-checkout').disabled = true;
+            return;
+        }
+
+        document.getElementById('btn-ir-checkout').disabled = false;
+
+        let html = '';
+        let total = 0;
+        let cantidadTotal = 0;
+
+        carrito.forEach((item, idx) => {
+            const subtotal = item.precio * item.cantidad;
+            total += subtotal;
+            cantidadTotal += item.cantidad;
+
+            const imgHtml = item.imagen
+                ? `<img class="item-img" src="${item.imagen}" alt="${item.nombre}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+                : '';
+
+            const varianteHtml = (item.color || item.talle)
+                ? `<div class="item-variante">${[item.color, item.talle].filter(Boolean).join(' / ')}</div>`
+                : '';
+
+            html += `
+                <div class="item-card" id="card-${idx}">
+                    ${imgHtml}
+                    <div class="item-img-placeholder" style="display:${item.imagen ? 'none' : 'flex'}">🏷️</div>
+
+                    <div class="item-info">
+                        <div class="item-nombre" title="${item.nombre}">${item.nombre}</div>
+                        ${varianteHtml}
+                        <div class="item-controls">
+                            <button class="qty-btn" onclick="cambiarCantidad(${idx}, -1)">−</button>
+                            <span class="qty-value">${item.cantidad}</span>
+                            <button class="qty-btn" onclick="cambiarCantidad(${idx}, 1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="item-right">
+                        <div class="item-subtotal">${formatPrecio(subtotal)}</div>
+                        <button class="btn-eliminar" onclick="eliminarItem(${idx})">✕ Quitar</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+        actualizarResumen(carrito, total);
+    }
+
+    function actualizarResumen(carrito, total) {
+        const cant = carrito.reduce((s, i) => s + i.cantidad, 0);
+        document.getElementById('resumen-cantidad').textContent =
+            cant === 1 ? '1 producto' : `${cant} productos`;
+        document.getElementById('resumen-subtotal').textContent = formatPrecio(total);
+        document.getElementById('resumen-total').textContent = formatPrecio(total);
+    }
+
+    // ── ACCIONES ────────────────────────────────────────────────
+    function cambiarCantidad(idx, delta) {
+        const carrito = getCarrito();
+        carrito[idx].cantidad += delta;
+
+        if (carrito[idx].cantidad <= 0) {
+            carrito.splice(idx, 1);
+            showToast('Producto quitado del carrito');
+        }
+
+        saveCarrito(carrito);
+        render();
+    }
+
+    function eliminarItem(idx) {
+        const carrito = getCarrito();
+        const nombre = carrito[idx].nombre;
+        carrito.splice(idx, 1);
+        saveCarrito(carrito);
+        showToast(`${nombre} quitado del carrito`);
+        render();
+    }
+
+    // ── INIT ────────────────────────────────────────────────────
+    render();
+</script>
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
+        <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+    </a>
+    <style>
+        .whatsapp-float {
+            position: fixed; bottom: 24px; left: 24px; width: 56px; height: 56px;
+            background: #25d366; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            z-index: 9998; transition: transform 0.2s ease;
+        }
+        .whatsapp-float:hover { transform: scale(1.08); }
+    </style>
+</body>
+</html>

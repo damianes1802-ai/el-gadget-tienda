@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Ecommerce</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #333; }
+
+        /* ─── LOGIN ─── */
+        #login-screen {
+            position: fixed; inset: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 14px;
+            padding: 40px 36px;
+            width: 340px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            text-align: center;
+        }
+
+        .login-box h1 { font-size: 22px; margin-bottom: 6px; color: #333; }
+        .login-box p { color: #888; font-size: 14px; margin-bottom: 28px; }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            margin-bottom: 14px;
+            text-align: center;
+            letter-spacing: 4px;
+        }
+
+        .login-box input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.15); }
+        .login-box input.error-input { border-color: #e53935; }
+
+        .btn-login {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn-login:hover { opacity: 0.9; }
+
+        #login-error { color: #e53935; font-size: 13px; margin-top: 10px; display: none; }
+
+        /* ─── HEADER ─── */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .header h1 { font-size: 20px; }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 7px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        .btn-logout:hover { background: rgba(255,255,255,0.3); }
+
+        /* ─── STATS ─── */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            padding: 20px 25px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .stat-card h3 { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .stat-card .numero { font-size: 28px; font-weight: 700; color: #667eea; }
+
+        /* ─── FILTROS ─── */
+        .filtros {
+            background: white;
+            margin: 18px 25px 0;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filtros select, .filtros input {
+            padding: 9px 12px;
+            border: 1.5px solid #ddd;
+            border-radius: 7px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .filtros select:focus, .filtros input:focus { outline: none; border-color: #667eea; }
+
+        .btn-filtrar {
+            padding: 9px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ─── TABLA ─── */
+        .tabla-container {
+            margin: 18px 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            overflow: hidden;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+
+        thead tr { background: #f8f9ff; }
+        thead th { padding: 13px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid #f0f0f0; }
+
+        tbody tr { border-bottom: 1px solid #f5f5f5; transition: background 0.15s; }
+        tbody tr:hover { background: #fafbff; }
+        tbody td { padding: 13px 16px; font-size: 14px; vertical-align: middle; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-pendiente { background: #fff3e0; color: #e65100; }
+        .badge-procesando { background: #e3f2fd; color: #1565c0; }
+        .badge-enviado { background: #e8f5e9; color: #2e7d32; }
+        .badge-entregado { background: #f3e5f5; color: #6a1b9a; }
+        .badge-cancelado { background: #ffebee; color: #b71c1c; }
+
+        .badge-approved { background: #e8f5e9; color: #2e7d32; }
+        .badge-pending { background: #fff8e1; color: #f57f17; }
+        .badge-rejected { background: #ffebee; color: #b71c1c; }
+
+        .acciones { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .btn-sm {
+            padding: 5px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .btn-sm:hover { opacity: 0.8; }
+
+        .btn-ver { background: #e3f2fd; color: #1565c0; }
+        .btn-estado { background: #e8f5e9; color: #2e7d32; }
+        .btn-eliminar { background: #ffebee; color: #c62828; }
+
+        .loading-row td { text-align: center; padding: 40px; color: #aaa; }
+
+        /* ─── MODAL DETALLE ─── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.show { display: flex; }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 680px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+
+        .modal-header h2 { font-size: 17px; color: #333; }
+
+        .btn-cerrar {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #aaa;
+            line-height: 1;
+        }
+        .btn-cerrar:hover { color: #555; }
+
+        .modal-body { padding: 20px 24px; }
+
+        .detalle-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+            margin-bottom: 20px;
+        }
+
+        .detalle-campo { font-size: 13px; }
+        .detalle-campo strong { display: block; color: #888; font-size: 11px; text-transform: uppercase; margin-bottom: 2px; }
+
+        .detalle-items table { font-size: 13px; }
+        .detalle-items th { font-size: 11px; }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .btn-modal {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-actualizar-estado { background: #667eea; color: white; }
+        .btn-modal-eliminar { background: #e53935; color: white; }
+        .btn-modal-cerrar { background: #f0f0f0; color: #555; }
+
+        /* ─── CONFIRM DIALOG ─── */
+        .confirm-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .confirm-overlay.show { display: flex; }
+
+        .confirm-box {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        }
+
+        .confirm-box .icon { font-size: 40px; margin-bottom: 12px; }
+        .confirm-box h3 { font-size: 17px; margin-bottom: 8px; }
+        .confirm-box p { color: #666; font-size: 14px; margin-bottom: 22px; }
+
+        .confirm-btns { display: flex; gap: 12px; justify-content: center; }
+
+        .btn-confirmar-si { padding: 10px 24px; background: #e53935; color: white; border: none; border-radius: 7px; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .btn-confirmar-no { padding: 10px 24px; background: #f0f0f0; color: #555; border: none; border-radius: 7px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+        /* ─── ESTADO SELECTOR ─── */
+        .estado-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .estado-modal.show { display: flex; }
+        .estado-box {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            max-width: 380px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        .estado-box h3 { margin-bottom: 16px; font-size: 16px; }
+        .estado-box select { width: 100%; padding: 10px; border: 1.5px solid #ddd; border-radius: 7px; font-size: 14px; margin-bottom: 16px; }
+        .estado-btns { display: flex; gap: 10px; justify-content: flex-end; }
+        .btn-guardar-estado { padding: 9px 20px; background: #667eea; color: white; border: none; border-radius: 7px; font-weight: 600; cursor: pointer; }
+        .btn-cancel-estado { padding: 9px 20px; background: #f0f0f0; color: #555; border: none; border-radius: 7px; cursor: pointer; }
+
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            padding: 13px 22px;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .toast.show { opacity: 1; }
+        .toast.success { background: #4CAF50; }
+        .toast.error { background: #e53935; }
+    </style>
+</head>
+<body>
+
+<!-- ─── LOGIN ─── -->
+<div id="login-screen">
+    <div class="login-box">
+        <div style="font-size:48px;margin-bottom:12px">🔐</div>
+        <h1>Panel Admin</h1>
+        <p>Ingresá la contraseña para acceder</p>
+        <input type="password" id="login-input" placeholder="Contraseña" onkeydown="if(event.key==='Enter') verificarLogin()">
+        <button class="btn-login" onclick="verificarLogin()">Ingresar</button>
+        <div id="login-error">❌ Contraseña incorrecta</div>
+    </div>
+</div>
+
+<!-- ─── MAIN ─── -->
+<div id="main" style="display:none">
+
+    <div class="header">
+        <h1>⚙️ Panel de Administración</h1>
+        <button class="btn-logout" onclick="cerrarSesion()">🚪 Cerrar sesión</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-card">
+            <h3>Total órdenes</h3>
+            <div class="numero" id="stat-total-ordenes">-</div>
+        </div>
+        <div class="stat-card">
+            <h3>Pendientes</h3>
+            <div class="numero" id="stat-pendientes">-</div>
+        </div>
+        <div class="stat-card">
+            <h3>Productos</h3>
+            <div class="numero" id="stat-productos">-</div>
+        </div>
+        <div class="stat-card">
+            <h3>Ventas aprobadas</h3>
+            <div class="numero" id="stat-ventas">-</div>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filtros">
+        <select id="filtro-estado" onchange="cargarOrdenes()">
+            <option value="">Todos los estados</option>
+            <option value="pendiente_procesar">Pendiente</option>
+            <option value="procesando">Procesando</option>
+            <option value="enviado">Enviado</option>
+            <option value="entregado">Entregado</option>
+        </select>
+        <input type="text" id="filtro-buscar" placeholder="Buscar por cliente o ID..." oninput="filtrarLocal()">
+        <button class="btn-filtrar" onclick="cargarOrdenes()">🔄 Actualizar</button>
+    </div>
+
+    <!-- Tabla -->
+    <div class="tabla-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Pago</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-ordenes">
+                <tr class="loading-row"><td colspan="7">⏳ Cargando órdenes...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- ─── MODAL DETALLE ─── -->
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this) cerrarModal()">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 id="modal-titulo">Detalle de orden</h2>
+            <button class="btn-cerrar" onclick="cerrarModal()">✕</button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-footer">
+            <button class="btn-modal btn-modal-cerrar" onclick="cerrarModal()">Cerrar</button>
+            <button class="btn-modal" id="btn-copiar-droppers" style="background:#00b96b;color:white" onclick="copiarParaDroppers()">📋 Copiar para Droppers</button>
+            <button class="btn-modal btn-actualizar-estado" onclick="abrirCambiarEstado()">Cambiar estado</button>
+            <button class="btn-modal btn-modal-eliminar" onclick="pedirConfirmacion(ordenActual.id, ordenActual.cliente_nombre)">🗑 Eliminar orden</button>
+        </div>
+    </div>
+</div>
+
+<!-- ─── CONFIRM DIALOG ─── -->
+<div class="confirm-overlay" id="confirm-overlay">
+    <div class="confirm-box">
+        <div class="icon">⚠️</div>
+        <h3>¿Eliminar esta orden?</h3>
+        <p id="confirm-text">Esta acción no se puede deshacer.</p>
+        <div class="confirm-btns">
+            <button class="btn-confirmar-no" onclick="cerrarConfirm()">Cancelar</button>
+            <button class="btn-confirmar-si" onclick="confirmarEliminar()">Sí, eliminar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ─── CAMBIAR ESTADO ─── -->
+<div class="estado-modal" id="estado-modal">
+    <div class="estado-box">
+        <h3>Cambiar estado de orden #<span id="estado-orden-id"></span></h3>
+        <select id="nuevo-estado">
+            <option value="pendiente_procesar">Pendiente de procesar</option>
+            <option value="procesando">Procesando</option>
+            <option value="enviado">Enviado</option>
+            <option value="entregado">Entregado</option>
+        </select>
+        <div class="estado-btns">
+            <button class="btn-cancel-estado" onclick="cerrarEstadoModal()">Cancelar</button>
+            <button class="btn-guardar-estado" onclick="guardarEstado()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+    const API_URL = 'http://localhost:8000';
+    let adminPassword = '';
+    let todasLasOrdenes = [];
+    let ordenActual = null;
+    let ordenParaEliminar = null;
+
+    // ── LOGIN ──
+    async function verificarLogin() {
+        const pwd = document.getElementById('login-input').value;
+        if (!pwd) return;
+
+        try {
+            const res = await fetch(`${API_URL}/api/admin/verificar`, {
+                headers: { 'X-Admin-Password': pwd }
+            });
+
+            if (res.ok) {
+                adminPassword = pwd;
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main').style.display = 'block';
+                cargarDatos();
+            } else {
+                const input = document.getElementById('login-input');
+                input.classList.add('error-input');
+                document.getElementById('login-error').style.display = 'block';
+                setTimeout(() => input.classList.remove('error-input'), 1500);
+            }
+        } catch {
+            toast('No se puede conectar a la API', 'error');
+        }
+    }
+
+    function cerrarSesion() {
+        adminPassword = '';
+        document.getElementById('login-input').value = '';
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('main').style.display = 'none';
+    }
+
+    // ── DATOS ──
+    async function cargarDatos() {
+        await Promise.all([cargarEstadisticas(), cargarOrdenes()]);
+    }
+
+    async function cargarEstadisticas() {
+        try {
+            const res = await fetch(`${API_URL}/api/estadisticas`);
+            const data = await res.json();
+            document.getElementById('stat-total-ordenes').textContent = data.ordenes.total;
+            document.getElementById('stat-pendientes').textContent = data.ordenes.pendientes;
+            document.getElementById('stat-productos').textContent = data.productos.total;
+            document.getElementById('stat-ventas').textContent = '$' + (data.ventas_totales || 0).toLocaleString('es-AR', {minimumFractionDigits: 2});
+        } catch(e) { console.error(e); }
+    }
+
+    async function cargarOrdenes() {
+        const estado = document.getElementById('filtro-estado').value;
+        let url = `${API_URL}/api/ordenes?limit=200`;
+        if (estado) url += `&estado=${estado}`;
+
+        document.getElementById('tabla-ordenes').innerHTML = '<tr class="loading-row"><td colspan="7">⏳ Cargando...</td></tr>';
+
+        try {
+            const res = await fetch(url);
+            todasLasOrdenes = await res.json();
+            renderTabla(todasLasOrdenes);
+        } catch {
+            document.getElementById('tabla-ordenes').innerHTML = '<tr class="loading-row"><td colspan="7">❌ Error al cargar</td></tr>';
+        }
+    }
+
+    function filtrarLocal() {
+        const q = document.getElementById('filtro-buscar').value.toLowerCase();
+        if (!q) { renderTabla(todasLasOrdenes); return; }
+        const filtradas = todasLasOrdenes.filter(o =>
+            o.cliente_nombre?.toLowerCase().includes(q) ||
+            String(o.id).includes(q) ||
+            o.cliente_email?.toLowerCase().includes(q)
+        );
+        renderTabla(filtradas);
+    }
+
+    function renderTabla(ordenes) {
+        const tbody = document.getElementById('tabla-ordenes');
+        if (ordenes.length === 0) {
+            tbody.innerHTML = '<tr class="loading-row"><td colspan="7">Sin resultados</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = ordenes.map(o => {
+            const fecha = new Date(o.fecha_creacion || o.created_at || Date.now()).toLocaleDateString('es-AR');
+            const total = Number(o.total || 0).toLocaleString('es-AR', {minimumFractionDigits:2});
+            return `<tr>
+                <td><strong>#${o.id}</strong></td>
+                <td>${fecha}</td>
+                <td>
+                    <div style="font-weight:500">${o.cliente_nombre || '-'}</div>
+                    <div style="font-size:12px;color:#888">${o.cliente_email || ''}</div>
+                </td>
+                <td><strong>$${total}</strong></td>
+                <td>${badgeEstado(o.estado)}</td>
+                <td>${badgePago(o.estado_pago)}</td>
+                <td>
+                    <div class="acciones">
+                        <button class="btn-sm btn-ver" onclick="verOrden(${o.id})">👁 Ver</button>
+                        <button class="btn-sm btn-estado" onclick="abrirEstadoRapido(${o.id}, '${o.estado}')">📋 Estado</button>
+                        <button class="btn-sm btn-eliminar" onclick="pedirConfirmacion(${o.id}, '${(o.cliente_nombre||'').replace("'","\\'")}')">🗑</button>
+                    </div>
+                </td>
+            </tr>`;
+        }).join('');
+    }
+
+    function badgeEstado(e) {
+        const map = {
+            pendiente_procesar: ['badge-pendiente', '⏳ Pendiente'],
+            procesando: ['badge-procesando', '🔄 Procesando'],
+            enviado: ['badge-enviado', '📦 Enviado'],
+            entregado: ['badge-entregado', '✅ Entregado'],
+            cancelado: ['badge-cancelado', '❌ Cancelado']
+        };
+        const [cls, label] = map[e] || ['badge-pendiente', e || '-'];
+        return `<span class="badge ${cls}">${label}</span>`;
+    }
+
+    function badgePago(e) {
+        const map = {
+            approved: ['badge-approved', '✅ Aprobado'],
+            pending: ['badge-pending', '⏳ Pendiente'],
+            rejected: ['badge-rejected', '❌ Rechazado']
+        };
+        const [cls, label] = map[e] || ['badge-pending', e || '-'];
+        return `<span class="badge ${cls}">${label}</span>`;
+    }
+
+    // ── VER ORDEN ──
+    async function verOrden(id) {
+        try {
+            const res = await fetch(`${API_URL}/api/orden/${id}`);
+            const o = await res.json();
+            ordenActual = o;
+
+            document.getElementById('modal-titulo').textContent = `Orden #${o.id}`;
+
+            const itemsHtml = (o.items || []).map(i =>
+                `<tr>
+                    <td style="padding:8px 10px">${i.producto_nombre || i.sku}</td>
+                    <td style="padding:8px 10px;text-align:center">${i.cantidad}</td>
+                    <td style="padding:8px 10px;text-align:right">$${Number(i.precio_unitario||0).toLocaleString('es-AR',{minimumFractionDigits:2})}</td>
+                    <td style="padding:8px 10px;text-align:right;font-weight:600">$${Number((i.precio_unitario||0)*i.cantidad).toLocaleString('es-AR',{minimumFractionDigits:2})}</td>
+                </tr>`
+            ).join('');
+
+            const direccion = [o.calle, o.altura, o.piso ? `P${o.piso}` : '', o.departamento].filter(Boolean).join(' ') || o.direccion || '-';
+
+            document.getElementById('modal-body').innerHTML = `
+                <div class="detalle-grid">
+                    <div class="detalle-campo"><strong>Cliente</strong>${o.nombre || '-'} ${o.apellido || ''}</div>
+                    <div class="detalle-campo"><strong>Email</strong>${o.email || '-'}</div>
+                    <div class="detalle-campo"><strong>Teléfono</strong>${o.telefono || '-'}</div>
+                    <div class="detalle-campo"><strong>CUIT / DNI</strong>${o.cuit_dni || '-'}</div>
+                    <div class="detalle-campo"><strong>Dirección</strong>${direccion}</div>
+                    <div class="detalle-campo"><strong>Provincia</strong>${o.provincia || '-'}</div>
+                    <div class="detalle-campo"><strong>Ciudad</strong>${o.ciudad || '-'}</div>
+                    <div class="detalle-campo"><strong>CP</strong>${o.codigo_postal || '-'}</div>
+                    <div class="detalle-campo"><strong>Estado orden</strong>${badgeEstado(o.estado)}</div>
+                    <div class="detalle-campo"><strong>Estado pago</strong>${badgePago(o.estado_pago)}</div>
+                    ${o.tracking_url ? `<div class="detalle-campo" style="grid-column:span 2"><strong>Tracking</strong><a href="${o.tracking_url}" target="_blank">${o.tracking_url}</a></div>` : ''}
+                    ${o.notas ? `<div class="detalle-campo" style="grid-column:span 2"><strong>Notas</strong>${o.notas}</div>` : ''}
+                </div>
+                <div class="detalle-items">
+                    <table style="width:100%;border-collapse:collapse">
+                        <thead style="background:#f8f9ff">
+                            <tr>
+                                <th style="padding:8px 10px;text-align:left;font-size:11px;color:#888">Producto</th>
+                                <th style="padding:8px 10px;text-align:center;font-size:11px;color:#888">Cant.</th>
+                                <th style="padding:8px 10px;text-align:right;font-size:11px;color:#888">Precio</th>
+                                <th style="padding:8px 10px;text-align:right;font-size:11px;color:#888">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>${itemsHtml}</tbody>
+                        <tfoot>
+                            <tr style="background:#f8f9ff">
+                                <td colspan="3" style="padding:10px;text-align:right;font-weight:600">TOTAL</td>
+                                <td style="padding:10px;text-align:right;font-weight:700;font-size:16px;color:#667eea">$${Number(o.total||0).toLocaleString('es-AR',{minimumFractionDigits:2})}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            `;
+
+            document.getElementById('modal-overlay').classList.add('show');
+        } catch(e) {
+            toast('Error al cargar la orden', 'error');
+        }
+    }
+
+    function cerrarModal() { document.getElementById('modal-overlay').classList.remove('show'); ordenActual = null; }
+
+    function copiarParaDroppers() {
+        if (!ordenActual) return;
+        const o = ordenActual;
+
+        // Mapear provincia a formato Droppers (nombre completo)
+        const provinciasMap = {
+            'Buenos Aires': 'Buenos Aires', 'CABA': 'Ciudad Autónoma de Buenos Aires',
+            'Capital Federal': 'Ciudad Autónoma de Buenos Aires', 'Catamarca': 'Catamarca',
+            'Chaco': 'Chaco', 'Chubut': 'Chubut', 'Córdoba': 'Córdoba',
+            'Corrientes': 'Corrientes', 'Entre Ríos': 'Entre Ríos', 'Formosa': 'Formosa',
+            'Jujuy': 'Jujuy', 'La Pampa': 'La Pampa', 'La Rioja': 'La Rioja',
+            'Mendoza': 'Mendoza', 'Misiones': 'Misiones', 'Neuquén': 'Neuquén',
+            'Río Negro': 'Río Negro', 'Salta': 'Salta', 'San Juan': 'San Juan',
+            'San Luis': 'San Luis', 'Santa Cruz': 'Santa Cruz', 'Santa Fe': 'Santa Fe',
+            'Santiago del Estero': 'Santiago del Estero', 'Tierra del Fuego': 'Tierra del Fuego',
+            'Tucumán': 'Tucumán'
+        };
+
+        const provincia = provinciasMap[o.provincia] || o.provincia || '';
+        const nombre = (o.nombre || '').trim();
+        const apellido = (o.apellido || '').trim();
+
+        // Construir lista de productos
+        const productosTexto = (o.items || []).map(i =>
+            `  - ${i.producto_nombre || i.sku} x${i.cantidad} (SKU: ${i.sku || '-'})`
+        ).join('\n');
+
+        const texto = `=== PEDIDO DROPPERS - Orden #${o.id} ===
+
+DATOS DEL DESTINATARIO:
+Nombre: ${nombre}
+Apellido: ${apellido}
+Razón social: ${o.razon_social || ''}
+CUIT / DNI: ${o.cuit_dni || ''}
+Email: ${o.email || ''}
+Teléfono / Celular: ${o.telefono || ''}
+
+DIRECCIÓN DE ENVÍO:
+Calle: ${o.calle || ''}
+Altura: ${o.altura || ''}
+Piso: ${o.piso || ''}
+Departamento: ${o.departamento || ''}
+Localidad: ${o.ciudad || ''}
+Provincia: ${provincia}
+Código postal: ${o.codigo_postal || ''}
+
+PRODUCTOS:
+${productosTexto || '  (sin detalle)'}
+
+TOTAL: $${Number(o.total||0).toLocaleString('es-AR',{minimumFractionDigits:2})}
+=====================================`;
+
+        navigator.clipboard.writeText(texto).then(() => {
+            const btn = document.getElementById('btn-copiar-droppers');
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ ¡Copiado!';
+            btn.style.background = '#388e3c';
+            setTimeout(() => { btn.innerHTML = original; btn.style.background = '#00b96b'; }, 2500);
+        }).catch(() => {
+            // Fallback para navegadores sin clipboard API
+            const ta = document.createElement('textarea');
+            ta.value = texto;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            toast('¡Copiado al portapapeles!', 'success');
+        });
+    }
+
+    // ── CAMBIAR ESTADO ──
+    function abrirEstadoRapido(id, estadoActual) {
+        ordenActual = { id };
+        abrirCambiarEstado(estadoActual);
+    }
+
+    function abrirCambiarEstado(estadoActual) {
+        if (!ordenActual) return;
+        document.getElementById('estado-orden-id').textContent = ordenActual.id;
+        document.getElementById('nuevo-estado').value = estadoActual || ordenActual.estado || 'pendiente_procesar';
+        document.getElementById('estado-modal').classList.add('show');
+    }
+
+    function cerrarEstadoModal() { document.getElementById('estado-modal').classList.remove('show'); }
+
+    async function guardarEstado() {
+        const estado = document.getElementById('nuevo-estado').value;
+        try {
+            const res = await fetch(`${API_URL}/api/orden/${ordenActual.id}/estado?estado=${estado}`, { method: 'PATCH' });
+            if (!res.ok) throw new Error();
+            cerrarEstadoModal();
+            cerrarModal();
+            toast('Estado actualizado ✓', 'success');
+            cargarDatos();
+        } catch {
+            toast('Error al actualizar estado', 'error');
+        }
+    }
+
+    // ── ELIMINAR ──
+    function pedirConfirmacion(id, nombre) {
+        ordenParaEliminar = id;
+        document.getElementById('confirm-text').textContent = `Se eliminará la orden #${id} de ${nombre}. Esta acción no se puede deshacer.`;
+        document.getElementById('confirm-overlay').classList.add('show');
+    }
+
+    function cerrarConfirm() { document.getElementById('confirm-overlay').classList.remove('show'); ordenParaEliminar = null; }
+
+    async function confirmarEliminar() {
+        if (!ordenParaEliminar) return;
+        try {
+            const res = await fetch(`${API_URL}/api/orden/${ordenParaEliminar}`, {
+                method: 'DELETE',
+                headers: { 'X-Admin-Password': adminPassword }
+            });
+            if (res.status === 401) { toast('Sin autorización', 'error'); cerrarConfirm(); return; }
+            if (!res.ok) throw new Error();
+
+            cerrarConfirm();
+            cerrarModal();
+            toast(`Orden #${ordenParaEliminar} eliminada ✓`, 'success');
+            ordenParaEliminar = null;
+            cargarDatos();
+        } catch {
+            toast('Error al eliminar la orden', 'error');
+            cerrarConfirm();
+        }
+    }
+
+    // ── TOAST ──
+    function toast(msg, type = 'success') {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.className = `toast ${type} show`;
+        setTimeout(() => el.classList.remove('show'), 3000);
+    }
+
+    // Keypress en login
+    document.getElementById('login-input').addEventListener('keydown', e => {
+        if (e.key === 'Enter') verificarLogin();
+    });
+</script>
+</body>
+</html>

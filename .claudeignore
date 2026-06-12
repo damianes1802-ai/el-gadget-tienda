@@ -1,0 +1,10 @@
+data/
+logs/
+config/html_informes_files/
+scripts/utils/__pycache__/
+*.log
+*.pyc
+*.pickle
+reporte_*.json
+debug_*.html
+debug_*.txt
