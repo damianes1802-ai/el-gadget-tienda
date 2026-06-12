@@ -66,11 +66,11 @@ class Config:
             dict: Variables de entorno
         """
         env_vars = {}
-        
+
         if not cls.ENV_FILE.exists():
-            print(f"⚠️  Archivo .env no encontrado en: {cls.ENV_FILE}")
-            print(f"   Crear desde: {cls.CONFIG_DIR}/.env.example")
-            return env_vars
+            # En hosting (ej. Render) no existe config/.env: usar variables
+            # de entorno del sistema, configuradas desde el panel del hosting.
+            return dict(os.environ)
         
         with open(cls.ENV_FILE, 'r', encoding='utf-8') as f:
             for linea in f:
