@@ -457,7 +457,7 @@ class SincronizadorGoogleSheetsOptimizado:
                     imagen_principal = ''
                     imagenes_adicionales = ''
                 
-                link = f"{self.site_url}/pages/producto_detalle.html?sku={sku}"
+                link = f"{self.site_url}/producto_detalle.html?sku={sku}"
                 
                 fila = [
                     sku, titulo, descripcion, 'in stock', 'new',
