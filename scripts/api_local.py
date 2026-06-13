@@ -46,6 +46,7 @@ if _mp_env == 'production':
 else:
     MP_ACCESS_TOKEN = _env.get('MP_ACCESS_TOKEN_TEST', '')
 SITE_URL = _env.get('SITE_URL', 'http://localhost:5500')
+API_URL = _env.get('API_URL', 'https://el-gadget-tienda.onrender.com')
 
 app = FastAPI(
     title="Ecommerce API",
@@ -607,8 +608,9 @@ def crear_orden(orden: CrearOrden):
                     "failure": f"{SITE_URL}/confirmacion.html?orden_id={orden_id}&status=failure",
                     "pending": f"{SITE_URL}/confirmacion.html?orden_id={orden_id}&status=pending"
                 },
+                "auto_return": "approved",
                 "external_reference": str(orden_id),
-                "notification_url": f"{SITE_URL}/api/mp/webhook"
+                "notification_url": f"{API_URL}/api/mp/webhook"
             }
             print(f"🔵 Llamando MP para orden #{orden_id}...")
             mp_response = requests.post(

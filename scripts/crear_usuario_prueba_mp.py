@@ -1,7 +1,24 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Crea un usuario de prueba de MercadoPago (comprador) para probar el flujo
+de checkout completo sin usar dinero real.
+
+Usa el Access Token de prueba configurado en config/.env (MP_ACCESS_TOKEN_TEST).
+"""
+import sys
+from pathlib import Path
+
 import requests
 
-ACCESS_TOKEN = "APP_USR-1230705344766467-030219-80cae3acb054199b4ca1cc434e285bea-3239677654"
+sys.path.append(str(Path(__file__).parent))
+from utils.config import Config
+
+env = Config.cargar_env()
+ACCESS_TOKEN = env.get('MP_ACCESS_TOKEN_TEST', '')
+
+if not ACCESS_TOKEN:
+    raise SystemExit("Falta MP_ACCESS_TOKEN_TEST en config/.env")
 
 response = requests.post(
     "https://api.mercadopago.com/users/test",
