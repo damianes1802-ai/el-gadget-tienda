@@ -13,7 +13,8 @@ PIPELINE (flujo de 2 fases, basado en scraper_maestro_v2):
 6. Subida a Cloudinary (opcional) (03_subir_imagenes_cloudinary.py)
 7. Cálculo de precios (04_calculo_precios.py)
 8. Sincronización SQLite (11_sincronizar_sqlite.py)
-9. Sincronización Google Sheets / Facebook Catalog (opcional) (06_sincronizar_google_sheets_OPTIMIZADO.py)
+9. Generación de feed Facebook/WhatsApp Catalog (generar_feed_facebook.py)
+10. Sincronización Google Sheets / Facebook Catalog (opcional) (06_sincronizar_google_sheets_OPTIMIZADO.py)
 
 AUTOR: Sistema Ecommerce Automation
 FECHA: 2026-06-12
@@ -85,6 +86,7 @@ class ActualizadorMaestro:
             'cloudinary': '03_subir_imagenes_cloudinary.py',
             'precios': '04_calculo_precios.py',
             'sqlite': '11_sincronizar_sqlite.py',
+            'feed_facebook': 'generar_feed_facebook.py',
             'sheets': '06_sincronizar_google_sheets_OPTIMIZADO.py',
         }
     
@@ -278,24 +280,26 @@ class ActualizadorMaestro:
         return True
 
     def git_push_catalogo(self):
-        """Publica data/catalogo.db (git add + commit + push) si hubo cambios"""
+        """Publica data/catalogo.db y el feed de Facebook/WhatsApp (git add + commit + push) si hubo cambios"""
         self.banner("PUBLICACIÓN DE CAMBIOS (git push)", '-')
 
+        archivos = ['data/catalogo.db', 'pages/facebook_catalog.csv']
+
         try:
-            # Detectar si catalogo.db tiene cambios respecto al último commit
+            # Detectar si hay cambios respecto al último commit
             result = subprocess.run(
-                ['git', 'status', '--porcelain', 'data/catalogo.db'],
+                ['git', 'status', '--porcelain', *archivos],
                 cwd=str(self.repo_dir),
                 capture_output=True,
                 text=True
             )
 
             if not result.stdout.strip():
-                print("ℹ️  Sin cambios en catalogo.db, nada para publicar")
+                print("ℹ️  Sin cambios en catalogo.db ni en el feed, nada para publicar")
                 return True
 
             subprocess.run(
-                ['git', 'add', 'data/catalogo.db'],
+                ['git', 'add', *archivos],
                 cwd=str(self.repo_dir),
                 check=True
             )
@@ -469,22 +473,29 @@ class ActualizadorMaestro:
             print("\n⛔ Actualización falló en sincronización")
             return False
 
-        # PASO 10: Sincronizar Google Sheets / Facebook Catalog (opcional)
+        # PASO 10: Generar feed de Facebook/WhatsApp Catalog
+        self.ejecutar_script(
+            "10. Generación de feed Facebook/WhatsApp",
+            self.scripts['feed_facebook'],
+            obligatorio=False
+        )
+
+        # PASO 11: Sincronizar Google Sheets / Facebook Catalog (opcional)
         sheets_script = self.scripts_dir / self.scripts.get('sheets', '')
         if sheets_script and sheets_script.exists():
             self.ejecutar_script(
-                "10. Sincronización a Google Sheets / Facebook Catalog",
+                "11. Sincronización a Google Sheets / Facebook Catalog",
                 self.scripts['sheets'],
                 obligatorio=False
             )
         else:
             print("\n⏭️  Google Sheets no disponible (script no encontrado)")
 
-        # PASO 11: Verificar resultado
+        # PASO 12: Verificar resultado
         if not self.verificar_resultado():
             print("\n⚠️  Verificación falló, revisar manualmente")
 
-        # PASO 12: Publicar catalogo.db (opcional)
+        # PASO 13: Publicar catalogo.db (opcional)
         if self.auto_push:
             self.git_push_catalogo()
         else:
