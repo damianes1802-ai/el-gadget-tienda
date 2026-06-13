@@ -1,164 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pago pendiente — El Gadget</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        :root {
-            --brand: #667eea; --brand-light: #eef0fd;
-            --yellow: #f59e0b; --yellow-light: #fef3c7;
-            --gray-50: #f9fafb; --gray-200: #e5e7eb;
-            --gray-400: #9ca3af; --gray-600: #4b5563; --gray-800: #1f2937;
-            --radius: 12px; --shadow: 0 2px 12px rgba(0,0,0,0.08);
-        }
-        body { font-family: 'DM Sans', sans-serif; background: var(--gray-50); color: var(--gray-800); min-height: 100vh; }
-
-        nav {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 64px; display: flex; align-items: center; padding: 0 24px;
-            box-shadow: 0 2px 16px rgba(102,126,234,0.3);
-        }
-        .nav-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: white; text-decoration: none; }
-
-        .page { max-width: 560px; margin: 60px auto; padding: 0 24px; text-align: center; }
-
-        .icon-ring {
-            width: 96px; height: 96px; border-radius: 50%;
-            background: var(--yellow-light); display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 28px; font-size: 44px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.3); }
-            50% { box-shadow: 0 0 0 14px rgba(245,158,11,0); }
-        }
-
-        h1 { font-family: 'DM Serif Display', serif; font-size: 30px; font-weight: 400; margin-bottom: 12px; }
-        .subtitulo { font-size: 15px; color: var(--gray-600); line-height: 1.6; margin-bottom: 32px; }
-
-        .orden-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: white; border: 2px solid var(--yellow);
-            border-radius: var(--radius); padding: 12px 22px;
-            margin-bottom: 28px; box-shadow: var(--shadow);
-        }
-        .orden-badge .label { font-size: 13px; color: var(--gray-400); }
-        .orden-badge .num { font-size: 20px; font-weight: 700; color: var(--gray-800); }
-
-        .card {
-            background: white; border-radius: var(--radius);
-            padding: 22px 24px; box-shadow: var(--shadow); margin-bottom: 20px; text-align: left;
-        }
-        .card h2 { font-family: 'DM Serif Display', serif; font-size: 17px; font-weight: 400; margin-bottom: 12px; }
-
-        .info-row { display: flex; justify-content: space-between; font-size: 14px; padding: 8px 0; border-bottom: 1px solid var(--gray-200); }
-        .info-row:last-child { border-bottom: none; }
-        .info-label { color: var(--gray-400); }
-        .info-valor { font-weight: 600; }
-
-        .alerta {
-            background: var(--yellow-light); border: 1px solid #fcd34d;
-            border-radius: var(--radius); padding: 16px 18px;
-            font-size: 14px; color: #78350f; margin-bottom: 20px; text-align: left; line-height: 1.6;
-        }
-
-        .btns { display: flex; gap: 12px; flex-wrap: wrap; }
-        .btn-primary {
-            flex: 1; min-width: 180px; padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; border: none; border-radius: var(--radius);
-            font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
-            cursor: pointer; text-align: center; text-decoration: none;
-            box-shadow: 0 4px 14px rgba(102,126,234,0.3); transition: opacity 0.2s;
-        }
-        .btn-primary:hover { opacity: 0.9; }
-        .btn-secondary {
-            flex: 1; min-width: 140px; padding: 14px; background: white;
-            color: var(--brand); border: 2px solid var(--brand); border-radius: var(--radius);
-            font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
-            cursor: pointer; text-align: center; text-decoration: none; transition: background 0.15s;
-        }
-        .btn-secondary:hover { background: var(--brand-light); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pago pendiente | El Gadget</title>
+<meta name="description" content="Tu pago está siendo procesado. Te avisaremos cuando se confirme.">
+<meta name="theme-color" content="#14151A">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<nav>
-    <a class="nav-logo" href="frontend_basico.html">🛍️ El Gadget</a>
-</nav>
-
-<div class="page">
-
-    <div class="icon-ring">⏳</div>
-
-    <h1>Pago en proceso</h1>
-    <p class="subtitulo">Tu pago está siendo procesado. Esto puede tardar unos minutos.</p>
-
-    <div class="orden-badge">
-        <div>
-            <div class="label">Pedido</div>
-            <div class="num" id="num-orden">—</div>
-        </div>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="frontend_basico.html" class="logo">
+      <div class="logo-badge">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="22" fill="#14151A"/>
+          <rect x="14" y="34" width="72" height="34" rx="17" fill="none" stroke="white" stroke-width="7"/>
+          <circle cx="34" cy="51" r="6" fill="white"/>
+          <rect x="58" y="42" width="6" height="18" rx="2" fill="#FFC700"/>
+          <rect x="68" y="36" width="6" height="30" rx="2" fill="#FFC700"/>
+          <rect x="78" y="45" width="6" height="12" rx="2" fill="#FFC700"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
+    </a>
+    <div class="search-desktop">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){window.location.href='frontend_basico.html?buscar='+encodeURIComponent(this.value)}">
+      </div>
     </div>
+    <a href="carrito.html" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="label">Mi pedido</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
 
-    <div class="alerta">
-        ℹ️ <strong>¿Pagaste en efectivo o por transferencia?</strong> El pago puede demorar hasta 72 horas en acreditarse. Te avisaremos por email cuando se confirme.
-    </div>
-
-    <div class="card" id="card-info" style="display:none">
-        <h2>Información del pedido</h2>
-        <div class="info-row"><span class="info-label">Estado del pago</span><span class="info-valor" style="color:var(--yellow)">⏳ Pendiente</span></div>
-        <div class="info-row"><span class="info-label">Total</span><span class="info-valor" id="det-total">—</span></div>
-    </div>
-
-    <div class="btns">
-        <a href="frontend_basico.html" class="btn-primary">Seguir comprando</a>
-    </div>
-
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="frontend_basico.html">Inicio</a>
+  <span class="sep">/</span>
+  <span class="current">Pago pendiente</span>
 </div>
 
+<!-- CONTENIDO -->
+<div class="result-wrap">
+  <div class="result-icon pend">⏳</div>
+  <h1>Pago en proceso</h1>
+  <p class="subtitle">Tu pago está siendo procesado. Esto puede tardar unos minutos.</p>
+
+  <div class="order-badge">
+    <span class="label">Pedido</span>
+    <span class="num" id="num-orden">—</span>
+  </div>
+
+  <div class="alert-box">
+    ℹ️ <strong>¿Pagaste en efectivo o por transferencia?</strong> El pago puede demorar hasta 72 horas en acreditarse. Te avisaremos por email cuando se confirme.
+  </div>
+
+  <div class="info-card" id="card-info" style="display:none">
+    <h2>Información del pedido</h2>
+    <div class="info-row"><span class="info-label">Estado del pago</span><span class="info-valor"><span class="status-badge pend">⏳ Pendiente</span></span></div>
+    <div class="info-row"><span class="info-label">Total</span><span class="info-valor" id="det-total">—</span></div>
+  </div>
+
+  <div class="result-actions">
+    <a href="frontend_basico.html" class="btn btn-accent">Seguir comprando</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-badge">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="22" fill="#14151A"/>
+            <rect x="14" y="34" width="72" height="34" rx="17" fill="none" stroke="white" stroke-width="7"/>
+            <circle cx="34" cy="51" r="6" fill="white"/>
+            <rect x="58" y="42" width="6" height="18" rx="2" fill="#FFC700"/>
+            <rect x="68" y="36" width="6" height="30" rx="2" fill="#FFC700"/>
+            <rect x="78" y="45" width="6" height="12" rx="2" fill="#FFC700"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <div class="logo-name">El<span> Gadget</span></div>
+          <div class="logo-tagline">Tienda online</div>
+        </div>
+      </div>
+      <p>Productos para el hogar, moda, tecnología y mucho más. Elegí, armá tu pedido y coordinamos todo por WhatsApp.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <a href="carrito.html">Mi pedido</a>
+      <a href="seguimiento.html">Seguimiento de pedido</a>
+      <a href="faq.html">Preguntas frecuentes</a>
+      <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta%20sobre%20mi%20pago%20pendiente" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Información</h4>
+      <a href="sobre_nosotros.html">Sobre nosotros</a>
+      <a href="#" onclick="return false;">Envíos a todo el país</a>
+      <a href="#" onclick="return false;">Pagos seguros</a>
+      <a href="arrepentimiento.html">Botón de arrepentimiento</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta%20sobre%20mi%20pago%20pendiente" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+</a>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/cart.js"></script>
 <script>
-    const API = 'https://el-gadget-tienda.onrender.com';
+document.getElementById('year').textContent = new Date().getFullYear();
 
-    function formatPrecio(n) {
-        return '$' + Number(n).toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    }
+const API = 'https://el-gadget-tienda.onrender.com';
 
-    async function init() {
-        const params  = new URLSearchParams(window.location.search);
-        const ordenId = params.get('orden_id');
+async function init() {
+    const params  = new URLSearchParams(window.location.search);
+    const ordenId = params.get('orden_id');
 
-        if (!ordenId) return;
+    if (!ordenId) return;
 
-        document.getElementById('num-orden').textContent = ordenId;
+    document.getElementById('num-orden').textContent = ordenId;
 
-        try {
-            const res  = await fetch(`${API}/api/mp/estado-pago/${ordenId}`);
-            const data = await res.json();
+    try {
+        const res  = await fetch(`${API}/api/mp/estado-pago/${ordenId}`);
+        const data = await res.json();
 
-            document.getElementById('card-info').style.display = 'block';
-            document.getElementById('det-total').textContent = formatPrecio(data.total);
+        document.getElementById('card-info').style.display = 'block';
+        document.getElementById('det-total').textContent = formatPrice(data.total);
 
-        } catch (e) { /* silencioso */ }
-    }
+    } catch (e) { /* silencioso */ }
+}
 
-    init();
+init();
 </script>
-    <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta%20sobre%20mi%20pago%20pendiente" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
-        <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
-    </a>
-    <style>
-        .whatsapp-float {
-            position: fixed; bottom: 24px; left: 24px; width: 56px; height: 56px;
-            background: #25d366; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            z-index: 9998; transition: transform 0.2s ease;
-        }
-        .whatsapp-float:hover { transform: scale(1.08); }
-    </style>
 </body>
 </html>

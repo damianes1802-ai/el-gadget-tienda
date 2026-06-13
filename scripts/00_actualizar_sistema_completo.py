@@ -13,8 +13,9 @@ PIPELINE (flujo de 2 fases, basado en scraper_maestro_v2):
 6. Subida a Cloudinary (opcional) (03_subir_imagenes_cloudinary.py)
 7. Cálculo de precios (04_calculo_precios.py)
 8. Sincronización SQLite (11_sincronizar_sqlite.py)
-9. Generación de feed Facebook/WhatsApp Catalog (generar_feed_facebook.py)
-10. Sincronización Google Sheets / Facebook Catalog (opcional) (06_sincronizar_google_sheets_OPTIMIZADO.py)
+9. Generación de páginas estáticas de producto / SEO (12_generar_paginas_producto.py)
+10. Generación de feed Facebook/WhatsApp Catalog (generar_feed_facebook.py)
+11. Sincronización Google Sheets / Facebook Catalog (opcional) (06_sincronizar_google_sheets_OPTIMIZADO.py)
 
 AUTOR: Sistema Ecommerce Automation
 FECHA: 2026-06-12
@@ -86,6 +87,7 @@ class ActualizadorMaestro:
             'cloudinary': '03_subir_imagenes_cloudinary.py',
             'precios': '04_calculo_precios.py',
             'sqlite': '11_sincronizar_sqlite.py',
+            'paginas_producto': '12_generar_paginas_producto.py',
             'feed_facebook': 'generar_feed_facebook.py',
             'sheets': '06_sincronizar_google_sheets_OPTIMIZADO.py',
         }
@@ -288,6 +290,8 @@ class ActualizadorMaestro:
             'pages/facebook_catalog.csv',
             'data/productos',
             'data/precios',
+            'pages/producto',
+            'pages/sitemap.xml',
         ]
 
         try:
@@ -478,29 +482,36 @@ class ActualizadorMaestro:
             print("\n⛔ Actualización falló en sincronización")
             return False
 
-        # PASO 10: Generar feed de Facebook/WhatsApp Catalog
+        # PASO 10: Generar páginas estáticas de producto (SEO)
         self.ejecutar_script(
-            "10. Generación de feed Facebook/WhatsApp",
+            "10. Generación de páginas estáticas de producto (SEO)",
+            self.scripts['paginas_producto'],
+            obligatorio=False
+        )
+
+        # PASO 11: Generar feed de Facebook/WhatsApp Catalog
+        self.ejecutar_script(
+            "11. Generación de feed Facebook/WhatsApp",
             self.scripts['feed_facebook'],
             obligatorio=False
         )
 
-        # PASO 11: Sincronizar Google Sheets / Facebook Catalog (opcional)
+        # PASO 12: Sincronizar Google Sheets / Facebook Catalog (opcional)
         sheets_script = self.scripts_dir / self.scripts.get('sheets', '')
         if sheets_script and sheets_script.exists():
             self.ejecutar_script(
-                "11. Sincronización a Google Sheets / Facebook Catalog",
+                "12. Sincronización a Google Sheets / Facebook Catalog",
                 self.scripts['sheets'],
                 obligatorio=False
             )
         else:
             print("\n⏭️  Google Sheets no disponible (script no encontrado)")
 
-        # PASO 12: Verificar resultado
+        # PASO 13: Verificar resultado
         if not self.verificar_resultado():
             print("\n⚠️  Verificación falló, revisar manualmente")
 
-        # PASO 13: Publicar catalogo.db (opcional)
+        # PASO 14: Publicar catalogo.db (opcional)
         if self.auto_push:
             self.git_push_catalogo()
         else:
@@ -540,10 +551,17 @@ class ActualizadorMaestro:
         ):
             return False
 
+        # PASO 5: Generar páginas estáticas de producto (SEO)
+        self.ejecutar_script(
+            "5. Generación de páginas estáticas de producto (SEO)",
+            self.scripts['paginas_producto'],
+            obligatorio=False
+        )
+
         if not self.verificar_resultado():
             print("\n⚠️  Verificación falló, revisar manualmente")
 
-        # PASO 5: Publicar catalogo.db (opcional)
+        # PASO 6: Publicar catalogo.db (opcional)
         if self.auto_push:
             self.git_push_catalogo()
         else:

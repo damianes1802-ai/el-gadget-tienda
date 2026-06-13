@@ -1,477 +1,352 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finalizar Compra</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 18px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-        }
-        .header h1 { font-size: 22px; }
-        .header a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 14px; }
-        .header a:hover { color: white; }
-
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .container { grid-template-columns: 1fr; }
-            .resumen { order: -1; }
-        }
-
-        .form-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            padding: 30px;
-        }
-
-        .form-card h2 {
-            font-size: 18px;
-            margin-bottom: 22px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #f0f0f0;
-            color: #444;
-        }
-
-        .section-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #667eea;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 24px 0 14px;
-        }
-
-        .form-row {
-            display: grid;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        .form-row.cols-2 { grid-template-columns: 1fr 1fr; }
-        .form-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-        .form-row.cols-4 { grid-template-columns: 2fr 1fr 1fr 1fr; }
-
-        @media (max-width: 500px) {
-            .form-row.cols-2, .form-row.cols-3, .form-row.cols-4 { grid-template-columns: 1fr; }
-        }
-
-        .form-group { display: flex; flex-direction: column; gap: 5px; }
-
-        .form-group label {
-            font-size: 13px;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .form-group input,
-        .form-group select {
-            padding: 10px 12px;
-            border: 1.5px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            background: white;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.12);
-        }
-
-        .form-group input.error, .form-group select.error {
-            border-color: #e53935;
-        }
-
-        .resumen {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            padding: 25px;
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-        }
-
-        .resumen h2 {
-            font-size: 17px;
-            margin-bottom: 18px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .resumen-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 10px 0;
-            border-bottom: 1px solid #f5f5f5;
-            gap: 10px;
-        }
-
-        .resumen-item .item-info { flex: 1; }
-        .item-nombre { font-size: 13px; font-weight: 500; }
-        .item-qty { font-size: 12px; color: #888; }
-        .item-precio { font-size: 14px; font-weight: 600; color: #4CAF50; white-space: nowrap; }
-
-        .resumen-linea {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .resumen-linea.total {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            border-top: 2px solid #f0f0f0;
-            padding-top: 12px;
-            margin-top: 6px;
-        }
-
-        .btn-pagar {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s, transform 0.1s;
-            margin-top: 18px;
-        }
-
-        .btn-pagar:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-pagar:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-
-        .secure-badge {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 12px;
-            color: #999;
-        }
-
-        .carrito-vacio {
-            text-align: center;
-            padding: 30px 0;
-            color: #aaa;
-            font-size: 14px;
-        }
-
-        #overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 15px;
-            color: white;
-            font-size: 16px;
-        }
-        #overlay.show { display: flex; }
-        .spinner {
-            width: 45px; height: 45px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizar compra | El Gadget</title>
+<meta name="description" content="Completá tus datos de envío y pago para finalizar tu compra en El Gadget.">
+<meta name="theme-color" content="#14151A">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<div class="header">
-    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
-        <h1>🛒 Finalizar Compra</h1>
-        <a href="frontend_basico.html">← Seguir comprando</a>
-    </div>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="frontend_basico.html" class="logo">
+      <div class="logo-badge">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="22" fill="#14151A"/>
+          <rect x="14" y="34" width="72" height="34" rx="17" fill="none" stroke="white" stroke-width="7"/>
+          <circle cx="34" cy="51" r="6" fill="white"/>
+          <rect x="58" y="42" width="6" height="18" rx="2" fill="#FFC700"/>
+          <rect x="68" y="36" width="6" height="30" rx="2" fill="#FFC700"/>
+          <rect x="78" y="45" width="6" height="12" rx="2" fill="#FFC700"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
+    </a>
+    <a href="carrito.html" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="label">Mi pedido</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="frontend_basico.html">Inicio</a>
+  <span class="sep">/</span>
+  <a href="carrito.html">Mi pedido</a>
+  <span class="sep">/</span>
+  <span class="current">Finalizar compra</span>
 </div>
 
-<div class="container">
+<!-- CONTENIDO -->
+<div class="page-wrap">
+  <h1 class="page-title">Finalizar compra</h1>
 
+  <div class="checkout-layout">
     <!-- FORMULARIO -->
-    <div class="form-card">
-        <h2>📋 Datos del comprador</h2>
+    <div class="form-panel">
+      <h2>Datos del comprador</h2>
 
-        <div class="section-title">Datos personales</div>
+      <div class="form-section-title">Datos personales</div>
 
-        <div class="form-row cols-2">
-            <div class="form-group">
-                <label for="nombre">Nombre *</label>
-                <input type="text" id="nombre" placeholder="Ej: Juan">
-            </div>
-            <div class="form-group">
-                <label for="apellido">Apellido *</label>
-                <input type="text" id="apellido" placeholder="Ej: García">
-            </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="nombre">Nombre *</label>
+          <input type="text" id="nombre" placeholder="Ej: Juan">
         </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="razon_social">Razón social <span style="color:#bbb;font-weight:400">(opcional)</span></label>
-                <input type="text" id="razon_social" placeholder="Nombre de empresa si aplica">
-            </div>
+        <div class="field">
+          <label for="apellido">Apellido *</label>
+          <input type="text" id="apellido" placeholder="Ej: García">
         </div>
+      </div>
 
-        <div class="form-row cols-2">
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" placeholder="correo@ejemplo.com">
-            </div>
-            <div class="form-group">
-                <label for="telefono">Teléfono / Celular *</label>
-                <input type="tel" id="telefono" placeholder="Ej: 1123456789">
-            </div>
+      <div class="field">
+        <label for="razon_social">Razón social <span class="optional">(opcional)</span></label>
+        <input type="text" id="razon_social" placeholder="Nombre de empresa si aplica">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="email">Email *</label>
+          <input type="email" id="email" placeholder="correo@ejemplo.com">
         </div>
-
-        <div class="form-row cols-2">
-            <div class="form-group">
-                <label for="cuit_dni">CUIT / DNI *</label>
-                <input type="text" id="cuit_dni" placeholder="Ej: 20-12345678-9">
-            </div>
+        <div class="field">
+          <label for="telefono">Teléfono / Celular *</label>
+          <input type="tel" id="telefono" placeholder="Ej: 1123456789">
         </div>
+      </div>
 
-        <div class="section-title">Dirección de envío</div>
+      <div class="field">
+        <label for="cuit_dni">CUIT / DNI *</label>
+        <input type="text" id="cuit_dni" placeholder="Ej: 20-12345678-9">
+      </div>
 
-        <div class="form-row cols-4">
-            <div class="form-group">
-                <label for="calle">Calle *</label>
-                <input type="text" id="calle" placeholder="Ej: Av. Corrientes">
-            </div>
-            <div class="form-group">
-                <label for="altura">Altura *</label>
-                <input type="text" id="altura" placeholder="1234">
-            </div>
-            <div class="form-group">
-                <label for="piso">Piso</label>
-                <input type="text" id="piso" placeholder="3">
-            </div>
-            <div class="form-group">
-                <label for="departamento">Dpto.</label>
-                <input type="text" id="departamento" placeholder="B">
-            </div>
+      <div class="form-section-title">Dirección de envío</div>
+
+      <div class="field-row">
+        <div class="field" style="flex:2">
+          <label for="calle">Calle *</label>
+          <input type="text" id="calle" placeholder="Ej: Av. Corrientes">
         </div>
-
-        <div class="form-row cols-2">
-            <div class="form-group">
-                <label for="pais">País</label>
-                <select id="pais">
-                    <option value="Argentina" selected>Argentina</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="provincia">Provincia *</label>
-                <select id="provincia">
-                    <option value="">Seleccione una provincia...</option>
-                    <option>CABA / Capital Federal</option>
-                    <option>Provincia de Buenos Aires</option>
-                    <option>Catamarca</option>
-                    <option>Chaco</option>
-                    <option>Chubut</option>
-                    <option>Córdoba</option>
-                    <option>Corrientes</option>
-                    <option>Entre Ríos</option>
-                    <option>Formosa</option>
-                    <option>Jujuy</option>
-                    <option>La Pampa</option>
-                    <option>La Rioja</option>
-                    <option>Mendoza</option>
-                    <option>Misiones</option>
-                    <option>Neuquén</option>
-                    <option>Río Negro</option>
-                    <option>Salta</option>
-                    <option>San Juan</option>
-                    <option>San Luis</option>
-                    <option>Santa Cruz</option>
-                    <option>Santa Fe</option>
-                    <option>Santiago del Estero</option>
-                    <option>Tierra del Fuego</option>
-                    <option>Tucumán</option>
-                </select>
-            </div>
+        <div class="field">
+          <label for="altura">Altura *</label>
+          <input type="text" id="altura" placeholder="1234">
         </div>
-
-        <div class="form-row cols-2">
-            <div class="form-group">
-                <label for="ciudad">Ciudad *</label>
-                <input type="text" id="ciudad" placeholder="Ej: Buenos Aires">
-            </div>
-            <div class="form-group">
-                <label for="codigo_postal">Código Postal *</label>
-                <input type="text" id="codigo_postal" placeholder="Ej: 1043" maxlength="8">
-            </div>
+        <div class="field">
+          <label for="piso">Piso</label>
+          <input type="text" id="piso" placeholder="3">
         </div>
-
-        <div class="form-group" style="margin-top:10px">
-            <label for="notas">Notas / Aclaraciones <span style="color:#bbb;font-weight:400">(opcional)</span></label>
-            <input type="text" id="notas" placeholder="Instrucciones especiales para el envío...">
+        <div class="field">
+          <label for="departamento">Dpto.</label>
+          <input type="text" id="departamento" placeholder="B">
         </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="pais">País</label>
+          <select id="pais">
+            <option value="Argentina" selected>Argentina</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="provincia">Provincia *</label>
+          <select id="provincia">
+            <option value="">Seleccione una provincia...</option>
+            <option>CABA / Capital Federal</option>
+            <option>Provincia de Buenos Aires</option>
+            <option>Catamarca</option>
+            <option>Chaco</option>
+            <option>Chubut</option>
+            <option>Córdoba</option>
+            <option>Corrientes</option>
+            <option>Entre Ríos</option>
+            <option>Formosa</option>
+            <option>Jujuy</option>
+            <option>La Pampa</option>
+            <option>La Rioja</option>
+            <option>Mendoza</option>
+            <option>Misiones</option>
+            <option>Neuquén</option>
+            <option>Río Negro</option>
+            <option>Salta</option>
+            <option>San Juan</option>
+            <option>San Luis</option>
+            <option>Santa Cruz</option>
+            <option>Santa Fe</option>
+            <option>Santiago del Estero</option>
+            <option>Tierra del Fuego</option>
+            <option>Tucumán</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="ciudad">Ciudad *</label>
+          <input type="text" id="ciudad" placeholder="Ej: Buenos Aires">
+        </div>
+        <div class="field">
+          <label for="codigo_postal">Código postal *</label>
+          <input type="text" id="codigo_postal" placeholder="Ej: 1043" maxlength="8">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="notas">Notas / Aclaraciones <span class="optional">(opcional)</span></label>
+        <input type="text" id="notas" placeholder="Instrucciones especiales para el envío...">
+      </div>
     </div>
 
     <!-- RESUMEN -->
-    <div class="resumen">
-        <h2>📦 Tu pedido</h2>
-        <div id="resumen-items"></div>
-        <div id="resumen-totales"></div>
-        <button class="btn-pagar" id="btn-pagar" onclick="procesarPago()" disabled>
-            💳 Ir a pagar con MercadoPago
-        </button>
-        <div class="secure-badge">🔒 Pago seguro vía MercadoPago</div>
+    <div class="summary">
+      <h2>Tu pedido</h2>
+      <div id="resumenItems"></div>
+      <div id="resumenTotales"></div>
+      <button class="btn btn-accent btn-block" id="btnPagar" onclick="procesarPago()" disabled style="margin-top:16px">Ir a pagar con Mercado Pago</button>
+      <div class="security-note">🔒 Pago seguro vía Mercado Pago</div>
     </div>
-
+  </div>
 </div>
 
-<div id="overlay">
-    <div class="spinner"></div>
-    <span>Procesando tu pedido...</span>
+<!-- OVERLAY DE CARGA -->
+<div class="overlay" id="overlay">
+  <div class="spinner"></div>
+  <span>Procesando tu pedido...</span>
 </div>
 
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-badge">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="22" fill="#14151A"/>
+            <rect x="14" y="34" width="72" height="34" rx="17" fill="none" stroke="white" stroke-width="7"/>
+            <circle cx="34" cy="51" r="6" fill="white"/>
+            <rect x="58" y="42" width="6" height="18" rx="2" fill="#FFC700"/>
+            <rect x="68" y="36" width="6" height="30" rx="2" fill="#FFC700"/>
+            <rect x="78" y="45" width="6" height="12" rx="2" fill="#FFC700"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <div class="logo-name">El<span> Gadget</span></div>
+          <div class="logo-tagline">Tienda online</div>
+        </div>
+      </div>
+      <p>Productos para el hogar, moda, tecnología y mucho más. Elegí, armá tu pedido y coordinamos todo por WhatsApp.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <a href="carrito.html">Mi pedido</a>
+      <a href="seguimiento.html">Seguimiento de pedido</a>
+      <a href="faq.html">Preguntas frecuentes</a>
+      <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Información</h4>
+      <a href="sobre_nosotros.html">Sobre nosotros</a>
+      <a href="#" onclick="return false;">Envíos a todo el país</a>
+      <a href="#" onclick="return false;">Pagos seguros</a>
+      <a href="arrepentimiento.html">Botón de arrepentimiento</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+</a>
+
+<script src="assets/js/cart.js"></script>
 <script>
-    const API_URL = 'https://el-gadget-tienda.onrender.com';
-    let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+const API_URL = 'https://el-gadget-tienda.onrender.com';
+const carrito = getCarrito();
 
-    function renderResumen() {
-        const itemsEl = document.getElementById('resumen-items');
-        const totalesEl = document.getElementById('resumen-totales');
-        const btnPagar = document.getElementById('btn-pagar');
+document.getElementById('year').textContent = new Date().getFullYear();
 
-        if (carrito.length === 0) {
-            itemsEl.innerHTML = '<div class="carrito-vacio">🛒 Tu carrito está vacío</div>';
-            totalesEl.innerHTML = '';
-            btnPagar.disabled = true;
-            return;
-        }
+function renderResumen() {
+  const itemsEl = document.getElementById('resumenItems');
+  const totalesEl = document.getElementById('resumenTotales');
+  const btnPagar = document.getElementById('btnPagar');
 
-        let total = 0;
-        itemsEl.innerHTML = carrito.map(item => {
-            const sub = item.precio * item.cantidad;
-            total += sub;
-            return `<div class="resumen-item">
-                <div class="item-info">
-                    <div class="item-nombre">${item.nombre}</div>
-                    <div class="item-qty">Cantidad: ${item.cantidad}</div>
-                </div>
-                <div class="item-precio">$${sub.toLocaleString('es-AR',{minimumFractionDigits:2})}</div>
-            </div>`;
-        }).join('');
+  if (!carrito.length) {
+    itemsEl.innerHTML = '<div class="empty-state" style="padding:1.5rem 1rem"><div class="emoji" style="font-size:34px">🛒</div><p style="margin-bottom:0">Tu pedido está vacío.</p></div>';
+    totalesEl.innerHTML = '';
+    btnPagar.disabled = true;
+    return;
+  }
 
-        totalesEl.innerHTML = `
-            <div class="resumen-linea"><span>Subtotal</span><span>$${total.toLocaleString('es-AR',{minimumFractionDigits:2})}</span></div>
-            <div class="resumen-linea"><span>Envío</span><span style="color:#4CAF50">A calcular</span></div>
-            <div class="resumen-linea total"><span>Total</span><span>$${total.toLocaleString('es-AR',{minimumFractionDigits:2})}</span></div>
-        `;
-        btnPagar.disabled = false;
+  let total = 0;
+  itemsEl.innerHTML = carrito.map(item => {
+    const sub = item.precio * item.cantidad;
+    total += sub;
+    return `
+      <div class="summary-item">
+        <div class="item-info">
+          <div class="item-nombre">${item.nombre}</div>
+          <div class="item-qty">Cantidad: ${item.cantidad}</div>
+        </div>
+        <div class="item-precio">${formatPrice(sub)}</div>
+      </div>`;
+  }).join('');
+
+  totalesEl.innerHTML = `
+    <div class="summary-line" style="margin-top:10px"><span>Subtotal</span><span>${formatPrice(total)}</span></div>
+    <div class="summary-line"><span>Envío</span><span class="shipping-badge">A coordinar</span></div>
+    <div class="summary-line total"><span>Total</span><span>${formatPrice(total)}</span></div>
+  `;
+  btnPagar.disabled = false;
+}
+
+function validarFormulario() {
+  const requeridos = ['nombre','apellido','email','telefono','cuit_dni','calle','altura','provincia','ciudad','codigo_postal'];
+  document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+  let ok = true;
+  requeridos.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) { el.classList.add('error'); ok = false; }
+  });
+  if (!ok) {
+    showToast('⚠️ Completá todos los campos obligatorios');
+  }
+  return ok;
+}
+
+async function procesarPago() {
+  if (!validarFormulario()) return;
+  if (!carrito.length) { showToast('Tu pedido está vacío'); return; }
+
+  document.getElementById('overlay').classList.add('show');
+  document.getElementById('btnPagar').disabled = true;
+
+  const c = id => document.getElementById(id).value.trim();
+  const direccionCompleta = [c('calle'), c('altura'), c('piso') ? `Piso ${c('piso')}` : '', c('departamento') ? `Dpto ${c('departamento')}` : ''].filter(Boolean).join(' ');
+
+  const payload = {
+    cliente: {
+      nombre: c('nombre'),
+      apellido: c('apellido'),
+      razon_social: c('razon_social'),
+      email: c('email'),
+      telefono: c('telefono'),
+      cuit_dni: c('cuit_dni'),
+      calle: c('calle'),
+      altura: c('altura'),
+      piso: c('piso'),
+      departamento: c('departamento'),
+      direccion: direccionCompleta,
+      pais: 'Argentina',
+      provincia: c('provincia'),
+      ciudad: c('ciudad'),
+      codigo_postal: c('codigo_postal')
+    },
+    items: carrito.map(item => ({ sku: item.sku, cantidad: item.cantidad })),
+    notas: c('notas')
+  };
+
+  try {
+    const res = await fetch(`${API_URL}/api/orden`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'Error al crear la orden');
+
+    guardarCarrito([]);
+
+    if (data.mp_checkout_url) {
+      window.location.href = data.mp_checkout_url;
+    } else {
+      window.location.href = `confirmacion.html?orden_id=${data.orden_id}`;
     }
+  } catch (err) {
+    console.error(err);
+    document.getElementById('overlay').classList.remove('show');
+    document.getElementById('btnPagar').disabled = false;
+    showToast(`❌ Error: ${err.message}`);
+  }
+}
 
-    function validarFormulario() {
-        const requeridos = ['nombre','apellido','email','telefono','cuit_dni','calle','altura','provincia','ciudad','codigo_postal'];
-        document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
-        let ok = true;
-        requeridos.forEach(id => {
-            const el = document.getElementById(id);
-            if (!el.value.trim()) { el.classList.add('error'); ok = false; }
-        });
-        if (!ok) alert('⚠️ Por favor completá todos los campos obligatorios marcados en rojo.');
-        return ok;
-    }
-
-    async function procesarPago() {
-        if (!validarFormulario()) return;
-        if (carrito.length === 0) { alert('El carrito está vacío.'); return; }
-
-        document.getElementById('overlay').classList.add('show');
-        document.getElementById('btn-pagar').disabled = true;
-
-        const c = id => document.getElementById(id).value.trim();
-        const direccionCompleta = [c('calle'), c('altura'), c('piso') ? `Piso ${c('piso')}` : '', c('departamento') ? `Dpto ${c('departamento')}` : ''].filter(Boolean).join(' ');
-
-        const payload = {
-            cliente: {
-                nombre: c('nombre'),
-                apellido: c('apellido'),
-                razon_social: c('razon_social'),
-                email: c('email'),
-                telefono: c('telefono'),
-                cuit_dni: c('cuit_dni'),
-                calle: c('calle'),
-                altura: c('altura'),
-                piso: c('piso'),
-                departamento: c('departamento'),
-                direccion: direccionCompleta,
-                pais: 'Argentina',
-                provincia: c('provincia'),
-                ciudad: c('ciudad'),
-                codigo_postal: c('codigo_postal')
-            },
-            items: carrito.map(item => ({ sku: item.sku, cantidad: item.cantidad })),
-            notas: c('notas')
-        };
-
-        try {
-            const res = await fetch(`${API_URL}/api/orden`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.detail || 'Error al crear la orden');
-
-            localStorage.removeItem('carrito');
-
-            if (data.mp_checkout_url) {
-                window.location.href = data.mp_checkout_url;
-            } else {
-                window.location.href = `confirmacion.html?orden_id=${data.orden_id}`;
-            }
-        } catch (err) {
-            console.error(err);
-            document.getElementById('overlay').classList.remove('show');
-            document.getElementById('btn-pagar').disabled = false;
-            alert(`❌ Error: ${err.message}`);
-        }
-    }
-
-    renderResumen();
+renderResumen();
 </script>
-    <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
-        <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
-    </a>
-    <style>
-        .whatsapp-float {
-            position: fixed; bottom: 24px; left: 24px; width: 56px; height: 56px;
-            background: #25d366; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            z-index: 9998; transition: transform 0.2s ease;
-        }
-        .whatsapp-float:hover { transform: scale(1.08); }
-    </style>
+<div class="toast" id="toast"></div>
 </body>
 </html>

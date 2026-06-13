@@ -1,776 +1,385 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Producto - Ecommerce</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        /* Header */
-        .header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #2563eb;
-            text-decoration: none;
-        }
-
-        .cart-icon {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .cart-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-
-        /* Breadcrumb */
-        .breadcrumb {
-            max-width: 1400px;
-            margin: 1.5rem auto;
-            padding: 0 2rem;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .breadcrumb a {
-            color: #2563eb;
-            text-decoration: none;
-        }
-
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-
-        /* Container principal */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Grid de producto */
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 3rem;
-        }
-
-        /* Galería de imágenes */
-        .gallery {
-            position: sticky;
-            top: 100px;
-            height: fit-content;
-        }
-
-        .main-image {
-            width: 100%;
-            height: 500px;
-            object-fit: contain;
-            background: #f9fafb;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            cursor: zoom-in;
-        }
-
-        .thumbnails {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 0.5rem;
-        }
-
-        .thumbnail {
-            width: 100%;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 4px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: border 0.2s;
-        }
-
-        .thumbnail:hover, .thumbnail.active {
-            border-color: #2563eb;
-        }
-
-        /* Información del producto */
-        .product-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .product-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #111;
-            line-height: 1.2;
-        }
-
-        .product-price {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #2563eb;
-        }
-
-        .product-sku {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        /* Selector de variantes */
-        .variants-section {
-            border-top: 1px solid #e5e7eb;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 1.5rem 0;
-        }
-
-        .variant-label {
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            display: block;
-        }
-
-        .variant-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .variant-option {
-            padding: 0.75rem 1.25rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: white;
-            font-weight: 500;
-        }
-
-        .variant-option:hover {
-            border-color: #2563eb;
-            background: #eff6ff;
-        }
-
-        .variant-option.active {
-            border-color: #2563eb;
-            background: #2563eb;
-            color: white;
-        }
-
-        /* Descripción */
-        .description {
-            line-height: 1.8;
-            color: #555;
-            white-space: pre-wrap;
-        }
-
-        /* Botones */
-        .actions {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: #2563eb;
-            color: white;
-            flex: 1;
-        }
-
-        .btn-primary:hover {
-            background: #1d4ed8;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: #2563eb;
-            border: 2px solid #2563eb;
-        }
-
-        .btn-secondary:hover {
-            background: #eff6ff;
-        }
-
-        /* Productos relacionados */
-        .related-section {
-            margin-top: 4rem;
-        }
-
-        .section-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: #111;
-        }
-
-        .related-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .product-card-info {
-            padding: 1rem;
-        }
-
-        .product-card-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .product-card-price {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #2563eb;
-        }
-
-        /* Stock badge */
-        .stock-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .stock-badge.in-stock {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .stock-badge.out-of-stock {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 4rem;
-            font-size: 1.25rem;
-            color: #666;
-        }
-
-        /* Responsive */
-        @media (max-width: 968px) {
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery {
-                position: static;
-            }
-
-            .main-image {
-                height: 400px;
-            }
-
-            .product-title {
-                font-size: 1.5rem;
-            }
-
-            .product-price {
-                font-size: 2rem;
-            }
-
-            .related-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-        }
-
-        /* Categoría badge */
-        .category-badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: #eff6ff;
-            color: #2563eb;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        /* Notification toast */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: #10b981;
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 0.3s;
-            z-index: 1000;
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Producto | El Gadget</title>
+<meta name="description" id="pageDescription" content="Descubrí este producto en El Gadget. Armá tu pedido y te confirmamos por WhatsApp.">
+<meta name="theme-color" content="#14151A">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <a href="frontend_basico.html" class="logo">🛒 Mi Tienda</a>
-            <div class="cart-icon" onclick="verCarrito()">
-                🛒
-                <span class="cart-badge" id="cart-count">0</span>
-            </div>
-        </div>
-    </header>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb" id="breadcrumb">
-        <a href="frontend_basico.html">Inicio</a> / 
-        <span id="breadcrumb-category">Cargando...</span> / 
-        <span id="breadcrumb-product">Producto</span>
-    </div>
-
-    <!-- Container principal -->
-    <div class="container">
-        <div id="loading" class="loading">
-            Cargando producto...
-        </div>
-
-        <div id="product-content" style="display: none;">
-            <!-- Grid de producto -->
-            <div class="product-grid">
-                <!-- Galería -->
-                <div class="gallery">
-                    <img id="main-image" class="main-image" src="" alt="" onclick="zoomImage()">
-                    <div id="thumbnails" class="thumbnails"></div>
-                </div>
-
-                <!-- Información -->
-                <div class="product-info">
-                    <div>
-                        <span id="category-badge" class="category-badge"></span>
-                    </div>
-
-                    <h1 id="product-title" class="product-title"></h1>
-
-                    <div>
-                        <div id="product-price" class="product-price"></div>
-                        <div id="product-sku" class="product-sku"></div>
-                    </div>
-
-                    <div>
-                        <span id="stock-badge" class="stock-badge in-stock">✓ En stock</span>
-                    </div>
-
-                    <!-- Variantes -->
-                    <div id="variants-section" class="variants-section" style="display: none;">
-                        <label class="variant-label" id="variant-label">Variantes disponibles:</label>
-                        <div id="variant-options" class="variant-options"></div>
-                    </div>
-
-                    <!-- Descripción -->
-                    <div>
-                        <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem;">Descripción</h3>
-                        <div id="product-description" class="description"></div>
-                    </div>
-
-                    <!-- Acciones -->
-                    <div class="actions">
-                        <button class="btn btn-primary" onclick="agregarAlCarrito()">
-                            🛒 Agregar al carrito
-                        </button>
-                        <button class="btn btn-secondary" onclick="comprarAhora()">
-                            ⚡ Comprar ahora
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Productos relacionados -->
-            <div id="related-section" class="related-section" style="display: none;">
-                <h2 class="section-title">Productos relacionados</h2>
-                <div id="related-grid" class="related-grid"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast notification -->
-    <div id="toast" class="toast">
-        ✓ Producto agregado al carrito
-    </div>
-
-    <script>
-        const API_URL = 'https://el-gadget-tienda.onrender.com';
-        let productoActual = null;
-        let skuSeleccionado = null;
-
-        // Obtener SKU de la URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const sku = urlParams.get('sku');
-
-        if (!sku) {
-            document.getElementById('loading').innerHTML = '❌ No se especificó un producto';
-        } else {
-            cargarProducto(sku);
-        }
-
-        // Cargar producto
-        async function cargarProducto(sku) {
-            try {
-                const response = await fetch(`${API_URL}/api/producto/${sku}`);
-                
-                if (!response.ok) {
-                    throw new Error('Producto no encontrado');
-                }
-
-                productoActual = await response.json();
-                skuSeleccionado = sku;
-                
-                mostrarProducto();
-                actualizarContadorCarrito();
-                
-            } catch (error) {
-                document.getElementById('loading').innerHTML = `❌ Error: ${error.message}`;
-                console.error('Error cargando producto:', error);
-            }
-        }
-
-        // Mostrar producto
-        function mostrarProducto() {
-            // Ocultar loading
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('product-content').style.display = 'block';
-
-            // Breadcrumb
-            document.getElementById('breadcrumb-category').textContent = productoActual.categoria || 'Categoría';
-            document.getElementById('breadcrumb-product').textContent = productoActual.nombre.substring(0, 40) + '...';
-
-            // Categoría
-            document.getElementById('category-badge').textContent = productoActual.categoria || 'General';
-
-            // Título
-            document.getElementById('product-title').textContent = productoActual.nombre;
-
-            // Precio
-            const precio = new Intl.NumberFormat('es-AR', {
-                style: 'currency',
-                currency: 'ARS',
-                minimumFractionDigits: 0
-            }).format(productoActual.precio_venta);
-            document.getElementById('product-price').textContent = precio;
-
-            // SKU
-            document.getElementById('product-sku').textContent = `SKU: ${productoActual.sku}`;
-
-            // Stock
-            const stockBadge = document.getElementById('stock-badge');
-            if (productoActual.stock > 0) {
-                stockBadge.className = 'stock-badge in-stock';
-                stockBadge.textContent = '✓ En stock';
-            } else {
-                stockBadge.className = 'stock-badge out-of-stock';
-                stockBadge.textContent = '✗ Agotado';
-            }
-
-            // Descripción
-            document.getElementById('product-description').textContent = productoActual.descripcion || 'Sin descripción disponible.';
-
-            // Imágenes
-            mostrarImagenes();
-
-            // Variantes
-            if (productoActual.tiene_variantes && productoActual.variantes.length > 0) {
-                mostrarVariantes();
-            }
-
-            // Productos relacionados
-            if (productoActual.productos_relacionados && productoActual.productos_relacionados.length > 0) {
-                mostrarRelacionados();
-            }
-        }
-
-        // Mostrar imágenes
-        function mostrarImagenes() {
-            const imagenes = productoActual.imagenes || [];
-            
-            if (imagenes.length === 0) {
-                // Imagen placeholder
-                document.getElementById('main-image').src = 'https://via.placeholder.com/500x500?text=Sin+Imagen';
-                return;
-            }
-
-            // Imagen principal
-            document.getElementById('main-image').src = imagenes[0];
-            document.getElementById('main-image').alt = productoActual.nombre;
-
-            // Thumbnails
-            const thumbnailsContainer = document.getElementById('thumbnails');
-            thumbnailsContainer.innerHTML = '';
-
-            imagenes.forEach((img, index) => {
-                const thumb = document.createElement('img');
-                thumb.src = img;
-                thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
-                thumb.onclick = () => cambiarImagen(img, index);
-                thumbnailsContainer.appendChild(thumb);
-            });
-        }
-
-        // Cambiar imagen principal
-        function cambiarImagen(src, index) {
-            document.getElementById('main-image').src = src;
-            
-            // Actualizar thumbnails activos
-            document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-                thumb.classList.toggle('active', i === index);
-            });
-        }
-
-        // Zoom de imagen (placeholder - se puede mejorar con librería)
-        function zoomImage() {
-            const img = document.getElementById('main-image');
-            window.open(img.src, '_blank');
-        }
-
-        // Mostrar variantes
-        function mostrarVariantes() {
-            const section = document.getElementById('variants-section');
-            section.style.display = 'block';
-
-            const container = document.getElementById('variant-options');
-            container.innerHTML = '';
-
-            // Agregar producto actual como primera opción
-            const currentOption = crearOpcionVariante(productoActual, true);
-            container.appendChild(currentOption);
-
-            // Agregar otras variantes
-            productoActual.variantes.forEach(variante => {
-                const option = crearOpcionVariante(variante, false);
-                container.appendChild(option);
-            });
-        }
-
-        // Crear opción de variante
-        function crearOpcionVariante(variante, esActual) {
-            const option = document.createElement('div');
-            option.className = 'variant-option' + (esActual ? ' active' : '');
-            
-            // Mostrar color o talle
-            let label = variante.color || variante.talle || variante.sku;
-            option.textContent = label;
-            
-            option.onclick = () => {
-                if (!esActual) {
-                    // Cambiar a otra variante
-                    window.location.href = `producto_detalle.html?sku=${variante.sku}`;
-                }
-            };
-
-            return option;
-        }
-
-        // Mostrar productos relacionados
-        function mostrarRelacionados() {
-            const section = document.getElementById('related-section');
-            section.style.display = 'block';
-
-            const grid = document.getElementById('related-grid');
-            grid.innerHTML = '';
-
-            productoActual.productos_relacionados.forEach(prod => {
-                const card = crearTarjetaProducto(prod);
-                grid.appendChild(card);
-            });
-        }
-
-        // Crear tarjeta de producto
-        function crearTarjetaProducto(producto) {
-            const card = document.createElement('a');
-            card.className = 'product-card';
-            card.href = `producto_detalle.html?sku=${producto.sku}`;
-
-            const precio = new Intl.NumberFormat('es-AR', {
-                style: 'currency',
-                currency: 'ARS',
-                minimumFractionDigits: 0
-            }).format(producto.precio_venta);
-
-            card.innerHTML = `
-                <img src="${producto.imagenes[0] || 'https://via.placeholder.com/250'}" alt="${producto.nombre}">
-                <div class="product-card-info">
-                    <div class="product-card-title">${producto.nombre}</div>
-                    <div class="product-card-price">${precio}</div>
-                </div>
-            `;
-
-            return card;
-        }
-
-        // Agregar al carrito
-        function agregarAlCarrito() {
-            if (productoActual.stock <= 0) {
-                alert('Producto agotado');
-                return;
-            }
-
-            // Obtener carrito actual
-            let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
-
-            // Buscar si ya existe
-            const index = carrito.findIndex(item => item.sku === skuSeleccionado);
-
-            if (index >= 0) {
-                // Incrementar cantidad
-                carrito[index].cantidad += 1;
-            } else {
-                // Agregar nuevo
-                carrito.push({
-                    sku: skuSeleccionado,
-                    nombre: productoActual.nombre,
-                    precio: productoActual.precio_venta,
-                    imagen: productoActual.imagenes[0] || '',
-                    cantidad: 1
-                });
-            }
-
-            // Guardar
-            localStorage.setItem('carrito', JSON.stringify(carrito));
-
-            // Actualizar contador
-            actualizarContadorCarrito();
-
-            // Mostrar toast
-            mostrarToast();
-        }
-
-        // Comprar ahora
-        function comprarAhora() {
-            agregarAlCarrito();
-            window.location.href = 'carrito.html';
-        }
-
-        // Ver carrito
-        function verCarrito() {
-            window.location.href = 'carrito.html';
-        }
-
-        // Actualizar contador de carrito
-        function actualizarContadorCarrito() {
-            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
-            const total = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-            document.getElementById('cart-count').textContent = total;
-        }
-
-        // Mostrar toast
-        function mostrarToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-    </script>
-    <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
-        <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="frontend_basico.html" class="logo">
+      <div class="logo-badge">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="22" fill="#14151A"/>
+          <rect x="14" y="34" width="72" height="34" rx="17" fill="none" stroke="white" stroke-width="7"/>
+          <circle cx="34" cy="51" r="6" fill="white"/>
+          <rect x="58" y="42" width="6" height="18" rx="2" fill="#FFC700"/>
+          <rect x="68" y="36" width="6" height="30" rx="2" fill="#FFC700"/>
+          <rect x="78" y="45" width="6" height="12" rx="2" fill="#FFC700"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
     </a>
-    <style>
-        .whatsapp-float {
-            position: fixed; bottom: 24px; left: 24px; width: 56px; height: 56px;
-            background: #25d366; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            z-index: 9998; transition: transform 0.2s ease;
-        }
-        .whatsapp-float:hover { transform: scale(1.08); }
-    </style>
+    <div class="search-desktop">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){window.location.href='frontend_basico.html?buscar='+encodeURIComponent(this.value)}">
+      </div>
+    </div>
+    <a href="carrito.html" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="label">Mi pedido</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb" id="breadcrumb">
+  <a href="frontend_basico.html">Inicio</a>
+  <span class="sep">/</span>
+  <span class="current" id="breadcrumbCategory">Cargando...</span>
+  <span class="sep">/</span>
+  <span class="current" id="breadcrumbProduct">Producto</span>
+</div>
+
+<!-- ESTADO / LOADING -->
+<div class="state-msg" id="stateMsg">
+  <div class="spinner"></div>
+  <div>Cargando producto... puede tardar unos segundos.</div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="product-wrap" id="productWrap" style="display:none">
+  <div class="product-grid">
+    <!-- Galería -->
+    <div class="gallery">
+      <div class="main-image-wrap">
+        <img id="mainImage" class="main-image" src="" alt="" onclick="zoomImage()">
+      </div>
+      <div class="thumbnails" id="thumbnails"></div>
+    </div>
+
+    <!-- Información -->
+    <div class="product-info">
+      <span class="product-cat-badge" id="categoryBadge"></span>
+      <h1 class="product-title" id="productTitle"></h1>
+      <div>
+        <div class="product-price" id="productPrice"></div>
+        <div class="product-sku" id="productSku"></div>
+      </div>
+      <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
+
+      <!-- Variantes -->
+      <div class="variants-section" id="variantsSection" style="display:none">
+        <label class="variant-label" id="variantLabel">Variantes disponibles</label>
+        <div class="variant-options" id="variantOptions"></div>
+      </div>
+
+      <!-- Descripción -->
+      <div class="product-description">
+        <h3>Descripción</h3>
+        <div class="description" id="productDescription"></div>
+      </div>
+
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Productos relacionados -->
+  <div class="related-section" id="relatedSection" style="display:none">
+    <div class="grid-heading">
+      <h2>Productos relacionados</h2>
+    </div>
+    <div class="grid" id="relatedGrid"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-badge">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="22" fill="#14151A"/>
+            <rect x="14" y="34" width="72" height="34" rx="17" fill="none" stroke="white" stroke-width="7"/>
+            <circle cx="34" cy="51" r="6" fill="white"/>
+            <rect x="58" y="42" width="6" height="18" rx="2" fill="#FFC700"/>
+            <rect x="68" y="36" width="6" height="30" rx="2" fill="#FFC700"/>
+            <rect x="78" y="45" width="6" height="12" rx="2" fill="#FFC700"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <div class="logo-name">El<span> Gadget</span></div>
+          <div class="logo-tagline">Tienda online</div>
+        </div>
+      </div>
+      <p>Productos para el hogar, moda, tecnología y mucho más. Elegí, armá tu pedido y coordinamos todo por WhatsApp.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <a href="carrito.html">Mi pedido</a>
+      <a href="seguimiento.html">Seguimiento de pedido</a>
+      <a href="faq.html">Preguntas frecuentes</a>
+      <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Información</h4>
+      <a href="sobre_nosotros.html">Sobre nosotros</a>
+      <a href="#" onclick="return false;">Envíos a todo el país</a>
+      <a href="#" onclick="return false;">Pagos seguros</a>
+      <a href="arrepentimiento.html">Botón de arrepentimiento</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+</a>
+
+<!-- CARRITO BAR -->
+<div class="cart-bar" id="cartBar">
+  <div class="cart-bar-info">
+    <div class="cart-bar-count" id="cartBarCount">0</div>
+    <div class="cart-bar-text">Tu pedido<strong id="cartBarTotal">$0</strong></div>
+  </div>
+  <a class="cart-bar-btn" href="carrito.html">Ver pedido</a>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/cart.js"></script>
+<script>
+const API_URL = 'https://el-gadget-tienda.onrender.com';
+let productoActual = null;
+let skuSeleccionado = null;
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Obtener SKU de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const sku = urlParams.get('sku');
+
+if (!sku) {
+  document.getElementById('stateMsg').innerHTML = `
+    <div class="icon">❌</div>
+    <div>No se especificó un producto.</div>`;
+} else {
+  cargarProducto(sku);
+}
+
+// Cargar producto
+async function cargarProducto(sku) {
+  try {
+    document.getElementById('stateMsg').style.display = 'block';
+    document.getElementById('productWrap').style.display = 'none';
+
+    const res = await fetch(`${API_URL}/api/producto/${sku}`);
+    if (!res.ok) throw new Error('Producto no encontrado');
+
+    productoActual = await res.json();
+    skuSeleccionado = sku;
+
+    mostrarProducto();
+  } catch (e) {
+    document.getElementById('stateMsg').innerHTML = `
+      <div class="icon">⚠️</div>
+      <div>No pudimos cargar el producto.<br><small>${e.message}</small></div>
+      <button class="retry-btn" onclick="cargarProducto('${sku}')">Reintentar</button>`;
+  }
+}
+
+// Mostrar producto
+function mostrarProducto() {
+  document.getElementById('stateMsg').style.display = 'none';
+  document.getElementById('productWrap').style.display = 'block';
+
+  // Título y meta description (para compartir)
+  document.title = `${productoActual.nombre} | El Gadget`;
+  document.getElementById('pageDescription').setAttribute('content',
+    (productoActual.descripcion || productoActual.nombre).substring(0, 160));
+
+  // Breadcrumb
+  document.getElementById('breadcrumbCategory').textContent = productoActual.categoria || 'Categoría';
+  document.getElementById('breadcrumbProduct').textContent =
+    productoActual.nombre.length > 40 ? productoActual.nombre.substring(0, 40) + '…' : productoActual.nombre;
+
+  // Categoría
+  document.getElementById('categoryBadge').textContent = productoActual.categoria || 'General';
+
+  // Título
+  document.getElementById('productTitle').textContent = productoActual.nombre;
+
+  // Precio
+  document.getElementById('productPrice').textContent = formatPrice(productoActual.precio_venta);
+
+  // SKU
+  document.getElementById('productSku').textContent = `SKU: ${productoActual.sku}`;
+
+  // Stock
+  const stockBadge = document.getElementById('stockBadge');
+  if (productoActual.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  // Descripción
+  document.getElementById('productDescription').textContent = productoActual.descripcion || 'Sin descripción disponible.';
+
+  // Imágenes
+  mostrarImagenes();
+
+  // Variantes
+  if (productoActual.tiene_variantes && productoActual.variantes && productoActual.variantes.length > 0) {
+    mostrarVariantes();
+  }
+
+  // Productos relacionados
+  if (productoActual.productos_relacionados && productoActual.productos_relacionados.length > 0) {
+    mostrarRelacionados();
+  }
+}
+
+// Mostrar imágenes
+function mostrarImagenes() {
+  const imagenes = productoActual.imagenes || [];
+  const main = document.getElementById('mainImage');
+  const thumbsContainer = document.getElementById('thumbnails');
+
+  if (!imagenes.length) {
+    main.removeAttribute('src');
+    main.alt = productoActual.nombre;
+    thumbsContainer.innerHTML = '';
+    return;
+  }
+
+  main.src = imagenes[0];
+  main.alt = productoActual.nombre;
+
+  thumbsContainer.innerHTML = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${productoActual.nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+}
+
+// Cambiar imagen principal
+function cambiarImagen(src, index) {
+  document.getElementById('mainImage').src = src;
+  document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+    thumb.classList.toggle('active', i === index);
+  });
+}
+
+// Zoom de imagen
+function zoomImage() {
+  const img = document.getElementById('mainImage');
+  if (img.src) window.open(img.src, '_blank');
+}
+
+// Mostrar variantes
+function mostrarVariantes() {
+  const section = document.getElementById('variantsSection');
+  section.style.display = 'block';
+
+  const container = document.getElementById('variantOptions');
+  container.innerHTML = '';
+
+  container.appendChild(crearOpcionVariante(productoActual, true));
+  productoActual.variantes.forEach(variante => {
+    container.appendChild(crearOpcionVariante(variante, false));
+  });
+}
+
+// Crear opción de variante
+function crearOpcionVariante(variante, esActual) {
+  const option = document.createElement('div');
+  option.className = 'variant-option' + (esActual ? ' active' : '');
+  option.textContent = variante.color || variante.talle || variante.sku;
+
+  if (!esActual) {
+    option.onclick = () => {
+      window.location.href = variante.url_amigable ? `producto/${variante.url_amigable}/` : `producto_detalle.html?sku=${variante.sku}`;
+    };
+  }
+
+  return option;
+}
+
+// Mostrar productos relacionados
+function mostrarRelacionados() {
+  const section = document.getElementById('relatedSection');
+  section.style.display = 'block';
+
+  const grid = document.getElementById('relatedGrid');
+  grid.innerHTML = productoActual.productos_relacionados.map(p => {
+    const imgSrc = p.imagen_principal || (p.imagenes && p.imagenes[0]) || '';
+    const img = imgSrc
+      ? `<img class="card-img" src="${imgSrc}" alt="${p.nombre}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+         <div class="card-img-placeholder" style="display:none">📦</div>`
+      : `<div class="card-img-placeholder">📦</div>`;
+
+    return `
+      <a class="card" href="${p.url_amigable ? `producto/${p.url_amigable}/` : `producto_detalle.html?sku=${p.sku}`}">
+        <div class="card-img-wrap">${img}</div>
+        <div class="card-body">
+          <div class="card-cat">${p.categoria || productoActual.categoria || ''}</div>
+          <div class="card-name">${p.nombre}</div>
+          <div class="card-price">${formatPrice(p.precio_venta)}</div>
+        </div>
+      </a>`;
+  }).join('');
+}
+
+// Agregar al carrito
+function agregarAlCarrito() {
+  if (productoActual.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
+  addCartItem({
+    sku: skuSeleccionado,
+    nombre: productoActual.nombre,
+    precio: productoActual.precio_venta,
+    imagen: (productoActual.imagenes && productoActual.imagenes[0]) || '',
+    color: productoActual.color || '',
+    talle: productoActual.talle || '',
+    cantidad: 1
+  });
+
+  showToast(`✅ ${productoActual.nombre} agregado a tu pedido`);
+}
+
+// Comprar ahora
+function comprarAhora() {
+  agregarAlCarrito();
+  window.location.href = 'carrito.html';
+}
+</script>
 </body>
 </html>

@@ -84,6 +84,7 @@ class Producto(BaseModel):
     color: Optional[str] = ""
     talle: Optional[str] = ""
     link_producto: Optional[str] = ""
+    url_amigable: Optional[str] = ""
 
 
 class Cliente(BaseModel):
@@ -121,6 +122,13 @@ class CrearOrden(BaseModel):
 class ActualizarTracking(BaseModel):
     """Modelo para actualizar tracking de orden"""
     tracking_url: str
+
+
+class SolicitudArrepentimiento(BaseModel):
+    """Modelo para solicitar el derecho de arrepentimiento (Ley 24.240 / Res. 424/2020)"""
+    orden_id: int
+    email: EmailStr
+    motivo: Optional[str] = ""
 
 
 # ============================================================================
@@ -161,6 +169,21 @@ def migrar_db():
     for col_name, col_def in columnas_nuevas:
         if col_name not in columnas_existentes:
             cursor.execute(f"ALTER TABLE clientes ADD COLUMN {col_name} {col_def}")
+
+    # Tabla de solicitudes de derecho de arrepentimiento (Ley 24.240 / Res. 424/2020)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS solicitudes_arrepentimiento (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            orden_id INTEGER NOT NULL,
+            email TEXT NOT NULL,
+            motivo TEXT DEFAULT '',
+            estado TEXT DEFAULT 'pendiente',
+            fecha TEXT DEFAULT (datetime('now')),
+            respuesta_admin TEXT DEFAULT '',
+            FOREIGN KEY (orden_id) REFERENCES ordenes(id)
+        )
+    """)
+
     conn.commit()
     conn.close()
 
@@ -720,13 +743,22 @@ async def mp_webhook(request: Request):
     except Exception as e:
         print(f"Webhook error: {e}")
     return {"status": "ok"}
-def actualizar_tracking(orden_id: int, datos: ActualizarTracking):
-    """Actualiza el tracking de una orden"""
+
+
+@app.patch("/api/orden/{orden_id}/tracking")
+def actualizar_tracking(orden_id: int, datos: ActualizarTracking, x_admin_password: Optional[str] = Header(None)):
+    """
+    Actualiza el link de seguimiento de Droppers de una orden (solo admin).
+    Marca la orden como 'enviado' y registra la fecha de envío.
+    """
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
     conn = get_db()
     cursor = conn.cursor()
-    
+
     cursor.execute("""
-        UPDATE ordenes 
+        UPDATE ordenes
         SET tracking_url = ?, estado = 'enviado', enviado_at = datetime('now')
         WHERE id = ?
     """, (datos.tracking_url, orden_id))
@@ -804,6 +836,149 @@ def verificar_admin(x_admin_password: Optional[str] = Header(None)):
     if x_admin_password != ADMIN_PASSWORD:
         raise HTTPException(status_code=401, detail="Contraseña incorrecta")
     return {"autorizado": True}
+
+
+# ============================================================================
+# ENDPOINTS - SEGUIMIENTO DE PEDIDOS
+# ============================================================================
+
+@app.get("/api/seguimiento/{orden_id}")
+def seguimiento_orden(orden_id: int, email: str = Query(...)):
+    """
+    Seguimiento de un pedido para el cliente.
+    Requiere el email usado en la compra para validar que el pedido le pertenece.
+    """
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT o.id, o.total, o.estado, o.estado_pago, o.tracking_url,
+               o.fecha, o.enviado_at, c.email, c.nombre, c.apellido
+        FROM ordenes o
+        JOIN clientes c ON o.cliente_id = c.id
+        WHERE o.id = ?
+    """, (orden_id,))
+    orden = cursor.fetchone()
+
+    if not orden or orden['email'].strip().lower() != email.strip().lower():
+        conn.close()
+        raise HTTPException(status_code=404, detail="No encontramos un pedido con esos datos")
+
+    cursor.execute("""
+        SELECT producto_sku AS sku, producto_nombre AS nombre, cantidad
+        FROM orden_items WHERE orden_id = ?
+    """, (orden_id,))
+    items = cursor.fetchall()
+    conn.close()
+
+    orden_dict = dict(orden)
+    orden_dict['items'] = [dict(i) for i in items]
+    return orden_dict
+
+
+# ============================================================================
+# ENDPOINTS - BOTÓN DE ARREPENTIMIENTO (Ley 24.240 / Res. 424/2020)
+# ============================================================================
+
+@app.post("/api/arrepentimiento")
+def crear_solicitud_arrepentimiento(solicitud: SolicitudArrepentimiento):
+    """
+    Registra una solicitud de derecho de arrepentimiento (revocación de compra).
+    El cliente tiene 10 días corridos desde la compra para ejercerlo, sin necesidad
+    de justificar el motivo (Ley 24.240, Res. 424/2020).
+    """
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT o.id, o.fecha, c.email
+        FROM ordenes o
+        JOIN clientes c ON o.cliente_id = c.id
+        WHERE o.id = ?
+    """, (solicitud.orden_id,))
+    orden = cursor.fetchone()
+
+    if not orden:
+        conn.close()
+        raise HTTPException(status_code=404, detail="No encontramos una orden con ese número")
+
+    if orden['email'].strip().lower() != solicitud.email.strip().lower():
+        conn.close()
+        raise HTTPException(status_code=400, detail="El email no coincide con el de la orden")
+
+    dias_transcurridos = (datetime.now() - datetime.fromisoformat(orden['fecha'])).days
+    if dias_transcurridos > 10:
+        conn.close()
+        raise HTTPException(
+            status_code=400,
+            detail="Pasaron más de 10 días corridos desde la compra. Escribinos por WhatsApp para evaluar tu caso."
+        )
+
+    cursor.execute("""
+        INSERT INTO solicitudes_arrepentimiento (orden_id, email, motivo)
+        VALUES (?, ?, ?)
+    """, (solicitud.orden_id, solicitud.email, solicitud.motivo or ""))
+
+    conn.commit()
+    solicitud_id = cursor.lastrowid
+    conn.close()
+
+    return {
+        "mensaje": "Solicitud registrada correctamente. Te contactaremos por WhatsApp o email para coordinar la devolución.",
+        "solicitud_id": solicitud_id
+    }
+
+
+@app.get("/api/arrepentimientos")
+def listar_solicitudes_arrepentimiento(x_admin_password: Optional[str] = Header(None)):
+    """Lista las solicitudes de arrepentimiento (solo admin)"""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT s.*, o.total, o.estado AS estado_orden, c.nombre AS cliente_nombre, c.telefono
+        FROM solicitudes_arrepentimiento s
+        JOIN ordenes o ON s.orden_id = o.id
+        JOIN clientes c ON o.cliente_id = c.id
+        ORDER BY s.fecha DESC
+    """)
+    solicitudes = cursor.fetchall()
+    conn.close()
+
+    return [dict(s) for s in solicitudes]
+
+
+@app.patch("/api/arrepentimiento/{solicitud_id}/estado")
+def actualizar_estado_arrepentimiento(
+    solicitud_id: int,
+    estado: str,
+    x_admin_password: Optional[str] = Header(None)
+):
+    """Actualiza el estado de una solicitud de arrepentimiento (solo admin)"""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    estados_validos = ['pendiente', 'aprobado', 'rechazado']
+    if estado not in estados_validos:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Estado inválido. Debe ser uno de: {', '.join(estados_validos)}"
+        )
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE solicitudes_arrepentimiento SET estado = ? WHERE id = ?", (estado, solicitud_id))
+
+    if cursor.rowcount == 0:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Solicitud no encontrada")
+
+    conn.commit()
+    conn.close()
+
+    return {"mensaje": "Estado actualizado", "solicitud_id": solicitud_id, "nuevo_estado": estado}
 
 
 # ============================================================================

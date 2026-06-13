@@ -1,253 +1,279 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmación de compra</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #333; min-height: 100vh; }
-
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 18px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
-        .header h1 { font-size: 20px; max-width: 780px; margin: 0 auto; }
-
-        .container { max-width: 780px; margin: 36px auto; padding: 0 20px; }
-
-        /* Estado card */
-        .estado-card { background: white; border-radius: 14px; padding: 40px 36px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 24px; }
-        .estado-icon { font-size: 64px; margin-bottom: 16px; line-height: 1; }
-        .estado-card h2 { font-size: 24px; margin-bottom: 10px; }
-        .estado-card.success h2 { color: #2e7d32; }
-        .estado-card.pending h2 { color: #e65100; }
-        .estado-card.error h2   { color: #b71c1c; }
-        .estado-card p { color: #666; font-size: 15px; max-width: 480px; margin: 0 auto 22px; line-height: 1.6; }
-        .orden-numero { display: inline-block; background: #f3f4ff; border: 1.5px solid #c5cae9; color: #3949ab; padding: 8px 22px; border-radius: 30px; font-size: 15px; font-weight: 700; margin-bottom: 24px; }
-
-        /* Cards grid */
-        .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-        @media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; } }
-        .card { background: white; border-radius: 12px; padding: 22px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
-        .card.full { grid-column: span 2; }
-        @media (max-width: 600px) { .card.full { grid-column: span 1; } }
-        .card h3 { font-size: 13px; font-weight: 600; color: #667eea; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; }
-        .campo { margin-bottom: 10px; font-size: 14px; }
-        .campo strong { display: block; font-size: 11px; color: #999; text-transform: uppercase; margin-bottom: 2px; }
-
-        /* Tabla */
-        .tabla-productos { width: 100%; border-collapse: collapse; font-size: 14px; }
-        .tabla-productos thead tr { background: #f8f9ff; }
-        .tabla-productos th { padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; }
-        .tabla-productos th:last-child, .tabla-productos td:last-child { text-align: right; }
-        .tabla-productos td { padding: 12px; border-bottom: 1px solid #f5f5f5; vertical-align: middle; font-weight: 600; }
-        .tabla-productos td:nth-child(2) { text-align: center; font-weight: 400; color: #666; }
-        .tabla-productos td:nth-child(3) { text-align: right; font-weight: 400; color: #666; }
-        .tabla-productos tfoot td { font-weight: 700; font-size: 16px; border-top: 2px solid #f0f0f0; border-bottom: none; padding: 14px 12px; }
-        .tabla-productos tfoot td:last-child { color: #667eea; }
-
-        /* Badges */
-        .badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
-        .badge-approved { background: #e8f5e9; color: #2e7d32; }
-        .badge-pending  { background: #fff3e0; color: #e65100; }
-        .badge-rejected { background: #ffebee; color: #b71c1c; }
-        .badge-none     { background: #f0f0f0; color: #888; }
-
-        /* Botones */
-        .botones { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
-        .btn { padding: 13px 28px; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: opacity 0.2s, transform 0.1s; }
-        .btn:hover { opacity: 0.88; transform: translateY(-1px); }
-        .btn-primary   { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
-        .btn-secondary { background: #f0f0f0; color: #555; }
-        .btn-danger    { background: #e53935; color: white; }
-
-        /* Loading */
-        #loading { text-align: center; padding: 80px 20px; color: #999; font-size: 16px; }
-        .spinner { width: 40px; height: 40px; border: 4px solid #e0e0e0; border-top-color: #667eea; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        #contenido { display: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmación de tu pedido | El Gadget</title>
+<meta name="description" content="Confirmación de tu pedido en El Gadget.">
+<meta name="theme-color" content="#14151A">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<div class="header"><h1>🛍️ Mi Ecommerce</h1></div>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="frontend_basico.html" class="logo">
+      <div class="logo-badge">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="22" fill="#14151A"/>
+          <rect x="14" y="34" width="72" height="34" rx="17" fill="none" stroke="white" stroke-width="7"/>
+          <circle cx="34" cy="51" r="6" fill="white"/>
+          <rect x="58" y="42" width="6" height="18" rx="2" fill="#FFC700"/>
+          <rect x="68" y="36" width="6" height="30" rx="2" fill="#FFC700"/>
+          <rect x="78" y="45" width="6" height="12" rx="2" fill="#FFC700"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
+    </a>
+    <div class="search-desktop">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){window.location.href='frontend_basico.html?buscar='+encodeURIComponent(this.value)}">
+      </div>
+    </div>
+    <a href="carrito.html" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="label">Mi pedido</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
 
-<div class="container">
-    <div id="loading"><div class="spinner"></div>Verificando tu pedido...</div>
-    <div id="contenido"></div>
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="frontend_basico.html">Inicio</a>
+  <span class="sep">/</span>
+  <span class="current">Confirmación de compra</span>
 </div>
 
+<!-- CONTENIDO -->
+<div class="state-msg" id="loading">
+  <div class="spinner"></div>
+  Verificando tu pedido...
+</div>
+
+<div class="page-wrap" id="contenido" style="display:none">
+  <div class="result-wrap wide" id="resultHero"></div>
+  <div class="info-grid" id="infoGrid"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-badge">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="22" fill="#14151A"/>
+            <rect x="14" y="34" width="72" height="34" rx="17" fill="none" stroke="white" stroke-width="7"/>
+            <circle cx="34" cy="51" r="6" fill="white"/>
+            <rect x="58" y="42" width="6" height="18" rx="2" fill="#FFC700"/>
+            <rect x="68" y="36" width="6" height="30" rx="2" fill="#FFC700"/>
+            <rect x="78" y="45" width="6" height="12" rx="2" fill="#FFC700"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <div class="logo-name">El<span> Gadget</span></div>
+          <div class="logo-tagline">Tienda online</div>
+        </div>
+      </div>
+      <p>Productos para el hogar, moda, tecnología y mucho más. Elegí, armá tu pedido y coordinamos todo por WhatsApp.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <a href="carrito.html">Mi pedido</a>
+      <a href="seguimiento.html">Seguimiento de pedido</a>
+      <a href="faq.html">Preguntas frecuentes</a>
+      <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta%20sobre%20mi%20pedido" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Información</h4>
+      <a href="sobre_nosotros.html">Sobre nosotros</a>
+      <a href="#" onclick="return false;">Envíos a todo el país</a>
+      <a href="#" onclick="return false;">Pagos seguros</a>
+      <a href="arrepentimiento.html">Botón de arrepentimiento</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta%20sobre%20mi%20pedido" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+</a>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/cart.js"></script>
 <script>
-    const API_URL = 'https://el-gadget-tienda.onrender.com';
+document.getElementById('year').textContent = new Date().getFullYear();
 
-    const params      = new URLSearchParams(window.location.search);
-    const ordenId     = params.get('orden_id');
-    const mpStatus    = params.get('status');            // approved / pending / failure
-    const mpExtRef    = params.get('external_reference'); // MP envía el orden_id acá
+const API_URL = 'https://el-gadget-tienda.onrender.com';
 
-    const idFinal     = ordenId || mpExtRef;
-    const estadoPago  = mpStatus || null;
+const params      = new URLSearchParams(window.location.search);
+const ordenId     = params.get('orden_id');
+const mpStatus    = params.get('status');            // approved / pending / failure
+const mpExtRef    = params.get('external_reference'); // MP envía el orden_id acá
 
-    async function iniciar() {
-        if (!idFinal) { mostrarSinOrden(); return; }
-        try {
-            const res = await fetch(`${API_URL}/api/orden/${idFinal}`);
-            if (!res.ok) throw new Error();
-            mostrarConfirmacion(await res.json(), estadoPago);
-        } catch { mostrarError(); }
-    }
+const idFinal     = ordenId || mpExtRef;
+const estadoPago  = mpStatus || null;
 
-    function mostrarConfirmacion(orden, estado) {
-        document.getElementById('loading').style.display = 'none';
-        const contenido = document.getElementById('contenido');
-        contenido.style.display = 'block';
+async function iniciar() {
+  if (!idFinal) { mostrarSinOrden(); return; }
+  try {
+    const res = await fetch(`${API_URL}/api/orden/${idFinal}`);
+    if (!res.ok) throw new Error();
+    mostrarConfirmacion(await res.json(), estadoPago);
+  } catch { mostrarError(); }
+}
 
-        const est = estado || orden.estado_pago || 'pending';
+function mostrarConfirmacion(orden, estado) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('contenido').style.display = 'block';
 
-        const config = {
-            approved: { icon:'🎉', titulo:'¡Pedido confirmado!',    msg:'Tu pago fue aprobado y tu pedido está siendo procesado. Te avisaremos cuando sea enviado.',  clase:'success' },
-            pending:  { icon:'⏳', titulo:'Pedido recibido',         msg:'Tu pedido fue registrado. El pago está siendo verificado y te notificaremos cuando se acredite.', clase:'pending' },
-            failure:  { icon:'😕', titulo:'El pago no se completó', msg:'Hubo un problema con tu método de pago. Podés intentarlo de nuevo o elegir otra forma de pago.', clase:'error'   },
-            rejected: { icon:'😕', titulo:'El pago no se completó', msg:'Hubo un problema con tu método de pago. Podés intentarlo de nuevo o elegir otra forma de pago.', clase:'error'   },
-        };
-        const { icon, titulo, msg, clase } = config[est] || config.pending;
+  const est = estado || orden.estado_pago || 'pending';
 
-        const esError = clase === 'error';
-        const botonesHtml = esError
-            ? `<button class="btn btn-danger" onclick="reintentar()">🔄 Reintentar pago</button>
-               <a class="btn btn-secondary" href="frontend_basico.html">🏠 Volver al inicio</a>`
-            : `<a class="btn btn-primary" href="frontend_basico.html">🛍️ Seguir comprando</a>`;
+  const config = {
+    approved: { icon:'🎉', titulo:'¡Pedido confirmado!',    msg:'Tu pago fue aprobado y tu pedido está siendo procesado. Te avisaremos cuando sea enviado.',  clase:'ok'   },
+    pending:  { icon:'⏳', titulo:'Pedido recibido',         msg:'Tu pedido fue registrado. El pago está siendo verificado y te notificaremos cuando se acredite.', clase:'pend' },
+    failure:  { icon:'😕', titulo:'El pago no se completó', msg:'Hubo un problema con tu método de pago. Podés intentarlo de nuevo o elegir otra forma de pago.', clase:'bad'  },
+    rejected: { icon:'😕', titulo:'El pago no se completó', msg:'Hubo un problema con tu método de pago. Podés intentarlo de nuevo o elegir otra forma de pago.', clase:'bad'  },
+  };
+  const { icon, titulo, msg, clase } = config[est] || config.pending;
 
-        // Items
-        let totalItems = 0;
-        const itemsHtml = (orden.items || []).map(i => {
-            const sub = Number(i.precio_unitario || 0) * i.cantidad;
-            totalItems += sub;
-            return `<tr>
-                <td><div style="font-weight:500">${i.producto_nombre || i.sku}</div><div style="font-size:12px;color:#bbb;font-weight:400">${i.sku}</div></td>
-                <td>${i.cantidad}</td>
-                <td>$${Number(i.precio_unitario||0).toLocaleString('es-AR',{minimumFractionDigits:2})}</td>
-                <td>$${sub.toLocaleString('es-AR',{minimumFractionDigits:2})}</td>
-            </tr>`;
-        }).join('');
+  const esError = clase === 'bad';
+  const botonesHtml = esError
+    ? `<button class="btn btn-dark" onclick="reintentar()">🔄 Reintentar pago</button>
+       <a class="btn btn-outline" href="frontend_basico.html">🏠 Volver al inicio</a>`
+    : `<a class="btn btn-accent" href="frontend_basico.html">🛍️ Seguir comprando</a>`;
 
-        const totalFinal = Number(orden.total || totalItems).toLocaleString('es-AR',{minimumFractionDigits:2});
+  // Items
+  let totalItems = 0;
+  const itemsHtml = (orden.items || []).map(i => {
+    const sub = Number(i.precio_unitario || 0) * i.cantidad;
+    totalItems += sub;
+    return `<tr>
+        <td><div>${i.producto_nombre || i.sku}</div><div class="sku-small">${i.sku}</div></td>
+        <td>${i.cantidad}</td>
+        <td>${formatPrice(Number(i.precio_unitario||0))}</td>
+        <td>${formatPrice(sub)}</td>
+    </tr>`;
+  }).join('');
 
-        // Dirección
-        const dir = [
-            orden.calle && orden.altura ? `${orden.calle} ${orden.altura}` : orden.calle || '',
-            orden.piso ? `Piso ${orden.piso}` : '',
-            orden.departamento ? `Dpto. ${orden.departamento}` : '',
-            orden.ciudad, orden.provincia,
-            orden.codigo_postal ? `CP ${orden.codigo_postal}` : ''
-        ].filter(Boolean).join(', ') || orden.direccion || '-';
+  const totalFinal = formatPrice(Number(orden.total || totalItems));
 
-        // Fecha
-        const fechaStr = orden.fecha_creacion
-            ? new Date(orden.fecha_creacion).toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})
-            : '';
+  // Dirección
+  const dir = [
+    orden.calle && orden.altura ? `${orden.calle} ${orden.altura}` : orden.calle || '',
+    orden.piso ? `Piso ${orden.piso}` : '',
+    orden.departamento ? `Dpto. ${orden.departamento}` : '',
+    orden.ciudad, orden.provincia,
+    orden.codigo_postal ? `CP ${orden.codigo_postal}` : ''
+  ].filter(Boolean).join(', ') || orden.direccion || '-';
 
-        contenido.innerHTML = `
-            <div class="estado-card ${clase}">
-                <div class="estado-icon">${icon}</div>
-                <h2>${titulo}</h2>
-                <p>${msg}</p>
-                <div class="orden-numero">Orden #${orden.id}</div>
-                <div class="botones">${botonesHtml}</div>
-            </div>
+  // Fecha
+  const fechaStr = orden.fecha_creacion
+    ? new Date(orden.fecha_creacion).toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})
+    : '';
 
-            <div class="cards-grid">
-                <div class="card">
-                    <h3>Estado del pedido</h3>
-                    <div class="campo"><strong>Número de orden</strong>#${orden.id}</div>
-                    <div class="campo"><strong>Estado de pago</strong>${badgePago(est)}</div>
-                    <div class="campo"><strong>Estado envío</strong>${badgeOrden(orden.estado)}</div>
-                    ${fechaStr ? `<div class="campo"><strong>Fecha</strong>${fechaStr}</div>` : ''}
-                </div>
+  document.getElementById('resultHero').innerHTML = `
+    <div class="result-icon ${clase}">${icon}</div>
+    <h1>${titulo}</h1>
+    <p class="subtitle">${msg}</p>
+    <div class="order-badge">
+      <span class="label">Número de orden</span>
+      <span class="num">#${orden.id}</span>
+    </div>
+    <div class="result-actions">${botonesHtml}</div>
+  `;
 
-                <div class="card">
-                    <h3>Datos del comprador</h3>
-                    <div class="campo"><strong>Nombre</strong>${[orden.nombre||orden.cliente_nombre, orden.apellido].filter(Boolean).join(' ')||'-'}</div>
-                    ${orden.cliente_email ? `<div class="campo"><strong>Email</strong>${orden.cliente_email}</div>` : ''}
-                    ${orden.telefono      ? `<div class="campo"><strong>Teléfono</strong>${orden.telefono}</div>` : ''}
-                    ${orden.cuit_dni      ? `<div class="campo"><strong>CUIT / DNI</strong>${orden.cuit_dni}</div>` : ''}
-                    <div class="campo"><strong>Dirección de envío</strong>${dir}</div>
-                </div>
+  document.getElementById('infoGrid').innerHTML = `
+    <div class="info-card">
+      <h2>Estado del pedido</h2>
+      <div class="info-row"><span class="info-label">Número de orden</span><span class="info-valor">#${orden.id}</span></div>
+      <div class="info-row"><span class="info-label">Estado de pago</span><span class="info-valor">${badgePago(est)}</span></div>
+      <div class="info-row"><span class="info-label">Estado envío</span><span class="info-valor">${badgeOrden(orden.estado)}</span></div>
+      ${fechaStr ? `<div class="info-row"><span class="info-label">Fecha</span><span class="info-valor">${fechaStr}</span></div>` : ''}
+    </div>
 
-                <div class="card full">
-                    <h3>Productos del pedido</h3>
-                    <table class="tabla-productos">
-                        <thead><tr>
-                            <th>Producto</th>
-                            <th style="text-align:center">Cant.</th>
-                            <th style="text-align:right">Precio unit.</th>
-                            <th style="text-align:right">Subtotal</th>
-                        </tr></thead>
-                        <tbody>${itemsHtml}</tbody>
-                        <tfoot><tr>
-                            <td colspan="3">Total</td>
-                            <td>$${totalFinal}</td>
-                        </tr></tfoot>
-                    </table>
-                </div>
-            </div>
+    <div class="info-card">
+      <h2>Datos del comprador</h2>
+      <div class="info-row"><span class="info-label">Nombre</span><span class="info-valor">${[orden.nombre||orden.cliente_nombre, orden.apellido].filter(Boolean).join(' ')||'-'}</span></div>
+      ${orden.cliente_email ? `<div class="info-row"><span class="info-label">Email</span><span class="info-valor">${orden.cliente_email}</span></div>` : ''}
+      ${orden.telefono      ? `<div class="info-row"><span class="info-label">Teléfono</span><span class="info-valor">${orden.telefono}</span></div>` : ''}
+      ${orden.cuit_dni      ? `<div class="info-row"><span class="info-label">CUIT / DNI</span><span class="info-valor">${orden.cuit_dni}</span></div>` : ''}
+      <div class="info-row"><span class="info-label">Dirección de envío</span><span class="info-valor">${dir}</span></div>
+    </div>
 
-            <div style="text-align:center;margin-bottom:40px">
-                <a class="btn btn-secondary" href="frontend_basico.html">← Volver a la tienda</a>
-            </div>
-        `;
-    }
+    <div class="info-card full">
+      <h2>Productos del pedido</h2>
+      <table class="order-table">
+        <thead><tr>
+          <th>Producto</th>
+          <th>Cant.</th>
+          <th>Precio unit.</th>
+          <th>Subtotal</th>
+        </tr></thead>
+        <tbody>${itemsHtml}</tbody>
+        <tfoot><tr>
+          <td colspan="3">Total</td>
+          <td>${totalFinal}</td>
+        </tr></tfoot>
+      </table>
+    </div>
+  `;
+}
 
-    function mostrarError() {
-        document.getElementById('loading').style.display = 'none';
-        const c = document.getElementById('contenido');
-        c.style.display = 'block';
-        c.innerHTML = `<div class="estado-card error">
-            <div class="estado-icon">❌</div>
-            <h2>No encontramos tu orden</h2>
-            <p>No pudimos recuperar los datos de tu pedido. Si creés que es un error, contactanos.</p>
-            <div class="botones"><a class="btn btn-primary" href="frontend_basico.html">🏠 Volver al inicio</a></div>
-        </div>`;
-    }
+function mostrarError() {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('contenido').style.display = 'block';
+  document.getElementById('infoGrid').innerHTML = '';
+  document.getElementById('resultHero').innerHTML = `
+    <div class="result-icon bad">❌</div>
+    <h1>No encontramos tu orden</h1>
+    <p class="subtitle">No pudimos recuperar los datos de tu pedido. Si creés que es un error, contactanos.</p>
+    <div class="result-actions"><a class="btn btn-accent" href="frontend_basico.html">🏠 Volver al inicio</a></div>
+  `;
+}
 
-    function mostrarSinOrden() {
-        document.getElementById('loading').style.display = 'none';
-        const c = document.getElementById('contenido');
-        c.style.display = 'block';
-        c.innerHTML = `<div class="estado-card pending">
-            <div class="estado-icon">🤔</div>
-            <h2>Página de confirmación</h2>
-            <p>Esta página se usa para confirmar una compra. Si llegaste por error, volvé a la tienda.</p>
-            <div class="botones"><a class="btn btn-primary" href="frontend_basico.html">🛍️ Ir a la tienda</a></div>
-        </div>`;
-    }
+function mostrarSinOrden() {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('contenido').style.display = 'block';
+  document.getElementById('infoGrid').innerHTML = '';
+  document.getElementById('resultHero').innerHTML = `
+    <div class="result-icon pend">🤔</div>
+    <h1>Página de confirmación</h1>
+    <p class="subtitle">Esta página se usa para confirmar una compra. Si llegaste por error, volvé a la tienda.</p>
+    <div class="result-actions"><a class="btn btn-accent" href="frontend_basico.html">🛍️ Ir a la tienda</a></div>
+  `;
+}
 
-    function reintentar() { window.location.href = 'checkout.html'; }
+function reintentar() { window.location.href = 'checkout.html'; }
 
-    function badgePago(e) {
-        const m = { approved:['badge-approved','✅ Aprobado'], pending:['badge-pending','⏳ Pendiente'], failure:['badge-rejected','❌ Rechazado'], rejected:['badge-rejected','❌ Rechazado'] };
-        const [c,l] = m[e] || ['badge-none','—'];
-        return `<span class="badge ${c}">${l}</span>`;
-    }
+function badgePago(e) {
+  const m = { approved:['ok','✅ Aprobado'], pending:['pend','⏳ Pendiente'], failure:['bad','❌ Rechazado'], rejected:['bad','❌ Rechazado'] };
+  const [c,l] = m[e] || ['info','—'];
+  return `<span class="status-badge ${c}">${l}</span>`;
+}
 
-    function badgeOrden(e) {
-        const m = { pendiente_procesar:['badge-pending','⏳ Pendiente'], procesando:['badge-approved','🔄 Procesando'], enviado:['badge-approved','📦 Enviado'], entregado:['badge-approved','✅ Entregado'] };
-        const [c,l] = m[e] || ['badge-none', e||'-'];
-        return `<span class="badge ${c}">${l}</span>`;
-    }
+function badgeOrden(e) {
+  const m = { pendiente_procesar:['pend','⏳ Pendiente'], procesando:['ok','🔄 Procesando'], enviado:['ok','📦 Enviado'], entregado:['ok','✅ Entregado'] };
+  const [c,l] = m[e] || ['info', e||'-'];
+  return `<span class="status-badge ${c}">${l}</span>`;
+}
 
-    iniciar();
+iniciar();
 </script>
-    <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta%20sobre%20mi%20pedido" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
-        <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
-    </a>
-    <style>
-        .whatsapp-float {
-            position: fixed; bottom: 24px; left: 24px; width: 56px; height: 56px;
-            background: #25d366; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            z-index: 9998; transition: transform 0.2s ease;
-        }
-        .whatsapp-float:hover { transform: scale(1.08); }
-    </style>
 </body>
 </html>

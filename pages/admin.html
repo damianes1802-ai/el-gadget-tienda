@@ -426,6 +426,27 @@
         </table>
     </div>
 
+    <!-- Solicitudes de arrepentimiento -->
+    <div class="tabla-container">
+        <div style="padding:16px 20px 0;font-size:15px;font-weight:700;color:#333">↩️ Solicitudes de arrepentimiento</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Orden</th>
+                    <th>Cliente</th>
+                    <th>Motivo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-arrepentimientos">
+                <tr class="loading-row"><td colspan="7">⏳ Cargando...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
 <!-- ─── MODAL DETALLE ─── -->
@@ -520,7 +541,7 @@
 
     // ── DATOS ──
     async function cargarDatos() {
-        await Promise.all([cargarEstadisticas(), cargarOrdenes()]);
+        await Promise.all([cargarEstadisticas(), cargarOrdenes(), cargarArrepentimientos()]);
     }
 
     async function cargarEstadisticas() {
@@ -614,6 +635,74 @@
         return `<span class="badge ${cls}">${label}</span>`;
     }
 
+    // ── ARREPENTIMIENTOS ──
+    function badgeArrepentimiento(e) {
+        const map = {
+            pendiente: ['badge-pending', '⏳ Pendiente'],
+            aprobado: ['badge-approved', '✅ Aprobado'],
+            rechazado: ['badge-rejected', '❌ Rechazado']
+        };
+        const [cls, label] = map[e] || ['badge-pending', e || '-'];
+        return `<span class="badge ${cls}">${label}</span>`;
+    }
+
+    async function cargarArrepentimientos() {
+        const tbody = document.getElementById('tabla-arrepentimientos');
+        try {
+            const res = await fetch(`${API_URL}/api/arrepentimientos`, {
+                headers: { 'X-Admin-Password': adminPassword }
+            });
+            if (!res.ok) throw new Error();
+            const solicitudes = await res.json();
+            renderTablaArrepentimientos(solicitudes);
+        } catch {
+            tbody.innerHTML = '<tr class="loading-row"><td colspan="7">❌ Error al cargar</td></tr>';
+        }
+    }
+
+    function renderTablaArrepentimientos(solicitudes) {
+        const tbody = document.getElementById('tabla-arrepentimientos');
+        if (!solicitudes.length) {
+            tbody.innerHTML = '<tr class="loading-row"><td colspan="7">Sin solicitudes</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = solicitudes.map(s => {
+            const fecha = new Date(s.fecha).toLocaleDateString('es-AR');
+            return `<tr>
+                <td><strong>#${s.id}</strong></td>
+                <td>${fecha}</td>
+                <td>#${s.orden_id}</td>
+                <td>
+                    <div style="font-weight:500">${s.cliente_nombre || '-'}</div>
+                    <div style="font-size:12px;color:#888">${s.email || ''}</div>
+                </td>
+                <td style="max-width:220px">${s.motivo || '<span style="color:#aaa">(sin motivo)</span>'}</td>
+                <td>${badgeArrepentimiento(s.estado)}</td>
+                <td>
+                    <div class="acciones">
+                        <button class="btn-sm btn-estado" onclick="cambiarEstadoArrepentimiento(${s.id}, 'aprobado')">✅ Aprobar</button>
+                        <button class="btn-sm btn-eliminar" onclick="cambiarEstadoArrepentimiento(${s.id}, 'rechazado')">❌ Rechazar</button>
+                    </div>
+                </td>
+            </tr>`;
+        }).join('');
+    }
+
+    async function cambiarEstadoArrepentimiento(id, estado) {
+        try {
+            const res = await fetch(`${API_URL}/api/arrepentimiento/${id}/estado?estado=${estado}`, {
+                method: 'PATCH',
+                headers: { 'X-Admin-Password': adminPassword }
+            });
+            if (!res.ok) throw new Error();
+            toast('Solicitud actualizada ✓', 'success');
+            cargarArrepentimientos();
+        } catch {
+            toast('Error al actualizar la solicitud', 'error');
+        }
+    }
+
     // ── VER ORDEN ──
     async function verOrden(id) {
         try {
@@ -646,7 +735,14 @@
                     <div class="detalle-campo"><strong>CP</strong>${o.codigo_postal || '-'}</div>
                     <div class="detalle-campo"><strong>Estado orden</strong>${badgeEstado(o.estado)}</div>
                     <div class="detalle-campo"><strong>Estado pago</strong>${badgePago(o.estado_pago)}</div>
-                    ${o.tracking_url ? `<div class="detalle-campo" style="grid-column:span 2"><strong>Tracking</strong><a href="${o.tracking_url}" target="_blank">${o.tracking_url}</a></div>` : ''}
+                    <div class="detalle-campo" style="grid-column:span 2">
+                        <strong>Tracking Droppers</strong>
+                        <div style="display:flex;gap:8px;align-items:center;margin-top:2px">
+                            <input type="text" id="trackingInput" value="${o.tracking_url || ''}" placeholder="https://..." style="flex:1;padding:7px 10px;border:1px solid #ddd;border-radius:6px;font-size:13px">
+                            <button class="btn-sm" style="background:#667eea;color:white;white-space:nowrap" onclick="guardarTracking()">💾 Guardar</button>
+                        </div>
+                        ${o.tracking_url ? `<a href="${o.tracking_url}" target="_blank" style="font-size:12px;color:#667eea;display:inline-block;margin-top:6px">Abrir link de seguimiento ↗</a>` : ''}
+                    </div>
                     ${o.notas ? `<div class="detalle-campo" style="grid-column:span 2"><strong>Notas</strong>${o.notas}</div>` : ''}
                 </div>
                 <div class="detalle-items">
@@ -677,6 +773,28 @@
     }
 
     function cerrarModal() { document.getElementById('modal-overlay').classList.remove('show'); ordenActual = null; }
+
+    async function guardarTracking() {
+        if (!ordenActual) return;
+        const trackingUrl = document.getElementById('trackingInput').value.trim();
+
+        try {
+            const res = await fetch(`${API_URL}/api/orden/${ordenActual.id}/tracking`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Admin-Password': adminPassword
+                },
+                body: JSON.stringify({ tracking_url: trackingUrl })
+            });
+            if (!res.ok) throw new Error();
+            toast('Tracking guardado ✓', 'success');
+            verOrden(ordenActual.id);
+            cargarOrdenes();
+        } catch {
+            toast('Error al guardar el tracking', 'error');
+        }
+    }
 
     function copiarParaDroppers() {
         if (!ordenActual) return;
