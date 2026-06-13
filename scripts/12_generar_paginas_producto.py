@@ -140,17 +140,18 @@ def render_variantes(producto: dict, variantes: list) -> str:
       </div>'''
 
     variantes_internas = json.loads(producto.get('variantes_internas') or '[]')
-    if len(variantes_internas) >= 2:
+    if variantes_internas:
         etiqueta = variantes_internas[0].get('etiqueta_atributo') or 'Variantes disponibles'
         opciones = ''.join(
             f'<option value="{html.escape(v["valor"])}">{html.escape(v["valor"])}</option>'
             for v in variantes_internas
         )
+        disabled = ' disabled' if len(variantes_internas) < 2 else ''
 
         return f'''
       <div class="variants-section" id="internalVariantsSection">
         <label class="variant-label">{html.escape(etiqueta)}</label>
-        <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)">{opciones}</select>
+        <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)"{disabled}>{opciones}</select>
       </div>'''
 
     return ''

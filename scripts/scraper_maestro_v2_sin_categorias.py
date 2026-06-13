@@ -52,8 +52,9 @@ def extraer_variantes_internas(html: str) -> List[Dict]:
     separados sino como un desplegable dentro de la misma página.
 
     Solo se devuelven variantes cuando hay un único atributo configurable
-    (color, talle, etc.) con 2 o más opciones; si hay una sola opción no hay
-    nada para elegir y se devuelve [].
+    (color, talle, etc.) con 1 o más opciones. Si hay una sola opción, el
+    frontend muestra el desplegable deshabilitado para que el cliente vea
+    que el producto solo está disponible en esa variante por el momento.
     """
     try:
         match = re.search(r'"spConfig":\s*', html)
@@ -104,7 +105,7 @@ def extraer_variantes_internas(html: str) -> List[Dict]:
                     'imagenes': imagenes,
                 })
 
-        if len(variantes) < 2:
+        if not variantes:
             return []
 
         return variantes

@@ -265,7 +265,7 @@ function mostrarProducto() {
   // Variantes
   if (productoActual.tiene_variantes && productoActual.variantes && productoActual.variantes.length > 0) {
     mostrarVariantes();
-  } else if (productoActual.variantes_internas && productoActual.variantes_internas.length >= 2) {
+  } else if (productoActual.variantes_internas && productoActual.variantes_internas.length >= 1) {
     mostrarVariantesInternas();
   }
 
@@ -366,6 +366,7 @@ function mostrarVariantesInternas() {
   select.innerHTML = opciones.map(v =>
     `<option value="${v.valor}">${v.valor}</option>`
   ).join('');
+  select.disabled = opciones.length < 2;
 }
 
 // Cambiar variante interna seleccionada: solo cambia la galería de imágenes
