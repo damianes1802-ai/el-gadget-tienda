@@ -239,12 +239,15 @@ class ScraperMaestroV2:
             descripcion = desc_element.get_text(separator='\n', strip=True) if desc_element else ''
             
             # Imágenes
-            imagenes_pattern = r'"url":"(https?://[^"]+\.jpg)"'
+            # Magento entrega la galería en un bloque JSON (mage/gallery/gallery)
+            # con entradas {"thumb":..., "img":..., "full":...} y barras escapadas (\/).
+            # Usamos "full" (mayor resolución) como fuente de las imágenes del producto.
+            imagenes_pattern = r'"full":"(https?:\\/\\/[^"]+?\.\w+)"'
             imagenes_matches = re.findall(imagenes_pattern, html)
             imagenes = []
             for img_url in imagenes_matches:
                 url_limpia = img_url.replace('\\/', '/')
-                if 'droppers.com.ar/media/catalog/product' in url_limpia:
+                if 'droppers.com.ar/media/catalog/product' in url_limpia and url_limpia not in imagenes:
                     imagenes.append(url_limpia)
             
             # ============================================================
