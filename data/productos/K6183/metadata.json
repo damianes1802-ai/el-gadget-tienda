@@ -1,0 +1,49 @@
+{
+  "sku": "K6183",
+  "titulo": "Set de Esponjas y Accesorios Cosmética",
+  "precio": 4944,
+  "descripcion": "Set de Cosmética:\nIncluye esponja blender, esponja silicona exfoliante y espátula brocha.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/h/chatgpt_image_30_jun_2025_16_50_25.png"
+  ],
+  "cantidad_imagenes": 1,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/set-de-esponjas-y-accesorios-cosmetica.html",
+  "fecha_scraping": "2026-06-13T08:23:18.759482",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Estética y Belleza"
+  ],
+  "categoria_principal": "Estética y Belleza",
+  "categoria": "Estética y Belleza",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.742819",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_K6183_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 4944,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 8444.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 12666.0,
+    "precio_final": 13000.0,
+    "ganancia_neta": 8056.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 13000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.403145"
+}

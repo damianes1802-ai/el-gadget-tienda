@@ -1,0 +1,62 @@
+{
+  "sku": "515587",
+  "titulo": "Barra Flexible Vibradora para Entrenamiento",
+  "precio": 0,
+  "descripcion": "Fortalézcase para el día a día y comience un maravilloso entrenamiento de fuerza y resistencia\nCon esta varilla oscilante de fitness tendrás un excelente accesorio para tu gimnasio en casa. Las oscilaciones de la barra de resistencia se transmiten al cuerpo y entrenan la musculatura profunda.\nLa flexibar te permite mejorar tu postura y te dará una grandiosa sensación de bienestar corporal. Tonificarás los brazos, el abdomen y la espalda, y a fortalecer la fascia. La barra vibratoria de fitness es una gran opción de entrenamiento para principiantes o experimentados de cualquier edad.\n- Mejora la postura\n- Fortalece la musculatura profunda\n- Entrenamiento mediante vibración\n- Para tonificar espalda, abdomen o brazos\n- Para principiantes o expertos\nBarra ideal para trabajos de brazos, espalda y abdominales.\nMaterial: Barra de fibra de vidrio / Longitud: 161 cm / Peso: 615 g\nEmpuñadura ergonómica de goma 26,5 cm x 5 cm\nUtilizada en gimnasia, entrenamiento deportivo, yoga y rehabilitación\nActiva los músculos profundos de la espalda y los abdominales a través de pequeñas contracciones, mejorando notablemente la postura corporal, previniendo dolores y molestias",
+  "imagenes": [],
+  "cantidad_imagenes": 0,
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "url_original": "https://droppers.com.ar/flexi-bar-barra-vibradora-entrenamiento-abdominales-espalda.html",
+  "fecha_scraping": "2026-03-16T19:33:41.337212",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Estética y Belleza"
+  ],
+  "categoria_principal": "Estética y Belleza",
+  "categoria": "Estética y Belleza",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-03-16T19:46:15.979298",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_010",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_011",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_012",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_013",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_014",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_515587_015"
+  ],
+  "calculo_precio": {
+    "precio_costo": 0,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 3500.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 5250.0,
+    "precio_final": 5500.0,
+    "ganancia_neta": 5500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 5500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.366099",
+  "fecha_agotado": "2026-06-13T08:19:05.611333"
+}

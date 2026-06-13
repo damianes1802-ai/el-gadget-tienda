@@ -1,0 +1,58 @@
+{
+  "sku": "WH7127",
+  "titulo": "Rolls de mini stickers",
+  "precio": 3318,
+  "descripcion": "Rolls de mini stickers.\n2 metros de stickers por rollo.\n4 modelos. Se envía surtido.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7127_extra.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7127.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7127_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7127_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7127_4_.jpg"
+  ],
+  "cantidad_imagenes": 5,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/rolls-de-mini-stickers.html",
+  "fecha_scraping": "2026-06-13T08:26:33.533131",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 3318,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 6818.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 10227.0,
+    "precio_final": 10500.0,
+    "ganancia_neta": 7182.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 10500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.224741",
+  "fecha_agotado": "2026-06-13T08:19:05.575969"
+}

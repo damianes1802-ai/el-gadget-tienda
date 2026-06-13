@@ -1,0 +1,60 @@
+{
+  "sku": "DL2111",
+  "titulo": "Botiquín medicamentos Grande",
+  "precio": 15100,
+  "descripcion": "Botiquín medicamentos\nNivel compartimentado + espacio libre\nMedidas: 36x26x21\nMaterial: PVC\"",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_844944-mla92883932981_092025-f_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_819481-mla93200534499_092025-f_1__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_937568-mla93200584309_092025-f_1__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_692686-mla93200733193_092025-f_1__1.jpg"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/botiquin-medicamentos-mediana-1.html",
+  "fecha_scraping": "2026-06-13T08:26:07.652320",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Estética y Belleza",
+    "Bazar y Cocina",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Estética y Belleza",
+  "categoria": "Estética y Belleza",
+  "categorias_secundarias": [
+    "Bazar y Cocina",
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 3,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.726044",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 15100,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 18600.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 27900.0,
+    "precio_final": 28000.0,
+    "ganancia_neta": 12900.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 28000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.869869"
+}

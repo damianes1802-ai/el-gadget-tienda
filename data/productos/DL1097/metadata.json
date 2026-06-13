@@ -1,0 +1,52 @@
+{
+  "sku": "DL1097",
+  "titulo": "Escobilla con Cabezal Giratorio",
+  "precio": 6990,
+  "descripcion": "Escobilla con cabezal giratorio\nMango extensible\nCabezal 50 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1097.png"
+  ],
+  "cantidad_imagenes": 1,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5325/s/escobilla-con-cabezal-giratorio/category/13/",
+  "fecha_scraping": "2026-06-13T08:24:26.785683",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Baño y Limpieza",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Baño y Limpieza",
+  "categoria": "Baño y Limpieza",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.797780",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 6990,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 10490.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 15735.0,
+    "precio_final": 16000.0,
+    "ganancia_neta": 9010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 16000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.032006"
+}

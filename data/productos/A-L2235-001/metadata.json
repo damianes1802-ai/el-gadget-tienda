@@ -1,0 +1,55 @@
+{
+  "sku": "A-L2235-001",
+  "titulo": "Inflable unicornio para pileta grande transparente 1.2m x 0.6m",
+  "precio": 28458,
+  "descripcion": "Inflable Unicornio Transparente grande. Medidas aproximadas 1.2m x 0.6m.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/a/-/a-l2235-001.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/l/3/l3235-001_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/l/3/l3235-001_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/l/3/l3235-001_3_.jpg"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/inflable-unicornio-para-pileta-grande-transparente-1-2m-x-0-6m.html",
+  "fecha_scraping": "2026-06-13T08:23:52.887330",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Verano"
+  ],
+  "categoria_principal": "Verano",
+  "categoria": "Verano",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:58.231585",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-001_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-001_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-001_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-001_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 28458,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 31958.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 47937.0,
+    "precio_final": 48000.0,
+    "ganancia_neta": 19542.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 48000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.680375"
+}

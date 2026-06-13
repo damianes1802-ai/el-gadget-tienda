@@ -1,0 +1,57 @@
+{
+  "sku": "WH7028-1",
+  "titulo": "Botella deportiva diseño 1500 ML",
+  "precio": 19008,
+  "descripcion": "Botella deportiva de diseño\nCapacidad 1500 ML\nColores beige, rosa, lila, celeste.\nSe envían surtidos.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7028-1_extra.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7028-1_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7028-1_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7028-1_4_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7028-1.jpg"
+  ],
+  "cantidad_imagenes": 5,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/botella-deportiva-dise-o-1500-ml.html",
+  "fecha_scraping": "2026-06-13T08:23:36.912505",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Bazar y Cocina"
+  ],
+  "categoria_principal": "Bazar y Cocina",
+  "categoria": "Bazar y Cocina",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.326108",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028-1_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028-1_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028-1_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028-1_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028-1_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 19008,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 22508.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 33762.0,
+    "precio_final": 34000.0,
+    "ganancia_neta": 14992.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 34000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.206154"
+}

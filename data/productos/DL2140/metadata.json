@@ -1,0 +1,58 @@
+{
+  "sku": "DL2140",
+  "titulo": "Rodillo saca pelusas lavable + mini rodillo portátil",
+  "precio": 6500,
+  "descripcion": "Pincel reutilizable para mascotas – un fantástico pelo, pelusa, polvo, migas, arena y más extractor de pinceles. Mantiene tu ropa, muebles, alfombras, mascotas limpias es más fácil y respetuoso con el medio ambiente que nunca. Es seguro y eficaz en cualquier tipo de superficies, hace un gran trabajo independientemente del pelo corto o largo.\r\nJuego de dos piezas: el paquete incluye dos diseños del producto. Mantén el rodillo más grande para tu hogar mientras usas el recogedor compacto en los desplazamientos, específicamente diseñado para caber en tu bolso, bolsa.\r\nCepillo de doble cara libre de estrés – úsalo como un cepillo para tu mascota, elimina el exceso de pelo sin arañar a tu mascota proporcionando una agradable experiencia de frote.\r\nFácil de usar y fácil de limpiar: retira el protector y enrolla sobre cualquier tipo de superficie. No necesita una base de limpieza, utiliza agua del grifo para eliminar la chatarra de la superficie pegajosa, agitar para secar y volver a usarla.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-sticky-buddy_1__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-sticky-buddy_2__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-sticky-buddy_3__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-sticky-buddy_4__1.png"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/rodillo-cepillo-quita-saca-pelos-pelusa-mascotas-lavable-1.html",
+  "fecha_scraping": "2026-06-13T08:24:43.580341",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Baño y Limpieza",
+    "Accesorios para Mascotas"
+  ],
+  "categoria_principal": "Baño y Limpieza",
+  "categoria": "Baño y Limpieza",
+  "categorias_secundarias": [
+    "Accesorios para Mascotas"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.694478",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 6500,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 10000.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 15000.0,
+    "precio_final": 15000.0,
+    "ganancia_neta": 8500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 15000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.989335"
+}

@@ -1,0 +1,49 @@
+{
+  "sku": "DL2200",
+  "titulo": "Kit de Herramientas",
+  "precio": 9900,
+  "descripcion": "Kit de herramientas de precisión\n115 en 1",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1267_1.jpg"
+  ],
+  "cantidad_imagenes": 1,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/kit-de-herramientas-1.html",
+  "fecha_scraping": "2026-06-13T08:25:37.649368",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:58.487265",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2200_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 9900,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 13400.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 20100.0,
+    "precio_final": 20500.0,
+    "ganancia_neta": 10600.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 20500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.126427"
+}

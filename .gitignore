@@ -8,6 +8,19 @@ config/sheets_id.txt
 data/*
 !data/catalogo.db
 
+# Config de precios (necesaria para el calculo de precios en CI)
+!data/precios
+data/precios/*
+!data/precios/config_precios_v2.json
+
+# Metadata de productos (estado del pipeline, necesaria en CI)
+# Se ignoran imagenes/subcarpetas, solo se versiona metadata.json
+!data/productos
+data/productos/*
+!data/productos/*/
+data/productos/*/*
+!data/productos/*/metadata.json
+
 # Logs
 logs/
 

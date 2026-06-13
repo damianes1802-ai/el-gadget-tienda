@@ -1,0 +1,56 @@
+{
+  "sku": "WH7212-NE",
+  "titulo": "5 Pares De Medias Con Diseños Divertidos NEGRAS",
+  "precio": 4400,
+  "descripcion": "Par de medias con diseños divertidos\nTalle único universal\nPACK de 5 pares iguales\nModelos solo en NEGRO",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/n/e/ne.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7212_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_65_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/4/_/4_51_1.jpg"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/par-de-medias-con-dise-os-divertidos-2.html",
+  "fecha_scraping": "2026-06-13T08:23:40.164388",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T07:56:37.149980",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-NE_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-NE_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-NE_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-NE_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 4400,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 7900.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 11850.0,
+    "precio_final": 12000.0,
+    "ganancia_neta": 7600.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 12000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.311775",
+  "fecha_agotado": "2026-06-13T08:19:05.581485"
+}

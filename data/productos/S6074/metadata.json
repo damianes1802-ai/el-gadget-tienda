@@ -1,0 +1,60 @@
+{
+  "sku": "S6074",
+  "titulo": "Piluso Gorro Gorra Eco Cuero Mujer Invierno Forrado Interior",
+  "precio": 11298,
+  "descripcion": "Piluso de Eco Cuero Negro Brillante - Estilo y Calidez para Invierno\n¡Lleva tu look al siguiente nivel con este Piluso de Eco Cuero! Este accesorio esencial combina perfectamente el estilo urbano con la funcionalidad de la temporada. Su acabado en negro brillante le da un toque moderno y atrevido, ideal para destacar en cualquier ocasión.\nCaracterísticas Destacadas:\nColor: Negro brillante, un clásico versátil y muy chic.\nMaterial: Confeccionado en Eco Cuero, un material moderno, duradero y fácil de limpiar.\nInterior Forrado: Pensado para el frío, su interior viene forrado para brindarte la calidez y comodidad que necesitas durante todo el Otoño/Invierno.\nDiseño: Tipo Piluso/Bucket Hat, perfecto para un estilo relajado, moderno y a la moda.\nDetalles del Producto:\nGénero: Mujer\nTipo de sombrero: Piluso\nTemporada de lanzamiento: Otoño/Invierno\nCon cierre ajustable: No\nCon materiales reciclados: No",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/6/s6074_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/6/s6074_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/6/s6074_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/6/s6074_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/6/s6074_5_.png"
+  ],
+  "cantidad_imagenes": 5,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/piluso-gorro-gorra-eco-cuero-mujer-invierno-forrado-interior.html",
+  "fecha_scraping": "2026-06-13T08:26:16.972465",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios de Moda",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios de Moda",
+  "categoria": "Accesorios de Moda",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:54.758520",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6074_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6074_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6074_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6074_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6074_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 11298,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 14798.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 22197.0,
+    "precio_final": 22500.0,
+    "ganancia_neta": 11202.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 22500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.923810"
+}

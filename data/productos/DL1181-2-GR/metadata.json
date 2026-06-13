@@ -1,0 +1,49 @@
+{
+  "sku": "DL1181-2-GR",
+  "titulo": "Cama Tipo Nido para Mascotas GRIS",
+  "precio": 16500,
+  "descripcion": "Cama Nido Para Mascotas\nMaterial: Algodón Pelo Largo\nMedidas: 60Cm\nColores Rosa Y Gris\nSe Entrega Surtido",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1181-2_2__1.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/cama-tipo-nido-para-mascotas-2.html",
+  "fecha_scraping": "2026-03-02T15:43:05.215892",
+  "cantidad_imagenes": 1,
+  "imagenes_cloudinary": [],
+  "calculo_precio": {
+    "precio_costo": 16500,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 20000.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 30000.0,
+    "precio_final": 30000.0,
+    "ganancia_neta": 13500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 30000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.204581",
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [
+    "Accesorios de Mascotas"
+  ],
+  "todas_las_categorias": [
+    "Nuevos Ingresos",
+    "Accesorios de Mascotas"
+  ],
+  "total_categorias": 2,
+  "fecha_actualizacion_categorias": "2026-03-02T16:18:50.332727",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.656270",
+  "availability": "out of stock"
+}

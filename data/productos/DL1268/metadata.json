@@ -1,0 +1,65 @@
+{
+  "sku": "DL1268",
+  "titulo": "Cepillo de Silicona Lava Copas Premium PACKx20",
+  "precio": 9600,
+  "descripcion": "Cepillo De Silicona\nFlexible Para Lavado Profundo\nPack X 20 Unidades",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1268_6_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1268.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1268_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1268_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1268_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1268_4_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1268_5_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1268_7_.jpg"
+  ],
+  "cantidad_imagenes": 8,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5501/s/cepillo-de-silicona-lava-copas-premium-packx20/category/13/",
+  "fecha_scraping": "2026-06-13T08:24:15.828524",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Bazar y Cocina",
+    "Baño y Limpieza",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Bazar y Cocina",
+  "categoria": "Bazar y Cocina",
+  "categorias_secundarias": [
+    "Baño y Limpieza",
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 3,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.260101",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1268_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1268_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1268_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1268_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1268_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 9600,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 13100.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 19650.0,
+    "precio_final": 20000.0,
+    "ganancia_neta": 10400.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 20000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.519418"
+}

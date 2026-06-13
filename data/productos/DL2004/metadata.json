@@ -1,0 +1,67 @@
+{
+  "sku": "DL2004",
+  "titulo": "Barra Imantada Cuchillos Herramientas 50cm",
+  "precio": 6200,
+  "descripcion": "Barra Imantada Para Cuchillos, Tijeras Y Demás Herramientas.\nMedidas: 50 Cm X 3,5 Cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2002_3__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2002_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2002_1__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2002_2__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2002_4__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2002_5__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2002_6__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2002_7__1_1.png"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5508/s/barra-imantada-cuchillos-herramientas-33cm-2/category/13/",
+  "fecha_scraping": "2026-02-23T20:02:34.799113",
+  "cantidad_imagenes": 8,
+  "calculo_precio": {
+    "precio_costo": 6200,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 9700.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 14550.0,
+    "precio_final": 15000.0,
+    "ganancia_neta": 8800.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 15000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.650129",
+  "categoria_principal": "Home",
+  "categoria": "Home",
+  "categorias_secundarias": [
+    "Bazar y Cocina",
+    "Nuevos Ingresos"
+  ],
+  "todas_las_categorias": [
+    "Home",
+    "Bazar y Cocina",
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 3,
+  "fecha_actualizacion_categorias": "2026-02-23T20:46:43.652530",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.721594",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2004_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2004_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2004_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2004_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2004_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2004_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2004_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2004_008"
+  ]
+}

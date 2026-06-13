@@ -1,0 +1,51 @@
+{
+  "sku": "DL1183-S",
+  "titulo": "Puerta Para Mascotas Calidad Superior",
+  "precio": 0,
+  "descripcion": "Puerta para mascotas calidad superior\nMedida S ( 19,7 x 19 x 2 cm )\nColor: Blanco",
+  "imagenes": [],
+  "cantidad_imagenes": 0,
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5286/s/puerta-para-mascotas-calidad-superior/category/13/",
+  "fecha_scraping": "2026-03-16T19:33:45.188072",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Home",
+    "Accesorios para Mascotas"
+  ],
+  "categoria_principal": "Home",
+  "categoria": "Home",
+  "categorias_secundarias": [
+    "Accesorios para Mascotas"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-03-16T19:46:16.468590",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1183-S_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 0,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 3500.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 5250.0,
+    "precio_final": 5500.0,
+    "ganancia_neta": 5500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 5500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.211398",
+  "fecha_agotado": "2026-06-13T08:19:05.739802"
+}

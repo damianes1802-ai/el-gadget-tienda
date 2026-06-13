@@ -1,0 +1,54 @@
+{
+  "sku": "M-BWH0045-TU",
+  "titulo": "Cantimplora Deportiva 750mL Turquesa",
+  "precio": 0,
+  "descripcion": "Triple a prueba de fugas: nuestra botella de agua plana viene equipada con una triple capa de protección: una junta de silicona, anillo de sellado y cubierta de seguridad, asegurando que nunca gotee. Además, la cubierta de seguridad está diseñada para una fácil apertura.\nCorrea de hombro portátil de conveniencia: puedes llevar fácilmente esta botella de agua plana con una correa para el hombro o deslizarla en tu bolsillo para hidratarte con manos libres sobre la marcha. Su diseño versátil lo hace portátil y fácil de usar.\nMaterial resistente: construida con materiales resistentes al desgaste, esta botella de agua plana está diseñada para el uso diario resistente. Sus bordes de refuerzo anticaídas aseguran que permanezca intacto incluso después de caídas accidentales.",
+  "imagenes": [],
+  "cantidad_imagenes": 0,
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "url_original": "https://droppers.com.ar/cantimplora-deportiva-750ml-colores-5.html",
+  "fecha_scraping": "2026-03-16T19:32:15.842028",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Fitness"
+  ],
+  "categoria_principal": "Fitness",
+  "categoria": "Fitness",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-03-16T19:46:15.763897",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M-BWH0045-TU_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M-BWH0045-TU_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M-BWH0045-TU_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M-BWH0045-TU_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M-BWH0045-TU_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M-BWH0045-TU_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M-BWH0045-TU_007"
+  ],
+  "calculo_precio": {
+    "precio_costo": 0,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 3500.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 5250.0,
+    "precio_final": 5500.0,
+    "ganancia_neta": 5500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 5500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.606353",
+  "fecha_agotado": "2026-06-13T08:19:05.706947"
+}

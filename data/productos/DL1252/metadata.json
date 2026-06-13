@@ -1,0 +1,49 @@
+{
+  "sku": "DL1252",
+  "titulo": "Organizador Joyero Alhajero Portátil",
+  "precio": 3630,
+  "descripcion": "Organizador joyero alhajero portatil\nCremallera/cierre\nMedidas: 10 x 10 x 5 cm\nColores gris, rosado y negro.\nSe envía surtido",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1252_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1252_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1252.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5318/s/organizador-joyero-alhajero-portatil/category/13/",
+  "fecha_scraping": "2026-02-01T09:43:25.981432",
+  "cantidad_imagenes": 3,
+  "calculo_precio": {
+    "precio_costo": 3630,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 7130.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 10695.0,
+    "precio_final": 11000.0,
+    "ganancia_neta": 7370.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 11000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.310358",
+  "es_variante": false,
+  "item_group_id": "DL1252",
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:06.194373",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:34.819296",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.676886",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1252_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1252_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1252_003"
+  ]
+}

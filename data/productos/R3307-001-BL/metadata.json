@@ -1,0 +1,62 @@
+{
+  "sku": "R3307-001-BL",
+  "titulo": "Reloj Muñeca Oso Panda Blanco Y Negro Niños blanco",
+  "precio": 4973,
+  "descripcion": "Reloj de Pulsera Unisex de Diseño Panda",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/3/r3307-001-bl_1_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/3/r3307-001-bl_5_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/3/r3307-001-bl_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/3/r3307-001-bl_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/3/r3307-001-bl_3_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/3/r3307-001-bl_4_.1.png"
+  ],
+  "cantidad_imagenes": 6,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/reloj-muneca-oso-panda-blanco-y-negro-ninos-blanco.html",
+  "fecha_scraping": "2026-06-13T08:23:22.845988",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Electrónica",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Electrónica",
+  "categoria": "Electrónica",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.827803",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R3307-001-BL_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R3307-001-BL_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R3307-001-BL_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R3307-001-BL_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R3307-001-BL_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R3307-001-BL_006"
+  ],
+  "calculo_precio": {
+    "precio_costo": 4973,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 8473.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 12709.5,
+    "precio_final": 13000.0,
+    "ganancia_neta": 8027.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 13000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.830137"
+}

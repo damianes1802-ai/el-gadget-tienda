@@ -1,0 +1,69 @@
+{
+  "sku": "RWH0248",
+  "titulo": "Castillo de Bloques con Cupula 683pcs",
+  "precio": 33188,
+  "descripcion": "Castillo de princesa con estilo de bola de nieve navideña\nCrystal castle 683 Piezas\nEste juguete proporciona una experiencia mágica e inmersiva para los niños que aman los cuentos de hadas y aparte mejora aspectos de la creatividad y el ingenio.\nMaterial duradero: Hecho de plástico de alta calidad, este juguete está construido para durar y puede soportar el juego brusco.\nMedidas: 15 x 10cm\nRecomendado para mayores de 6 años",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0248_16_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/c/9cm_33__2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0248_1_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0248_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0248_9_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0248_10_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0248_11_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0248_13_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0248_14_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0248_17_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0248_18_.png"
+  ],
+  "cantidad_imagenes": 11,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/castillo-de-bloques-con-cupula-683pcs.html",
+  "fecha_scraping": "2026-06-13T08:25:00.986265",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Artículos Infantiles"
+  ],
+  "categoria_principal": "Artículos Infantiles",
+  "categoria": "Artículos Infantiles",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:55.928156",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_010",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_011"
+  ],
+  "calculo_precio": {
+    "precio_costo": 33188,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 36688.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 55032.0,
+    "precio_final": 55500.0,
+    "ganancia_neta": 22312.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 55500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.893569"
+}

@@ -1,0 +1,69 @@
+{
+  "sku": "DL1257-GR",
+  "titulo": "Correa Portabebés Ergonómica Ajustable GRIS",
+  "precio": 8800,
+  "descripcion": "Fular Porta Bebe Canguro Ergonómico\nAjustable\nColores: Turquesa, Gris Y Rosa.\nSe Entrega Surtido",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1257_2__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_916353-mla70421818065_072023-f_1_3.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-portabebes_7__1_3.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-portabebes_8__1_3.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/-/s-l1600_2_4_3.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-portabebes_1__1_3.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-portabebes_2__1_3.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-portabebes_3__1_3.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-portabebes_4__1_3.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/7186rehq4tl._ac_sl1500__1_3.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71iogej2gxl._ac_sl1500__1_3.jpg"
+  ],
+  "cantidad_imagenes": 11,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/fular-portabebe-correa-ergonomica-transpirable-y-ajustable-4.html",
+  "fecha_scraping": "2026-06-13T08:25:53.109438",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Artículos Infantiles",
+    "Home"
+  ],
+  "categoria_principal": "Artículos Infantiles",
+  "categoria": "Artículos Infantiles",
+  "categorias_secundarias": [
+    "Home"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.209343",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-GR_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-GR_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-GR_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-GR_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-GR_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-GR_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-GR_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-GR_008"
+  ],
+  "calculo_precio": {
+    "precio_costo": 8800,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 12300.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 18450.0,
+    "precio_final": 18500.0,
+    "ganancia_neta": 9700.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 18500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.390441"
+}

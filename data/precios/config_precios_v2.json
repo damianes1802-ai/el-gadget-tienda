@@ -1,0 +1,184 @@
+{
+  "version": "2.0",
+  "fecha_actualizacion": "2026-02-04 11:47:27",
+  "moneda": "ARS",
+  "perfiles_precio": {
+    "default": {
+      "nombre": "Estándar",
+      "descripcion": "Configuración por defecto para todos los productos",
+      "activo": true,
+      "cargos_fijos": [
+        {
+          "id": "cargo_001",
+          "nombre": "Envio",
+          "valor": 2000.0,
+          "activo": true,
+          "notas": "Costo promedio de envío"
+        },
+        {
+          "id": "cargo_003",
+          "nombre": "Packaging",
+          "valor": 1500.0,
+          "activo": true,
+          "notas": "Material de embalaje"
+        }
+      ],
+      "margen_porcentaje": 50,
+      "redondeo": {
+        "activo": true,
+        "multiplo": 500,
+        "direccion": "arriba"
+      }
+    },
+    "premium": {
+      "nombre": "Premium",
+      "descripcion": "Para productos de mayor valor o exclusivos",
+      "activo": false,
+      "cargos_fijos": [
+        {
+          "id": "cargo_001",
+          "nombre": "Envío estimado",
+          "valor": 3000,
+          "activo": true,
+          "notas": "Envío express o especial"
+        },
+        {
+          "id": "cargo_002",
+          "nombre": "Comisión plataforma",
+          "valor": 800,
+          "activo": true,
+          "notas": "Comisión mayor por producto premium"
+        },
+        {
+          "id": "cargo_003",
+          "nombre": "Packaging premium",
+          "valor": 600,
+          "activo": true,
+          "notas": "Embalaje de alta calidad"
+        }
+      ],
+      "margen_porcentaje": 80,
+      "redondeo": {
+        "activo": true,
+        "multiplo": 1000,
+        "direccion": "arriba"
+      }
+    },
+    "oferta": {
+      "nombre": "Oferta/Liquidación",
+      "descripcion": "Para productos en promoción",
+      "activo": false,
+      "cargos_fijos": [
+        {
+          "id": "cargo_001",
+          "nombre": "Envío estimado",
+          "valor": 2000,
+          "activo": true,
+          "notas": "Envío estándar"
+        },
+        {
+          "id": "cargo_002",
+          "nombre": "Comisión plataforma",
+          "valor": 500,
+          "activo": true,
+          "notas": "Comisión estándar"
+        }
+      ],
+      "margen_porcentaje": 30,
+      "redondeo": {
+        "activo": true,
+        "multiplo": 500,
+        "direccion": "arriba"
+      }
+    }
+  },
+  "reglas_asignacion": {
+    "por_rango_precio": [
+      {
+        "condicion": "precio_costo < 1000",
+        "perfil": "default",
+        "descripcion": "Productos económicos"
+      },
+      {
+        "condicion": "precio_costo >= 10000",
+        "perfil": "premium",
+        "descripcion": "Productos de alto valor"
+      }
+    ],
+    "por_sku_pattern": [
+      {
+        "patron": "^DL.*",
+        "perfil": "default",
+        "descripcion": "Productos DL (estándar)"
+      }
+    ],
+    "por_titulo_keyword": [
+      {
+        "keyword": "Premium",
+        "perfil": "premium",
+        "descripcion": "Productos con 'Premium' en el título"
+      },
+      {
+        "keyword": "Oferta",
+        "perfil": "oferta",
+        "descripcion": "Productos con 'Oferta' en el título"
+      }
+    ]
+  },
+  "historial_cambios": [
+    {
+      "fecha": "2026-02-01T10:00:00",
+      "usuario": "sistema",
+      "cambio": "Configuración inicial",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-02-01T10:03:41.176342",
+      "usuario": "consola",
+      "cambio": "Perfil editado: Estándar",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-02-01T10:04:34.362301",
+      "usuario": "consola",
+      "cambio": "Cargo eliminado: Comisión plataforma",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-02-01T10:05:05.343302",
+      "usuario": "consola",
+      "cambio": "Cargo editado: Envío estimado",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-02-01T10:05:25.010090",
+      "usuario": "consola",
+      "cambio": "Cargo editado: Packaging",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-02-01T10:05:47.689429",
+      "usuario": "consola",
+      "cambio": "Redondeo configurado: {'activo': True, 'multiplo': 500, 'direccion': 'arriba'}",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-02-04T11:45:52.082301",
+      "usuario": "consola",
+      "cambio": "Perfil editado: Estándar",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-02-04T11:46:45.200470",
+      "usuario": "consola",
+      "cambio": "Cargo editado: 2000",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-02-04T11:47:06.837917",
+      "usuario": "consola",
+      "cambio": "Cargo editado: Envio",
+      "perfil_modificado": "default"
+    }
+  ]
+}

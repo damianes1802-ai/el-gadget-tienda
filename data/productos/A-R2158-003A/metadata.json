@@ -1,0 +1,57 @@
+{
+  "sku": "A-R2158-003A",
+  "titulo": "Lampara Led de Mesa Anana 26cm",
+  "precio": 10719,
+  "descripcion": "Lampara led de mesa. Diseño de ananá.\nColor amarillo y verde.\nFunciona con 3 pilas AA. No incluye las pilas.\nMedidas aproximadas: 26cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/2/r2158-003a-3.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/2/r2158-003a-2.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/2/r2158-003a-1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/2/r2158-003a-4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61wvkx1jf_s._ac_sl1204_.jpg"
+  ],
+  "cantidad_imagenes": 5,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/lampara-led-de-mesa-anana-26cm.html",
+  "fecha_scraping": "2026-06-13T08:23:24.148037",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Deco"
+  ],
+  "categoria_principal": "Deco",
+  "categoria": "Deco",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.201359",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 10719,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 14219.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 21328.5,
+    "precio_final": 21500.0,
+    "ganancia_neta": 10781.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 21500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.774667"
+}

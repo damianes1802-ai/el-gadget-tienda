@@ -1,0 +1,59 @@
+{
+  "sku": "WH0236",
+  "titulo": "Paraguas Transparente",
+  "precio": 3620,
+  "descripcion": "Paraguas transparente Vinilico\nCuenta con una estructura Metálica y su diseño es super estético.\nEs muy fácil de usar y guardar.\nSu color es totalmente transparente.\nMango: Agarre tipo C\nProteccion en todas las puntas\n– Material del mango: Plástico.\n– Colores: Transparente.\n– Medidas: 92 cm de Diámetro x 72 cm de Alto aprox.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/c/9cm_-_2024-12-05t103705.395.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/c/9cm_50__2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0236_1_.jpeg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0236_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0236_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0236_4_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0236_5_.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/paraguas-transparente.html",
+  "fecha_scraping": "2026-03-09T15:19:11.670679",
+  "cantidad_imagenes": 7,
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0236_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0236_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0236_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0236_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 3620,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 7120.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 10680.0,
+    "precio_final": 11000.0,
+    "ganancia_neta": 7380.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 11000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.190145",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-03-09T15:53:21.862483",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.573088",
+  "availability": "out of stock"
+}

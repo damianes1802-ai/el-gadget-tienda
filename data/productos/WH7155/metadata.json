@@ -1,0 +1,58 @@
+{
+  "sku": "WH7155",
+  "titulo": "Par de medias infantiles forma de osito",
+  "precio": 3344,
+  "descripcion": "Par de medias divertidas de osito\nTalle único universal\n4 colores. Se envían surtidos.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7155.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7155_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7155_4_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7155_5_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7155.jpg"
+  ],
+  "cantidad_imagenes": 5,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/par-de-medias-infantiles-forma-de-osito.html",
+  "fecha_scraping": "2026-06-13T08:25:19.009025",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T07:56:37.140557",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7155_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7155_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7155_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7155_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7155_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 3344,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 6844.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 10266.0,
+    "precio_final": 10500.0,
+    "ganancia_neta": 7156.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 10500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.242926",
+  "fecha_agotado": "2026-06-13T08:19:05.595763"
+}

@@ -1,0 +1,57 @@
+{
+  "sku": "PA111B",
+  "titulo": "Blusa Manga Larga Semi Oxford Mujer Estilo Chic CELESTE",
+  "precio": 27028,
+  "descripcion": "Blusa femenina hombros descubiertos – Estilo elegante y fresco\nBlusa para mujer de diseño moderno con hombros descubiertos, ideal para un look casual y femenino. Confeccionada en tela liviana y suave, perfecta para usar en días cálidos o para combinar en outfits de media estación.\nSu escote elástico tipo *off shoulder* se adapta cómodamente al cuerpo y resalta los hombros. Las mangas largas con detalles calados y terminaciones delicadas le aportan un toque elegante y distintivo.\nCaracterísticas:\n* Diseño: hombros descubiertos (off shoulder)\n* Manga larga con detalles decorativos\n* Tela liviana y cómoda\n* Color: Negro\n* Estilo versátil: ideal para uso casual, salidas o eventos informales\n* Fácil de combinar con jeans, shorts o faldas\nTalla: S Contorno de pecho: 92 Contorno de cintura: 92 Contorno de cadera: 92 Contorno del cuello: 42\nTalla: M Contorno de pecho: 94 Contorno de cintura: 94 Contorno de cadera: 94 Contorno del cuello: 44\nTalla: L Contorno de pecho: 102 Contorno de cintura: 102 Contorno de cadera: 102 Contorno del cuello: 50\nUna prenda fresca, femenina y muy combinable que no puede faltar en tu guardarropa.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa111b.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa111b_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa111b_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa111b_4_.png"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/blusa-manga-larga-semi-oxford-mujer-estilo-chic-brigitte-1.html",
+  "fecha_scraping": "2026-06-13T08:26:24.452166",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios de Moda",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios de Moda",
+  "categoria": "Accesorios de Moda",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:54.982038",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111B_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111B_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111B_003"
+  ],
+  "calculo_precio": {
+    "precio_costo": 27028,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 30528.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 45792.0,
+    "precio_final": 46000.0,
+    "ganancia_neta": 18972.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 46000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.778824"
+}

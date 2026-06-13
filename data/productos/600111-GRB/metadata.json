@@ -1,0 +1,54 @@
+{
+  "sku": "600111-GRB",
+  "titulo": "Morral Antirrobo Oxford Gris con Bronce",
+  "precio": 12100,
+  "descripcion": "Tamaño del producto: 31 x 18 x 9 cm\nTirantes: ajustables\nColores Disponibles: Gris con Bronce\nBloqueo antirrobo: con función antirrobo, es práctico y conveniente. Protección de privacidad con bloqueo de contraseña, utiliza una contraseña de tres dígitos para bloquear el control deslizante y evitar que la bolsa del pecho se abra para robar artículos.\nÁrea de almacenamiento múltiple: las bolsas cruzadas para hombre tienen un compartimento principal para tu ropa, libros, lonchera y otras necesidades diarias. Con varios bolsillos funcionales, puedes guardar tus objetos pequeños perfectamente, como monedas, teléfono celular, llaves, bolígrafos, etc. Bolsillos laterales para un acceso rápido a tus artículos diarios.\nPráctica y segura: instrucciones incluidas en el paquete. Compartimento principal de la mochila antirrobo con diseño de cierre bloqueable, conveniente para bloquear tus objetos de valor. Bolsillo antirrobo oculto en la parte posterior de esta mochila de negocios, protege tus artículos de los ladrones. La superficie del paquete está impresa con diseño reflectante, y la advertencia nocturna es más segura.\nMaterial duradero: nuestra bolsa está hecha de tela Oxford de alta densidad resistente al agua y al desgarro. Cremalleras de metal duraderas que se cierran y abren suavemente, garantizan un uso seguro y duradero todos los días o fines de semana.\nDiseño de puerto de carga USB: dos sencillos pasos para cargar tus electrónicos: Primero, conecta tu propio banco de energía con el cable de extensión USB integrado dentro de la bolsa del pecho. En segundo lugar, haz que tu cable USB externo se conecte con el puerto de carga USB externo, y luego puede cargar tu teléfono celular u otros dispositivos electrónicos.(Nota: ¡el banco de energía no está incluido!)\nBolsa multiusos: la bolsa antirrobo se puede utilizar como una bolsa de mensajero de negocios y una bolsa de hombro diaria, también un gran compañero para actividades al aire libre, como escapadas de fin de semana, viajes, senderismo, camping, caza, ciclismo, motociclismo, etc.\nCambio de contraseña.\nPaso 1: La contraseña inicial es 000.\nPaso 2: Mantenga pulsado el botón de desbloqueo en el estado correcto de la contraseña.\nPaso 3: Utilice dos dedos para girar el engranaje numérico y suelte el botón de desbloqueo para generar una nueva contraseña girando al número deseado.\nPaso 4: El cambio de contraseña se ha completado, se recomienda que ambos cierres establezcan la misma contraseña para evitar olvidos, asegúrese de recordar la contraseña Oh.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600111_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_951091-mla78023153666_082024-f_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600111_1__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/1/1190370819-1135226759_2_1_2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_709794-mla78023212856_082024-f_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600111_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/513q5srt2cl._sx679__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_743461-mla78248764689_082024-f_1_2.png"
+  ],
+  "url_original": "https://droppers.com.ar/morral-antirrobo-oxford-4.html",
+  "fecha_scraping": "2026-02-23T20:10:29.945128",
+  "cantidad_imagenes": 8,
+  "calculo_precio": {
+    "precio_costo": 12100,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 15600.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 23400.0,
+    "precio_final": 23500.0,
+    "ganancia_neta": 11400.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 23500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.502996",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.689903",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_008"
+  ]
+}

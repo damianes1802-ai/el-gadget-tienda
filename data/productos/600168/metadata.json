@@ -1,0 +1,55 @@
+{
+  "sku": "600168",
+  "titulo": "Vaso taza café doble pared vidrio 150 ml",
+  "precio": 0,
+  "descripcion": "Diseño moderno y atractivo, ideal para los amantes del diseño y el buen gusto.\r\n\r\nVidrio súper resistente al calor y al frío, que mantiene la temperatura de las bebidas durante largo tiempo.\r\n\r\nSe pueden utilizar como vasos de café, latte macchiato, cappuccino, té helado, cerveza, cócteles y mucho más.\r\n\r\nApto para alimentos y para lavavajillas.\r\n\r\nCapacidad: 150 ml\r\n\r\nAltura: 7,5 cm\r\n\r\nDiámetro: 7.5 cm>",
+  "imagenes": [],
+  "cantidad_imagenes": 0,
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "url_original": "https://droppers.com.ar/vaso-taza-cafe-doble-pared-vidrio-80ml-1.html",
+  "fecha_scraping": "2026-03-16T19:32:14.758831",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600168_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600168_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600168_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600168_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600168_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 0,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 3500.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 5250.0,
+    "precio_final": 5500.0,
+    "ganancia_neta": 5500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 5500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.576882",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-03-16T19:49:45.927537",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "fecha_agotado": "2026-06-13T08:19:05.657312"
+}

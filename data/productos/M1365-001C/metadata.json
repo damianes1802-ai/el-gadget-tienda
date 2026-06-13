@@ -1,0 +1,58 @@
+{
+  "sku": "M1365-001C",
+  "titulo": "Mini Bag Cartera Bandolera Cuero Sintético Con Pompón",
+  "precio": 16900,
+  "descripcion": "Mini Bag Cartera Bandolera Cuero Sintético Con Pompón\nEsta bandolera es el accesorio ideal para quienes buscan un diseño moderno, compacto y funcional. Su estructura de cuerpo rígido asegura que la cartera mantenga su forma original, brindando un aspecto elegante y sofisticado en todo momento.\nCaracterísticas Principales:\nMaterial de Calidad: Confeccionada en cuero sintético de textura suave y acabado mate, resistente al uso diario.\nDetalle Exclusivo: Incluye un pompón de piel sintética que añade un toque distintivo y femenino al diseño.\nCorrea Versátil: Viene con una correa larga del mismo material, regulable mediante una hebilla metálica para ajustarla a tu altura. Además, es desmontable gracias a sus prácticos ganchos mosquetón laterales.\nInterior Protegido: Cuenta con forrería interna completa, ideal para cuidar tus pertenencias personales como el celular, llaves o billetera.\nHerrajes de Metal: Todos los detalles de unión, ganchos y hebillas son metálicos con acabado plateado, garantizando mayor durabilidad.\nEstilo y Combinaciones:\nSu diseño minimalista y compacto la hace perfecta tanto para salidas casuales como para eventos. Puedes elegir entre la variante en color rojo con pompón negro o la variante en color verde azulado con pompón blanco, según disponibilidad en la publicación.\nMedidas Detalladas (Aparte):\nAncho: 19 cm\nAlto: 15 cm\nMaterial: Cuero sintético (PU)\nTipo de correa: Ajustable y desmontable",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/1/m1365-001c_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/1/m1365-001c_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/1/m1365-001c_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/1/m1365-001c_9_.png"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/mini-bag-cartera-bandolera-cuero-sintetico-con-pompon.html",
+  "fecha_scraping": "2026-06-13T08:24:26.276995",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios de Moda",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios de Moda",
+  "categoria": "Accesorios de Moda",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:55.283018",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 16900,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 20400.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 30600.0,
+    "precio_final": 31000.0,
+    "ganancia_neta": 14100.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 31000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.622054"
+}

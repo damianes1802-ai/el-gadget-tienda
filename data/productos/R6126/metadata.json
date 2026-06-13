@@ -1,0 +1,49 @@
+{
+  "sku": "R6126",
+  "titulo": "Maceta Simple Decorativa Hombrecitos",
+  "precio": 7683,
+  "descripcion": "Maceta deco para el hogar\nMedidas:\nColores Blanco y negro.\nSe envían surtidos.\n20cm Alto, 8cm ancho",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/6/r6126.png"
+  ],
+  "cantidad_imagenes": 1,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/maceta-simple-decorativa-1.html",
+  "fecha_scraping": "2026-06-13T08:25:00.269201",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Home"
+  ],
+  "categoria_principal": "Home",
+  "categoria": "Home",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.874301",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R6126_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 7683,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 11183.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 16774.5,
+    "precio_final": 17000.0,
+    "ganancia_neta": 9317.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 17000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.843011"
+}

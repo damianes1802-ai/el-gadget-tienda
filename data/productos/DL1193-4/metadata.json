@@ -1,0 +1,62 @@
+{
+  "sku": "DL1193-4",
+  "titulo": "Collar Isabelino Para Mascotas  26/33 cm",
+  "precio": 3410,
+  "descripcion": "Collar isabelino para mascotas.\nCierre con Velcro\nTalles y medidas:\n4 ( circunf. Cuello 26 a 33 cm )",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71yf3zai5-l._ac_sl1500__1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1193_2__1_1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1193_2_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1193_1_1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1193_3__2_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1193_3__1_1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1193_2__2_1_1.jpg"
+  ],
+  "cantidad_imagenes": 7,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/collar-isabelino-para-mascotas-3.html",
+  "fecha_scraping": "2026-06-13T08:26:02.223090",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios para Mascotas",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios para Mascotas",
+  "categoria": "Accesorios para Mascotas",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.908106",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-4_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-4_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-4_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-4_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-4_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 3410,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 6910.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 10365.0,
+    "precio_final": 10500.0,
+    "ganancia_neta": 7090.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 10500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.227191"
+}

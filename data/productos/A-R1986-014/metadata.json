@@ -1,0 +1,53 @@
+{
+  "sku": "A-R1986-014",
+  "titulo": "Lampara Led Colgante Arbol de Navidad Verde 26cm",
+  "precio": 9875,
+  "descripcion": "Lampara led colgante con diseño de árbol de navidad.\nColor Verde\nFunciona con 3 pilas AA. No incluye las pilas.\nMedidas aproximadas 26cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/1/r1986-014-3.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/1/r1986-014-2.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/1/r1986-014-1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/1/r1986-014-4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/511szap5hvl._ac_sl1500_.jpg"
+  ],
+  "cantidad_imagenes": 5,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/lampara-led-colgante-arbol-de-navidad-verde-26cm.html",
+  "fecha_scraping": "2026-06-13T08:23:26.976807",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Deco"
+  ],
+  "categoria_principal": "Deco",
+  "categoria": "Deco",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.001915",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 9875,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 13375.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 20062.5,
+    "precio_final": 20500.0,
+    "ganancia_neta": 10625.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 20500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.771444"
+}

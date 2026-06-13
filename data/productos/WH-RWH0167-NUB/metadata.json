@@ -1,0 +1,56 @@
+{
+  "sku": "WH-RWH0167-NUB",
+  "titulo": "Espejo Autoadhesivo Personalizable Decorativo Niños Nube",
+  "precio": 3722,
+  "descripcion": "El diseño de espejo adhesivo decorativo hace que su hogar se vea diferente, más atractiva.\nNo es de material peligroso para lo niños (no es vidrio) lo que lo hace mas seguro en el ambiente deseado.\nPara la superficie reflectante puede hacer que su habitación sea más brillante.\nDIY Decoración del hogar: puede usar su imaginación para combinar libremente estos pegatinas de pared de espejo para formar una variedad de patrones creativos para agregar interés decorativo para que las paredes ya no sean monótonos y agregue un sentido de diseño.\nAmplia aplicación: es para decorar diferentes ocasiones como telón de fondo de TV, pared de sofá, ventana, puerta, armario, congelador, gabinete, azulejos, viveros, baño, dormitorio y oficina.\nMedidas aproximadas (ya que dependen del modelo del espejo): 20cm de ancho x 18cm de altura\nIncluye plancha de stickers para personalizar",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/4/h4364efd6035b4b688286febeb0a42e999_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/0/h043d6c61b0584f469922277782e7a0e9m_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/0/h054e272a85c5466e9d60b4b0680c4815e_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/2/h283becca1971453eaa4667d12c455731a_1_1.png"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/espejo-dise-o-animal-personalizable-2.html",
+  "fecha_scraping": "2026-06-13T08:26:06.647663",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 3722,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 7222.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 10833.0,
+    "precio_final": 11000.0,
+    "ganancia_neta": 7278.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 11000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.065285",
+  "fecha_agotado": "2026-06-13T08:19:05.761248"
+}

@@ -1,0 +1,68 @@
+{
+  "sku": "600053",
+  "titulo": "Duchador con Soporte y Flexible",
+  "precio": 8100,
+  "descripcion": "Cabezal de ducha de mano de alta presión ajustable,con ahorro de agua y parada de una tecla para accesorios de baño\nCuenta con 5 modos de presion distintos\nCaracterística:\n1. Tecnología Micro Boquilla: El cabezal de ducha cuenta con tecnología de micro boquillas, lo que resulta en salidas de agua más pequeñas y densas que aumentan los caudales de agua y ahorran hasta un 40% de agua en comparación con los cabezales de ducha normales.\n2. Potente presión de agua: El cabezal de ducha proporciona un flujo de agua a alta presión y una mejor experiencia de ducha, incluso en áreas con baja presión de agua, lo que es perfecto para edificios de gran altura.\n3. Funcionalidad de cinco modos: El cabezal de ducha tiene una función de cinco modos que le permite cambiar entre diferentes modos de agua. Esto le brinda un mayor control sobre su experiencia de ducha, haciéndola más cómoda.\n4. Limpieza multiusos: El cabezal de ducha no solo es adecuado para tomar duchas, sino que también proporciona una manera fácil de limpiar diferentes rincones de su hogar. Puede usarlo para lavar inodoros, suelos y diferentes ángulos con facilidad.\n5. Experiencia de ducha de alta presión: El cabezal de ducha ofrece una excelente cobertura de pulverización, con un flujo de agua suave y delicado que le brinda una experiencia de ducha inolvidable.\nEspecificación:\nColor: Metalico\nTamaño de la ducha: 9 x 9 cm\nManguera: 1.44 m\nMaterial: ABS\nSoporte con regulacion de angulo (Incluye tornillos para su instalacion).",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/c/9cm_47__2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600053_1_.jpeg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600053_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600053_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600053_2_.jpeg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600053_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600053_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600053_5_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600053_6_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/a/f/afdea8c0-44bd-4fd2-b87b-a158906abb4d.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_13_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/4/_/4_7_1.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/4503/s/duchador-con-soporte-y-flexible/category/13/",
+  "fecha_scraping": "2026-03-02T15:26:12.998912",
+  "cantidad_imagenes": 12,
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600053_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600053_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600053_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600053_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600053_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600053_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600053_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600053_008"
+  ],
+  "calculo_precio": {
+    "precio_costo": 8100,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 11600.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 17400.0,
+    "precio_final": 17500.0,
+    "ganancia_neta": 9400.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 17500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.453262",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-03-08T10:50:21.658991",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.725375",
+  "availability": "out of stock"
+}

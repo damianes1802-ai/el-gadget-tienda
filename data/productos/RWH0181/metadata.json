@@ -1,0 +1,68 @@
+{
+  "sku": "RWH0181",
+  "titulo": "Juego De Bloques Para Armar",
+  "precio": 28160,
+  "descripcion": "Acerca de este producto:\nLas piezas están hechas de material ABS, que es seguro y respetuoso con el medio ambiente. La superficie de las piezas es lisa y delicada, el color es hermoso y el proceso de montaje es muy seguro.\nLas instrucciones son instrucciones de papel bellamente impresas, las instrucciones tienen pasos de montaje detallados, de acuerdo con las instrucciones pueden completar fácilmente el montaje.\nEl juego de juguetes de bloques de construcción de micro ladrillos es extremadamente adecuado para adornos familiares o Navidad, Halloween y otros regalos de día festivo para familiares y amigos.\nIncluye 663 Pcs\nMedidas: Altura 13.5cm x Ancho 8cm x Prof 11.5cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61hadgciqhl._ac_sl1000__2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/a/captura_de_pantalla_2024-11-29_152326.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_3__6.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_9__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_4__5.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_5__11.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_6__11.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_7__9.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_8__6.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/a/captura_de_pantalla_2024-11-29_152148_1_.jpg"
+  ],
+  "cantidad_imagenes": 10,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/juego-de-bloques-para-armar-2.html",
+  "fecha_scraping": "2026-06-13T08:26:36.777883",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Artículos Infantiles"
+  ],
+  "categoria_principal": "Artículos Infantiles",
+  "categoria": "Artículos Infantiles",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.297741",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_010"
+  ],
+  "calculo_precio": {
+    "precio_costo": 28160,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 31660.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 47490.0,
+    "precio_final": 47500.0,
+    "ganancia_neta": 19340.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 47500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.852099",
+  "fecha_reingreso": "2026-06-13T01:28:15.613689"
+}

@@ -1,0 +1,71 @@
+{
+  "sku": "600003-FU",
+  "titulo": "Bolso para Viaje Impermeable XL FUCSIA",
+  "precio": 6300,
+  "descripcion": "Bolsas de mano para aviones: Una bolsa de equipaje de mano perfecta para sus viajes. Estas bolsas de viaje ligeras se pueden llevar en un avión contigo si quieres asegurarte de que tus artículos esenciales estén cerca.\nEl tamaño de la bolsa es muy adecuado para las pertenencias personales de aerolíneas lowcost e internacionales y puede caber debajo de tu asiento sin pagar una tarifa de mano.\nFacil de transportar: los bolsillos de la bolsa de viaje pueden pasar a través de las asas de la maleta, por lo que es fácil de asegurar a la maleta, liberar tus manos y viajar fácilmente.\nPlegable: el tamaño expandido de la bolsa de viaje es de 50cm de ancho x 34cm alto x 16cm profundidad, y el tamaño plegado es de 19x14cm, lo que solo ocupa un espacio pequeño. También se puede utilizar como una bolsa de repuesto durante el viaje, que es muy fácil de llevar.\nAlta calidad: la pequeña bolsa de lona está hecha de tela de nailon impermeable y duradera de alta calidad, con cremalleras suaves y duraderas. La parte inferior de la bolsa está reforzada, y la correa gruesa y suave es ajustable, lo que te proporciona la mejor protección.\nBolso grande de viaje\nModelo reforzado e impermeable\nIdeal para viaje, se puede llevar en el avión\nDimensiones 50X34X16CM\nBolsillo pasante para llevar en la valija.\nPeso 138gr.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-rh-301_7__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-rh-301_2__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-rh-301_5__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-rh-301_6__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-rh-301_8__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-rh-301_10__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-rh-301_12__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-rh-301_15__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61gggqg2all._sl1001__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61qmckpcmjs._ac_sl1000__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61tpfqvby-l._sl1001__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/610hhh3lisl._sl1001__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61zs61oi3ll._sl1001__4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61crehariys._ac_sl1000__4.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/bolso-plegable-viaje-grande-impermeable-reforzado-valija-5.html",
+  "fecha_scraping": "2026-03-02T15:26:37.182033",
+  "cantidad_imagenes": 14,
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_010",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-FU_011"
+  ],
+  "calculo_precio": {
+    "precio_costo": 6300,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 9800.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 14700.0,
+    "precio_final": 15000.0,
+    "ganancia_neta": 8700.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 15000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.406827",
+  "categoria_principal": "Home",
+  "categoria": "Home",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "Home"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-03-02T16:18:36.731600",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.720490",
+  "availability": "out of stock"
+}

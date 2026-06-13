@@ -1,0 +1,76 @@
+{
+  "sku": "600112",
+  "titulo": "Bolso Cambiador de Bebes",
+  "precio": 9800,
+  "descripcion": "El cambiador de bebe está diseñado para facilitar la tarea del cambio de pañales, ofreciendo comodidad y tranquilidad para bebés y padres, asegurando seguridad en el cuidado de los más pequeños.\nPensado para cubrir las diferentes necesidades desde el embarazo hasta los primeros pasos del bebé, este producto es lavable y está hecho de algodón y telas suaves para cuidar la delicada piel del bebé, manteniendo un espacio fresco y evitando rozaduras o alergias gracias a sus propiedades hipoalergénicas.\nPosee compartimientos para llevar lo necesario para cambiar al bebe como pueden ser pañales, toallas humedas o cualquier cosa que sea indispensable.\nCARACTERÍSTICAS:\n- Tipo de cambiador: Plegable\n- Material: Poliéster, algodón, no tejido\n- Accesorios incluidos: Organizador de pañales\n- Es a prueba de agua: Sí\n- Peso neto: 118g",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_4_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_4_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_5_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_10_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_11_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_12_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_13_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_14_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_15_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_1_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_1_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_2_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_3_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600112_3_.1.png"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/4451/s/bolso-cambiador-de-bebes/category/13/",
+  "fecha_scraping": "2026-02-01T09:42:20.616596",
+  "cantidad_imagenes": 18,
+  "calculo_precio": {
+    "precio_costo": 9800,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 13300.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 19950.0,
+    "precio_final": 20000.0,
+    "ganancia_neta": 10200.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 20000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.510480",
+  "es_variante": false,
+  "item_group_id": "600112",
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:06.553749",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.735580",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_010",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_011",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_012",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_013",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_014",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_015",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_016",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600112_017"
+  ]
+}

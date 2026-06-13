@@ -1,0 +1,53 @@
+{
+  "sku": "A-PAS18C",
+  "titulo": "Bikini Traje De Baño Con Nudos Vedetina Amarillo",
+  "precio": 16622,
+  "descripcion": "Malla Mujer Bikini con nudos vedetina amarilla.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pas18c_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pas18c_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/t/a/talles_bikinis_8.png"
+  ],
+  "cantidad_imagenes": 3,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-con-nudos-vedetina-amarillo.html",
+  "fecha_scraping": "2026-06-13T08:26:11.957428",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Verano"
+  ],
+  "categoria_principal": "Verano",
+  "categoria": "Verano",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:58.417248",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_003"
+  ],
+  "calculo_precio": {
+    "precio_costo": 16622,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 20122.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 30183.0,
+    "precio_final": 30500.0,
+    "ganancia_neta": 13878.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 30500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.746851"
+}

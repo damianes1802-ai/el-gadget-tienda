@@ -1,0 +1,66 @@
+{
+  "sku": "RWH0188",
+  "titulo": "Castillo de Bloques 8 en 1 596pcs",
+  "precio": 31780,
+  "descripcion": "Castillo de princesa Rosa 8 en 1\nPINK CASTLE 596 Piezas\nEste juguete proporciona una experiencia mágica e inmersiva para los niños que aman los cuentos de hadas y aparte mejora aspectos de la creatividad y el ingenio.\nMaterial duradero: Hecho de plástico de alta calidad, este juguete está construido para durar y puede soportar el juego brusco.\nMedidas: 20 x 15cm\nRecomendado para mayores de 6 años",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0188_4_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/c/9cm_34__2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/c/9cm_35_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0188_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0188_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0188_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0188_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0188_5_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0188_6_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh-rwh0188_7_.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/castillo-de-bloques-con-cupula-683pcs-1.html",
+  "fecha_scraping": "2026-02-22T14:15:20.569594",
+  "cantidad_imagenes": 10,
+  "categoria_principal": "Artículos Infantiles",
+  "categoria": "Artículos Infantiles",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "Artículos Infantiles"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-02-22T15:29:50.051064",
+  "calculo_precio": {
+    "precio_costo": 31780,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 35280.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 52920.0,
+    "precio_final": 53000.0,
+    "ganancia_neta": 21220.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 53000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.870546",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.625082",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0188_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0188_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0188_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0188_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0188_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0188_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0188_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0188_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0188_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0188_010"
+  ]
+}

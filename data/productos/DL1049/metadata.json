@@ -1,0 +1,58 @@
+{
+  "sku": "DL1049",
+  "titulo": "Rodillo Saca Pelusa Pelos Mascotas Lavable PACKx10",
+  "precio": 22500,
+  "descripcion": "Rodillo Quita pelusas Lavable\nDesmontable Para Su Lavado\nPack X 10",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1049_1_.1_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1049_4_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1049_2_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1049_3_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1049_3_.png"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5514/s/rodillo-saca-pelusa-pelos-mascotas-lavable-packx10/category/13/",
+  "fecha_scraping": "2026-03-10T14:30:26.542180",
+  "cantidad_imagenes": 5,
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1049_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1049_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1049_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1049_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1049_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 22500,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 26000.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 39000.0,
+    "precio_final": 39000.0,
+    "ganancia_neta": 16500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 39000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.928720",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-03-10T15:18:13.270801",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "fecha_agotado": "2026-06-13T08:19:05.694032"
+}

@@ -1,0 +1,57 @@
+{
+  "sku": "600095SD",
+  "titulo": "Cepillo Limpiador 2 en 1 dispenser de jabon multiuso",
+  "precio": 1210,
+  "descripcion": "Espuma rápida, limpieza más fácil.\n* Cepillo de limpieza multifuncional con líquido, ¡es realmente conveniente para lavar ropa, cepillar zapatos, lavar platos y limpiar!\nEl cepillo viene con una colgada seque completamente después de su uso. No lo deje en el agua durante mucho tiempo. no lo ponga en el lavavajillas.\n* Se puede utilizar en paredes, alfombras, suelos, etc. Facilita su limpieza.\n* El diseño del mango de arco redondeado mantiene la mano cómoda durante mucho tiempo.\nmaterial: plástico\ncolor:",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560460_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560460_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560460_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560460_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560460_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560460_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560460_7_.png"
+  ],
+  "url_original": "https://droppers.com.ar/cepillo-limpiador-2-en-1-dispenser-de-jabon-multiuso.html",
+  "fecha_scraping": "2026-02-01T09:50:47.350552",
+  "cantidad_imagenes": 7,
+  "calculo_precio": {
+    "precio_costo": 1210,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 4710.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 7065.0,
+    "precio_final": 7500.0,
+    "ganancia_neta": 6290.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 7500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.498242",
+  "es_variante": false,
+  "item_group_id": "600095SD",
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:06.163127",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:34.885133",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.686575",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600095SD_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600095SD_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600095SD_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600095SD_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600095SD_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600095SD_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600095SD_007"
+  ]
+}

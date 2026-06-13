@@ -1,0 +1,47 @@
+{
+  "sku": "WH0066-1",
+  "titulo": "Botella infantil 660 ML",
+  "precio": 9416,
+  "descripcion": "Botella infantil\nCapacidad 660 ML\n3 modelos. Se envían surtidos.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/b/o/botelllas.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh0066-1_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh0066-1_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh0066-1.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/botella-infantil-660-ml.html",
+  "fecha_scraping": "2026-02-01T09:45:57.110899",
+  "cantidad_imagenes": 4,
+  "calculo_precio": {
+    "precio_costo": 9416,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 12916.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 19374.0,
+    "precio_final": 19500.0,
+    "ganancia_neta": 10084.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 19500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.129726",
+  "item_group_id": "grupo_053",
+  "variante_atributo": "cantidad",
+  "variante_valor": "1",
+  "producto_base": "botella infantil osito ml",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:04.928749",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.620211",
+  "availability": "out of stock",
+  "imagenes_cloudinary": []
+}

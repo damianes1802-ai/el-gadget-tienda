@@ -1,0 +1,48 @@
+{
+  "sku": "DL1128-NE",
+  "titulo": "Revestimiento Adhesivo Símil Madera NEGRO",
+  "precio": 3376,
+  "descripcion": "Revestimiento adhesivo símil madera\nMedidas rollo: 0,60 x 1 metro\nMaterial: PVC",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1128_10__1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1128-bb_1_1_1.png"
+  ],
+  "url_original": "https://droppers.com.ar/revestimiento-adhesivo-simil-madera-3.html",
+  "fecha_scraping": "2026-02-01T09:55:13.208686",
+  "cantidad_imagenes": 2,
+  "calculo_precio": {
+    "precio_costo": 3376,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 6876.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 10314.0,
+    "precio_final": 10500.0,
+    "ganancia_neta": 7124.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 10500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.101606",
+  "item_group_id": "grupo_021",
+  "variante_atributo": "color",
+  "variante_valor": "NE",
+  "producto_base": "rollo revestimiento adhesivo símil mármol",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:03.803748",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.619004",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1128-NE_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1128-NE_002"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "sku": "WH7154-BL",
+  "titulo": "Par de Medias Largas De Abrigo BLANCO",
+  "precio": 0,
+  "descripcion": "Par de medias largas de abrigo ( a los muslos )\nTalle único universal\nColor blanco.",
+  "imagenes": [],
+  "cantidad_imagenes": 0,
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "url_original": "https://droppers.com.ar/par-de-medias-largas-de-abrigo-3.html",
+  "fecha_scraping": "2026-03-16T19:32:30.480381",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7154-BL_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7154-BL_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7154-BL_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7154-BL_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7154-BL_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7154-BL_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7154-BL_007"
+  ],
+  "calculo_precio": {
+    "precio_costo": 0,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 3500.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 5250.0,
+    "precio_final": 5500.0,
+    "ganancia_neta": 5500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 5500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.236635",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-03-16T19:49:51.063934",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "fecha_agotado": "2026-06-13T08:19:05.649386"
+}

@@ -1,0 +1,62 @@
+{
+  "sku": "600131",
+  "titulo": "Pistola de Aire Comprimido Destapa Cañerias",
+  "precio": 0,
+  "descripcion": "Nueva Herramienta De Eliminación De Obstrucciones En Los Drenaje\nLimpiador De Aire Comprimido\nIdeal Aseos Baño Ducha De Baño Cocina Tubería Obstruida Bañera\nLa Destapadora De Presión Utiliza La Potencia Del Aire Comprimido A Alta Presión Para Eliminar Las Obstrucciones Más Difíciles De Forma Rápida Y Fácil. Se Llena Del Aire Comprimido Mediante Una Carga Manual Y Segura. Mucho Más Efectivo Que Las Sopapas Tradicionales\nMúltiples Ocasiones: Adecuado Para Una Variedad De Ocasiones- Inodoro- Cocina- Lavabo- Rejilla. Ideal Para Todo Tipo De Tuberías. Puede Hacer Frente A Varios Bloqueos Causados Por Todo Tipo De Basura- Como Pelo- Tela- Té- Hojas- Grasa- Suciedad De Aceite- Etc.\n Fácil De Usar Y Efectivo) El Desintegrador Utiliza La Potencia Del Aire Comprimido A Alta Presión Para Eliminar Las Obstrucciones Más Difíciles En Sus Drenajes En Solo Segundos. Simplemente Bombee La Desintegradora Y Apriete El Gatillo- La Obstrucción Se Elimina Instantáneamente. Mucho Más Rápido Que Los Émbolos Y Las Serpientes Tradicionales Y No Más Tiempo De Cintura En Los Abridores De Drenaje.\n (Multifunción Puede Lidiar Con Diversos Bloqueos Causados Por Todo Tipo De Desperdicios Como Pelo- Tela- Té- Hojas- Grasa- Suciedad De Aceite- Etc.). Con Poder De Aire A Alta Presión- Limpia Los Desagües De Forma Rápida Y Sencilla. Perfecto Para Trabajos En Fregaderos- Bañeras Y Aseos.\n (Calidad Duradera) ¡Vencer A Usar Químicos Dañinos Que Pueden Corroer Sus Tuberías O Poner En Peligro A Su Familia! Es Reutilizable Y Puede Durar Años Y Elimina Las Obstrucciones Sin Necesidad De Llamar Al Plomero- Lo Que Le Evita Tener Que Pagar Grandes Sumas De Dinero Por Un Plomero.\n Amplio Rango De Uso Viene Con Accesorio Para Destapar Inodoro- Rejilla- Bachas- Bañeras - Etc. -\n Función Principal: Eliminar Obstrucciones En Las Cañerías\n Consejos: Simplemente Bombee Aire En Él- Inclínela Hacia El Inodoro En Estado Vertical- Presione El Botón De Aire Para Desatascar El Inodoro La Rejilla - La Bacha O El Fregadero.\n Fácil De Conservar Y Limpiar: Fácil De Limpiar Sin Salpicaduras Y Perfecto Para Almacenar Con Un Diseño Compacto.",
+  "imagenes": [],
+  "cantidad_imagenes": 0,
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/1115/s/destapa-canerias-inodoros-rejillas-bacha-por-aire-comprimido/category/13/",
+  "fecha_scraping": "2026-03-16T19:34:18.812024",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Bazar y Cocina",
+    "Baño y Limpieza"
+  ],
+  "categoria_principal": "Bazar y Cocina",
+  "categoria": "Bazar y Cocina",
+  "categorias_secundarias": [
+    "Baño y Limpieza"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-03-16T19:46:17.364060",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_010",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_011",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_012"
+  ],
+  "calculo_precio": {
+    "precio_costo": 0,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 3500.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 5250.0,
+    "precio_final": 5500.0,
+    "ganancia_neta": 5500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 5500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.516385",
+  "fecha_agotado": "2026-06-13T08:19:05.570537"
+}

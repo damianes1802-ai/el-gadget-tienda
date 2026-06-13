@@ -1,0 +1,52 @@
+{
+  "sku": "DL1076",
+  "titulo": "Filtro De Bacha Metálico X10",
+  "precio": 8990,
+  "descripcion": "Filtro de bacha metálico x10\nMedidas: 11x6.5x2.5\nMaterial: Acero inoxidable",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1076.png"
+  ],
+  "cantidad_imagenes": 1,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/filtro-de-bacha-metalico-x10.html",
+  "fecha_scraping": "2026-06-13T08:23:18.391566",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Bazar y Cocina",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Bazar y Cocina",
+  "categoria": "Bazar y Cocina",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.532492",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1076_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 8990,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 12490.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 18735.0,
+    "precio_final": 19000.0,
+    "ganancia_neta": 10010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 19000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.983487"
+}

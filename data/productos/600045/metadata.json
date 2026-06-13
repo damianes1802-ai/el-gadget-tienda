@@ -1,0 +1,65 @@
+{
+  "sku": "600045",
+  "titulo": "Cinta Selladora Autoadhesiva",
+  "precio": 1450,
+  "descripcion": "1. Singularidad: hecho de material de PVC de buena calidad, impermeable, a prueba de humedad, a prueba de moho.\n2.Flexible y suave: tira de sellado de PVC Flexible, plegable a 90 grados, herméticamente sellada en la costura entre las paredes.\n3. Cómodo de usar: tiene pegamento en la parte posterior y es muy cómodo de usar. Se puede rasgar y pegar directamente en el área correspondiente.\n4. Consejos: pero antes de pegar, mantenga la superficie de la pasta limpia y seca.\n5. Fácil de usar y recortar: puedes recortarlo a la longitud que necesites, práctico y reducir el desperdicio.\nAmpliamente utilizado para sellar las juntas de estufas de gas, lavabos, lavabos, bañeras y paredes para evitar el moho y el negro, mantener la cocina y el baño limpios y ordenados.\nCinta Autoadhesiva selladora\nColor: Blanco\nMedidas: 3.2mt",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600045.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-cinta_selladora_5__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-cinta_selladora_8__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61u651pukcl._ac_sl1500__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-cinta_selladora_1_.1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-cinta_selladora_6__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/-/s-l500_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/6160xwxrk4l._ac_sl1500__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61u651pukcl._ac_sl1500__2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/716uu_yqgnl._ac_sl1500__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-cinta_selladora_2__1.png"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/3844/s/cinta-selladora-autoadhesiva-de-pvc-impermeable-blanco-1/category/13/",
+  "fecha_scraping": "2026-02-01T09:39:58.473495",
+  "cantidad_imagenes": 11,
+  "calculo_precio": {
+    "precio_costo": 1450,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 4950.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 7425.0,
+    "precio_final": 7500.0,
+    "ganancia_neta": 6050.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 7500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.442541",
+  "es_variante": false,
+  "item_group_id": "600045",
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:06.616297",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:35.334258",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.590918",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_010",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600045_011"
+  ]
+}

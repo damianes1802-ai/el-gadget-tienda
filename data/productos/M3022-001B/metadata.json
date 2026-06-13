@@ -1,0 +1,70 @@
+{
+  "sku": "M3022-001B",
+  "titulo": "Bandolera Tejida Mujer Bolso Crochet Para Playa Verano BLANCA",
+  "precio": 22858,
+  "descripcion": "Bandolera Tejida Mujer Bolso Crochet Para Playa Verano\nEsta bandolera de diseño artesanal es el accesorio ideal para la temporada de verano y días de playa. Su estética tejida combina la frescura del estilo crochet con detalles naturales que resaltan cualquier look estival.\nCaracterísticas Principales\nDiseño y Estilo: el bolso presenta un cuerpo de forma circular, ofreciendo un aspecto moderno y equilibrado. Su estructura tejida se complementa con una correa trenzada que asegura comodidad al trasladarlo.\nDetalles de Terminación: forrado para proteger tus pertenencias y un práctico cierre mediante cordón. Como detalle decorativo, el cordón incluye bolitas de madera que refuerzan su estilo bohemio y natural.\nVariedad de Colores: el producto está disponible en variantes de color Blanco y Negro. Podés seleccionar el tono de tu preferencia desde las opciones ubicadas en el lado derecho de la publicación antes de realizar la compra.\nMedidas del Producto\nAlto: 17 cm Base: 17 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/3/m3022-001b_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/3/m3022-001b_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/3/m3022-001b_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/3/m3022-001b_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/3/m3022-001b_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/3/m3022-001b_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/3/m3022-001b_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/3/m3022-001b_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/3/m3022-001b_9_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/3/m3022-001b_10_.png"
+  ],
+  "cantidad_imagenes": 10,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/bandolera-tejida-mujer-bolso-crochet-para-playa-1.html",
+  "fecha_scraping": "2026-06-13T08:23:55.550690",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios de Moda",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios de Moda",
+  "categoria": "Accesorios de Moda",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:55.073350",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_010"
+  ],
+  "calculo_precio": {
+    "precio_costo": 22858,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 26358.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 39537.0,
+    "precio_final": 40000.0,
+    "ganancia_neta": 17142.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 40000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.747573"
+}

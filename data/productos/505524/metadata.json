@@ -1,0 +1,63 @@
+{
+  "sku": "505524",
+  "titulo": "Vela sorpresa de payaso con pancarta",
+  "precio": 350,
+  "descripcion": "Material seguro: cera no tóxica, plásticos seguros para contacto con alimentos. Simplemente retira los goteos de cera de los pasteles y sigue siendo comestible.\nDiseño único: unos 30 segundos después de encender la vela, el poste con pancarta enrollada se elevará desde el interior del cuerpo de la vela, y la pancarta se desenrollará.\nConsejos: necesitas insertar en el pastel a partir de 4cm. Hay una capa de papel plástico transparente en la superficie de la vela, por favor, no la arranques.\nPuedes probar si puede funcionar normalmente antes de encender la vela. Abre el paquete, si la pancarta se despliega automáticamente, simplemente restablece la banda de goma en la parte superior trasera.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/c/9cm_89__2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/505524_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/505524_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/505524_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/505524_9_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/505524_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/505524_12_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/505524_4_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/vela-sorpresa-de-payaso-con-pancarta.html",
+  "fecha_scraping": "2026-06-13T08:24:06.826595",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Home"
+  ],
+  "categoria_principal": "Home",
+  "categoria": "Home",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.861516",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_505524_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_505524_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_505524_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_505524_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_505524_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_505524_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_505524_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_505524_008"
+  ],
+  "calculo_precio": {
+    "precio_costo": 350,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 3850.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 5775.0,
+    "precio_final": 6000.0,
+    "ganancia_neta": 5650.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 6000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.362042"
+}

@@ -1,0 +1,45 @@
+{
+  "sku": "DL1239-S",
+  "titulo": "Arnés Pretal de Entrenamiento para Perros TALLE S",
+  "precio": 19965,
+  "descripcion": "Arnés pretal de entrenamiento para perros\nTamaño y talles:\nS ( cont. cuello 37/47 - cont. panza 45/59 )",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1239_1.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/arnes-pretal-de-entrenamiento-para-perros-1.html",
+  "fecha_scraping": "2026-02-01T09:57:28.750452",
+  "cantidad_imagenes": 1,
+  "calculo_precio": {
+    "precio_costo": 19965,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 23465.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 35197.5,
+    "precio_final": 35500.0,
+    "ganancia_neta": 15535.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 35500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.264128",
+  "es_variante": false,
+  "item_group_id": "DL1239-S",
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:05.772519",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:34.992658",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.652064",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1239-S_001"
+  ]
+}

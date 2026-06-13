@@ -1,0 +1,58 @@
+{
+  "sku": "S6058C",
+  "titulo": "Piluso Gorro Charol Invierno Impermeable Importado Premium",
+  "precio": 11076,
+  "descripcion": "Piluso de Charol: Impermeable, Abrigo y Estilo Urbano\nAtrévete a llevar la tendencia urbana con este piluso de charol importado. Su acabado brillante y premium le da un toque moderno y atrevido a tu look de invierno.\nIdeal para la temporada Otoño/Invierno, este gorro no solo es un accesorio de moda, sino también muy funcional: su material de charol lo hace impermeable, protegiéndote de la lluvia ligera y la humedad.\nEs el accesorio perfecto para mujeres adultas que buscan agregar una pieza cómoda y con estilo a sus atuendos diarios.\nCaracterísticas:\nMaterial: Charol (Acabado brillante).\nFunción: Impermeable (Ideal para lluvia o nieve).\nEstilo: Piluso, urbano y moderno.\nGénero: Mujer (Adultos).\nTemporada: Otoño/Invierno.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/6/s6058c_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/6/s6058c_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/6/s6058c_1_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/6/s6058c_2_.png"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/piluso-gorro-charol-invierno-impermeable-importado-premium-2.html",
+  "fecha_scraping": "2026-06-13T08:25:52.651454",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios de Moda",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios de Moda",
+  "categoria": "Accesorios de Moda",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:55.513114",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 11076,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 14576.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 21864.0,
+    "precio_final": 22000.0,
+    "ganancia_neta": 10924.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 22000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.914593"
+}

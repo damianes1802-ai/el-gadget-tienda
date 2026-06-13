@@ -1,0 +1,53 @@
+{
+  "sku": "DL1170",
+  "titulo": "Consola Portátil R36S",
+  "precio": 79900,
+  "descripcion": "Consola Portátil R36S\nRetroBox R36S – Consola Portátil Retro\n¡Tu arcade retro con más de 20.000 juegos!\nCaracterísticas destacadas:\nTarjeta de memoria de hasta 256GB (NO INCLUIDA).\nPantalla IPS de 3.5″ (640 × 480) con excelente definición.\nSoporta más de 13 emuladores retro 2D y 3D.\nBatería de 3500 mAh con autonomía de 3 a 6 horas.\nDiseño compacto, ligero y portátil.\nLa R36S combina potencia, nostalgia y portabilidad. Con sistema ARKOS 2.0, puede ejecutar juegos retro 2D y varios títulos 3D sin problemas. Su pantalla IPS de alta definición ofrece una experiencia visual inmersiva y clara, mientras que sus joysticks duales y botones precisos garantizan una jugabilidad cómoda y fluida.\nPodés conectarla a un joystick externo o incluso a una pantalla grande gracias a su salida tipo OTG. Ideal para revivir los clásicos donde quieras y compartir partidas con amigos.\nEspecificaciones:\nSistema operativo: ARKOS 2.0 (código abierto).\nEmuladores compatibles: más de 13 plataformas.\nMemoria: tarjeta de hasta 256GB (NO INCLUIDA).\nPantalla: 3.5” IPS (640 × 480 px).\nProcesador: ARM Cortex de alto rendimiento.\nBatería: 3500 mAh recargable (duración 3–6 h).\nCarga: USB tipo C (5V – 2A).\nConectividad: tipo C + OTG.\nFunción: salida de video a pantalla externa.\nPeso: 320 g.\nPaís de origen: China.\nParámetro físico:\nDimensiones: 4.1 × 3.2 × 1.1 pulgadas.\nDiseño ergonómico y compacto.\nAlto rendimiento:\nSistema estable y fluido.\nPermite descargar y cargar juegos adicionales.\nInterfaz personalizable.\nAdmite conexión a mandos externos para modo 2 jugadores.\nJoysticks 3D duales con excelente precisión.\nIncluye:\nConsola portátil R36S.\nCable de carga USB tipo C.\nManual de usuario.\nCaja original.\nGlass protector de pantalla\nAplicaciones:\nPerfecta para fanáticos del gaming retro, coleccionistas y jugadores nostálgicos.\nLa R36S es una consola portátil completa: liviana, potente y con miles de clásicos listos para revivir donde quieras.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/3/r36s-4_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/3/r36s-3.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1170.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/3/r36s-2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/r/3/r36s-screen.png"
+  ],
+  "url_original": "https://droppers.com.ar/consola-portatil-r36s.html",
+  "fecha_scraping": "2026-02-01T09:38:52.448320",
+  "cantidad_imagenes": 5,
+  "calculo_precio": {
+    "precio_costo": 79900,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 83400.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 125100.0,
+    "precio_final": 125500.0,
+    "ganancia_neta": 45600.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 125500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.143671",
+  "es_variante": false,
+  "item_group_id": "DL1170",
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:06.303749",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:34.635196",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.631292",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1170_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1170_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1170_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1170_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1170_005"
+  ]
+}

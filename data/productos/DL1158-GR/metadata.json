@@ -1,0 +1,66 @@
+{
+  "sku": "DL1158-GR",
+  "titulo": "Alfombrilla de Bañera Antideslizante Con Piedra Pómez GRIS",
+  "precio": 19910,
+  "descripcion": "Alfombrilla de bañera antideslizante\nCon piedra pómez\nMedidas: 80 x 40 cm\nColores gris y beige.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1158_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_70_10.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/2/_/2_52_9.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/3/_/3_54_10.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/4/_/4_56_11.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/_/5_54_9.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/_/6_52_6.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/0/10_15_9.jpg"
+  ],
+  "cantidad_imagenes": 8,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/alfombrilla-de-ba-era-antideslizante-con-piedra-pomez-1.html",
+  "fecha_scraping": "2026-06-13T08:23:39.181312",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Baño y Limpieza",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Baño y Limpieza",
+  "categoria": "Baño y Limpieza",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.771157",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-GR_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-GR_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-GR_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-GR_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-GR_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-GR_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-GR_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-GR_008"
+  ],
+  "calculo_precio": {
+    "precio_costo": 19910,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 23410.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 35115.0,
+    "precio_final": 35500.0,
+    "ganancia_neta": 15590.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 35500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.136563"
+}

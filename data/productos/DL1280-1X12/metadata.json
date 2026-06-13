@@ -1,0 +1,64 @@
+{
+  "sku": "DL1280-1X12",
+  "titulo": "Pulsera Repelente de Mosquitos x12",
+  "precio": 11550,
+  "descripcion": "Pulsera repelente de mosquitos para niños\n100% aceite natural de Citronela\nNo toxico\nPack x 12 unidades surtidas",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/2/_/2_52_18.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_70_16.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/3/_/3_54_21.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/4/_/4_56_22.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/_/5_54_18.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/_/6_52_13.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/_/7_33_6.jpg"
+  ],
+  "cantidad_imagenes": 7,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5376/s/pulsera-repelente-de-mosquitos-x12/category/13/",
+  "fecha_scraping": "2026-06-13T08:25:24.540330",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Artículos Infantiles",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Artículos Infantiles",
+  "categoria": "Artículos Infantiles",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.319342",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1X12_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1X12_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1X12_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1X12_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1X12_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1X12_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1X12_007"
+  ],
+  "calculo_precio": {
+    "precio_costo": 11550,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 15050.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 22575.0,
+    "precio_final": 23000.0,
+    "ganancia_neta": 11450.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 23000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.593172"
+}

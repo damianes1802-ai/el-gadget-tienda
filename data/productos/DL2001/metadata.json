@@ -1,0 +1,53 @@
+{
+  "sku": "DL2001",
+  "titulo": "Percha Organizadora 9 Espacios PACKx12",
+  "precio": 4900,
+  "descripcion": "- Ahorro de Espacio: cada percha puede ayudar a ahorrar más del 80% del espacio de armario y guardar la ropa limpia, sin arrugas.\n- Giratorio 360º.\n- Plegable.\n- Antideslizante.\n- Duradero y resistente: hecho de plástico reforzado y resistente.\r\n- Cada percha mágica tiene 9 ranuras cerradas, diferentes de las ranuras abiertas de otras perchas.\nMedidas: 33x5 cm\nColores surtidos\nPACK x12 unidades",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/503851a_8__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/503851b_8__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/503851c_8__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/e/perch-001_1__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/e/perch-001_2__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/e/perch-001_3__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/e/perch-001_4__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/e/perch-001_8__1.png"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5515/s/percha-organizadora-9-espacios-rebatible-ropa-placard-magica-1/category/13/",
+  "fecha_scraping": "2026-02-01T09:40:56.964742",
+  "cantidad_imagenes": 8,
+  "calculo_precio": {
+    "precio_costo": 4900,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 8400.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 12600.0,
+    "precio_final": 13000.0,
+    "ganancia_neta": 8100.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 13000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.612479",
+  "es_variante": false,
+  "item_group_id": "DL2001",
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:06.522538",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.730507",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2001_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2001_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2001_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2001_004"
+  ]
+}

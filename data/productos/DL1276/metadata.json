@@ -1,0 +1,48 @@
+{
+  "sku": "DL1276",
+  "titulo": "Vaso doble pared 450 ML",
+  "precio": 5300,
+  "descripcion": "Vaso Doble Vidrio\nMedidas: 14Cm X 8,5Cm De Ancho\nCapacidad: 450Ml",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1276.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5505/s/vaso-doble-pared-350-ml-1/category/13/",
+  "fecha_scraping": "2026-02-01T09:40:14.462886",
+  "cantidad_imagenes": 1,
+  "calculo_precio": {
+    "precio_costo": 5300,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 8800.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 13200.0,
+    "precio_final": 13500.0,
+    "ganancia_neta": 8200.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 13500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.535826",
+  "item_group_id": "grupo_035",
+  "variante_atributo": "numeros_talle",
+  "variante_valor": "DL1276",
+  "producto_base": "vaso doble pared ml",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:04.413162",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:35.528457",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.635355",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1276_001"
+  ]
+}

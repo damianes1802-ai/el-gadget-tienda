@@ -1,0 +1,89 @@
+{
+  "sku": "G-BEERPINTS",
+  "titulo": "Vaso Termico 1200ml Starbucks con Agarre",
+  "precio": 31802,
+  "descripcion": "PRODUCTO RÉPLICA\nCOLORES SURTIDO A DISPONIBILIDAD, SIN SELECCIÓN\nCapacidad: 1200ml\nPeso: 533grs\nAlto: 25cm\nDiámetro base: 7,3cm\nDiámetro boca: 9,8cm\nRecubrimiento POWDER COATED\nDoble pared aislante.\nSuperficie antideslizante.\nTapa hermética a rosca.\nCon sorbete rebatible.\nCon Manija de sistema desmontable.\nApto bebidas frías o calientes.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61jbenshm0l._ac_sl1500__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61jbenshm0l._ac_sl1500__1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61jbenshm0l._ac_sl1500__2.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61jbenshm0l._ac_sl1500__3.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/a/_/a_adir_un_poquito_de_texto_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-beerpints_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/-/g-beerpints_2_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/51btk6plgfl._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/51kvy1p2tfl._ac_sl1000_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/51urqb5ysjl._ac_sl1200_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61jbenshm0l._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61jdcr8egbl._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61yp0-mnthl._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71bakeyta8l._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71bl6xnfi-l._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71vropwt_ul._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/612f7duzldl._ac_sl1169_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/613v7u18-ul._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/618wzl5rrbl._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/8/1/814d9w1pbbl._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71101w4lzxl._ac_sl1500_.jpg"
+  ],
+  "cantidad_imagenes": 21,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/vaso-termico-1200ml-starbucks-con-agarre.html",
+  "fecha_scraping": "2026-06-13T08:24:08.261724",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Bazar y Cocina"
+  ],
+  "categoria_principal": "Bazar y Cocina",
+  "categoria": "Bazar y Cocina",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.281084",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_010",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_011",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_012",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_013",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_014",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_015",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_016",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_017",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_018",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_019",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_020",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_021"
+  ],
+  "calculo_precio": {
+    "precio_costo": 31802,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 35302.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 52953.0,
+    "precio_final": 53000.0,
+    "ganancia_neta": 21198.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 53000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.229645"
+}

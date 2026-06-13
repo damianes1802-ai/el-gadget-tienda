@@ -1,0 +1,52 @@
+{
+  "sku": "DL2123",
+  "titulo": "Organizador bajo cama Mediano",
+  "precio": 5100,
+  "descripcion": "Organizador Bajo Cama Con Visor\nMedidas: 65Cm X 45Cm X15Cm\nMaterial: Textil\nColor: Gris",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2123.png"
+  ],
+  "cantidad_imagenes": 1,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/organizador-bajo-cama-mediano.html",
+  "fecha_scraping": "2026-06-13T08:26:27.992629",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Home",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Home",
+  "categoria": "Home",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.971022",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2123_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 5100,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 8600.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 12900.0,
+    "precio_final": 13000.0,
+    "ganancia_neta": 7900.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 13000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.951039"
+}

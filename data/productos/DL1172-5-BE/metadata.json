@@ -1,0 +1,64 @@
+{
+  "sku": "DL1172-5-BE",
+  "titulo": "Alfombra para Mascotas Absorbente BEIGE",
+  "precio": 6050,
+  "descripcion": "Alfombra absorbente para mascotas\nMaterial: Diatomita\nMedidas: 30 x 40 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/7191hqz-tjl._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71iryiightl._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/51i18mpu2dl._ac_sx679_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71nnxexllrl._ac_sx425__1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71oxgdhr-kl._ac_sx679_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/8/1/81ncpjwodul._ac_sl1500_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1172-5_1.png"
+  ],
+  "cantidad_imagenes": 7,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/alfombra-absorbente-diatomita-para-mascotas-2.html",
+  "fecha_scraping": "2026-06-13T08:26:21.387818",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios para Mascotas",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios para Mascotas",
+  "categoria": "Accesorios para Mascotas",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.968476",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-BE_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-BE_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-BE_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-BE_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-BE_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-BE_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-BE_007"
+  ],
+  "calculo_precio": {
+    "precio_costo": 6050,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 9550.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 14325.0,
+    "precio_final": 14500.0,
+    "ganancia_neta": 8450.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 14500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.155959"
+}

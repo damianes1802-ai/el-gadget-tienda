@@ -1,0 +1,60 @@
+{
+  "sku": "DL2146-RO",
+  "titulo": "Dispenser Agua y Comida Para Mascotas 550ml ROSA",
+  "precio": 14990,
+  "descripcion": "Dispenser agua y comida para mascotas\nCapacidad: 350ml\nColores blanco, rosa y turquesa.\nSe envía surtido.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2146-ro.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1176_2_1_1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61eijxwglml._ac_sl1500__1_1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/2/2/227e0084-8cc4-433a-b2f8-b23b31a70ebd_1__1_1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/a/1/a1bmei1c5ll._ac_sl1500__1_1_1.jpg"
+  ],
+  "cantidad_imagenes": 5,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/dispenser-agua-y-comida-para-mascotas-350ml-8.html",
+  "fecha_scraping": "2026-06-13T08:25:07.353805",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios para Mascotas",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios para Mascotas",
+  "categoria": "Accesorios para Mascotas",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:58.072035",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 14990,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 18490.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 27735.0,
+    "precio_final": 28000.0,
+    "ganancia_neta": 13010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 28000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.040854"
+}

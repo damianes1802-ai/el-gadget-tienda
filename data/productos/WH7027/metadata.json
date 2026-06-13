@@ -1,0 +1,55 @@
+{
+  "sku": "WH7027",
+  "titulo": "Botella infantil personajes japoneses 550 ML",
+  "precio": 11440,
+  "descripcion": "Botella infantil de personajes japoneses\nCapacidad 550 ML\n2 modelos. Se envían surtidos",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/h/chatgpt_image_25_jun_2025_15_29_47.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/a/san.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7027_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7027_4_.jpg"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/botella-infantil-personajes-japoneses-550-ml.html",
+  "fecha_scraping": "2026-06-13T08:23:21.514534",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Bazar y Cocina"
+  ],
+  "categoria_principal": "Bazar y Cocina",
+  "categoria": "Bazar y Cocina",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.382265",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 11440,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 14940.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 22410.0,
+    "precio_final": 22500.0,
+    "ganancia_neta": 11060.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 22500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.199527"
+}

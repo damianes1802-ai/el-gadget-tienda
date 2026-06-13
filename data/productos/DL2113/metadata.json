@@ -1,0 +1,66 @@
+{
+  "sku": "DL2113",
+  "titulo": "Cepillo Eléctrico 9 en 1",
+  "precio": 36900,
+  "descripcion": "Cepillo eléctrico de limpieza\n9 formatos de uso\nRecargable USB",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2113.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2113_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2113_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2113_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2113_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2113_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2113_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2113_6_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/cepillo-electrico-9-en-1.html",
+  "fecha_scraping": "2026-06-13T08:24:39.279184",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Baño y Limpieza",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Baño y Limpieza",
+  "categoria": "Baño y Limpieza",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.711288",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_008"
+  ],
+  "calculo_precio": {
+    "precio_costo": 36900,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 40400.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 60600.0,
+    "precio_final": 61000.0,
+    "ganancia_neta": 24100.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 61000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.888832"
+}

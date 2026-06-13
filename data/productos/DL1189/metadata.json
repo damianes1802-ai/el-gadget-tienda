@@ -1,0 +1,58 @@
+{
+  "sku": "DL1189",
+  "titulo": "Guante Para Peinar Saca Pelos Animales",
+  "precio": 1450,
+  "descripcion": "GUANTE PARA PEINAR\n* Guante derecho.\n* Excelente guante con puntas de silicona. Sirve para masajear, peinar y desenredar el pelo de tu mascota.\n* Al ser flexible, permite ajustarse al cuerpo del animal llegando a lugares que otros cepillos no pueden llegar, evitando cualquier tipo de daño en la piel.\n*Apto para razas de pelo corto y largo.\n*Medida: 22,5x17cm\n*El uso regular de cepillos para mascotas promueve una saludable piel al remover pelo suelto y evitar la formación de nudos en el pelaje de su mascota.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1189.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/a/captura_de_pantalla_2022-04-07_130045_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/a/captura_de_pantalla_2022-04-07_130017_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/a/captura_de_pantalla_2022-04-07_130032_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/a/captura_de_pantalla_2022-04-07_130058_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/a/captura_de_pantalla_2022-04-07_130005_1.png"
+  ],
+  "cantidad_imagenes": 6,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/guante-para-peinar-saca-pelos-perro-gato-pelusa-animales-1.html",
+  "fecha_scraping": "2026-06-13T08:25:17.575491",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios para Mascotas"
+  ],
+  "categoria_principal": "Accesorios para Mascotas",
+  "categoria": "Accesorios para Mascotas",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:58.135521",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1189_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1189_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1189_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1189_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1189_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 1450,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 4950.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 7425.0,
+    "precio_final": 7500.0,
+    "ganancia_neta": 6050.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 7500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.214559"
+}

@@ -1,0 +1,63 @@
+{
+  "sku": "DL1203-2",
+  "titulo": "Silla de oficina Ergonómica",
+  "precio": 64350,
+  "descripcion": "Silla de oficina Ergonómica\nMedidas: 107 x 64 cm\nColor Negro",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/a/g/agregar_un_t_tulo_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/a/g/agregar_un_t_tulo_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_13__1_14.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_14__4_10.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_15__4_8.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_17__6_9.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/n/m/nmjh_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/n/m/nmjh_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/n/m/nmjh_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/n/m/nmjh_4_.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5417/s/silla-de-oficina-ergonomica/category/13/",
+  "fecha_scraping": "2026-02-01T09:41:40.630501",
+  "cantidad_imagenes": 10,
+  "calculo_precio": {
+    "precio_costo": 64350,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 67850.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 101775.0,
+    "precio_final": 102000.0,
+    "ganancia_neta": 37650.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 102000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.236586",
+  "item_group_id": "grupo_032",
+  "variante_atributo": "indeterminado",
+  "variante_valor": "2",
+  "producto_base": "silla de oficina ergonómica",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:04.256874",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.585081",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-2_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-2_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-2_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-2_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-2_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-2_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-2_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-2_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-2_009"
+  ]
+}

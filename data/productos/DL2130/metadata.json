@@ -1,0 +1,68 @@
+{
+  "sku": "DL2130",
+  "titulo": "Jabonera Metálica Autoadhesiva Negra",
+  "precio": 5490,
+  "descripcion": "Jabonera de Barilla de Hierro para Baño y Cocina: Elegancia y Funcionalidad\nFabricada con barilla de hierro de alta calidad y pintada al horno en un elegante color negro, esta jabonera no solo es estéticamente atractiva, sino también duradera y resistente.\nEl sistema adhesivo de alta resistencia proporciona una sujeción segura y estable, manteniendo la jabonera en su lugar sin deslizamientos ni movimientos no deseados.\nSu diseño abierto permite un secado rápido y evita la acumulación de agua, ayudando a mantener la higiene y prolongar la vida útil de los productos de limpieza.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/a/sa08423a23ea3441d85ca7d02e6c6bf0e6.jpg_960x960_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/51z7q4efrvs._ac_sl1000__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61eyn_paw7l._ac_sl1500__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61jexy9hpes._ac_sl1000__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61mo8iybnjl._ac_sl1500__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61ugvfdj7wl._ac_sl1500__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71bmmvsr1jl._ac_sl1500__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71q9zrkecus._ac_sl1000__1.jpg"
+  ],
+  "cantidad_imagenes": 8,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/organizador-de-ba-o-recto-18.html",
+  "fecha_scraping": "2026-06-13T08:26:37.237140",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Home",
+    "Bazar y Cocina",
+    "Baño y Limpieza"
+  ],
+  "categoria_principal": "Home",
+  "categoria": "Home",
+  "categorias_secundarias": [
+    "Bazar y Cocina",
+    "Baño y Limpieza"
+  ],
+  "total_categorias": 3,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.769273",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2130_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2130_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2130_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2130_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2130_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2130_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2130_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2130_008"
+  ],
+  "calculo_precio": {
+    "precio_costo": 5490,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 8990.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 13485.0,
+    "precio_final": 13500.0,
+    "ganancia_neta": 8010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 13500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.972653"
+}

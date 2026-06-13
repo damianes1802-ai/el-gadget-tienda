@@ -1,0 +1,56 @@
+{
+  "sku": "DL2024-NE",
+  "titulo": "Organizador Colgante Porta Taza de Metal NEGRO",
+  "precio": 1650,
+  "descripcion": "** ORGANIZADOR COLGANTE PARA TAZAS DE ALACENA MESADA METAL **\nCARACTERÍSTICAS\n- Material: Hierro Pintado\n- Capacidad: 6 tazas\n- Para estantes de 2,5cm de espesor o menos!\nMEDIDAS:\n- 27,5cm de largo total\n- 4,5cm de alto de los ganchos\n- 4cm de espacio entre los ganchos\nCOLOR:NEGRO",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/502082_-1-_1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/502082_-2-_1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/502082_-4-_1_1_1.png"
+  ],
+  "cantidad_imagenes": 3,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/organizador-colgante-porta-taza-alacena-estante-metal-cocina-4.html",
+  "fecha_scraping": "2026-06-13T08:25:40.924042",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Bazar y Cocina",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Bazar y Cocina",
+  "categoria": "Bazar y Cocina",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:57.214346",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_003"
+  ],
+  "calculo_precio": {
+    "precio_costo": 1650,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 5150.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 7725.0,
+    "precio_final": 8000.0,
+    "ganancia_neta": 6350.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 8000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.770063"
+}

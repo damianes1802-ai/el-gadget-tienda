@@ -1,0 +1,58 @@
+{
+  "sku": "BWH0057-5-PA",
+  "titulo": "Plato Playo De Ceramica 8' Pattiserie",
+  "precio": 4236,
+  "descripcion": "Plato Playo de Cerámica para Desayunos -  Almuerzos - Cenas\n1: Hermosa forma, también se puede considerar como una artesanía.\n2: Material: Cerámica\n3: El material de cerámica es suave, más seguro y más seguro que el plástico\n4: Ligero y duradero, fácil de limpiar, fácil de limpiar todo tipo de salsa de inmersión\nPlatos de cena de uso diario adecuados para todas las ocasiones\nMedidas: 8 pulgadas (20.3cm).",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_6__6_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_1__1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/2/_/2_1__1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/2/_/2_8_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/3/_/3_1__1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_3__1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_5__6_1.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/plato-playo-de-ceramica-desayuno-7.html",
+  "fecha_scraping": "2026-02-01T09:53:57.331421",
+  "cantidad_imagenes": 7,
+  "calculo_precio": {
+    "precio_costo": 4236,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 7736.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 11604.0,
+    "precio_final": 12000.0,
+    "ganancia_neta": 7764.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 12000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.880758",
+  "item_group_id": "grupo_012",
+  "variante_atributo": "cantidad",
+  "variante_valor": "PA",
+  "producto_base": "plato playo de ceramica",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:03.585059",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.737845",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-5-PA_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-5-PA_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-5-PA_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-5-PA_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-5-PA_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-5-PA_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-5-PA_007"
+  ]
+}

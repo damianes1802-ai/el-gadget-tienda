@@ -1,0 +1,68 @@
+{
+  "sku": "M2071-002",
+  "titulo": "Cartera de Mujer Bandolera de Cuero Sintético Holográfica",
+  "precio": 21867,
+  "descripcion": "Cartera Mujer Bandolera Cuero Sintético Holográfica Cadena\nEsta bandolera es el accesorio ideal para quienes buscan un estilo moderno y llamativo. Su acabado holográfico reacciona a la luz creando un efecto visual único, convirtiéndola en una pieza destacada para cualquier conjunto nocturno o casual urbano.\nCaracterísticas Principales\nMaterial y Diseño Está confeccionada en cuero sintético (PU) de alta calidad con un acabado holográfico vibrante. Presenta una estructura resistente que mantiene su forma mientras luce un estilo contemporáneo.\nDetalles de Terminación Cuenta con un cierre de cremallera plateado montado sobre tela gris, combinando perfectamente con sus herrajes plateados. El interior está totalmente revestido con forrería interna para mayor protección de tus pertenencias.\nCorrea Versátil Incluye una correa combinada que mezcla el material de PU holográfico con una cadena plateada, lo que permite llevarla cómodamente al hombro o cruzada, aportando un toque de elegancia y modernidad.\nDetalles Técnicos\nMaterial principal: Cuero sintético (PU) holográfico. Color de herrajes: Plateado. Tipo de cierre: Cremallera.\nMedidas del Producto\nAncho: 22 cm Alto: 15 cm Profundidad: 8 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2071-002_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2071-002_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2071-002_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2071-002_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2071-002_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2071-002_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2071-002_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2071-002_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2071-002_9_.png"
+  ],
+  "cantidad_imagenes": 9,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/cartera-de-mujer-bandolera-de-cuero-sintetico-holografica.html",
+  "fecha_scraping": "2026-06-13T08:24:38.560070",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios de Moda",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios de Moda",
+  "categoria": "Accesorios de Moda",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:55.189549",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_009"
+  ],
+  "calculo_precio": {
+    "precio_costo": 21867,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 25367.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 38050.5,
+    "precio_final": 38500.0,
+    "ganancia_neta": 16633.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 38500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.708399"
+}

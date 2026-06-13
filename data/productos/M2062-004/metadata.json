@@ -1,0 +1,60 @@
+{
+  "sku": "M2062-004",
+  "titulo": "Bolso de Raffia Bandolera Tejido con Pompones",
+  "precio": 23851,
+  "descripcion": "Material: Confeccionado en Raffia tejida para una textura natural y playera.\nCorrea: Incluye una Correa regulable de PU (cuero sintético) para llevarlo cómodamente al hombro o cruzado.\nCierre y Seguridad: Apertura principal con cierre a cordón ajustable que asegura tus pertenencias.\nInterior: Totalmente forrado para proteger tus objetos.\nDetalles: Elegantes herrajes dorados en la hebilla de la correa.\n¡Elige tu Estilo! Tenemos 2 Modelos Disponibles:\nModelo Pompones Negros:\nDecorado con Pompones de color negro aplicados al tejido.\nIdeal para un look clásico y elegante de verano.\nModelo Cerezas Rojas:\nDecorado con un bordado de Cerezas colgantes tejidas en rojo y verde.\nPerfecto para un estilo juvenil, vibrante y divertido.\nMedidas del Producto (Aproximadas):\nAlto: 22 cm\nAncho: 16 cm\nBase (Redonda): 18 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2062-0024_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2062-0024_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2062-0024_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2062-0024_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2062-0024_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2062-0024_7_.png"
+  ],
+  "cantidad_imagenes": 6,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/bolso-de-raffia-bandolera-tejido-con-pompones.html",
+  "fecha_scraping": "2026-06-13T08:24:52.089863",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios de Moda",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios de Moda",
+  "categoria": "Accesorios de Moda",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:54.775884",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2062-004_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2062-004_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2062-004_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2062-004_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 23851,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 27351.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 41026.5,
+    "precio_final": 41500.0,
+    "ganancia_neta": 17649.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 41500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.705382"
+}

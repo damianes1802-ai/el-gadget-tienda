@@ -1,0 +1,62 @@
+{
+  "sku": "DL1121-1-NE",
+  "titulo": "Rollo Revestimiento Adhesivo Símil Mármol NEGRO",
+  "precio": 23100,
+  "descripcion": "Revestimiento adhesivo símil mármol\nIdeal para revestir muebles de cocina y baños\nMedida rollo: 0,60 x 10 metros",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1121-1_2__1_1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1121-1_1__1_1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1121-1-ne_1_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1121-1-ne_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1121-1-ne_2_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1121-1-ne_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1121-1-ne_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1121-1-ne_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1121-1-ne_8_.png"
+  ],
+  "url_original": "https://droppers.com.ar/rollo-revestimiento-adhesivo-simil-marmol-0-60-x-10-metros-4.html",
+  "fecha_scraping": "2026-03-02T15:41:19.285323",
+  "cantidad_imagenes": 9,
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-NE_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-NE_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-NE_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-NE_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-NE_005"
+  ],
+  "calculo_precio": {
+    "precio_costo": 23100,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 26600.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 39900.0,
+    "precio_final": 40000.0,
+    "ganancia_neta": 16900.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 40000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.071910",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-03-08T10:50:21.795337",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.745600",
+  "availability": "out of stock"
+}

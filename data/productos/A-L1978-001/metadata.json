@@ -1,0 +1,52 @@
+{
+  "sku": "A-L1978-001",
+  "titulo": "Inflable Shell pileta Ostra 105cm x 160cm",
+  "precio": 18974,
+  "descripcion": "Inflable de shell para pileta. Tamaño aproximado 105cm x 160cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/c/9cm_15_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/c/9cm_13_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/c/9cm_14_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/l/1/l1978-001.jpg"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/inflable-shell-pileta-ostra-105cm-x-160cm.html",
+  "fecha_scraping": "2026-06-13T08:25:32.733645",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Verano"
+  ],
+  "categoria_principal": "Verano",
+  "categoria": "Verano",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:58.292471",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1978-001_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 18974,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 22474.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 33711.0,
+    "precio_final": 34000.0,
+    "ganancia_neta": 15026.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 34000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.677263"
+}

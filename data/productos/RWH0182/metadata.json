@@ -1,0 +1,54 @@
+{
+  "sku": "RWH0182",
+  "titulo": "Juego De Bloques Para Armar",
+  "precio": 28160,
+  "descripcion": "Acerca de este producto:\nCONSTRUCCIÓN CREATIVA DE TOSTADORAS: Con este kit, los niños a partir de 6 años pueden sumergirse en el mundo de la construcción de tostadoras y desarrollar su creatividad mientras montan.\nAPRENDIZAJE Y DIVERSIÓN: Siguiendo atentamente las instrucciones, los niños aprenden las relaciones técnicas. El kit fomenta la motricidad fina y la imaginación espacial.\r\nVARIAS HORAS DE DIVERSIÓN: Gracias al gran número de piezas individuales, el kit mantendrá ocupados a los niños durante varias horas.\nMedida 8x12x11cm\nIncluye 695 Pcs",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/9/d9062135ac3b70410fed2f148abf0559_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_6__12.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_3__7.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_4__6.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_5__12.jpg"
+  ],
+  "cantidad_imagenes": 5,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/juego-de-bloques-para-armar-3.html",
+  "fecha_scraping": "2026-06-13T08:24:16.600047",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Artículos Infantiles"
+  ],
+  "categoria_principal": "Artículos Infantiles",
+  "categoria": "Artículos Infantiles",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.225101",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_002"
+  ],
+  "calculo_precio": {
+    "precio_costo": 28160,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 31660.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 47490.0,
+    "precio_final": 47500.0,
+    "ganancia_neta": 19340.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 47500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.855034"
+}

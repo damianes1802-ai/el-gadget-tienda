@@ -1,0 +1,54 @@
+{
+  "sku": "600115",
+  "titulo": "Escurridor Sobre Bacha XL",
+  "precio": 0,
+  "descripcion": "Escurridor Metálico Sobre Bacha de 3 Niveles.\nBandejas completamente extraíbles.\nRecipientes de utensilios removibles.\nSoporte para tabla removibles.\nGanchos para artículos de cocina removibles.\nBase con sopapas que impiden el movimiento del escurridor.\nMedidas:\nAncho: 65Cm\nAlto: 82Cm\nProfundidad: 31,5Cm\nTotalmente Equipado.\nColor: Negro.",
+  "imagenes": [],
+  "cantidad_imagenes": 0,
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "url_original": "https://droppers.com.ar/escurridor-sobre-bacha-xl.html",
+  "fecha_scraping": "2026-03-16T19:31:33.566389",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Bazar y Cocina"
+  ],
+  "categoria_principal": "Bazar y Cocina",
+  "categoria": "Bazar y Cocina",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-03-16T19:46:16.872393",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600115_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600115_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600115_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600115_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600115_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600115_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600115_007"
+  ],
+  "calculo_precio": {
+    "precio_costo": 0,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 3500.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 5250.0,
+    "precio_final": 5500.0,
+    "ganancia_neta": 5500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 5500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.513498",
+  "fecha_agotado": "2026-06-13T08:19:05.603872"
+}

@@ -1,0 +1,52 @@
+{
+  "sku": "DL1203-5",
+  "titulo": "Silla de oficina Ergonómica Gamer Oficina Premium",
+  "precio": 86900,
+  "descripcion": "Silla de oficina Ergonómica\nCon soporte de cabeza\nMedidas: 107 x 64 cm + soporte\nColor Blanco",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_13__1_15.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/j/h/jhgh.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5420/s/silla-de-oficina-ergonomica-gamer-oficina-premium/category/13/",
+  "fecha_scraping": "2026-03-10T14:31:03.461408",
+  "cantidad_imagenes": 2,
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-5_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-5_002"
+  ],
+  "calculo_precio": {
+    "precio_costo": 86900,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 90400.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 135600.0,
+    "precio_final": 136000.0,
+    "ganancia_neta": 49100.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 136000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.246532",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-03-10T15:18:20.251509",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "fecha_agotado": "2026-06-13T08:19:05.610270"
+}

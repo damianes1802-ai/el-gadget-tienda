@@ -1,0 +1,48 @@
+{
+  "sku": "DL1179-4-L",
+  "titulo": "Arnés Pretal Para Perros Ajustable L",
+  "precio": 7150,
+  "descripcion": "Arnés pretal para perros ajustable\nTamaños y medidas:\nL ( Pecho 62 a 77 cm / Espalda 54 a 67 cm )",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1179-4_1_1_1_1.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/arnes-pretal-para-perros-ajustable-4.html",
+  "fecha_scraping": "2026-02-01T09:56:44.811829",
+  "cantidad_imagenes": 1,
+  "calculo_precio": {
+    "precio_costo": 7150,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 10650.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 15975.0,
+    "precio_final": 16000.0,
+    "ganancia_neta": 8850.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 16000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.197723",
+  "item_group_id": "grupo_028",
+  "variante_atributo": "talle",
+  "variante_valor": "L",
+  "producto_base": "arnés preta para perros ajustabe",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:04.116249",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:34.852833",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.562654",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1179-4-L_001"
+  ]
+}

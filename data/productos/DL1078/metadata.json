@@ -1,0 +1,43 @@
+{
+  "sku": "DL1078",
+  "titulo": "Paños De Alambre X10",
+  "precio": 2200,
+  "descripcion": "Paños rejilla de alambre lava vajillas\npack x10 unidades\nMedidas: 20 x 20 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1078.png"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5262/s/pa-os-de-alambre-x10/category/13/",
+  "fecha_scraping": "2026-02-01T09:44:04.399788",
+  "cantidad_imagenes": 1,
+  "calculo_precio": {
+    "precio_costo": 2200,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 5700.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 8550.0,
+    "precio_final": 9000.0,
+    "ganancia_neta": 6800.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 9000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.000222",
+  "es_variante": false,
+  "item_group_id": "DL1078",
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:06.413172",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.644214",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1078_001"
+  ]
+}

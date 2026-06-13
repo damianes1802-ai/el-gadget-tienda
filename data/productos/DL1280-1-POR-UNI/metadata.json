@@ -1,0 +1,63 @@
+{
+  "sku": "DL1280-1-POR-UNI",
+  "titulo": "Pulsera Repelente de Mosquitos x Unidad",
+  "precio": 963,
+  "descripcion": "Pulsera repelente de mosquitos para niños\n100% aceite natural de Citronela\nNo toxico",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/3/_/3_54_20.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_70_15.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/2/_/2_52_17.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/4/_/4_56_21.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/_/5_54_17.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/_/6_52_12.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/_/7_33_5.jpg"
+  ],
+  "cantidad_imagenes": 7,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/pulsera-repelente-de-mosquitos-x12-1.html",
+  "fecha_scraping": "2026-06-13T08:26:03.968196",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Artículos Infantiles",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Artículos Infantiles",
+  "categoria": "Artículos Infantiles",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:55.668829",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1-POR-UNI_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1-POR-UNI_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1-POR-UNI_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1-POR-UNI_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1-POR-UNI_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1-POR-UNI_006"
+  ],
+  "calculo_precio": {
+    "precio_costo": 963,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 4463.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 6694.5,
+    "precio_final": 7000.0,
+    "ganancia_neta": 6037.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 7000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.572714"
+}

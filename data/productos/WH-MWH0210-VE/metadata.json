@@ -1,0 +1,59 @@
+{
+  "sku": "WH-MWH0210-VE",
+  "titulo": "Mochila Infantil Koala",
+  "precio": 12572,
+  "descripcion": "Mochila Zoo\nMaterial Neopreno Impermeable\nDiseño Ergonómico\nTirante Acolchados y Ajustables\nCompartimiento Interior\nBellos y Entretenidos Diseños\nLibre de BPA\nAltura x Ancho x Profundidad: 27 cm x 23 cm x 9 cm\r\nPeso: 180 g",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/d/sdc53ea1704a348099736983fa7304f98m_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_35__2_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_36__2_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_37__2_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_38__2_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_39__2_1.jpg"
+  ],
+  "cantidad_imagenes": 6,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/mochila-infantil-escolar-cute-para-ni-os-3.html",
+  "fecha_scraping": "2026-06-13T08:24:59.565258",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Artículos Infantiles"
+  ],
+  "categoria_principal": "Artículos Infantiles",
+  "categoria": "Artículos Infantiles",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.273855",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_006"
+  ],
+  "calculo_precio": {
+    "precio_costo": 12572,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 16072.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 24108.0,
+    "precio_final": 24500.0,
+    "ganancia_neta": 11928.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 24500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.007953"
+}

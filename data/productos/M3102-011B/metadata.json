@@ -1,0 +1,56 @@
+{
+  "sku": "M3102-011B",
+  "titulo": "Cartera Mujer Bandolera PVC Transparente Bordada Moda BLANCA",
+  "precio": 21867,
+  "descripcion": "Cartera Bandolera Transparente: Un Estilo Moderno y Versátil\nAñade un toque de vanguardia a tu look con esta cartera bandolera de PVC transparente. Un accesorio ideal para cualquier ocasión, desde un festival hasta una salida casual, que te permite llevar lo esencial con estilo.\nSu diseño cuenta con costuras recubiertas de PU y un cierre de cremallera plateado que le dan un acabado elegante. Además, su correa de tela de 4 cm de ancho es desmontable, ofreciéndote la versatilidad para usarla como más te guste.\nMedidas:\nLargo: 20 cm\nAlto: 18 cm\nAncho de la correa: 4 cm\nMaterial: PVC transparente y detalles en PU.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_7__12_8.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_8__8_12.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_10__2_5.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_11__9.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_12__15.jpg"
+  ],
+  "cantidad_imagenes": 5,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/cartera-mujer-bandolera-pvc-transparente-bordada-moda-2.html",
+  "fecha_scraping": "2026-06-13T08:24:56.998033",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios de Moda",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios de Moda",
+  "categoria": "Accesorios de Moda",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:54.809150",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 21867,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 25367.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 38050.5,
+    "precio_final": 38500.0,
+    "ganancia_neta": 16633.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 38500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.756972"
+}

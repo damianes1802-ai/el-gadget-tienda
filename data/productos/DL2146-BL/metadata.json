@@ -1,0 +1,66 @@
+{
+  "sku": "DL2146-BL",
+  "titulo": "Dispenser Agua y Comida Para Mascotas 550ml BLANCO",
+  "precio": 14990,
+  "descripcion": "Dispenser agua y comida para mascotas\nCapacidad: 350ml\nColores blanco, rosa y turquesa.\nSe envía surtido.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2146-bl.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61mujbm9_cl_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1176_2_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71piy_ybbal._ac_sl1001__1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61eijxwglml._ac_sl1500__1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/9/5/95375503-b88c-48fb-b108-a9236e32d726_2__1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/2/2/227e0084-8cc4-433a-b2f8-b23b31a70ebd_1__1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/a/1/a1bmei1c5ll._ac_sl1500__1.jpg"
+  ],
+  "cantidad_imagenes": 8,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/dispenser-agua-y-comida-para-mascotas-350ml-6.html",
+  "fecha_scraping": "2026-06-13T08:25:58.003332",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios para Mascotas",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios para Mascotas",
+  "categoria": "Accesorios para Mascotas",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:58.104443",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-BL_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-BL_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-BL_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-BL_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-BL_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-BL_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-BL_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-BL_008"
+  ],
+  "calculo_precio": {
+    "precio_costo": 14990,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 18490.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 27735.0,
+    "precio_final": 28000.0,
+    "ganancia_neta": 13010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 28000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.024961"
+}

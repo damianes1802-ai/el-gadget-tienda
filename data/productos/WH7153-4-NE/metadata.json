@@ -1,0 +1,48 @@
+{
+  "sku": "WH7153-4-NE",
+  "titulo": "Par De Medias Hasta La Pantorrilla PACK x10 PARES NEGRAS",
+  "precio": 6160,
+  "descripcion": "Par de medias a la pantorrilla\nTalle 38-43\nColores Blanco y negro.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7153-4_2_1.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/par-de-medias-hasta-la-pantorrilla-1.html",
+  "fecha_scraping": "2026-02-01T09:58:53.223216",
+  "cantidad_imagenes": 1,
+  "calculo_precio": {
+    "precio_costo": 6160,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 9660.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 14490.0,
+    "precio_final": 14500.0,
+    "ganancia_neta": 8340.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 14500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.233618",
+  "item_group_id": "grupo_060",
+  "variante_atributo": "cantidad",
+  "variante_valor": "NE",
+  "producto_base": "par de medias hasta la pantorrilla pares blancas",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:05.100628",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:34.737197",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.743755",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7153-4-NE_001"
+  ]
+}

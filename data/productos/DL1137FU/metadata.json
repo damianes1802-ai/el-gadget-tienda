@@ -1,0 +1,54 @@
+{
+  "sku": "DL1137FU",
+  "titulo": "Placa piso de goma con alfombra 30x30 pack x 10 FUCSIA",
+  "precio": 20900,
+  "descripcion": "Placa piso de goma con alfombra\nMedidas: 30 x 30 cm\nMaterial: EVA\nColores: fucsia.\nPACK X 10",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1137fu_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1137fu_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1137_1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1137fu_1_.1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1137_b_1__1_1_1.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/placa-piso-de-goma-con-alfombra-30x30-pack-x-13.html",
+  "fecha_scraping": "2026-02-01T09:55:44.702091",
+  "cantidad_imagenes": 5,
+  "calculo_precio": {
+    "precio_costo": 20900,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 24400.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 36600.0,
+    "precio_final": 37000.0,
+    "ganancia_neta": 16100.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 37000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.119671",
+  "item_group_id": "grupo_024",
+  "variante_atributo": "cantidad",
+  "variante_valor": "x30",
+  "producto_base": "placa piso de goma con alfombra",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:03.897597",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.632327",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137FU_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137FU_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137FU_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137FU_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137FU_005"
+  ]
+}

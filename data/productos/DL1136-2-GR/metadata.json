@@ -1,0 +1,50 @@
+{
+  "sku": "DL1136-2-GR",
+  "titulo": "Placa Piso de Goma Varios Colores PACK x10 GRIS",
+  "precio": 8250,
+  "descripcion": "\"Placa piso de goma en colores\nMedidas: 30 x 30 cm\nMaterial: EVA\nColores Beige, gris, chocolate, celeste, rosa y lila.\nPack x10\nincluye 1 borde por placa\"",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71yetrvxsxl._ac_sy450__1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1136-2_2__1_1_1.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/placa-piso-de-goma-colores-30x30-pack-x-13.html",
+  "fecha_scraping": "2026-02-01T09:55:29.854891",
+  "cantidad_imagenes": 2,
+  "calculo_precio": {
+    "precio_costo": 8250,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 11750.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 17625.0,
+    "precio_final": 18000.0,
+    "ganancia_neta": 9750.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 18000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.113226",
+  "item_group_id": "grupo_023",
+  "variante_atributo": "cantidad",
+  "variante_valor": "GR",
+  "producto_base": "placa piso de goma varios colores",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:03.866304",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:35.150721",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.696050",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1136-2-GR_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1136-2-GR_002"
+  ]
+}

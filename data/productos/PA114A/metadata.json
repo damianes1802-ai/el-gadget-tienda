@@ -1,0 +1,58 @@
+{
+  "sku": "PA114A",
+  "titulo": "Blusa Manga Larga Confeccionada En Viscosa Bambula Bordada BLANCA",
+  "precio": 26799,
+  "descripcion": "Blusa Manga Larga Confeccionada En Viscosa Bambula Bordada\nIncorporá a tu guardarropa una prenda elegante, cómoda y versátil con esta Blusa Manga Larga confeccionada en viscosa bambula bordada. Su diseño femenino y delicado la convierte en una opción ideal para quienes buscan frescura y estilo en una misma prenda.\nLa viscosa bambula se caracteriza por su textura suave, liviana y con caída natural, brindando una sensación agradable al tacto. Es perfecta para usar durante todo el año, adaptándose tanto a días templados como a temporadas más frescas combinándola con otras prendas.\nSus mangas largas aportan un toque sofisticado y mayor cobertura, mientras que los detalles bordados suman un acabado artesanal que realza el diseño y le da personalidad. El calce cómodo y fluido estiliza la silueta sin ajustar, ofreciendo libertad de movimiento y confort durante todo el día.\nCaracterísticas destacadas:\nConfeccionada en viscosa bambula liviana y suave\nManga larga elegante y versátil\nBordados delicados con detalle artesanal\nCaída fluida y favorecedora\nIdeal para looks casuales o más formales\nFácil de combinar con jeans, pantalones o faldas\nUna blusa pensada para quienes valoran la comodidad sin resignar estilo, perfecta para lograr outfits femeninos, frescos y con un toque distintivo.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa114a_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa114a_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa114a_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa114a_4_.png"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/blusa-manga-larga-confeccionada-en-viscosa-bambula-bordada-blanca.html",
+  "fecha_scraping": "2026-06-13T08:25:13.583081",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios de Moda",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios de Moda",
+  "categoria": "Accesorios de Moda",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:55.556227",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 26799,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 30299.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 45448.5,
+    "precio_final": 45500.0,
+    "ganancia_neta": 18701.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 45500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.818719"
+}

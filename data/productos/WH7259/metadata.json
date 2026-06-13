@@ -1,0 +1,49 @@
+{
+  "sku": "WH7259",
+  "titulo": "Mochila Infantil Capibara Carpincho",
+  "precio": 13200,
+  "descripcion": "Mochila peluche personajes japoneses\nMedidas 26 x 11 x 29 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7259.jpg"
+  ],
+  "cantidad_imagenes": 1,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/mochila-infantil-capibara-carpincho.html",
+  "fecha_scraping": "2026-06-13T08:25:27.408554",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Artículos Infantiles"
+  ],
+  "categoria_principal": "Artículos Infantiles",
+  "categoria": "Artículos Infantiles",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:55.713626",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7259_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 13200,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 16700.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 25050.0,
+    "precio_final": 25500.0,
+    "ganancia_neta": 12300.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 25500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.351167"
+}

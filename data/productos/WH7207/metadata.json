@@ -1,0 +1,44 @@
+{
+  "sku": "WH7207",
+  "titulo": "Squishy mediano pack x 10 unidades",
+  "precio": 7946,
+  "descripcion": "Squishy mediano\nSquishys surtidos en pack de 10 unidades.\nMedidas aprox 5 x 3 cm.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/4/5467b506-e765-40a0-af83-50aa6e8b5895_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/9/c934b553-772a-407b-980a-edc1fd37d6d5_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/4/c4362216-6e23-44b0-bc4e-f8571451ef42_1_.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/squishy-mediano-pack-x-10-unidades.html",
+  "fecha_scraping": "2026-02-27T17:37:03.472412",
+  "cantidad_imagenes": 3,
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.690990",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7207_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7207_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7207_003"
+  ],
+  "calculo_precio": {
+    "precio_costo": 7946,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 11446.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 17169.0,
+    "precio_final": 17500.0,
+    "ganancia_neta": 9554.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 17500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.305408"
+}

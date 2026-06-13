@@ -1,0 +1,58 @@
+{
+  "sku": "DL1203-8",
+  "titulo": "Silla de oficina Ergonómica Apoyo Lumbar",
+  "precio": 45650,
+  "descripcion": "Silla Escritorio Ergonómica Lumbar PC Ajustable Abatible\nLa silla ergonómica de oficina es ideal para largas jornadas de trabajo o estudio. Su diseño moderno y funcional proporciona comodidad y soporte lumbar para mantener una postura correcta durante todo el día.\nCuenta con una base de cruceta de plástico reforzado que brinda estabilidad y resistencia, además de un sistema ajustable que permite adaptar la altura según tus necesidades. Su asiento y respaldo están diseñados para ofrecer el máximo confort y una correcta ventilación.\nPerfecta para oficinas, escritorios de PC o espacios de home office.\nCaracterísticas:\nDiseño ergonómico con soporte lumbar\nBase de plástico reforzado\nAltura ajustable\nRespaldo abatible\nColor: negro\nPeso máximo soportado: 120 kg\nIdeal para oficina, escritorio o estudio\nMedidas:\nAltura máxima: 100 cm\nAltura del respaldo: 52 cm\nAncho de la silla: 67 cm\nProfundidad del asiento: 50 cm\nPeso de la silla: 12 kg",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_2__2_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_1__2_2.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_3__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_4_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/a/g/agregar_un_t_tulo.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/g/ggg.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/h/hhggh_1_.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5422/s/silla-de-oficina-ergonomica-apoyo-lumbar/category/13/",
+  "fecha_scraping": "2026-02-01T09:41:59.939970",
+  "cantidad_imagenes": 7,
+  "calculo_precio": {
+    "precio_costo": 45650,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 49150.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 73725.0,
+    "precio_final": 74000.0,
+    "ganancia_neta": 28350.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 74000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.253666",
+  "item_group_id": "grupo_032",
+  "variante_atributo": "indeterminado",
+  "variante_valor": "8",
+  "producto_base": "silla de oficina ergonómica",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:04.303748",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.740739",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-8_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-8_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-8_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-8_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-8_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-8_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-8_007"
+  ]
+}

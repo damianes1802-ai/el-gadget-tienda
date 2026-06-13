@@ -1,0 +1,52 @@
+{
+  "sku": "T6108",
+  "titulo": "Beanie clasico",
+  "precio": 4522,
+  "descripcion": "\"Beanie clasico\n7 colores\nSe envían surtidos\"",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/h/chatgpt_image_1_jul_2025_14_53_00_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/g/o/gorros-nuevos.png"
+  ],
+  "cantidad_imagenes": 2,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/beanie-clasico-1.html",
+  "fecha_scraping": "2026-06-13T08:25:28.432793",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T6108_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T6108_002"
+  ],
+  "calculo_precio": {
+    "precio_costo": 4522,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 8022.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 12033.0,
+    "precio_final": 12500.0,
+    "ganancia_neta": 7978.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 12500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.940121",
+  "fecha_agotado": "2026-06-13T08:19:05.748379"
+}

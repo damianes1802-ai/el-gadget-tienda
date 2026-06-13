@@ -1,0 +1,55 @@
+{
+  "sku": "600047",
+  "titulo": "Destapa cañerías de alta presión",
+  "precio": 0,
+  "descripcion": "Función principal: destapa cañeria por medio de inflación y el flujo de aire de alta presión.\nPuede eliminar eficazmente los obstáculos en la tubería.\nConsejo: simplemente conecte la bomba al dispositivo, bombee el aire en el dispositivo, incline en el inodoro en una posición vertical y presione el botón de aire para limpiar el inodoro o el fregadero.\nPara una variedad de ocasiones: inodoros, sentadillas, cocinas, lavabos, lavabos. Adecuado para todo tipo de tuberías. Puede manejar una variedad de obstrucciones causadas por varios tipos de basura, como Cabello, tela, té, grasa, aceite, etc.\nDiseño de alta presión: el eyector de drenaje utiliza la potencia del aire comprimido de alta presión para impactar rápida y fácilmente el bloqueo más fuerte. Está lleno de gas mediante una carga segura.\nMás efectivo que los émbolos tradicionales.\nFácil de almacenar y limpiar: fácil de limpiar, sin salpicaduras, ideal para almacenamiento y diseño compacto. Es fácil dragar las tuberías en unos minutos, haciendo que el drenaje del fregadero sea más rápido.",
+  "imagenes": [],
+  "cantidad_imagenes": 0,
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "url_original": "https://droppers.com.ar/destapa-ca-erias-de-alta-presion.html",
+  "fecha_scraping": "2026-03-16T19:33:12.164480",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Baño y Limpieza"
+  ],
+  "categoria_principal": "Baño y Limpieza",
+  "categoria": "Baño y Limpieza",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-03-16T19:46:17.646796",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600047_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600047_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600047_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600047_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600047_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600047_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600047_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600047_008"
+  ],
+  "calculo_precio": {
+    "precio_costo": 0,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 3500.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 5250.0,
+    "precio_final": 5500.0,
+    "ganancia_neta": 5500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 5500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.449239",
+  "fecha_agotado": "2026-06-13T08:19:05.659363"
+}

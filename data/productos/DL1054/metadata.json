@@ -1,0 +1,52 @@
+{
+  "sku": "DL1054",
+  "titulo": "Tapones Para Oídos Noise Cancelling",
+  "precio": 3950,
+  "descripcion": "Tapones para oídos Noise Cancelling\nProtector auditivo anti  ruidos\nColores negro, verde, azul y blanco.\nSe envía surtido.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1054.png"
+  ],
+  "cantidad_imagenes": 1,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/tapones-para-oidos-noise-cancelling.html",
+  "fecha_scraping": "2026-06-13T08:24:44.099378",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Estética y Belleza",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Estética y Belleza",
+  "categoria": "Estética y Belleza",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.675434",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1054_001"
+  ],
+  "calculo_precio": {
+    "precio_costo": 3950,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 7450.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 11175.0,
+    "precio_final": 11500.0,
+    "ganancia_neta": 7550.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 11500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.945662"
+}

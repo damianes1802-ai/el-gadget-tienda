@@ -1,0 +1,58 @@
+{
+  "sku": "PA110B",
+  "titulo": "Camisa Blusa Manga 3/4 Confeccionada En Broderie Importada",
+  "precio": 39348,
+  "descripcion": "Camisa Blusa Romántica: Broderie, Tul y Manga 3/4\nAñade un toque de romanticismo y delicadeza a tu look con esta hermosa blusa confeccionada en broderie y tul calado importado.\nSu diseño destaca por la combinación de texturas: el broderie le da un aire artesanal y las inserciones de tul aportan transparencia y ligereza. Posee mangas estilo oxford 3/4 que le dan movimiento y un toque moderno a la silueta. Es la prenda perfecta para looks elegantes o casuales de primavera y verano.\nPuedes elegir entre los colores clásicos y atemporales: Blanco o Negro.\nCaracterísticas Destacadas:\nMaterial: Broderie y Tul calado (Importado).\nMangas: Estilo Oxford 3/4.\nColores: Blanco.\nGénero: Mujer (Adultos).\nGuía de Talles (Medidas Aproximadas del Cuerpo en cm):\nPara asegurar el ajuste perfecto, consulta las medidas de contorno de cuerpo para cada talle:\nTalle S: Pecho: 92 cm / Cintura: 92 cm / Cadera: 92 cm / Cuello: 42 cm.\nTalle M: Pecho: 94 cm / Cintura: 94 cm / Cadera: 94 cm / Cuello: 44 cm.\nTalle L: Pecho: 102 cm / Cintura: 102 cm / Cadera: 102 cm / Cuello: 50 cm.\n(Las medidas son en centímetros y pueden variar ligeramente).",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa110b.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa110b_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa110b_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa110b_5_.png"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/camisa-blusa-manga-3-4-confeccionada-en-broderie-talle-s-1.html",
+  "fecha_scraping": "2026-06-13T08:26:09.090678",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios de Moda",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Accesorios de Moda",
+  "categoria": "Accesorios de Moda",
+  "categorias_secundarias": [
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 2,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:55.230112",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA110B_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA110B_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA110B_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA110B_004"
+  ],
+  "calculo_precio": {
+    "precio_costo": 39348,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 42848.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 64272.0,
+    "precio_final": 64500.0,
+    "ganancia_neta": 25152.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 64500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:30.772483"
+}

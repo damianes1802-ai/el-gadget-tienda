@@ -1,0 +1,60 @@
+{
+  "sku": "BWH0057-4-PA",
+  "titulo": "Plato Playo De Ceramica Desayuno 6'",
+  "precio": 3268,
+  "descripcion": "Plato Playo de Cerámica para Desayunos -  Almuerzos - Cenas\n1: Hermosa forma, también se puede considerar como una artesanía.\n2: Material: Cerámica\n3: El material de cerámica es suave, más seguro y más seguro que el plástico\n4: Ligero y duradero, fácil de limpiar, fácil de limpiar todo tipo de salsa de inmersión\nPlatos de cena de uso diario adecuados para todas las ocasiones\nMedidas: 6 pulgadas (15.24cm).",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/3/_/3_1__1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/1/_/1_1__1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/2/_/2_1__1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/2/_/2_8.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_3__1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_5__6.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_6__6.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/plato-playo-de-ceramica-desayuno-6.html",
+  "fecha_scraping": "2026-03-09T15:24:49.823412",
+  "cantidad_imagenes": 7,
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-PA_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-PA_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-PA_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-PA_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-PA_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-PA_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-PA_007"
+  ],
+  "calculo_precio": {
+    "precio_costo": 3268,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 6768.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 10152.0,
+    "precio_final": 10500.0,
+    "ganancia_neta": 7232.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 10500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.863521",
+  "categoria_principal": "Bazar y Cocina",
+  "categoria": "Bazar y Cocina",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "Bazar y Cocina"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-03-09T20:52:31.524571",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.702689",
+  "availability": "out of stock"
+}

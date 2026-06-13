@@ -1,0 +1,49 @@
+{
+  "sku": "WH-RWH0167-GAT",
+  "titulo": "Espejo Autoadhesivo Personalizable Decorativo Niños Gatito",
+  "precio": 3722,
+  "descripcion": "El diseño de espejo adhesivo decorativo hace que su hogar se vea diferente, más atractiva.\nNo es de material peligroso para lo niños (no es vidrio) lo que lo hace mas seguro en el ambiente deseado.\nPara la superficie reflectante puede hacer que su habitación sea más brillante.\nDIY Decoración del hogar: puede usar su imaginación para combinar libremente estos pegatinas de pared de espejo para formar una variedad de patrones creativos para agregar interés decorativo para que las paredes ya no sean monótonos y agregue un sentido de diseño.\nAmplia aplicación: es para decorar diferentes ocasiones como telón de fondo de TV, pared de sofá, ventana, puerta, armario, congelador, gabinete, azulejos, viveros, baño, dormitorio y oficina.\nMedidas aproximadas (ya que dependen del modelo del espejo): 20cm de ancho x 18cm de altura\nIncluye plancha de stickers para personalizar",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/7/h79a0b88cba5b42ddb7fe17fd381aca8e5_1_1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/f/hfc7f00d4967a4f9e8740397b6d40103cm_1_1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/3/h3b4930a1a1514a5bacf2a8bb99403299e_1_1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/2/h283becca1971453eaa4667d12c455731a_1_1_1_1.png"
+  ],
+  "url_original": "https://droppers.com.ar/espejo-dise-o-animal-personalizable-4.html",
+  "fecha_scraping": "2026-02-01T10:00:55.141655",
+  "cantidad_imagenes": 4,
+  "calculo_precio": {
+    "precio_costo": 3722,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 7222.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 10833.0,
+    "precio_final": 11000.0,
+    "ganancia_neta": 7278.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 11000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:31.049552",
+  "item_group_id": "grupo_051",
+  "variante_atributo": "cantidad",
+  "variante_valor": "GAT",
+  "producto_base": "espejo autoadhesivo personalizable decorativo niños conejo",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:04.803752",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:35.287389",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.605898",
+  "availability": "out of stock",
+  "imagenes_cloudinary": []
+}

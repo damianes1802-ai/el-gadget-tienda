@@ -1,0 +1,57 @@
+{
+  "sku": "600188",
+  "titulo": "Baston Regulable",
+  "precio": 0,
+  "descripcion": "Herramienta esencial para aquellos que necesitan un soporte adicional para moverse.\nEste bastón está fabricado con aluminio anodizado, un material ligero pero resistente, capaz de soportar un peso de hasta 100 kg. Su color aluminio le da un toque de elegancia y distinción, lo que lo convierte en un accesorio que combina funcionalidad y estilo.\nEl bastón cuenta con una empuñadura de pvc ergonomico, diseñada para proporcionar un agarre cómodo y seguro. Además, es ajustable en 10 posiciones disponibles, cada uno de 2.5 cm de distancia, permitiendo adaptar la altura del bastón a las necesidades del usuario.\nLa altura mínima es de 70.5 cm y puede extenderse hasta un máximo de 93 cm.\nA pesar de su robustez, este bastón no es plegable, lo que garantiza su estabilidad y resistencia.\nColor: aluminio",
+  "imagenes": [],
+  "cantidad_imagenes": 0,
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/4460/s/baston-regulable/category/13/",
+  "fecha_scraping": "2026-03-16T19:33:01.183507",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600188_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600188_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600188_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600188_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600188_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600188_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600188_007"
+  ],
+  "calculo_precio": {
+    "precio_costo": 0,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 3500.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 5250.0,
+    "precio_final": 5500.0,
+    "ganancia_neta": 5500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 5500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.586377",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-03-16T19:49:45.993242",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "fecha_agotado": "2026-06-13T08:19:05.723577"
+}

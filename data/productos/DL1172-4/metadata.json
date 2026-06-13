@@ -1,0 +1,51 @@
+{
+  "sku": "DL1172-4",
+  "titulo": "Alfombra Absorbente Diatomita Para Mascotas",
+  "precio": 6050,
+  "descripcion": "Alfombra absorbente para mascotas\nMaterial: Diatomita\nMedidas: 30 x 40 cm\nColor gris",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1172-4.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5305/s/alfombra-absorbente-diatomita-para-mascotas/category/13/",
+  "fecha_scraping": "2026-02-23T20:04:05.357787",
+  "cantidad_imagenes": 1,
+  "calculo_precio": {
+    "precio_costo": 6050,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 9550.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 14325.0,
+    "precio_final": 14500.0,
+    "ganancia_neta": 8450.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 14500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.152972",
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [
+    "Accesorios de Mascotas"
+  ],
+  "todas_las_categorias": [
+    "Nuevos Ingresos",
+    "Accesorios de Mascotas"
+  ],
+  "total_categorias": 2,
+  "fecha_actualizacion_categorias": "2026-02-23T20:46:46.370294",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.680009",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-4_001"
+  ]
+}

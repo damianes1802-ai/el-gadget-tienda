@@ -1,0 +1,61 @@
+{
+  "sku": "600136",
+  "titulo": "Esfera Bolas Silicona Lavarropa Buena Limpieza Y Suavidad",
+  "precio": 1206,
+  "descripcion": "Pack de 12 unidades\nHecho de material de PVC ecológico de alta calidad, reutilizable y duradero.\nDes-contaminación mágica, superficie irregular, cilindro de diferentes tamaños, cuando se utiliza, golpea y frota la ropa para lograr un efecto de des-contaminación rápido.\nCon material de PVC suave, diseño suave, buena elasticidad, lavado a máquina, no daña la ropa, no daña la lavadora.\nHermoso color, no se decolora, no se corroe.\nSeparación de impactos, en la ropa entre el papel de barrera, reduce el enredo de la ropa.\nActualización de descontaminación, no se enreda, garantía de calidad, salud y protección del medio ambiente, alta descontaminación, deja que la ropa se lave más mejor y quede mas limpia.\n-Evita eficazmente que la ropa se tuerza o enrede.\n-Su propia fricción para aumentar el impacto, haciendo que la ropa sea más limpia.\n- El material suave no daña la ropa, y mucho menos la lavadora.\n-No se decolora y se puede lavar junto con ropa blanca.\nMedidas: 4,2cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61l5vioaykl._sl1000_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/5/550388_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/5/550388_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/5/550388_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/5/550388_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/5/550388_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/5/550388_9_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/71kcc3uohkl._sl1001_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61dlnhsbeol._sl1100_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/614l2sldbbl._sl1100_.jpg"
+  ],
+  "url_original": "https://droppers.com.ar/esfera-bolas-silicona-lavarropa-buena-limpieza-y-suavidad.html",
+  "fecha_scraping": "2026-02-01T09:48:21.568956",
+  "cantidad_imagenes": 10,
+  "calculo_precio": {
+    "precio_costo": 1206,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 4706.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 7059.0,
+    "precio_final": 7500.0,
+    "ganancia_neta": 6294.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 7500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.519522",
+  "es_variante": false,
+  "item_group_id": "600136",
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:06.178750",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.692031",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_010"
+  ]
+}

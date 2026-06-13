@@ -1,0 +1,59 @@
+{
+  "sku": "DL1089",
+  "titulo": "Tapa Enchufes De Seguridad X24",
+  "precio": 2980,
+  "descripcion": "Tapa enchufes de seguridad\nPack x24 ( 3 patas)",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1089.jpeg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61qfqjeti-l._sl1001__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61duarkhopl._sl1001__1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/b/hb3f14e0184cc4b8bbaa66888ab7462e4o_1.jpg"
+  ],
+  "cantidad_imagenes": 4,
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5276/s/tapa-enchufes-de-seguridad-x24/category/13/",
+  "fecha_scraping": "2026-06-13T08:24:21.053858",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Home",
+    "Electrónica",
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Home",
+  "categoria": "Home",
+  "categorias_secundarias": [
+    "Electrónica",
+    "Nuevos Ingresos"
+  ],
+  "total_categorias": 3,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-13T08:30:56.915789",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1089_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1089_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1089_003"
+  ],
+  "calculo_precio": {
+    "precio_costo": 2980,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 6480.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 9720.0,
+    "precio_final": 10000.0,
+    "ganancia_neta": 7020.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 10000.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:29.025550"
+}

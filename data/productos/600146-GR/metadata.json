@@ -1,0 +1,56 @@
+{
+  "sku": "600146-GR",
+  "titulo": "Mochila Transportadora Mascotas Capsula Burbuja GRIS",
+  "precio": 20790,
+  "descripcion": "Especificaciones:\n- Material: está fabricada de material de PVC, tela Oxford y malla.\n- Color: Gris\n- Diseño único: esta mochila porosa y transpirable para mascotas utiliza un diseño único de cápsula espacial, hace que tu mascota se sienta más segura, cómoda y le permite tener una visión más amplia del exterior.\n- Medidas: 45 cm x 35 cm x 23 cm\n- Peso máximo soportado aproximadamente 12 kg",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560403_1_.2_1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560403_2_.1_1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600146_4__1_1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560403_5__1_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/6/560403_7__1_1_1.png"
+  ],
+  "url_original": "https://droppers.com.ar/mochila-transportadora-mascotas-gato-perro-capsula-burbuja-3.html",
+  "fecha_scraping": "2026-02-01T09:51:02.946517",
+  "cantidad_imagenes": 5,
+  "calculo_precio": {
+    "precio_costo": 20790,
+    "cargos_fijos": 3500.0,
+    "desglose_cargos": [
+      {
+        "nombre": "Envio",
+        "valor": 2000.0
+      },
+      {
+        "nombre": "Packaging",
+        "valor": 1500.0
+      }
+    ],
+    "subtotal": 24290.0,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 36435.0,
+    "precio_final": 36500.0,
+    "ganancia_neta": 15710.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 36500.0,
+  "fecha_calculo_precio": "2026-06-13T08:33:28.548523",
+  "item_group_id": "grupo_004",
+  "variante_atributo": "color",
+  "variante_valor": "GR",
+  "producto_base": "mochila transportadora mascotas capsula burbuja",
+  "es_variante": true,
+  "fecha_actualizacion_variantes": "2026-02-01T19:05:03.397558",
+  "stock": 0,
+  "fecha_sincronizacion_droppers": "2026-02-16T20:14:35.679325",
+  "disponibilidad": "out of stock",
+  "fecha_agotado": "2026-06-13T08:19:05.724509",
+  "availability": "out of stock",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600146-GR_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600146-GR_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600146-GR_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600146-GR_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600146-GR_005"
+  ]
+}
