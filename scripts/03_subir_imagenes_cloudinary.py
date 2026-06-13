@@ -14,6 +14,7 @@ import time
 from pathlib import Path
 from typing import Dict, List
 from datetime import datetime
+from urllib.parse import quote
 
 # SDK oficial de Cloudinary
 import cloudinary
@@ -182,7 +183,7 @@ class SubidorCloudinary2026:
             urls = []
             for i in range(1, num_imagenes_local + 1):
                 public_id = f"prod_{sku}_{i:03d}"
-                url = f"https://res.cloudinary.com/{self.cloud_name}/image/upload/{public_id}"
+                url = f"https://res.cloudinary.com/{self.cloud_name}/image/upload/{quote(public_id)}"
                 urls.append(url)
             
             return {'sku': sku, 'urls': urls}
@@ -208,7 +209,7 @@ class SubidorCloudinary2026:
             # Verificar si ya existe
             if public_id in imagenes_existentes:
                 # Construir URL
-                url = f"https://res.cloudinary.com/{self.cloud_name}/image/upload/{public_id}"
+                url = f"https://res.cloudinary.com/{self.cloud_name}/image/upload/{quote(public_id)}"
                 urls_cloudinary.append(url)
                 self.stats['ya_existentes'] += 1
                 print(f"  ✓ {imagen.name} (existe)")

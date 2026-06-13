@@ -213,6 +213,9 @@ class ScraperMaestroV2:
                 return None
             
             sku = sku_element.text.strip()
+            # Algunos productos de Droppers traen SKUs con espacios (ej: "550371 SD"),
+            # lo cual genera URLs/IDs de Cloudinary inválidos. Normalizamos a guiones.
+            sku = re.sub(r'\s+', '-', sku)
             
             # ============================================================
             # 2. DATOS BÁSICOS

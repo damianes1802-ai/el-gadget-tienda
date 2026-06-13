@@ -67,6 +67,12 @@ def asignar_categoria_ofertas():
                     metadata['fecha_actualizacion_categorias'] = datetime.now().isoformat()
                     metadata['categoria_asignada_automaticamente'] = True
                     metadata['razon_categoria_ofertas'] = 'Producto disponible sin categoría en Droppers'
+                    # Marcar como "asignada" para que el scraper no la vuelva a
+                    # marcar como pendiente en futuros re-scrapeos
+                    metadata['categorias_asignadas'] = True
+                    metadata['fecha_mapeo_categorias'] = datetime.now().isoformat()
+                    metadata.pop('categorias_pendientes', None)
+                    metadata.pop('nota', None)
                     
                     # Guardar
                     with open(metadata_file, 'w', encoding='utf-8') as f:
