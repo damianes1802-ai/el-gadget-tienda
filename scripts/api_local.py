@@ -23,6 +23,7 @@ from fastapi import FastAPI, HTTPException, Query, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import sqlite3
+import shutil
 import sys
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr
@@ -37,7 +38,16 @@ from utils.config import Config
 # Configuración
 _env = Config.cargar_env()
 ADMIN_PASSWORD = _env.get('ADMIN_PASSWORD', 'admin2024')
-DB_PATH = Path(__file__).parent.parent / 'data' / 'catalogo.db'
+
+# Catálogo versionado en git (productos/historial_precios, se actualiza a
+# diario vía el pipeline y se sobreescribe en cada deploy).
+CATALOGO_REPO_PATH = Path(__file__).parent.parent / 'data' / 'catalogo.db'
+
+# Si hay un disco persistente montado (Render), ordenes/clientes viven ahí
+# para sobrevivir a los redeploys. Si no está configurado, se usa el mismo
+# archivo del repo (comportamiento local de desarrollo).
+_persistent_dir = _env.get('PERSISTENT_DATA_DIR', '')
+DB_PATH = Path(_persistent_dir) / 'catalogo.db' if _persistent_dir else CATALOGO_REPO_PATH
 
 # ── MercadoPago ──────────────────────────────────────────────
 _mp_env = _env.get('MP_ENV', 'test')
@@ -150,6 +160,32 @@ def get_db():
     return conn
 
 
+def sincronizar_catalogo_persistente():
+    """
+    Si se usa un disco persistente para ordenes/clientes (PERSISTENT_DATA_DIR),
+    refresca ahí las tablas de catálogo (productos, historial_precios) desde
+    el catalogo.db versionado en git, sin tocar clientes/ordenes/orden_items.
+    En el primer arranque (disco vacío) copia el archivo completo como base.
+    """
+    if DB_PATH == CATALOGO_REPO_PATH or not CATALOGO_REPO_PATH.exists():
+        return
+
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    if not DB_PATH.exists():
+        shutil.copy(CATALOGO_REPO_PATH, DB_PATH)
+        return
+
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute("ATTACH DATABASE ? AS src", (str(CATALOGO_REPO_PATH),))
+    for tabla in ("productos", "historial_precios"):
+        conn.execute(f"DROP TABLE IF EXISTS {tabla}")
+        conn.execute(f"CREATE TABLE {tabla} AS SELECT * FROM src.{tabla}")
+    conn.execute("DETACH DATABASE src")
+    conn.commit()
+    conn.close()
+
+
 def migrar_db():
     """Agrega columnas nuevas a tabla clientes si no existen (migración automática)"""
     if not DB_PATH.exists():
@@ -190,6 +226,7 @@ def migrar_db():
     conn.close()
 
 # Ejecutar migración al iniciar
+sincronizar_catalogo_persistente()
 migrar_db()
 
 
