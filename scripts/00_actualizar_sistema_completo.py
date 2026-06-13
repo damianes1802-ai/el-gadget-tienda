@@ -8,11 +8,12 @@ PIPELINE (flujo de 2 fases, basado en scraper_maestro_v2):
 1. Detección de agotados/reingresados (17_deteccion_agotados_robusto.py)
 2. Scraper de productos nuevos - FASE 1 sin categorías (scraper_maestro_v2_sin_categorias.py)
 3. Mapeo de categorías - FASE 2 (mapear_categorias_post_scraping.py)
-4. Descarga de imágenes (02_descargar_imagenes_OPTIMIZADO.py)
-5. Subida a Cloudinary (opcional) (03_subir_imagenes_cloudinary.py)
-6. Cálculo de precios (04_calculo_precios.py)
-7. Sincronización SQLite (11_sincronizar_sqlite.py)
-8. Sincronización Google Sheets / Facebook Catalog (opcional) (06_sincronizar_google_sheets_OPTIMIZADO.py)
+4. Asignación de categoría OFERTAS a disponibles sin categoría (asignar_categoria_ofertas.py)
+5. Descarga de imágenes (02_descargar_imagenes_OPTIMIZADO.py)
+6. Subida a Cloudinary (opcional) (03_subir_imagenes_cloudinary.py)
+7. Cálculo de precios (04_calculo_precios.py)
+8. Sincronización SQLite (11_sincronizar_sqlite.py)
+9. Sincronización Google Sheets / Facebook Catalog (opcional) (06_sincronizar_google_sheets_OPTIMIZADO.py)
 
 AUTOR: Sistema Ecommerce Automation
 FECHA: 2026-06-12
@@ -79,6 +80,7 @@ class ActualizadorMaestro:
             'agotados': '17_deteccion_agotados_robusto.py',
             'scraper': 'scraper_maestro_v2_sin_categorias.py',
             'categorias': 'mapear_categorias_post_scraping.py',
+            'ofertas': 'asignar_categoria_ofertas.py',
             'descarga_imagenes': '02_descargar_imagenes_OPTIMIZADO.py',
             'cloudinary': '03_subir_imagenes_cloudinary.py',
             'precios': '04_calculo_precios.py',
@@ -412,19 +414,29 @@ class ActualizadorMaestro:
         elif self.modo == 'completo':
             print("\n⏭️  Saltando mapeo de categorías (el scraper no se ejecutó)")
 
-        # PASO 4: Descargar imágenes (solo productos sin imágenes)
+        # PASO 4: Asignar categoría OFERTAS a disponibles sin categoría (fallback)
         if self.modo == 'completo':
             self.ejecutar_script(
-                "4. Descarga de imágenes",
+                "4. Asignación de categoría OFERTAS",
+                self.scripts['ofertas'],
+                obligatorio=False
+            )
+        else:
+            print(f"\n⏭️  Saltando asignación de categoría OFERTAS (modo: {self.modo})")
+
+        # PASO 5: Descargar imágenes (solo productos sin imágenes)
+        if self.modo == 'completo':
+            self.ejecutar_script(
+                "5. Descarga de imágenes",
                 self.scripts['descarga_imagenes'],
                 obligatorio=False,
                 args=['--silencioso']  # Ejecutar sin confirmación
             )
 
-        # PASO 5: Subir imágenes a Cloudinary (opcional)
+        # PASO 6: Subir imágenes a Cloudinary (opcional)
         if self.modo == 'completo' and self.usar_cloudinary:
             self.ejecutar_script(
-                "5. Subir imágenes a Cloudinary",
+                "6. Subir imágenes a Cloudinary",
                 self.scripts['cloudinary'],
                 obligatorio=False
             )
@@ -433,9 +445,9 @@ class ActualizadorMaestro:
         else:
             print(f"\n⏭️  Saltando Cloudinary (no solicitado)")
 
-        # PASO 6: Calcular precios
+        # PASO 7: Calcular precios
         if not self.ejecutar_script(
-            "6. Cálculo de precios",
+            "7. Cálculo de precios",
             self.scripts['precios'],
             obligatorio=True,
             args=['--silencioso']
@@ -443,36 +455,36 @@ class ActualizadorMaestro:
             print("\n⛔ Abortando actualización por error crítico")
             return False
 
-        # PASO 7: Borrar base de datos
-        self.banner("7. Preparación de base de datos", '-')
+        # PASO 8: Borrar base de datos
+        self.banner("8. Preparación de base de datos", '-')
         if not self.borrar_base_datos():
             print("\n⚠️  No se pudo borrar DB, continuando...")
 
-        # PASO 8: Sincronizar a SQLite
+        # PASO 9: Sincronizar a SQLite
         if not self.ejecutar_script(
-            "8. Sincronización a SQLite",
+            "9. Sincronización a SQLite",
             self.scripts['sqlite'],
             obligatorio=True
         ):
             print("\n⛔ Actualización falló en sincronización")
             return False
 
-        # PASO 9: Sincronizar Google Sheets / Facebook Catalog (opcional)
+        # PASO 10: Sincronizar Google Sheets / Facebook Catalog (opcional)
         sheets_script = self.scripts_dir / self.scripts.get('sheets', '')
         if sheets_script and sheets_script.exists():
             self.ejecutar_script(
-                "9. Sincronización a Google Sheets / Facebook Catalog",
+                "10. Sincronización a Google Sheets / Facebook Catalog",
                 self.scripts['sheets'],
                 obligatorio=False
             )
         else:
             print("\n⏭️  Google Sheets no disponible (script no encontrado)")
 
-        # PASO 10: Verificar resultado
+        # PASO 11: Verificar resultado
         if not self.verificar_resultado():
             print("\n⚠️  Verificación falló, revisar manualmente")
 
-        # PASO 11: Publicar catalogo.db (opcional)
+        # PASO 12: Publicar catalogo.db (opcional)
         if self.auto_push:
             self.git_push_catalogo()
         else:
