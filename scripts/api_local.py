@@ -264,10 +264,7 @@ def health_check():
         return {
             "status": "ok",
             "database": "connected",
-            "productos": total,
-            "db_path": str(DB_PATH),
-            "db_path_exists": DB_PATH.exists(),
-            "persistent_data_dir": _persistent_dir,
+            "productos": total
         }
     except Exception as e:
         return JSONResponse(
