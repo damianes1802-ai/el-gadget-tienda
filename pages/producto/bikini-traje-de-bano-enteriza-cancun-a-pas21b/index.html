@@ -86,6 +86,10 @@
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
+      <div class="variants-section" id="internalVariantsSection">
+        <label class="variant-label">Talle</label>
+        <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)"><option value="S">S</option><option value="M">M</option><option value="L">L</option></select>
+      </div>
 
       <!-- Descripción -->
       <div class="product-description">
@@ -202,7 +206,7 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-PAS21B", "nombre": "Bikini Traje De Baño Enteriza Cancun", "precio_venta": 30500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Bikini traje de baño enteriza cancún. Color blanco.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "A-PAS21B", "nombre": "Bikini Traje De Baño Enteriza Cancun", "precio_venta": 30500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Bikini traje de baño enteriza cancún. Color blanco.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS21B-S", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "A-PAS21B-M", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "L", "sku_interno": "A-PAS21B-L", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

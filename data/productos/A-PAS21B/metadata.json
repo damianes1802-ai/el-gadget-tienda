@@ -51,5 +51,28 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.917522"
+  "fecha_calculo_precio": "2026-06-13T13:44:41.917522",
+  "variantes_internas": [
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "S",
+      "sku_interno": "A-PAS21B-S",
+      "imagenes": []
+    },
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "M",
+      "sku_interno": "A-PAS21B-M",
+      "imagenes": []
+    },
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "L",
+      "sku_interno": "A-PAS21B-L",
+      "imagenes": []
+    }
+  ]
 }
