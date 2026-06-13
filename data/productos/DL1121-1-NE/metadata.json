@@ -17,13 +17,7 @@
   "url_original": "https://droppers.com.ar/rollo-revestimiento-adhesivo-simil-marmol-0-60-x-10-metros-4.html",
   "fecha_scraping": "2026-03-02T15:41:19.285323",
   "cantidad_imagenes": 9,
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-NE_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-NE_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-NE_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-NE_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-NE_005"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 23100,
     "cargos_fijos": 3500.0,
@@ -45,7 +39,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 40000.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:29.071910",
+  "fecha_calculo_precio": "2026-06-13T13:44:41.941334",
   "categoria_principal": "OFERTAS",
   "categoria": "OFERTAS",
   "categorias_secundarias": [],
@@ -57,6 +51,6 @@
   "categoria_asignada_automaticamente": true,
   "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-13T08:19:05.745600",
+  "fecha_agotado": "2026-06-13T13:29:58.289507",
   "availability": "out of stock"
 }

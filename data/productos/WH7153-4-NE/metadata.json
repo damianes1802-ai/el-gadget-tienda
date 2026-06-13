@@ -30,7 +30,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 14500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:31.233618",
+  "fecha_calculo_precio": "2026-06-13T13:44:42.046184",
   "item_group_id": "grupo_060",
   "variante_atributo": "cantidad",
   "variante_valor": "NE",
@@ -40,9 +40,7 @@
   "stock": 0,
   "fecha_sincronizacion_droppers": "2026-02-16T20:14:34.737197",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-13T08:19:05.743755",
+  "fecha_agotado": "2026-06-13T13:29:58.290938",
   "availability": "out of stock",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7153-4-NE_001"
-  ]
+  "imagenes_cloudinary": []
 }

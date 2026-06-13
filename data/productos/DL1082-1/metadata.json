@@ -19,9 +19,7 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-03-16T19:46:16.758778",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1082-1_001"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 0,
     "cargos_fijos": 3500.0,
@@ -43,6 +41,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 5500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:29.008442",
-  "fecha_agotado": "2026-06-13T08:19:05.615687"
+  "fecha_calculo_precio": "2026-06-13T13:44:41.932622",
+  "fecha_agotado": "2026-06-13T13:29:58.294687"
 }

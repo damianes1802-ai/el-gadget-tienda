@@ -39,23 +39,12 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 7500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:28.519522",
+  "fecha_calculo_precio": "2026-06-13T13:44:41.900550",
   "es_variante": false,
   "item_group_id": "600136",
   "fecha_actualizacion_variantes": "2026-02-01T19:05:06.178750",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-13T08:19:05.692031",
+  "fecha_agotado": "2026-06-13T13:29:58.266897",
   "availability": "out of stock",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_007",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_008",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_009",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600136_010"
-  ]
+  "imagenes_cloudinary": []
 }

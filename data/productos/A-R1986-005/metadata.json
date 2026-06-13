@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/lampara-de-mesa-verde-arbol-de-navidad.html",
-  "fecha_scraping": "2026-06-13T08:25:31.400085",
+  "fecha_scraping": "2026-06-13T13:37:10.539034",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Deco"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T08:30:57.112564",
+  "fecha_mapeo_categorias": "2026-06-13T13:42:42.465506",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-005_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-005_002",
@@ -55,5 +55,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 20500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:28.764981"
+  "fecha_calculo_precio": "2026-06-13T13:44:41.918267"
 }

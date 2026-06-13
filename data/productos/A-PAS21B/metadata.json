@@ -13,7 +13,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-enteriza-cancun.html",
-  "fecha_scraping": "2026-06-13T08:23:41.641151",
+  "fecha_scraping": "2026-06-13T13:37:08.187230",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -23,7 +23,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T08:30:58.177505",
+  "fecha_mapeo_categorias": "2026-06-13T13:42:42.487811",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_002",
@@ -51,5 +51,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:28.758002"
+  "fecha_calculo_precio": "2026-06-13T13:44:41.917522"
 }

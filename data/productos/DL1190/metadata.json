@@ -22,12 +22,7 @@
   "total_categorias": 2,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-03-16T19:46:18.200082",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1190_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1190_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1190_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1190_004"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 0,
     "cargos_fijos": 3500.0,
@@ -49,6 +44,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 5500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:29.217782",
-  "fecha_agotado": "2026-06-13T08:19:05.741773"
+  "fecha_calculo_precio": "2026-06-13T13:44:41.957509",
+  "fecha_agotado": "2026-06-13T13:29:58.276082"
 }

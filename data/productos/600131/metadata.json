@@ -22,20 +22,7 @@
   "total_categorias": 2,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-03-16T19:46:17.364060",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_007",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_008",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_009",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_010",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_011",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600131_012"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 0,
     "cargos_fijos": 3500.0,
@@ -57,6 +44,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 5500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:28.516385",
-  "fecha_agotado": "2026-06-13T08:19:05.570537"
+  "fecha_calculo_precio": "2026-06-13T13:44:41.900017",
+  "fecha_agotado": "2026-06-13T13:29:58.278209"
 }

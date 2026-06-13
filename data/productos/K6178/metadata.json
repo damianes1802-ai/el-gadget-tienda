@@ -10,7 +10,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/set-cosmetica.html",
-  "fecha_scraping": "2026-06-13T08:25:16.044024",
+  "fecha_scraping": "2026-06-13T13:34:47.018875",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Estética y Belleza"
@@ -20,7 +20,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T08:30:56.647094",
+  "fecha_mapeo_categorias": "2026-06-13T13:42:42.458140",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_K6178_001"
   ],
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 11500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:30.390325"
+  "fecha_calculo_precio": "2026-06-13T13:44:41.988030"
 }

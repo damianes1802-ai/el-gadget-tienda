@@ -38,7 +38,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/mochila-pvc-bolso-morral-transparente-mediana-para-hombre-o-mujer.html",
-  "fecha_scraping": "2026-06-13T08:23:51.045804",
+  "fecha_scraping": "2026-06-13T13:36:14.942185",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda",
@@ -51,7 +51,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T08:30:55.214280",
+  "fecha_mapeo_categorias": "2026-06-13T13:42:42.435842",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_002",
@@ -77,7 +77,11 @@
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_022",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_023",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_024",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_025"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_025",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_026",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_027",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_028",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_029"
   ],
   "calculo_precio": {
     "precio_costo": 17889,
@@ -100,5 +104,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 32500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:30.726455"
+  "fecha_calculo_precio": "2026-06-13T13:44:42.000866"
 }

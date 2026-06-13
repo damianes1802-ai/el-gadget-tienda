@@ -12,13 +12,9 @@
   "fecha_scraping": "2026-02-27T17:37:03.472412",
   "cantidad_imagenes": 3,
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-13T08:19:05.690990",
+  "fecha_agotado": "2026-06-13T13:29:58.282484",
   "availability": "out of stock",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7207_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7207_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7207_003"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 7946,
     "cargos_fijos": 3500.0,
@@ -40,5 +36,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 17500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:31.305408"
+  "fecha_calculo_precio": "2026-06-13T13:44:42.057174"
 }

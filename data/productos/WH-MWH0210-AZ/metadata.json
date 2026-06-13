@@ -17,7 +17,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/mochila-infantil-escolar-cute-para-ni-os-1.html",
-  "fecha_scraping": "2026-06-13T08:23:15.840368",
+  "fecha_scraping": "2026-06-13T13:36:23.885865",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -27,7 +27,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T08:30:55.746124",
+  "fecha_mapeo_categorias": "2026-06-13T13:42:42.445548",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-AZ_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-AZ_002",
@@ -59,5 +59,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 24500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:30.988804"
+  "fecha_calculo_precio": "2026-06-13T13:44:42.024930"
 }

@@ -12,11 +12,7 @@
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166_003"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 0,
     "cargos_fijos": 3500.0,
@@ -38,7 +34,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 5500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:31.255178",
+  "fecha_calculo_precio": "2026-06-13T13:44:42.049396",
   "categoria_principal": "OFERTAS",
   "categoria": "OFERTAS",
   "categorias_secundarias": [],
@@ -49,5 +45,5 @@
   "fecha_actualizacion_categorias": "2026-03-16T19:49:51.142513",
   "categoria_asignada_automaticamente": true,
   "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
-  "fecha_agotado": "2026-06-13T08:19:05.757972"
+  "fecha_agotado": "2026-06-13T13:29:58.263432"
 }

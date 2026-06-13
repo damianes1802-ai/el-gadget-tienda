@@ -36,7 +36,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 37000.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:29.122635",
+  "fecha_calculo_precio": "2026-06-13T13:44:41.946164",
   "item_group_id": "grupo_024",
   "variante_atributo": "cantidad",
   "variante_valor": "x30",
@@ -44,15 +44,7 @@
   "es_variante": true,
   "fecha_actualizacion_variantes": "2026-02-01T19:05:03.913168",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-13T08:19:05.596980",
+  "fecha_agotado": "2026-06-13T13:29:58.266490",
   "availability": "out of stock",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137LI_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137LI_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137LI_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137LI_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137LI_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137LI_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1137LI_007"
-  ]
+  "imagenes_cloudinary": []
 }

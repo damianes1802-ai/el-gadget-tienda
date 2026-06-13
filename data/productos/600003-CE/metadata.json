@@ -20,20 +20,7 @@
   "url_original": "https://droppers.com.ar/bolso-plegable-viaje-grande-impermeable-reforzado-valija-2.html",
   "fecha_scraping": "2026-03-02T15:26:25.530546",
   "cantidad_imagenes": 12,
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_007",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_008",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_009",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_010",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_011",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600003-CE_012"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 6300,
     "cargos_fijos": 3500.0,
@@ -55,7 +42,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 15000.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:28.377757",
+  "fecha_calculo_precio": "2026-06-13T13:44:41.891321",
   "categoria_principal": "Home",
   "categoria": "Home",
   "categorias_secundarias": [],
@@ -65,6 +52,6 @@
   "total_categorias": 1,
   "fecha_actualizacion_categorias": "2026-03-02T16:18:36.191877",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-13T08:19:05.697161",
+  "fecha_agotado": "2026-06-13T13:29:58.295917",
   "availability": "out of stock"
 }

@@ -15,11 +15,7 @@
   "url_original": "https://droppers.com.ar/plato-playo-de-ceramica-desayuno-8.html",
   "fecha_scraping": "2026-03-09T15:24:53.206848",
   "cantidad_imagenes": 7,
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-PAX4_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-PAX4_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-PAX4_003"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 14144,
     "cargos_fijos": 3500.0,
@@ -41,7 +37,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 26500.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:28.866467",
+  "fecha_calculo_precio": "2026-06-13T13:44:41.924521",
   "categoria_principal": "Bazar y Cocina",
   "categoria": "Bazar y Cocina",
   "categorias_secundarias": [],
@@ -51,6 +47,6 @@
   "total_categorias": 1,
   "fecha_actualizacion_categorias": "2026-03-09T20:52:31.553244",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-13T08:19:05.747455",
+  "fecha_agotado": "2026-06-13T13:29:58.263200",
   "availability": "out of stock"
 }

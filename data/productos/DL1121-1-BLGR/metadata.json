@@ -34,7 +34,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 40000.0,
-  "fecha_calculo_precio": "2026-06-13T08:33:29.065796",
+  "fecha_calculo_precio": "2026-06-13T13:44:41.940332",
   "item_group_id": "grupo_021",
   "variante_atributo": "color",
   "variante_valor": "BLGR",
@@ -44,13 +44,7 @@
   "stock": 0,
   "fecha_sincronizacion_droppers": "2026-02-16T20:14:35.117173",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-13T08:19:05.641079",
+  "fecha_agotado": "2026-06-13T13:29:58.284170",
   "availability": "out of stock",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-BLGR_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-BLGR_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-BLGR_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-BLGR_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1121-1-BLGR_005"
-  ]
+  "imagenes_cloudinary": []
 }
