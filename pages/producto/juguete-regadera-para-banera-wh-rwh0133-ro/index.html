@@ -79,10 +79,10 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">Artículos Infantiles</span>
-      <h1 class="product-title">Juguete Regadera Para Bañera</h1>
+      <h1 class="product-title" id="productTitle">Juguete Regadera Para Bañera</h1>
       <div>
-        <div class="product-price">$8.500</div>
-        <div class="product-sku">SKU: WH-RWH0133-RO</div>
+        <div class="product-price" id="productPrice">$8.500</div>
+        <div class="product-sku" id="productSku">SKU: WH-RWH0133-RO</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
@@ -90,7 +90,7 @@
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">Juguete para baño elefante animado tipo regadera:
+        <div class="description" id="productDescription">Juguete para baño elefante animado tipo regadera:
 Un mango cómodo hace que el lanzamiento sea simple. Puedes enjuagar el cabello de tu bebé directamente en esta taza gracias a su diseño sencillo, superficie lisa, color brillante (azul cielo), mango agradable duradero y facilidad de sujeción y vertido mientras protege tu cara y ojos. Enjuague el champú del cabello de un niño y manténgalo fuera de sus ojos. Se puede utilizar como contenedor de flores y para regar flores además de lavar tu cabello. Un bonito diseño de dibujos animados puede captar el interés de los niños y hacer que la hora del baño de tu bebé sea más agradable.
 Medidas: Altura 9cm x Ancho 14.5cm x prof 5.5cm</div>
       </div>
@@ -204,7 +204,9 @@ Medidas: Altura 9cm x Ancho 14.5cm x prof 5.5cm</div>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH-RWH0133-RO", "nombre": "Juguete Regadera Para Bañera", "precio_venta": 8500.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_008"]};
+const PRODUCTO = {"sku": "WH-RWH0133-RO", "nombre": "Juguete Regadera Para Bañera", "precio_venta": 8500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Juguete para baño elefante animado tipo regadera:\nUn mango cómodo hace que el lanzamiento sea simple. Puedes enjuagar el cabello de tu bebé directamente en esta taza gracias a su diseño sencillo, superficie lisa, color brillante (azul cielo), mango agradable duradero y facilidad de sujeción y vertido mientras protege tu cara y ojos. Enjuague el champú del cabello de un niño y manténgalo fuera de sus ojos. Se puede utilizar como contenedor de flores y para regar flores además de lavar tu cabello. Un bonito diseño de dibujos animados puede captar el interés de los niños y hacer que la hora del baño de tu bebé sea más agradable.\nMedidas: Altura 9cm x Ancho 14.5cm x prof 5.5cm", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_008"], "variantes_internas": [], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -218,15 +220,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

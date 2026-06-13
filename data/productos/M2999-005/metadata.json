@@ -104,5 +104,83 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 32500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:42.000866"
+  "fecha_calculo_precio": "2026-06-13T13:44:42.000866",
+  "variantes_internas": [
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Blanco",
+      "sku_interno": "M2999-005-Blanco",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005b_1__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005b_2__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005b_3__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005b_4__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005b_5__1.png"
+      ]
+    },
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Fucsia",
+      "sku_interno": "M2999-005-Fucsia",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005d_3__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005d_1_.1_1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005d_2__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005d_1__1.png"
+      ]
+    },
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Negro",
+      "sku_interno": "M2999-005-Negro",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005a_4__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005a_2__2.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005a_1__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005a_3__1.png"
+      ]
+    },
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Rojo",
+      "sku_interno": "M2999-005-Rojo",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005f_4__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005f_3__2.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005f_1__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005f_2__1.png"
+      ]
+    },
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Rosa",
+      "sku_interno": "M2999-005-Rosa",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005c_1_.1_1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005c_1__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005c_2_.1_1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005c_2__1.png"
+      ]
+    },
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Voleta",
+      "sku_interno": "M2999-005-Violeta",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_1__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_2__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_3__1_1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_4__1_1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_5__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_6__1.png",
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_7__1.png"
+      ]
+    }
+  ]
 }

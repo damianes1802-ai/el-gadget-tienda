@@ -79,10 +79,10 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">OFERTAS</span>
-      <h1 class="product-title">Morral Antirrobo Oxford Gris y Bronce</h1>
+      <h1 class="product-title" id="productTitle">Morral Antirrobo Oxford Gris y Bronce</h1>
       <div>
-        <div class="product-price">$23.500</div>
-        <div class="product-sku">SKU: G-RINOANTROBOGR</div>
+        <div class="product-price" id="productPrice">$23.500</div>
+        <div class="product-sku" id="productSku">SKU: G-RINOANTROBOGR</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
@@ -90,7 +90,7 @@
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">Tamaño del producto: 31 x 18 x 9 cm
+        <div class="description" id="productDescription">Tamaño del producto: 31 x 18 x 9 cm
 Tirantes: ajustables
 Bloqueo antirrobo: con función antirrobo, es práctico y conveniente. Protección de privacidad con bloqueo de contraseña, utiliza una contraseña de tres dígitos para bloquear el control deslizante y evitar que la bolsa del pecho se abra para robar artículos.
 Área de almacenamiento múltiple: las bolsas cruzadas para hombre tienen un compartimento principal para tu ropa, libros, lonchera y otras necesidades diarias. Con varios bolsillos funcionales, puedes guardar tus objetos pequeños perfectamente, como monedas, teléfono celular, llaves, bolígrafos, etc. Bolsillos laterales para un acceso rápido a tus artículos diarios.
@@ -214,7 +214,9 @@ Paso 4: El cambio de contraseña se ha completado, se recomienda que ambos cierr
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "G-RINOANTROBOGR", "nombre": "Morral Antirrobo Oxford Gris y Bronce", "precio_venta": 23500.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_005"]};
+const PRODUCTO = {"sku": "G-RINOANTROBOGR", "nombre": "Morral Antirrobo Oxford Gris y Bronce", "precio_venta": 23500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Tamaño del producto: 31 x 18 x 9 cm\nTirantes: ajustables\nBloqueo antirrobo: con función antirrobo, es práctico y conveniente. Protección de privacidad con bloqueo de contraseña, utiliza una contraseña de tres dígitos para bloquear el control deslizante y evitar que la bolsa del pecho se abra para robar artículos.\nÁrea de almacenamiento múltiple: las bolsas cruzadas para hombre tienen un compartimento principal para tu ropa, libros, lonchera y otras necesidades diarias. Con varios bolsillos funcionales, puedes guardar tus objetos pequeños perfectamente, como monedas, teléfono celular, llaves, bolígrafos, etc. Bolsillos laterales para un acceso rápido a tus artículos diarios.\nPráctica y segura: instrucciones incluidas en el paquete. Compartimento principal de la mochila antirrobo con diseño de cierre bloqueable, conveniente para bloquear tus objetos de valor. Bolsillo antirrobo oculto en la parte posterior de esta mochila de negocios, protege tus artículos de los ladrones. La superficie del paquete está impresa con diseño reflectante, y la advertencia nocturna es más segura.\nMaterial duradero: nuestra bolsa está hecha de tela Oxford de alta densidad resistente al agua y al desgarro. Cremalleras de metal duraderas que se cierran y abren suavemente, garantizan un uso seguro y duradero todos los días o fines de semana.\nDiseño de puerto de carga USB: dos sencillos pasos para cargar tus electrónicos: Primero, conecta tu propio banco de energía con el cable de extensión USB integrado dentro de la bolsa del pecho. En segundo lugar, haz que tu cable USB externo se conecte con el puerto de carga USB externo, y luego puede cargar tu teléfono celular u otros dispositivos electrónicos.(Nota: ¡el banco de energía no está incluido!)\nBolsa multiusos: la bolsa antirrobo se puede utilizar como una bolsa de mensajero de negocios y una bolsa de hombro diaria, también un gran compañero para actividades al aire libre, como escapadas de fin de semana, viajes, senderismo, camping, caza, ciclismo, motociclismo, etc.\nCambio de contraseña.\nPaso 1: La contraseña inicial es 000.\nPaso 2: Mantenga pulsado el botón de desbloqueo en el estado correcto de la contraseña.\nPaso 3: Utilice dos dedos para girar el engranaje numérico y suelte el botón de desbloqueo para generar una nueva contraseña girando al número deseado.\nPaso 4: El cambio de contraseña se ha completado, se recomienda que ambos cierres establezcan la misma contraseña para evitar olvidos, asegúrese de recordar la contraseña Oh.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_005"], "variantes_internas": [], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -228,15 +230,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

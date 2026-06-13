@@ -79,10 +79,10 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">Accesorios de Moda</span>
-      <h1 class="product-title">Mini Bag Cartera Bandolera Cuero Sintético Con Pompón</h1>
+      <h1 class="product-title" id="productTitle">Mini Bag Cartera Bandolera Cuero Sintético Con Pompón</h1>
       <div>
-        <div class="product-price">$31.000</div>
-        <div class="product-sku">SKU: M1365-001C</div>
+        <div class="product-price" id="productPrice">$31.000</div>
+        <div class="product-sku" id="productSku">SKU: M1365-001C</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
@@ -90,7 +90,7 @@
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">Mini Bag Cartera Bandolera Cuero Sintético Con Pompón
+        <div class="description" id="productDescription">Mini Bag Cartera Bandolera Cuero Sintético Con Pompón
 Esta bandolera es el accesorio ideal para quienes buscan un diseño moderno, compacto y funcional. Su estructura de cuerpo rígido asegura que la cartera mantenga su forma original, brindando un aspecto elegante y sofisticado en todo momento.
 Características Principales:
 Material de Calidad: Confeccionada en cuero sintético de textura suave y acabado mate, resistente al uso diario.
@@ -216,7 +216,9 @@ Tipo de correa: Ajustable y desmontable</div>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "M1365-001C", "nombre": "Mini Bag Cartera Bandolera Cuero Sintético Con Pompón", "precio_venta": 31000.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_004"]};
+const PRODUCTO = {"sku": "M1365-001C", "nombre": "Mini Bag Cartera Bandolera Cuero Sintético Con Pompón", "precio_venta": 31000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Mini Bag Cartera Bandolera Cuero Sintético Con Pompón\nEsta bandolera es el accesorio ideal para quienes buscan un diseño moderno, compacto y funcional. Su estructura de cuerpo rígido asegura que la cartera mantenga su forma original, brindando un aspecto elegante y sofisticado en todo momento.\nCaracterísticas Principales:\nMaterial de Calidad: Confeccionada en cuero sintético de textura suave y acabado mate, resistente al uso diario.\nDetalle Exclusivo: Incluye un pompón de piel sintética que añade un toque distintivo y femenino al diseño.\nCorrea Versátil: Viene con una correa larga del mismo material, regulable mediante una hebilla metálica para ajustarla a tu altura. Además, es desmontable gracias a sus prácticos ganchos mosquetón laterales.\nInterior Protegido: Cuenta con forrería interna completa, ideal para cuidar tus pertenencias personales como el celular, llaves o billetera.\nHerrajes de Metal: Todos los detalles de unión, ganchos y hebillas son metálicos con acabado plateado, garantizando mayor durabilidad.\nEstilo y Combinaciones:\nSu diseño minimalista y compacto la hace perfecta tanto para salidas casuales como para eventos. Puedes elegir entre la variante en color rojo con pompón negro o la variante en color verde azulado con pompón blanco, según disponibilidad en la publicación.\nMedidas Detalladas (Aparte):\nAncho: 19 cm\nAlto: 15 cm\nMaterial: Cuero sintético (PU)\nTipo de correa: Ajustable y desmontable", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_004"], "variantes_internas": [], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -230,15 +232,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

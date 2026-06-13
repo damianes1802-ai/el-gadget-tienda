@@ -79,10 +79,10 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">OFERTAS</span>
-      <h1 class="product-title">Body enterito infantil para bebés</h1>
+      <h1 class="product-title" id="productTitle">Body enterito infantil para bebés</h1>
       <div>
-        <div class="product-price">$28.000</div>
-        <div class="product-sku">SKU: WH7166CE-66</div>
+        <div class="product-price" id="productPrice">$28.000</div>
+        <div class="product-sku" id="productSku">SKU: WH7166CE-66</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
@@ -90,7 +90,7 @@
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">Body para niños.
+        <div class="description" id="productDescription">Body para niños.
 Material: algodón puro.
 Azul claro.
 Talle 66 cm</div>
@@ -205,7 +205,9 @@ Talle 66 cm</div>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7166CE-66", "nombre": "Body enterito infantil para bebés", "precio_venta": 28000.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CE-66_001"]};
+const PRODUCTO = {"sku": "WH7166CE-66", "nombre": "Body enterito infantil para bebés", "precio_venta": 28000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Body para niños.\nMaterial: algodón puro.\nAzul claro.\nTalle 66 cm", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CE-66_001"], "variantes_internas": [], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -219,15 +221,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

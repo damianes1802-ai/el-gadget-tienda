@@ -88,7 +88,13 @@
       <!-- Variantes -->
       <div class="variants-section" id="variantsSection" style="display:none">
         <label class="variant-label" id="variantLabel">Variantes disponibles</label>
-        <div class="variant-options" id="variantOptions"></div>
+        <select class="variant-select" id="variantSelect" onchange="cambiarVariante(this.value)"></select>
+      </div>
+
+      <!-- Variantes internas (color/talle dentro del mismo producto) -->
+      <div class="variants-section" id="internalVariantsSection" style="display:none">
+        <label class="variant-label" id="internalVariantLabel">Variantes disponibles</label>
+        <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)"></select>
       </div>
 
       <!-- Descripción -->
@@ -175,7 +181,8 @@
 <script>
 const API_URL = 'https://el-gadget-tienda.onrender.com';
 let productoActual = null;
-let skuSeleccionado = null;
+let varianteActiva = null;
+let opcionesVariantes = [];
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -201,7 +208,7 @@ async function cargarProducto(sku) {
     if (!res.ok) throw new Error('Producto no encontrado');
 
     productoActual = await res.json();
-    skuSeleccionado = sku;
+    varianteActiva = productoActual;
 
     mostrarProducto();
   } catch (e) {
@@ -258,6 +265,8 @@ function mostrarProducto() {
   // Variantes
   if (productoActual.tiene_variantes && productoActual.variantes && productoActual.variantes.length > 0) {
     mostrarVariantes();
+  } else if (productoActual.variantes_internas && productoActual.variantes_internas.length >= 2) {
+    mostrarVariantesInternas();
   }
 
   // Productos relacionados
@@ -267,23 +276,23 @@ function mostrarProducto() {
 }
 
 // Mostrar imágenes
-function mostrarImagenes() {
-  const imagenes = productoActual.imagenes || [];
+function mostrarImagenes(producto = productoActual) {
+  const imagenes = producto.imagenes || [];
   const main = document.getElementById('mainImage');
   const thumbsContainer = document.getElementById('thumbnails');
 
   if (!imagenes.length) {
     main.removeAttribute('src');
-    main.alt = productoActual.nombre;
+    main.alt = producto.nombre;
     thumbsContainer.innerHTML = '';
     return;
   }
 
   main.src = imagenes[0];
-  main.alt = productoActual.nombre;
+  main.alt = producto.nombre;
 
   thumbsContainer.innerHTML = imagenes.map((img, i) =>
-    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${productoActual.nombre}" onclick="cambiarImagen('${img}', ${i})">`
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${producto.nombre}" onclick="cambiarImagen('${img}', ${i})">`
   ).join('');
 }
 
@@ -306,28 +315,67 @@ function mostrarVariantes() {
   const section = document.getElementById('variantsSection');
   section.style.display = 'block';
 
-  const container = document.getElementById('variantOptions');
-  container.innerHTML = '';
+  opcionesVariantes = [productoActual, ...productoActual.variantes];
 
-  container.appendChild(crearOpcionVariante(productoActual, true));
-  productoActual.variantes.forEach(variante => {
-    container.appendChild(crearOpcionVariante(variante, false));
-  });
+  const select = document.getElementById('variantSelect');
+  select.innerHTML = opcionesVariantes.map(v => {
+    const etiqueta = [v.color, v.talle].filter(Boolean).join(' - ') || v.nombre;
+    return `<option value="${v.sku}"${v.sku === productoActual.sku ? ' selected' : ''}>${etiqueta}</option>`;
+  }).join('');
 }
 
-// Crear opción de variante
-function crearOpcionVariante(variante, esActual) {
-  const option = document.createElement('div');
-  option.className = 'variant-option' + (esActual ? ' active' : '');
-  option.textContent = variante.color || variante.talle || variante.sku;
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
 
-  if (!esActual) {
-    option.onclick = () => {
-      window.location.href = variante.url_amigable ? `producto/${variante.url_amigable}/` : `producto_detalle.html?sku=${variante.sku}`;
-    };
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
   }
 
-  return option;
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    mostrarImagenes(variante);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  history.replaceState(null, '', `?sku=${variante.sku}`);
+}
+
+// Mostrar variantes "internas" (color/talle que no son productos separados)
+function mostrarVariantesInternas() {
+  const section = document.getElementById('internalVariantsSection');
+  section.style.display = 'block';
+
+  const opciones = productoActual.variantes_internas;
+  document.getElementById('internalVariantLabel').textContent = opciones[0].etiqueta_atributo || 'Variantes disponibles';
+
+  const select = document.getElementById('internalVariantSelect');
+  select.innerHTML = opciones.map(v =>
+    `<option value="${v.valor}">${v.valor}</option>`
+  ).join('');
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = productoActual.variantes_internas.find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    mostrarImagenes({ imagenes: variante.imagenes, nombre: productoActual.nombre });
+  }
 }
 
 // Mostrar productos relacionados
@@ -357,22 +405,22 @@ function mostrarRelacionados() {
 
 // Agregar al carrito
 function agregarAlCarrito() {
-  if (productoActual.stock <= 0) {
+  if (varianteActiva.stock <= 0) {
     showToast('❌ Producto agotado');
     return;
   }
 
   addCartItem({
-    sku: skuSeleccionado,
-    nombre: productoActual.nombre,
-    precio: productoActual.precio_venta,
-    imagen: (productoActual.imagenes && productoActual.imagenes[0]) || '',
-    color: productoActual.color || '',
-    talle: productoActual.talle || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
 
-  showToast(`✅ ${productoActual.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 // Comprar ahora

@@ -191,6 +191,13 @@ class SincronizadorSQLiteOptimizado:
         )
         """)
         
+        # Migración: agregar columna de variantes "internas" (configurable
+        # product de Magento) si la tabla ya existía sin ella
+        cursor.execute("PRAGMA table_info(productos)")
+        columnas = {row[1] for row in cursor.fetchall()}
+        if 'variantes_internas' not in columnas:
+            cursor.execute("ALTER TABLE productos ADD COLUMN variantes_internas TEXT")
+
         # ÍNDICES para optimizar búsquedas
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_productos_categoria ON productos(categoria)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_productos_grupo ON productos(item_group_id)")
@@ -320,10 +327,13 @@ class SincronizadorSQLiteOptimizado:
                 
                 # Grupo de variantes
                 item_group_id = metadata.get('item_group_id', '')
-                
+
+                # Variantes "internas" (configurable product de Magento)
+                variantes_internas = json.dumps(metadata.get('variantes_internas') or [], ensure_ascii=False)
+
                 # URL original
                 link_producto = metadata.get('url_original', '')
-                
+
                 # AGREGAR A LISTA DE DATOS
                 productos_data.append((
                     sku,
@@ -343,7 +353,8 @@ class SincronizadorSQLiteOptimizado:
                     '',  # material
                     0,   # peso
                     link_producto,
-                    url_amigable
+                    url_amigable,
+                    variantes_internas
                 ))
                 
                 # Historial de precio
@@ -423,8 +434,8 @@ class SincronizadorSQLiteOptimizado:
                     stock, categoria, subcategoria, marca,
                     imagen_principal, imagenes_adicionales,
                     item_group_id, color, talle, material, peso,
-                    link_producto, url_amigable, actualizado_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+                    link_producto, url_amigable, variantes_internas, actualizado_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
             """, productos_data)
             
             # BULK INSERT historial

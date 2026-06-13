@@ -79,10 +79,10 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">OFERTAS</span>
-      <h1 class="product-title">Espejo Autoadhesivo Personalizable Decorativo Niños Conejo</h1>
+      <h1 class="product-title" id="productTitle">Espejo Autoadhesivo Personalizable Decorativo Niños Conejo</h1>
       <div>
-        <div class="product-price">$11.000</div>
-        <div class="product-sku">SKU: WH-RWH0167-CON</div>
+        <div class="product-price" id="productPrice">$11.000</div>
+        <div class="product-sku" id="productSku">SKU: WH-RWH0167-CON</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
@@ -90,7 +90,7 @@
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">El diseño de espejo adhesivo decorativo hace que su hogar se vea diferente, más atractiva.
+        <div class="description" id="productDescription">El diseño de espejo adhesivo decorativo hace que su hogar se vea diferente, más atractiva.
 No es de material peligroso para lo niños (no es vidrio) lo que lo hace mas seguro en el ambiente deseado.
 Para la superficie reflectante puede hacer que su habitación sea más brillante.
 DIY Decoración del hogar: puede usar su imaginación para combinar libremente estos pegatinas de pared de espejo para formar una variedad de patrones creativos para agregar interés decorativo para que las paredes ya no sean monótonos y agregue un sentido de diseño.
@@ -208,7 +208,9 @@ Incluye plancha de stickers para personalizar</div>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH-RWH0167-CON", "nombre": "Espejo Autoadhesivo Personalizable Decorativo Niños Conejo", "precio_venta": 11000.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-CON_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-CON_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-CON_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-CON_004"]};
+const PRODUCTO = {"sku": "WH-RWH0167-CON", "nombre": "Espejo Autoadhesivo Personalizable Decorativo Niños Conejo", "precio_venta": 11000.0, "stock": 999, "color": "", "talle": "", "descripcion": "El diseño de espejo adhesivo decorativo hace que su hogar se vea diferente, más atractiva.\nNo es de material peligroso para lo niños (no es vidrio) lo que lo hace mas seguro en el ambiente deseado.\nPara la superficie reflectante puede hacer que su habitación sea más brillante.\nDIY Decoración del hogar: puede usar su imaginación para combinar libremente estos pegatinas de pared de espejo para formar una variedad de patrones creativos para agregar interés decorativo para que las paredes ya no sean monótonos y agregue un sentido de diseño.\nAmplia aplicación: es para decorar diferentes ocasiones como telón de fondo de TV, pared de sofá, ventana, puerta, armario, congelador, gabinete, azulejos, viveros, baño, dormitorio y oficina.\nMedidas aproximadas (ya que dependen del modelo del espejo): 20cm de ancho x 18cm de altura\nIncluye plancha de stickers para personalizar", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-CON_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-CON_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-CON_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-CON_004"], "variantes_internas": [], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -222,15 +224,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

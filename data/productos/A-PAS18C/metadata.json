@@ -49,5 +49,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.916322"
+  "fecha_calculo_precio": "2026-06-13T13:44:41.916322",
+  "variantes_internas": []
 }

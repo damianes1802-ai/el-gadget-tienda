@@ -79,10 +79,10 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">Accesorios para Mascotas</span>
-      <h1 class="product-title">Cepillo con Vapor para Pelos de Mascotas</h1>
+      <h1 class="product-title" id="productTitle">Cepillo con Vapor para Pelos de Mascotas</h1>
       <div>
-        <div class="product-price">$14.000</div>
-        <div class="product-sku">SKU: WH0101</div>
+        <div class="product-price" id="productPrice">$14.000</div>
+        <div class="product-sku" id="productSku">SKU: WH0101</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
@@ -90,7 +90,7 @@
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">El Cepillo de Vapor para Mascotas es una herramienta innovadora y eficiente diseñada para proporcionar un cuidado integral a tus mascotas.
+        <div class="description" id="productDescription">El Cepillo de Vapor para Mascotas es una herramienta innovadora y eficiente diseñada para proporcionar un cuidado integral a tus mascotas.
 Este dispositivo 3 en 1 no solo cepilla, sino que también masajea y utiliza vapor para eliminar la suciedad y el pelo suelto, mejorando la salud del pelaje de tus mascotas.
 Ideal para perros y gatos, el cepillo de vapor es fácil de usar y cuenta con una batería recargable para mayor comodidad.
 Utilizar un cepillo de vapor ayuda a mantener el pelaje limpio y sin enredos, masajeando la piel, mejorando la circulación y promoviendo un pelaje más saludable y brillante.
@@ -206,7 +206,9 @@ Además, el vapor ayuda a eliminar bacterias y alérgenos, proporcionando un cui
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH0101", "nombre": "Cepillo con Vapor para Pelos de Mascotas", "precio_venta": 14000.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_009", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_010", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_011", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_012", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_013", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_014", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_015"]};
+const PRODUCTO = {"sku": "WH0101", "nombre": "Cepillo con Vapor para Pelos de Mascotas", "precio_venta": 14000.0, "stock": 999, "color": "", "talle": "", "descripcion": "El Cepillo de Vapor para Mascotas es una herramienta innovadora y eficiente diseñada para proporcionar un cuidado integral a tus mascotas.\nEste dispositivo 3 en 1 no solo cepilla, sino que también masajea y utiliza vapor para eliminar la suciedad y el pelo suelto, mejorando la salud del pelaje de tus mascotas.\nIdeal para perros y gatos, el cepillo de vapor es fácil de usar y cuenta con una batería recargable para mayor comodidad.\nUtilizar un cepillo de vapor ayuda a mantener el pelaje limpio y sin enredos, masajeando la piel, mejorando la circulación y promoviendo un pelaje más saludable y brillante.\nAdemás, el vapor ayuda a eliminar bacterias y alérgenos, proporcionando un cuidado más completo y profundo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_009", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_010", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_011", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_012", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_013", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_014", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_015"], "variantes_internas": [], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -220,15 +222,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

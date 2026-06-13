@@ -79,10 +79,10 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">Bazar y Cocina</span>
-      <h1 class="product-title">Dispenser Dosificador Jabon Liquido Ceramica Baño Oso 250ml</h1>
+      <h1 class="product-title" id="productTitle">Dispenser Dosificador Jabon Liquido Ceramica Baño Oso 250ml</h1>
       <div>
-        <div class="product-price">$21.500</div>
-        <div class="product-sku">SKU: DWH0255</div>
+        <div class="product-price" id="productPrice">$21.500</div>
+        <div class="product-sku" id="productSku">SKU: DWH0255</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
@@ -90,7 +90,7 @@
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">Bonita forma de oso: la botella con bomba de espuma está diseñada en la forma de un oso lindo, este dispensador de jabón para niños interesante y vívido, puede alentar a su bebé a lavarse las manos con burbujas cada vez, se puede utilizar como accesorios de baño para la decoración de la familia u hotel.
+        <div class="description" id="productDescription">Bonita forma de oso: la botella con bomba de espuma está diseñada en la forma de un oso lindo, este dispensador de jabón para niños interesante y vívido, puede alentar a su bebé a lavarse las manos con burbujas cada vez, se puede utilizar como accesorios de baño para la decoración de la familia u hotel.
 BOTELLA DE CHAMPÚ DE LOCIÓN: Este dispensador de jabón para niños utiliza un diseño de forma de oso 3D de moda, y los dispensadores de líquidos están hechos de material de polipropileno y pe premium, portátil y duradero, con una larga vida útil.
 GRAN CAPACIDAD: Esta botella dispensadora de jabón espumosa reutilizable está diseñada con gran capacidad, ideal para champú, acondicionador, lavado facial, jabón líquido y gel de baño.
 BOTELLA DISPENSADORA DE ESPUMA: Este dispensador de champú de jabón como un bonito juguete de dibujos animados de animales hace que su estado de ánimo sea hermoso para todo el día, pequeño en tamaño y ligero en peso, no ocupa espacio, fácil de transportar y usar.
@@ -212,7 +212,9 @@ Peso: 83 g</div>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DWH0255", "nombre": "Dispenser Dosificador Jabon Liquido Ceramica Baño Oso 250ml", "precio_venta": 21500.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_008"]};
+const PRODUCTO = {"sku": "DWH0255", "nombre": "Dispenser Dosificador Jabon Liquido Ceramica Baño Oso 250ml", "precio_venta": 21500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Bonita forma de oso: la botella con bomba de espuma está diseñada en la forma de un oso lindo, este dispensador de jabón para niños interesante y vívido, puede alentar a su bebé a lavarse las manos con burbujas cada vez, se puede utilizar como accesorios de baño para la decoración de la familia u hotel.\nBOTELLA DE CHAMPÚ DE LOCIÓN: Este dispensador de jabón para niños utiliza un diseño de forma de oso 3D de moda, y los dispensadores de líquidos están hechos de material de polipropileno y pe premium, portátil y duradero, con una larga vida útil.\nGRAN CAPACIDAD: Esta botella dispensadora de jabón espumosa reutilizable está diseñada con gran capacidad, ideal para champú, acondicionador, lavado facial, jabón líquido y gel de baño.\nBOTELLA DISPENSADORA DE ESPUMA: Este dispensador de champú de jabón como un bonito juguete de dibujos animados de animales hace que su estado de ánimo sea hermoso para todo el día, pequeño en tamaño y ligero en peso, no ocupa espacio, fácil de transportar y usar.\nDispensador de jabón rellenable: esta botella de jabón con bomba adopta un diseño prensado y tiene un cabezal de bomba fuerte, conveniente para que llene varios líquidos, puede utilizar esta botella de bomba espumosa con confianza.\nCapacidad en volumen: 250 mL\nMaterial: Plástico\nTipos de productos compatibles: Jabón\nConsistencias del producto: Líquido\nAltura: x Largo x Ancho 18 cm x 0 cm x 8 cm\nPeso: 83 g", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_008"], "variantes_internas": [], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -226,15 +228,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

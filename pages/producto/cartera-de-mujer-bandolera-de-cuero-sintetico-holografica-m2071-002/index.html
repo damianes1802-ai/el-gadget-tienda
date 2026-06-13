@@ -79,10 +79,10 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">Accesorios de Moda</span>
-      <h1 class="product-title">Cartera de Mujer Bandolera de Cuero Sintético Holográfica</h1>
+      <h1 class="product-title" id="productTitle">Cartera de Mujer Bandolera de Cuero Sintético Holográfica</h1>
       <div>
-        <div class="product-price">$38.500</div>
-        <div class="product-sku">SKU: M2071-002</div>
+        <div class="product-price" id="productPrice">$38.500</div>
+        <div class="product-sku" id="productSku">SKU: M2071-002</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
@@ -90,7 +90,7 @@
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">Cartera Mujer Bandolera Cuero Sintético Holográfica Cadena
+        <div class="description" id="productDescription">Cartera Mujer Bandolera Cuero Sintético Holográfica Cadena
 Esta bandolera es el accesorio ideal para quienes buscan un estilo moderno y llamativo. Su acabado holográfico reacciona a la luz creando un efecto visual único, convirtiéndola en una pieza destacada para cualquier conjunto nocturno o casual urbano.
 Características Principales
 Material y Diseño Está confeccionada en cuero sintético (PU) de alta calidad con un acabado holográfico vibrante. Presenta una estructura resistente que mantiene su forma mientras luce un estilo contemporáneo.
@@ -211,7 +211,9 @@ Ancho: 22 cm Alto: 15 cm Profundidad: 8 cm</div>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "M2071-002", "nombre": "Cartera de Mujer Bandolera de Cuero Sintético Holográfica", "precio_venta": 38500.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_009"]};
+const PRODUCTO = {"sku": "M2071-002", "nombre": "Cartera de Mujer Bandolera de Cuero Sintético Holográfica", "precio_venta": 38500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Cartera Mujer Bandolera Cuero Sintético Holográfica Cadena\nEsta bandolera es el accesorio ideal para quienes buscan un estilo moderno y llamativo. Su acabado holográfico reacciona a la luz creando un efecto visual único, convirtiéndola en una pieza destacada para cualquier conjunto nocturno o casual urbano.\nCaracterísticas Principales\nMaterial y Diseño Está confeccionada en cuero sintético (PU) de alta calidad con un acabado holográfico vibrante. Presenta una estructura resistente que mantiene su forma mientras luce un estilo contemporáneo.\nDetalles de Terminación Cuenta con un cierre de cremallera plateado montado sobre tela gris, combinando perfectamente con sus herrajes plateados. El interior está totalmente revestido con forrería interna para mayor protección de tus pertenencias.\nCorrea Versátil Incluye una correa combinada que mezcla el material de PU holográfico con una cadena plateada, lo que permite llevarla cómodamente al hombro o cruzada, aportando un toque de elegancia y modernidad.\nDetalles Técnicos\nMaterial principal: Cuero sintético (PU) holográfico. Color de herrajes: Plateado. Tipo de cierre: Cremallera.\nMedidas del Producto\nAncho: 22 cm Alto: 15 cm Profundidad: 8 cm", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_009"], "variantes_internas": [], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -225,15 +227,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

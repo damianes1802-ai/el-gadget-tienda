@@ -79,10 +79,10 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">Fitness</span>
-      <h1 class="product-title">Ejercitador de Mandíbula Mewing 20kgs</h1>
+      <h1 class="product-title" id="productTitle">Ejercitador de Mandíbula Mewing 20kgs</h1>
       <div>
-        <div class="product-price">$8.000</div>
-        <div class="product-sku">SKU: 600046</div>
+        <div class="product-price" id="productPrice">$8.000</div>
+        <div class="product-sku" id="productSku">SKU: 600046</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
@@ -90,7 +90,7 @@
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">Incluye Correa Para Colgar
+        <div class="description" id="productDescription">Incluye Correa Para Colgar
 Con su diseño ergonómico y textura suave, te brinda el entrenamiento perfecto para tonificar tu mandíbula de manera efectiva y segura.
 Este producto está hecho con materiales de alta calidad, garantizando su resistencia y duración a largo plazo.
 ¡Por su comodidad, podrás usarlo en cualquier lado, desde tu casa, e incluso desde la oficina!
@@ -210,7 +210,9 @@ Caracteristicas:
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "600046", "nombre": "Ejercitador de Mandíbula Mewing 20kgs", "precio_venta": 8000.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_009", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_010", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_011", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_012"]};
+const PRODUCTO = {"sku": "600046", "nombre": "Ejercitador de Mandíbula Mewing 20kgs", "precio_venta": 8000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Incluye Correa Para Colgar\nCon su diseño ergonómico y textura suave, te brinda el entrenamiento perfecto para tonificar tu mandíbula de manera efectiva y segura.\nEste producto está hecho con materiales de alta calidad, garantizando su resistencia y duración a largo plazo.\n¡Por su comodidad, podrás usarlo en cualquier lado, desde tu casa, e incluso desde la oficina!\n-----------------------------------------\nCaracteristicas:\n-Tamaño 37 mm x 43 mm x 30mm.\n-Material: silicona y poliuretano.\n-Color: Negro (20kgs - 50 libras)", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_009", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_010", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_011", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_012"], "variantes_internas": [], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -224,15 +226,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

@@ -79,18 +79,22 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">Accesorios de Moda</span>
-      <h1 class="product-title">Mochila PVC Bolso Morral Transparente Mediana Para Hombre O Mujer</h1>
+      <h1 class="product-title" id="productTitle">Mochila PVC Bolso Morral Transparente Mediana Para Hombre O Mujer</h1>
       <div>
-        <div class="product-price">$32.500</div>
-        <div class="product-sku">SKU: M2999-005</div>
+        <div class="product-price" id="productPrice">$32.500</div>
+        <div class="product-sku" id="productSku">SKU: M2999-005</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
+      <div class="variants-section" id="internalVariantsSection">
+        <label class="variant-label">Color</label>
+        <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)"><option value="Blanco">Blanco</option><option value="Fucsia">Fucsia</option><option value="Negro">Negro</option><option value="Rojo">Rojo</option><option value="Rosa">Rosa</option><option value="Voleta">Voleta</option></select>
+      </div>
 
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">Disfrutá de llevar con vos todo lo que necesitás para pasar tiempo fuera del hogar. Elegí el mejor producto que se adapte a lo que estás buscando, siempre persiguiendo la calidad y la practicidad para aprovechar cada uno de tus planes.
+        <div class="description" id="productDescription">Disfrutá de llevar con vos todo lo que necesitás para pasar tiempo fuera del hogar. Elegí el mejor producto que se adapte a lo que estás buscando, siempre persiguiendo la calidad y la practicidad para aprovechar cada uno de tus planes.
 Versatilidad y comodidad
 Utilizá esta mochila para viajar y pasear por donde quieras con todo lo que necesitás a mano. Es el complemento ideal para conocer nuevos destinos.</div>
       </div>
@@ -204,7 +208,9 @@ Utilizá esta mochila para viajar y pasear por donde quieras con todo lo que nec
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "M2999-005", "nombre": "Mochila PVC Bolso Morral Transparente Mediana Para Hombre O Mujer", "precio_venta": 32500.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_009", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_010", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_011", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_012", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_013", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_014", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_015", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_016", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_017", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_018", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_019", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_020", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_021", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_022", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_023", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_024", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_025", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_026", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_027", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_028", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_029"]};
+const PRODUCTO = {"sku": "M2999-005", "nombre": "Mochila PVC Bolso Morral Transparente Mediana Para Hombre O Mujer", "precio_venta": 32500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Disfrutá de llevar con vos todo lo que necesitás para pasar tiempo fuera del hogar. Elegí el mejor producto que se adapte a lo que estás buscando, siempre persiguiendo la calidad y la practicidad para aprovechar cada uno de tus planes.\nVersatilidad y comodidad\nUtilizá esta mochila para viajar y pasear por donde quieras con todo lo que necesitás a mano. Es el complemento ideal para conocer nuevos destinos.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_009", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_010", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_011", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_012", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_013", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_014", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_015", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_016", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_017", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_018", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_019", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_020", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_021", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_022", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_023", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_024", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_025", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_026", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_027", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_028", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_029"], "variantes_internas": [{"atributo": "color", "etiqueta_atributo": "Color", "valor": "Blanco", "sku_interno": "M2999-005-Blanco", "imagenes": ["https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005b_1__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005b_2__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005b_3__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005b_4__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005b_5__1.png"]}, {"atributo": "color", "etiqueta_atributo": "Color", "valor": "Fucsia", "sku_interno": "M2999-005-Fucsia", "imagenes": ["https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005d_3__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005d_1_.1_1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005d_2__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005d_1__1.png"]}, {"atributo": "color", "etiqueta_atributo": "Color", "valor": "Negro", "sku_interno": "M2999-005-Negro", "imagenes": ["https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005a_4__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005a_2__2.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005a_1__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005a_3__1.png"]}, {"atributo": "color", "etiqueta_atributo": "Color", "valor": "Rojo", "sku_interno": "M2999-005-Rojo", "imagenes": ["https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005f_4__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005f_3__2.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005f_1__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005f_2__1.png"]}, {"atributo": "color", "etiqueta_atributo": "Color", "valor": "Rosa", "sku_interno": "M2999-005-Rosa", "imagenes": ["https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005c_1_.1_1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005c_1__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005c_2_.1_1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005c_2__1.png"]}, {"atributo": "color", "etiqueta_atributo": "Color", "valor": "Voleta", "sku_interno": "M2999-005-Violeta", "imagenes": ["https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_1__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_2__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_3__1_1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_4__1_1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_5__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_6__1.png", "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/m/2/m2999-005e_7__1.png"]}], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -218,15 +224,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

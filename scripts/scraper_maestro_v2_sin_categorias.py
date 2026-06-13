@@ -45,6 +45,75 @@ logger = get_logger('scraper_maestro_v2')
 load_dotenv(Config.CONFIG_DIR / '.env')
 
 
+def extraer_variantes_internas(html: str) -> List[Dict]:
+    """
+    Extrae las variantes "internas" de un producto configurable de Magento
+    (spConfig), es decir, variantes que Droppers NO publica como productos
+    separados sino como un desplegable dentro de la misma página.
+
+    Solo se devuelven variantes cuando hay un único atributo configurable
+    (color, talle, etc.) con 2 o más opciones; si hay una sola opción no hay
+    nada para elegir y se devuelve [].
+    """
+    try:
+        match = re.search(r'"spConfig":\s*', html)
+        if not match:
+            return []
+
+        inicio = html.find('{', match.end())
+        if inicio == -1:
+            return []
+
+        profundidad = 0
+        fin = inicio
+        for i in range(inicio, len(html)):
+            caracter = html[i]
+            if caracter == '{':
+                profundidad += 1
+            elif caracter == '}':
+                profundidad -= 1
+                if profundidad == 0:
+                    fin = i
+                    break
+
+        sp_config = json.loads(html[inicio:fin + 1])
+
+        atributos = sp_config.get('attributes') or {}
+        if len(atributos) != 1:
+            return []
+
+        atributo = next(iter(atributos.values()))
+        codigo = atributo.get('code', '')
+        etiqueta = atributo.get('label', '')
+        skus_por_id = sp_config.get('sku') or {}
+        imagenes_por_id = sp_config.get('images') or {}
+
+        variantes = []
+        for opcion in atributo.get('options') or []:
+            for product_id in opcion.get('products') or []:
+                imagenes = [
+                    img.get('full', '').replace('\\/', '/')
+                    for img in imagenes_por_id.get(product_id, [])
+                    if img.get('full')
+                ]
+                variantes.append({
+                    'atributo': codigo,
+                    'etiqueta_atributo': etiqueta,
+                    'valor': opcion.get('label', ''),
+                    'sku_interno': skus_por_id.get(product_id, ''),
+                    'imagenes': imagenes,
+                })
+
+        if len(variantes) < 2:
+            return []
+
+        return variantes
+
+    except Exception as e:
+        logger.debug(f"No se pudieron extraer variantes internas (spConfig): {e}")
+        return []
+
+
 class ScraperMaestroV2:
     """Scraper que obtiene datos de productos SIN categorías"""
     
@@ -276,6 +345,10 @@ class ScraperMaestroV2:
             # 4. CONSTRUIR PRODUCTO (SIN CATEGORÍAS)
             # ============================================================
             
+            # Variantes "internas" (configurable product de Magento, ej:
+            # selector de color/talle dentro de la misma página)
+            variantes_internas = extraer_variantes_internas(html)
+
             producto = {
                 # Datos básicos
                 'sku': sku,
@@ -284,6 +357,7 @@ class ScraperMaestroV2:
                 'descripcion': descripcion,
                 'imagenes': imagenes,
                 'cantidad_imagenes': len(imagenes),
+                'variantes_internas': variantes_internas,
 
                 # Disponibilidad
                 'disponibilidad': disponibilidad,

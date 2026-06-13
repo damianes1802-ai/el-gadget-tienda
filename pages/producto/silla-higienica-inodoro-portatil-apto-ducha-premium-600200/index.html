@@ -79,10 +79,10 @@
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">OFERTAS</span>
-      <h1 class="product-title">Silla Higiénica Inodoro Portátil Apto Ducha Premium</h1>
+      <h1 class="product-title" id="productTitle">Silla Higiénica Inodoro Portátil Apto Ducha Premium</h1>
       <div>
-        <div class="product-price">$140.500</div>
-        <div class="product-sku">SKU: 600200</div>
+        <div class="product-price" id="productPrice">$140.500</div>
+        <div class="product-sku" id="productSku">SKU: 600200</div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
@@ -90,7 +90,7 @@
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">• Inodoro portátil
+        <div class="description" id="productDescription">• Inodoro portátil
 • Elevador de inodoro
 • Silla de baño
 Tres usos en un sólo producto. Permite aumentar la altura normal del inodoro mediante la regulación de sus patas.
@@ -221,7 +221,9 @@ Peso neto: 5 Kg</div>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "600200", "nombre": "Silla Higiénica Inodoro Portátil Apto Ducha Premium", "precio_venta": 140500.0, "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_009"]};
+const PRODUCTO = {"sku": "600200", "nombre": "Silla Higiénica Inodoro Portátil Apto Ducha Premium", "precio_venta": 140500.0, "stock": 999, "color": "", "talle": "", "descripcion": "• Inodoro portátil\n• Elevador de inodoro\n• Silla de baño\nTres usos en un sólo producto. Permite aumentar la altura normal del inodoro mediante la regulación de sus patas.\n-Con apoyabrazos y respaldo\n-Tapa extraíble tapizada en discreto cuero color negro\n-Bacinilla con tapa\n-Regulable en altura\n-Fácil armado con llave incluída\nMaterial:\nAluminio ultraliviano\nPeso máximo\n100 Kg\nAncho: 48 cm\nAltura base a respaldo: 70 cm\nAltura regulable: 41 a 51 cm\nProfundidad total: 48 cm\nProfundidad del asiento: 44 cm\nProfundidad del respaldo 28 cm\nPeso neto: 5 Kg", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600200_009"], "variantes_internas": [], "variantes": []};
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -235,15 +237,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {

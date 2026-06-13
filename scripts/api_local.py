@@ -85,6 +85,7 @@ class Producto(BaseModel):
     talle: Optional[str] = ""
     link_producto: Optional[str] = ""
     url_amigable: Optional[str] = ""
+    variantes_internas: Optional[str] = ""
 
 
 class Cliente(BaseModel):
@@ -279,6 +280,25 @@ def listar_productos(
     return [dict(p) for p in productos]
 
 
+def parsear_imagenes(producto_dict: dict) -> list:
+    """Convierte imagen_principal + imagenes_adicionales (string) en un array de URLs"""
+    imagenes_principales = []
+    if producto_dict.get('imagen_principal'):
+        imagenes_principales.append(producto_dict['imagen_principal'])
+
+    imagenes_adicionales = []
+    if producto_dict.get('imagenes_adicionales'):
+        # Puede estar separado por comas o saltos de línea
+        adicionales_str = producto_dict['imagenes_adicionales']
+        imagenes_adicionales = [
+            img.strip()
+            for img in adicionales_str.replace('\n', ',').split(',')
+            if img.strip()
+        ]
+
+    return imagenes_principales + imagenes_adicionales
+
+
 @app.get("/api/producto/{sku}")
 def detalle_producto(sku: str):
     """
@@ -302,49 +322,39 @@ def detalle_producto(sku: str):
         raise HTTPException(status_code=404, detail="Producto no encontrado")
     
     producto_dict = dict(producto)
-    
+
     # 2. Parsear imágenes (convertir string a array)
-    imagenes_principales = []
-    if producto_dict.get('imagen_principal'):
-        imagenes_principales.append(producto_dict['imagen_principal'])
-    
-    imagenes_adicionales = []
-    if producto_dict.get('imagenes_adicionales'):
-        # Puede estar separado por comas o saltos de línea
-        adicionales_str = producto_dict['imagenes_adicionales']
-        imagenes_adicionales = [
-            img.strip() 
-            for img in adicionales_str.replace('\n', ',').split(',') 
-            if img.strip()
-        ]
-    
-    producto_dict['imagenes'] = imagenes_principales + imagenes_adicionales
-    
+    producto_dict['imagenes'] = parsear_imagenes(producto_dict)
+
     # 3. Obtener variantes (productos con mismo item_group_id)
     variantes = []
     item_group_id = producto_dict.get('item_group_id', '')
-    
+
     if item_group_id and item_group_id != sku:
         # Tiene grupo, buscar todas las variantes
         cursor.execute("""
-            SELECT * FROM productos 
+            SELECT * FROM productos
             WHERE item_group_id = ? AND sku != ?
             ORDER BY color, talle
         """, (item_group_id, sku))
-        
+
         variantes_raw = cursor.fetchall()
-        
+
         for var in variantes_raw:
             var_dict = dict(var)
-            # Parsear imágenes de variantes también
-            var_imagenes = []
-            if var_dict.get('imagen_principal'):
-                var_imagenes.append(var_dict['imagen_principal'])
-            var_dict['imagenes'] = var_imagenes
+            # Parsear imágenes de variantes también (principal + adicionales)
+            var_dict['imagenes'] = parsear_imagenes(var_dict)
             variantes.append(var_dict)
     
     producto_dict['variantes'] = variantes
     producto_dict['tiene_variantes'] = len(variantes) > 0
+
+    # 3b. Variantes "internas" (configurable product de Magento: color/talle
+    # que cambian dentro de la misma página de Droppers)
+    try:
+        producto_dict['variantes_internas'] = json.loads(producto_dict.get('variantes_internas') or '[]')
+    except (TypeError, ValueError):
+        producto_dict['variantes_internas'] = []
     
     # 4. Obtener productos relacionados (misma categoría, excluir actual)
     relacionados = []

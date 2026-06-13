@@ -121,26 +121,39 @@ def render_thumbnails(imagenes: list, nombre: str) -> str:
     return '<div class="thumbnails" id="thumbnails">' + ''.join(items) + '</div>'
 
 
-def render_variantes(producto: dict, variantes: list, slug_map: dict) -> str:
-    if not variantes:
-        return ''
+def etiqueta_variante(p: dict) -> str:
+    return ' - '.join(filter(None, [p.get('color'), p.get('talle')])) or p.get('nombre') or p.get('sku')
 
-    def etiqueta(p):
-        return p.get('color') or p.get('talle') or p.get('sku')
 
-    opciones = [f'<div class="variant-option active">{html.escape(etiqueta(producto))}</div>']
-    for var in variantes:
-        slug = slug_map.get(var['sku'])
-        href = f"../{slug}/" if slug else f"../../producto_detalle.html?sku={var['sku']}"
-        opciones.append(
-            f'<a class="variant-option" href="{html.escape(href)}">{html.escape(etiqueta(var))}</a>'
-        )
+def render_variantes(producto: dict, variantes: list) -> str:
+    if variantes:
+        opciones = [f'<option value="{html.escape(producto["sku"])}" selected>{html.escape(etiqueta_variante(producto))}</option>']
+        for var in variantes:
+            opciones.append(
+                f'<option value="{html.escape(var["sku"])}">{html.escape(etiqueta_variante(var))}</option>'
+            )
 
-    return f'''
+        return f'''
       <div class="variants-section" id="variantsSection">
         <label class="variant-label">Variantes disponibles</label>
-        <div class="variant-options" id="variantOptions">{''.join(opciones)}</div>
+        <select class="variant-select" id="variantSelect" onchange="cambiarVariante(this.value)">{''.join(opciones)}</select>
       </div>'''
+
+    variantes_internas = json.loads(producto.get('variantes_internas') or '[]')
+    if len(variantes_internas) >= 2:
+        etiqueta = variantes_internas[0].get('etiqueta_atributo') or 'Variantes disponibles'
+        opciones = ''.join(
+            f'<option value="{html.escape(v["valor"])}">{html.escape(v["valor"])}</option>'
+            for v in variantes_internas
+        )
+
+        return f'''
+      <div class="variants-section" id="internalVariantsSection">
+        <label class="variant-label">{html.escape(etiqueta)}</label>
+        <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)">{opciones}</select>
+      </div>'''
+
+    return ''
 
 
 def render_relacionados(relacionados: list, categoria: str, slug_map: dict) -> str:
@@ -227,7 +240,26 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         "sku": sku,
         "nombre": nombre,
         "precio_venta": precio,
+        "stock": producto.get('stock') or 0,
+        "color": producto.get('color') or '',
+        "talle": producto.get('talle') or '',
+        "descripcion": descripcion,
         "imagenes": imagenes,
+        "variantes_internas": json.loads(producto.get('variantes_internas') or '[]'),
+        "variantes": [
+            {
+                "sku": v['sku'],
+                "nombre": v['nombre'],
+                "precio_venta": v['precio_venta'],
+                "stock": v.get('stock') or 0,
+                "color": v.get('color') or '',
+                "talle": v.get('talle') or '',
+                "descripcion": (v.get('descripcion') or '').strip(),
+                "imagenes": parsear_imagenes(v),
+                "url": f"../{slug_map[v['sku']]}/",
+            }
+            for v in variantes
+        ],
     }
 
     html_doc = TEMPLATE
@@ -251,7 +283,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         '__MAIN_IMAGE__': main_image_html,
         '__THUMBNAILS__': render_thumbnails(imagenes, nombre),
         '__DESCRIPTION__': html.escape(descripcion or 'Sin descripción disponible.'),
-        '__VARIANTS__': render_variantes(producto, variantes, slug_map),
+        '__VARIANTS__': render_variantes(producto, variantes),
         '__RELATED__': render_relacionados(relacionados, categoria, slug_map),
         '__PRODUCTO_JSON__': json.dumps(producto_js, ensure_ascii=False),
     }
@@ -336,10 +368,10 @@ TEMPLATE = """<!DOCTYPE html>
     <!-- Información -->
     <div class="product-info">
       <span class="product-cat-badge">__CATEGORY_BADGE__</span>
-      <h1 class="product-title">__PRODUCT_TITLE__</h1>
+      <h1 class="product-title" id="productTitle">__PRODUCT_TITLE__</h1>
       <div>
-        <div class="product-price">__PRODUCT_PRICE__</div>
-        <div class="product-sku">SKU: __PRODUCT_SKU__</div>
+        <div class="product-price" id="productPrice">__PRODUCT_PRICE__</div>
+        <div class="product-sku" id="productSku">SKU: __PRODUCT_SKU__</div>
       </div>
       __STOCK_BADGE__
       __VARIANTS__
@@ -347,7 +379,7 @@ TEMPLATE = """<!DOCTYPE html>
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
-        <div class="description">__DESCRIPTION__</div>
+        <div class="description" id="productDescription">__DESCRIPTION__</div>
       </div>
 
       <!-- Acciones -->
@@ -415,6 +447,8 @@ __RELATED__
 document.getElementById('year').textContent = new Date().getFullYear();
 
 const PRODUCTO = __PRODUCTO_JSON__;
+let varianteActiva = PRODUCTO;
+const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
@@ -428,15 +462,90 @@ function zoomImage() {
   if (img.src) window.open(img.src, '_blank');
 }
 
+// Renderiza la imagen principal y las miniaturas para la variante seleccionada
+function renderImagenes(imagenes, nombre) {
+  const main = document.getElementById('mainImage');
+  if (!imagenes || !imagenes.length) return;
+
+  main.src = imagenes[0];
+  main.alt = nombre;
+
+  const thumbsHtml = imagenes.map((img, i) =>
+    `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
+  ).join('');
+
+  let thumbsContainer = document.getElementById('thumbnails');
+  if (imagenes.length > 1) {
+    if (!thumbsContainer) {
+      thumbsContainer = document.createElement('div');
+      thumbsContainer.id = 'thumbnails';
+      thumbsContainer.className = 'thumbnails';
+      document.querySelector('.gallery').appendChild(thumbsContainer);
+    }
+    thumbsContainer.innerHTML = thumbsHtml;
+  } else if (thumbsContainer) {
+    thumbsContainer.innerHTML = '';
+  }
+}
+
+// Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
+function cambiarVariante(sku) {
+  const variante = opcionesVariantes.find(v => v.sku === sku);
+  if (!variante) return;
+
+  varianteActiva = variante;
+
+  document.getElementById('productPrice').textContent = formatPrice(variante.precio_venta);
+  document.getElementById('productSku').textContent = `SKU: ${variante.sku}`;
+
+  const stockBadge = document.getElementById('stockBadge');
+  if (variante.stock > 0) {
+    stockBadge.className = 'stock-badge in-stock';
+    stockBadge.textContent = '✓ En stock';
+  } else {
+    stockBadge.className = 'stock-badge out-of-stock';
+    stockBadge.textContent = '✗ Agotado';
+  }
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, variante.nombre);
+  }
+
+  if (variante.descripcion) {
+    document.getElementById('productDescription').textContent = variante.descripcion;
+  }
+
+  if (variante.url) {
+    history.replaceState(null, '', variante.url);
+  }
+}
+
+// Cambiar variante interna seleccionada: solo cambia la galería de imágenes
+function cambiarVarianteInterna(valor) {
+  const variante = (PRODUCTO.variantes_internas || []).find(v => v.valor === valor);
+  if (!variante) return;
+
+  if (variante.imagenes && variante.imagenes.length > 0) {
+    renderImagenes(variante.imagenes, PRODUCTO.nombre);
+  }
+}
+
 function agregarAlCarrito() {
+  if (varianteActiva.stock <= 0) {
+    showToast('❌ Producto agotado');
+    return;
+  }
+
   addCartItem({
-    sku: PRODUCTO.sku,
-    nombre: PRODUCTO.nombre,
-    precio: PRODUCTO.precio_venta,
-    imagen: (PRODUCTO.imagenes && PRODUCTO.imagenes[0]) || '',
+    sku: varianteActiva.sku,
+    nombre: varianteActiva.nombre,
+    precio: varianteActiva.precio_venta,
+    imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
+    color: varianteActiva.color || '',
+    talle: varianteActiva.talle || '',
     cantidad: 1
   });
-  showToast(`✅ ${PRODUCTO.nombre} agregado a tu pedido`);
+  showToast(`✅ ${varianteActiva.nombre} agregado a tu pedido`);
 }
 
 function comprarAhora() {
