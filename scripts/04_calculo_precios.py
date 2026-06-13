@@ -330,7 +330,7 @@ def main():
     
     print(f"\n{'─' * 80}")
     confirmar = input("\n¿Procesar todos los productos? (s/n): ").lower()
-    
+
     if confirmar == 's':
         calculador.procesar_todos()
     else:

@@ -223,9 +223,16 @@ class ScraperMaestroV2:
             titulo = titulo_meta.get('content', '').strip() if titulo_meta else ''
             
             # Precio
-            precio_pattern = r'"price":\s*(\d+)'
-            precio_match = re.search(precio_pattern, html)
-            precio = int(precio_match.group(1)) if precio_match else 0
+            precio = 0
+            precio_match = re.search(r'"price":\s*(\d+)', html)
+            if precio_match:
+                precio = int(precio_match.group(1))
+            else:
+                # Fallback: páginas tipo catalog/product/view/id/X no incluyen
+                # el JSON "price", pero sí el atributo data-price-amount
+                precio_match = re.search(r'data-price-amount="([\d.]+)"', html)
+                if precio_match:
+                    precio = int(float(precio_match.group(1)))
             
             # Descripción
             desc_element = soup.select_one('.product.attribute.description .value')

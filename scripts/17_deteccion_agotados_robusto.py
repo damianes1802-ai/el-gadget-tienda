@@ -510,7 +510,7 @@ class DetectorAgotadosRobusto:
         if self.agotados:
             print(f"⚠️  Se marcarán {len(self.agotados)} productos como AGOTADOS.")
             respuesta = input("¿Continuar? (s/n): ")
-            if respuesta.lower() != 's':
+            if respuesta.strip().lower() != 's':
                 print("\n⛔ Proceso cancelado por el usuario\n")
                 return
             print()
