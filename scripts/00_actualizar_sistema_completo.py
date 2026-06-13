@@ -280,26 +280,31 @@ class ActualizadorMaestro:
         return True
 
     def git_push_catalogo(self):
-        """Publica data/catalogo.db y el feed de Facebook/WhatsApp (git add + commit + push) si hubo cambios"""
+        """Publica catalogo.db, el feed Facebook/WhatsApp y el estado de productos/precios (git add + commit + push) si hubo cambios"""
         self.banner("PUBLICACIÓN DE CAMBIOS (git push)", '-')
 
-        archivos = ['data/catalogo.db', 'pages/facebook_catalog.csv']
+        rutas = [
+            'data/catalogo.db',
+            'pages/facebook_catalog.csv',
+            'data/productos',
+            'data/precios',
+        ]
 
         try:
-            # Detectar si hay cambios respecto al último commit
+            # Detectar si hay cambios respecto al último commit (respeta .gitignore)
             result = subprocess.run(
-                ['git', 'status', '--porcelain', *archivos],
+                ['git', 'status', '--porcelain', *rutas],
                 cwd=str(self.repo_dir),
                 capture_output=True,
                 text=True
             )
 
             if not result.stdout.strip():
-                print("ℹ️  Sin cambios en catalogo.db ni en el feed, nada para publicar")
+                print("ℹ️  Sin cambios para publicar")
                 return True
 
             subprocess.run(
-                ['git', 'add', *archivos],
+                ['git', 'add', '-A', '--', *rutas],
                 cwd=str(self.repo_dir),
                 check=True
             )

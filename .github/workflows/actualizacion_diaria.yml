@@ -1,0 +1,81 @@
+name: Actualizacion diaria del catalogo
+
+on:
+  schedule:
+    # 06:00 UTC = 03:00 Argentina
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: actualizacion-catalogo
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Restaurar configuracion y credenciales
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
+          GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+          GOOGLE_TOKEN_PICKLE_B64: ${{ secrets.GOOGLE_TOKEN_PICKLE_B64 }}
+          GOOGLE_SHEETS_ID: ${{ secrets.GOOGLE_SHEETS_ID }}
+        run: |
+          printf '%s' "$ENV_FILE" > config/.env
+          printf '%s' "$GOOGLE_CREDENTIALS_JSON" > config/credentials.json
+          printf '%s' "$GOOGLE_TOKEN_PICKLE_B64" | base64 -d > config/token.pickle
+          printf '%s\n' "$GOOGLE_SHEETS_ID" > config/sheets_id.txt
+
+      - name: Configurar git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Ejecutar actualizacion completa
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python scripts/00_actualizar_sistema_completo.py --modo completo --con-cloudinary --auto-push
+
+      - name: Subir reporte de la corrida
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-actualizacion-${{ github.run_id }}
+          path: data/reporte_*.json
+          retention-days: 14
+          if-no-files-found: ignore
+
+      # Despliegue de GitHub Pages (incluye pages/facebook_catalog.csv actualizado).
+      # Se hace aca porque el push anterior usa GITHUB_TOKEN y no dispara pages.yml.
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir artifact de Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './pages'
+
+      - name: Desplegar a GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
