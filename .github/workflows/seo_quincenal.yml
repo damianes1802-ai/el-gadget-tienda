@@ -1,0 +1,88 @@
+name: Optimizacion SEO quincenal con IA
+
+on:
+  schedule:
+    # 08:00 UTC del 1 y 15 de cada mes = 05:00 Argentina
+    - cron: '0 8 1,15 * *'
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Cantidad de productos a optimizar'
+        required: false
+        default: '50'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: actualizacion-catalogo
+  cancel-in-progress: false
+
+jobs:
+  optimizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Restaurar configuracion y credenciales
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          printf '%s' "$ENV_FILE" > config/.env
+          printf '\nGEMINI_API_KEY=%s\n' "$GEMINI_API_KEY" >> config/.env
+
+      - name: Configurar git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Optimizar SEO con Gemini
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python scripts/13_optimizar_seo_ia.py --limit ${{ inputs.limit || '50' }}
+
+      - name: Regenerar paginas de producto y sitemap
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python scripts/12_generar_paginas_producto.py
+
+      - name: Publicar cambios (git push)
+        run: |
+          if [ -z "$(git status --porcelain data/catalogo.db pages/producto pages/sitemap.xml)" ]; then
+            echo "Sin cambios para publicar"
+          else
+            git add -A -- data/catalogo.db pages/producto pages/sitemap.xml
+            git commit -m "Optimización SEO con IA - $(date +%Y-%m-%d)"
+            git pull --rebase
+            git push
+          fi
+
+      # Despliegue de GitHub Pages
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir artifact de Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './pages'
+
+      - name: Desplegar a GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

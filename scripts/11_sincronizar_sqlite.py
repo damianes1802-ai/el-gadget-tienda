@@ -197,6 +197,8 @@ class SincronizadorSQLiteOptimizado:
         columnas = {row[1] for row in cursor.fetchall()}
         if 'variantes_internas' not in columnas:
             cursor.execute("ALTER TABLE productos ADD COLUMN variantes_internas TEXT")
+        if 'seo_optimizado_at' not in columnas:
+            cursor.execute("ALTER TABLE productos ADD COLUMN seo_optimizado_at TIMESTAMP")
 
         # ÍNDICES para optimizar búsquedas
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_productos_categoria ON productos(categoria)")
@@ -263,10 +265,18 @@ class SincronizadorSQLiteOptimizado:
             (productos_data, historial_data)
         """
         print("\n🔄 Preparando datos para inserción masiva...")
-        
+
+        # Cachear filas existentes para preservar copy SEO ya optimizado con IA
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT sku, nombre, descripcion, seo_optimizado_at FROM productos")
+        db_existing = {
+            row[0]: {'nombre': row[1], 'descripcion': row[2], 'seo_optimizado_at': row[3]}
+            for row in cursor.fetchall()
+        }
+
         productos_data = []
         historial_data = []
-        
+
         for sku, metadata in self.metadata_cache.items():
             try:
                 # FILTRO CRÍTICO 1: Disponibilidad
@@ -297,6 +307,14 @@ class SincronizadorSQLiteOptimizado:
                 # Extraer datos del metadata
                 nombre = metadata.get('titulo', '')
                 descripcion = metadata.get('descripcion', '')
+
+                # Preservar copy optimizado con IA (no pisar con el scrape del proveedor)
+                existente = db_existing.get(sku)
+                seo_optimizado_at = None
+                if existente and existente['seo_optimizado_at']:
+                    nombre = existente['nombre']
+                    descripcion = existente['descripcion']
+                    seo_optimizado_at = existente['seo_optimizado_at']
                 
                 # Categorías
                 categoria = metadata.get('categoria_principal') or metadata.get('categoria', '')
@@ -354,7 +372,8 @@ class SincronizadorSQLiteOptimizado:
                     0,   # peso
                     link_producto,
                     url_amigable,
-                    variantes_internas
+                    variantes_internas,
+                    seo_optimizado_at
                 ))
                 
                 # Historial de precio
@@ -434,8 +453,9 @@ class SincronizadorSQLiteOptimizado:
                     stock, categoria, subcategoria, marca,
                     imagen_principal, imagenes_adicionales,
                     item_group_id, color, talle, material, peso,
-                    link_producto, url_amigable, variantes_internas, actualizado_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+                    link_producto, url_amigable, variantes_internas, seo_optimizado_at,
+                    actualizado_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
             """, productos_data)
             
             # BULK INSERT historial
