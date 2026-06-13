@@ -278,21 +278,47 @@ class ScraperMaestroV2:
                 'descripcion': descripcion,
                 'imagenes': imagenes,
                 'cantidad_imagenes': len(imagenes),
-                
+
                 # Disponibilidad
                 'disponibilidad': disponibilidad,
                 'availability': disponibilidad,
-                
+
                 # Metadata
                 'url_original': url,
                 'fecha_scraping': datetime.now().isoformat(),
                 'scrapeado_con': 'scraper_maestro_v2_sin_categorias',
-                
+
                 # Nota importante
                 'categorias_pendientes': True,
                 'nota': 'Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py'
             }
-            
+
+            # Si el producto ya existía en el catálogo, preservar los campos
+            # generados por pasos posteriores del pipeline (categorías,
+            # Cloudinary, cálculo de precios), que este scraper no recalcula.
+            metadata_existente = Config.get_ruta_metadata(sku)
+            if metadata_existente.exists():
+                with open(metadata_existente, 'r', encoding='utf-8') as f:
+                    anterior = json.load(f)
+
+                campos_a_preservar = [
+                    'todas_las_categorias', 'categoria_principal', 'categoria',
+                    'categorias_secundarias', 'total_categorias',
+                    'categorias_asignadas', 'fecha_mapeo_categorias',
+                    'imagenes_cloudinary', 'calculo_precio', 'precio_venta',
+                    'fecha_calculo_precio', 'item_group_id',
+                    'fecha_agotado', 'fecha_reingreso'
+                ]
+
+                for campo in campos_a_preservar:
+                    if campo in anterior:
+                        producto[campo] = anterior[campo]
+
+                # Si ya tenía categorías asignadas, no marcar como pendiente
+                if anterior.get('categorias_asignadas'):
+                    producto.pop('categorias_pendientes', None)
+                    producto.pop('nota', None)
+
             return producto
             
         except Exception as e:

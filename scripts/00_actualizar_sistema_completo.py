@@ -26,6 +26,7 @@ USO:
     python 00_actualizar_sistema_completo.py --completo        # Actualización completa (default)
     python 00_actualizar_sistema_completo.py --sin-scraper     # Sin scrapear productos nuevos
     python 00_actualizar_sistema_completo.py --con-cloudinary  # Incluye Cloudinary
+    python 00_actualizar_sistema_completo.py --auto-push       # Publica catalogo.db (git commit + push) si hubo cambios
 """
 
 import subprocess
@@ -46,15 +47,18 @@ logger = get_logger('actualizacion_maestra')
 class ActualizadorMaestro:
     """Orquesta la actualización completa del sistema"""
     
-    def __init__(self, modo='completo', usar_cloudinary=False):
+    def __init__(self, modo='completo', usar_cloudinary=False, auto_push=False):
         """
         Args:
             modo: 'completo', 'rapido', 'sin-scraper'
             usar_cloudinary: Si True, ejecuta Cloudinary
+            auto_push: Si True, hace commit y push de data/catalogo.db al finalizar
         """
         self.modo = modo
         self.usar_cloudinary = usar_cloudinary
+        self.auto_push = auto_push
         self.scripts_dir = Path(__file__).parent
+        self.repo_dir = self.scripts_dir.parent
         self.inicio = datetime.now()
         
         # Estadísticas de ejecución
@@ -270,7 +274,53 @@ class ActualizadorMaestro:
         
         print("\n✅ Verificación completada")
         return True
-    
+
+    def git_push_catalogo(self):
+        """Publica data/catalogo.db (git add + commit + push) si hubo cambios"""
+        self.banner("PUBLICACIÓN DE CAMBIOS (git push)", '-')
+
+        try:
+            # Detectar si catalogo.db tiene cambios respecto al último commit
+            result = subprocess.run(
+                ['git', 'status', '--porcelain', 'data/catalogo.db'],
+                cwd=str(self.repo_dir),
+                capture_output=True,
+                text=True
+            )
+
+            if not result.stdout.strip():
+                print("ℹ️  Sin cambios en catalogo.db, nada para publicar")
+                return True
+
+            subprocess.run(
+                ['git', 'add', 'data/catalogo.db'],
+                cwd=str(self.repo_dir),
+                check=True
+            )
+
+            mensaje = f"Actualización automática del catálogo - {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+            subprocess.run(
+                ['git', 'commit', '-m', mensaje],
+                cwd=str(self.repo_dir),
+                check=True
+            )
+
+            subprocess.run(
+                ['git', 'push'],
+                cwd=str(self.repo_dir),
+                check=True
+            )
+
+            print("✅ catalogo.db publicado (commit + push)")
+            return True
+
+        except subprocess.CalledProcessError as e:
+            error = f"Error publicando catalogo.db: {e}"
+            print(f"❌ {error}")
+            logger.error(error)
+            self.stats['advertencias'].append(error)
+            return False
+
     def guardar_reporte(self):
         """Guarda reporte de la ejecución"""
         fin = datetime.now()
@@ -335,7 +385,8 @@ class ActualizadorMaestro:
         if not self.ejecutar_script(
             "1. Detección de agotados",
             self.scripts['agotados'],
-            obligatorio=True
+            obligatorio=True,
+            args=['--auto']
         ):
             print("\n⛔ Abortando actualización por error crítico")
             return False
@@ -386,7 +437,8 @@ class ActualizadorMaestro:
         if not self.ejecutar_script(
             "6. Cálculo de precios",
             self.scripts['precios'],
-            obligatorio=True
+            obligatorio=True,
+            args=['--silencioso']
         ):
             print("\n⛔ Abortando actualización por error crítico")
             return False
@@ -420,41 +472,55 @@ class ActualizadorMaestro:
         if not self.verificar_resultado():
             print("\n⚠️  Verificación falló, revisar manualmente")
 
+        # PASO 11: Publicar catalogo.db (opcional)
+        if self.auto_push:
+            self.git_push_catalogo()
+        else:
+            print("\n⏭️  Saltando publicación (usar --auto-push para hacer git push)")
+
         return True
-    
+
     def actualizar_rapido(self):
         """Actualización rápida (solo stock y precios)"""
         self.banner("ACTUALIZACIÓN RÁPIDA (Stock y Precios)")
-        
+
         # Solo ejecutar lo esencial
         if not self.ejecutar_script(
             "1. Detección de agotados",
             self.scripts['agotados'],
-            obligatorio=True
+            obligatorio=True,
+            args=['--auto']
         ):
             return False
-        
+
         if not self.ejecutar_script(
             "2. Cálculo de precios",
             self.scripts['precios'],
-            obligatorio=True
+            obligatorio=True,
+            args=['--silencioso']
         ):
             return False
-        
+
         self.banner("3. Preparación de base de datos", '-')
         if not self.borrar_base_datos():
             print("\n⚠️  No se pudo borrar DB, continuando...")
-        
+
         if not self.ejecutar_script(
             "4. Sincronización a SQLite",
             self.scripts['sqlite'],
             obligatorio=True
         ):
             return False
-        
+
         if not self.verificar_resultado():
             print("\n⚠️  Verificación falló, revisar manualmente")
-        
+
+        # PASO 5: Publicar catalogo.db (opcional)
+        if self.auto_push:
+            self.git_push_catalogo()
+        else:
+            print("\n⏭️  Saltando publicación (usar --auto-push para hacer git push)")
+
         return True
     
     def ejecutar(self):
@@ -515,9 +581,14 @@ def main():
         action='store_true',
         help='Incluir subida a Cloudinary'
     )
-    
+    parser.add_argument(
+        '--auto-push',
+        action='store_true',
+        help='Publicar data/catalogo.db (git commit + push) si hubo cambios'
+    )
+
     args = parser.parse_args()
-    
+
     # Determinar modo
     if args.rapido:
         modo = 'rapido'
@@ -525,11 +596,12 @@ def main():
         modo = 'sin-scraper'
     else:
         modo = args.modo
-    
+
     # Ejecutar
     actualizador = ActualizadorMaestro(
         modo=modo,
-        usar_cloudinary=args.con_cloudinary
+        usar_cloudinary=args.con_cloudinary,
+        auto_push=args.auto_push
     )
     exitoso = actualizador.ejecutar()
     

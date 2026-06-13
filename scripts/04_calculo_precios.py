@@ -305,10 +305,20 @@ class CalculadorPrecios:
 
 def main():
     """Ejecuta el cálculo de precios"""
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Cálculo de precios de venta')
+    parser.add_argument(
+        '--silencioso',
+        action='store_true',
+        help='Ejecutar sin confirmación (para automatización)'
+    )
+    args = parser.parse_args()
+
     print("=" * 80)
     print("💰 MÓDULO DE CÁLCULO DE PRECIOS")
     print("=" * 80)
-    
+
     calculador = CalculadorPrecios()
     
     # Mostrar configuración actual
@@ -329,12 +339,16 @@ def main():
         print(f"   Redondeo: Múltiplo de {redondeo.get('multiplo', 500)}")
     
     print(f"\n{'─' * 80}")
-    confirmar = input("\n¿Procesar todos los productos? (s/n): ").lower()
 
-    if confirmar == 's':
+    if args.silencioso:
         calculador.procesar_todos()
     else:
-        print("\nOperación cancelada")
+        confirmar = input("\n¿Procesar todos los productos? (s/n): ").lower()
+
+        if confirmar == 's':
+            calculador.procesar_todos()
+        else:
+            print("\nOperación cancelada")
 
 
 if __name__ == "__main__":

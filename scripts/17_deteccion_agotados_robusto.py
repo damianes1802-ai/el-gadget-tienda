@@ -279,14 +279,20 @@ class DetectorAgotadosRobusto:
         if len(self.skus_base_datos) == 0:
             errores.append("❌ No se encontraron SKUs en la base de datos local.")
         
-        # VALIDACIÓN 3: Detectar agotados preliminares
+        # VALIDACIÓN 3: Detectar agotados NUEVOS (no los que ya estaban marcados)
+        # Se compara solo el delta de esta corrida contra el total, para no
+        # bloquearse perpetuamente por productos agotados de corridas anteriores
+        # que siguen en la base local (necesarios para detectar reingresos).
         agotados_preliminar = self.skus_base_datos - self.skus_droppers
-        porcentaje_agotados = len(agotados_preliminar) / len(self.skus_base_datos) if self.skus_base_datos else 0
-        
-        if porcentaje_agotados > self.MAX_PORCENTAJE_AGOTADOS:
+        nuevos_agotados_preliminar = agotados_preliminar - self.skus_anteriormente_agotados
+        porcentaje_nuevos_agotados = (
+            len(nuevos_agotados_preliminar) / len(self.skus_base_datos) if self.skus_base_datos else 0
+        )
+
+        if porcentaje_nuevos_agotados > self.MAX_PORCENTAJE_AGOTADOS:
             errores.append(
-                f"❌ {len(agotados_preliminar)} productos ({porcentaje_agotados*100:.1f}%) "
-                f"aparecerían como agotados. Máximo permitido: {self.MAX_PORCENTAJE_AGOTADOS*100}%. "
+                f"❌ {len(nuevos_agotados_preliminar)} productos nuevos ({porcentaje_nuevos_agotados*100:.1f}%) "
+                f"aparecerían como agotados en esta corrida. Máximo permitido: {self.MAX_PORCENTAJE_AGOTADOS*100}%. "
                 "Esto sugiere un problema en el scraping."
             )
         
@@ -414,6 +420,23 @@ class DetectorAgotadosRobusto:
         
         print(f"\n✅ Total: {actualizados} archivos metadata actualizados\n")
     
+    def generar_reporte_fallo(self, motivo: str):
+        """Genera un reporte cuando el proceso se aborta sin aplicar cambios"""
+
+        reporte = {
+            'fecha_ejecucion': datetime.now().isoformat(),
+            'resultado': 'abortado',
+            'motivo': motivo,
+            'estadisticas': self.stats
+        }
+
+        reporte_file = Config.DATA_DIR / f'reporte_agotados_{datetime.now().strftime("%Y%m%d_%H%M%S")}_FALLO.json'
+
+        with open(reporte_file, 'w', encoding='utf-8') as f:
+            json.dump(reporte, f, indent=2, ensure_ascii=False)
+
+        print(f"📄 Reporte de fallo guardado: {reporte_file}\n")
+
     def generar_reporte(self):
         """Genera reporte detallado"""
         
@@ -479,58 +502,93 @@ class DetectorAgotadosRobusto:
             print("   4. Para scrapear productos nuevos")
         print()
     
-    def ejecutar(self):
-        """Ejecuta el proceso completo"""
-        
+    def ejecutar(self, auto: bool = False) -> bool:
+        """
+        Ejecuta el proceso completo
+
+        Args:
+            auto: Si True, no pide confirmación interactiva (para automatización).
+                  Las validaciones de seguridad (umbral de agotados, mínimo de
+                  SKUs, etc.) siguen aplicando igual: si fallan, se aborta SIN
+                  aplicar cambios.
+
+        Returns:
+            bool: True si se aplicaron los cambios correctamente,
+                  False si se abortó/canceló (sin tocar metadata).
+        """
+
         print("\n" + "="*60)
         print("🔍 DETECCIÓN ROBUSTA DE AGOTADOS")
         print("="*60 + "\n")
-        
+
         # 1. Login
         if not self.login():
             print("❌ Login fallido\n")
-            return
-        
+            self.generar_reporte_fallo("Login fallido")
+            return False
+
         # 2. Scrapear SKUs de Droppers
         self.scrapear_todos_los_skus_droppers()
-        
+
         # 3. Cargar SKUs de base de datos
         self.cargar_skus_base_datos()
-        
+
         # 4. Validar datos
         if not self.validar_datos():
             print("\n⛔ PROCESO ABORTADO POR ERRORES DE VALIDACIÓN\n")
             print("   Revisar los errores y ejecutar de nuevo.\n")
-            return
-        
+            self.generar_reporte_fallo("Errores de validación: " + " | ".join(self.stats['errores']))
+            return False
+
         # 5. Detectar cambios
         self.detectar_cambios()
-        
-        # 6. Preguntar confirmación si hay agotados
+
+        # 6. Confirmar antes de marcar agotados
         if self.agotados:
-            print(f"⚠️  Se marcarán {len(self.agotados)} productos como AGOTADOS.")
-            respuesta = input("¿Continuar? (s/n): ")
-            if respuesta.strip().lower() != 's':
-                print("\n⛔ Proceso cancelado por el usuario\n")
-                return
-            print()
-        
+            if auto:
+                print(f"✅ {len(self.agotados)} productos serán marcados AGOTADOS "
+                      f"(modo automático, validaciones de seguridad OK)\n")
+            else:
+                print(f"⚠️  Se marcarán {len(self.agotados)} productos como AGOTADOS.")
+                respuesta = input("¿Continuar? (s/n): ")
+                if respuesta.strip().lower() != 's':
+                    print("\n⛔ Proceso cancelado por el usuario\n")
+                    self.generar_reporte_fallo("Cancelado por el usuario")
+                    return False
+                print()
+
         # 7. Actualizar metadata
         self.actualizar_metadata()
-        
+
         # 8. Generar reporte
         self.generar_reporte()
-        
+
         # 9. Mostrar resumen
         self.mostrar_resumen_detallado()
 
+        return True
+
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Detección robusta de agotados')
+    parser.add_argument(
+        '--auto',
+        action='store_true',
+        help='Ejecutar sin confirmación interactiva (para automatización). '
+             'Las validaciones de seguridad siguen aplicando.'
+    )
+    args = parser.parse_args()
+
     try:
         detector = DetectorAgotadosRobusto()
-        detector.ejecutar()
+        exitoso = detector.ejecutar(auto=args.auto)
+        sys.exit(0 if exitoso else 1)
     except KeyboardInterrupt:
         print("\n\n⚠️  Proceso interrumpido\n")
+        sys.exit(1)
     except Exception as e:
         logger.error(f"Error fatal: {e}")
         print(f"\n❌ Error fatal: {e}\n")
+        sys.exit(1)
