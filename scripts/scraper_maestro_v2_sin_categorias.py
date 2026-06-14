@@ -292,8 +292,15 @@ class ScraperMaestroV2:
             # ============================================================
             
             # Título
-            titulo_meta = soup.find('meta', {'name': 'title'})
-            titulo = titulo_meta.get('content', '').strip() if titulo_meta else ''
+            # Preferimos el <span itemprop="name"> del H1 (page-title-wrapper), que
+            # incluye info de presentación/cantidad (ej: "Caja x24 unidades") que a
+            # veces falta en el <meta name="title"> (más corto/genérico).
+            titulo_h1 = soup.select_one('[itemprop="name"]')
+            if titulo_h1:
+                titulo = titulo_h1.get_text(strip=True)
+            else:
+                titulo_meta = soup.find('meta', {'name': 'title'})
+                titulo = titulo_meta.get('content', '').strip() if titulo_meta else ''
             
             # Precio
             precio = 0

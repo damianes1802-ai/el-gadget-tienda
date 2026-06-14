@@ -68,11 +68,15 @@
 <div class="product-wrap" id="productWrap" style="display:none">
   <div class="product-grid">
     <!-- Galería -->
-    <div class="gallery">
+    <div class="gallery single-image" id="gallery">
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="" alt="" onclick="zoomImage()">
+        <button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button>
+        <button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails" id="thumbnails"></div>
+      <div class="thumbnails-wrap">
+        <div class="thumbnails" id="thumbnails"></div>
+      </div>
     </div>
 
     <!-- Información -->
@@ -275,11 +279,19 @@ function mostrarProducto() {
   }
 }
 
+let imagenesActuales = [];
+let imagenIndexActual = 0;
+
 // Mostrar imágenes
 function mostrarImagenes(producto = productoActual) {
   const imagenes = producto.imagenes || [];
   const main = document.getElementById('mainImage');
   const thumbsContainer = document.getElementById('thumbnails');
+  const gallery = document.getElementById('gallery');
+
+  imagenesActuales = imagenes;
+  imagenIndexActual = 0;
+  gallery.classList.toggle('single-image', imagenes.length <= 1);
 
   if (!imagenes.length) {
     main.removeAttribute('src');
@@ -299,10 +311,41 @@ function mostrarImagenes(producto = productoActual) {
 // Cambiar imagen principal
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
+  imagenIndexActual = index;
   document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
     thumb.classList.toggle('active', i === index);
+    if (i === index) {
+      const cont = thumb.parentElement;
+      cont.scrollTo({ left: thumb.offsetLeft - (cont.clientWidth - thumb.clientWidth) / 2, behavior: 'smooth' });
+    }
   });
 }
+
+function galeriaAnterior() {
+  if (imagenesActuales.length < 2) return;
+  const nuevo = (imagenIndexActual - 1 + imagenesActuales.length) % imagenesActuales.length;
+  cambiarImagen(imagenesActuales[nuevo], nuevo);
+}
+
+function galeriaSiguiente() {
+  if (imagenesActuales.length < 2) return;
+  const nuevo = (imagenIndexActual + 1) % imagenesActuales.length;
+  cambiarImagen(imagenesActuales[nuevo], nuevo);
+}
+
+// Swipe táctil en la imagen principal
+(function initSwipeGaleria() {
+  const wrap = document.querySelector('.main-image-wrap');
+  if (!wrap) return;
+  let touchStartX = 0;
+  wrap.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) galeriaSiguiente(); else galeriaAnterior();
+    }
+  }, { passive: true });
+})();
 
 // Zoom de imagen
 function zoomImage() {

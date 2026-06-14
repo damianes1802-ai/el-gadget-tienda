@@ -109,8 +109,6 @@ def parsear_imagenes(producto: dict) -> list:
 
 
 def render_thumbnails(imagenes: list, nombre: str) -> str:
-    if len(imagenes) <= 1:
-        return ''
     items = []
     for i, img in enumerate(imagenes):
         activa = ' active' if i == 0 else ''
@@ -118,7 +116,7 @@ def render_thumbnails(imagenes: list, nombre: str) -> str:
             f'<img src="{html.escape(img)}" class="thumbnail{activa}" '
             f'alt="{html.escape(nombre)}" onclick="cambiarImagen(\'{img}\', {i})">'
         )
-    return '<div class="thumbnails" id="thumbnails">' + ''.join(items) + '</div>'
+    return '<div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails">' + ''.join(items) + '</div></div>'
 
 
 def etiqueta_variante(p: dict) -> str:
@@ -235,7 +233,14 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         f'alt="{html.escape(nombre)}" onclick="zoomImage()">'
         if imagen_principal else
         '<img id="mainImage" class="main-image" src="" alt="">'
+    ) + (
+        '<button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" '
+        'aria-label="Imagen anterior" type="button">‹</button>'
+        '<button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" '
+        'aria-label="Imagen siguiente" type="button">›</button>'
     )
+
+    gallery_class = 'gallery' if len(imagenes) > 1 else 'gallery single-image'
 
     producto_js = {
         "sku": sku,
@@ -276,6 +281,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         '__JSONLD__': json.dumps(jsonld, ensure_ascii=False),
         '__BREADCRUMB_CATEGORIA__': html.escape(categoria),
         '__BREADCRUMB_PRODUCTO__': html.escape(breadcrumb_producto),
+        '__GALLERY_CLASS__': gallery_class,
         '__CATEGORY_BADGE__': html.escape(categoria),
         '__PRODUCT_TITLE__': html.escape(nombre),
         '__PRODUCT_PRICE__': formatear_precio(precio),
@@ -359,7 +365,7 @@ TEMPLATE = """<!DOCTYPE html>
 <div class="product-wrap" id="productWrap">
   <div class="product-grid">
     <!-- Galería -->
-    <div class="gallery">
+    <div class="__GALLERY_CLASS__" id="gallery">
       <div class="main-image-wrap">
         __MAIN_IMAGE__
       </div>
@@ -451,12 +457,46 @@ const PRODUCTO = __PRODUCTO_JSON__;
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
+let imagenesActuales = PRODUCTO.imagenes || [];
+let imagenIndexActual = 0;
+
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
+  imagenIndexActual = index;
   document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
     thumb.classList.toggle('active', i === index);
+    if (i === index) {
+      const cont = thumb.parentElement;
+      cont.scrollTo({ left: thumb.offsetLeft - (cont.clientWidth - thumb.clientWidth) / 2, behavior: 'smooth' });
+    }
   });
 }
+
+function galeriaAnterior() {
+  if (imagenesActuales.length < 2) return;
+  const nuevo = (imagenIndexActual - 1 + imagenesActuales.length) % imagenesActuales.length;
+  cambiarImagen(imagenesActuales[nuevo], nuevo);
+}
+
+function galeriaSiguiente() {
+  if (imagenesActuales.length < 2) return;
+  const nuevo = (imagenIndexActual + 1) % imagenesActuales.length;
+  cambiarImagen(imagenesActuales[nuevo], nuevo);
+}
+
+// Swipe táctil en la imagen principal
+(function initSwipeGaleria() {
+  const wrap = document.querySelector('.main-image-wrap');
+  if (!wrap) return;
+  let touchStartX = 0;
+  wrap.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) galeriaSiguiente(); else galeriaAnterior();
+    }
+  }, { passive: true });
+})();
 
 function zoomImage() {
   const img = document.getElementById('mainImage');
@@ -468,25 +508,19 @@ function renderImagenes(imagenes, nombre) {
   const main = document.getElementById('mainImage');
   if (!imagenes || !imagenes.length) return;
 
+  imagenesActuales = imagenes;
+  imagenIndexActual = 0;
   main.src = imagenes[0];
   main.alt = nombre;
+
+  document.getElementById('gallery').classList.toggle('single-image', imagenes.length <= 1);
 
   const thumbsHtml = imagenes.map((img, i) =>
     `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
   ).join('');
 
-  let thumbsContainer = document.getElementById('thumbnails');
-  if (imagenes.length > 1) {
-    if (!thumbsContainer) {
-      thumbsContainer = document.createElement('div');
-      thumbsContainer.id = 'thumbnails';
-      thumbsContainer.className = 'thumbnails';
-      document.querySelector('.gallery').appendChild(thumbsContainer);
-    }
-    thumbsContainer.innerHTML = thumbsHtml;
-  } else if (thumbsContainer) {
-    thumbsContainer.innerHTML = '';
-  }
+  const thumbsContainer = document.getElementById('thumbnails');
+  if (thumbsContainer) thumbsContainer.innerHTML = thumbsHtml;
 }
 
 // Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
