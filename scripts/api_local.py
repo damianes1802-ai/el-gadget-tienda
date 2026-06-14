@@ -34,6 +34,8 @@ import json
 
 sys.path.append(str(Path(__file__).parent))
 from utils.config import Config
+from utils.facturacion_afip import facturacion_habilitada, generar_factura_c
+from utils.email_notificaciones import email_habilitado, enviar_email_confirmacion, enviar_email_tracking
 
 # Configuración
 _env = Config.cargar_env()
@@ -207,6 +209,22 @@ def migrar_db():
     for col_name, col_def in columnas_nuevas:
         if col_name not in columnas_existentes:
             cursor.execute(f"ALTER TABLE clientes ADD COLUMN {col_name} {col_def}")
+
+    # Columnas de facturación AFIP y notificaciones por email en ordenes
+    columnas_ordenes_nuevas = [
+        ("factura_tipo", "INTEGER"),
+        ("factura_punto_venta", "INTEGER"),
+        ("factura_numero", "INTEGER"),
+        ("factura_cae", "TEXT"),
+        ("factura_cae_vencimiento", "TEXT"),
+        ("factura_error", "TEXT"),
+        ("email_confirmacion_enviado", "INTEGER DEFAULT 0"),
+    ]
+    cursor.execute("PRAGMA table_info(ordenes)")
+    columnas_ordenes_existentes = {row[1] for row in cursor.fetchall()}
+    for col_name, col_def in columnas_ordenes_nuevas:
+        if col_name not in columnas_ordenes_existentes:
+            cursor.execute(f"ALTER TABLE ordenes ADD COLUMN {col_name} {col_def}")
 
     # Tabla de solicitudes de derecho de arrepentimiento (Ley 24.240 / Res. 424/2020)
     cursor.execute("""
@@ -788,10 +806,65 @@ async def mp_webhook(request: Request):
                         (estado_pago, int(orden_id))
                     )
                     conn.commit()
+
+                    if estado_pago == "approved":
+                        procesar_pago_aprobado(conn, int(orden_id))
+
                     conn.close()
     except Exception as e:
         print(f"Webhook error: {e}")
     return {"status": "ok"}
+
+
+def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
+    """
+    Tras un pago aprobado: genera la Factura C (AFIP) si está habilitado y
+    todavía no se generó, y envía el email de confirmación al cliente.
+    Ambas integraciones son best-effort: si no están configuradas o fallan,
+    se loguea el error pero no se interrumpe el webhook.
+    """
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT o.*, c.nombre, c.email, c.cuit_dni
+        FROM ordenes o
+        JOIN clientes c ON o.cliente_id = c.id
+        WHERE o.id = ?
+    """, (orden_id,))
+    orden = cursor.fetchone()
+    if not orden:
+        return
+    orden = dict(orden)
+
+    factura = None
+    if facturacion_habilitada() and not orden.get('factura_cae'):
+        factura = generar_factura_c(orden_id, orden, orden['total'])
+        if factura.get('error'):
+            cursor.execute(
+                "UPDATE ordenes SET factura_error = ? WHERE id = ?",
+                (factura['error'], orden_id)
+            )
+        else:
+            cursor.execute("""
+                UPDATE ordenes
+                SET factura_tipo = ?, factura_punto_venta = ?, factura_numero = ?,
+                    factura_cae = ?, factura_cae_vencimiento = ?, factura_error = NULL
+                WHERE id = ?
+            """, (
+                factura['tipo'], factura['punto_venta'], factura['numero'],
+                factura['cae'], factura['cae_vencimiento'], orden_id
+            ))
+        conn.commit()
+
+    if email_habilitado() and not orden.get('email_confirmacion_enviado'):
+        cursor.execute("SELECT * FROM orden_items WHERE orden_id = ?", (orden_id,))
+        items = [dict(item) for item in cursor.fetchall()]
+        resultado = enviar_email_confirmacion(orden, items, factura)
+        if not resultado.get('error'):
+            cursor.execute(
+                "UPDATE ordenes SET email_confirmacion_enviado = 1 WHERE id = ?",
+                (orden_id,)
+            )
+            conn.commit()
 
 
 @app.patch("/api/orden/{orden_id}/tracking")
@@ -811,14 +884,32 @@ def actualizar_tracking(orden_id: int, datos: ActualizarTracking, x_admin_passwo
         SET tracking_url = ?, estado = 'enviado', enviado_at = datetime('now')
         WHERE id = ?
     """, (datos.tracking_url, orden_id))
-    
+
     if cursor.rowcount == 0:
         conn.close()
         raise HTTPException(status_code=404, detail="Orden no encontrada")
-    
+
     conn.commit()
+
+    if email_habilitado():
+        cursor.execute("""
+            SELECT o.id, o.tracking_enviado, c.nombre, c.email
+            FROM ordenes o
+            JOIN clientes c ON o.cliente_id = c.id
+            WHERE o.id = ?
+        """, (orden_id,))
+        orden = dict(cursor.fetchone())
+        if not orden['tracking_enviado']:
+            resultado = enviar_email_tracking(orden, datos.tracking_url)
+            if not resultado.get('error'):
+                cursor.execute(
+                    "UPDATE ordenes SET tracking_enviado = 1 WHERE id = ?",
+                    (orden_id,)
+                )
+                conn.commit()
+
     conn.close()
-    
+
     return {"mensaje": "Tracking actualizado", "orden_id": orden_id}
 
 

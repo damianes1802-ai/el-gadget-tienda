@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+FACTURACIÓN ELECTRÓNICA AFIP/ARCA (vía AfipSDK)
+
+Genera Facturas C (Monotributo) para las órdenes pagadas, usando el wrapper
+afip.py de AfipSDK (https://afipsdk.com). En modo desarrollo (sin certificado
+propio) se usa el CUIT de pruebas público de AfipSDK (20409378472) junto con
+un AFIP_ACCESS_TOKEN obtenido en https://app.afipsdk.com.
+"""
+
+import sys
+from datetime import datetime
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
+from utils.logger import get_logger
+from utils.config import Config
+
+logger = get_logger('facturacion_afip')
+
+CBTE_TIPO_FACTURA_C = 11
+CONCEPTO_PRODUCTOS = 1
+DOC_TIPO_CUIT = 80
+DOC_TIPO_DNI = 96
+DOC_TIPO_CONSUMIDOR_FINAL = 99
+CONDICION_IVA_CONSUMIDOR_FINAL = 5
+
+CUIT_TEST_AFIPSDK = '20409378472'
+
+
+def facturacion_habilitada() -> bool:
+    """True si hay un AFIP_ACCESS_TOKEN configurado en config/.env"""
+    env = Config.cargar_env()
+    return bool(env.get('AFIP_ACCESS_TOKEN'))
+
+
+def _get_afip_client():
+    from afip import Afip
+
+    env = Config.cargar_env()
+    cuit = int(env.get('AFIP_CUIT', CUIT_TEST_AFIPSDK))
+    config = {
+        'CUIT': cuit,
+        'access_token': env['AFIP_ACCESS_TOKEN'],
+    }
+
+    cert_path = env.get('AFIP_CERT_PATH', '')
+    key_path = env.get('AFIP_KEY_PATH', '')
+    if cert_path and key_path:
+        config['cert'] = Path(cert_path).read_text()
+        config['key'] = Path(key_path).read_text()
+
+    return Afip(config)
+
+
+def _doc_tipo_y_nro(cuit_dni: str):
+    cuit_dni = (cuit_dni or '').strip().replace('-', '').replace('.', '')
+    if not cuit_dni:
+        return DOC_TIPO_CONSUMIDOR_FINAL, 0
+    if len(cuit_dni) == 11:
+        return DOC_TIPO_CUIT, int(cuit_dni)
+    if len(cuit_dni) in (7, 8):
+        return DOC_TIPO_DNI, int(cuit_dni)
+    return DOC_TIPO_CONSUMIDOR_FINAL, 0
+
+
+def generar_factura_c(orden_id: int, cliente: dict, total: float) -> dict:
+    """
+    Genera una Factura C (Monotributo, sin discriminar IVA) para una orden.
+
+    Args:
+        orden_id: ID interno de la orden (solo para logging)
+        cliente: dict con datos del cliente (al menos 'cuit_dni')
+        total: importe total de la orden
+
+    Returns:
+        dict con 'punto_venta', 'numero', 'cae', 'cae_vencimiento' si fue
+        exitoso, o dict con 'error' si falló.
+    """
+    if not facturacion_habilitada():
+        return {'error': 'Facturación AFIP no configurada (falta AFIP_ACCESS_TOKEN)'}
+
+    try:
+        afip = _get_afip_client()
+        env = Config.cargar_env()
+        punto_venta = int(env.get('AFIP_PUNTO_VENTA', '1'))
+
+        doc_tipo, doc_nro = _doc_tipo_y_nro(cliente.get('cuit_dni', ''))
+        total_redondeado = round(float(total), 2)
+
+        data = {
+            'CantReg': 1,
+            'PtoVta': punto_venta,
+            'CbteTipo': CBTE_TIPO_FACTURA_C,
+            'Concepto': CONCEPTO_PRODUCTOS,
+            'DocTipo': doc_tipo,
+            'DocNro': doc_nro,
+            'CbteFch': int(datetime.now().strftime('%Y%m%d')),
+            'ImpTotal': total_redondeado,
+            'ImpTotConc': 0,
+            'ImpNeto': total_redondeado,
+            'ImpOpEx': 0,
+            'ImpIVA': 0,
+            'ImpTrib': 0,
+            'MonId': 'PES',
+            'MonCotiz': 1,
+            'CondicionIVAReceptorId': CONDICION_IVA_CONSUMIDOR_FINAL,
+        }
+
+        resultado = afip.ElectronicBilling.createNextVoucher(data)
+
+        logger.info(
+            f"Factura C generada para orden {orden_id}: "
+            f"{punto_venta:04d}-{resultado['voucherNumber']:08d} CAE {resultado['CAE']}"
+        )
+
+        return {
+            'tipo': CBTE_TIPO_FACTURA_C,
+            'punto_venta': punto_venta,
+            'numero': resultado['voucherNumber'],
+            'cae': resultado['CAE'],
+            'cae_vencimiento': resultado['CAEFchVto'],
+        }
+    except Exception as e:
+        logger.error(f"Error generando factura AFIP para orden {orden_id}: {e}")
+        return {'error': str(e)}

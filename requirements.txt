@@ -27,6 +27,9 @@ cloudinary==1.36.0
 # Anthropic API (para módulo de IA)
 anthropic==0.7.7
 
+# Facturación electrónica AFIP/ARCA
+afip.py==1.2.0
+
 # Utilidades
 python-dotenv==1.0.0
 tqdm==4.66.1
