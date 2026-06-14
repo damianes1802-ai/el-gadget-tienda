@@ -1,28 +1,13 @@
 {
   "version": "2.0",
-  "fecha_actualizacion": "2026-02-04 11:47:27",
+  "fecha_actualizacion": "2026-06-14 18:43:59",
   "moneda": "ARS",
   "perfiles_precio": {
     "default": {
       "nombre": "Estándar",
       "descripcion": "Configuración por defecto para todos los productos",
       "activo": true,
-      "cargos_fijos": [
-        {
-          "id": "cargo_001",
-          "nombre": "Envio",
-          "valor": 2000.0,
-          "activo": true,
-          "notas": "Costo promedio de envío"
-        },
-        {
-          "id": "cargo_003",
-          "nombre": "Packaging",
-          "valor": 1500.0,
-          "activo": true,
-          "notas": "Material de embalaje"
-        }
-      ],
+      "cargos_fijos": [],
       "margen_porcentaje": 50,
       "redondeo": {
         "activo": true,
@@ -178,6 +163,36 @@
       "fecha": "2026-02-04T11:47:06.837917",
       "usuario": "consola",
       "cambio": "Cargo editado: Envio",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-06-14T18:43:52.325607",
+      "usuario": "panel_escritorio",
+      "cambio": "Perfil editado: Estándar",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-06-14T18:43:58.826666",
+      "usuario": "panel_escritorio",
+      "cambio": "Perfil editado: Estándar",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-06-14T18:43:59.005354",
+      "usuario": "panel_escritorio",
+      "cambio": "Perfil editado: Estándar",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-06-14T18:43:59.123848",
+      "usuario": "panel_escritorio",
+      "cambio": "Perfil editado: Estándar",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-06-14T18:43:59.548507",
+      "usuario": "panel_escritorio",
+      "cambio": "Perfil editado: Estándar",
       "perfil_modificado": "default"
     }
   ]

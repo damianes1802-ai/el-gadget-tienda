@@ -40,24 +40,15 @@
   ],
   "calculo_precio": {
     "precio_costo": 18990,
-    "cargos_fijos": 3500.0,
-    "desglose_cargos": [
-      {
-        "nombre": "Envio",
-        "valor": 2000.0
-      },
-      {
-        "nombre": "Packaging",
-        "valor": 1500.0
-      }
-    ],
-    "subtotal": 22490.0,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 18990,
     "margen_porcentaje": 50,
-    "precio_con_margen": 33735.0,
-    "precio_final": 34000.0,
-    "ganancia_neta": 15010.0,
+    "precio_con_margen": 28485.0,
+    "precio_final": 28500.0,
+    "ganancia_neta": 9510.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 34000.0,
-  "fecha_calculo_precio": "2026-06-14T09:52:33.496296"
+  "precio_venta": 28500.0,
+  "fecha_calculo_precio": "2026-06-14T18:47:28.121070"
 }

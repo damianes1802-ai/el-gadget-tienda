@@ -14,26 +14,17 @@
   "cantidad_imagenes": 4,
   "calculo_precio": {
     "precio_costo": 9130,
-    "cargos_fijos": 3500.0,
-    "desglose_cargos": [
-      {
-        "nombre": "Envio",
-        "valor": 2000.0
-      },
-      {
-        "nombre": "Packaging",
-        "valor": 1500.0
-      }
-    ],
-    "subtotal": 12630.0,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 9130,
     "margen_porcentaje": 50,
-    "precio_con_margen": 18945.0,
-    "precio_final": 19000.0,
-    "ganancia_neta": 9870.0,
+    "precio_con_margen": 13695.0,
+    "precio_final": 14000.0,
+    "ganancia_neta": 4870.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 19000.0,
-  "fecha_calculo_precio": "2026-06-14T09:52:33.511781",
+  "precio_venta": 14000.0,
+  "fecha_calculo_precio": "2026-06-14T18:47:28.166701",
   "es_variante": false,
   "item_group_id": "DL1217",
   "fecha_actualizacion_variantes": "2026-02-01T19:05:06.444378",

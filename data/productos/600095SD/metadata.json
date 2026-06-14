@@ -17,26 +17,17 @@
   "cantidad_imagenes": 7,
   "calculo_precio": {
     "precio_costo": 1210,
-    "cargos_fijos": 3500.0,
-    "desglose_cargos": [
-      {
-        "nombre": "Envio",
-        "valor": 2000.0
-      },
-      {
-        "nombre": "Packaging",
-        "valor": 1500.0
-      }
-    ],
-    "subtotal": 4710.0,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 1210,
     "margen_porcentaje": 50,
-    "precio_con_margen": 7065.0,
-    "precio_final": 7500.0,
-    "ganancia_neta": 6290.0,
+    "precio_con_margen": 1815.0,
+    "precio_final": 2000.0,
+    "ganancia_neta": 790.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 7500.0,
-  "fecha_calculo_precio": "2026-06-14T09:52:33.442554",
+  "precio_venta": 2000.0,
+  "fecha_calculo_precio": "2026-06-14T18:47:27.958774",
   "es_variante": false,
   "item_group_id": "600095SD",
   "fecha_actualizacion_variantes": "2026-02-01T19:05:06.163127",

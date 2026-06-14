@@ -12,26 +12,17 @@
   "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 16500,
-    "cargos_fijos": 3500.0,
-    "desglose_cargos": [
-      {
-        "nombre": "Envio",
-        "valor": 2000.0
-      },
-      {
-        "nombre": "Packaging",
-        "valor": 1500.0
-      }
-    ],
-    "subtotal": 20000.0,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 16500,
     "margen_porcentaje": 50,
-    "precio_con_margen": 30000.0,
-    "precio_final": 30000.0,
-    "ganancia_neta": 13500.0,
+    "precio_con_margen": 24750.0,
+    "precio_final": 25000.0,
+    "ganancia_neta": 8500.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 30000.0,
-  "fecha_calculo_precio": "2026-06-14T09:52:33.503922",
+  "precio_venta": 25000.0,
+  "fecha_calculo_precio": "2026-06-14T18:47:28.142881",
   "categoria_principal": "Nuevos Ingresos",
   "categoria": "Nuevos Ingresos",
   "categorias_secundarias": [

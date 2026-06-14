@@ -16,26 +16,17 @@
   "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 11440,
-    "cargos_fijos": 3500.0,
-    "desglose_cargos": [
-      {
-        "nombre": "Envio",
-        "valor": 2000.0
-      },
-      {
-        "nombre": "Packaging",
-        "valor": 1500.0
-      }
-    ],
-    "subtotal": 14940.0,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 11440,
     "margen_porcentaje": 50,
-    "precio_con_margen": 22410.0,
-    "precio_final": 22500.0,
-    "ganancia_neta": 11060.0,
+    "precio_con_margen": 17160.0,
+    "precio_final": 17500.0,
+    "ganancia_neta": 6060.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 22500.0,
-  "fecha_calculo_precio": "2026-06-14T09:52:33.615275",
+  "precio_venta": 17500.0,
+  "fecha_calculo_precio": "2026-06-14T18:47:28.477201",
   "categoria_principal": "Bazar y Cocina",
   "categoria": "Bazar y Cocina",
   "categorias_secundarias": [],

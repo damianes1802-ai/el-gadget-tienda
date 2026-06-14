@@ -15,26 +15,17 @@
   "cantidad_imagenes": 5,
   "calculo_precio": {
     "precio_costo": 20790,
-    "cargos_fijos": 3500.0,
-    "desglose_cargos": [
-      {
-        "nombre": "Envio",
-        "valor": 2000.0
-      },
-      {
-        "nombre": "Packaging",
-        "valor": 1500.0
-      }
-    ],
-    "subtotal": 24290.0,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 20790,
     "margen_porcentaje": 50,
-    "precio_con_margen": 36435.0,
-    "precio_final": 36500.0,
-    "ganancia_neta": 15710.0,
+    "precio_con_margen": 31185.0,
+    "precio_final": 31500.0,
+    "ganancia_neta": 10710.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 36500.0,
-  "fecha_calculo_precio": "2026-06-14T09:52:33.447107",
+  "precio_venta": 31500.0,
+  "fecha_calculo_precio": "2026-06-14T18:47:27.971346",
   "item_group_id": "grupo_004",
   "variante_atributo": "color",
   "variante_valor": "GR",
