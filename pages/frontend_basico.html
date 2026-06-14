@@ -113,7 +113,7 @@
           <div class="logo-tagline">Tienda online</div>
         </div>
       </div>
-      <p>Productos para el hogar, moda, tecnología y mucho más. Elegí, armá tu pedido y coordinamos todo por WhatsApp.</p>
+      <p>Productos para el hogar, moda, tecnología y mucho más. Elegí tus productos, pagá online de forma segura y te lo enviamos a tu casa.</p>
     </div>
     <div class="footer-col">
       <h4>Ayuda</h4>
@@ -160,6 +160,12 @@ let todosLosProductos = [];
 let categorias = [];
 let activeFilter = 'Todos';
 let searchTerm = '';
+
+// ── BÚSQUEDA DESDE OTRA PÁGINA (?buscar=...) ────────
+const buscarParam = new URLSearchParams(window.location.search).get('buscar');
+if (buscarParam) {
+  searchTerm = buscarParam.toLowerCase().trim();
+}
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -319,6 +325,10 @@ function limpiarFiltros() {
 }
 
 // ── INICIO ─────────────────────────────────────────
+if (buscarParam) {
+  document.getElementById('searchDesktop').value = buscarParam;
+  document.getElementById('searchMobile').value = buscarParam;
+}
 actualizarCarritoUI();
 cargarCategorias();
 cargarProductos();
