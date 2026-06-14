@@ -97,6 +97,17 @@ def obtener_lote(conn: sqlite3.Connection, limit: int) -> list:
     return [dict(row) for row in cursor.fetchall()]
 
 
+def obtener_por_skus(conn: sqlite3.Connection, skus: list) -> list:
+    cursor = conn.cursor()
+    placeholders = ','.join('?' * len(skus))
+    cursor.execute(f"""
+        SELECT sku, nombre, descripcion, categoria, subcategoria, marca, color, talle, precio_venta
+        FROM productos
+        WHERE stock > 0 AND sku IN ({placeholders})
+    """, skus)
+    return [dict(row) for row in cursor.fetchall()]
+
+
 def generar_copy(producto: dict, api_key: str, intentos: int = 4) -> dict:
     prompt = PROMPT_TEMPLATE.format(
         nombre=producto['nombre'],
@@ -148,6 +159,7 @@ def generar_copy(producto: dict, api_key: str, intentos: int = 4) -> dict:
 def main():
     parser = argparse.ArgumentParser(description="Optimiza SEO de productos con Gemini API")
     parser.add_argument("--limit", type=int, default=50, help="Cantidad de productos a optimizar")
+    parser.add_argument("--skus", help="Lista de SKUs separados por coma a optimizar (ignora --limit)")
     parser.add_argument("--dry-run", action="store_true", help="No escribe en la base de datos")
     args = parser.parse_args()
 
@@ -159,7 +171,11 @@ def main():
     conn = conectar_db()
     asegurar_columna(conn)
 
-    productos = obtener_lote(conn, args.limit)
+    if args.skus:
+        skus = [s.strip() for s in args.skus.split(',') if s.strip()]
+        productos = obtener_por_skus(conn, skus) if skus else []
+    else:
+        productos = obtener_lote(conn, args.limit)
     print(f"\n🔍 {len(productos)} productos seleccionados para optimizar\n")
 
     actualizados = 0

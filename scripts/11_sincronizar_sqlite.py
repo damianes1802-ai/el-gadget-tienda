@@ -59,9 +59,11 @@ class SincronizadorSQLiteOptimizado:
             'productos_procesados': 0,
             'productos_nuevos': 0,
             'productos_actualizados': 0,
+            'productos_eliminados': 0,
             'productos_sin_precio': 0,
             'productos_agotados': 0,
             'productos_disponibles': 0,
+            'productos_nuevos_skus': [],
             'errores': [],
             'advertencias': [],
             'tiempo_inicio': datetime.now()
@@ -436,6 +438,7 @@ class SincronizadorSQLiteOptimizado:
                 self.stats['productos_actualizados'] += 1
             else:
                 self.stats['productos_nuevos'] += 1
+                self.stats['productos_nuevos_skus'].append(sku)
         
         # 4. BULK INSERT (LA MAGIA AQUÍ)
         print(f"\n⚡ Ejecutando inserción masiva...")
@@ -464,15 +467,29 @@ class SincronizadorSQLiteOptimizado:
                     INSERT INTO historial_precios (producto_sku, precio_costo, precio_venta)
                     VALUES (?, ?, ?)
                 """, historial_data)
-            
+
+            # Limpiar productos que ya no están disponibles/válidos (agotados, sin precio, descontinuados)
+            skus_sincronizados = [p[0] for p in productos_data]
+            placeholders = ','.join('?' * len(skus_sincronizados))
+            cursor.execute(f"DELETE FROM productos WHERE sku NOT IN ({placeholders})", skus_sincronizados)
+            self.stats['productos_eliminados'] = cursor.rowcount
+
             # COMMIT - Una sola vez
             self.conn.commit()
-            
+
             print(f"  ✅ {len(productos_data)} productos sincronizados")
             print(f"  ✅ {len(historial_data)} registros en historial")
-            
+            if self.stats['productos_eliminados'] > 0:
+                print(f"  🗑️  {self.stats['productos_eliminados']} productos eliminados (agotados/descontinuados)")
+
             logger.info(f"Sincronización exitosa: {len(productos_data)} productos")
-            
+
+            # Exponer SKUs nuevos detectados para que el pipeline diario pueda
+            # optimizar su SEO automáticamente
+            nuevos_skus_file = Config.DATA_DIR / 'nuevos_skus.json'
+            with open(nuevos_skus_file, 'w', encoding='utf-8') as f:
+                json.dump(self.stats['productos_nuevos_skus'], f, ensure_ascii=False)
+
             return len(productos_data)
         
         except Exception as e:
@@ -557,6 +574,7 @@ class SincronizadorSQLiteOptimizado:
         print(f"  • Procesados: {self.stats['productos_procesados']}")
         print(f"  • 🆕 Nuevos: {self.stats['productos_nuevos']}")
         print(f"  • 🔄 Actualizados: {self.stats['productos_actualizados']}")
+        print(f"  • 🗑️  Eliminados: {self.stats['productos_eliminados']}")
         
         print(f"\n⚠️  Excluidos:")
         print(f"  • Agotados: {self.stats['productos_agotados']}")

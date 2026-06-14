@@ -1,9 +1,9 @@
-name: Optimizacion SEO quincenal con IA
+name: Optimizacion SEO mensual con IA
 
 on:
   schedule:
-    # 08:00 UTC del 1 y 15 de cada mes = 05:00 Argentina
-    - cron: '0 8 1,15 * *'
+    # 08:00 UTC del dia 1 de cada mes = 05:00 Argentina
+    - cron: '0 8 1 * *'
   workflow_dispatch:
     inputs:
       limit:

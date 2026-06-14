@@ -87,6 +87,7 @@ class ActualizadorMaestro:
             'cloudinary': '03_subir_imagenes_cloudinary.py',
             'precios': '04_calculo_precios.py',
             'sqlite': '11_sincronizar_sqlite.py',
+            'seo_ia': '13_optimizar_seo_ia.py',
             'paginas_producto': '12_generar_paginas_producto.py',
             'feed_facebook': 'generar_feed_facebook.py',
             'sheets': '06_sincronizar_google_sheets_OPTIMIZADO.py',
@@ -205,26 +206,34 @@ class ActualizadorMaestro:
                 self.stats['advertencias'].append(error)
                 return True
     
-    def borrar_base_datos(self):
-        """Borra la base de datos SQLite para reconstruirla"""
-        db_path = Config.DATA_DIR / 'catalogo.db'
-        
-        if db_path.exists():
-            try:
-                db_path.unlink()
-                print("✅ Base de datos antigua eliminada")
-                logger.info("Base de datos borrada")
-                return True
-            except Exception as e:
-                error = f"Error borrando DB: {e}"
-                print(f"❌ {error}")
-                logger.error(error)
-                self.stats['errores'].append(error)
-                return False
-        else:
-            print("ℹ️  No existe base de datos previa")
-            return True
-    
+    def optimizar_seo_productos_nuevos(self):
+        """
+        Optimiza el SEO (título y descripción) con IA solo para los productos
+        nuevos detectados por 11_sincronizar_sqlite.py en este sync.
+        """
+        nuevos_skus_file = Config.DATA_DIR / 'nuevos_skus.json'
+
+        if not nuevos_skus_file.exists():
+            return
+
+        try:
+            with open(nuevos_skus_file, 'r', encoding='utf-8') as f:
+                nuevos_skus = json.load(f)
+        except Exception as e:
+            logger.error(f"Error leyendo {nuevos_skus_file}: {e}")
+            return
+
+        if not nuevos_skus:
+            print("\nℹ️  No hay productos nuevos para optimizar SEO")
+            return
+
+        self.ejecutar_script(
+            f"9. Optimización SEO con IA de {len(nuevos_skus)} producto(s) nuevo(s)",
+            self.scripts['seo_ia'],
+            obligatorio=False,
+            args=['--skus', ','.join(nuevos_skus)]
+        )
+
     def verificar_resultado(self):
         """Verifica que la actualización fue exitosa"""
         self.banner("VERIFICACIÓN FINAL", '-')
@@ -468,19 +477,17 @@ class ActualizadorMaestro:
             print("\n⛔ Abortando actualización por error crítico")
             return False
 
-        # PASO 8: Borrar base de datos
-        self.banner("8. Preparación de base de datos", '-')
-        if not self.borrar_base_datos():
-            print("\n⚠️  No se pudo borrar DB, continuando...")
-
-        # PASO 9: Sincronizar a SQLite
+        # PASO 8: Sincronizar a SQLite
         if not self.ejecutar_script(
-            "9. Sincronización a SQLite",
+            "8. Sincronización a SQLite",
             self.scripts['sqlite'],
             obligatorio=True
         ):
             print("\n⛔ Actualización falló en sincronización")
             return False
+
+        # PASO 9: Optimizar SEO con IA de productos nuevos detectados en este sync
+        self.optimizar_seo_productos_nuevos()
 
         # PASO 10: Generar páginas estáticas de producto (SEO)
         self.ejecutar_script(
@@ -540,16 +547,15 @@ class ActualizadorMaestro:
         ):
             return False
 
-        self.banner("3. Preparación de base de datos", '-')
-        if not self.borrar_base_datos():
-            print("\n⚠️  No se pudo borrar DB, continuando...")
-
         if not self.ejecutar_script(
-            "4. Sincronización a SQLite",
+            "3. Sincronización a SQLite",
             self.scripts['sqlite'],
             obligatorio=True
         ):
             return False
+
+        # PASO 4: Optimizar SEO con IA de productos nuevos detectados en este sync
+        self.optimizar_seo_productos_nuevos()
 
         # PASO 5: Generar páginas estáticas de producto (SEO)
         self.ejecutar_script(
