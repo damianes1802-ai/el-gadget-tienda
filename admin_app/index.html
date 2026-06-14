@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel El Gadget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<div class="loader-overlay" id="loader-overlay">
+  <div class="spinner"></div>
+  <div style="font-size:13px;color:#6F6A63;font-weight:600">Cargando datos del ecommerce…</div>
+</div>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-badge">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="22" fill="#14151A"/>
+          <rect x="14" y="34" width="72" height="34" rx="17" fill="none" stroke="white" stroke-width="7"/>
+          <circle cx="34" cy="51" r="6" fill="white"/>
+          <rect x="58" y="42" width="6" height="18" rx="2" fill="#FFC700"/>
+          <rect x="68" y="36" width="6" height="30" rx="2" fill="#FFC700"/>
+          <rect x="78" y="45" width="6" height="12" rx="2" fill="#FFC700"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">El <span>Gadget</span></span>
+        <span class="logo-tagline">Panel</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-section="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="11" width="8" height="10" rx="1.5"/><rect x="3" y="14" width="8" height="7" rx="1.5"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-item" data-section="pedidos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17H6z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+        Pedidos
+      </button>
+      <button class="nav-item" data-section="productos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+        Productos
+      </button>
+      <button class="nav-item" data-section="precios">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3.2L4 3v5.59c0 .53.21 1.04.59 1.41l9.59 9.59a2 2 0 0 0 2.82 0l3.59-3.59a2 2 0 0 0 0-2.59z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+        Precios
+      </button>
+      <button class="nav-item" data-section="clientes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Clientes
+      </button>
+      <button class="nav-item" data-section="arrepentimientos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Arrepentimientos
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-line">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Conectando…</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="content-header">
+      <h1 id="section-title">Dashboard</h1>
+      <div class="header-actions">
+        <button class="btn btn-outline btn-sm" id="btn-refresh">Actualizar</button>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <!-- DASHBOARD -->
+      <section class="section active" id="section-dashboard">
+        <div class="stats-grid" id="dashboard-stats"></div>
+        <div class="panel">
+          <h2>Ventas por mes</h2>
+          <div class="bar-chart" id="dashboard-ventas-chart"></div>
+        </div>
+        <div class="panel">
+          <h2>Top 5 productos más vendidos</h2>
+          <div class="top-list" id="dashboard-top-productos"></div>
+        </div>
+      </section>
+
+      <!-- PEDIDOS -->
+      <section class="section" id="section-pedidos">
+        <div class="toolbar">
+          <select id="pedidos-filtro-estado">
+            <option value="">Todos los estados</option>
+            <option value="pendiente_procesar">Pendiente de procesar</option>
+            <option value="procesando">Procesando</option>
+            <option value="enviado">Enviado</option>
+            <option value="entregado">Entregado</option>
+          </select>
+          <input type="text" id="pedidos-buscar" placeholder="Buscar por cliente, email o # de orden...">
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>Fecha</th><th>Cliente</th><th>Total</th>
+                <th>Estado</th><th>Pago</th><th>Factura</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="pedidos-tbody">
+              <tr class="loading-row"><td colspan="8">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PRODUCTOS -->
+      <section class="section" id="section-productos">
+        <div class="toolbar">
+          <select id="productos-filtro-categoria">
+            <option value="">Todas las categorías</option>
+          </select>
+          <input type="text" id="productos-buscar" placeholder="Buscar por nombre o SKU...">
+          <label class="checkbox">
+            <input type="checkbox" id="productos-incluir-agotados" checked>
+            Incluir agotados
+          </label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>SKU</th><th>Producto</th><th>Categoría</th>
+                <th>Costo</th><th>Venta</th><th>Margen</th><th>Stock</th>
+              </tr>
+            </thead>
+            <tbody id="productos-tbody">
+              <tr class="loading-row"><td colspan="7">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PRECIOS -->
+      <section class="section" id="section-precios">
+        <div class="panel">
+          <h2>Perfil de precios: Estándar (default)</h2>
+          <div class="field">
+            <label>Margen de ganancia (%)</label>
+            <input type="number" id="precios-margen" step="1" min="0">
+          </div>
+
+          <div class="field">
+            <label>Cargos fijos</label>
+            <div id="precios-cargos"></div>
+            <button class="btn btn-outline btn-sm" id="btn-agregar-cargo" style="margin-top:6px">+ Agregar cargo</button>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="checkbox" style="text-transform:none;font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer">
+                <input type="checkbox" id="precios-redondeo-activo" style="width:auto">
+                Redondear precio final
+              </label>
+            </div>
+            <div class="field">
+              <label>Redondear al múltiplo de</label>
+              <input type="number" id="precios-redondeo-multiplo" step="1" min="1">
+            </div>
+          </div>
+
+          <button class="btn btn-accent" id="btn-guardar-precios">Guardar configuración</button>
+        </div>
+
+        <div class="panel">
+          <h2>Previsualización</h2>
+          <div class="field" style="max-width:240px">
+            <label>Precio de costo de ejemplo</label>
+            <input type="number" id="precios-preview-costo" value="5000" step="100" min="0">
+          </div>
+          <div class="preview-box">
+            <div class="preview-grid" id="precios-preview-resultado"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLIENTES -->
+      <section class="section" id="section-clientes">
+        <div class="toolbar">
+          <input type="text" id="clientes-buscar" placeholder="Buscar por nombre o email...">
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Cliente</th><th>Email</th><th>Teléfono</th>
+                <th>Ubicación</th><th>Pedidos</th><th>Total comprado</th>
+              </tr>
+            </thead>
+            <tbody id="clientes-tbody">
+              <tr class="loading-row"><td colspan="6">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ARREPENTIMIENTOS -->
+      <section class="section" id="section-arrepentimientos">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>Fecha</th><th>Orden</th><th>Cliente</th>
+                <th>Motivo</th><th>Estado</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="arrepentimientos-tbody">
+              <tr class="loading-row"><td colspan="7">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- MODAL DETALLE DE PEDIDO -->
+<div class="modal-overlay" id="modal-pedido-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-pedido-titulo">Pedido</h2>
+      <button class="modal-close" data-close="modal-pedido-overlay">&times;</button>
+    </div>
+    <div class="modal-body" id="modal-pedido-body"></div>
+    <div class="modal-footer" id="modal-pedido-footer"></div>
+  </div>
+</div>
+
+<!-- MODAL CAMBIAR ESTADO -->
+<div class="modal-overlay" id="modal-estado-overlay">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2>Cambiar estado del pedido #<span id="modal-estado-id"></span></h2>
+      <button class="modal-close" data-close="modal-estado-overlay">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Nuevo estado</label>
+        <select id="modal-estado-select">
+          <option value="pendiente_procesar">Pendiente de procesar</option>
+          <option value="procesando">Procesando</option>
+          <option value="enviado">Enviado</option>
+          <option value="entregado">Entregado</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" data-close="modal-estado-overlay">Cancelar</button>
+      <button class="btn btn-accent" id="btn-guardar-estado">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMAR ELIMINAR -->
+<div class="modal-overlay" id="modal-confirmar-overlay">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2>Eliminar pedido</h2>
+      <button class="modal-close" data-close="modal-confirmar-overlay">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="modal-confirmar-texto" style="font-size:13.5px;color:#2C2E36">¿Seguro que querés eliminar este pedido? Esta acción no se puede deshacer.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" data-close="modal-confirmar-overlay">Cancelar</button>
+      <button class="btn btn-danger" id="btn-confirmar-eliminar">Sí, eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/common.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/pedidos.js"></script>
+<script src="js/productos.js"></script>
+<script src="js/precios.js"></script>
+<script src="js/clientes.js"></script>
+<script src="js/arrepentimientos.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
