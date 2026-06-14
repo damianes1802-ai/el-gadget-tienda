@@ -201,6 +201,8 @@ class SincronizadorSQLiteOptimizado:
             cursor.execute("ALTER TABLE productos ADD COLUMN variantes_internas TEXT")
         if 'seo_optimizado_at' not in columnas:
             cursor.execute("ALTER TABLE productos ADD COLUMN seo_optimizado_at TIMESTAMP")
+        if 'overrides_manuales' not in columnas:
+            cursor.execute("ALTER TABLE productos ADD COLUMN overrides_manuales TEXT")
 
         # ÍNDICES para optimizar búsquedas
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_productos_categoria ON productos(categoria)")
@@ -270,9 +272,14 @@ class SincronizadorSQLiteOptimizado:
 
         # Cachear filas existentes para preservar copy SEO ya optimizado con IA
         cursor = self.conn.cursor()
-        cursor.execute("SELECT sku, nombre, descripcion, seo_optimizado_at FROM productos")
+        cursor.execute("SELECT sku, nombre, descripcion, seo_optimizado_at, overrides_manuales FROM productos")
         db_existing = {
-            row[0]: {'nombre': row[1], 'descripcion': row[2], 'seo_optimizado_at': row[3]}
+            row[0]: {
+                'nombre': row[1],
+                'descripcion': row[2],
+                'seo_optimizado_at': row[3],
+                'overrides_manuales': row[4],
+            }
             for row in cursor.fetchall()
         }
 
@@ -325,7 +332,19 @@ class SincronizadorSQLiteOptimizado:
                 
                 # Stock (siempre 999 si está disponible)
                 stock = 999
-                
+
+                # Aplicar overrides manuales (editados desde el Panel El Gadget),
+                # que tienen prioridad sobre los datos recién scrapeados
+                overrides_manuales = existente['overrides_manuales'] if existente else None
+                if overrides_manuales:
+                    overrides = json.loads(overrides_manuales)
+                    if 'categoria' in overrides:
+                        categoria = overrides['categoria']
+                    if 'precio_venta' in overrides:
+                        precio_venta = overrides['precio_venta']
+                    if 'stock' in overrides:
+                        stock = overrides['stock']
+
                 # Imágenes (priorizar Cloudinary)
                 imagenes_cloudinary = metadata.get('imagenes_cloudinary', [])
                 imagenes_originales = metadata.get('imagenes', [])
@@ -375,7 +394,8 @@ class SincronizadorSQLiteOptimizado:
                     link_producto,
                     url_amigable,
                     variantes_internas,
-                    seo_optimizado_at
+                    seo_optimizado_at,
+                    overrides_manuales
                 ))
                 
                 # Historial de precio
@@ -457,8 +477,8 @@ class SincronizadorSQLiteOptimizado:
                     imagen_principal, imagenes_adicionales,
                     item_group_id, color, talle, material, peso,
                     link_producto, url_amigable, variantes_internas, seo_optimizado_at,
-                    actualizado_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+                    overrides_manuales, actualizado_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
             """, productos_data)
             
             # BULK INSERT historial

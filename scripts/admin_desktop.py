@@ -14,6 +14,8 @@ Configuración de precios: archivo local data/precios/config_precios_v2.json
 """
 
 import json
+import sqlite3
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -26,6 +28,7 @@ from utils.config import Config
 
 API_URL = "https://el-gadget-tienda.onrender.com"
 PRECIOS_CONFIG_FILE = Config.PRECIOS_DIR / "config_precios_v2.json"
+CATALOGO_DB_FILE = Config.DATA_DIR / "catalogo.db"
 
 
 class Api:
@@ -105,6 +108,84 @@ class Api:
 
     def get_categorias(self):
         return self._get("/api/categorias")
+
+    def actualizar_producto(self, sku, cambios):
+        """
+        Edita un producto: guarda los cambios como overrides_manuales en
+        data/catalogo.db (sobreviven a la sincronizacion diaria), los aplica
+        de inmediato en la tienda en vivo (Render) y sube catalogo.db a git
+        para que el proximo deploy/sincronizacion no los pierda.
+        """
+        try:
+            conn = sqlite3.connect(CATALOGO_DB_FILE)
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM productos WHERE sku = ?", (sku,))
+            row = cursor.fetchone()
+            if not row:
+                conn.close()
+                return {"error": f"Producto {sku} no encontrado en catalogo.db"}
+
+            overrides = json.loads(row['overrides_manuales']) if row['overrides_manuales'] else {}
+
+            set_cols = []
+            set_vals = []
+
+            if 'nombre' in cambios:
+                set_cols.append('nombre')
+                set_vals.append(cambios['nombre'])
+            if 'descripcion' in cambios:
+                set_cols.append('descripcion')
+                set_vals.append(cambios['descripcion'])
+            if 'nombre' in cambios or 'descripcion' in cambios:
+                set_cols.append('seo_optimizado_at')
+                set_vals.append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+            for campo in ('categoria', 'precio_venta', 'stock'):
+                if campo in cambios:
+                    overrides[campo] = cambios[campo]
+                    set_cols.append(campo)
+                    set_vals.append(cambios[campo])
+
+            set_cols.append('overrides_manuales')
+            set_vals.append(json.dumps(overrides, ensure_ascii=False))
+
+            set_clause = ", ".join(f"{c} = ?" for c in set_cols)
+            cursor.execute(f"UPDATE productos SET {set_clause} WHERE sku = ?", (*set_vals, sku))
+            conn.commit()
+
+            cursor.execute("SELECT * FROM productos WHERE sku = ?", (sku,))
+            producto = dict(cursor.fetchone())
+            conn.close()
+        except Exception as e:
+            return {"error": f"Error al guardar en catalogo.db: {e}"}
+
+        producto['_remoto'] = self._patch(f"/api/admin/producto/{sku}", json_body=cambios)
+        producto['_git'] = self._git_commit_catalogo(sku, cambios)
+        return producto
+
+    def _git_commit_catalogo(self, sku, cambios):
+        try:
+            repo_dir = Config.BASE_DIR
+            campos = ", ".join(cambios.keys())
+            mensaje = f"Editar producto {sku} desde Panel El Gadget ({campos})"
+
+            subprocess.run(['git', 'add', 'data/catalogo.db'], cwd=repo_dir, check=True, capture_output=True)
+
+            commit = subprocess.run(['git', 'commit', '-m', mensaje], cwd=repo_dir, capture_output=True, text=True)
+            if commit.returncode != 0:
+                salida = (commit.stdout + commit.stderr).lower()
+                if 'nothing to commit' in salida or 'nada para hacer commit' in salida:
+                    return {"ok": True, "mensaje": "Sin cambios para confirmar en git"}
+                return {"error": commit.stdout + commit.stderr}
+
+            push = subprocess.run(['git', 'push'], cwd=repo_dir, capture_output=True, text=True)
+            if push.returncode != 0:
+                return {"error": push.stdout + push.stderr}
+
+            return {"ok": True, "mensaje": "Cambios confirmados y subidos a git"}
+        except Exception as e:
+            return {"error": str(e)}
 
     # ── Clientes ──
     def get_clientes(self):

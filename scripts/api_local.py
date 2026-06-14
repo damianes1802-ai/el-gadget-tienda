@@ -138,6 +138,15 @@ class ActualizarTracking(BaseModel):
     tracking_url: str
 
 
+class ActualizarProducto(BaseModel):
+    """Modelo para editar manualmente un producto (campos opcionales, edición parcial)"""
+    nombre: Optional[str] = None
+    descripcion: Optional[str] = None
+    categoria: Optional[str] = None
+    precio_venta: Optional[float] = None
+    stock: Optional[int] = None
+
+
 class SolicitudArrepentimiento(BaseModel):
     """Modelo para solicitar el derecho de arrepentimiento (Ley 24.240 / Res. 424/2020)"""
     orden_id: int
@@ -1033,6 +1042,47 @@ def listar_clientes(x_admin_password: Optional[str] = Header(None)):
     conn.close()
 
     return [dict(c) for c in clientes]
+
+
+@app.patch("/api/admin/producto/{sku}")
+def actualizar_producto(sku: str, datos: ActualizarProducto, x_admin_password: Optional[str] = Header(None)):
+    """
+    Edita manualmente nombre, descripción, categoría, precio de venta o stock
+    de un producto en la base en vivo (solo admin). Usado por el Panel de
+    escritorio; los mismos cambios se guardan también en data/catalogo.db
+    como overrides_manuales para que sobrevivan a la sincronización diaria.
+    """
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    cambios = datos.dict(exclude_unset=True)
+    if not cambios:
+        raise HTTPException(status_code=400, detail="No se enviaron cambios")
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT sku FROM productos WHERE sku = ?", (sku,))
+    if not cursor.fetchone():
+        conn.close()
+        raise HTTPException(status_code=404, detail="Producto no encontrado")
+
+    columnas = list(cambios.keys())
+    valores = list(cambios.values())
+
+    if 'nombre' in cambios or 'descripcion' in cambios:
+        columnas.append('seo_optimizado_at')
+        valores.append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+    set_clause = ", ".join(f"{col} = ?" for col in columnas)
+    cursor.execute(f"UPDATE productos SET {set_clause} WHERE sku = ?", (*valores, sku))
+    conn.commit()
+
+    cursor.execute("SELECT * FROM productos WHERE sku = ?", (sku,))
+    producto = dict(cursor.fetchone())
+    conn.close()
+
+    return producto
 
 
 # ============================================================================
