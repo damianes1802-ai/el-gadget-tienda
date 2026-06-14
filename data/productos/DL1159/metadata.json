@@ -12,10 +12,11 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1159_6_.png"
   ],
   "cantidad_imagenes": 6,
+  "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5493/s/almohada-para-ba-era/category/13/",
-  "fecha_scraping": "2026-06-13T13:35:39.394035",
+  "fecha_scraping": "2026-06-14T09:46:19.102363",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Baño y Limpieza",
@@ -28,7 +29,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.478276",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:24.022807",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1159_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1159_002",
@@ -58,5 +59,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 34000.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.948382"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.496296"
 }

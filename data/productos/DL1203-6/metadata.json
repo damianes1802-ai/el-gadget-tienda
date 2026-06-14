@@ -13,10 +13,11 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1203-6_4_.png"
   ],
   "cantidad_imagenes": 7,
+  "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5421/s/silla-de-oficina-ergonomica-comoda/category/13/",
-  "fecha_scraping": "2026-06-13T13:34:20.558022",
+  "fecha_scraping": "2026-06-14T09:46:47.448746",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Home",
@@ -29,7 +30,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.461882",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:24.006248",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-6_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-6_002",
@@ -60,5 +61,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 108500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.961804"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.510347"
 }

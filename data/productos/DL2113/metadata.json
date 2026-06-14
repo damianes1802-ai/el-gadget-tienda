@@ -14,10 +14,11 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2113_6_.png"
   ],
   "cantidad_imagenes": 8,
+  "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cepillo-electrico-9-en-1.html",
-  "fecha_scraping": "2026-06-13T13:35:00.105499",
+  "fecha_scraping": "2026-06-14T09:45:43.792305",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Baño y Limpieza",
@@ -30,7 +31,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.478890",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:24.021665",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_002",
@@ -62,5 +63,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 61000.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.977090"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.526334"
 }

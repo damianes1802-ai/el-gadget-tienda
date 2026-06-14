@@ -18,10 +18,11 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/0/600046_2__1.png"
   ],
   "cantidad_imagenes": 12,
+  "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/baston-regulable-4-patas-4.html",
-  "fecha_scraping": "2026-06-13T13:36:44.144757",
+  "fecha_scraping": "2026-06-14T09:45:04.527913",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Fitness"
@@ -31,7 +32,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.454861",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:24.001318",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600046_002",
@@ -67,5 +68,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8000.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.894458"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.439119"
 }

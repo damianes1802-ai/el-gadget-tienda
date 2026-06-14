@@ -10,10 +10,33 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/p/a/pa114b_4__1.png"
   ],
   "cantidad_imagenes": 4,
+  "variantes_internas": [
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "S",
+      "sku_interno": "PA114BS",
+      "imagenes": []
+    },
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "M",
+      "sku_interno": "PA114BM",
+      "imagenes": []
+    },
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "L",
+      "sku_interno": "PA114BL",
+      "imagenes": []
+    }
+  ],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/blusa-manga-larga-confeccionada-en-viscosa-bambula-bordada-blanca-1.html",
-  "fecha_scraping": "2026-06-13T13:34:14.569903",
+  "fecha_scraping": "2026-06-14T09:46:05.870116",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda",
@@ -26,7 +49,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.429066",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:23.986690",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_002",
@@ -54,5 +77,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 45500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:42.010803"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.561095"
 }

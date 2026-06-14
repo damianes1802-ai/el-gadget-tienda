@@ -14,10 +14,11 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7148-1.jpg"
   ],
   "cantidad_imagenes": 8,
+  "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bufandon-de-tela-colores-vivos.html",
-  "fecha_scraping": "2026-06-13T13:36:43.229202",
+  "fecha_scraping": "2026-06-14T09:44:53.148693",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -59,6 +60,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 20500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.983238",
-  "fecha_agotado": "2026-06-13T13:29:58.295081"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.532723",
+  "fecha_agotado": "2026-06-14T09:40:41.539620"
 }

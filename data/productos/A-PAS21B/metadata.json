@@ -10,10 +10,33 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/t/a/talles_bikinis_15.png"
   ],
   "cantidad_imagenes": 4,
+  "variantes_internas": [
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "S",
+      "sku_interno": "A-PAS21B-S",
+      "imagenes": []
+    },
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "M",
+      "sku_interno": "A-PAS21B-M",
+      "imagenes": []
+    },
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "L",
+      "sku_interno": "A-PAS21B-L",
+      "imagenes": []
+    }
+  ],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-enteriza-cancun.html",
-  "fecha_scraping": "2026-06-13T13:37:08.187230",
+  "fecha_scraping": "2026-06-14T09:44:55.871107",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -23,7 +46,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.487811",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:24.036122",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS21B_002",
@@ -51,28 +74,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.917522",
-  "variantes_internas": [
-    {
-      "atributo": "talle",
-      "etiqueta_atributo": "Talle",
-      "valor": "S",
-      "sku_interno": "A-PAS21B-S",
-      "imagenes": []
-    },
-    {
-      "atributo": "talle",
-      "etiqueta_atributo": "Talle",
-      "valor": "M",
-      "sku_interno": "A-PAS21B-M",
-      "imagenes": []
-    },
-    {
-      "atributo": "talle",
-      "etiqueta_atributo": "Talle",
-      "valor": "L",
-      "sku_interno": "A-PAS21B-L",
-      "imagenes": []
-    }
-  ]
+  "fecha_calculo_precio": "2026-06-14T09:52:33.463811"
 }

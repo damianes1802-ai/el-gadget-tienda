@@ -8,10 +8,11 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/s/c/screenshot_20231207_095130_chrome-935b28678ca3725f8c17019535285390-1024-1024.jpg"
   ],
   "cantidad_imagenes": 2,
+  "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/sacapuntas-astronauta-caja-x-24-unidades.html",
-  "fecha_scraping": "2026-06-13T13:36:13.282782",
+  "fecha_scraping": "2026-06-14T09:45:23.014570",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -21,7 +22,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.452004",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:24.001044",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6167_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6167_002"
@@ -47,5 +48,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 91500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.990802"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.540726"
 }

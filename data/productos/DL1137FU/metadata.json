@@ -34,7 +34,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 37000.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.945711",
+  "fecha_calculo_precio": "2026-06-14T09:52:33.493453",
   "item_group_id": "grupo_024",
   "variante_atributo": "cantidad",
   "variante_valor": "x30",
@@ -42,7 +42,7 @@
   "es_variante": true,
   "fecha_actualizacion_variantes": "2026-02-01T19:05:03.897597",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-13T13:29:58.272447",
+  "fecha_agotado": "2026-06-14T09:40:41.568722",
   "availability": "out of stock",
   "imagenes_cloudinary": []
 }

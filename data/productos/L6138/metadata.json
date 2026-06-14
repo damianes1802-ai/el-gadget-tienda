@@ -11,10 +11,11 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/7/1/718qjvtowhl._ac_sl1500_.jpg"
   ],
   "cantidad_imagenes": 5,
+  "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/boligrafo-infantil-pompon-x12-unidades.html",
-  "fecha_scraping": "2026-06-13T13:36:39.821664",
+  "fecha_scraping": "2026-06-14T09:46:32.592226",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -24,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.452313",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:23.990416",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_002",
@@ -53,5 +54,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 46000.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.989615"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.539451"
 }

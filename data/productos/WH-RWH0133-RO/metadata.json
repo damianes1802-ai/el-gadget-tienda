@@ -14,10 +14,11 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_9__2.jpg"
   ],
   "cantidad_imagenes": 8,
+  "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/juguete-regadera-para-ba-era.html",
-  "fecha_scraping": "2026-06-13T13:35:51.691058",
+  "fecha_scraping": "2026-06-14T09:46:16.602905",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -27,7 +28,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.440270",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:23.988545",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_002",
@@ -59,5 +60,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:42.027924"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.578719"
 }

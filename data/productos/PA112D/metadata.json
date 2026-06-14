@@ -10,10 +10,26 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/4/_/4_9_5.png"
   ],
   "cantidad_imagenes": 4,
+  "variantes_internas": [
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "S",
+      "sku_interno": "PA112DS",
+      "imagenes": []
+    },
+    {
+      "atributo": "talle",
+      "etiqueta_atributo": "Talle",
+      "valor": "M",
+      "sku_interno": "PA112DM",
+      "imagenes": []
+    }
+  ],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/blusa-manga-larga-saten-elastico-estilo-chic-lisa.html",
-  "fecha_scraping": "2026-06-13T13:35:13.365921",
+  "fecha_scraping": "2026-06-14T09:46:02.516579",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda",
@@ -26,7 +42,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.432587",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:23.982571",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112D_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112D_002",
@@ -54,5 +70,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 39000.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:42.008909"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.559120"
 }

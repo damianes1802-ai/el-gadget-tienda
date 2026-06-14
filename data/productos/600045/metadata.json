@@ -40,14 +40,14 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 7500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.893972",
+  "fecha_calculo_precio": "2026-06-14T09:52:33.438574",
   "es_variante": false,
   "item_group_id": "600045",
   "fecha_actualizacion_variantes": "2026-02-01T19:05:06.616297",
   "stock": 0,
   "fecha_sincronizacion_droppers": "2026-02-16T20:14:35.334258",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-13T13:29:58.299308",
+  "fecha_agotado": "2026-06-14T09:40:41.555484",
   "availability": "out of stock",
   "imagenes_cloudinary": []
 }

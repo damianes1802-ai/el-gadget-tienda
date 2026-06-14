@@ -86,6 +86,10 @@
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
+      <div class="variants-section" id="internalVariantsSection">
+        <label class="variant-label">Talle</label>
+        <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)" disabled><option value="S">S</option></select>
+      </div>
 
       <!-- Descripción -->
       <div class="product-description">
@@ -202,7 +206,7 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-PAS17B", "nombre": "Bikini Traje de Baño Enteriza Negra", "precio_venta": 30500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Bikini Traje de Baño Enteriza Black.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "A-PAS17B", "nombre": "Bikini Traje de Baño Enteriza Negra", "precio_venta": 30500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Bikini Traje de Baño Enteriza Black.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS17B-S", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

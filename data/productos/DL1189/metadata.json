@@ -12,10 +12,11 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/a/captura_de_pantalla_2022-04-07_130005_1.png"
   ],
   "cantidad_imagenes": 6,
+  "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/guante-para-peinar-saca-pelos-perro-gato-pelusa-animales-1.html",
-  "fecha_scraping": "2026-06-13T13:36:18.287687",
+  "fecha_scraping": "2026-06-14T09:45:50.150361",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios para Mascotas"
@@ -25,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.484507",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:24.028788",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1189_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1189_002",
@@ -55,5 +56,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 7500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.957093"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.505393"
 }

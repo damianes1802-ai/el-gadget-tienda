@@ -21,10 +21,57 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/h/4/h4e0fe4c9f9a14546be17d487c1d71646q.png"
   ],
   "cantidad_imagenes": 15,
+  "variantes_internas": [
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Beige",
+      "sku_interno": "G-TERMOTAPAMADE-BE",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/i/m/image.png"
+      ]
+    },
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Celeste",
+      "sku_interno": "G-TERMOTAPAMADE-CE",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/i/m/image_1.png"
+      ]
+    },
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Gris",
+      "sku_interno": "G-TERMOTAPAMADE-GR",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/i/m/image_2.png"
+      ]
+    },
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Marron",
+      "sku_interno": "G-TERMOTAPAMADE-MA",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/i/m/image_2_1.png"
+      ]
+    },
+    {
+      "atributo": "color",
+      "etiqueta_atributo": "Color",
+      "valor": "Naranja",
+      "sku_interno": "G-TERMOTAPAMADE-NA",
+      "imagenes": [
+        "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/i/m/image_2_2.png"
+      ]
+    }
+  ],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botella-termica-supreme-400ml.html",
-  "fecha_scraping": "2026-06-13T13:35:27.935122",
+  "fecha_scraping": "2026-06-14T09:45:57.594704",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -34,7 +81,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.474042",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:24.014480",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_002",
@@ -73,5 +120,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 27000.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.985835"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.535449"
 }

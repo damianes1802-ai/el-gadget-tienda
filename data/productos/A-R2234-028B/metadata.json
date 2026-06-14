@@ -10,10 +10,11 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_-_2024-09-06t134127.382.png"
   ],
   "cantidad_imagenes": 4,
+  "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/lampara-led-cisne-efecto-infinito-rojo-espejado.html",
-  "fecha_scraping": "2026-06-13T13:36:29.897516",
+  "fecha_scraping": "2026-06-14T09:47:03.487668",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Deco"
@@ -23,7 +24,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-13T13:42:42.465821",
+  "fecha_mapeo_categorias": "2026-06-14T09:51:24.009999",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028B_002",
@@ -51,5 +52,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 23500.0,
-  "fecha_calculo_precio": "2026-06-13T13:44:41.922170"
+  "fecha_calculo_precio": "2026-06-14T09:52:33.468927"
 }
