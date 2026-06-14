@@ -19,12 +19,15 @@ http://localhost:8000/docs (Documentación interactiva)
 http://localhost:8000 (API)
 """
 
-from fastapi import FastAPI, HTTPException, Query, Header, Request
+from fastapi import FastAPI, HTTPException, Query, Header, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import sqlite3
 import shutil
 import sys
+import uuid
+import csv
+import io
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr
 from pathlib import Path
@@ -35,7 +38,10 @@ import json
 sys.path.append(str(Path(__file__).parent))
 from utils.config import Config
 from utils.facturacion_afip import facturacion_habilitada, generar_factura_c
-from utils.email_notificaciones import email_habilitado, enviar_email_confirmacion, enviar_email_tracking
+from utils.email_notificaciones import (
+    email_habilitado, enviar_email_confirmacion, enviar_email_tracking,
+    enviar_email_bienvenida,
+)
 
 # Configuración
 _env = Config.cargar_env()
@@ -105,6 +111,7 @@ class Producto(BaseModel):
     link_producto: Optional[str] = ""
     url_amigable: Optional[str] = ""
     variantes_internas: Optional[str] = ""
+    precio_oferta: Optional[float] = None
 
 
 class Cliente(BaseModel):
@@ -138,6 +145,7 @@ class CrearOrden(BaseModel):
     cliente: Cliente
     items: List[ItemCarrito]
     notas: Optional[str] = ""
+    codigo_descuento: Optional[str] = None
 
 
 class ActualizarTracking(BaseModel):
@@ -159,6 +167,41 @@ class SolicitudArrepentimiento(BaseModel):
     orden_id: int
     email: EmailStr
     motivo: Optional[str] = ""
+
+
+class Registro(BaseModel):
+    """Modelo para el registro de usuarios (popup de bienvenida)"""
+    nombre: str
+    email: EmailStr
+    telefono: Optional[str] = ""
+
+
+class Descuento(BaseModel):
+    """Modelo para crear/editar una campaña de descuento (códigos, descuentos
+    programados por fecha y/o banners promocionales) desde el Panel El Gadget"""
+    nombre: str
+    tipo: str = "porcentaje"  # 'porcentaje' | 'fijo'
+    valor: float = 0
+    alcance: str = "todos"  # 'todos' | 'categoria' | 'skus'
+    categoria: Optional[str] = ""
+    skus: Optional[List[str]] = []
+    codigo: Optional[str] = None
+    email_asociado: Optional[str] = None
+    fecha_inicio: Optional[str] = None
+    fecha_fin: Optional[str] = None
+    activo: bool = True
+    uso_maximo: Optional[int] = None
+    mostrar_banner: bool = False
+    banner_titulo: Optional[str] = ""
+    banner_texto: Optional[str] = ""
+
+
+class ValidarDescuento(BaseModel):
+    """Modelo para validar un código de descuento en el checkout"""
+    codigo: str
+    email: Optional[str] = None
+    subtotal: float
+    skus: Optional[List[str]] = []
 
 
 # ============================================================================
@@ -238,6 +281,8 @@ def migrar_db():
         ("email_confirmacion_enviado", "INTEGER DEFAULT 0"),
         ("costo_envio", "REAL DEFAULT 0"),
         ("zona_envio", "TEXT DEFAULT ''"),
+        ("descuento_codigo", "TEXT"),
+        ("descuento_monto", "REAL DEFAULT 0"),
     ]
     cursor.execute("PRAGMA table_info(ordenes)")
     columnas_ordenes_existentes = {row[1] for row in cursor.fetchall()}
@@ -256,6 +301,45 @@ def migrar_db():
             fecha TEXT DEFAULT (datetime('now')),
             respuesta_admin TEXT DEFAULT '',
             FOREIGN KEY (orden_id) REFERENCES ordenes(id)
+        )
+    """)
+
+    # Usuarios registrados desde el popup de bienvenida (10% OFF en la primera compra)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS usuarios_registrados (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT,
+            email TEXT UNIQUE,
+            telefono TEXT DEFAULT '',
+            codigo_descuento TEXT UNIQUE,
+            descuento_usado INTEGER DEFAULT 0,
+            creado_at TEXT DEFAULT (datetime('now'))
+        )
+    """)
+
+    # Campañas de descuento: códigos, descuentos programados por fecha
+    # (sobre todos los productos, una categoría o SKUs puntuales) y/o
+    # banners promocionales para la home
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS descuentos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            tipo TEXT NOT NULL DEFAULT 'porcentaje',
+            valor REAL NOT NULL DEFAULT 0,
+            alcance TEXT NOT NULL DEFAULT 'todos',
+            categoria TEXT DEFAULT '',
+            skus TEXT DEFAULT '[]',
+            codigo TEXT UNIQUE,
+            email_asociado TEXT,
+            fecha_inicio TEXT,
+            fecha_fin TEXT,
+            activo INTEGER DEFAULT 1,
+            uso_maximo INTEGER,
+            usos_actuales INTEGER DEFAULT 0,
+            mostrar_banner INTEGER DEFAULT 0,
+            banner_titulo TEXT DEFAULT '',
+            banner_texto TEXT DEFAULT '',
+            creado_at TEXT DEFAULT (datetime('now'))
         )
     """)
 
@@ -297,6 +381,91 @@ def calcular_envio(provincia: str, partido: str = "") -> dict:
         "plazo": zona["plazo"],
     }
 
+
+def obtener_descuentos_programados(cursor) -> list:
+    """Devuelve las campañas de descuento automáticas (sin código) vigentes,
+    es decir las que reflejan un precio_oferta directamente en el catálogo."""
+    ahora = datetime.now().strftime("%Y-%m-%d")
+    cursor.execute("""
+        SELECT * FROM descuentos
+        WHERE codigo IS NULL AND activo = 1
+        AND (fecha_inicio IS NULL OR fecha_inicio = '' OR fecha_inicio <= ?)
+        AND (fecha_fin IS NULL OR fecha_fin = '' OR fecha_fin >= ?)
+    """, (ahora, ahora))
+    return [dict(r) for r in cursor.fetchall()]
+
+
+def calcular_precio_oferta(producto: dict, descuentos_programados: list) -> Optional[float]:
+    """Calcula el precio de oferta de un producto según las campañas vigentes
+    que lo alcancen (por SKU, categoría o todos los productos)."""
+    precio_venta = producto.get("precio_venta") or 0
+    mejor_precio = None
+
+    for d in descuentos_programados:
+        alcance = d.get("alcance")
+        aplica = False
+
+        if alcance == "todos":
+            aplica = True
+        elif alcance == "categoria" and d.get("categoria") and d.get("categoria") == producto.get("categoria"):
+            aplica = True
+        elif alcance == "skus":
+            try:
+                skus = json.loads(d.get("skus") or "[]")
+            except (TypeError, ValueError):
+                skus = []
+            aplica = producto.get("sku") in skus
+
+        if not aplica:
+            continue
+
+        if d.get("tipo") == "porcentaje":
+            precio = precio_venta * (1 - (d.get("valor") or 0) / 100)
+        else:
+            precio = precio_venta - (d.get("valor") or 0)
+        precio = max(precio, 0)
+
+        if mejor_precio is None or precio < mejor_precio:
+            mejor_precio = precio
+
+    if mejor_precio is not None and mejor_precio < precio_venta:
+        return round(mejor_precio, 2)
+    return None
+
+
+def _validar_descuento_row(d: Optional[dict], email: Optional[str], subtotal: float, skus: Optional[List[str]] = None) -> dict:
+    """Valida una campaña de descuento con código contra el email y el
+    subtotal del carrito, y calcula el monto a descontar."""
+    if not d:
+        return {"valido": False, "motivo": "Código de descuento inválido"}
+
+    if not d.get("activo"):
+        return {"valido": False, "motivo": "Este código ya no está activo"}
+
+    ahora = datetime.now().strftime("%Y-%m-%d")
+    if d.get("fecha_inicio") and ahora < d["fecha_inicio"]:
+        return {"valido": False, "motivo": "Este código todavía no está vigente"}
+    if d.get("fecha_fin") and ahora > d["fecha_fin"]:
+        return {"valido": False, "motivo": "Este código expiró"}
+
+    if d.get("uso_maximo") is not None and (d.get("usos_actuales") or 0) >= d["uso_maximo"]:
+        return {"valido": False, "motivo": "Este código alcanzó el límite de usos"}
+
+    if d.get("email_asociado"):
+        if not email or email.strip().lower() != d["email_asociado"].strip().lower():
+            return {"valido": False, "motivo": "Este código no corresponde a tu cuenta"}
+
+    if d.get("tipo") == "porcentaje":
+        monto = round(subtotal * (d.get("valor") or 0) / 100, 2)
+    else:
+        monto = round(min(d.get("valor") or 0, subtotal), 2)
+
+    return {
+        "valido": True,
+        "monto_descuento": monto,
+        "descripcion": d.get("nombre", ""),
+        "id": d.get("id"),
+    }
 
 
 # ============================================================================
@@ -385,9 +554,15 @@ def listar_productos(
     
     cursor.execute(query, params)
     productos = cursor.fetchall()
+
+    descuentos_programados = obtener_descuentos_programados(cursor)
     conn.close()
-    
-    return [dict(p) for p in productos]
+
+    productos_dict = [dict(p) for p in productos]
+    for p in productos_dict:
+        p["precio_oferta"] = calcular_precio_oferta(p, descuentos_programados)
+
+    return productos_dict
 
 
 def parsear_imagenes(producto_dict: dict) -> list:
@@ -432,6 +607,10 @@ def detalle_producto(sku: str):
         raise HTTPException(status_code=404, detail="Producto no encontrado")
     
     producto_dict = dict(producto)
+
+    # 1b. Calcular precio de oferta si hay alguna campaña programada vigente
+    descuentos_programados = obtener_descuentos_programados(cursor)
+    producto_dict['precio_oferta'] = calcular_precio_oferta(producto_dict, descuentos_programados)
 
     # 2. Parsear imágenes (convertir string a array)
     producto_dict['imagenes'] = parsear_imagenes(producto_dict)
@@ -559,8 +738,260 @@ def productos_destacados(limit: int = 10):
     """, (limit,))
     productos = cursor.fetchall()
     conn.close()
-    
+
     return [dict(p) for p in productos]
+
+
+# ============================================================================
+# ENDPOINTS - REGISTRO DE USUARIOS Y DESCUENTOS
+# ============================================================================
+
+@app.post("/api/registro")
+def registrar_usuario(registro: Registro):
+    """
+    Registra un usuario desde el popup de bienvenida y le asigna un código
+    de descuento del 10% para su primera compra. Si el email ya estaba
+    registrado, devuelve el código existente.
+    """
+    conn = get_db()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("SELECT * FROM usuarios_registrados WHERE email = ?", (registro.email,))
+        existente = cursor.fetchone()
+
+        if existente:
+            existente_dict = dict(existente)
+            cursor.execute(
+                "UPDATE usuarios_registrados SET nombre = ?, telefono = ? WHERE email = ?",
+                (registro.nombre, registro.telefono or "", registro.email)
+            )
+            conn.commit()
+            conn.close()
+            return {
+                "mensaje": "Ya estabas registrado",
+                "codigo_descuento": existente_dict.get("codigo_descuento"),
+                "nuevo": False,
+            }
+
+        codigo = f"BIENVENIDO-{uuid.uuid4().hex[:6].upper()}"
+
+        cursor.execute(
+            "INSERT INTO usuarios_registrados (nombre, email, telefono, codigo_descuento) VALUES (?, ?, ?, ?)",
+            (registro.nombre, registro.email, registro.telefono or "", codigo)
+        )
+        cursor.execute("""
+            INSERT INTO descuentos (nombre, tipo, valor, alcance, codigo, email_asociado, activo, uso_maximo)
+            VALUES (?, 'porcentaje', 10, 'todos', ?, ?, 1, 1)
+        """, (f"Bienvenida {registro.email}", codigo, registro.email))
+
+        conn.commit()
+        conn.close()
+
+        if email_habilitado():
+            try:
+                enviar_email_bienvenida(registro.nombre, registro.email, codigo)
+            except Exception as e:
+                print(f"⚠️ No se pudo enviar email de bienvenida: {e}")
+
+        return {"mensaje": "Registro exitoso", "codigo_descuento": codigo, "nuevo": True}
+
+    except Exception as e:
+        conn.rollback()
+        conn.close()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/admin/usuarios")
+def listar_usuarios_registrados(x_admin_password: Optional[str] = Header(None)):
+    """Lista los usuarios registrados desde el popup de bienvenida (solo admin)"""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM usuarios_registrados ORDER BY creado_at DESC")
+    usuarios = cursor.fetchall()
+    conn.close()
+
+    return [dict(u) for u in usuarios]
+
+
+@app.get("/api/admin/usuarios/csv")
+def exportar_usuarios_csv(x_admin_password: Optional[str] = Header(None)):
+    """Exporta los usuarios registrados como CSV (solo admin)"""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM usuarios_registrados ORDER BY creado_at DESC")
+    usuarios = cursor.fetchall()
+    conn.close()
+
+    buffer = io.StringIO()
+    writer = csv.writer(buffer)
+    writer.writerow(["id", "nombre", "email", "telefono", "codigo_descuento", "descuento_usado", "creado_at"])
+    for u in usuarios:
+        u = dict(u)
+        writer.writerow([
+            u["id"], u["nombre"], u["email"], u["telefono"],
+            u["codigo_descuento"], u["descuento_usado"], u["creado_at"],
+        ])
+
+    return Response(
+        content=buffer.getvalue(),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=usuarios_el_gadget.csv"},
+    )
+
+
+@app.get("/api/descuentos/activos")
+def descuentos_activos():
+    """Devuelve la campaña activa (vigente) que deba mostrarse como banner
+    promocional en la home, si existe."""
+    conn = get_db()
+    cursor = conn.cursor()
+
+    ahora = datetime.now().strftime("%Y-%m-%d")
+    cursor.execute("""
+        SELECT * FROM descuentos
+        WHERE mostrar_banner = 1 AND activo = 1
+        AND (fecha_inicio IS NULL OR fecha_inicio = '' OR fecha_inicio <= ?)
+        AND (fecha_fin IS NULL OR fecha_fin = '' OR fecha_fin >= ?)
+        ORDER BY id DESC LIMIT 1
+    """, (ahora, ahora))
+    banner = cursor.fetchone()
+    conn.close()
+
+    if not banner:
+        return {"banner": None}
+
+    banner_dict = dict(banner)
+    return {
+        "banner": {
+            "titulo": banner_dict.get("banner_titulo") or "",
+            "texto": banner_dict.get("banner_texto") or "",
+            "codigo": banner_dict.get("codigo"),
+        }
+    }
+
+
+@app.post("/api/descuentos/validar")
+def validar_descuento(datos: ValidarDescuento):
+    """Valida un código de descuento y calcula el monto a aplicar sobre el subtotal"""
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM descuentos WHERE UPPER(codigo) = UPPER(?)", (datos.codigo,))
+    fila = cursor.fetchone()
+    conn.close()
+
+    resultado = _validar_descuento_row(dict(fila) if fila else None, datos.email, datos.subtotal, datos.skus)
+    return resultado
+
+
+@app.get("/api/admin/descuentos")
+def listar_descuentos(x_admin_password: Optional[str] = Header(None)):
+    """Lista todas las campañas de descuento (solo admin)"""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM descuentos ORDER BY id DESC")
+    descuentos = cursor.fetchall()
+    conn.close()
+
+    resultado = []
+    for d in descuentos:
+        d = dict(d)
+        try:
+            d["skus"] = json.loads(d.get("skus") or "[]")
+        except (TypeError, ValueError):
+            d["skus"] = []
+        resultado.append(d)
+
+    return resultado
+
+
+@app.post("/api/admin/descuentos")
+def crear_descuento(datos: Descuento, x_admin_password: Optional[str] = Header(None)):
+    """Crea una nueva campaña de descuento (código, programado o banner) (solo admin)"""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO descuentos (
+            nombre, tipo, valor, alcance, categoria, skus, codigo, email_asociado,
+            fecha_inicio, fecha_fin, activo, uso_maximo, mostrar_banner, banner_titulo, banner_texto
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (
+        datos.nombre, datos.tipo, datos.valor, datos.alcance, datos.categoria or "",
+        json.dumps(datos.skus or []), (datos.codigo or None), (datos.email_asociado or None),
+        (datos.fecha_inicio or None), (datos.fecha_fin or None), 1 if datos.activo else 0,
+        datos.uso_maximo, 1 if datos.mostrar_banner else 0,
+        datos.banner_titulo or "", datos.banner_texto or "",
+    ))
+    conn.commit()
+    descuento_id = cursor.lastrowid
+    conn.close()
+
+    return {"id": descuento_id, "mensaje": "Descuento creado"}
+
+
+@app.patch("/api/admin/descuentos/{descuento_id}")
+def editar_descuento(descuento_id: int, datos: Descuento, x_admin_password: Optional[str] = Header(None)):
+    """Edita una campaña de descuento existente (solo admin)"""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id FROM descuentos WHERE id = ?", (descuento_id,))
+    if not cursor.fetchone():
+        conn.close()
+        raise HTTPException(status_code=404, detail="Descuento no encontrado")
+
+    cursor.execute("""
+        UPDATE descuentos SET
+            nombre = ?, tipo = ?, valor = ?, alcance = ?, categoria = ?, skus = ?,
+            codigo = ?, email_asociado = ?, fecha_inicio = ?, fecha_fin = ?,
+            activo = ?, uso_maximo = ?, mostrar_banner = ?, banner_titulo = ?, banner_texto = ?
+        WHERE id = ?
+    """, (
+        datos.nombre, datos.tipo, datos.valor, datos.alcance, datos.categoria or "",
+        json.dumps(datos.skus or []), (datos.codigo or None), (datos.email_asociado or None),
+        (datos.fecha_inicio or None), (datos.fecha_fin or None), 1 if datos.activo else 0,
+        datos.uso_maximo, 1 if datos.mostrar_banner else 0,
+        datos.banner_titulo or "", datos.banner_texto or "",
+        descuento_id,
+    ))
+    conn.commit()
+    conn.close()
+
+    return {"mensaje": "Descuento actualizado"}
+
+
+@app.delete("/api/admin/descuentos/{descuento_id}")
+def eliminar_descuento(descuento_id: int, x_admin_password: Optional[str] = Header(None)):
+    """Elimina una campaña de descuento (solo admin)"""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id FROM descuentos WHERE id = ?", (descuento_id,))
+    if not cursor.fetchone():
+        conn.close()
+        raise HTTPException(status_code=404, detail="Descuento no encontrado")
+
+    cursor.execute("DELETE FROM descuentos WHERE id = ?", (descuento_id,))
+    conn.commit()
+    conn.close()
+
+    return {"mensaje": "Descuento eliminado"}
 
 
 # ============================================================================
@@ -675,17 +1106,49 @@ def crear_orden(orden: CrearOrden):
                 'subtotal': subtotal
             })
         
+        # 2.2 Validar y aplicar código de descuento (sobre el subtotal de productos)
+        subtotal_productos = total
+        descuento_codigo = None
+        descuento_monto = 0
+        descuento_fila = None
+        if orden.codigo_descuento:
+            cursor.execute("SELECT * FROM descuentos WHERE UPPER(codigo) = UPPER(?)", (orden.codigo_descuento,))
+            fila = cursor.fetchone()
+            resultado = _validar_descuento_row(
+                dict(fila) if fila else None, orden.cliente.email, total,
+                [item.sku for item in orden.items]
+            )
+            if not resultado.get("valido"):
+                raise HTTPException(status_code=400, detail=resultado.get("motivo", "Código de descuento inválido"))
+
+            descuento_fila = dict(fila)
+            descuento_codigo = descuento_fila["codigo"]
+            descuento_monto = resultado["monto_descuento"]
+            total -= descuento_monto
+
         # 2.1 Calcular costo de envío según zona del cliente
         envio = calcular_envio(orden.cliente.provincia or "", orden.cliente.partido or "")
         total += envio["costo"]
 
         # 3. Crear orden
         cursor.execute("""
-            INSERT INTO ordenes (cliente_id, total, estado, notas, costo_envio, zona_envio)
-            VALUES (?, ?, 'pendiente_procesar', ?, ?, ?)
-        """, (cliente_id, total, orden.notas or "", envio["costo"], envio["zona"]))
+            INSERT INTO ordenes (cliente_id, total, estado, notas, costo_envio, zona_envio, descuento_codigo, descuento_monto)
+            VALUES (?, ?, 'pendiente_procesar', ?, ?, ?, ?, ?)
+        """, (cliente_id, total, orden.notas or "", envio["costo"], envio["zona"], descuento_codigo, descuento_monto))
 
         orden_id = cursor.lastrowid
+
+        # 3.1 Registrar el uso del código de descuento
+        if descuento_fila:
+            cursor.execute(
+                "UPDATE descuentos SET usos_actuales = usos_actuales + 1 WHERE id = ?",
+                (descuento_fila["id"],)
+            )
+            if descuento_fila.get("email_asociado"):
+                cursor.execute(
+                    "UPDATE usuarios_registrados SET descuento_usado = 1 WHERE email = ?",
+                    (descuento_fila["email_asociado"],)
+                )
         
         # 4. Agregar items
         for item in items_con_precio:
@@ -710,12 +1173,19 @@ def crear_orden(orden: CrearOrden):
         # ── Generar preferencia de MercadoPago ──
         mp_checkout_url = None
         try:
+            # Si hay descuento, se prorratea entre los items para que el total
+            # cobrado por MP coincida con el total de la orden (MP no admite
+            # ítems con precio negativo)
+            factor_descuento = (
+                (subtotal_productos - descuento_monto) / subtotal_productos
+                if descuento_monto and subtotal_productos > 0 else 1
+            )
             mp_items = [
                 {
                     "id": item['sku'],
                     "title": item['nombre'],
                     "quantity": item['cantidad'],
-                    "unit_price": float(item['precio_unitario']),
+                    "unit_price": round(float(item['precio_unitario']) * factor_descuento, 2),
                     "currency_id": "ARS"
                 }
                 for item in items_con_precio
@@ -777,6 +1247,8 @@ def crear_orden(orden: CrearOrden):
             "zona_envio": envio["zona"],
             "zona_envio_nombre": envio["zona_nombre"],
             "plazo_envio": envio["plazo"],
+            "descuento_codigo": descuento_codigo,
+            "descuento_monto": descuento_monto,
             "mensaje": "Orden creada exitosamente"
         }
         
