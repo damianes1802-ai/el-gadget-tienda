@@ -35,4 +35,4 @@ python-dotenv==1.0.0
 tqdm==4.66.1
 
 # App de escritorio (Panel El Gadget)
-pywebview==4.4.1
+pywebview==6.2.1

@@ -154,6 +154,7 @@ class Api:
 def main():
     base_dir = Path(__file__).parent.parent
     index_path = base_dir / "admin_app" / "index.html"
+    icon_path = base_dir / "admin_app" / "assets" / "icon.ico"
 
     webview.create_window(
         "El Gadget — Panel",
@@ -163,7 +164,7 @@ def main():
         height=860,
         min_size=(1024, 640),
     )
-    webview.start()
+    webview.start(icon=str(icon_path))
 
 
 if __name__ == "__main__":
