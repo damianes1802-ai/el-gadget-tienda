@@ -300,20 +300,25 @@ def listar_productos(
     categoria: Optional[str] = None,
     search: Optional[str] = None,
     limit: int = Query(500, le=1000),
-    offset: int = 0
+    offset: int = 0,
+    incluir_agotados: bool = False
 ):
     """
     Lista productos con filtros opcionales
-    
+
     - **categoria**: Filtrar por categoría
     - **search**: Buscar en nombre y descripción
     - **limit**: Cantidad máxima de resultados (default: 500, max: 1000)
     - **offset**: Desplazamiento para paginación
+    - **incluir_agotados**: Si es true, incluye productos sin stock (default: false)
     """
     conn = get_db()
     cursor = conn.cursor()
-    
-    query = "SELECT * FROM productos WHERE stock > 0"
+
+    if incluir_agotados:
+        query = "SELECT * FROM productos WHERE 1=1"
+    else:
+        query = "SELECT * FROM productos WHERE stock > 0"
     params = []
     
     if categoria:
@@ -1007,6 +1012,29 @@ def verificar_admin(x_admin_password: Optional[str] = Header(None)):
     return {"autorizado": True}
 
 
+@app.get("/api/clientes")
+def listar_clientes(x_admin_password: Optional[str] = Header(None)):
+    """Lista clientes con cantidad de órdenes y total comprado (solo admin)"""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT c.*,
+               COUNT(o.id) AS cantidad_ordenes,
+               COALESCE(SUM(CASE WHEN o.estado_pago = 'approved' THEN o.total ELSE 0 END), 0) AS total_comprado
+        FROM clientes c
+        LEFT JOIN ordenes o ON o.cliente_id = c.id
+        GROUP BY c.id
+        ORDER BY c.id DESC
+    """)
+    clientes = cursor.fetchall()
+    conn.close()
+
+    return [dict(c) for c in clientes]
+
+
 # ============================================================================
 # ENDPOINTS - SEGUIMIENTO DE PEDIDOS
 # ============================================================================
@@ -1179,9 +1207,43 @@ def obtener_estadisticas():
     # Ventas totales
     cursor.execute("SELECT SUM(total) as ventas FROM ordenes WHERE estado_pago = 'approved'")
     ventas = cursor.fetchone()['ventas'] or 0
-    
+
+    # Ventas por mes (últimos 6 meses con ventas)
+    cursor.execute("""
+        SELECT strftime('%Y-%m', fecha) as mes, SUM(total) as total, COUNT(*) as cantidad
+        FROM ordenes
+        WHERE estado_pago = 'approved'
+        GROUP BY mes
+        ORDER BY mes DESC
+        LIMIT 6
+    """)
+    ventas_por_mes = [dict(r) for r in cursor.fetchall()][::-1]
+
+    # Top 5 productos por cantidad vendida
+    cursor.execute("""
+        SELECT oi.producto_sku as sku, oi.producto_nombre as nombre,
+               SUM(oi.cantidad) as cantidad_vendida, SUM(oi.subtotal) as total_vendido
+        FROM orden_items oi
+        JOIN ordenes o ON oi.orden_id = o.id
+        WHERE o.estado_pago = 'approved'
+        GROUP BY oi.producto_sku, oi.producto_nombre
+        ORDER BY cantidad_vendida DESC
+        LIMIT 5
+    """)
+    top_productos = [dict(r) for r in cursor.fetchall()]
+
+    # Facturación AFIP
+    cursor.execute("SELECT COUNT(*) as total FROM ordenes WHERE factura_cae IS NOT NULL")
+    facturas_emitidas = cursor.fetchone()['total']
+
+    cursor.execute("""
+        SELECT COUNT(*) as total FROM ordenes
+        WHERE estado_pago = 'approved' AND factura_cae IS NULL
+    """)
+    pedidos_sin_facturar = cursor.fetchone()['total']
+
     conn.close()
-    
+
     return {
         "productos": {
             "total": total_productos,
@@ -1192,7 +1254,11 @@ def obtener_estadisticas():
             "total": total_ordenes,
             "pendientes": ordenes_pendientes
         },
-        "ventas_totales": ventas
+        "ventas_totales": ventas,
+        "ventas_por_mes": ventas_por_mes,
+        "top_productos": top_productos,
+        "facturas_emitidas": facturas_emitidas,
+        "pedidos_sin_facturar": pedidos_sin_facturar
     }
 
 
