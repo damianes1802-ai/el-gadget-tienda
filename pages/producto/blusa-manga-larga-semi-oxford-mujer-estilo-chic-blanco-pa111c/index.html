@@ -69,11 +69,11 @@
 <div class="product-wrap" id="productWrap">
   <div class="product-grid">
     <!-- Galería -->
-    <div class="gallery">
+    <div class="gallery" id="gallery">
       <div class="main-image-wrap">
-        <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_001" alt="Blusa Manga Larga Semi Oxford Mujer Estilo Chic BLANCO" onclick="zoomImage()">
+        <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_001" alt="Blusa Manga Larga Semi Oxford Mujer Estilo Chic BLANCO" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_001" class="thumbnail active" alt="Blusa Manga Larga Semi Oxford Mujer Estilo Chic BLANCO" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_002" class="thumbnail" alt="Blusa Manga Larga Semi Oxford Mujer Estilo Chic BLANCO" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_003" class="thumbnail" alt="Blusa Manga Larga Semi Oxford Mujer Estilo Chic BLANCO" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_004" class="thumbnail" alt="Blusa Manga Larga Semi Oxford Mujer Estilo Chic BLANCO" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_004', 3)"></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_001" class="thumbnail active" alt="Blusa Manga Larga Semi Oxford Mujer Estilo Chic BLANCO" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_002" class="thumbnail" alt="Blusa Manga Larga Semi Oxford Mujer Estilo Chic BLANCO" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_003" class="thumbnail" alt="Blusa Manga Larga Semi Oxford Mujer Estilo Chic BLANCO" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_004" class="thumbnail" alt="Blusa Manga Larga Semi Oxford Mujer Estilo Chic BLANCO" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -223,12 +223,46 @@ const PRODUCTO = {"sku": "PA111C", "nombre": "Blusa Manga Larga Semi Oxford Muje
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 
+let imagenesActuales = PRODUCTO.imagenes || [];
+let imagenIndexActual = 0;
+
 function cambiarImagen(src, index) {
   document.getElementById('mainImage').src = src;
+  imagenIndexActual = index;
   document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
     thumb.classList.toggle('active', i === index);
+    if (i === index) {
+      const cont = thumb.parentElement;
+      cont.scrollTo({ left: thumb.offsetLeft - (cont.clientWidth - thumb.clientWidth) / 2, behavior: 'smooth' });
+    }
   });
 }
+
+function galeriaAnterior() {
+  if (imagenesActuales.length < 2) return;
+  const nuevo = (imagenIndexActual - 1 + imagenesActuales.length) % imagenesActuales.length;
+  cambiarImagen(imagenesActuales[nuevo], nuevo);
+}
+
+function galeriaSiguiente() {
+  if (imagenesActuales.length < 2) return;
+  const nuevo = (imagenIndexActual + 1) % imagenesActuales.length;
+  cambiarImagen(imagenesActuales[nuevo], nuevo);
+}
+
+// Swipe táctil en la imagen principal
+(function initSwipeGaleria() {
+  const wrap = document.querySelector('.main-image-wrap');
+  if (!wrap) return;
+  let touchStartX = 0;
+  wrap.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  wrap.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) galeriaSiguiente(); else galeriaAnterior();
+    }
+  }, { passive: true });
+})();
 
 function zoomImage() {
   const img = document.getElementById('mainImage');
@@ -240,25 +274,19 @@ function renderImagenes(imagenes, nombre) {
   const main = document.getElementById('mainImage');
   if (!imagenes || !imagenes.length) return;
 
+  imagenesActuales = imagenes;
+  imagenIndexActual = 0;
   main.src = imagenes[0];
   main.alt = nombre;
+
+  document.getElementById('gallery').classList.toggle('single-image', imagenes.length <= 1);
 
   const thumbsHtml = imagenes.map((img, i) =>
     `<img src="${img}" class="thumbnail${i === 0 ? ' active' : ''}" alt="${nombre}" onclick="cambiarImagen('${img}', ${i})">`
   ).join('');
 
-  let thumbsContainer = document.getElementById('thumbnails');
-  if (imagenes.length > 1) {
-    if (!thumbsContainer) {
-      thumbsContainer = document.createElement('div');
-      thumbsContainer.id = 'thumbnails';
-      thumbsContainer.className = 'thumbnails';
-      document.querySelector('.gallery').appendChild(thumbsContainer);
-    }
-    thumbsContainer.innerHTML = thumbsHtml;
-  } else if (thumbsContainer) {
-    thumbsContainer.innerHTML = '';
-  }
+  const thumbsContainer = document.getElementById('thumbnails');
+  if (thumbsContainer) thumbsContainer.innerHTML = thumbsHtml;
 }
 
 // Cambiar la variante seleccionada (color/talle): actualiza precio, stock, SKU e imágenes
