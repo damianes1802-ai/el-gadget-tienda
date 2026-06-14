@@ -13,6 +13,11 @@ data/*
 data/precios/*
 !data/precios/config_precios_v2.json
 
+# Config de zonas de envio (necesaria para el calculo de envios en la API)
+!data/envios
+data/envios/*
+!data/envios/zonas_envio.json
+
 # Metadata de productos (estado del pipeline, necesaria en CI)
 # Se ignoran imagenes/subcarpetas, solo se versiona metadata.json
 !data/productos

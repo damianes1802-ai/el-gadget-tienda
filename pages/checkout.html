@@ -155,6 +155,15 @@
         </div>
       </div>
 
+      <div class="field-row" id="partidoRow" style="display:none">
+        <div class="field">
+          <label for="partido">Partido *</label>
+          <select id="partido">
+            <option value="">Seleccione un partido...</option>
+          </select>
+        </div>
+      </div>
+
       <div class="field-row">
         <div class="field">
           <label for="ciudad">Ciudad *</label>
@@ -241,6 +250,52 @@ const carrito = getCarrito();
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
+let zonasEnvioData = null;
+
+async function cargarZonasEnvio() {
+  try {
+    const res = await fetch(`${API_URL}/api/envio/zonas`);
+    zonasEnvioData = await res.json();
+    poblarPartidos();
+    actualizarPartidoVisibility();
+  } catch (e) {
+    console.error('No se pudo cargar el tarifario de envíos', e);
+  }
+  renderResumen();
+}
+
+function poblarPartidos() {
+  const select = document.getElementById('partido');
+  if (!zonasEnvioData) return;
+  const partidos = Object.keys(zonasEnvioData.partidos_buenos_aires).sort();
+  select.innerHTML = '<option value="">Seleccione un partido...</option>' +
+    partidos.map(p => `<option>${p}</option>`).join('');
+}
+
+function calcularEnvio(provincia, partido) {
+  if (!zonasEnvioData || !provincia) return null;
+
+  let zonaId;
+  if (provincia === zonasEnvioData.provincia_caba) {
+    zonaId = zonasEnvioData.zona_caba;
+  } else if (provincia === zonasEnvioData.provincia_buenos_aires) {
+    if (!partido) return null;
+    zonaId = zonasEnvioData.partidos_buenos_aires[partido] || zonasEnvioData.zona_default_buenos_aires;
+  } else {
+    zonaId = zonasEnvioData.zona_default_resto_pais;
+  }
+
+  return { zona: zonaId, ...zonasEnvioData.zonas[zonaId] };
+}
+
+function actualizarPartidoVisibility() {
+  const provincia = document.getElementById('provincia').value;
+  const partidoRow = document.getElementById('partidoRow');
+  const esBuenosAires = zonasEnvioData && provincia === zonasEnvioData.provincia_buenos_aires;
+  partidoRow.style.display = esBuenosAires ? '' : 'none';
+  if (!esBuenosAires) document.getElementById('partido').value = '';
+}
+
 function renderResumen() {
   const itemsEl = document.getElementById('resumenItems');
   const totalesEl = document.getElementById('resumenTotales');
@@ -253,10 +308,10 @@ function renderResumen() {
     return;
   }
 
-  let total = 0;
+  let subtotal = 0;
   itemsEl.innerHTML = carrito.map(item => {
     const sub = item.precio * item.cantidad;
-    total += sub;
+    subtotal += sub;
     return `
       <div class="summary-item">
         <div class="item-info">
@@ -267,9 +322,24 @@ function renderResumen() {
       </div>`;
   }).join('');
 
+  const provincia = document.getElementById('provincia').value;
+  const partido = document.getElementById('partido').value;
+  const envio = calcularEnvio(provincia, partido);
+
+  let envioHtml;
+  let total = subtotal;
+  if (envio) {
+    total += envio.costo;
+    envioHtml = `
+      <div class="summary-line"><span>Envío (${envio.nombre})</span><span>${formatPrice(envio.costo)}</span></div>
+      <div class="summary-line"><span class="shipping-info">${envio.plazo}</span><span></span></div>`;
+  } else {
+    envioHtml = `<div class="summary-line"><span>Envío</span><span class="shipping-badge">Completá tu provincia${provincia === (zonasEnvioData && zonasEnvioData.provincia_buenos_aires) ? ' y partido' : ''}</span></div>`;
+  }
+
   totalesEl.innerHTML = `
-    <div class="summary-line" style="margin-top:10px"><span>Subtotal</span><span>${formatPrice(total)}</span></div>
-    <div class="summary-line"><span>Envío</span><span class="shipping-badge">A coordinar</span></div>
+    <div class="summary-line" style="margin-top:10px"><span>Subtotal</span><span>${formatPrice(subtotal)}</span></div>
+    ${envioHtml}
     <div class="summary-line total"><span>Total</span><span>${formatPrice(total)}</span></div>
   `;
   btnPagar.disabled = false;
@@ -277,6 +347,9 @@ function renderResumen() {
 
 function validarFormulario() {
   const requeridos = ['nombre','apellido','email','telefono','cuit_dni','calle','altura','provincia','ciudad','codigo_postal'];
+  if (zonasEnvioData && document.getElementById('provincia').value === zonasEnvioData.provincia_buenos_aires) {
+    requeridos.push('partido');
+  }
   document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
   let ok = true;
   requeridos.forEach(id => {
@@ -314,6 +387,7 @@ async function procesarPago() {
       direccion: direccionCompleta,
       pais: 'Argentina',
       provincia: c('provincia'),
+      partido: c('partido'),
       ciudad: c('ciudad'),
       codigo_postal: c('codigo_postal')
     },
@@ -345,7 +419,13 @@ async function procesarPago() {
   }
 }
 
-renderResumen();
+document.getElementById('provincia').addEventListener('change', () => {
+  actualizarPartidoVisibility();
+  renderResumen();
+});
+document.getElementById('partido').addEventListener('change', renderResumen);
+
+cargarZonasEnvio();
 </script>
 <div class="toast" id="toast"></div>
 </body>

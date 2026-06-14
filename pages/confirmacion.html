@@ -129,11 +129,17 @@ const mpExtRef    = params.get('external_reference'); // MP envía el orden_id a
 const idFinal     = ordenId || mpExtRef;
 const estadoPago  = mpStatus || null;
 
+let zonasEnvioData = null;
+
 async function iniciar() {
   if (!idFinal) { mostrarSinOrden(); return; }
   try {
     const res = await fetch(`${API_URL}/api/orden/${idFinal}`);
     if (!res.ok) throw new Error();
+    try {
+      const zonasRes = await fetch(`${API_URL}/api/envio/zonas`);
+      if (zonasRes.ok) zonasEnvioData = await zonasRes.json();
+    } catch {}
     mostrarConfirmacion(await res.json(), estadoPago);
   } catch { mostrarError(); }
 }
@@ -171,7 +177,15 @@ function mostrarConfirmacion(orden, estado) {
     </tr>`;
   }).join('');
 
-  const totalFinal = formatPrice(Number(orden.total || totalItems));
+  const costoEnvio = Number(orden.costo_envio || 0);
+  const zonaInfo = zonasEnvioData && orden.zona_envio ? zonasEnvioData.zonas[orden.zona_envio] : null;
+  const totalFinal = formatPrice(Number(orden.total || (totalItems + costoEnvio)));
+
+  const filasFooter = costoEnvio > 0
+    ? `<tr><td colspan="3">Subtotal</td><td>${formatPrice(totalItems)}</td></tr>
+       <tr><td colspan="3">Envío${zonaInfo ? ` (${zonaInfo.nombre})` : ''}</td><td>${formatPrice(costoEnvio)}</td></tr>
+       <tr><td colspan="3">Total</td><td>${totalFinal}</td></tr>`
+    : `<tr><td colspan="3">Total</td><td>${totalFinal}</td></tr>`;
 
   // Dirección
   const dir = [
@@ -226,10 +240,7 @@ function mostrarConfirmacion(orden, estado) {
           <th>Subtotal</th>
         </tr></thead>
         <tbody>${itemsHtml}</tbody>
-        <tfoot><tr>
-          <td colspan="3">Total</td>
-          <td>${totalFinal}</td>
-        </tr></tfoot>
+        <tfoot>${filasFooter}</tfoot>
       </table>
     </div>
   `;

@@ -1,0 +1,89 @@
+{
+  "version": "1.0",
+  "fecha_actualizacion": "2026-06-14",
+  "fuente": "Tarifario de envios Droppers (moto CABA/GBA + correo Buenos Aires / Resto del pais)",
+  "zonas": {
+    "CABA": {
+      "nombre": "CABA (moto)",
+      "costo": 2899,
+      "modalidad": "moto",
+      "plazo": "Hasta 48 horas habiles desde el despacho"
+    },
+    "GBA1": {
+      "nombre": "GBA 1 (moto)",
+      "costo": 4650,
+      "modalidad": "moto",
+      "plazo": "Hasta 48 horas habiles desde el despacho"
+    },
+    "GBA2": {
+      "nombre": "GBA 2 (moto)",
+      "costo": 5150,
+      "modalidad": "moto",
+      "plazo": "Hasta 48 horas habiles desde el despacho"
+    },
+    "GBA3": {
+      "nombre": "GBA 3 (moto)",
+      "costo": 8350,
+      "modalidad": "moto",
+      "plazo": "Hasta 48 horas habiles desde el despacho"
+    },
+    "BSAS": {
+      "nombre": "Buenos Aires (correo)",
+      "costo": 8250,
+      "modalidad": "correo",
+      "plazo": "2 a 5 dias habiles, segun distancia"
+    },
+    "RESTO_PAIS": {
+      "nombre": "Resto del pais (correo)",
+      "costo": 8690,
+      "modalidad": "correo",
+      "plazo": "2 a 5 dias habiles, segun distancia"
+    }
+  },
+  "provincia_caba": "CABA / Capital Federal",
+  "provincia_buenos_aires": "Provincia de Buenos Aires",
+  "zona_caba": "CABA",
+  "zona_default_buenos_aires": "BSAS",
+  "zona_default_resto_pais": "RESTO_PAIS",
+  "partidos_buenos_aires": {
+    "Almirante Brown": "GBA2",
+    "Avellaneda": "GBA1",
+    "Berazategui": "GBA2",
+    "Berisso": "BSAS",
+    "Brandsen": "GBA3",
+    "Campana": "BSAS",
+    "Cañuelas": "GBA3",
+    "Ensenada": "BSAS",
+    "Escobar": "GBA3",
+    "Esteban Echeverría": "GBA2",
+    "Ezeiza": "GBA2",
+    "Florencio Varela": "GBA2",
+    "General Las Heras": "GBA3",
+    "General Rodríguez": "GBA3",
+    "General San Martín": "GBA1",
+    "Hurlingham": "GBA1",
+    "Ituzaingó": "GBA1",
+    "José C. Paz": "GBA2",
+    "La Matanza": "GBA1",
+    "La Plata": "BSAS",
+    "Lanús": "GBA1",
+    "Lomas de Zamora": "GBA1",
+    "Luján": "GBA3",
+    "Malvinas Argentinas": "GBA2",
+    "Marcos Paz": "GBA3",
+    "Merlo": "GBA2",
+    "Moreno": "GBA2",
+    "Morón": "GBA1",
+    "Pilar": "GBA3",
+    "Presidente Perón": "GBA3",
+    "Quilmes": "GBA1",
+    "San Fernando": "GBA2",
+    "San Isidro": "GBA1",
+    "San Miguel": "GBA2",
+    "San Vicente": "GBA3",
+    "Tigre": "GBA2",
+    "Tres de Febrero": "GBA1",
+    "Vicente López": "GBA1",
+    "Zárate": "BSAS"
+  }
+}

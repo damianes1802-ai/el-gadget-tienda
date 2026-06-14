@@ -80,6 +80,14 @@ async function verPedido(id) {
       </tr>
     `).join('');
 
+    const costoEnvio = Number(o.costo_envio || 0);
+    const subtotalProductos = (o.items || []).reduce((acc, i) => acc + Number(i.subtotal || 0), 0);
+    const footerHtml = costoEnvio > 0
+      ? `<tr><td colspan="3" style="padding:6px 16px;text-align:right">Subtotal</td><td style="padding:6px 16px;text-align:right">${formatPriceDecimal(subtotalProductos)}</td></tr>
+         <tr><td colspan="3" style="padding:6px 16px;text-align:right">Envío</td><td style="padding:6px 16px;text-align:right">${formatPriceDecimal(costoEnvio)}</td></tr>
+         <tr style="background:var(--gray-100)"><td colspan="3" style="padding:10px 16px;text-align:right;font-weight:700">TOTAL</td><td style="padding:10px 16px;text-align:right;font-weight:700;font-size:15px">${formatPriceDecimal(o.total)}</td></tr>`
+      : `<tr style="background:var(--gray-100)"><td colspan="3" style="padding:10px 16px;text-align:right;font-weight:700">TOTAL</td><td style="padding:10px 16px;text-align:right;font-weight:700;font-size:15px">${formatPriceDecimal(o.total)}</td></tr>`;
+
     let facturaHtml;
     if (o.factura_cae) {
       facturaHtml = `<span class="badge badge-green">Factura C ${String(o.factura_punto_venta).padStart(4,'0')}-${String(o.factura_numero).padStart(8,'0')} · CAE ${o.factura_cae}</span>`;
@@ -100,8 +108,9 @@ async function verPedido(id) {
         <div class="detalle-campo"><strong>Teléfono</strong>${escapeHtml(o.telefono || '-')}</div>
         <div class="detalle-campo"><strong>CUIT / DNI</strong>${escapeHtml(o.cuit_dni || '-')}</div>
         <div class="detalle-campo"><strong>Dirección</strong>${escapeHtml(direccion)}</div>
-        <div class="detalle-campo"><strong>Provincia / Ciudad</strong>${escapeHtml(o.provincia || '-')} / ${escapeHtml(o.ciudad || '-')}</div>
+        <div class="detalle-campo"><strong>Provincia / Ciudad</strong>${escapeHtml(o.provincia || '-')}${o.partido ? ` (${escapeHtml(o.partido)})` : ''} / ${escapeHtml(o.ciudad || '-')}</div>
         <div class="detalle-campo"><strong>Código postal</strong>${escapeHtml(o.codigo_postal || '-')}</div>
+        <div class="detalle-campo"><strong>Envío</strong>${o.zona_envio ? `${escapeHtml(o.zona_envio)} · ${formatPriceDecimal(o.costo_envio)}` : '-'}</div>
         <div class="detalle-campo"><strong>Fecha</strong>${formatDate(o.fecha)}</div>
         <div class="detalle-campo"><strong>Estado pedido</strong>${badgeEstado(o.estado)}</div>
         <div class="detalle-campo"><strong>Estado pago</strong>${badgePago(o.estado_pago)}</div>
@@ -123,12 +132,7 @@ async function verPedido(id) {
             <tr><th>Producto</th><th style="text-align:center">Cant.</th><th style="text-align:right">Precio</th><th style="text-align:right">Subtotal</th></tr>
           </thead>
           <tbody>${itemsHtml}</tbody>
-          <tfoot>
-            <tr style="background:var(--gray-100)">
-              <td colspan="3" style="padding:10px 16px;text-align:right;font-weight:700">TOTAL</td>
-              <td style="padding:10px 16px;text-align:right;font-weight:700;font-size:15px">${formatPriceDecimal(o.total)}</td>
-            </tr>
-          </tfoot>
+          <tfoot>${footerHtml}</tfoot>
         </table>
       </div>
     `;
@@ -200,6 +204,7 @@ Altura: ${o.altura || ''}
 Piso: ${o.piso || ''}
 Departamento: ${o.departamento || ''}
 Localidad: ${o.ciudad || ''}
+Partido: ${o.partido || ''}
 Provincia: ${provincia}
 Código postal: ${o.codigo_postal || ''}
 
@@ -207,6 +212,7 @@ PRODUCTOS:
 ${productosTexto || '  (sin detalle)'}
 
 TOTAL: ${formatPriceDecimal(o.total)}
+COSTO DE ENVÍO INCLUIDO: ${formatPriceDecimal(o.costo_envio || 0)}
 =====================================`;
 
   navigator.clipboard.writeText(texto).then(() => {

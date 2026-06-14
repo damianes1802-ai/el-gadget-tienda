@@ -45,6 +45,12 @@ ADMIN_PASSWORD = _env.get('ADMIN_PASSWORD', 'admin2024')
 # diario vía el pipeline y se sobreescribe en cada deploy).
 CATALOGO_REPO_PATH = Path(__file__).parent.parent / 'data' / 'catalogo.db'
 
+# Tarifario de zonas de envío (Droppers): costo + plazo por zona y mapa de
+# partidos de la Provincia de Buenos Aires a su zona correspondiente.
+ZONAS_ENVIO_FILE = Path(__file__).parent.parent / 'data' / 'envios' / 'zonas_envio.json'
+with open(ZONAS_ENVIO_FILE, 'r', encoding='utf-8') as f:
+    ZONAS_ENVIO = json.load(f)
+
 # Si hay un disco persistente montado (Render), ordenes/clientes viven ahí
 # para sobrevivir a los redeploys. Si no está configurado, se usa el mismo
 # archivo del repo (comportamiento local de desarrollo).
@@ -115,6 +121,7 @@ class Cliente(BaseModel):
     direccion: str  # campo legacy / campo completo
     pais: Optional[str] = "Argentina"
     provincia: Optional[str] = ""
+    partido: Optional[str] = ""  # solo aplica para Provincia de Buenos Aires (define zona de envío)
     ciudad: str
     codigo_postal: str
     cuit_dni: Optional[str] = ""
@@ -212,6 +219,7 @@ def migrar_db():
         ("departamento", "TEXT DEFAULT ''"),
         ("pais", "TEXT DEFAULT 'Argentina'"),
         ("cuit_dni", "TEXT DEFAULT ''"),
+        ("partido", "TEXT DEFAULT ''"),
     ]
     cursor.execute("PRAGMA table_info(clientes)")
     columnas_existentes = {row[1] for row in cursor.fetchall()}
@@ -228,6 +236,8 @@ def migrar_db():
         ("factura_cae_vencimiento", "TEXT"),
         ("factura_error", "TEXT"),
         ("email_confirmacion_enviado", "INTEGER DEFAULT 0"),
+        ("costo_envio", "REAL DEFAULT 0"),
+        ("zona_envio", "TEXT DEFAULT ''"),
     ]
     cursor.execute("PRAGMA table_info(ordenes)")
     columnas_ordenes_existentes = {row[1] for row in cursor.fetchall()}
@@ -256,6 +266,36 @@ def migrar_db():
 sincronizar_catalogo_persistente()
 migrar_db()
 
+
+def calcular_envio(provincia: str, partido: str = "") -> dict:
+    """
+    Determina la zona de envío y su tarifa (costo, modalidad, plazo) según
+    la provincia y, si corresponde, el partido del comprador.
+
+    - CABA / Capital Federal -> zona CABA
+    - Provincia de Buenos Aires -> zona según el partido (GBA1/GBA2/GBA3/BSAS)
+    - Cualquier otra provincia -> RESTO_PAIS
+    """
+    provincia = (provincia or "").strip()
+    partido = (partido or "").strip()
+
+    if provincia == ZONAS_ENVIO["provincia_caba"]:
+        zona_id = ZONAS_ENVIO["zona_caba"]
+    elif provincia == ZONAS_ENVIO["provincia_buenos_aires"]:
+        zona_id = ZONAS_ENVIO["partidos_buenos_aires"].get(
+            partido, ZONAS_ENVIO["zona_default_buenos_aires"]
+        )
+    else:
+        zona_id = ZONAS_ENVIO["zona_default_resto_pais"]
+
+    zona = ZONAS_ENVIO["zonas"][zona_id]
+    return {
+        "zona": zona_id,
+        "zona_nombre": zona["nombre"],
+        "costo": zona["costo"],
+        "modalidad": zona["modalidad"],
+        "plazo": zona["plazo"],
+    }
 
 
 
@@ -491,8 +531,18 @@ def listar_categorias():
     """)
     categorias = cursor.fetchall()
     conn.close()
-    
+
     return [{"categoria": c['categoria'], "total": c['total']} for c in categorias]
+
+
+@app.get("/api/envio/zonas")
+def envio_zonas():
+    """
+    Devuelve el tarifario de zonas de envío y el mapa de partidos de la
+    Provincia de Buenos Aires, para que el checkout calcule el costo de
+    envío en vivo según la ubicación del comprador.
+    """
+    return ZONAS_ENVIO
 
 
 @app.get("/api/productos/destacados")
@@ -540,10 +590,10 @@ def crear_orden(orden: CrearOrden):
             cliente_id = cliente['id']
             # Actualizar datos del cliente
             cursor.execute("""
-                UPDATE clientes 
+                UPDATE clientes
                 SET nombre = ?, apellido = ?, razon_social = ?, telefono = ?,
                     calle = ?, altura = ?, piso = ?, departamento = ?,
-                    direccion = ?, pais = ?, provincia = ?, ciudad = ?,
+                    direccion = ?, pais = ?, provincia = ?, partido = ?, ciudad = ?,
                     codigo_postal = ?, cuit_dni = ?
                 WHERE id = ?
             """, (
@@ -558,6 +608,7 @@ def crear_orden(orden: CrearOrden):
                 orden.cliente.direccion,
                 orden.cliente.pais or "Argentina",
                 orden.cliente.provincia or "",
+                orden.cliente.partido or "",
                 orden.cliente.ciudad,
                 orden.cliente.codigo_postal,
                 orden.cliente.cuit_dni or "",
@@ -567,9 +618,9 @@ def crear_orden(orden: CrearOrden):
             # Crear nuevo cliente
             cursor.execute("""
                 INSERT INTO clientes (nombre, apellido, razon_social, email, telefono,
-                    calle, altura, piso, departamento, direccion, pais, provincia, ciudad,
+                    calle, altura, piso, departamento, direccion, pais, provincia, partido, ciudad,
                     codigo_postal, cuit_dni)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 orden.cliente.nombre,
                 orden.cliente.apellido or "",
@@ -583,6 +634,7 @@ def crear_orden(orden: CrearOrden):
                 orden.cliente.direccion,
                 orden.cliente.pais or "Argentina",
                 orden.cliente.provincia or "",
+                orden.cliente.partido or "",
                 orden.cliente.ciudad,
                 orden.cliente.codigo_postal,
                 orden.cliente.cuit_dni or ""
@@ -623,12 +675,16 @@ def crear_orden(orden: CrearOrden):
                 'subtotal': subtotal
             })
         
+        # 2.1 Calcular costo de envío según zona del cliente
+        envio = calcular_envio(orden.cliente.provincia or "", orden.cliente.partido or "")
+        total += envio["costo"]
+
         # 3. Crear orden
         cursor.execute("""
-            INSERT INTO ordenes (cliente_id, total, estado, notas)
-            VALUES (?, ?, 'pendiente_procesar', ?)
-        """, (cliente_id, total, orden.notas or ""))
-        
+            INSERT INTO ordenes (cliente_id, total, estado, notas, costo_envio, zona_envio)
+            VALUES (?, ?, 'pendiente_procesar', ?, ?, ?)
+        """, (cliente_id, total, orden.notas or "", envio["costo"], envio["zona"]))
+
         orden_id = cursor.lastrowid
         
         # 4. Agregar items
@@ -664,6 +720,14 @@ def crear_orden(orden: CrearOrden):
                 }
                 for item in items_con_precio
             ]
+            if envio["costo"] > 0:
+                mp_items.append({
+                    "id": "envio",
+                    "title": f"Costo de envío ({envio['zona_nombre']})",
+                    "quantity": 1,
+                    "unit_price": float(envio["costo"]),
+                    "currency_id": "ARS"
+                })
             preference_data = {
                 "items": mp_items,
                 "payer": {
@@ -709,6 +773,10 @@ def crear_orden(orden: CrearOrden):
             "items": len(items_con_precio),
             "estado": "pendiente_procesar",
             "mp_checkout_url": mp_checkout_url,
+            "costo_envio": envio["costo"],
+            "zona_envio": envio["zona"],
+            "zona_envio_nombre": envio["zona_nombre"],
+            "plazo_envio": envio["plazo"],
             "mensaje": "Orden creada exitosamente"
         }
         
