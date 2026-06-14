@@ -63,7 +63,7 @@
   <div class="content-section">
     <p>
       Ingresá el número de orden y el email que usaste en la compra para ver el estado de tu pedido
-      y, si ya fue despachado, el código de seguimiento de Droppers.
+      y, si ya fue despachado, el link de seguimiento de tu envío.
     </p>
   </div>
 
@@ -195,10 +195,10 @@ async function consultarPedido() {
         <\/table>
       <\/div>
       <div class="info-card">
-        <h2>Seguimiento Droppers<\/h2>
+        <h2>Seguimiento del envío<\/h2>
         ${data.tracking_url
           ? `<p style="font-size:13.5px;color:var(--gray-600);line-height:1.7;margin:0 0 14px">Tu pedido ya fue despachado. Podés seguirlo con el siguiente link:<\/p><a href="${data.tracking_url}" target="_blank" rel="noopener" class="btn btn-accent">Ver seguimiento ↗<\/a>`
-          : `<p style="font-size:13.5px;color:var(--gray-600);line-height:1.7;margin:0">Todavía no tenemos un código de seguimiento para este pedido. En cuanto lo despachemos te avisamos por WhatsApp y vas a poder verlo acá.<\/p>`
+          : `<p style="font-size:13.5px;color:var(--gray-600);line-height:1.7;margin:0">Todavía no tenemos un código de seguimiento para este pedido. En cuanto lo despachemos te avisamos por email y vas a poder verlo acá.<\/p>`
         }
       </div>
     `;
