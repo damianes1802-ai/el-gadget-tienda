@@ -867,6 +867,35 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
             conn.commit()
 
 
+@app.post("/api/admin/orden/{orden_id}/procesar-pago")
+def admin_procesar_pago(orden_id: int, x_admin_password: Optional[str] = Header(None)):
+    """
+    Dispara manualmente la generación de Factura C (AFIP) + email de
+    confirmación para una orden (solo admin). Útil para reintentar si
+    falló en el webhook, o para probar la integración sin un pago nuevo.
+    """
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id FROM ordenes WHERE id = ?", (orden_id,))
+    if not cursor.fetchone():
+        conn.close()
+        raise HTTPException(status_code=404, detail="Orden no encontrada")
+
+    procesar_pago_aprobado(conn, orden_id)
+
+    cursor.execute("""
+        SELECT factura_tipo, factura_punto_venta, factura_numero, factura_cae,
+               factura_cae_vencimiento, factura_error, email_confirmacion_enviado
+        FROM ordenes WHERE id = ?
+    """, (orden_id,))
+    resultado = dict(cursor.fetchone())
+    conn.close()
+    return resultado
+
+
 @app.patch("/api/orden/{orden_id}/tracking")
 def actualizar_tracking(orden_id: int, datos: ActualizarTracking, x_admin_password: Optional[str] = Header(None)):
     """
