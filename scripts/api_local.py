@@ -1466,9 +1466,9 @@ def crear_orden(orden: CrearOrden):
                     "phone": {"number": orden.cliente.telefono}
                 },
                 "back_urls": {
-                    "success": f"{SITE_URL}/confirmacion.html?orden_id={orden_id}&status=approved",
-                    "failure": f"{SITE_URL}/confirmacion.html?orden_id={orden_id}&status=failure",
-                    "pending": f"{SITE_URL}/confirmacion.html?orden_id={orden_id}&status=pending"
+                    "success": f"{SITE_URL}/confirmacion?orden_id={orden_id}&status=approved",
+                    "failure": f"{SITE_URL}/confirmacion?orden_id={orden_id}&status=failure",
+                    "pending": f"{SITE_URL}/confirmacion?orden_id={orden_id}&status=pending"
                 },
                 "auto_return": "approved",
                 "external_reference": str(orden_id),

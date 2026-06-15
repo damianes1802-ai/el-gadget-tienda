@@ -162,7 +162,7 @@ def render_relacionados(relacionados: list, categoria: str, slug_map: dict) -> s
     cards = []
     for p in relacionados:
         slug = slug_map.get(p['sku'])
-        href = f"../{slug}/" if slug else f"../../producto_detalle.html?sku={p['sku']}"
+        href = f"../{slug}/" if slug else f"../../producto_detalle?sku={p['sku']}"
         imagen = p.get('imagen_principal') or ''
         if imagen:
             img_html = (f'<img class="card-img" src="{html.escape(imagen)}" '
@@ -327,7 +327,7 @@ TEMPLATE = """<!DOCTYPE html>
 <!-- HEADER -->
 <header class="header">
   <div class="header-inner">
-    <a href="../../frontend_basico.html" class="logo">
+    <a href="../../" class="logo">
       <div class="logo-badge">
         __LOGO_SVG__
       </div>
@@ -339,10 +339,10 @@ TEMPLATE = """<!DOCTYPE html>
     <div class="search-desktop">
       <div class="search-box">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){window.location.href='../../frontend_basico.html?buscar='+encodeURIComponent(this.value)}">
+        <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){window.location.href='../../?buscar='+encodeURIComponent(this.value)}">
       </div>
     </div>
-    <a href="../../carrito.html" class="cart-pill">
+    <a href="../../carrito" class="cart-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
       </svg>
@@ -354,7 +354,7 @@ TEMPLATE = """<!DOCTYPE html>
 
 <!-- BREADCRUMB -->
 <div class="breadcrumb">
-  <a href="../../frontend_basico.html">Inicio</a>
+  <a href="../../">Inicio</a>
   <span class="sep">/</span>
   <span class="current">__BREADCRUMB_CATEGORIA__</span>
   <span class="sep">/</span>
@@ -416,17 +416,17 @@ __RELATED__
     </div>
     <div class="footer-col">
       <h4>Ayuda</h4>
-      <a href="../../carrito.html">Mi pedido</a>
-      <a href="../../seguimiento.html">Seguimiento de pedido</a>
-      <a href="../../faq.html">Preguntas frecuentes</a>
+      <a href="../../carrito">Mi pedido</a>
+      <a href="../../seguimiento">Seguimiento de pedido</a>
+      <a href="../../faq">Preguntas frecuentes</a>
       <a href="https://wa.me/__WHATSAPP_NUM__?text=Hola!%20Tengo%20una%20consulta" target="_blank" rel="noopener">Hablar por WhatsApp</a>
     </div>
     <div class="footer-col">
       <h4>Información</h4>
-      <a href="../../sobre_nosotros.html">Sobre nosotros</a>
+      <a href="../../sobre_nosotros">Sobre nosotros</a>
       <a href="#" onclick="return false;">Envíos a todo el país</a>
       <a href="#" onclick="return false;">Pagos seguros</a>
-      <a href="../../arrepentimiento.html">Botón de arrepentimiento</a>
+      <a href="../../arrepentimiento">Botón de arrepentimiento</a>
     </div>
   </div>
   <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
@@ -443,7 +443,7 @@ __RELATED__
     <div class="cart-bar-count" id="cartBarCount">0</div>
     <div class="cart-bar-text">Tu pedido<strong id="cartBarTotal">$0</strong></div>
   </div>
-  <a class="cart-bar-btn" href="../../carrito.html">Ver pedido</a>
+  <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
 <!-- TOAST -->
@@ -585,7 +585,7 @@ function agregarAlCarrito() {
 
 function comprarAhora() {
   agregarAlCarrito();
-  window.location.href = '../../carrito.html';
+  window.location.href = '../../carrito';
 }
 </script>
 </body>
@@ -691,12 +691,12 @@ def generar():
     # 5. Generar sitemap.xml
     hoy = date.today().isoformat()
     urls = [
-        f"{site_url}/frontend_basico.html",
-        f"{site_url}/carrito.html",
-        f"{site_url}/faq.html",
-        f"{site_url}/sobre_nosotros.html",
-        f"{site_url}/arrepentimiento.html",
-        f"{site_url}/seguimiento.html",
+        f"{site_url}/",
+        f"{site_url}/carrito",
+        f"{site_url}/faq",
+        f"{site_url}/sobre_nosotros",
+        f"{site_url}/arrepentimiento",
+        f"{site_url}/seguimiento",
     ]
     urls += [f"{site_url}/producto/{slug}/" for slug in sorted(slugs_generados)]
 
