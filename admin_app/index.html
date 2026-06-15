@@ -72,6 +72,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
         Historial
       </button>
+      <button class="nav-item" data-section="referidos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><line x1="19" y1="13" x2="19" y2="19"/><line x1="16" y1="16" x2="22" y2="16"/></svg>
+        Referidos
+      </button>
     </nav>
 
     <div class="sidebar-footer">
@@ -301,6 +305,24 @@
         </div>
       </section>
 
+      <!-- REFERIDOS -->
+      <section class="section" id="section-referidos">
+        <div class="table-wrap">
+          <table id="referidos-table">
+            <thead>
+              <tr>
+                <th>Nombre</th><th>Email</th><th>DNI</th><th>Código</th>
+                <th>Registro</th><th>Estado</th><th>Ventas</th>
+                <th>Comisión total</th><th>Por pagar</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="referidos-tbody">
+              <tr class="loading-row"><td colspan="10">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
     </div>
   </main>
 </div>
@@ -511,6 +533,46 @@
   </div>
 </div>
 
+<!-- MODAL DETALLE DE REFERIDO -->
+<div class="modal-overlay" id="modal-referido-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Comisiones de <span id="modal-referido-nombre"></span></h2>
+      <button class="modal-close" data-close="modal-referido-overlay">&times;</button>
+    </div>
+    <div class="modal-body" id="modal-referido-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Período</th><th>Ventas</th><th>Monto vendido</th>
+              <th>Comisión</th><th>Estado</th><th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="modal-referido-periodos"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DESACTIVAR REFERIDO -->
+<div class="modal-overlay" id="modal-desactivar-ref-overlay">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2>Desactivar referido</h2>
+      <button class="modal-close" data-close="modal-desactivar-ref-overlay">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13.5px;color:#2C2E36">¿Desactivar a <strong id="modal-desactivar-ref-nombre"></strong>? Se quitará su código de descuento pero conservará su cuenta de usuario.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" data-close="modal-desactivar-ref-overlay">Cancelar</button>
+      <button class="btn btn-danger" id="btn-confirmar-desactivar-ref">Sí, desactivar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="js/common.js"></script>
@@ -523,6 +585,7 @@
 <script src="js/usuarios.js"></script>
 <script src="js/descuentos.js"></script>
 <script src="js/historial.js"></script>
+<script src="js/referidos.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

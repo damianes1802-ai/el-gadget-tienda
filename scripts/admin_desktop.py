@@ -284,6 +284,16 @@ class Api:
     def eliminar_descuento(self, descuento_id):
         return self._delete(f"/api/admin/descuentos/{descuento_id}")
 
+    # ── Programa de referidos ──
+    def get_referidos(self):
+        return self._get("/api/admin/referidos", admin=True)
+
+    def desactivar_referido(self, ref_id):
+        return self._delete(f"/api/admin/referidos/{ref_id}")
+
+    def marcar_referido_pagado(self, ref_id, periodo):
+        return self._post(f"/api/admin/referidos/{ref_id}/marcar-pagado", {"periodo": periodo})
+
 
 def main():
     base_dir = Path(__file__).parent.parent

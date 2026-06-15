@@ -12,6 +12,7 @@ const SECTION_TITLES = {
   usuarios: 'Usuarios',
   descuentos: 'Descuentos',
   historial: 'Historial de actualizaciones',
+  referidos: 'Programa de Referidos',
 };
 
 const SECTION_LOADERS = {
@@ -24,6 +25,7 @@ const SECTION_LOADERS = {
   usuarios: loadUsuarios,
   descuentos: loadDescuentos,
   historial: loadHistorial,
+  referidos: loadReferidos,
 };
 
 const loadedSections = new Set();

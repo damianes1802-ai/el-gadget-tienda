@@ -22,6 +22,7 @@ http://localhost:8000 (API)
 from fastapi import FastAPI, HTTPException, Query, Header, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+import re
 import sqlite3
 import shutil
 import sys
@@ -217,6 +218,30 @@ class ValidarDescuento(BaseModel):
     skus: Optional[List[str]] = []
 
 
+class RegistroReferido(BaseModel):
+    nombre: str
+    email: str
+    telefono: str
+    dni: str
+    password: str
+
+
+class MarcarPagadoReferido(BaseModel):
+    periodo: str  # "2026-06"
+
+
+def _generar_codigo_referido(nombre: str, telefono: str, conn: sqlite3.Connection) -> str:
+    """Genera NOMBRE+2dígitos del teléfono, con sufijo -2/-3/... si hay colisión."""
+    base = re.sub(r'[^A-Z0-9]', '', f"{nombre.upper().split()[0]}{telefono[-2:]}")
+    if not base:
+        base = re.sub(r'[^A-Z0-9]', '', nombre.upper())[:6] or 'REF'
+    codigo, i = base, 2
+    while conn.execute("SELECT 1 FROM referidos WHERE codigo = ?", (codigo,)).fetchone():
+        codigo = f"{base}-{i}"
+        i += 1
+    return codigo
+
+
 # ============================================================================
 # FUNCIONES DE BASE DE DATOS
 # ============================================================================
@@ -394,6 +419,38 @@ def migrar_db():
         )
     """)
 
+    # Sistema de referidos: usuarios que comparten su código único a cambio
+    # de una comisión del 5% sobre cada venta que generen (pago mensual).
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS referidos (
+            id        INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre    TEXT NOT NULL,
+            email     TEXT NOT NULL UNIQUE,
+            telefono  TEXT NOT NULL,
+            dni       TEXT NOT NULL UNIQUE,
+            codigo    TEXT NOT NULL UNIQUE,
+            activo    INTEGER NOT NULL DEFAULT 1,
+            creado_at TEXT DEFAULT (datetime('now'))
+        )
+    """)
+
+    # Cada fila = una venta realizada usando el código de un referido.
+    # orden_id es UNIQUE para evitar doble conteo si el webhook llega dos veces.
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS comisiones_referidos (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            referido_id     INTEGER NOT NULL REFERENCES referidos(id),
+            orden_id        INTEGER NOT NULL UNIQUE REFERENCES ordenes(id),
+            comprador_email TEXT NOT NULL,
+            monto_base      REAL NOT NULL,
+            comision        REAL NOT NULL,
+            periodo         TEXT NOT NULL,
+            pagado          INTEGER NOT NULL DEFAULT 0,
+            pagado_at       TEXT,
+            creado_at       TEXT DEFAULT (datetime('now'))
+        )
+    """)
+
     conn.commit()
     conn.close()
 
@@ -559,6 +616,20 @@ def _validar_descuento_row(d: Optional[dict], email: Optional[str], subtotal: fl
     if d.get("email_asociado"):
         if not email or email.strip().lower() != d["email_asociado"].strip().lower():
             return {"valido": False, "motivo": "Este código no corresponde a tu cuenta"}
+
+    # Prevención de auto-referido: el dueño del código no puede usarlo en sus propias compras
+    if email and d.get("codigo"):
+        try:
+            conn_check = sqlite3.connect(DB_PATH)
+            ref = conn_check.execute(
+                "SELECT email FROM referidos WHERE codigo = ? AND activo = 1",
+                (d["codigo"],)
+            ).fetchone()
+            conn_check.close()
+            if ref and ref[0].strip().lower() == email.strip().lower():
+                return {"valido": False, "motivo": "No podés usar tu propio código de referido"}
+        except Exception:
+            pass
 
     if d.get("tipo") == "porcentaje":
         monto = round(subtotal * (d.get("valor") or 0) / 100, 2)
@@ -1679,6 +1750,27 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
             )
             conn.commit()
 
+    # Registrar comisión de referido si la orden usó un código de referido activo
+    try:
+        codigo_usado = orden.get('descuento_codigo')
+        if codigo_usado:
+            ref = cursor.execute(
+                "SELECT id FROM referidos WHERE codigo = ? AND activo = 1",
+                (codigo_usado,)
+            ).fetchone()
+            if ref:
+                monto_base = max(0.0, float(orden.get('total') or 0) - float(orden.get('costo_envio') or 0))
+                comision = round(monto_base * 0.05, 2)
+                periodo = datetime.now().strftime('%Y-%m')
+                cursor.execute("""
+                    INSERT OR IGNORE INTO comisiones_referidos
+                        (referido_id, orden_id, comprador_email, monto_base, comision, periodo)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                """, (ref[0], orden_id, orden.get('email', ''), monto_base, comision, periodo))
+                conn.commit()
+    except Exception:
+        pass  # best-effort: no interrumpir el flujo por error en comisiones
+
 
 @app.post("/api/admin/orden/{orden_id}/procesar-pago")
 def admin_procesar_pago(orden_id: int, x_admin_password: Optional[str] = Header(None)):
@@ -2203,6 +2295,228 @@ def listar_historial_actualizaciones(
         historial.append(item)
 
     return historial
+
+
+# ============================================================================
+# REFERIDOS
+# ============================================================================
+
+@app.post("/api/referidos/registro")
+def registro_referido(datos: RegistroReferido):
+    """
+    Registra un usuario en el programa de referidos. Si ya tiene cuenta de
+    usuario (mismo email), la vincula y le agrega DNI + código. Si no tiene
+    cuenta, la crea junto con el perfil de referido.
+    """
+    conn = get_db()
+    cursor = conn.cursor()
+
+    # Verificar que el DNI no esté ya registrado
+    if cursor.execute("SELECT 1 FROM referidos WHERE dni = ?", (datos.dni,)).fetchone():
+        conn.close()
+        raise HTTPException(status_code=409, detail="Ese DNI ya está registrado en el programa de referidos")
+
+    # Verificar que el email no tenga ya un perfil de referido
+    if cursor.execute("SELECT 1 FROM referidos WHERE email = ?", (datos.email.lower(),)).fetchone():
+        conn.close()
+        raise HTTPException(status_code=409, detail="Ese email ya está registrado en el programa de referidos")
+
+    # Crear o recuperar la cuenta de usuario
+    usuario = cursor.execute(
+        "SELECT id, nombre FROM usuarios_registrados WHERE email = ?", (datos.email.lower(),)
+    ).fetchone()
+
+    token = None
+    if not usuario:
+        password_salt = secrets.token_hex(32)
+        password_hash = hashlib.pbkdf2_hmac(
+            'sha256', datos.password.encode(), password_salt.encode(), 260000
+        ).hex()
+        codigo_bienvenida = f"BIENVENIDO-{uuid.uuid4().hex[:6].upper()}"
+        cursor.execute("""
+            INSERT INTO usuarios_registrados (nombre, email, telefono, codigo_descuento, password_hash, password_salt)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (datos.nombre, datos.email.lower(), datos.telefono, codigo_bienvenida, password_hash, password_salt))
+        usuario_id = cursor.lastrowid
+        cursor.execute("""
+            INSERT OR IGNORE INTO descuentos (nombre, tipo, valor, alcance, codigo, email_asociado, activo, uso_maximo)
+            VALUES (?, 'porcentaje', 10, 'todos', ?, ?, 1, 1)
+        """, (f"Bienvenida: {datos.nombre}", codigo_bienvenida, datos.email.lower()))
+        token = secrets.token_hex(32)
+        cursor.execute("INSERT INTO sesiones_usuario (token, usuario_id) VALUES (?, ?)", (token, usuario_id))
+    else:
+        usuario_id = usuario[0]
+        token_row = cursor.execute(
+            "INSERT INTO sesiones_usuario (token, usuario_id) VALUES (?, ?) RETURNING token",
+            (secrets.token_hex(32), usuario_id)
+        ).fetchone()
+        token = token_row[0] if token_row else secrets.token_hex(32)
+
+    # Generar código único de referido
+    codigo = _generar_codigo_referido(datos.nombre, datos.telefono, conn)
+
+    cursor.execute("""
+        INSERT INTO referidos (nombre, email, telefono, dni, codigo)
+        VALUES (?, ?, ?, ?, ?)
+    """, (datos.nombre, datos.email.lower(), datos.telefono, datos.dni, codigo))
+
+    # Insertar el código en la tabla descuentos (15% off, ilimitado, para todos)
+    cursor.execute("""
+        INSERT OR IGNORE INTO descuentos (nombre, tipo, valor, alcance, codigo, activo)
+        VALUES (?, 'porcentaje', 15, 'todos', ?, 1)
+    """, (f"Referido: {datos.nombre}", codigo))
+
+    conn.commit()
+    conn.close()
+
+    return {"codigo": codigo, "token": token, "nombre": datos.nombre,
+            "mensaje": f"¡Bienvenido al programa de referidos! Tu código es {codigo}"}
+
+
+@app.get("/api/referidos/dashboard")
+def dashboard_referido(authorization: Optional[str] = Header(None)):
+    """Dashboard del referido autenticado: su código, comisiones por periodo y totales."""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Token requerido")
+    token = authorization.split(" ", 1)[1]
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    sesion = cursor.execute(
+        "SELECT usuario_id FROM sesiones_usuario WHERE token = ?", (token,)
+    ).fetchone()
+    if not sesion:
+        conn.close()
+        raise HTTPException(status_code=401, detail="Sesión inválida o expirada")
+
+    usuario = cursor.execute(
+        "SELECT email FROM usuarios_registrados WHERE id = ?", (sesion[0],)
+    ).fetchone()
+    if not usuario:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    ref = cursor.execute(
+        "SELECT * FROM referidos WHERE email = ?", (usuario[0],)
+    ).fetchone()
+    if not ref:
+        conn.close()
+        raise HTTPException(status_code=404, detail="No estás registrado en el programa de referidos")
+    ref = dict(ref)
+
+    comisiones = cursor.execute("""
+        SELECT comprador_email, monto_base, comision, periodo, pagado, pagado_at, creado_at
+        FROM comisiones_referidos
+        WHERE referido_id = ?
+        ORDER BY creado_at DESC
+    """, (ref['id'],)).fetchall()
+    comisiones = [dict(c) for c in comisiones]
+
+    # Totales agrupados por periodo
+    periodos = {}
+    for c in comisiones:
+        p = c['periodo']
+        if p not in periodos:
+            periodos[p] = {'periodo': p, 'cantidad_ventas': 0, 'monto_total': 0.0,
+                           'comision_total': 0.0, 'comision_pendiente': 0.0, 'pagado': True}
+        periodos[p]['cantidad_ventas'] += 1
+        periodos[p]['monto_total'] = round(periodos[p]['monto_total'] + c['monto_base'], 2)
+        periodos[p]['comision_total'] = round(periodos[p]['comision_total'] + c['comision'], 2)
+        if not c['pagado']:
+            periodos[p]['comision_pendiente'] = round(periodos[p]['comision_pendiente'] + c['comision'], 2)
+            periodos[p]['pagado'] = False
+
+    conn.close()
+    return {
+        "nombre": ref['nombre'], "email": ref['email'],
+        "codigo": ref['codigo'], "activo": bool(ref['activo']),
+        "creado_at": ref['creado_at'],
+        "comisiones": comisiones,
+        "resumen_por_periodo": sorted(periodos.values(), key=lambda x: x['periodo'], reverse=True),
+        "total_comision": round(sum(c['comision'] for c in comisiones), 2),
+        "total_pendiente": round(sum(c['comision'] for c in comisiones if not c['pagado']), 2),
+    }
+
+
+@app.get("/api/admin/referidos")
+def admin_listar_referidos(x_admin_password: Optional[str] = Header(None)):
+    """Lista todos los referidos con estadísticas agregadas (admin)."""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    referidos = cursor.execute("SELECT * FROM referidos ORDER BY creado_at DESC").fetchall()
+
+    resultado = []
+    for ref in referidos:
+        ref = dict(ref)
+        stats = cursor.execute("""
+            SELECT COUNT(*) cantidad_ventas, COALESCE(SUM(monto_base),0) total_ventas,
+                   COALESCE(SUM(comision),0) comision_total,
+                   COALESCE(SUM(CASE WHEN pagado=0 THEN comision ELSE 0 END),0) comision_pendiente
+            FROM comisiones_referidos WHERE referido_id = ?
+        """, (ref['id'],)).fetchone()
+        ref.update(dict(stats))
+
+        periodos_rows = cursor.execute("""
+            SELECT periodo,
+                   COUNT(*) cantidad_ventas,
+                   COALESCE(SUM(monto_base),0) monto_total,
+                   COALESCE(SUM(comision),0) comision_total,
+                   MAX(pagado) pagado
+            FROM comisiones_referidos
+            WHERE referido_id = ?
+            GROUP BY periodo
+            ORDER BY periodo DESC
+        """, (ref['id'],)).fetchall()
+        ref['periodos'] = [dict(p) for p in periodos_rows]
+
+        resultado.append(ref)
+
+    conn.close()
+    return resultado
+
+
+@app.delete("/api/admin/referidos/{ref_id}")
+def admin_desactivar_referido(ref_id: int, x_admin_password: Optional[str] = Header(None)):
+    """Desactiva un referido y su código de descuento (sin eliminar la cuenta de usuario)."""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    ref = cursor.execute("SELECT codigo FROM referidos WHERE id = ?", (ref_id,)).fetchone()
+    if not ref:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Referido no encontrado")
+
+    cursor.execute("UPDATE referidos SET activo = 0 WHERE id = ?", (ref_id,))
+    cursor.execute("UPDATE descuentos SET activo = 0 WHERE codigo = ?", (ref[0],))
+    conn.commit()
+    conn.close()
+    return {"ok": True, "mensaje": "Referido desactivado correctamente"}
+
+
+@app.post("/api/admin/referidos/{ref_id}/marcar-pagado")
+def admin_marcar_pagado_referido(ref_id: int, datos: MarcarPagadoReferido,
+                                  x_admin_password: Optional[str] = Header(None)):
+    """Marca como pagadas todas las comisiones de un periodo para un referido."""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        UPDATE comisiones_referidos
+        SET pagado = 1, pagado_at = datetime('now')
+        WHERE referido_id = ? AND periodo = ? AND pagado = 0
+    """, (ref_id, datos.periodo))
+    filas = cursor.rowcount
+    conn.commit()
+    conn.close()
+    return {"ok": True, "comisiones_actualizadas": filas}
 
 
 # ============================================================================
