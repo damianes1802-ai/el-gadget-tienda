@@ -38,6 +38,7 @@ body {
   color: var(--ink);
   min-height: 100vh;
   padding-bottom: 90px;
+  text-align: center;
 }
 
 a { color: inherit; }
@@ -116,6 +117,7 @@ a { color: inherit; }
   font-family: 'Inter', sans-serif;
   color: var(--ink);
   outline: none;
+  text-align: center;
   transition: border-color 0.15s, background 0.15s;
 }
 .search-box input:focus { border-color: var(--accent); background: var(--paper); }
@@ -316,7 +318,7 @@ a { color: inherit; }
   padding: 8px 32px 8px 14px; border-radius: 20px; border: 1.5px solid var(--gray-200);
   background-color: var(--paper); font-size: 12.5px; font-weight: 600; color: var(--ink);
   font-family: 'Inter', sans-serif; cursor: pointer; transition: border-color 0.15s;
-  appearance: none; -webkit-appearance: none; -moz-appearance: none;
+  appearance: none; -webkit-appearance: none; -moz-appearance: none; text-align: center;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314151A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 10px center; background-size: 14px;
 }
@@ -325,7 +327,7 @@ a { color: inherit; }
 .price-range input {
   width: 92px; padding: 8px 12px; border-radius: 20px; border: 1.5px solid var(--gray-200);
   font-size: 12.5px; font-family: 'Inter', sans-serif; color: var(--ink); background: var(--paper);
-  outline: none; transition: border-color 0.15s;
+  outline: none; text-align: center; transition: border-color 0.15s;
 }
 .price-range input:focus { border-color: var(--accent); }
 .price-range span { color: var(--gray-600); font-size: 12px; }
@@ -439,6 +441,7 @@ a { color: inherit; }
   width: 100%; padding: 11px 13px; border-radius: var(--radius-sm);
   border: 1.5px solid var(--gray-200); font-size: 14px; font-family: 'Inter', sans-serif;
   color: var(--ink); background: var(--paper); outline: none; transition: border-color 0.15s;
+  text-align: center;
 }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
 .field textarea { resize: vertical; min-height: 80px; }
@@ -755,7 +758,7 @@ a { color: inherit; }
 
 .info-card {
   background: var(--paper); border: 1.5px solid var(--gray-200); border-radius: var(--radius);
-  padding: 1.25rem; margin-bottom: 16px; text-align: left;
+  padding: 1.25rem; margin-bottom: 16px; text-align: center;
 }
 .info-card h2 {
   font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: var(--ink);
@@ -764,7 +767,7 @@ a { color: inherit; }
 .info-row { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; padding: 7px 0; border-bottom: 1px solid var(--gray-100); }
 .info-row:last-child { border-bottom: none; }
 .info-label { color: var(--gray-600); }
-.info-valor { font-weight: 600; color: var(--ink); text-align: right; }
+.info-valor { font-weight: 600; color: var(--ink); }
 
 .step-row { display: flex; gap: 10px; font-size: 13.5px; color: var(--gray-600); margin-bottom: 10px; align-items: flex-start; }
 .step-row:last-child { margin-bottom: 0; }
@@ -772,7 +775,7 @@ a { color: inherit; }
 
 .alert-box {
   background: var(--accent-pale); border: 1px solid var(--accent); border-radius: var(--radius);
-  padding: 14px 16px; font-size: 13.5px; color: var(--accent-deep); margin-bottom: 18px; text-align: left; line-height: 1.6;
+  padding: 14px 16px; font-size: 13.5px; color: var(--accent-deep); margin-bottom: 18px; text-align: center; line-height: 1.6;
 }
 
 .result-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
@@ -781,9 +784,7 @@ a { color: inherit; }
 /* Tabla de productos (confirmación) */
 .order-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 .order-table thead tr { background: var(--gray-100); }
-.order-table th { padding: 9px 10px; text-align: left; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-600); }
-.order-table th:nth-child(2), .order-table td:nth-child(2) { text-align: center; }
-.order-table th:last-child, .order-table td:last-child { text-align: right; }
+.order-table th { padding: 9px 10px; text-align: center; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-600); }
 .order-table td { padding: 10px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; font-weight: 600; color: var(--ink); }
 .order-table td:nth-child(2), .order-table td:nth-child(3) { font-weight: 400; color: var(--gray-600); }
 .order-table tfoot td {
@@ -802,7 +803,7 @@ a { color: inherit; }
 .faq-question {
   width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px;
   padding: 14px 18px; background: none; border: none; cursor: pointer;
-  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink); text-align: left;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink); text-align: center;
 }
 .faq-question .icon { font-size: 18px; transition: transform 0.2s; flex-shrink: 0; color: var(--gray-600); }
 .faq-item.open .faq-question .icon { transform: rotate(45deg); }
@@ -849,7 +850,7 @@ a { color: inherit; }
   font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 8px;
 }
 .eg-popup-card p { font-size: 13.5px; color: var(--gray-600); line-height: 1.6; margin-bottom: 16px; }
-.eg-popup-card .field { text-align: left; margin-bottom: 12px; }
+.eg-popup-card .field { text-align: center; margin-bottom: 12px; }
 .eg-popup-code {
   background: var(--accent-pale); border: 1.5px dashed var(--accent-deep); border-radius: var(--radius-sm);
   padding: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700;
