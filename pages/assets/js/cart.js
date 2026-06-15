@@ -222,8 +222,59 @@ function initOfertaYStockProducto() {
     .catch(() => {});
 }
 
+/**
+ * En páginas de producto, guarda el SKU en localStorage.eg_vistos para
+ * mostrar "Vistos recientemente" en el catálogo (máx. 8, sin duplicados,
+ * el más reciente primero).
+ */
+function registrarProductoVisto() {
+  if (typeof PRODUCTO === 'undefined') return;
+  let vistos = [];
+  try {
+    vistos = JSON.parse(localStorage.getItem('eg_vistos') || '[]');
+  } catch (e) {}
+  vistos = vistos.filter(sku => sku !== PRODUCTO.sku);
+  vistos.unshift(PRODUCTO.sku);
+  localStorage.setItem('eg_vistos', JSON.stringify(vistos.slice(0, 8)));
+}
+
+/**
+ * Carga el tarifario de envíos (zonas, partidos de Buenos Aires, etc.)
+ * desde la API. Devuelve los datos o null si falla.
+ */
+async function egCargarZonasEnvio() {
+  try {
+    const res = await fetch(`${EG_API_URL}/api/envio/zonas`);
+    return await res.json();
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Calcula la zona/costo de envío para una provincia (y partido de Buenos
+ * Aires, si aplica) a partir de los datos de egCargarZonasEnvio().
+ * Devuelve { zona, costo, nombre, plazo } o null si no se puede calcular.
+ */
+function egCalcularEnvio(zonasData, provincia, partido) {
+  if (!zonasData || !provincia) return null;
+
+  let zonaId;
+  if (provincia === zonasData.provincia_caba) {
+    zonaId = zonasData.zona_caba;
+  } else if (provincia === zonasData.provincia_buenos_aires) {
+    if (!partido) return null;
+    zonaId = zonasData.partidos_buenos_aires[partido] || zonasData.zona_default_buenos_aires;
+  } else {
+    zonaId = zonasData.zona_default_resto_pais;
+  }
+
+  return { zona: zonaId, ...zonasData.zonas[zonaId] };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   actualizarCarritoUI();
   initPopupRegistro();
   initOfertaYStockProducto();
+  registrarProductoVisto();
 });

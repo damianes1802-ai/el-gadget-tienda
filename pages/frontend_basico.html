@@ -63,6 +63,16 @@
   </div>
 </section>
 
+<!-- BANDA DE CONFIANZA -->
+<div class="trust-strip">
+  <div class="trust-strip-inner">
+    <div class="trust-item"><span class="ico">🚚</span> Envíos a todo el país</div>
+    <div class="trust-item"><span class="ico">🔒</span> Pago 100% seguro</div>
+    <div class="trust-item"><span class="ico">🔁</span> Cambios hasta 10 días</div>
+    <div class="trust-item"><span class="ico">💬</span> Atención por WhatsApp</div>
+  </div>
+</div>
+
 <!-- BANNER PROMOCIONAL -->
 <div class="promo-banner" id="promoBanner"></div>
 
@@ -77,6 +87,19 @@
     </div>
     <div class="chips-wrap">
       <div class="chips" id="chipBar"></div>
+    </div>
+    <div class="filters-extra">
+      <select id="sortSelect" class="sort-select">
+        <option value="relevancia">Ordenar por: Relevancia</option>
+        <option value="precio_asc">Precio: menor a mayor</option>
+        <option value="precio_desc">Precio: mayor a menor</option>
+      </select>
+      <div class="price-range">
+        <input type="number" id="precioMin" placeholder="Precio mín" min="0" inputmode="numeric">
+        <span>-</span>
+        <input type="number" id="precioMax" placeholder="Precio máx" min="0" inputmode="numeric">
+        <button class="btn btn-outline btn-sm" id="btnAplicarRango">Aplicar</button>
+      </div>
     </div>
   </div>
 </div>
@@ -94,6 +117,14 @@
     <span id="gridCount"></span>
   </div>
   <div class="grid" id="productGrid"></div>
+</div>
+
+<!-- VISTOS RECIENTEMENTE -->
+<div class="grid-wrap" id="vistosWrap" style="display:none">
+  <div class="grid-heading">
+    <h2>Vistos recientemente</h2>
+  </div>
+  <div class="grid" id="vistosGrid"></div>
 </div>
 
 <!-- FOOTER -->
@@ -163,6 +194,9 @@ let todosLosProductos = [];
 let categorias = [];
 let activeFilter = 'Todos';
 let searchTerm = '';
+let sortBy = 'relevancia';
+let precioMin = null;
+let precioMax = null;
 
 // ── BÚSQUEDA DESDE OTRA PÁGINA (?buscar=...) ────────
 const buscarParam = new URLSearchParams(window.location.search).get('buscar');
@@ -219,11 +253,11 @@ async function cargarBannerPromo() {
 
 async function cargarProductos() {
   try {
-    document.getElementById('stateMsg').innerHTML = `
-      <div class="spinner"></div>
-      <div>Cargando catálogo... puede tardar unos segundos.</div>`;
-    document.getElementById('stateMsg').style.display = 'block';
-    document.getElementById('gridWrap').style.display = 'none';
+    document.getElementById('stateMsg').style.display = 'none';
+    document.getElementById('gridWrap').style.display = 'block';
+    document.getElementById('gridTitle').textContent = 'Catálogo';
+    document.getElementById('gridCount').textContent = '';
+    renderSkeletons();
 
     const res = await fetch(`${API_URL}/api/productos?limit=500`);
     if (!res.ok) throw new Error('No se pudo conectar con el servidor');
@@ -231,20 +265,22 @@ async function cargarProductos() {
     todosLosProductos = await res.json();
 
     if (!todosLosProductos.length) {
+      document.getElementById('gridWrap').style.display = 'none';
       document.getElementById('stateMsg').innerHTML = `
         <div class="icon">📭</div>
         <div>No hay productos disponibles por el momento.</div>`;
+      document.getElementById('stateMsg').style.display = 'block';
       return;
     }
 
-    document.getElementById('stateMsg').style.display = 'none';
-    document.getElementById('gridWrap').style.display = 'block';
     renderGrid();
   } catch (e) {
+    document.getElementById('gridWrap').style.display = 'none';
     document.getElementById('stateMsg').innerHTML = `
       <div class="icon">⚠️</div>
       <div>No pudimos cargar el catálogo.<br><small>${e.message}</small></div>
       <button class="retry-btn" onclick="cargarProductos()">Reintentar</button>`;
+    document.getElementById('stateMsg').style.display = 'block';
   }
 }
 
@@ -286,7 +322,89 @@ function getFiltrados() {
       (p.descripcion && p.descripcion.toLowerCase().includes(searchTerm))
     );
   }
+  if (precioMin != null) {
+    lista = lista.filter(p => p.precio_venta >= precioMin);
+  }
+  if (precioMax != null) {
+    lista = lista.filter(p => p.precio_venta <= precioMax);
+  }
+  if (sortBy === 'precio_asc') {
+    lista = [...lista].sort((a, b) => a.precio_venta - b.precio_venta);
+  } else if (sortBy === 'precio_desc') {
+    lista = [...lista].sort((a, b) => b.precio_venta - a.precio_venta);
+  }
   return lista;
+}
+
+// ── TARJETA DE PRODUCTO ──────────────────────────────
+function renderProductCard(p) {
+  const esOferta = (p.categoria || '').toUpperCase() === 'OFERTAS';
+  const tieneDescuento = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+  const img = p.imagen_principal
+    ? `<img class="card-img" src="${p.imagen_principal}" alt="${p.nombre}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+       <div class="card-img-placeholder" style="display:none">📦</div>`
+    : `<div class="card-img-placeholder">📦</div>`;
+
+  let badge = '';
+  let precioHtml;
+  if (tieneDescuento) {
+    const pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
+    badge = `<span class="card-badge offer-badge">-${pct}%</span>`;
+    precioHtml = `
+      <div class="card-price-row">
+        <span class="price-old">${formatPrice(p.precio_venta)}</span>
+        <span class="card-price">${formatPrice(p.precio_oferta)}</span>
+      </div>`;
+  } else {
+    if (esOferta) badge = '<span class="card-badge">Oferta</span>';
+    precioHtml = `<div class="card-price">${formatPrice(p.precio_venta)}</div>`;
+  }
+
+  const stockBajo = p.stock != null && p.stock > 0 && p.stock <= 3;
+  const stockHtml = stockBajo ? `<div class="card-stock-badge">¡Últimas ${p.stock}!</div>` : '';
+
+  return `
+    <div class="card" onclick="abrirProducto('${p.sku}', '${p.url_amigable || ''}')">
+      <div class="card-img-wrap">
+        ${img}
+        ${badge}
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${p.categoria || ''}</div>
+        <div class="card-name">${p.nombre}</div>
+        ${precioHtml}
+        ${stockHtml}
+        <button class="card-btn" onclick="event.stopPropagation();agregarAlCarrito('${p.sku}')">Agregar al pedido</button>
+      </div>
+    </div>`;
+}
+
+// ── SKELETON DE CARGA ────────────────────────────────
+function renderSkeletons(n = 8) {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = Array.from({ length: n }, () => `
+    <div class="card skeleton">
+      <div class="card-img-wrap skeleton-block"></div>
+      <div class="card-body">
+        <div class="skeleton-line sm"></div>
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line price"></div>
+      </div>
+    </div>`).join('');
+}
+
+// ── SUGERENCIAS (sin resultados) ─────────────────────
+async function cargarSugerencias() {
+  const wrap = document.getElementById('sugerenciasWrap');
+  if (!wrap) return;
+  try {
+    const res = await fetch(`${API_URL}/api/productos/destacados?limit=4`);
+    const data = await res.json();
+    if (!Array.isArray(data) || !data.length) return;
+    wrap.innerHTML = `
+      <div class="sugerencias-title">Quizás te interese</div>
+      <div class="grid">${data.map(renderProductCard).join('')}</div>`;
+  } catch (e) {}
 }
 
 // ── RENDER GRID ────────────────────────────────────
@@ -301,51 +419,41 @@ function renderGrid() {
 
   if (!filtrados.length) {
     grid.innerHTML = `
-      <div style="grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--gray-600)">
+      <div class="no-results">
         <div style="font-size:30px;margin-bottom:8px">🔍</div>
         <div>No encontramos productos con esos filtros.</div>
         <button class="state-msg retry-btn" style="display:inline-block;margin-top:14px" onclick="limpiarFiltros()">Limpiar filtros</button>
-      </div>`;
+      </div>
+      <div id="sugerenciasWrap" class="sugerencias-wrap"></div>`;
+    cargarSugerencias();
     return;
   }
 
-  grid.innerHTML = filtrados.map(p => {
-    const esOferta = (p.categoria || '').toUpperCase() === 'OFERTAS';
-    const tieneDescuento = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
-    const img = p.imagen_principal
-      ? `<img class="card-img" src="${p.imagen_principal}" alt="${p.nombre}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-         <div class="card-img-placeholder" style="display:none">📦</div>`
-      : `<div class="card-img-placeholder">📦</div>`;
+  grid.innerHTML = filtrados.map(renderProductCard).join('');
+}
 
-    let badge = '';
-    let precioHtml;
-    if (tieneDescuento) {
-      const pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
-      badge = `<span class="card-badge offer-badge">-${pct}%</span>`;
-      precioHtml = `
-        <div class="card-price-row">
-          <span class="price-old">${formatPrice(p.precio_venta)}</span>
-          <span class="card-price">${formatPrice(p.precio_oferta)}</span>
-        </div>`;
-    } else {
-      if (esOferta) badge = '<span class="card-badge">Oferta</span>';
-      precioHtml = `<div class="card-price">${formatPrice(p.precio_venta)}</div>`;
-    }
+// ── VISTOS RECIENTEMENTE ─────────────────────────────
+async function cargarVistosRecientemente() {
+  let vistos = [];
+  try {
+    vistos = JSON.parse(localStorage.getItem('eg_vistos') || '[]');
+  } catch (e) {}
+  if (!Array.isArray(vistos) || !vistos.length) return;
 
-    return `
-      <div class="card" onclick="abrirProducto('${p.sku}', '${p.url_amigable || ''}')">
-        <div class="card-img-wrap">
-          ${img}
-          ${badge}
-        </div>
-        <div class="card-body">
-          <div class="card-cat">${p.categoria || ''}</div>
-          <div class="card-name">${p.nombre}</div>
-          ${precioHtml}
-          <button class="card-btn" onclick="event.stopPropagation();agregarAlCarrito('${p.sku}')">Agregar al pedido</button>
-        </div>
-      </div>`;
-  }).join('');
+  try {
+    const productos = await Promise.all(
+      vistos.map(sku => fetch(`${API_URL}/api/producto/${sku}`).then(r => r.ok ? r.json() : null))
+    );
+    const validos = productos.filter(p => p && p.stock > 0);
+    if (!validos.length) return;
+
+    validos.forEach(p => {
+      if (!todosLosProductos.some(tp => tp.sku === p.sku)) todosLosProductos.push(p);
+    });
+
+    document.getElementById('vistosGrid').innerHTML = validos.map(renderProductCard).join('');
+    document.getElementById('vistosWrap').style.display = 'block';
+  } catch (e) {}
 }
 
 function abrirProducto(sku, urlAmigable) {
@@ -355,11 +463,37 @@ function abrirProducto(sku, urlAmigable) {
 function limpiarFiltros() {
   activeFilter = 'Todos';
   searchTerm = '';
+  sortBy = 'relevancia';
+  precioMin = null;
+  precioMax = null;
   document.getElementById('searchDesktop').value = '';
   document.getElementById('searchMobile').value = '';
+  document.getElementById('sortSelect').value = 'relevancia';
+  document.getElementById('precioMin').value = '';
+  document.getElementById('precioMax').value = '';
   renderChips();
   renderGrid();
 }
+
+document.getElementById('sortSelect').addEventListener('change', (e) => {
+  sortBy = e.target.value;
+  renderGrid();
+});
+
+function aplicarRangoPrecio() {
+  const min = parseFloat(document.getElementById('precioMin').value);
+  const max = parseFloat(document.getElementById('precioMax').value);
+  precioMin = isNaN(min) ? null : min;
+  precioMax = isNaN(max) ? null : max;
+  renderGrid();
+}
+
+document.getElementById('btnAplicarRango').addEventListener('click', aplicarRangoPrecio);
+['precioMin', 'precioMax'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); aplicarRangoPrecio(); }
+  });
+});
 
 // ── INICIO ─────────────────────────────────────────
 if (buscarParam) {
@@ -370,6 +504,7 @@ actualizarCarritoUI();
 cargarBannerPromo();
 cargarCategorias();
 cargarProductos();
+cargarVistosRecientemente();
 </script>
 </body>
 </html>

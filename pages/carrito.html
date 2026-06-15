@@ -75,9 +75,48 @@
         <span id="summarySubtotal">$0</span>
       </div>
 
-      <div class="summary-line">
+      <div class="field" style="margin-top:10px">
+        <label for="cartProvincia">Calculá el envío</label>
+        <select id="cartProvincia">
+          <option value="">Seleccioná tu provincia...</option>
+          <option>CABA / Capital Federal</option>
+          <option>Provincia de Buenos Aires</option>
+          <option>Catamarca</option>
+          <option>Chaco</option>
+          <option>Chubut</option>
+          <option>Córdoba</option>
+          <option>Corrientes</option>
+          <option>Entre Ríos</option>
+          <option>Formosa</option>
+          <option>Jujuy</option>
+          <option>La Pampa</option>
+          <option>La Rioja</option>
+          <option>Mendoza</option>
+          <option>Misiones</option>
+          <option>Neuquén</option>
+          <option>Río Negro</option>
+          <option>Salta</option>
+          <option>San Juan</option>
+          <option>San Luis</option>
+          <option>Santa Cruz</option>
+          <option>Santa Fe</option>
+          <option>Santiago del Estero</option>
+          <option>Tierra del Fuego</option>
+          <option>Tucumán</option>
+        </select>
+      </div>
+      <div class="field" id="cartPartidoRow" style="display:none">
+        <select id="cartPartido">
+          <option value="">Seleccioná tu partido...</option>
+        </select>
+      </div>
+
+      <div class="summary-line" id="cartEnvioLine">
         <span>Envío</span>
-        <span class="shipping-badge">Se calcula en el checkout</span>
+        <span class="shipping-badge" id="cartEnvioValor">Se calcula en el checkout</span>
+      </div>
+      <div class="summary-line" id="cartEnvioPlazoLine" style="display:none">
+        <span class="shipping-info" id="cartEnvioPlazo"></span><span></span>
       </div>
 
       <div class="summary-line total">
@@ -196,12 +235,50 @@ function render() {
   actualizarResumen(carrito);
 }
 
+let zonasEnvioData = null;
+let envioSeleccionado = null;
+
+async function initEnvioCarrito() {
+  zonasEnvioData = await egCargarZonasEnvio();
+  if (!zonasEnvioData) return;
+  const partidos = Object.keys(zonasEnvioData.partidos_buenos_aires).sort();
+  document.getElementById('cartPartido').innerHTML = '<option value="">Seleccioná tu partido...</option>' +
+    partidos.map(p => `<option>${p}</option>`).join('');
+}
+
+function actualizarEnvioCarrito() {
+  const provincia = document.getElementById('cartProvincia').value;
+  const partidoRow = document.getElementById('cartPartidoRow');
+  const esBuenosAires = zonasEnvioData && provincia === zonasEnvioData.provincia_buenos_aires;
+  partidoRow.style.display = esBuenosAires ? '' : 'none';
+  if (!esBuenosAires) document.getElementById('cartPartido').value = '';
+
+  const partido = document.getElementById('cartPartido').value;
+  envioSeleccionado = egCalcularEnvio(zonasEnvioData, provincia, partido);
+  actualizarResumen(getCarrito());
+}
+
 function actualizarResumen(carrito) {
   const cant = cartCount(carrito);
   const total = cartTotal(carrito);
   document.getElementById('summaryCantidad').textContent = cant === 1 ? '1 producto' : `${cant} productos`;
   document.getElementById('summarySubtotal').textContent = formatPrice(total);
-  document.getElementById('summaryTotal').textContent = formatPrice(total);
+
+  const valorEl = document.getElementById('cartEnvioValor');
+  const plazoLine = document.getElementById('cartEnvioPlazoLine');
+
+  if (envioSeleccionado) {
+    valorEl.className = '';
+    valorEl.textContent = formatPrice(envioSeleccionado.costo);
+    document.getElementById('cartEnvioPlazo').textContent = envioSeleccionado.plazo;
+    plazoLine.style.display = '';
+    document.getElementById('summaryTotal').textContent = formatPrice(total + envioSeleccionado.costo);
+  } else {
+    valorEl.className = 'shipping-badge';
+    valorEl.textContent = 'Se calcula en el checkout';
+    plazoLine.style.display = 'none';
+    document.getElementById('summaryTotal').textContent = formatPrice(total);
+  }
 }
 
 function cambiarCantidad(idx, delta) {
@@ -228,7 +305,11 @@ function eliminarItem(idx) {
   render();
 }
 
+document.getElementById('cartProvincia').addEventListener('change', actualizarEnvioCarrito);
+document.getElementById('cartPartido').addEventListener('change', actualizarEnvioCarrito);
+
 render();
+initEnvioCarrito();
 </script>
 </body>
 </html>

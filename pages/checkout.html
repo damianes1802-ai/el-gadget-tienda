@@ -283,19 +283,7 @@ function poblarPartidos() {
 }
 
 function calcularEnvio(provincia, partido) {
-  if (!zonasEnvioData || !provincia) return null;
-
-  let zonaId;
-  if (provincia === zonasEnvioData.provincia_caba) {
-    zonaId = zonasEnvioData.zona_caba;
-  } else if (provincia === zonasEnvioData.provincia_buenos_aires) {
-    if (!partido) return null;
-    zonaId = zonasEnvioData.partidos_buenos_aires[partido] || zonasEnvioData.zona_default_buenos_aires;
-  } else {
-    zonaId = zonasEnvioData.zona_default_resto_pais;
-  }
-
-  return { zona: zonaId, ...zonasEnvioData.zonas[zonaId] };
+  return egCalcularEnvio(zonasEnvioData, provincia, partido);
 }
 
 function actualizarPartidoVisibility() {
