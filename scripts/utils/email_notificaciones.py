@@ -22,11 +22,65 @@ logger = get_logger('email_notificaciones')
 RESEND_URL = "https://api.resend.com/emails"
 TIENDA_NOMBRE = "El Gadget"
 
+# ── Paleta de marca (igual a pages/assets/css/style.css) ──
+INK = "#14151A"
+WHITE = "#FFFFFF"
+CREAM = "#F7F6F3"
+ACCENT = "#FFC700"
+ACCENT_DEEP = "#E0AC00"
+ACCENT_PALE = "#FFF7DD"
+GRAY_200 = "#E5E2DD"
+GRAY_600 = "#6F6A63"
+GREEN_OK = "#2E8B57"
+GREEN_PALE = "#E9F5EE"
+
+FONT_STACK = "'Segoe UI', Helvetica, Arial, sans-serif"
+
 
 def email_habilitado() -> bool:
     """True si hay un RESEND_API_KEY configurado en config/.env"""
     env = Config.cargar_env()
     return bool(env.get('RESEND_API_KEY'))
+
+
+def _layout(cuerpo_html: str) -> str:
+    """Envoltorio común (header con logo + footer) para todos los emails."""
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+    logo_url = f"{site_url}/assets/img/logo-animado.gif"
+    dominio = site_url.replace('https://', '').replace('http://', '')
+
+    return f"""
+    <div style="background:{CREAM};padding:24px 12px;font-family:{FONT_STACK}">
+      <div style="max-width:600px;margin:0 auto;background:{WHITE};border-radius:16px;
+                  overflow:hidden;border:1px solid {GRAY_200}">
+        <div style="padding:22px 28px;background:{CREAM};border-bottom:1px solid {GRAY_200}">
+          <img src="{logo_url}" width="220" height="59" alt="El Gadget"
+               style="display:block;border:0;outline:0;max-width:220px;height:auto">
+        </div>
+        <div style="padding:30px 28px;color:{INK};font-size:15px;line-height:1.6">
+          {cuerpo_html}
+        </div>
+        <div style="padding:20px 28px;background:{INK};color:rgba(255,255,255,0.55);
+                    font-size:11px;text-align:center;letter-spacing:0.4px">
+          {TIENDA_NOMBRE} · Tienda online<br>
+          <a href="{site_url}" style="color:{ACCENT};text-decoration:none">{dominio}</a>
+        </div>
+      </div>
+    </div>
+    """
+
+
+def _boton(texto: str, url: str) -> str:
+    return f"""
+    <p style="text-align:center;margin:28px 0">
+      <a href="{url}" style="display:inline-block;background:{ACCENT};color:{INK};
+         padding:14px 28px;text-decoration:none;border-radius:10px;font-weight:700;
+         font-size:15px">
+        {texto}
+      </a>
+    </p>
+    """
 
 
 def _enviar(to_email: str, subject: str, html: str) -> dict:
@@ -71,9 +125,9 @@ def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None) ->
     """
     filas_items = "".join(
         f"<tr>"
-        f"<td style='padding:6px 12px;border-bottom:1px solid #eee'>{item['producto_nombre']}</td>"
-        f"<td style='padding:6px 12px;border-bottom:1px solid #eee;text-align:center'>{item['cantidad']}</td>"
-        f"<td style='padding:6px 12px;border-bottom:1px solid #eee;text-align:right'>${item['subtotal']:,.2f}</td>"
+        f"<td style='padding:10px 14px;border-bottom:1px solid {GRAY_200}'>{item['producto_nombre']}</td>"
+        f"<td style='padding:10px 14px;border-bottom:1px solid {GRAY_200};text-align:center'>{item['cantidad']}</td>"
+        f"<td style='padding:10px 14px;border-bottom:1px solid {GRAY_200};text-align:right;font-weight:600'>${item['subtotal']:,.2f}</td>"
         f"</tr>"
         for item in items
     )
@@ -81,71 +135,75 @@ def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None) ->
     factura_html = ""
     if factura and not factura.get('error'):
         factura_html = (
-            f"<p>Factura C N° {factura['punto_venta']:04d}-{factura['numero']:08d} "
+            f"<p style='margin:18px 0 0;padding:12px 16px;background:{GREEN_PALE};"
+            f"color:{GREEN_OK};border-radius:10px;font-size:13px;font-weight:600'>"
+            f"Factura C N° {factura['punto_venta']:04d}-{factura['numero']:08d} "
             f"— CAE {factura['cae']}</p>"
         )
 
-    html = f"""
-    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
-      <h2 style="color:#111">¡Gracias por tu compra, {orden['nombre']}!</h2>
-      <p>Tu pago fue aprobado. Te confirmamos los detalles de tu pedido #{orden['id']}:</p>
-      <table style="width:100%;border-collapse:collapse;border:1px solid #eee">
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Gracias por tu compra, {orden['nombre']}!</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Tu pago fue aprobado. Te confirmamos los detalles de tu pedido
+        <strong style="color:{INK}">#{orden['id']}</strong>.
+      </p>
+      <table style="width:100%;border-collapse:collapse;border:1px solid {GRAY_200};border-radius:10px;overflow:hidden">
         <thead>
-          <tr style="background:#111;color:#fff">
-            <th style="padding:6px 12px;text-align:left">Producto</th>
-            <th style="padding:6px 12px">Cant.</th>
-            <th style="padding:6px 12px;text-align:right">Subtotal</th>
+          <tr style="background:{INK};color:{WHITE}">
+            <th style="padding:10px 14px;text-align:left;font-size:12px;letter-spacing:0.5px;text-transform:uppercase">Producto</th>
+            <th style="padding:10px 14px;font-size:12px;letter-spacing:0.5px;text-transform:uppercase">Cant.</th>
+            <th style="padding:10px 14px;text-align:right;font-size:12px;letter-spacing:0.5px;text-transform:uppercase">Subtotal</th>
           </tr>
         </thead>
         <tbody>{filas_items}</tbody>
       </table>
-      <p style="text-align:right;font-weight:bold;font-size:1.1em">Total: ${orden['total']:,.2f}</p>
+      <p style="text-align:right;font-weight:700;font-size:18px;margin:16px 4px 0;color:{INK}">
+        Total: ${orden['total']:,.2f}
+      </p>
       {factura_html}
-      <p>Te avisaremos por email cuando tu pedido sea despachado, junto con el link de seguimiento.</p>
-      <p style="color:#888;font-size:0.9em">{TIENDA_NOMBRE}</p>
-    </div>
+      <p style="color:{GRAY_600};margin-top:24px">
+        Te avisaremos por email cuando tu pedido sea despachado, junto con el link de seguimiento.
+      </p>
     """
 
-    return _enviar(orden['email'], f"Confirmación de tu pedido #{orden['id']} - {TIENDA_NOMBRE}", html)
+    return _enviar(orden['email'], f"Confirmación de tu pedido #{orden['id']} - {TIENDA_NOMBRE}", _layout(cuerpo))
 
 
 def enviar_email_tracking(orden: dict, tracking_url: str) -> dict:
     """Envía email con el link de seguimiento del envío."""
-    html = f"""
-    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
-      <h2 style="color:#111">¡Tu pedido #{orden['id']} fue despachado!</h2>
-      <p>Hola {orden['nombre']}, tu pedido ya está en camino.</p>
-      <p>
-        <a href="{tracking_url}" style="background:#FFD500;color:#111;padding:10px 20px;
-           text-decoration:none;border-radius:4px;font-weight:bold;display:inline-block">
-          Seguir mi envío
-        </a>
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Tu pedido #{orden['id']} fue despachado!</h2>
+      <p style="color:{GRAY_600};margin:0">
+        Hola {orden['nombre']}, tu pedido ya está en camino.
       </p>
-      <p>O copiá este link en tu navegador:<br>{tracking_url}</p>
-      <p style="color:#888;font-size:0.9em">{TIENDA_NOMBRE}</p>
-    </div>
+      {_boton('Seguir mi envío', tracking_url)}
+      <p style="color:{GRAY_600};font-size:13px;margin:0;word-break:break-all">
+        O copiá este link en tu navegador:<br>
+        <a href="{tracking_url}" style="color:{ACCENT_DEEP}">{tracking_url}</a>
+      </p>
     """
 
-    return _enviar(orden['email'], f"Tu pedido #{orden['id']} fue despachado - {TIENDA_NOMBRE}", html)
+    return _enviar(orden['email'], f"Tu pedido #{orden['id']} fue despachado - {TIENDA_NOMBRE}", _layout(cuerpo))
 
 
 def enviar_email_bienvenida(nombre: str, email: str) -> dict:
     """Envía email de bienvenida confirmando el registro y el 10% OFF automático."""
-    html = f"""
-    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
-      <h2 style="color:#111">¡Bienvenido/a a {TIENDA_NOMBRE}, {nombre}!</h2>
-      <p>Tu registro se completó con éxito. Como agradecimiento, tenés un
-      <strong>10% OFF</strong> para tu primera compra.</p>
-      <p style="text-align:center;margin:24px 0">
-        <span style="display:inline-block;background:#FFD500;color:#111;padding:12px 24px;
-           border-radius:4px;font-weight:bold;font-size:1.05em">
-          🎉 10% OFF en tu primera compra
-        </span>
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Bienvenido/a a {TIENDA_NOMBRE}, {nombre}!</h2>
+      <p style="color:{GRAY_600};margin:0 0 4px">
+        Tu registro se completó con éxito. Como agradecimiento, tenés un
+        <strong style="color:{INK}">10% OFF</strong> para tu primera compra.
       </p>
-      <p>No necesitás hacer nada más: el descuento se aplica <strong>automáticamente</strong>
-      al finalizar tu primera compra, usando este mismo email ({email}).</p>
-      <p style="color:#888;font-size:0.9em">{TIENDA_NOMBRE}</p>
-    </div>
+      <div style="text-align:center;margin:28px 0">
+        <span style="display:inline-block;background:{ACCENT};color:{INK};padding:16px 32px;
+           border-radius:12px;font-weight:700;font-size:18px;letter-spacing:0.3px">
+          10% OFF en tu primera compra
+        </span>
+      </div>
+      <p style="color:{GRAY_600};margin:0">
+        No necesitás hacer nada más: el descuento se aplica <strong style="color:{INK}">automáticamente</strong>
+        al finalizar tu primera compra, usando este mismo email (<strong style="color:{INK}">{email}</strong>).
+      </p>
     """
 
-    return _enviar(email, f"¡Bienvenido/a a {TIENDA_NOMBRE}! Tu 10% OFF te espera", html)
+    return _enviar(email, f"¡Bienvenido/a a {TIENDA_NOMBRE}! Tu 10% OFF te espera", _layout(cuerpo))
