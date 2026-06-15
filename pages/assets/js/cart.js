@@ -93,6 +93,15 @@ function escapeHtmlBasico(str) {
 }
 
 /**
+ * Prefijo relativo para enlazar a páginas de la raíz de pages/ (login.html,
+ * mi_cuenta.html, etc.) tanto desde la raíz como desde las páginas de
+ * producto, que viven dos niveles más abajo (pages/producto/<slug>/).
+ */
+function egRootPath() {
+  return location.pathname.includes('/producto/') ? '../../' : '';
+}
+
+/**
  * Popup de bienvenida: ofrece 10% OFF a cambio de registrarse con
  * nombre + email. Se inyecta en cualquier página (excepto checkout)
  * si todavía no fue cerrado/usado.
@@ -100,6 +109,7 @@ function escapeHtmlBasico(str) {
 function initPopupRegistro() {
   if (localStorage.getItem('eg_popup_dismissed')) return;
   if (location.pathname.endsWith('checkout.html')) return;
+  if (location.pathname.endsWith('login.html') || location.pathname.endsWith('mi_cuenta.html')) return;
 
   const overlay = document.createElement('div');
   overlay.className = 'eg-popup-overlay';
@@ -110,7 +120,7 @@ function initPopupRegistro() {
       <div id="egPopupContenido">
         <div class="eg-popup-emoji">🎁</div>
         <h2>10% OFF en tu primera compra</h2>
-        <p>Registrate y te enviamos un código de descuento para usar ahora mismo en el checkout.</p>
+        <p>Creá tu cuenta y obtené un 10% de descuento automático en tu primera compra.</p>
         <div class="field">
           <label>Nombre</label>
           <input type="text" id="egPopupNombre" placeholder="Tu nombre">
@@ -119,8 +129,21 @@ function initPopupRegistro() {
           <label>Email</label>
           <input type="email" id="egPopupEmail" placeholder="tu@email.com">
         </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="tel" id="egPopupTelefono" placeholder="11 1234 5678">
+        </div>
+        <div class="field">
+          <label>Contraseña</label>
+          <input type="password" id="egPopupPassword" placeholder="Mínimo 6 caracteres">
+        </div>
+        <div class="field">
+          <label>Confirmar contraseña</label>
+          <input type="password" id="egPopupPassword2" placeholder="Repetí tu contraseña">
+        </div>
         <div class="eg-popup-error" id="egPopupError"></div>
         <button class="btn btn-accent btn-block" id="egPopupSubmit">Quiero mi 10% OFF</button>
+        <p style="margin-top:10px;font-size:12.5px">¿Ya tenés cuenta? <a href="${egRootPath()}login.html">Iniciá sesión</a></p>
       </div>
     </div>
   `;
@@ -141,11 +164,25 @@ function initPopupRegistro() {
   document.getElementById('egPopupSubmit').addEventListener('click', async () => {
     const nombre = document.getElementById('egPopupNombre').value.trim();
     const email = document.getElementById('egPopupEmail').value.trim();
+    const telefono = document.getElementById('egPopupTelefono').value.trim();
+    const password = document.getElementById('egPopupPassword').value;
+    const password2 = document.getElementById('egPopupPassword2').value;
     const errorEl = document.getElementById('egPopupError');
+    errorEl.innerHTML = '';
     errorEl.style.display = 'none';
 
-    if (!nombre || !email || !email.includes('@')) {
-      errorEl.textContent = 'Completá tu nombre y un email válido.';
+    if (!nombre || !email || !email.includes('@') || !telefono) {
+      errorEl.textContent = 'Completá tu nombre, email y teléfono.';
+      errorEl.style.display = 'block';
+      return;
+    }
+    if (password.length < 6) {
+      errorEl.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+      errorEl.style.display = 'block';
+      return;
+    }
+    if (password !== password2) {
+      errorEl.textContent = 'Las contraseñas no coinciden.';
       errorEl.style.display = 'block';
       return;
     }
@@ -158,12 +195,23 @@ function initPopupRegistro() {
       const res = await fetch(`${EG_API_URL}/api/registro`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, email })
+        body: JSON.stringify({ nombre, email, telefono, password })
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || 'No pudimos completar el registro');
+      if (!res.ok) {
+        if (res.status === 409) {
+          errorEl.innerHTML = `Ya existe una cuenta con ese email. <a href="${egRootPath()}login.html">Iniciá sesión</a>`;
+          errorEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Quiero mi 10% OFF';
+          return;
+        }
+        throw new Error(data.detail || 'No pudimos completar el registro');
+      }
 
       localStorage.setItem('eg_popup_dismissed', '1');
+      localStorage.setItem('eg_token', data.token);
+      localStorage.setItem('eg_nombre', data.nombre || nombre);
 
       const yaUsado = data.descuento_usado === 1 || data.descuento_usado === true;
       if (data.codigo_descuento && !yaUsado) {
@@ -177,13 +225,14 @@ function initPopupRegistro() {
         <h2>¡Listo, ${escapeHtmlBasico(nombre)}!</h2>
         <p>${yaUsado
           ? 'Ya usaste tu 10% OFF de bienvenida en una compra anterior. ¡Gracias por volver!'
-          : 'Tu 10% OFF se va a aplicar automáticamente en tu primera compra.'}</p>
+          : 'Tu 10% OFF se va a aplicar automáticamente en tu primera compra. Te enviamos un email de confirmación.'}</p>
         <button class="btn btn-accent btn-block" id="egPopupCerrar">Entendido</button>
       `;
       document.getElementById('egPopupCerrar').addEventListener('click', () => {
         overlay.classList.remove('show');
       });
       if (!yaUsado) mostrarBannerBienvenida();
+      initAccountLink();
     } catch (e) {
       errorEl.textContent = e.message;
       errorEl.style.display = 'block';
@@ -264,6 +313,40 @@ function mostrarBannerBienvenida() {
 }
 
 /**
+ * Inyecta en el header (.header-inner, antes del botón de carrito) un
+ * enlace a "Mi cuenta" (si hay sesión activa) o "Ingresar" (si no la hay).
+ * Se ejecuta en todas las páginas porque cart.js se carga en todas.
+ */
+function initAccountLink() {
+  const headerInner = document.querySelector('.header-inner');
+  if (!headerInner) return;
+
+  const root = egRootPath();
+  const logueado = !!localStorage.getItem('eg_token');
+
+  let link = document.getElementById('egAccountLink');
+  if (!link) {
+    link = document.createElement('a');
+    link.id = 'egAccountLink';
+    link.className = 'account-pill';
+    const cartPill = headerInner.querySelector('.cart-pill');
+    if (cartPill) {
+      headerInner.insertBefore(link, cartPill);
+    } else {
+      headerInner.appendChild(link);
+    }
+  }
+
+  if (logueado) {
+    link.href = `${root}mi_cuenta.html`;
+    link.innerHTML = '👤 <span class="label">Mi cuenta</span>';
+  } else {
+    link.href = `${root}login.html`;
+    link.innerHTML = '👤 <span class="label">Ingresar</span>';
+  }
+}
+
+/**
  * Carga el tarifario de envíos (zonas, partidos de Buenos Aires, etc.)
  * desde la API. Devuelve los datos o null si falla.
  */
@@ -303,4 +386,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initOfertaYStockProducto();
   registrarProductoVisto();
   mostrarBannerBienvenida();
+  initAccountLink();
 });
