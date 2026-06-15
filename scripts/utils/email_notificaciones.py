@@ -50,25 +50,35 @@ def _layout(cuerpo_html: str) -> str:
     logo_url = f"{site_url}/assets/img/logo-animado.gif"
     dominio = site_url.replace('https://', '').replace('http://', '')
 
-    return f"""
-    <div style="background:{CREAM};padding:24px 12px;font-family:{FONT_STACK}">
-      <div style="max-width:600px;margin:0 auto;background:{WHITE};border-radius:16px;
+    return f"""<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+  </head>
+  <body style="margin:0;padding:0;background-color:{CREAM} !important;font-family:{FONT_STACK}">
+    <div style="background-color:{CREAM} !important;padding:24px 12px">
+      <div style="max-width:600px;margin:0 auto;background-color:{WHITE} !important;border-radius:16px;
                   overflow:hidden;border:1px solid {GRAY_200}">
-        <div style="padding:22px 28px;background:{CREAM};border-bottom:1px solid {GRAY_200}">
+        <div style="padding:22px 0;background-color:{ACCENT_PALE} !important;border-bottom:1px solid {GRAY_200};text-align:center">
           <img src="{logo_url}" width="220" height="59" alt="El Gadget"
-               style="display:block;border:0;outline:0;max-width:220px;height:auto">
+               style="display:inline-block;border:0;outline:0;max-width:220px;height:auto;
+                      border-radius:12px;vertical-align:middle">
         </div>
-        <div style="padding:30px 28px;color:{INK};font-size:15px;line-height:1.6">
+        <div style="padding:30px 28px;color:{INK} !important;font-size:15px;line-height:1.6;text-align:center">
           {cuerpo_html}
         </div>
-        <div style="padding:20px 28px;background:{INK};color:rgba(255,255,255,0.55);
+        <div style="padding:20px 28px;background-color:{INK} !important;color:rgba(255,255,255,0.55) !important;
                     font-size:11px;text-align:center;letter-spacing:0.4px">
           {TIENDA_NOMBRE} · Tienda online<br>
-          <a href="{site_url}" style="color:{ACCENT};text-decoration:none">{dominio}</a>
+          <a href="{site_url}" style="color:{ACCENT} !important;text-decoration:none">{dominio}</a>
         </div>
       </div>
     </div>
-    """
+  </body>
+</html>"""
 
 
 def _boton(texto: str, url: str) -> str:

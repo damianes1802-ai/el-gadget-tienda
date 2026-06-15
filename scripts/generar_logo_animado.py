@@ -35,7 +35,7 @@ DURACION_MS = 110
 
 
 def dibujar_frame(t: float) -> Image.Image:
-    img = Image.new("RGB", (ANCHO, ALTO), CREAM)
+    img = Image.new("RGB", (ANCHO, ALTO), WHITE)
     draw = ImageDraw.Draw(img)
 
     # Insignia (cuadrado redondeado oscuro)
