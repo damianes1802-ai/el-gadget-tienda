@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/kit-de-herramientas-1.html",
-  "fecha_scraping": "2026-06-14T09:44:48.690690",
+  "fecha_scraping": "2026-06-15T12:13:39.058176",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:24.036734",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.392593",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2200_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 15000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.225040"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.511745"
 }

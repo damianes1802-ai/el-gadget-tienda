@@ -1,6 +1,6 @@
 {
   "sku": "DL1103",
-  "titulo": "Escobilla De Baño Doble Cara Pack x12 unidades",
+  "titulo": "Escobilla De Baño Doble Cara pack 12 uni",
   "precio": 10990,
   "descripcion": "Escobilla de baño doble cara\nPack x12 unidades\nColores beige, celeste y rosa.\nSe envía surtido.",
   "imagenes": [
@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5282/s/escobilla-de-ba-o-doble-cara/category/13/",
-  "fecha_scraping": "2026-06-14T09:45:25.236711",
+  "fecha_scraping": "2026-06-15T12:14:12.231388",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Baño y Limpieza",
@@ -28,7 +28,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:24.021085",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.376913",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_002",
@@ -47,5 +47,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 16500.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.090526"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.468921"
 }

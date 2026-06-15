@@ -1,6 +1,6 @@
 {
   "sku": "L6139",
-  "titulo": "Pack De Mini Resaltadores Pastel x6 Unidades",
+  "titulo": "Pack de Mini Resaltadores Pastel x6 Unidades",
   "precio": 11190,
   "descripcion": "Pack de 6 resaltadores divertidos de colores pastel.",
   "imagenes": [
@@ -14,7 +14,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/pack-de-mini-resaltadores-pastel-x6-unidades.html",
-  "fecha_scraping": "2026-06-14T09:46:22.218979",
+  "fecha_scraping": "2026-06-15T12:12:53.202604",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -43,6 +43,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 17000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.252244",
-  "fecha_agotado": "2026-06-14T09:40:41.561562"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.519152",
+  "fecha_agotado": "2026-06-15T12:08:30.780977"
 }

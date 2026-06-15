@@ -22,7 +22,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 5000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.101558",
+  "fecha_calculo_precio": "2026-06-15T12:21:35.472515",
   "item_group_id": "grupo_022",
   "variante_atributo": "indeterminado",
   "variante_valor": "CA",
@@ -32,7 +32,7 @@
   "stock": 0,
   "fecha_sincronizacion_droppers": "2026-02-16T20:14:34.668968",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-14T09:40:41.555266",
+  "fecha_agotado": "2026-06-15T12:08:30.788834",
   "availability": "out of stock",
   "imagenes_cloudinary": []
 }

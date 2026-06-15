@@ -18,7 +18,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5501/s/cepillo-de-silicona-lava-copas-premium-packx20/category/13/",
-  "fecha_scraping": "2026-06-14T09:45:21.186485",
+  "fecha_scraping": "2026-06-15T12:14:25.601335",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina",
@@ -33,7 +33,7 @@
   ],
   "total_categorias": 3,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:24.015383",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.372656",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1268_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1268_002",
@@ -56,5 +56,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 14500.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.180182"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.497610"
 }

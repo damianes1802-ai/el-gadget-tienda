@@ -1,6 +1,6 @@
 {
   "sku": "M3022-001A",
-  "titulo": "Bandolera Tejida Mujer Bolso Crochet Para Playa",
+  "titulo": "Bandolera Tejida Mujer Bolso Crochet Para Playa NEGRA",
   "precio": 22858,
   "descripcion": "Bandolera Tejida Mujer Bolso Crochet Para Playa Verano\nEsta bandolera de diseño artesanal es el accesorio ideal para la temporada de verano y días de playa. Su estética tejida combina la frescura del estilo crochet con detalles naturales que resaltan cualquier look estival.\nCaracterísticas Principales\nDiseño y Estilo: el bolso presenta un cuerpo de forma circular, ofreciendo un aspecto moderno y equilibrado. Su estructura tejida se complementa con una correa trenzada que asegura comodidad al trasladarlo.\nDetalles de Terminación: forrado para proteger tus pertenencias y un práctico cierre mediante cordón. Como detalle decorativo, el cordón incluye bolitas de madera que refuerzan su estilo bohemio y natural.\nVariedad de Colores: el producto está disponible en variantes de color Blanco y Negro. Podés seleccionar el tono de tu preferencia desde las opciones ubicadas en el lado derecho de la publicación antes de realizar la compra.\nMedidas del Producto\nAlto: 17 cm Base: 17 cm",
   "imagenes": [
@@ -17,7 +17,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bandolera-tejida-mujer-bolso-crochet-para-playa.html",
-  "fecha_scraping": "2026-06-14T09:47:32.437221",
+  "fecha_scraping": "2026-06-15T12:13:44.077035",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda",
@@ -30,7 +30,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:23.977561",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.329704",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001A_002",
@@ -52,5 +52,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 34500.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.287709"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.529676"
 }

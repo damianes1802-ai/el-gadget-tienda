@@ -26,7 +26,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 34000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.062488",
+  "fecha_calculo_precio": "2026-06-15T12:21:35.458881",
   "disponibilidad": "out of stock",
   "availability": "out of stock",
   "categoria_principal": "OFERTAS",
@@ -39,5 +39,5 @@
   "fecha_actualizacion_categorias": "2026-03-10T15:18:13.270801",
   "categoria_asignada_automaticamente": true,
   "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
-  "fecha_agotado": "2026-06-14T09:40:41.544903"
+  "fecha_agotado": "2026-06-15T12:08:30.763925"
 }

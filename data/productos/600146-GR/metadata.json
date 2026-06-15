@@ -25,7 +25,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 31500.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:27.971346",
+  "fecha_calculo_precio": "2026-06-15T12:21:35.429525",
   "item_group_id": "grupo_004",
   "variante_atributo": "color",
   "variante_valor": "GR",
@@ -35,7 +35,7 @@
   "stock": 0,
   "fecha_sincronizacion_droppers": "2026-02-16T20:14:35.679325",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-14T09:40:41.535920",
+  "fecha_agotado": "2026-06-15T12:08:30.768043",
   "availability": "out of stock",
   "imagenes_cloudinary": []
 }

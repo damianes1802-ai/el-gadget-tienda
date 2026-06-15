@@ -1,6 +1,6 @@
 {
   "sku": "WH7137",
-  "titulo": "Mochila Bandolera Infantil",
+  "titulo": "Cartuchera Infantil",
   "precio": 9956,
   "descripcion": "Mochila bandolera infantil.\nMedidas 22 x 10 cm.\nColores celeste y rosa. Se envían surtidos.",
   "imagenes": [
@@ -12,7 +12,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/mochila-bandolera-infantil.html",
-  "fecha_scraping": "2026-06-14T09:45:52.914100",
+  "fecha_scraping": "2026-06-15T12:13:50.853244",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -39,6 +39,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 15000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.419776",
-  "fecha_agotado": "2026-06-14T09:40:41.549733"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.570560",
+  "fecha_agotado": "2026-06-15T12:08:30.768699"
 }

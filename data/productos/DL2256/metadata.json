@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/organizador-acrilico-circular-con-ruedas.html",
-  "fecha_scraping": "2026-06-14T09:45:00.254142",
+  "fecha_scraping": "2026-06-15T12:15:10.374111",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Home",
@@ -24,7 +24,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:24.005977",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.363201",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2256_001"
   ],
@@ -40,5 +40,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 40500.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.230683"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.513178"
 }

@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/tapones-para-oidos-noise-cancelling.html",
-  "fecha_scraping": "2026-06-14T09:44:52.329780",
+  "fecha_scraping": "2026-06-15T12:13:28.979832",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Estética y Belleza",
@@ -24,7 +24,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:24.002851",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.356876",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1054_001"
   ],
@@ -40,5 +40,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 6000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.065198"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.459922"
 }

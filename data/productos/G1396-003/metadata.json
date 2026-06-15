@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/guantes-tejidos-infantiles.html",
-  "fecha_scraping": "2026-06-14T09:47:48.915088",
+  "fecha_scraping": "2026-06-15T12:14:38.052160",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -37,6 +37,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 7500.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.242949",
-  "fecha_agotado": "2026-06-14T09:40:41.562709"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.516529",
+  "fecha_agotado": "2026-06-15T12:08:30.786545"
 }

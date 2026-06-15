@@ -1,6 +1,6 @@
 {
   "sku": "DWH0255",
-  "titulo": "Dispenser Dosificador Jabon Liquido Ceramica Baño Oso 250ml",
+  "titulo": "Dispenser de Jabon Liquido Oso",
   "precio": 10660,
   "descripcion": "Bonita forma de oso: la botella con bomba de espuma está diseñada en la forma de un oso lindo, este dispensador de jabón para niños interesante y vívido, puede alentar a su bebé a lavarse las manos con burbujas cada vez, se puede utilizar como accesorios de baño para la decoración de la familia u hotel.\nBOTELLA DE CHAMPÚ DE LOCIÓN: Este dispensador de jabón para niños utiliza un diseño de forma de oso 3D de moda, y los dispensadores de líquidos están hechos de material de polipropileno y pe premium, portátil y duradero, con una larga vida útil.\nGRAN CAPACIDAD: Esta botella dispensadora de jabón espumosa reutilizable está diseñada con gran capacidad, ideal para champú, acondicionador, lavado facial, jabón líquido y gel de baño.\nBOTELLA DISPENSADORA DE ESPUMA: Este dispensador de champú de jabón como un bonito juguete de dibujos animados de animales hace que su estado de ánimo sea hermoso para todo el día, pequeño en tamaño y ligero en peso, no ocupa espacio, fácil de transportar y usar.\nDispensador de jabón rellenable: esta botella de jabón con bomba adopta un diseño prensado y tiene un cabezal de bomba fuerte, conveniente para que llene varios líquidos, puede utilizar esta botella de bomba espumosa con confianza.\nCapacidad en volumen: 250 mL\nMaterial: Plástico\nTipos de productos compatibles: Jabón\nConsistencias del producto: Líquido\nAltura: x Largo x Ancho 18 cm x 0 cm x 8 cm\nPeso: 83 g",
   "imagenes": [
@@ -18,7 +18,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/dispenser-dosificador-jabon-liquido-ceramica-ba-o-oso-250ml.html",
-  "fecha_scraping": "2026-06-14T09:47:40.614764",
+  "fecha_scraping": "2026-06-15T12:13:24.995933",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina",
@@ -31,7 +31,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:24.015984",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.373273",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_002",
@@ -54,5 +54,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 16000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.232373"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.513537"
 }

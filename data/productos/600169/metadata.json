@@ -25,7 +25,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 5500.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:27.978065",
+  "fecha_calculo_precio": "2026-06-15T12:21:35.431947",
   "item_group_id": "grupo_005",
   "variante_atributo": "numeros_talle",
   "variante_valor": "600169",
@@ -35,7 +35,7 @@
   "stock": 0,
   "fecha_sincronizacion_droppers": "2026-02-16T20:14:35.084055",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-14T09:40:41.542580",
+  "fecha_agotado": "2026-06-15T12:08:30.763718",
   "availability": "out of stock",
   "imagenes_cloudinary": []
 }
