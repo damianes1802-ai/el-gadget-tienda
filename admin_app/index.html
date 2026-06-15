@@ -60,6 +60,14 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
         Arrepentimientos
       </button>
+      <button class="nav-item" data-section="usuarios">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="7" r="4"/><path d="M3 21v-1a7 7 0 0 1 14 0v1"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
+        Usuarios
+      </button>
+      <button class="nav-item" data-section="descuentos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+        Descuentos
+      </button>
     </nav>
 
     <div class="sidebar-footer">
@@ -227,6 +235,46 @@
         </div>
       </section>
 
+      <!-- USUARIOS -->
+      <section class="section" id="section-usuarios">
+        <div class="toolbar">
+          <input type="text" id="usuarios-buscar" placeholder="Buscar por nombre o email...">
+          <button class="btn btn-outline btn-sm" id="btn-descargar-usuarios">Descargar CSV</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th><th>Email</th><th>Teléfono</th><th>Código</th><th>Usado</th><th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody id="usuarios-tbody">
+              <tr class="loading-row"><td colspan="6">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- DESCUENTOS -->
+      <section class="section" id="section-descuentos">
+        <div class="toolbar">
+          <button class="btn btn-accent btn-sm" id="btn-nuevo-descuento">+ Nuevo descuento</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th><th>Código</th><th>Tipo/Valor</th><th>Alcance</th>
+                <th>Vigencia</th><th>Activo</th><th>Banner</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="descuentos-tbody">
+              <tr class="loading-row"><td colspan="8">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
     </div>
   </main>
 </div>
@@ -331,6 +379,97 @@
   </div>
 </div>
 
+<!-- MODAL EDITAR/CREAR DESCUENTO -->
+<div class="modal-overlay" id="modal-descuento-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-descuento-titulo">Nuevo descuento</h2>
+      <button class="modal-close" data-close="modal-descuento-overlay">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Nombre interno</label>
+        <input type="text" id="modal-descuento-nombre" placeholder="Ej: Descuento Día del Padre">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Tipo</label>
+          <select id="modal-descuento-tipo">
+            <option value="porcentaje">Porcentaje (%)</option>
+            <option value="fijo">Monto fijo ($)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Valor</label>
+          <input type="number" id="modal-descuento-valor" step="1" min="0">
+        </div>
+      </div>
+      <div class="field">
+        <label>Alcance</label>
+        <select id="modal-descuento-alcance">
+          <option value="todos">Todos los productos</option>
+          <option value="categoria">Una categoría</option>
+          <option value="skus">SKUs específicos</option>
+        </select>
+      </div>
+      <div class="field" id="modal-descuento-categoria-wrap" style="display:none">
+        <label>Categoría</label>
+        <input type="text" id="modal-descuento-categoria" placeholder="Ej: Tecnología">
+      </div>
+      <div class="field" id="modal-descuento-skus-wrap" style="display:none">
+        <label>SKUs (separados por coma)</label>
+        <textarea id="modal-descuento-skus" rows="2" placeholder="SKU1, SKU2, SKU3"></textarea>
+      </div>
+      <div class="field">
+        <label>Código de descuento (opcional)</label>
+        <input type="text" id="modal-descuento-codigo" placeholder="Dejar vacío para descuento automático/programado">
+        <p class="field-hint">Si se completa, el cliente debe ingresarlo en el checkout. Si se deja vacío
+          y hay vigencia, el descuento se aplica automáticamente como precio de oferta en el catálogo.</p>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Vigencia desde</label>
+          <input type="date" id="modal-descuento-fecha-inicio">
+        </div>
+        <div class="field">
+          <label>Vigencia hasta</label>
+          <input type="date" id="modal-descuento-fecha-fin">
+        </div>
+      </div>
+      <div class="field">
+        <label>Límite de usos (opcional, sólo para códigos)</label>
+        <input type="number" id="modal-descuento-uso-maximo" step="1" min="1" placeholder="Sin límite">
+      </div>
+      <div class="field">
+        <label class="checkbox" style="text-transform:none;font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer">
+          <input type="checkbox" id="modal-descuento-activo" style="width:auto" checked>
+          Activo
+        </label>
+      </div>
+      <div class="field">
+        <label class="checkbox" style="text-transform:none;font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer">
+          <input type="checkbox" id="modal-descuento-banner" style="width:auto">
+          Mostrar banner promocional en la home
+        </label>
+      </div>
+      <div id="modal-descuento-banner-wrap" style="display:none">
+        <div class="field">
+          <label>Título del banner</label>
+          <input type="text" id="modal-descuento-banner-titulo" placeholder="Ej: 🎉 Ofertas de Día del Padre">
+        </div>
+        <div class="field">
+          <label>Texto del banner</label>
+          <input type="text" id="modal-descuento-banner-texto" placeholder="Ej: Hasta 20% OFF en productos seleccionados">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" data-close="modal-descuento-overlay">Cancelar</button>
+      <button class="btn btn-accent" id="btn-guardar-descuento">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="js/common.js"></script>
@@ -340,6 +479,8 @@
 <script src="js/precios.js"></script>
 <script src="js/clientes.js"></script>
 <script src="js/arrepentimientos.js"></script>
+<script src="js/usuarios.js"></script>
+<script src="js/descuentos.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

@@ -9,6 +9,8 @@ const SECTION_TITLES = {
   precios: 'Precios',
   clientes: 'Clientes',
   arrepentimientos: 'Arrepentimientos',
+  usuarios: 'Usuarios',
+  descuentos: 'Descuentos',
 };
 
 const SECTION_LOADERS = {
@@ -18,6 +20,8 @@ const SECTION_LOADERS = {
   precios: loadPrecios,
   clientes: loadClientes,
   arrepentimientos: loadArrepentimientos,
+  usuarios: loadUsuarios,
+  descuentos: loadDescuentos,
 };
 
 const loadedSections = new Set();

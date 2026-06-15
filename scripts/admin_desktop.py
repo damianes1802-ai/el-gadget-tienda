@@ -231,6 +231,49 @@ class Api:
         except Exception as e:
             return {"error": str(e)}
 
+    # ── Usuarios registrados ──
+    def get_usuarios(self):
+        return self._get("/api/admin/usuarios", admin=True)
+
+    def descargar_usuarios_csv(self):
+        try:
+            resp = requests.get(
+                f"{API_URL}/api/admin/usuarios/csv",
+                headers=self._headers(admin=True),
+                timeout=15,
+            )
+            resp.raise_for_status()
+        except Exception as e:
+            return {"error": str(e)}
+
+        ruta = webview.windows[0].create_file_dialog(
+            webview.SAVE_DIALOG, save_filename='usuarios_el_gadget.csv'
+        )
+        if not ruta:
+            return {"cancelado": True}
+
+        destino = ruta[0] if isinstance(ruta, (list, tuple)) else ruta
+        try:
+            with open(destino, 'wb') as f:
+                f.write(resp.content)
+            return {"ok": True, "ruta": destino}
+        except Exception as e:
+            return {"error": str(e)}
+
+    # ── Descuentos y campañas promocionales ──
+    def get_descuentos(self):
+        return self._get("/api/admin/descuentos", admin=True)
+
+    def guardar_descuento(self, datos):
+        datos = dict(datos)
+        descuento_id = datos.pop('id', None)
+        if descuento_id:
+            return self._patch(f"/api/admin/descuentos/{descuento_id}", json_body=datos)
+        return self._post("/api/admin/descuentos", json_body=datos)
+
+    def eliminar_descuento(self, descuento_id):
+        return self._delete(f"/api/admin/descuentos/{descuento_id}")
+
 
 def main():
     base_dir = Path(__file__).parent.parent
