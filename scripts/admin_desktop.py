@@ -141,7 +141,7 @@ class Api:
                 set_cols.append('seo_optimizado_at')
                 set_vals.append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
-            for campo in ('categoria', 'precio_venta', 'stock'):
+            for campo in ('categoria', 'precio_venta', 'stock', 'imagen_principal', 'imagenes_adicionales'):
                 if campo in cambios:
                     overrides[campo] = cambios[campo]
                     set_cols.append(campo)
@@ -190,6 +190,9 @@ class Api:
     # ── Clientes ──
     def get_clientes(self):
         return self._get("/api/clientes", admin=True)
+
+    def eliminar_cliente(self, cliente_id):
+        return self._delete(f"/api/admin/clientes/{cliente_id}")
 
     # ── Arrepentimientos ──
     def get_arrepentimientos(self):
@@ -259,6 +262,13 @@ class Api:
             return {"ok": True, "ruta": destino}
         except Exception as e:
             return {"error": str(e)}
+
+    def eliminar_usuario(self, usuario_id):
+        return self._delete(f"/api/admin/usuarios/{usuario_id}")
+
+    # ── Historial de actualizaciones diarias (redeploys) ──
+    def get_historial(self):
+        return self._get("/api/admin/historial", admin=True)
 
     # ── Descuentos y campañas promocionales ──
     def get_descuentos(self):

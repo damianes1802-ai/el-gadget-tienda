@@ -68,6 +68,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
         Descuentos
       </button>
+      <button class="nav-item" data-section="historial">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        Historial
+      </button>
     </nav>
 
     <div class="sidebar-footer">
@@ -139,17 +143,22 @@
             <input type="checkbox" id="productos-incluir-agotados" checked>
             Incluir agotados
           </label>
+          <label class="checkbox">
+            <input type="checkbox" id="productos-solo-seo-pendientes">
+            Solo pendientes de SEO
+          </label>
+          <span class="cell-muted" id="productos-seo-resumen"></span>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>SKU</th><th>Producto</th><th>Categoría</th>
-                <th>Costo</th><th>Venta</th><th>Margen</th><th>Stock</th><th>Acciones</th>
+                <th>Costo</th><th>Venta</th><th>Margen</th><th>Stock</th><th>SEO</th><th>Acciones</th>
               </tr>
             </thead>
             <tbody id="productos-tbody">
-              <tr class="loading-row"><td colspan="8">Cargando…</td></tr>
+              <tr class="loading-row"><td colspan="9">Cargando…</td></tr>
             </tbody>
           </table>
         </div>
@@ -208,11 +217,11 @@
             <thead>
               <tr>
                 <th>Cliente</th><th>Email</th><th>Teléfono</th>
-                <th>Ubicación</th><th>Pedidos</th><th>Total comprado</th>
+                <th>Ubicación</th><th>Pedidos</th><th>Total comprado</th><th>Acciones</th>
               </tr>
             </thead>
             <tbody id="clientes-tbody">
-              <tr class="loading-row"><td colspan="6">Cargando…</td></tr>
+              <tr class="loading-row"><td colspan="7">Cargando…</td></tr>
             </tbody>
           </table>
         </div>
@@ -245,11 +254,11 @@
           <table>
             <thead>
               <tr>
-                <th>Nombre</th><th>Email</th><th>Teléfono</th><th>Código</th><th>Usado</th><th>Fecha</th>
+                <th>Nombre</th><th>Email</th><th>Teléfono</th><th>Código</th><th>Usado</th><th>Fecha</th><th>Acciones</th>
               </tr>
             </thead>
             <tbody id="usuarios-tbody">
-              <tr class="loading-row"><td colspan="6">Cargando…</td></tr>
+              <tr class="loading-row"><td colspan="7">Cargando…</td></tr>
             </tbody>
           </table>
         </div>
@@ -270,6 +279,23 @@
             </thead>
             <tbody id="descuentos-tbody">
               <tr class="loading-row"><td colspan="8">Cargando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- HISTORIAL -->
+      <section class="section" id="section-historial">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th><th>Total productos</th><th>Nuevos</th>
+                <th>Agotados</th><th>Reingresados</th><th>Estado</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="historial-tbody">
+              <tr class="loading-row"><td colspan="7">Cargando…</td></tr>
             </tbody>
           </table>
         </div>
@@ -368,6 +394,10 @@
           <label>Precio de venta</label>
           <input type="number" id="modal-producto-precio" step="50" min="0">
         </div>
+      </div>
+      <div class="field">
+        <label>Imágenes (la primera es la portada)</label>
+        <div id="modal-producto-imagenes" class="imagenes-reorder"></div>
       </div>
       <p class="field-hint">Los cambios se aplican de inmediato en la tienda online y se guardan
         como ajustes manuales para que no se pierdan en la próxima sincronización automática.</p>
@@ -470,6 +500,17 @@
   </div>
 </div>
 
+<!-- MODAL DETALLE DE HISTORIAL -->
+<div class="modal-overlay" id="modal-historial-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-historial-titulo">Actualización</h2>
+      <button class="modal-close" data-close="modal-historial-overlay">&times;</button>
+    </div>
+    <div class="modal-body" id="modal-historial-body"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="js/common.js"></script>
@@ -481,6 +522,7 @@
 <script src="js/arrepentimientos.js"></script>
 <script src="js/usuarios.js"></script>
 <script src="js/descuentos.js"></script>
+<script src="js/historial.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

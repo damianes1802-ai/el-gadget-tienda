@@ -35,6 +35,7 @@ USO:
 import subprocess
 import sys
 import time
+import sqlite3
 from pathlib import Path
 from datetime import datetime
 import json
@@ -206,6 +207,123 @@ class ActualizadorMaestro:
                 self.stats['advertencias'].append(error)
                 return True
     
+    def capturar_cambios_pre_sync(self):
+        """
+        Lee el reporte de agotados/reingresados/nuevos generado por el paso de
+        detección (17_deteccion_agotados_robusto.py) y, para los agotados,
+        busca sus nombres en catalogo.db ANTES de que 11_sincronizar_sqlite.py
+        los borre de la tabla productos. Se usa luego para poblar
+        historial_actualizaciones.
+        """
+        self.historial_agotados = []
+        self.historial_reingresados_skus = []
+
+        try:
+            reportes = sorted(
+                p for p in Config.DATA_DIR.glob('reporte_agotados_*.json')
+                if not p.name.endswith('_FALLO.json')
+            )
+            if not reportes:
+                return
+
+            with open(reportes[-1], 'r', encoding='utf-8') as f:
+                reporte = json.load(f)
+
+            agotados_skus = reporte.get('agotados', {}).get('skus', [])
+            self.historial_reingresados_skus = reporte.get('reingresados', {}).get('skus', [])
+
+            if agotados_skus:
+                db_path = Config.DATA_DIR / 'catalogo.db'
+                conn = sqlite3.connect(db_path)
+                cursor = conn.cursor()
+                placeholders = ','.join('?' * len(agotados_skus))
+                cursor.execute(f"SELECT sku, nombre FROM productos WHERE sku IN ({placeholders})", agotados_skus)
+                nombres = {fila[0]: fila[1] for fila in cursor.fetchall()}
+                conn.close()
+                self.historial_agotados = [
+                    {'sku': sku, 'nombre': nombres.get(sku, '')} for sku in agotados_skus
+                ]
+        except Exception as e:
+            logger.error(f"Error capturando cambios pre-sync para historial: {e}")
+
+    def registrar_historial_actualizacion(self):
+        """
+        Guarda en historial_actualizaciones (tabla de catalogo.db) el resumen
+        de esta corrida -total de productos y detalle de nuevos/agotados/
+        reingresados- para mostrarlo en la pestaña Historial del Panel El Gadget.
+        """
+        try:
+            db_path = Config.DATA_DIR / 'catalogo.db'
+            if not db_path.exists():
+                return
+
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS historial_actualizaciones (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    fecha TEXT DEFAULT (datetime('now')),
+                    total_productos INTEGER DEFAULT 0,
+                    nuevos_count INTEGER DEFAULT 0,
+                    agotados_count INTEGER DEFAULT 0,
+                    reingresados_count INTEGER DEFAULT 0,
+                    nuevos_json TEXT DEFAULT '[]',
+                    agotados_json TEXT DEFAULT '[]',
+                    reingresados_json TEXT DEFAULT '[]',
+                    exitoso INTEGER DEFAULT 1
+                )
+            """)
+
+            cursor.execute("SELECT COUNT(*) FROM productos")
+            total_productos = cursor.fetchone()[0]
+
+            # Nuevos: SKUs agregados al catálogo en esta corrida
+            nuevos_detalle = []
+            nuevos_skus_file = Config.DATA_DIR / 'nuevos_skus.json'
+            if nuevos_skus_file.exists():
+                with open(nuevos_skus_file, 'r', encoding='utf-8') as f:
+                    nuevos_skus = json.load(f)
+                if nuevos_skus:
+                    placeholders = ','.join('?' * len(nuevos_skus))
+                    cursor.execute(f"SELECT sku, nombre FROM productos WHERE sku IN ({placeholders})", nuevos_skus)
+                    nombres = {fila[0]: fila[1] for fila in cursor.fetchall()}
+                    nuevos_detalle = [{'sku': sku, 'nombre': nombres.get(sku, '')} for sku in nuevos_skus]
+
+            # Reingresados: vuelven a estar en la tabla productos (con stock) tras el sync
+            reingresados_detalle = []
+            reingresados_skus = getattr(self, 'historial_reingresados_skus', [])
+            if reingresados_skus:
+                placeholders = ','.join('?' * len(reingresados_skus))
+                cursor.execute(f"SELECT sku, nombre FROM productos WHERE sku IN ({placeholders})", reingresados_skus)
+                nombres = {fila[0]: fila[1] for fila in cursor.fetchall()}
+                reingresados_detalle = [{'sku': sku, 'nombre': nombres.get(sku, '')} for sku in reingresados_skus]
+
+            agotados_detalle = getattr(self, 'historial_agotados', [])
+
+            exitoso = 1 if not self.stats['pasos_fallidos'] else 0
+
+            cursor.execute("""
+                INSERT INTO historial_actualizaciones
+                    (total_productos, nuevos_count, agotados_count, reingresados_count,
+                     nuevos_json, agotados_json, reingresados_json, exitoso)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                total_productos,
+                len(nuevos_detalle), len(agotados_detalle), len(reingresados_detalle),
+                json.dumps(nuevos_detalle, ensure_ascii=False),
+                json.dumps(agotados_detalle, ensure_ascii=False),
+                json.dumps(reingresados_detalle, ensure_ascii=False),
+                exitoso
+            ))
+            conn.commit()
+            conn.close()
+
+            print(f"\n📒 Historial de actualización registrado "
+                  f"(nuevos: {len(nuevos_detalle)}, agotados: {len(agotados_detalle)}, "
+                  f"reingresados: {len(reingresados_detalle)})")
+        except Exception as e:
+            logger.error(f"Error registrando historial de actualización: {e}")
+
     def optimizar_seo_productos_nuevos(self):
         """
         Optimiza el SEO (título y descripción) con IA solo para los productos
@@ -415,6 +533,9 @@ class ActualizadorMaestro:
             print("\n⛔ Abortando actualización por error crítico")
             return False
 
+        # Capturar agotados/reingresados (con nombres) antes de que el sync los modifique
+        self.capturar_cambios_pre_sync()
+
         # PASO 2: Scrapear productos nuevos - FASE 1 sin categorías (opcional según modo)
         scraper_ejecutado = False
         if self.modo == 'completo':
@@ -486,6 +607,9 @@ class ActualizadorMaestro:
             print("\n⛔ Actualización falló en sincronización")
             return False
 
+        # Registrar en el historial (pestaña "Historial" del Panel El Gadget)
+        self.registrar_historial_actualizacion()
+
         # PASO 9: Optimizar SEO con IA de productos nuevos detectados en este sync
         self.optimizar_seo_productos_nuevos()
 
@@ -539,6 +663,9 @@ class ActualizadorMaestro:
         ):
             return False
 
+        # Capturar agotados/reingresados (con nombres) antes de que el sync los modifique
+        self.capturar_cambios_pre_sync()
+
         if not self.ejecutar_script(
             "2. Cálculo de precios",
             self.scripts['precios'],
@@ -553,6 +680,9 @@ class ActualizadorMaestro:
             obligatorio=True
         ):
             return False
+
+        # Registrar en el historial (pestaña "Historial" del Panel El Gadget)
+        self.registrar_historial_actualizacion()
 
         # PASO 4: Optimizar SEO con IA de productos nuevos detectados en este sync
         self.optimizar_seo_productos_nuevos()

@@ -363,7 +363,15 @@ class SincronizadorSQLiteOptimizado:
                     imagenes_adicionales = imagenes_originales[1:]
                 
                 imagenes_adicionales_str = ','.join(imagenes_adicionales)
-                
+
+                # Reordenamiento manual de imágenes (portada elegida desde el Panel
+                # El Gadget) tiene prioridad sobre el orden recién scrapeado
+                if overrides_manuales:
+                    if 'imagen_principal' in overrides:
+                        imagen_principal = overrides['imagen_principal']
+                    if 'imagenes_adicionales' in overrides:
+                        imagenes_adicionales_str = overrides['imagenes_adicionales']
+
                 # Grupo de variantes
                 item_group_id = metadata.get('item_group_id', '')
 

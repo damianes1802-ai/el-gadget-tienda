@@ -115,6 +115,7 @@ class Producto(BaseModel):
     url_amigable: Optional[str] = ""
     variantes_internas: Optional[str] = ""
     precio_oferta: Optional[float] = None
+    seo_optimizado_at: Optional[str] = None
 
 
 class Cliente(BaseModel):
@@ -163,6 +164,8 @@ class ActualizarProducto(BaseModel):
     categoria: Optional[str] = None
     precio_venta: Optional[float] = None
     stock: Optional[int] = None
+    imagen_principal: Optional[str] = None
+    imagenes_adicionales: Optional[str] = None
 
 
 class SolicitudArrepentimiento(BaseModel):
@@ -371,6 +374,23 @@ def migrar_db():
             banner_titulo TEXT DEFAULT '',
             banner_texto TEXT DEFAULT '',
             creado_at TEXT DEFAULT (datetime('now'))
+        )
+    """)
+
+    # Historial de actualizaciones diarias del catálogo (redeploys automáticos):
+    # cuenta y detalle de productos nuevos/agotados/reingresados por corrida
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS historial_actualizaciones (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            fecha TEXT DEFAULT (datetime('now')),
+            total_productos INTEGER DEFAULT 0,
+            nuevos_count INTEGER DEFAULT 0,
+            agotados_count INTEGER DEFAULT 0,
+            reingresados_count INTEGER DEFAULT 0,
+            nuevos_json TEXT DEFAULT '[]',
+            agotados_json TEXT DEFAULT '[]',
+            reingresados_json TEXT DEFAULT '[]',
+            exitoso INTEGER DEFAULT 1
         )
     """)
 
@@ -1056,6 +1076,28 @@ def exportar_usuarios_csv(x_admin_password: Optional[str] = Header(None)):
         media_type="text/csv",
         headers={"Content-Disposition": "attachment; filename=usuarios_el_gadget.csv"},
     )
+
+
+@app.delete("/api/admin/usuarios/{usuario_id}")
+def eliminar_usuario_registrado(usuario_id: int, x_admin_password: Optional[str] = Header(None)):
+    """Elimina un usuario registrado y sus sesiones activas (solo admin)"""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT id FROM usuarios_registrados WHERE id = ?", (usuario_id,))
+    if not cursor.fetchone():
+        conn.close()
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    cursor.execute("DELETE FROM sesiones_usuario WHERE usuario_id = ?", (usuario_id,))
+    cursor.execute("DELETE FROM usuarios_registrados WHERE id = ?", (usuario_id,))
+    conn.commit()
+    conn.close()
+
+    return {"mensaje": "Usuario eliminado", "usuario_id": usuario_id}
 
 
 @app.get("/api/descuentos/activos")
@@ -1801,6 +1843,40 @@ def listar_clientes(x_admin_password: Optional[str] = Header(None)):
     return [dict(c) for c in clientes]
 
 
+@app.delete("/api/admin/clientes/{cliente_id}")
+def eliminar_cliente(cliente_id: int, x_admin_password: Optional[str] = Header(None)):
+    """
+    Elimina un cliente (solo admin). No se permite si tiene órdenes asociadas,
+    para no dejar pedidos/facturas huérfanos: hay que eliminar primero esas
+    órdenes desde la pestaña Pedidos.
+    """
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT id FROM clientes WHERE id = ?", (cliente_id,))
+    if not cursor.fetchone():
+        conn.close()
+        raise HTTPException(status_code=404, detail="Cliente no encontrado")
+
+    cursor.execute("SELECT COUNT(*) as total FROM ordenes WHERE cliente_id = ?", (cliente_id,))
+    cantidad_ordenes = cursor.fetchone()['total']
+    if cantidad_ordenes > 0:
+        conn.close()
+        raise HTTPException(
+            status_code=409,
+            detail=f"No se puede eliminar: el cliente tiene {cantidad_ordenes} pedido(s) asociado(s)"
+        )
+
+    cursor.execute("DELETE FROM clientes WHERE id = ?", (cliente_id,))
+    conn.commit()
+    conn.close()
+
+    return {"mensaje": "Cliente eliminado", "cliente_id": cliente_id}
+
+
 @app.patch("/api/admin/producto/{sku}")
 def actualizar_producto(sku: str, datos: ActualizarProducto, x_admin_password: Optional[str] = Header(None)):
     """
@@ -2049,6 +2125,18 @@ def obtener_estadisticas():
     """)
     pedidos_sin_facturar = cursor.fetchone()['total']
 
+    # Usuarios registrados (popup de bienvenida / "Mi cuenta")
+    cursor.execute("SELECT COUNT(*) as total FROM usuarios_registrados")
+    total_usuarios = cursor.fetchone()['total']
+
+    # Estado de optimización SEO automática (solo productos con stock,
+    # que son los elegibles para 13_optimizar_seo_ia.py)
+    cursor.execute("SELECT COUNT(*) as total FROM productos WHERE stock > 0 AND seo_optimizado_at IS NOT NULL")
+    seo_optimizados = cursor.fetchone()['total']
+
+    cursor.execute("SELECT COUNT(*) as total FROM productos WHERE stock > 0 AND seo_optimizado_at IS NULL")
+    seo_pendientes = cursor.fetchone()['total']
+
     conn.close()
 
     return {
@@ -2065,8 +2153,56 @@ def obtener_estadisticas():
         "ventas_por_mes": ventas_por_mes,
         "top_productos": top_productos,
         "facturas_emitidas": facturas_emitidas,
-        "pedidos_sin_facturar": pedidos_sin_facturar
+        "pedidos_sin_facturar": pedidos_sin_facturar,
+        "usuarios_registrados": total_usuarios,
+        "seo": {
+            "optimizados": seo_optimizados,
+            "pendientes": seo_pendientes
+        }
     }
+
+
+# ============================================================================
+# ENDPOINTS - HISTORIAL DE ACTUALIZACIONES (redeploys automáticos)
+# ============================================================================
+
+@app.get("/api/admin/historial")
+def listar_historial_actualizaciones(
+    limit: int = Query(30, le=200),
+    x_admin_password: Optional[str] = Header(None)
+):
+    """
+    Lista las corridas de la actualización diaria automática del catálogo
+    (redeploys), ordenadas por fecha descendente, con el detalle de
+    productos nuevos/agotados/reingresados de cada corrida (solo admin).
+    """
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, fecha, total_productos, nuevos_count, agotados_count,
+               reingresados_count, nuevos_json, agotados_json, reingresados_json, exitoso
+        FROM historial_actualizaciones
+        ORDER BY fecha DESC, id DESC
+        LIMIT ?
+    """, (limit,))
+    filas = cursor.fetchall()
+    conn.close()
+
+    historial = []
+    for fila in filas:
+        item = dict(fila)
+        for campo in ("nuevos_json", "agotados_json", "reingresados_json"):
+            clave = campo.replace("_json", "")
+            try:
+                item[clave] = json.loads(item.pop(campo) or "[]")
+            except (json.JSONDecodeError, TypeError):
+                item[clave] = []
+        historial.append(item)
+
+    return historial
 
 
 # ============================================================================

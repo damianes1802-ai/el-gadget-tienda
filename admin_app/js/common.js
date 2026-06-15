@@ -110,6 +110,28 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// ── Modal de confirmación de eliminación (genérico) ──
+// Cualquier sección puede llamar a confirmarEliminar(mensaje, onConfirm) para
+// reutilizar el modal #modal-confirmar-overlay sin pisar el callback de otra.
+let _confirmarEliminarCallback = null;
+
+function confirmarEliminar(mensaje, onConfirm) {
+  document.getElementById('modal-confirmar-texto').textContent = mensaje;
+  _confirmarEliminarCallback = onConfirm;
+  openModal('modal-confirmar-overlay');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('btn-confirmar-eliminar');
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    const callback = _confirmarEliminarCallback;
+    _confirmarEliminarCallback = null;
+    closeModal('modal-confirmar-overlay');
+    if (callback) await callback();
+  });
+});
+
 // ── Loader inicial ──
 function hideLoader() {
   const el = document.getElementById('loader-overlay');

@@ -11,6 +11,7 @@ const SECTION_TITLES = {
   arrepentimientos: 'Arrepentimientos',
   usuarios: 'Usuarios',
   descuentos: 'Descuentos',
+  historial: 'Historial de actualizaciones',
 };
 
 const SECTION_LOADERS = {
@@ -22,6 +23,7 @@ const SECTION_LOADERS = {
   arrepentimientos: loadArrepentimientos,
   usuarios: loadUsuarios,
   descuentos: loadDescuentos,
+  historial: loadHistorial,
 };
 
 const loadedSections = new Set();

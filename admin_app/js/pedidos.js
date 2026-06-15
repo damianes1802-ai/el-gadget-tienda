@@ -4,7 +4,6 @@
 
 let todosLosPedidos = [];
 let pedidoActual = null;
-let pedidoParaEliminar = null;
 
 async function loadPedidos() {
   const tbody = document.getElementById('pedidos-tbody');
@@ -261,23 +260,17 @@ document.getElementById('btn-guardar-estado').addEventListener('click', async ()
 
 // ── Eliminar ──
 function pedirEliminarPedido(id, nombre) {
-  pedidoParaEliminar = id;
-  document.getElementById('modal-confirmar-texto').textContent =
-    `Se eliminará el pedido #${id} de ${nombre || 'este cliente'}. Esta acción no se puede deshacer.`;
-  openModal('modal-confirmar-overlay');
+  confirmarEliminar(
+    `Se eliminará el pedido #${id} de ${nombre || 'este cliente'}. Esta acción no se puede deshacer.`,
+    async () => {
+      try {
+        await apiCall('eliminar_orden', id);
+        closeModal('modal-pedido-overlay');
+        toast(`Pedido #${id} eliminado`, 'success');
+        loadPedidos();
+      } catch (e) {
+        toast('Error al eliminar el pedido: ' + e.message, 'error');
+      }
+    }
+  );
 }
-
-document.getElementById('btn-confirmar-eliminar').addEventListener('click', async () => {
-  if (!pedidoParaEliminar) return;
-  try {
-    await apiCall('eliminar_orden', pedidoParaEliminar);
-    closeModal('modal-confirmar-overlay');
-    closeModal('modal-pedido-overlay');
-    toast(`Pedido #${pedidoParaEliminar} eliminado`, 'success');
-    pedidoParaEliminar = null;
-    loadPedidos();
-  } catch (e) {
-    toast('Error al eliminar el pedido: ' + e.message, 'error');
-    closeModal('modal-confirmar-overlay');
-  }
-});

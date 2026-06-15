@@ -24,6 +24,7 @@ async function loadDashboard() {
 function renderStats(el, data) {
   const productos = data.productos || {};
   const ordenes = data.ordenes || {};
+  const seo = data.seo || {};
 
   el.innerHTML = `
     <div class="stat-card">
@@ -44,6 +45,16 @@ function renderStats(el, data) {
       <h3>Facturación AFIP</h3>
       <div class="numero">${data.facturas_emitidas ?? 0}</div>
       <div class="sub">${data.pedidos_sin_facturar ?? 0} pedidos aprobados sin facturar</div>
+    </div>
+    <div class="stat-card">
+      <h3>Usuarios registrados</h3>
+      <div class="numero">${data.usuarios_registrados ?? 0}</div>
+      <div class="sub">Con 10% OFF de bienvenida</div>
+    </div>
+    <div class="stat-card">
+      <h3>SEO automático</h3>
+      <div class="numero">${seo.optimizados ?? 0}</div>
+      <div class="sub">${seo.pendientes ?? 0} productos pendientes de optimizar</div>
     </div>
   `;
 }

@@ -6,13 +6,13 @@ let todosLosUsuarios = [];
 
 async function loadUsuarios() {
   const tbody = document.getElementById('usuarios-tbody');
-  tbody.innerHTML = '<tr class="loading-row"><td colspan="6">Cargando…</td></tr>';
+  tbody.innerHTML = '<tr class="loading-row"><td colspan="7">Cargando…</td></tr>';
 
   try {
     todosLosUsuarios = await apiCall('get_usuarios');
     renderUsuariosTabla(filtrarUsuariosLocal());
   } catch (e) {
-    tbody.innerHTML = `<tr class="empty-row"><td colspan="6">Error al cargar: ${escapeHtml(e.message)}</td></tr>`;
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="7">Error al cargar: ${escapeHtml(e.message)}</td></tr>`;
   }
 }
 
@@ -28,7 +28,7 @@ function filtrarUsuariosLocal() {
 function renderUsuariosTabla(usuarios) {
   const tbody = document.getElementById('usuarios-tbody');
   if (!usuarios.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">Sin resultados</td></tr>';
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">Sin resultados</td></tr>';
     return;
   }
 
@@ -40,8 +40,24 @@ function renderUsuariosTabla(usuarios) {
       <td class="cell-strong">${escapeHtml(u.codigo_descuento || '-')}</td>
       <td>${u.descuento_usado ? '<span class="badge badge-gray">Usado</span>' : '<span class="badge badge-green">Disponible</span>'}</td>
       <td class="cell-muted">${formatDate(u.creado_at)}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="pedirEliminarUsuario(${u.id}, '${escapeHtml((u.nombre || u.email || '').replace(/'/g, "\\'"))}')">Eliminar</button></td>
     </tr>
   `).join('');
+}
+
+function pedirEliminarUsuario(id, nombre) {
+  confirmarEliminar(
+    `Se eliminará el usuario registrado "${nombre || 'sin nombre'}". Esta acción no se puede deshacer.`,
+    async () => {
+      try {
+        await apiCall('eliminar_usuario', id);
+        toast('Usuario eliminado', 'success');
+        loadUsuarios();
+      } catch (e) {
+        toast('Error al eliminar el usuario: ' + e.message, 'error');
+      }
+    }
+  );
 }
 
 document.getElementById('usuarios-buscar').addEventListener('input', () => renderUsuariosTabla(filtrarUsuariosLocal()));
