@@ -43,10 +43,12 @@ RESPONSE_SCHEMA = {
     "required": ["titulo", "descripcion"],
 }
 
-PROMPT_TEMPLATE = """Sos un redactor de e-commerce especializado en SEO para Argentina.
-Tu tarea es reescribir el titulo y la descripcion de un producto para la tienda online "El Gadget".
+PROMPT_TEMPLATE = """Sos un copywriter senior de e-commerce especializado en SEO y en redaccion
+de alta conversion para Argentina, escribiendo para la tienda online "El Gadget" (tecnologia,
+gadgets, accesorios e indumentaria). El objetivo no es solo posicionar en Google: el titulo y la
+descripcion tienen que hacer que alguien que ya esta viendo el producto decida comprarlo.
 
-Datos actuales del producto:
+Datos reales del producto (unica fuente de verdad, no inventes nada que no este aca):
 - Nombre actual: {nombre}
 - Descripcion actual: {descripcion}
 - Categoria: {categoria}
@@ -56,16 +58,42 @@ Datos actuales del producto:
 - Talle: {talle}
 - Precio de venta: ${precio_venta} ARS
 
-Instrucciones:
-- Tono argentino, natural, cercano, sin keyword-stuffing.
-- "titulo": entre 50 y 70 caracteres, atractivo y SEO-friendly, manteniendo la identidad del producto
-  (no inventes una marca o modelo distinto al original).
-- "descripcion": entre 120 y 200 palabras, en parrafos cortos o bullets separados por saltos de
-  linea (\\n), basada en los hechos del texto original (no inventes especificaciones nuevas),
-  incluyendo palabras clave relevantes para busquedas en Argentina.
-- Nunca menciones al proveedor ("Droppers" ni ningun otro nombre de proveedor). La marca de la
-  tienda es siempre "El Gadget".
-- Responde unicamente con el JSON solicitado, sin texto adicional.
+Antes de escribir, pensa:
+1. Que escribiria en Google alguien en Argentina que quiere comprar este producto (terminos reales
+   de busqueda, sinonimos coloquiales, sin jerga tecnica innecesaria).
+2. Cuales son los 2-3 atributos de los datos reales que mas pesan para decidir la compra
+   (beneficio real para el comprador, no solo la caracteristica tecnica en si).
+3. Que duda u objecion tipica frena la compra de este producto (talle, compatibilidad, calidad,
+   uso, garantia, envio) y como resolverla en una linea, sin inventar politicas que no conozcas.
+4. Que tipo de comprador busca esto y que emocion o necesidad satisface (practicidad, regalo,
+   moda, ahorro, trabajo, diversion), para conectar con eso en el tono.
+
+Con eso en mente, generá:
+
+- "titulo": entre 50 y 70 caracteres. Empieza con el tipo de producto y su atributo mas distintivo
+  (marca, modelo, color, etc.) tal como figura en los datos reales -no inventes marca o modelo
+  distinto al original-, pensado como lo escribiria un comprador en el buscador. Si entra de forma
+  natural, suma un gancho de conversion breve (ej. un beneficio clave o "envio rapido" si aplica),
+  sin que se vea forzado. Sin mayusculas sostenidas ni signos de exclamacion.
+- "descripcion": entre 120 y 200 palabras, en espanol argentino, tono cercano, persuasivo y
+  natural (sin keyword-stuffing ni frases genericas tipo "en la era digital..."). Estructura
+  tipo embudo (AIDA) en parrafos cortos o bullets separados por \\n:
+  - Gancho inicial (1-2 frases): que es el producto y el beneficio principal que resuelve para
+    quien lo compra (no solo la descripcion tecnica). Esto es lo que Google suele mostrar como
+    resumen, tiene que tener sentido por si solo.
+  - 3 a 5 bullets (cada uno en su propia linea, empezando con "- ") que traduzcan caracteristicas
+    reales en beneficios concretos para el usuario (que gana con cada una), basados SOLO en los
+    datos reales -no inventes specs, medidas ni funciones que no esten mencionadas-.
+  - Cierre persuasivo (1-2 frases) que dispare la decision de compra: conecta con el uso o la
+    ocasion (uso diario, ideal para regalo, para el trabajo, etc.), resolvé alguna objecion comun
+    si corresponde, y cerra con una invitacion natural a comprar (ej. "sumalo a tu carrito",
+    "hacelo tuyo hoy"), sin sonar a publicidad forzada ni a plantilla repetida.
+  - Incorpora de forma natural palabras clave de la categoria/subcategoria y del tipo de producto,
+    como las buscaria alguien en Argentina.
+- Nunca menciones al proveedor ("Droppers" ni ningun otro mayorista). La marca de la tienda es
+  "El Gadget"; no hace falta repetirla en cada producto.
+- Responde unicamente con el JSON solicitado (titulo, descripcion), sin texto adicional ni
+  explicacion del razonamiento.
 """
 
 

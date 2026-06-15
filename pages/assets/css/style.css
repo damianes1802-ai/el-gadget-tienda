@@ -76,7 +76,7 @@ a { color: inherit; }
   overflow: hidden;
   display: flex;
 }
-.logo-badge svg { width: 100%; height: 100%; display: block; }
+.logo-badge svg, .logo-badge img { width: 100%; height: 100%; display: block; object-fit: cover; }
 .logo-text { display: flex; flex-direction: column; gap: 2px; }
 .logo-name {
   font-family: 'Space Grotesk', sans-serif;
@@ -328,11 +328,27 @@ a { color: inherit; }
 @media (min-width: 760px) { .search-mobile { display: none; } }
 .chips-wrap { position: relative; }
 .chips-wrap::before, .chips-wrap::after {
-  content: ''; position: absolute; top: 0; bottom: 2px; width: 24px; pointer-events: none; z-index: 1;
+  content: ''; position: absolute; top: 0; bottom: 2px; width: 32px; pointer-events: none; z-index: 1;
+  opacity: 0; transition: opacity 0.15s;
 }
 .chips-wrap::before { left: 0; background: linear-gradient(to right, var(--paper), transparent); }
 .chips-wrap::after { right: 0; background: linear-gradient(to left, var(--paper), transparent); }
-.chips { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.chips-wrap.has-prev::before, .chips-wrap.has-next::after { opacity: 1; }
+.chip-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; border-radius: 50%; border: none;
+  background: var(--paper); color: var(--ink);
+  font-size: 15px; font-weight: 700; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 2; box-shadow: 0 2px 6px rgba(20,21,26,0.15);
+  opacity: 0; pointer-events: none; transition: opacity 0.15s, background 0.15s, color 0.15s;
+}
+.chip-arrow:hover { background: var(--accent); color: var(--ink); }
+.chip-arrow-prev { left: 2px; }
+.chip-arrow-next { right: 2px; }
+.chips-wrap.has-prev .chip-arrow-prev,
+.chips-wrap.has-next .chip-arrow-next { opacity: 1; pointer-events: auto; }
+.chips { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none; padding: 0 30px 2px; }
 .chips::-webkit-scrollbar { display: none; }
 .chip {
   white-space: nowrap;
@@ -352,7 +368,7 @@ a { color: inherit; }
 .chip.offer:not(.active) { border-color: var(--accent); color: var(--accent-deep); background: var(--accent-pale); }
 
 /* ── ORDEN Y RANGO DE PRECIO ── */
-.filters-extra { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; align-items: center; }
+.filters-extra { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; align-items: center; justify-content: center; }
 .sort-select {
   padding: 8px 32px 8px 14px; border-radius: 20px; border: 1.5px solid var(--gray-200);
   background-color: var(--paper); font-size: 12.5px; font-weight: 600; color: var(--ink);
