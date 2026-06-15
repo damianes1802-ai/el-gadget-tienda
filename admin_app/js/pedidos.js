@@ -44,7 +44,7 @@ function renderPedidosTabla(pedidos) {
         <div class="cell-muted">${escapeHtml(o.cliente_email || '')}</div>
       </td>
       <td class="cell-strong">${formatPriceDecimal(o.total)}</td>
-      <td>${badgeEstado(o.estado)}</td>
+      <td>${selectEstadoEnvio(o)}</td>
       <td>${badgePago(o.estado_pago)}</td>
       <td>${badgeFactura(o)}</td>
       <td>
@@ -54,6 +54,38 @@ function renderPedidosTabla(pedidos) {
       </td>
     </tr>
   `).join('');
+}
+
+// ── Estado de envío (desplegable directo en la tabla) ──
+const ESTADOS_ENVIO = [
+  ['pendiente_procesar', 'Pendiente'],
+  ['procesando', 'Procesando'],
+  ['enviado', 'Despachado'],
+  ['entregado', 'Recibido'],
+  ['cancelado', 'Cancelado'],
+];
+
+function selectEstadoEnvio(o) {
+  const opciones = ESTADOS_ENVIO.map(([valor, texto]) =>
+    `<option value="${valor}" ${o.estado === valor ? 'selected' : ''}>${texto}</option>`
+  ).join('');
+  return `<select class="select-estado-envio estado-${escapeHtml(o.estado || '')}" data-id="${o.id}" onchange="cambiarEstadoEnvio(${o.id}, this)">${opciones}</select>`;
+}
+
+async function cambiarEstadoEnvio(id, select) {
+  const nuevoEstado = select.value;
+  const anterior = select.dataset.anterior || select.className.match(/estado-(\S+)/)?.[1];
+  try {
+    await apiCall('cambiar_estado_orden', id, nuevoEstado);
+    const pedido = todosLosPedidos.find(o => o.id === id);
+    if (pedido) pedido.estado = nuevoEstado;
+    select.className = `select-estado-envio estado-${nuevoEstado}`;
+    select.dataset.anterior = nuevoEstado;
+    toast('Estado de envío actualizado', 'success');
+  } catch (e) {
+    select.value = anterior || '';
+    toast('Error al actualizar el estado: ' + e.message, 'error');
+  }
 }
 
 document.getElementById('pedidos-filtro-estado').addEventListener('change', loadPedidos);

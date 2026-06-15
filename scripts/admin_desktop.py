@@ -302,4 +302,26 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception:
+        import traceback
+        from datetime import datetime
+
+        logs_dir = Path(__file__).parent.parent / "logs"
+        logs_dir.mkdir(exist_ok=True)
+        log_file = logs_dir / "admin_desktop_error.log"
+        with open(log_file, 'a', encoding='utf-8') as f:
+            f.write(f"\n=== {datetime.now().isoformat()} ===\n")
+            f.write(traceback.format_exc())
+
+        try:
+            import ctypes
+            ctypes.windll.user32.MessageBoxW(
+                0,
+                f"No se pudo iniciar el Panel El Gadget.\n\nDetalles en:\n{log_file}",
+                "Panel El Gadget - Error",
+                0x10,  # MB_ICONERROR
+            )
+        except Exception:
+            pass
