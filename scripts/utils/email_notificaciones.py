@@ -44,7 +44,13 @@ def email_habilitado() -> bool:
 
 
 def _layout(cuerpo_html: str) -> str:
-    """Envoltorio común (header con logo + footer) para todos los emails."""
+    """Envoltorio común (header con logo + footer) para todos los emails.
+
+    Estructura basada en <table> con atributos bgcolor (no solo CSS) porque
+    es lo único que evita de forma confiable que la app de Gmail invierta
+    los colores en modo oscuro, y mantiene el ancho fijo a 600px sin que el
+    contenido se desborde en pantallas chicas.
+    """
     env = Config.cargar_env()
     site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
     logo_url = f"{site_url}/assets/img/logo-animado.gif"
@@ -57,26 +63,46 @@ def _layout(cuerpo_html: str) -> str:
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light">
     <meta name="supported-color-schemes" content="light">
+    <style>
+      body {{ margin:0; padding:0; }}
+      table {{ border-collapse:collapse; }}
+      img {{ -ms-interpolation-mode:bicubic; }}
+    </style>
   </head>
-  <body style="margin:0;padding:0;background-color:{CREAM} !important;font-family:{FONT_STACK}">
-    <div style="background-color:{CREAM} !important;padding:24px 12px">
-      <div style="max-width:600px;margin:0 auto;background-color:{WHITE} !important;border-radius:16px;
-                  overflow:hidden;border:1px solid {GRAY_200}">
-        <div style="padding:22px 0;background-color:{ACCENT_PALE} !important;border-bottom:1px solid {GRAY_200};text-align:center">
-          <img src="{logo_url}" width="220" height="59" alt="El Gadget"
-               style="display:inline-block;border:0;outline:0;max-width:220px;height:auto;
-                      border-radius:12px;vertical-align:middle">
-        </div>
-        <div style="padding:30px 28px;color:{INK} !important;font-size:15px;line-height:1.6;text-align:center">
-          {cuerpo_html}
-        </div>
-        <div style="padding:20px 28px;background-color:{INK} !important;color:rgba(255,255,255,0.55) !important;
-                    font-size:11px;text-align:center;letter-spacing:0.4px">
-          {TIENDA_NOMBRE} · Tienda online<br>
-          <a href="{site_url}" style="color:{ACCENT} !important;text-decoration:none">{dominio}</a>
-        </div>
-      </div>
-    </div>
+  <body style="margin:0;padding:0;background-color:{CREAM};font-family:{FONT_STACK}">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+           bgcolor="{CREAM}" style="background-color:{CREAM} !important">
+      <tr>
+        <td align="center" style="padding:24px 12px">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                 bgcolor="{WHITE}" style="max-width:600px;width:100%;background-color:{WHITE} !important;
+                 border-radius:16px;overflow:hidden;border:1px solid {GRAY_200}">
+            <tr>
+              <td align="center" bgcolor="{ACCENT_PALE}"
+                  style="padding:22px 0;background-color:{ACCENT_PALE} !important;border-bottom:1px solid {GRAY_200}">
+                <img src="{logo_url}" width="220" height="59" alt="El Gadget"
+                     style="display:block;margin:0 auto;border:0;outline:0;max-width:220px;height:auto;border-radius:12px">
+              </td>
+            </tr>
+            <tr>
+              <td align="center" bgcolor="{WHITE}"
+                  style="padding:30px 24px;background-color:{WHITE} !important;color:{INK} !important;
+                  font-size:15px;line-height:1.6">
+                {cuerpo_html}
+              </td>
+            </tr>
+            <tr>
+              <td align="center" bgcolor="{INK}"
+                  style="padding:20px 28px;background-color:{INK} !important;color:#B8B8BD !important;
+                  font-size:11px;letter-spacing:0.4px">
+                <span style="color:#B8B8BD !important">{TIENDA_NOMBRE} · Tienda online</span><br>
+                <a href="{site_url}" style="color:{ACCENT} !important;text-decoration:none">{dominio}</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   </body>
 </html>"""
 
@@ -84,7 +110,7 @@ def _layout(cuerpo_html: str) -> str:
 def _boton(texto: str, url: str) -> str:
     return f"""
     <p style="text-align:center;margin:28px 0">
-      <a href="{url}" style="display:inline-block;background:{ACCENT};color:{INK};
+      <a href="{url}" style="display:inline-block;background-color:{ACCENT} !important;color:{INK} !important;
          padding:14px 28px;text-decoration:none;border-radius:10px;font-weight:700;
          font-size:15px">
         {texto}
@@ -135,9 +161,13 @@ def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None) ->
     """
     filas_items = "".join(
         f"<tr>"
-        f"<td style='padding:10px 14px;border-bottom:1px solid {GRAY_200}'>{item['producto_nombre']}</td>"
-        f"<td style='padding:10px 14px;border-bottom:1px solid {GRAY_200};text-align:center'>{item['cantidad']}</td>"
-        f"<td style='padding:10px 14px;border-bottom:1px solid {GRAY_200};text-align:right;font-weight:600'>${item['subtotal']:,.2f}</td>"
+        f"<td style='padding:10px 12px;border-bottom:1px solid {GRAY_200};word-wrap:break-word;overflow-wrap:break-word;text-align:left'>"
+        f"{item['producto_nombre']}"
+        f"<br><span style='color:{GRAY_600};font-size:12px'>Cantidad: {item['cantidad']}</span>"
+        f"</td>"
+        f"<td style='padding:10px 12px;border-bottom:1px solid {GRAY_200};text-align:right;font-weight:600;white-space:nowrap;vertical-align:top'>"
+        f"${item['subtotal']:,.2f}"
+        f"</td>"
         f"</tr>"
         for item in items
     )
@@ -157,12 +187,12 @@ def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None) ->
         Tu pago fue aprobado. Te confirmamos los detalles de tu pedido
         <strong style="color:{INK}">#{orden['id']}</strong>.
       </p>
-      <table style="width:100%;border-collapse:collapse;border:1px solid {GRAY_200};border-radius:10px;overflow:hidden">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="width:100%;border-collapse:collapse;border:1px solid {GRAY_200};border-radius:10px;overflow:hidden">
         <thead>
-          <tr style="background:{INK};color:{WHITE}">
-            <th style="padding:10px 14px;text-align:left;font-size:12px;letter-spacing:0.5px;text-transform:uppercase">Producto</th>
-            <th style="padding:10px 14px;font-size:12px;letter-spacing:0.5px;text-transform:uppercase">Cant.</th>
-            <th style="padding:10px 14px;text-align:right;font-size:12px;letter-spacing:0.5px;text-transform:uppercase">Subtotal</th>
+          <tr bgcolor="{INK}" style="background-color:{INK} !important">
+            <th style="padding:10px 12px;text-align:left;font-size:11px;letter-spacing:0.5px;text-transform:uppercase;color:{WHITE} !important">Producto</th>
+            <th style="padding:10px 12px;text-align:right;font-size:11px;letter-spacing:0.5px;text-transform:uppercase;color:{WHITE} !important;white-space:nowrap">Subtotal</th>
           </tr>
         </thead>
         <tbody>{filas_items}</tbody>
