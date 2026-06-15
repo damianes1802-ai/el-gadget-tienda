@@ -129,20 +129,21 @@ def enviar_email_tracking(orden: dict, tracking_url: str) -> dict:
     return _enviar(orden['email'], f"Tu pedido #{orden['id']} fue despachado - {TIENDA_NOMBRE}", html)
 
 
-def enviar_email_bienvenida(nombre: str, email: str, codigo_descuento: str) -> dict:
-    """Envía email de bienvenida con el código de 10% OFF para la primera compra."""
+def enviar_email_bienvenida(nombre: str, email: str) -> dict:
+    """Envía email de bienvenida confirmando el registro y el 10% OFF automático."""
     html = f"""
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
       <h2 style="color:#111">¡Bienvenido/a a {TIENDA_NOMBRE}, {nombre}!</h2>
-      <p>Gracias por registrarte. Como agradecimiento, te regalamos un <strong>10% OFF</strong>
-      para tu primera compra.</p>
+      <p>Tu registro se completó con éxito. Como agradecimiento, tenés un
+      <strong>10% OFF</strong> para tu primera compra.</p>
       <p style="text-align:center;margin:24px 0">
         <span style="display:inline-block;background:#FFD500;color:#111;padding:12px 24px;
-           border-radius:4px;font-weight:bold;font-size:1.2em;letter-spacing:1px">
-          {codigo_descuento}
+           border-radius:4px;font-weight:bold;font-size:1.05em">
+          🎉 10% OFF en tu primera compra
         </span>
       </p>
-      <p>Ingresá este código en el campo "Código de descuento" al finalizar tu compra.</p>
+      <p>No necesitás hacer nada más: el descuento se aplica <strong>automáticamente</strong>
+      al finalizar tu primera compra, usando este mismo email ({email}).</p>
       <p style="color:#888;font-size:0.9em">{TIENDA_NOMBRE}</p>
     </div>
     """

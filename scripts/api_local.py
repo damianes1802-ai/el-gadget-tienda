@@ -28,6 +28,9 @@ import sys
 import uuid
 import csv
 import io
+import hashlib
+import hmac
+import secrets
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr
 from pathlib import Path
@@ -170,10 +173,17 @@ class SolicitudArrepentimiento(BaseModel):
 
 
 class Registro(BaseModel):
-    """Modelo para el registro de usuarios (popup de bienvenida)"""
+    """Modelo para el registro de usuarios (popup de bienvenida + creación de cuenta)"""
     nombre: str
     email: EmailStr
-    telefono: Optional[str] = ""
+    telefono: str
+    password: str
+
+
+class Login(BaseModel):
+    """Modelo para iniciar sesión en 'Mi cuenta'"""
+    email: EmailStr
+    password: str
 
 
 class Descuento(BaseModel):
@@ -317,6 +327,27 @@ def migrar_db():
         )
     """)
 
+    # Columnas de cuenta (login) en usuarios_registrados
+    columnas_usuarios_nuevas = [
+        ("password_hash", "TEXT DEFAULT ''"),
+        ("password_salt", "TEXT DEFAULT ''"),
+    ]
+    cursor.execute("PRAGMA table_info(usuarios_registrados)")
+    columnas_usuarios_existentes = {row[1] for row in cursor.fetchall()}
+    for col_name, col_def in columnas_usuarios_nuevas:
+        if col_name not in columnas_usuarios_existentes:
+            cursor.execute(f"ALTER TABLE usuarios_registrados ADD COLUMN {col_name} {col_def}")
+
+    # Sesiones activas de "Mi cuenta" (login con email + contraseña)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS sesiones_usuario (
+            token TEXT PRIMARY KEY,
+            usuario_id INTEGER NOT NULL,
+            creado_at TEXT DEFAULT (datetime('now')),
+            FOREIGN KEY (usuario_id) REFERENCES usuarios_registrados(id)
+        )
+    """)
+
     # Campañas de descuento: códigos, descuentos programados por fecha
     # (sobre todos los productos, una categoría o SKUs puntuales) y/o
     # banners promocionales para la home
@@ -349,6 +380,60 @@ def migrar_db():
 # Ejecutar migración al iniciar
 sincronizar_catalogo_persistente()
 migrar_db()
+
+
+# ============================================================================
+# AUTENTICACIÓN - CONTRASEÑAS Y SESIONES DE "MI CUENTA"
+# ============================================================================
+
+def _hash_password(password: str, salt: Optional[str] = None) -> tuple:
+    """Genera (hash, salt) de una contraseña con PBKDF2-HMAC-SHA256."""
+    if salt is None:
+        salt = secrets.token_hex(16)
+    hash_hex = hashlib.pbkdf2_hmac(
+        "sha256", password.encode("utf-8"), salt.encode("utf-8"), 100_000
+    ).hex()
+    return hash_hex, salt
+
+
+def _verificar_password(password: str, password_hash: str, password_salt: str) -> bool:
+    """Compara una contraseña en texto plano contra el hash almacenado."""
+    if not password_hash or not password_salt:
+        return False
+    hash_hex, _ = _hash_password(password, password_salt)
+    return hmac.compare_digest(hash_hex, password_hash)
+
+
+def _crear_sesion(usuario_id: int, cursor) -> str:
+    """Crea una sesión nueva para 'Mi cuenta' y devuelve el token."""
+    token = secrets.token_hex(32)
+    cursor.execute(
+        "INSERT INTO sesiones_usuario (token, usuario_id) VALUES (?, ?)",
+        (token, usuario_id),
+    )
+    return token
+
+
+def _extraer_token(authorization: Optional[str]) -> Optional[str]:
+    """Extrae el token de un header Authorization: Bearer <token>."""
+    if not authorization:
+        return None
+    if authorization.lower().startswith("bearer "):
+        return authorization[7:].strip()
+    return authorization.strip()
+
+
+def _usuario_desde_token(token: Optional[str], cursor) -> Optional[dict]:
+    """Devuelve el usuario asociado a un token de sesión, o None si no es válido."""
+    if not token:
+        return None
+    cursor.execute("""
+        SELECT u.* FROM sesiones_usuario s
+        JOIN usuarios_registrados u ON u.id = s.usuario_id
+        WHERE s.token = ?
+    """, (token,))
+    row = cursor.fetchone()
+    return dict(row) if row else None
 
 
 def calcular_envio(provincia: str, partido: str = "") -> dict:
@@ -749,10 +834,14 @@ def productos_destacados(limit: int = 10):
 @app.post("/api/registro")
 def registrar_usuario(registro: Registro):
     """
-    Registra un usuario desde el popup de bienvenida y le asigna un código
-    de descuento del 10% para su primera compra. Si el email ya estaba
-    registrado, devuelve el código existente.
+    Crea una cuenta de usuario (nombre, email, teléfono, contraseña) desde el
+    popup de bienvenida y le asigna un código de descuento del 10% para su
+    primera compra. Si el email ya tiene una cuenta con contraseña, devuelve
+    409 para que el usuario inicie sesión en su lugar.
     """
+    if len(registro.password) < 6:
+        raise HTTPException(status_code=400, detail="La contraseña debe tener al menos 6 caracteres")
+
     conn = get_db()
     cursor = conn.cursor()
 
@@ -762,45 +851,164 @@ def registrar_usuario(registro: Registro):
 
         if existente:
             existente_dict = dict(existente)
+
+            if existente_dict.get("password_hash"):
+                conn.close()
+                raise HTTPException(
+                    status_code=409,
+                    detail="Ya existe una cuenta con ese email. Iniciá sesión.",
+                )
+
+            # Cuenta creada antes de que existieran contraseñas: la completamos ahora
+            password_hash, password_salt = _hash_password(registro.password)
             cursor.execute(
-                "UPDATE usuarios_registrados SET nombre = ?, telefono = ? WHERE email = ?",
-                (registro.nombre, registro.telefono or "", registro.email)
+                "UPDATE usuarios_registrados SET nombre = ?, telefono = ?, password_hash = ?, password_salt = ? WHERE email = ?",
+                (registro.nombre, registro.telefono, password_hash, password_salt, registro.email)
             )
+            token = _crear_sesion(existente_dict["id"], cursor)
             conn.commit()
             conn.close()
             return {
-                "mensaje": "Ya estabas registrado",
+                "mensaje": "Cuenta completada",
                 "codigo_descuento": existente_dict.get("codigo_descuento"),
                 "descuento_usado": existente_dict.get("descuento_usado", 0),
                 "nuevo": False,
+                "token": token,
+                "nombre": registro.nombre,
             }
 
         codigo = f"BIENVENIDO-{uuid.uuid4().hex[:6].upper()}"
+        password_hash, password_salt = _hash_password(registro.password)
 
         cursor.execute(
-            "INSERT INTO usuarios_registrados (nombre, email, telefono, codigo_descuento) VALUES (?, ?, ?, ?)",
-            (registro.nombre, registro.email, registro.telefono or "", codigo)
+            "INSERT INTO usuarios_registrados (nombre, email, telefono, codigo_descuento, password_hash, password_salt) VALUES (?, ?, ?, ?, ?, ?)",
+            (registro.nombre, registro.email, registro.telefono, codigo, password_hash, password_salt)
         )
         cursor.execute("""
             INSERT INTO descuentos (nombre, tipo, valor, alcance, codigo, email_asociado, activo, uso_maximo)
             VALUES (?, 'porcentaje', 10, 'todos', ?, ?, 1, 1)
         """, (f"Bienvenida {registro.email}", codigo, registro.email))
 
+        usuario_id = cursor.lastrowid
+        token = _crear_sesion(usuario_id, cursor)
+
         conn.commit()
         conn.close()
 
         if email_habilitado():
             try:
-                enviar_email_bienvenida(registro.nombre, registro.email, codigo)
+                enviar_email_bienvenida(registro.nombre, registro.email)
             except Exception as e:
                 print(f"⚠️ No se pudo enviar email de bienvenida: {e}")
 
-        return {"mensaje": "Registro exitoso", "codigo_descuento": codigo, "descuento_usado": 0, "nuevo": True}
+        return {
+            "mensaje": "Registro exitoso",
+            "codigo_descuento": codigo,
+            "descuento_usado": 0,
+            "nuevo": True,
+            "token": token,
+            "nombre": registro.nombre,
+        }
 
+    except HTTPException:
+        raise
     except Exception as e:
         conn.rollback()
         conn.close()
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/login")
+def login_usuario(datos: Login):
+    """Inicia sesión en 'Mi cuenta' con email + contraseña y devuelve un token."""
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM usuarios_registrados WHERE email = ?", (datos.email,))
+    usuario = cursor.fetchone()
+
+    if not usuario or not _verificar_password(datos.password, usuario["password_hash"], usuario["password_salt"]):
+        conn.close()
+        raise HTTPException(status_code=401, detail="Email o contraseña incorrectos")
+
+    usuario = dict(usuario)
+    token = _crear_sesion(usuario["id"], cursor)
+    conn.commit()
+    conn.close()
+
+    return {
+        "token": token,
+        "nombre": usuario["nombre"],
+        "email": usuario["email"],
+        "telefono": usuario["telefono"],
+        "codigo_descuento": usuario["codigo_descuento"],
+        "descuento_usado": usuario["descuento_usado"],
+    }
+
+
+@app.post("/api/logout")
+def logout_usuario(authorization: Optional[str] = Header(None)):
+    """Invalida el token de sesión actual de 'Mi cuenta'."""
+    token = _extraer_token(authorization)
+    if token:
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM sesiones_usuario WHERE token = ?", (token,))
+        conn.commit()
+        conn.close()
+    return {"ok": True}
+
+
+@app.get("/api/mi_cuenta")
+def obtener_mi_cuenta(authorization: Optional[str] = Header(None)):
+    """Devuelve los datos de la cuenta del usuario autenticado."""
+    conn = get_db()
+    cursor = conn.cursor()
+    usuario = _usuario_desde_token(_extraer_token(authorization), cursor)
+    conn.close()
+
+    if not usuario:
+        raise HTTPException(status_code=401, detail="Sesión inválida, iniciá sesión nuevamente")
+
+    return {
+        "nombre": usuario["nombre"],
+        "email": usuario["email"],
+        "telefono": usuario["telefono"],
+        "codigo_descuento": usuario["codigo_descuento"],
+        "descuento_usado": usuario["descuento_usado"],
+        "creado_at": usuario["creado_at"],
+    }
+
+
+@app.get("/api/mi_cuenta/pedidos")
+def obtener_mis_pedidos(authorization: Optional[str] = Header(None)):
+    """Devuelve el historial de pedidos del usuario autenticado (por email)."""
+    conn = get_db()
+    cursor = conn.cursor()
+    usuario = _usuario_desde_token(_extraer_token(authorization), cursor)
+
+    if not usuario:
+        conn.close()
+        raise HTTPException(status_code=401, detail="Sesión inválida, iniciá sesión nuevamente")
+
+    cursor.execute("""
+        SELECT o.id, o.total, o.estado, o.estado_pago, o.tracking_url, o.fecha, o.enviado_at
+        FROM ordenes o
+        JOIN clientes c ON o.cliente_id = c.id
+        WHERE LOWER(c.email) = LOWER(?)
+        ORDER BY o.fecha DESC
+    """, (usuario["email"],))
+    pedidos = [dict(r) for r in cursor.fetchall()]
+
+    for pedido in pedidos:
+        cursor.execute("""
+            SELECT producto_sku AS sku, producto_nombre AS nombre, cantidad, precio_unitario, subtotal
+            FROM orden_items WHERE orden_id = ?
+        """, (pedido["id"],))
+        pedido["items"] = [dict(i) for i in cursor.fetchall()]
+
+    conn.close()
+    return {"pedidos": pedidos}
 
 
 @app.get("/api/admin/usuarios")
@@ -811,7 +1019,10 @@ def listar_usuarios_registrados(x_admin_password: Optional[str] = Header(None)):
 
     conn = get_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM usuarios_registrados ORDER BY creado_at DESC")
+    cursor.execute("""
+        SELECT id, nombre, email, telefono, codigo_descuento, descuento_usado, creado_at
+        FROM usuarios_registrados ORDER BY creado_at DESC
+    """)
     usuarios = cursor.fetchall()
     conn.close()
 
