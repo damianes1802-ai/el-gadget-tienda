@@ -866,12 +866,14 @@ a { color: inherit; }
 }
 .eg-popup-card p { font-size: 13.5px; color: var(--gray-600); line-height: 1.6; margin-bottom: 16px; }
 .eg-popup-card .field { text-align: center; margin-bottom: 12px; }
-.eg-popup-code {
-  background: var(--accent-pale); border: 1.5px dashed var(--accent-deep); border-radius: var(--radius-sm);
-  padding: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700;
-  color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 14px;
-}
 .eg-popup-error { font-size: 12px; color: var(--red); margin-top: -6px; margin-bottom: 10px; display: none; }
+
+/* ── BANNER DE BIENVENIDA (10% OFF por registro) ── */
+.eg-welcome-banner {
+  background: var(--accent); color: var(--ink);
+  font-size: 12.5px; font-weight: 700; line-height: 1.4;
+  padding: 9px 16px;
+}
 
 /* ── BANNER PROMOCIONAL (home) ── */
 .promo-banner { display: none; max-width: 1240px; margin: 0 auto; padding: 0 1.25rem; }

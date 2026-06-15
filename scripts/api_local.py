@@ -771,6 +771,7 @@ def registrar_usuario(registro: Registro):
             return {
                 "mensaje": "Ya estabas registrado",
                 "codigo_descuento": existente_dict.get("codigo_descuento"),
+                "descuento_usado": existente_dict.get("descuento_usado", 0),
                 "nuevo": False,
             }
 
@@ -794,7 +795,7 @@ def registrar_usuario(registro: Registro):
             except Exception as e:
                 print(f"⚠️ No se pudo enviar email de bienvenida: {e}")
 
-        return {"mensaje": "Registro exitoso", "codigo_descuento": codigo, "nuevo": True}
+        return {"mensaje": "Registro exitoso", "codigo_descuento": codigo, "descuento_usado": 0, "nuevo": True}
 
     except Exception as e:
         conn.rollback()
@@ -892,13 +893,18 @@ def validar_descuento(datos: ValidarDescuento):
 
 @app.get("/api/admin/descuentos")
 def listar_descuentos(x_admin_password: Optional[str] = Header(None)):
-    """Lista todas las campañas de descuento (solo admin)"""
+    """Lista las campañas de descuento gestionables (solo admin).
+
+    Excluye los códigos de bienvenida (10% por registro) generados
+    automáticamente para cada usuario: son una regla fija del sitio,
+    no una campaña que se administre desde el panel.
+    """
     if x_admin_password != ADMIN_PASSWORD:
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM descuentos ORDER BY id DESC")
+    cursor.execute("SELECT * FROM descuentos WHERE email_asociado IS NULL ORDER BY id DESC")
     descuentos = cursor.fetchall()
     conn.close()
 

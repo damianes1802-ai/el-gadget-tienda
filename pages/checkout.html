@@ -262,6 +262,39 @@ document.getElementById('year').textContent = new Date().getFullYear();
 let zonasEnvioData = null;
 let descuentoAplicado = null;
 
+const codigoBienvenida = localStorage.getItem('eg_descuento_codigo');
+const descuentoBienvenidaPendiente = localStorage.getItem('eg_descuento_pendiente') === '1';
+
+/**
+ * Aplica en silencio el 10% OFF de bienvenida (sin que el cliente tenga
+ * que ingresar ningún código). Si el email todavía no coincide con el de
+ * registro no muestra error: simplemente no aplica hasta que coincida.
+ */
+async function aplicarDescuentoBienvenida() {
+  if (!descuentoBienvenidaPendiente || !codigoBienvenida || descuentoAplicado) return;
+
+  const email = document.getElementById('email').value.trim() || localStorage.getItem('eg_email_registrado') || '';
+  if (!email) return;
+
+  try {
+    const res = await fetch(`${API_URL}/api/descuentos/validar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        codigo: codigoBienvenida,
+        email,
+        subtotal: cartTotal(carrito),
+        skus: carrito.map(item => item.sku)
+      })
+    });
+    const data = await res.json();
+    if (data.valido) {
+      descuentoAplicado = { codigo: codigoBienvenida, monto_descuento: data.monto_descuento, descripcion: data.descripcion, esBienvenida: true };
+      renderResumen();
+    }
+  } catch (e) {}
+}
+
 async function cargarZonasEnvio() {
   try {
     const res = await fetch(`${API_URL}/api/envio/zonas`);
@@ -338,7 +371,8 @@ function renderResumen() {
   let descuentoHtml = '';
   if (descuentoAplicado) {
     total -= descuentoAplicado.monto_descuento;
-    descuentoHtml = `<div class="summary-line"><span>Descuento (${descuentoAplicado.codigo})</span><span>-${formatPrice(descuentoAplicado.monto_descuento)}</span></div>`;
+    const etiqueta = descuentoAplicado.esBienvenida ? '🎉 Descuento de bienvenida (10%)' : `Descuento (${descuentoAplicado.codigo})`;
+    descuentoHtml = `<div class="summary-line"><span>${etiqueta}</span><span>-${formatPrice(descuentoAplicado.monto_descuento)}</span></div>`;
   }
 
   totalesEl.innerHTML = `
@@ -458,6 +492,11 @@ async function procesarPago() {
 
     guardarCarrito([]);
 
+    if (descuentoAplicado && descuentoAplicado.esBienvenida) {
+      localStorage.removeItem('eg_descuento_codigo');
+      localStorage.setItem('eg_descuento_pendiente', '0');
+    }
+
     if (data.mp_checkout_url) {
       window.location.href = data.mp_checkout_url;
     } else {
@@ -481,8 +520,15 @@ document.getElementById('codigoDescuento').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); aplicarCodigoDescuento(); }
 });
 
-const codigoGuardado = localStorage.getItem('eg_descuento_codigo');
-if (codigoGuardado) document.getElementById('codigoDescuento').value = codigoGuardado;
+if (descuentoBienvenidaPendiente) {
+  const emailField = document.getElementById('email');
+  if (!emailField.value.trim()) {
+    const emailRegistrado = localStorage.getItem('eg_email_registrado');
+    if (emailRegistrado) emailField.value = emailRegistrado;
+  }
+  emailField.addEventListener('blur', aplicarDescuentoBienvenida);
+  aplicarDescuentoBienvenida();
+}
 
 cargarZonasEnvio();
 </script>

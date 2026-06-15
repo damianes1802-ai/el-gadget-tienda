@@ -163,19 +163,27 @@ function initPopupRegistro() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.detail || 'No pudimos completar el registro');
 
-      localStorage.setItem('eg_descuento_codigo', data.codigo_descuento);
       localStorage.setItem('eg_popup_dismissed', '1');
+
+      const yaUsado = data.descuento_usado === 1 || data.descuento_usado === true;
+      if (data.codigo_descuento && !yaUsado) {
+        localStorage.setItem('eg_descuento_codigo', data.codigo_descuento);
+        localStorage.setItem('eg_descuento_pendiente', '1');
+        localStorage.setItem('eg_email_registrado', email);
+      }
 
       document.getElementById('egPopupContenido').innerHTML = `
         <div class="eg-popup-emoji">🎉</div>
         <h2>¡Listo, ${escapeHtmlBasico(nombre)}!</h2>
-        <p>Usá este código en el checkout para tu 10% OFF:</p>
-        <div class="eg-popup-code" id="egPopupCodigo">${escapeHtmlBasico(data.codigo_descuento)}</div>
-        <button class="btn btn-outline btn-block" id="egPopupCopiar">Copiar código</button>
+        <p>${yaUsado
+          ? 'Ya usaste tu 10% OFF de bienvenida en una compra anterior. ¡Gracias por volver!'
+          : 'Tu 10% OFF se va a aplicar automáticamente en tu primera compra.'}</p>
+        <button class="btn btn-accent btn-block" id="egPopupCerrar">Entendido</button>
       `;
-      document.getElementById('egPopupCopiar').addEventListener('click', () => {
-        navigator.clipboard.writeText(data.codigo_descuento).then(() => showToast('Código copiado'));
+      document.getElementById('egPopupCerrar').addEventListener('click', () => {
+        overlay.classList.remove('show');
       });
+      if (!yaUsado) mostrarBannerBienvenida();
     } catch (e) {
       errorEl.textContent = e.message;
       errorEl.style.display = 'block';
@@ -239,6 +247,23 @@ function registrarProductoVisto() {
 }
 
 /**
+ * Si el usuario se registró y todavía no usó su 10% OFF de bienvenida,
+ * inserta un banner fino al principio de la página recordándolo. El
+ * banner deja de aparecer solo cuando checkout.html limpia
+ * localStorage.eg_descuento_pendiente tras concretar esa compra.
+ */
+function mostrarBannerBienvenida() {
+  if (localStorage.getItem('eg_descuento_pendiente') !== '1') return;
+  if (document.getElementById('egWelcomeBanner')) return;
+
+  const banner = document.createElement('div');
+  banner.className = 'eg-welcome-banner';
+  banner.id = 'egWelcomeBanner';
+  banner.textContent = '🎉 Tenés 10% OFF en tu primera compra: se aplica automáticamente al pagar';
+  document.body.insertBefore(banner, document.body.firstChild);
+}
+
+/**
  * Carga el tarifario de envíos (zonas, partidos de Buenos Aires, etc.)
  * desde la API. Devuelve los datos o null si falla.
  */
@@ -277,4 +302,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initPopupRegistro();
   initOfertaYStockProducto();
   registrarProductoVisto();
+  mostrarBannerBienvenida();
 });
