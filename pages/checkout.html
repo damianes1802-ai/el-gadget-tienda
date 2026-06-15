@@ -186,6 +186,15 @@
       <h2>Tu pedido</h2>
       <div id="resumenItems"></div>
       <div id="resumenTotales"></div>
+      <div class="field" id="descuentoField" style="margin-top:14px">
+        <label for="codigoDescuento">Código de descuento</label>
+        <div style="display:flex; gap:8px">
+          <input type="text" id="codigoDescuento" placeholder="Ej: BIENVENIDO-XXXXXX" style="flex:1; text-transform:uppercase">
+          <button class="btn btn-outline btn-sm" id="btnAplicarDescuento" type="button" onclick="aplicarCodigoDescuento()">Aplicar</button>
+        </div>
+        <div class="field-error" id="descuentoError" style="display:none"></div>
+        <div class="field-hint" id="descuentoOk" style="display:none; color:var(--green-ok)"></div>
+      </div>
       <button class="btn btn-accent btn-block" id="btnPagar" onclick="procesarPago()" disabled style="margin-top:16px">Ir a pagar con Mercado Pago</button>
       <div class="security-note">🔒 Pago seguro vía Mercado Pago</div>
     </div>
@@ -251,6 +260,7 @@ const carrito = getCarrito();
 document.getElementById('year').textContent = new Date().getFullYear();
 
 let zonasEnvioData = null;
+let descuentoAplicado = null;
 
 async function cargarZonasEnvio() {
   try {
@@ -337,12 +347,65 @@ function renderResumen() {
     envioHtml = `<div class="summary-line"><span>Envío</span><span class="shipping-badge">Completá tu provincia${provincia === (zonasEnvioData && zonasEnvioData.provincia_buenos_aires) ? ' y partido' : ''}</span></div>`;
   }
 
+  let descuentoHtml = '';
+  if (descuentoAplicado) {
+    total -= descuentoAplicado.monto_descuento;
+    descuentoHtml = `<div class="summary-line"><span>Descuento (${descuentoAplicado.codigo})</span><span>-${formatPrice(descuentoAplicado.monto_descuento)}</span></div>`;
+  }
+
   totalesEl.innerHTML = `
     <div class="summary-line" style="margin-top:10px"><span>Subtotal</span><span>${formatPrice(subtotal)}</span></div>
     ${envioHtml}
-    <div class="summary-line total"><span>Total</span><span>${formatPrice(total)}</span></div>
+    ${descuentoHtml}
+    <div class="summary-line total"><span>Total</span><span>${formatPrice(Math.max(total, 0))}</span></div>
   `;
   btnPagar.disabled = false;
+}
+
+async function aplicarCodigoDescuento() {
+  const codigo = document.getElementById('codigoDescuento').value.trim();
+  const errorEl = document.getElementById('descuentoError');
+  const okEl = document.getElementById('descuentoOk');
+  errorEl.style.display = 'none';
+  okEl.style.display = 'none';
+
+  if (!codigo) return;
+
+  const btn = document.getElementById('btnAplicarDescuento');
+  btn.disabled = true;
+  btn.textContent = 'Validando...';
+
+  try {
+    const res = await fetch(`${API_URL}/api/descuentos/validar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        codigo,
+        email: document.getElementById('email').value.trim(),
+        subtotal: cartTotal(carrito),
+        skus: carrito.map(item => item.sku)
+      })
+    });
+    const data = await res.json();
+
+    if (!data.valido) {
+      descuentoAplicado = null;
+      errorEl.textContent = data.motivo || 'Código de descuento inválido';
+      errorEl.style.display = 'block';
+    } else {
+      descuentoAplicado = { codigo, monto_descuento: data.monto_descuento, descripcion: data.descripcion };
+      okEl.textContent = `✓ ${data.descripcion || 'Descuento aplicado'}: -${formatPrice(data.monto_descuento)}`;
+      okEl.style.display = 'block';
+    }
+  } catch (e) {
+    descuentoAplicado = null;
+    errorEl.textContent = 'No pudimos validar el código, intentá nuevamente';
+    errorEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Aplicar';
+    renderResumen();
+  }
 }
 
 function validarFormulario() {
@@ -392,7 +455,8 @@ async function procesarPago() {
       codigo_postal: c('codigo_postal')
     },
     items: carrito.map(item => ({ sku: item.sku, cantidad: item.cantidad })),
-    notas: c('notas')
+    notas: c('notas'),
+    codigo_descuento: descuentoAplicado ? descuentoAplicado.codigo : null
   };
 
   try {
@@ -424,6 +488,13 @@ document.getElementById('provincia').addEventListener('change', () => {
   renderResumen();
 });
 document.getElementById('partido').addEventListener('change', renderResumen);
+
+document.getElementById('codigoDescuento').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); aplicarCodigoDescuento(); }
+});
+
+const codigoGuardado = localStorage.getItem('eg_descuento_codigo');
+if (codigoGuardado) document.getElementById('codigoDescuento').value = codigoGuardado;
 
 cargarZonasEnvio();
 </script>

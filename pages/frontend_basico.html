@@ -63,6 +63,9 @@
   </div>
 </section>
 
+<!-- BANNER PROMOCIONAL -->
+<div class="promo-banner" id="promoBanner"></div>
+
 <!-- FILTROS -->
 <div class="filters-wrap">
   <div class="filters-inner">
@@ -195,6 +198,25 @@ async function cargarCategorias() {
   }
 }
 
+async function cargarBannerPromo() {
+  try {
+    const res = await fetch(`${API_URL}/api/descuentos/activos`);
+    const data = await res.json();
+    if (data && data.banner) {
+      const el = document.getElementById('promoBanner');
+      el.innerHTML = `
+        <div class="promo-banner-inner">
+          <div class="promo-banner-text">
+            <strong>${data.banner.titulo || ''}</strong>
+            ${data.banner.texto || ''}
+          </div>
+          ${data.banner.codigo ? `<div class="promo-banner-code">Código: ${data.banner.codigo}</div>` : ''}
+        </div>`;
+      el.classList.add('show');
+    }
+  } catch (e) {}
+}
+
 async function cargarProductos() {
   try {
     document.getElementById('stateMsg').innerHTML = `
@@ -288,23 +310,38 @@ function renderGrid() {
   }
 
   grid.innerHTML = filtrados.map(p => {
-    const precio = formatPrice(p.precio_venta);
     const esOferta = (p.categoria || '').toUpperCase() === 'OFERTAS';
+    const tieneDescuento = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
     const img = p.imagen_principal
       ? `<img class="card-img" src="${p.imagen_principal}" alt="${p.nombre}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
          <div class="card-img-placeholder" style="display:none">📦</div>`
       : `<div class="card-img-placeholder">📦</div>`;
 
+    let badge = '';
+    let precioHtml;
+    if (tieneDescuento) {
+      const pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
+      badge = `<span class="card-badge offer-badge">-${pct}%</span>`;
+      precioHtml = `
+        <div class="card-price-row">
+          <span class="price-old">${formatPrice(p.precio_venta)}</span>
+          <span class="card-price">${formatPrice(p.precio_oferta)}</span>
+        </div>`;
+    } else {
+      if (esOferta) badge = '<span class="card-badge">Oferta</span>';
+      precioHtml = `<div class="card-price">${formatPrice(p.precio_venta)}</div>`;
+    }
+
     return `
       <div class="card" onclick="abrirProducto('${p.sku}', '${p.url_amigable || ''}')">
         <div class="card-img-wrap">
           ${img}
-          ${esOferta ? '<span class="card-badge">Oferta</span>' : ''}
+          ${badge}
         </div>
         <div class="card-body">
           <div class="card-cat">${p.categoria || ''}</div>
           <div class="card-name">${p.nombre}</div>
-          <div class="card-price">${precio}</div>
+          ${precioHtml}
           <button class="card-btn" onclick="event.stopPropagation();agregarAlCarrito('${p.sku}')">Agregar al pedido</button>
         </div>
       </div>`;
@@ -330,6 +367,7 @@ if (buscarParam) {
   document.getElementById('searchMobile').value = buscarParam;
 }
 actualizarCarritoUI();
+cargarBannerPromo();
 cargarCategorias();
 cargarProductos();
 </script>

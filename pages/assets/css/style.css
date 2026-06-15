@@ -795,3 +795,70 @@ a { color: inherit; }
 .value-card .emoji { font-size: 30px; margin-bottom: 8px; }
 .value-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
 .value-card p { font-size: 12.5px; color: var(--gray-600); margin: 0; line-height: 1.6; }
+
+/* ── POPUP DE BIENVENIDA (10% OFF) ── */
+.eg-popup-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(20,21,26,0.6);
+  z-index: 1000; align-items: center; justify-content: center; padding: 1rem;
+}
+.eg-popup-overlay.show { display: flex; }
+.eg-popup-card {
+  background: var(--paper); border-radius: var(--radius); max-width: 380px; width: 100%;
+  padding: 1.75rem; text-align: center; position: relative; box-shadow: 0 10px 40px rgba(20,21,26,0.25);
+}
+.eg-popup-close {
+  position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%;
+  border: none; background: var(--gray-100); color: var(--gray-600); font-size: 18px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1;
+}
+.eg-popup-close:hover { background: var(--gray-200); color: var(--ink); }
+.eg-popup-emoji { font-size: 40px; margin-bottom: 10px; }
+.eg-popup-card h2 {
+  font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 8px;
+}
+.eg-popup-card p { font-size: 13.5px; color: var(--gray-600); line-height: 1.6; margin-bottom: 16px; }
+.eg-popup-card .field { text-align: left; margin-bottom: 12px; }
+.eg-popup-code {
+  background: var(--accent-pale); border: 1.5px dashed var(--accent-deep); border-radius: var(--radius-sm);
+  padding: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700;
+  color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 14px;
+}
+.eg-popup-error { font-size: 12px; color: var(--red); margin-top: -6px; margin-bottom: 10px; display: none; }
+
+/* ── BANNER PROMOCIONAL (home) ── */
+.promo-banner { display: none; max-width: 1240px; margin: 0 auto; padding: 0 1.25rem; }
+.promo-banner.show { display: block; }
+.promo-banner-inner {
+  margin-top: 14px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  border-radius: var(--radius); padding: 14px 20px; display: flex; align-items: center; gap: 12px;
+  flex-wrap: wrap; justify-content: space-between;
+}
+.promo-banner-text { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.promo-banner-text strong { font-family: 'Space Grotesk', sans-serif; font-size: 16px; display: block; margin-bottom: 2px; }
+.promo-banner-code {
+  background: rgba(20,21,26,0.1); border-radius: 20px; padding: 6px 14px; font-weight: 700;
+  font-size: 12.5px; color: var(--ink); letter-spacing: 0.5px;
+}
+
+/* ── PRECIOS DE OFERTA (catálogo) ── */
+.card-price-row { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.card-price-row .price-old { font-size: 12px; color: var(--gray-400); text-decoration: line-through; }
+.card-price-row .card-price { margin-bottom: 0; color: var(--red); }
+.card-badge.offer-badge { left: auto; right: 8px; background: var(--red); color: white; }
+
+/* ── PRECIOS DE OFERTA (producto) ── */
+.product-price-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.product-price-old {
+  font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700;
+  color: var(--gray-400); text-decoration: line-through;
+}
+.product-price-offer {
+  font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 38px); font-weight: 700; color: var(--red);
+}
+.discount-pill {
+  background: var(--red); color: white; font-size: 12px; font-weight: 700;
+  padding: 4px 10px; border-radius: 20px; align-self: center;
+}
+
+/* ── STOCK BAJO ── */
+.stock-badge.low-stock { background: var(--accent-pale); color: var(--accent-deep); }
