@@ -21,7 +21,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-enteriza-combinada-lunares.html",
-  "fecha_scraping": "2026-06-14T09:45:06.807416",
+  "fecha_scraping": "2026-06-15T12:15:28.660907",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -31,7 +31,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:24.033607",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.388696",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_002",
@@ -49,6 +49,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 25000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.019666",
+  "fecha_calculo_precio": "2026-06-15T12:21:35.445618",
   "fecha_agotado": "2026-06-13T01:28:15.678833"
 }

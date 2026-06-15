@@ -1,6 +1,6 @@
 {
   "sku": "A-R2234-014",
-  "titulo": "Tira de Luz mini Cocktails Deco x1metro",
+  "titulo": "Tira de Luz Mini Cocktails Deco x1 Metro",
   "precio": 5717,
   "descripcion": "Tira de luz con mini cocktails de 1 metro de largo aproximadamente.\nFunciona con 2 pilas AA. No incluye las pilas.",
   "imagenes": [
@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/tira-de-luz-mini-cocktails-deco-x1metro.html",
-  "fecha_scraping": "2026-06-14T09:46:45.129498",
+  "fecha_scraping": "2026-06-15T12:13:46.945944",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Deco"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:24.011403",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.365964",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-014_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-014_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 9000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.032293"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.449668"
 }

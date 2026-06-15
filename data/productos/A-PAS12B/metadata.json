@@ -36,7 +36,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-mujer-hojas-corpi-o-regulable-vedetina.html",
-  "fecha_scraping": "2026-06-14T09:47:35.988334",
+  "fecha_scraping": "2026-06-15T12:14:26.860276",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -46,7 +46,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:24.030188",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.387759",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS12B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS12B_002",
@@ -65,5 +65,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 25000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.009758"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.442448"
 }

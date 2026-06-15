@@ -12,7 +12,7 @@
   "fecha_scraping": "2026-02-27T17:37:03.472412",
   "cantidad_imagenes": 3,
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-14T09:40:41.556875",
+  "fecha_agotado": "2026-06-15T12:08:30.753809",
   "availability": "out of stock",
   "imagenes_cloudinary": [],
   "calculo_precio": {
@@ -27,5 +27,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 12000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.452887"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.580982"
 }

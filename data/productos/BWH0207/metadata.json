@@ -1,6 +1,6 @@
 {
   "sku": "BWH0207",
-  "titulo": "Molde Silicona Reposteria Galletitas Jabones Velas Helado X2",
+  "titulo": "Set x2 Moldes Helado 20 Palitos Reutilizables",
   "precio": 3942,
   "descripcion": "Material de seguridad: nuestro molde de helado utiliza un material de silicona seguro y de alta calidad, los niños pueden estar seguros, saludables y respetuosos con el medio ambiente, sellados con una cubierta, pueden soportar altas temperaturas.\nFácil de desmoldar: material de silicona de dureza, después de haber completado los pasos de bricolaje, puede quitar fácilmente un delicioso helado y disfrutar de la felicidad de inmediato.\nFácil de limpiar: puedes ponerlo en el lavavajillas, también puedes limpiarlo con la mano, enjuagar fácilmente con agua, puedes llegar fácilmente a cada esquina del molde, ¡no dejes manchas!\nSET CONTIENE: 2 MOLDE PALETA + 20 PALITOS REUTILIZABLES.\nLargo 9cm\nAncho 18.5 cm\nProfundidad del molde interno 1.5cm.",
   "imagenes": [
@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/molde-silicona-reposteria-galletitas-jabones-velas-helado-x2.html",
-  "fecha_scraping": "2026-06-14T09:47:02.151935",
+  "fecha_scraping": "2026-06-15T12:15:11.889504",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles",
@@ -29,7 +29,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:23.991572",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.348943",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0207_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0207_002",
@@ -50,5 +50,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 6000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.059840"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.458006"
 }

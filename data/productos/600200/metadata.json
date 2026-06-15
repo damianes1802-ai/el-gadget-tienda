@@ -1,6 +1,6 @@
 {
   "sku": "600200",
-  "titulo": "Silla Higiénica Inodoro Portátil Apto Ducha Premium",
+  "titulo": "Silla Higiénica Multifuncion",
   "precio": 89990,
   "descripcion": "• Inodoro portátil\n• Elevador de inodoro\n• Silla de baño\nTres usos en un sólo producto. Permite aumentar la altura normal del inodoro mediante la regulación de sus patas.\n-Con apoyabrazos y respaldo\n-Tapa extraíble tapizada en discreto cuero color negro\n-Bacinilla con tapa\n-Regulable en altura\n-Fácil armado con llave incluída\nMaterial:\nAluminio ultraliviano\nPeso máximo\n100 Kg\nAncho: 48 cm\nAltura base a respaldo: 70 cm\nAltura regulable: 41 a 51 cm\nProfundidad total: 48 cm\nProfundidad del asiento: 44 cm\nProfundidad del respaldo 28 cm\nPeso neto: 5 Kg",
   "imagenes": [
@@ -19,7 +19,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/4522/s/silla-higienica-inodoro-portatil-apto-ducha-premium/category/13/",
-  "fecha_scraping": "2026-06-14T09:47:19.073819",
+  "fecha_scraping": "2026-06-15T12:14:56.202087",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -53,6 +53,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 135000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:27.981994",
-  "fecha_agotado": "2026-06-14T09:40:41.561784"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.433396",
+  "fecha_agotado": "2026-06-15T12:08:30.777160"
 }

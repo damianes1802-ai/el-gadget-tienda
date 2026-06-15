@@ -1,6 +1,6 @@
 {
   "sku": "M2087-009A",
-  "titulo": "Porta Cosméticos Transparente Con Lentejuelas De Corazones",
+  "titulo": "Porta Cosméticos Transparente Con Lentejuelas De Colores",
   "precio": 5468,
   "descripcion": "Portacosméticos/cartuchera transparente de PU.\nDeco de lentejuelas de corazones.\nCierre de cremallera rosa.\nCorrea rosa de PU desmontable\nMedidas: 18x6x5cm",
   "imagenes": [
@@ -17,7 +17,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/porta-cosmeticos-transparente-con-lentejuelas-de-corazones-rosa.html",
-  "fecha_scraping": "2026-06-14T09:45:48.651356",
+  "fecha_scraping": "2026-06-15T12:14:16.187564",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda",
@@ -30,7 +30,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:23.980050",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.340270",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2087-009A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2087-009A_002",
@@ -52,5 +52,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8500.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.279083"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.527200"
 }

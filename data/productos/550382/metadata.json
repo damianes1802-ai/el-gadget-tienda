@@ -1,6 +1,6 @@
 {
   "sku": "550382",
-  "titulo": "Remolcador Transportador De Motos Autos Plataforma Remolque",
+  "titulo": "Remolque Transportador de Motos",
   "precio": 5990,
   "descripcion": "Remolque grande para motocicletas\nAmplia aplicación: El extractor de rueda de neumático plano es adecuado para todos los vehículos eléctricos, motocicletas, dos ruedas, triciclos eléctricos, remolques de ayuda, auto rescate de emergencia.\nDirección flexible: Herramienta de movimiento de neumáticos planos con asistencia de cinco ruedas, giro flexible, fácil de dominar la dirección, mayor equilibrio, fácil de conducir.\nConstrucción duradera: El cuerpo principal está hecho de placa de acero gruesa, doble cojinete auxiliar, ruedas fuertes y duraderas, resistentes al desgaste y de larga duración.",
   "imagenes": [
@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/remolcador-transportador-de-motos-autos-plataforma-remolque.html",
-  "fecha_scraping": "2026-06-14T09:45:37.416856",
+  "fecha_scraping": "2026-06-15T12:14:02.166133",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -47,6 +47,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 9000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:27.938362",
-  "fecha_agotado": "2026-06-14T09:40:41.573457"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.417762",
+  "fecha_agotado": "2026-06-15T12:08:30.770411"
 }

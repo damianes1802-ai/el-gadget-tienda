@@ -1,6 +1,6 @@
 {
   "sku": "M2974-006A",
-  "titulo": "Riñonera Mujer Fluo Textura Snake Cuero Ecológico Total Chic Rosa Snake",
+  "titulo": "Riñonera Mujer Fluo Textura Cuero Ecológico Total Chic Amarilla Snake",
   "precio": 17889,
   "descripcion": "Riñonera de PU fluo. Textura tipo snake. Doble cierre doble compartimiento. Correa con hebilla dorada ajustable.\nMedidas: 24x13cm",
   "imagenes": [
@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/ri-onera-mujer-fluo-textura-snake-cuero-ecologico-total-chic-rosa-snake.html",
-  "fecha_scraping": "2026-06-14T09:46:03.321967",
+  "fecha_scraping": "2026-06-15T12:12:40.942525",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda",
@@ -28,7 +28,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-14T09:51:23.987002",
+  "fecha_mapeo_categorias": "2026-06-15T12:20:32.329389",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2974-006A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2974-006A_002",
@@ -48,5 +48,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 27000.0,
-  "fecha_calculo_precio": "2026-06-14T18:47:28.283587"
+  "fecha_calculo_precio": "2026-06-15T12:21:35.528335"
 }
