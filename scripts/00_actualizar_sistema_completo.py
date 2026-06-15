@@ -81,6 +81,7 @@ class ActualizadorMaestro:
         # Scripts disponibles
         self.scripts = {
             'agotados': '17_deteccion_agotados_robusto.py',
+            'alertas': '19_alertas_droppers.py',
             'scraper': 'scraper_maestro_v2_sin_categorias.py',
             'categorias': 'mapear_categorias_post_scraping.py',
             'ofertas': 'asignar_categoria_ofertas.py',
@@ -535,6 +536,17 @@ class ActualizadorMaestro:
 
         # Capturar agotados/reingresados (con nombres) antes de que el sync los modifique
         self.capturar_cambios_pre_sync()
+
+        # PASO 1.5: Alertas de Droppers (productos nuevos y cambios de precio)
+        if self.modo == 'completo':
+            self.ejecutar_script(
+                "1.5 Alertas de Droppers (productos nuevos y cambios de precio)",
+                self.scripts['alertas'],
+                obligatorio=False,
+                args=['--auto']
+            )
+        else:
+            print(f"\n⏭️  Saltando alertas de Droppers (modo: {self.modo})")
 
         # PASO 2: Scrapear productos nuevos - FASE 1 sin categorías (opcional según modo)
         scraper_ejecutado = False

@@ -8,6 +8,9 @@ config/sheets_id.txt
 data/*
 !data/catalogo.db
 
+# Checkpoint de alertas Droppers (necesario en CI para no reprocesar el historial)
+!data/droppers_alertas_estado.json
+
 # Config de precios (necesaria para el calculo de precios en CI)
 !data/precios
 data/precios/*

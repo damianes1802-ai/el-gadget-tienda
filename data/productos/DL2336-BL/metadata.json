@@ -1,0 +1,48 @@
+{
+  "sku": "DL2336-BL",
+  "titulo": "Soporte Para Celular Ajustable Blanco",
+  "precio": 6990,
+  "descripcion": "Soporte Flexible para Celular con Brazo Giratorio 360° y Pinza\nSoporte extensible y flexible para celular con rotación 360°, ideal para videollamadas, ver videos, cocinar, trabajar o grabar contenido sin usar las manos. Se ajusta fácilmente a mesas, escritorios, camas o cualquier superficie.\nCaracterísticas principales:\n- Rotación completa 360° para cualquier ángulo.\n- Brazo flexible y extensible hasta 100 cm.\n- Pinza fuerte con protección para fijar en mesas, cabeceros, etc.\n- Compatible con todos los celulares (ajustable).\n- Diseño ergonómico y portátil.\n- Material resistente y estable.\nPerfecto para videollamadas, TikTok, YouTube, recetas de cocina, clases online o simplemente para ver series con comodidad.\n¡Libera tus manos y disfruta de mayor comodidad!",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2336-bl_7__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2336-bl_3__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2336-bl_1__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2336-bl_2__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2336-bl_4__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2336-bl_5__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2336-bl_6__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2336-bl_8__1_1.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5924/",
+  "fecha_scraping": "2026-06-15T15:14:20.811439",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-15T15:15:07.778773",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-15T15:15:07.778802",
+  "calculo_precio": {
+    "precio_costo": 6990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 6990,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 10485.0,
+    "precio_final": 10500.0,
+    "ganancia_neta": 3510.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 10500.0,
+  "fecha_calculo_precio": "2026-06-15T15:15:49.585697"
+}

@@ -1,0 +1,48 @@
+{
+  "sku": "DL2356-NE",
+  "titulo": "Perchero Comercial Metálico Desarmable 56 X 166 Negro",
+  "precio": 26990,
+  "descripcion": "PERCHERO COMERCIAL METALICO DOBLE CON 3 ESTANTES INFERIORES\nOptimizá el espacio de tu hogar, vestidor o local comercial con este perchero metálico de alta capacidad. Su diseño vertical inteligente aprovecha al máximo cada centímetro, combinando dos barras de colgado con tres niveles de almacenamiento inferior para ofrecerte una solución organizada, accesible y moderna para toda tu ropa y accesorios.\nCARACTERÍSTICAS DESTACADAS:\nDoble barra de colgado: Su sistema de doble riel te permite colgar una gran cantidad de prendas como abrigos, camisas y vestidos, facilitando la organización por categorías y duplicando la capacidad de almacenamiento tradicional.\nTres estantes inferiores multifuncionales: Incorpora tres niveles de almacenamiento integrado en la base, ideales para ordenar zapatos, sombreros, carteras, cajas organizadoras o ropa doblada, simplificando tu rutina diaria.\nMovilidad total y práctica: Equipado con ruedas giratorias que permiten trasladarlo sin esfuerzos de una habitación a otra, facilitando la limpieza del ambiente o la reorganización del espacio según tus necesidades.\nUso versátil en interiores: Funciona a la perfección como perchero de exhibición comercial, armario abierto para el dormitorio o incluso como un práctico tendedero para secar la ropa bajo techo de manera prolija.\nEstructura desarmable: Fabricado con materiales metálicos resistentes y un sistema de ensamblado sencillo que te permite armarlo rápidamente y desarmarlo con facilidad para guardarlo o transportarlo cuando sea necesario.\nMEDIDAS Y ESPECIFICACIONES:\nAltura total de la estructura: 166 cm\nAncho frontal: 56 cm\nProfundidad de la base: 33 cm\nCantidad de barras para colgar: 2 barras\nCantidad de estantes inferiores: 3 niveles\nMaterial: Estructura metálica reforzada\nMovilidad: Incluye ruedas giratorias\nSistema: Completamente desarmable",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2356-ne_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2356-ne_9_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2356-ne_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2356-ne_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2356-ne_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2356-ne_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2356-ne_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2356-ne_8_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5920/",
+  "fecha_scraping": "2026-06-15T15:14:27.408264",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-15T15:15:07.859927",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-15T15:15:07.859935",
+  "calculo_precio": {
+    "precio_costo": 26990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 26990,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 40485.0,
+    "precio_final": 40500.0,
+    "ganancia_neta": 13510.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 40500.0,
+  "fecha_calculo_precio": "2026-06-15T15:15:49.595118"
+}

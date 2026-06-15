@@ -1,0 +1,48 @@
+{
+  "sku": "DL2364-XL",
+  "titulo": "Corrector Faja Postura Endereza Espalda Soporte Lumbar XL",
+  "precio": 11990,
+  "descripcion": "FAJA CORRECTORA DE POSTURA Y SOPORTE LUMBAR PREMIUM\nMejora tu calidad de vida, alivia tensiones y corrige tu postura diaria con este corrector de diseño avanzado. Ideal para personas que pasan largas jornadas sentadas, trabajando frente a la computadora o realizando esfuerzos físicos, brindando un soporte integral que endereza la espalda y estabiliza la zona lumbar de manera confortable.\nCARACTERÍSTICAS DESTACADAS:\nSistema de tracción en cruz (X-Type): Su diseño con bandas cruzadas en la espalda ejerce una tracción estratégica que empuja los hombros suavemente hacia atrás, alineando la columna de forma natural y efectiva.\nSoporte lumbar reforzado: Incorpora varillas flexibles de soporte (Soft fishbone) que se adaptan a la curvatura de tu cuerpo, proporcionando una estabilidad óptima en la parte baja de la espalda sin limitar tus movimientos.\nCorreas de hombros ensanchadas: Las tiras de los hombros cuentan con un ancho mayor al convencional para distribuir la presión de manera uniforme, evitando molestias o rozaduras en las axilas durante su uso prolongado.\nTela transpirable y ligera: Confeccionada en Nylon premium de alta resistencia, su estructura microperforada permite una excelente ventilación, siendo suave al tacto, fresca y sumamente discreta para utilizar tanto arriba como debajo de la ropa.\nPara asegurar un calce perfecto, medí el contorno de tu cintura y verificá tu peso estimado antes de realizar la compra:\nTalle XL: Adecuado para cinturas de 83 cm a 90 cm / Peso recomendado de 65 kg a 75 kg\nMaterial principal: Nylon de alta calidad\nColor: Negro\nTipo de ajuste: Regulable con abrojo de alta adherencia",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_5__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_3__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_1__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_2__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_4__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_6__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_7__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_8__1.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5915/",
+  "fecha_scraping": "2026-06-15T15:14:35.659567",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-15T15:15:07.871243",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-15T15:15:07.871251",
+  "calculo_precio": {
+    "precio_costo": 11990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 11990,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 17985.0,
+    "precio_final": 18000.0,
+    "ganancia_neta": 6010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 18000.0,
+  "fecha_calculo_precio": "2026-06-15T15:15:49.596425"
+}

@@ -1,0 +1,49 @@
+{
+  "sku": "DL2338",
+  "titulo": "Zócalo 3d PVC Autoadhesivo 2,3m 8cm Vinílico Decorativo",
+  "precio": 5990,
+  "descripcion": "Zócalo 3D Autoadhesivo - 23 metros x 8 cm\nZócalo decorativo 3D autoadhesivo de alta calidad, ideal para renovar y proteger las paredes de tu hogar de forma rápida y económica. Perfecto para darle un toque moderno y elegante a cualquier ambiente sin necesidad de obra.\nCaracterísticas principales:\n- Fácil instalación: autoadhesivo, solo despega y pega. No requiere herramientas ni pegamento.\n- Material resistente y flexible: se adapta perfectamente a las esquinas y superficies.\n- Diseño 3D con textura: efecto madera o moderno que aporta volumen y estilo.\n- Medidas: 2.3 metros de largo x 8 cm de ancho.\n- Resistente al agua y fácil de limpiar.\n- Versátil: ideal para living, dormitorio, cocina, baño y oficinas.\nTransforma tus paredes en minutos y dale un acabado profesional a tu hogar sin complicaciones.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_9_.png"
+  ],
+  "cantidad_imagenes": 9,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5918/",
+  "fecha_scraping": "2026-06-15T15:14:30.744457",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-15T15:15:07.802078",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-15T15:15:07.802085",
+  "calculo_precio": {
+    "precio_costo": 5990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 5990,
+    "margen_porcentaje": 50,
+    "precio_con_margen": 8985.0,
+    "precio_final": 9000.0,
+    "ganancia_neta": 3010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 9000.0,
+  "fecha_calculo_precio": "2026-06-15T15:15:49.588267"
+}
