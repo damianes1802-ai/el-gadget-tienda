@@ -346,6 +346,18 @@ class ActualizadorMaestro:
             print("\nℹ️  No hay productos nuevos para optimizar SEO")
             return
 
+        CAP_SEO_POR_CORRIDA = 20
+        if len(nuevos_skus) > CAP_SEO_POR_CORRIDA:
+            msg = (
+                f"SEO omitido: {len(nuevos_skus)} productos detectados como nuevos superan el "
+                f"cap de {CAP_SEO_POR_CORRIDA} por corrida (posible reset de DB). "
+                f"Para optimizar manualmente: python scripts/13_optimizar_seo_ia.py --skus <skus>"
+            )
+            print(f"\n⚠️  {msg}")
+            logger.warning(msg)
+            self.stats['advertencias'].append(msg)
+            return
+
         self.ejecutar_script(
             f"9. Optimización SEO con IA de {len(nuevos_skus)} producto(s) nuevo(s)",
             self.scripts['seo_ia'],
