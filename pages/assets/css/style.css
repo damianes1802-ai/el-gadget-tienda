@@ -37,7 +37,7 @@ body {
   background: var(--cream);
   color: var(--ink);
   min-height: 100vh;
-  padding-bottom: 90px;
+  padding-bottom: 0;
   text-align: center;
 }
 
@@ -548,7 +548,7 @@ a { color: inherit; }
 .cart-bar-btn:hover { background: var(--accent-deep); }
 
 /* ── FOOTER ── */
-.footer { background: var(--ink); color: rgba(255,255,255,0.6); margin-top: 1rem; }
+.footer { background: var(--ink); color: rgba(255,255,255,0.6); margin-top: 1rem; padding-bottom: 90px; }
 .footer-inner {
   max-width: 1240px; margin: 0 auto; padding: 2.4rem 1.25rem; display: grid; gap: 1.6rem;
 }
