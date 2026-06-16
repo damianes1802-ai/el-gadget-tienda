@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/organizador-bajo-cama-mediano.html",
-  "fecha_scraping": "2026-06-16T04:37:52.536662",
+  "fecha_scraping": "2026-06-16T11:53:22.421628",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Home",
@@ -24,7 +24,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-16T04:44:13.221107",
+  "fecha_mapeo_categorias": "2026-06-16T11:57:51.768649",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2123_001"
   ],
@@ -40,5 +40,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 9000.0,
-  "fecha_calculo_precio": "2026-06-16T04:46:02.660776"
+  "fecha_calculo_precio": "2026-06-16T11:59:40.093371"
 }

@@ -18,7 +18,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/organizador-de-ba-o-recto-18.html",
-  "fecha_scraping": "2026-06-16T04:38:45.584343",
+  "fecha_scraping": "2026-06-16T11:52:05.453405",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Home",
@@ -33,7 +33,7 @@
   ],
   "total_categorias": 3,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-16T04:44:13.223229",
+  "fecha_mapeo_categorias": "2026-06-16T11:57:51.770956",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2130_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2130_002",
@@ -56,5 +56,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 9500.0,
-  "fecha_calculo_precio": "2026-06-16T04:46:02.661175"
+  "fecha_calculo_precio": "2026-06-16T11:59:40.093808"
 }

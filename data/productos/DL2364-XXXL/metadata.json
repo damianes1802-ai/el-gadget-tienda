@@ -44,15 +44,15 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 20500.0,
-  "fecha_calculo_precio": "2026-06-16T04:46:02.670992",
+  "fecha_calculo_precio": "2026-06-16T11:59:40.105304",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585140/prod_DL2364-XXXL_001.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585141/prod_DL2364-XXXL_002.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585141/prod_DL2364-XXXL_003.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585142/prod_DL2364-XXXL_004.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585143/prod_DL2364-XXXL_005.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585144/prod_DL2364-XXXL_006.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585145/prod_DL2364-XXXL_007.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585145/prod_DL2364-XXXL_008.png"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-XXXL_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-XXXL_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-XXXL_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-XXXL_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-XXXL_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-XXXL_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-XXXL_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-XXXL_008"
   ]
 }
