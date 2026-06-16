@@ -449,23 +449,31 @@ class DetectorAgotadosRobusto:
         for sku, url in self.skus_fuera_categorias.items():
             try:
                 resp = self.session.get(url, timeout=20)
-                html = resp.text
-                soup = BeautifulSoup(html, 'html.parser')
 
-                # Método 1 (más confiable): clase CSS específica del stock
-                stock_el = soup.select_one('.stock')
-                if stock_el:
-                    es_agotado = 'unavailable' in stock_el.get('class', [])
+                # 404 = página del producto no existe → agotado/descontinuado
+                if resp.status_code == 404:
+                    es_agotado = True
+                elif resp.status_code != 200:
+                    logger.warning(f"HTTP {resp.status_code} para {sku} ({url}), se omite")
+                    continue
                 else:
-                    # Método 2: botón "agregar al carrito" deshabilitado
-                    btn = soup.select_one('#product-addtocart-button')
-                    if btn is not None:
-                        es_agotado = btn.has_attr('disabled')
+                    html = resp.text
+                    soup = BeautifulSoup(html, 'html.parser')
+
+                    # Método 1 (más confiable): clase CSS específica del stock
+                    stock_el = soup.select_one('.stock')
+                    if stock_el:
+                        es_agotado = 'unavailable' in stock_el.get('class', [])
                     else:
-                        # Método 3 (fallback): texto de stock solo en el div de disponibilidad
-                        disp_el = soup.select_one('.product-info-stock-sku, .availability, [class*="stock"]')
-                        texto = disp_el.get_text() if disp_el else ''
-                        es_agotado = bool(re.search(r'agotado|out of stock|sin stock', texto, re.IGNORECASE))
+                        # Método 2: botón "agregar al carrito" deshabilitado
+                        btn = soup.select_one('#product-addtocart-button')
+                        if btn is not None:
+                            es_agotado = btn.has_attr('disabled')
+                        else:
+                            # Método 3 (fallback): texto solo en el div de disponibilidad
+                            disp_el = soup.select_one('.product-info-stock-sku, .availability, [class*="stock"]')
+                            texto = disp_el.get_text() if disp_el else ''
+                            es_agotado = bool(re.search(r'agotado|out of stock|sin stock', texto, re.IGNORECASE))
                 carpeta = Config.PRODUCTOS_DIR / sku
                 metadata_file = carpeta / 'metadata.json'
                 if not metadata_file.exists():
