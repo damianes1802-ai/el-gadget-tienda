@@ -686,7 +686,7 @@ def home():
     }
 
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health_check():
     """Verifica que la API y la base de datos estén funcionando"""
     try:
