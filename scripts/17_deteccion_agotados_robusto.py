@@ -450,10 +450,22 @@ class DetectorAgotadosRobusto:
             try:
                 resp = self.session.get(url, timeout=20)
                 html = resp.text
-                es_agotado = bool(
-                    re.search(r'agotado|out of stock|sin stock', html, re.IGNORECASE)
-                    or '<span class="stock unavailable"' in html
-                )
+                soup = BeautifulSoup(html, 'html.parser')
+
+                # Método 1 (más confiable): clase CSS específica del stock
+                stock_el = soup.select_one('.stock')
+                if stock_el:
+                    es_agotado = 'unavailable' in stock_el.get('class', [])
+                else:
+                    # Método 2: botón "agregar al carrito" deshabilitado
+                    btn = soup.select_one('#product-addtocart-button')
+                    if btn is not None:
+                        es_agotado = btn.has_attr('disabled')
+                    else:
+                        # Método 3 (fallback): texto de stock solo en el div de disponibilidad
+                        disp_el = soup.select_one('.product-info-stock-sku, .availability, [class*="stock"]')
+                        texto = disp_el.get_text() if disp_el else ''
+                        es_agotado = bool(re.search(r'agotado|out of stock|sin stock', texto, re.IGNORECASE))
                 carpeta = Config.PRODUCTOS_DIR / sku
                 metadata_file = carpeta / 'metadata.json'
                 if not metadata_file.exists():
