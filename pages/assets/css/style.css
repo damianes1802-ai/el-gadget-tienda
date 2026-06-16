@@ -336,7 +336,7 @@ a { color: inherit; }
   }
   /* Cuando JS mueve chips-wrap a nivel body, no necesita margin negativo */
   .chips-wrap.chips-moved { margin: 0; }
-  .filters-extra { border-top: 1px solid var(--gray-200); padding: 8px 0 4px; }
+  .filters-extra { border-top: 1px solid var(--gray-200); padding: 8px 0 4px; justify-content: center; width: 100%; }
 }
 .search-mobile { display: block; margin-bottom: 10px; }
 @media (min-width: 760px) { .search-mobile { display: none; } }
