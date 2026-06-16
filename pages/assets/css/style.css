@@ -903,12 +903,14 @@ a { color: inherit; }
 /* ── POPUP DE BIENVENIDA (10% OFF) ── */
 .eg-popup-overlay {
   display: none; position: fixed; inset: 0; background: rgba(20,21,26,0.6);
-  z-index: 1000; align-items: center; justify-content: center; padding: 1rem;
+  z-index: 1000; justify-content: center; padding: 1rem;
+  overflow-y: auto;
 }
 .eg-popup-overlay.show { display: flex; }
 .eg-popup-card {
   background: var(--paper); border-radius: var(--radius); max-width: 380px; width: 100%;
   padding: 1.75rem; text-align: center; position: relative; box-shadow: 0 10px 40px rgba(20,21,26,0.25);
+  margin: auto;
 }
 .eg-popup-close {
   position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%;
