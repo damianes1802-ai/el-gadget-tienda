@@ -376,16 +376,16 @@ TEMPLATE = """<!DOCTYPE html>
       __STOCK_BADGE__
       __VARIANTS__
 
-      <!-- Descripción -->
-      <div class="product-description">
-        <h3>Descripción</h3>
-        <div class="description" id="productDescription">__DESCRIPTION__</div>
-      </div>
-
       <!-- Acciones -->
       <div class="actions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
+      <!-- Descripción -->
+      <div class="product-description">
+        <h3>Descripción</h3>
+        <div class="description" id="productDescription">__DESCRIPTION__</div>
       </div>
     </div>
   </div>

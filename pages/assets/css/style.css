@@ -324,6 +324,18 @@ a { color: inherit; }
   z-index: 90;
 }
 .filters-inner { max-width: 1240px; margin: 0 auto; padding: 10px 1.25rem; }
+/* Mobile: solo el chips bar queda sticky, search y filtros hacen scroll */
+@media (max-width: 759px) {
+  .filters-wrap { position: static; border-bottom: none; background: transparent; }
+  .filters-inner { padding: 8px 1.25rem 0; }
+  .search-mobile { padding-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
+  .chips-wrap {
+    position: sticky; top: 66px; z-index: 90;
+    background: var(--paper); border-bottom: 1px solid var(--gray-200);
+    padding: 8px 1.25rem; margin: 0 -1.25rem;
+  }
+  .filters-extra { border-top: 1px solid var(--gray-200); padding: 8px 0 4px; }
+}
 .search-mobile { display: block; margin-bottom: 10px; }
 @media (min-width: 760px) { .search-mobile { display: none; } }
 .chips-wrap { display: flex; align-items: center; gap: 4px; }
@@ -544,6 +556,12 @@ a { color: inherit; }
 .footer-brand .logo-name, .footer-brand .logo-name span { color: white; }
 .footer-brand .logo-tagline { color: rgba(255,255,255,0.45); }
 .footer-brand p { font-size: 13px; line-height: 1.6; margin-top: 10px; max-width: 320px; color: rgba(255,255,255,0.5); }
+/* Footer logo: centrado en mobile, alineado a izquierda en desktop */
+@media (max-width: 639px) {
+  .footer-brand { text-align: center; }
+  .footer-brand .logo { justify-content: center; }
+  .footer-brand p { max-width: 100%; }
+}
 .footer-col h4 {
   font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: white;
   text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
@@ -551,7 +569,7 @@ a { color: inherit; }
 .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: 8px; transition: color 0.15s; }
 .footer-col a:hover { color: var(--accent); }
 .footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.08); text-align: center; padding: 1rem 1.25rem 1.6rem;
+  border-top: 1px solid rgba(255,255,255,0.08); text-align: center; padding: 0.8rem 1.25rem;
   font-size: 12px; color: rgba(255,255,255,0.35);
 }
 .footer-bottom a { color: rgba(255,255,255,0.45); text-decoration: underline; }
