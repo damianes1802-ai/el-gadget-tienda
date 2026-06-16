@@ -300,6 +300,32 @@ class Api:
         token = env.get('GITHUB_TOKEN', '')
         if not token:
             return {"error": "GITHUB_TOKEN no configurado en config/.env"}
+
+        # Commitear y pushear el archivo de precios antes de disparar el workflow,
+        # porque GitHub Actions descarga el repo — sin push usaría la versión vieja.
+        base_dir = Path(__file__).parent.parent
+        precios_file = str(PRECIOS_CONFIG_FILE.relative_to(base_dir))
+        try:
+            subprocess.run(
+                ["git", "add", precios_file],
+                cwd=str(base_dir), check=True, capture_output=True,
+            )
+            result = subprocess.run(
+                ["git", "diff", "--cached", "--quiet"],
+                cwd=str(base_dir), capture_output=True,
+            )
+            if result.returncode != 0:
+                subprocess.run(
+                    ["git", "commit", "-m", "Actualizar configuracion de precios (panel)"],
+                    cwd=str(base_dir), check=True, capture_output=True,
+                )
+                subprocess.run(
+                    ["git", "push", f"https://damianes1802-ai:{token}@github.com/damianes1802-ai/el-gadget-tienda.git", "main"],
+                    cwd=str(base_dir), check=True, capture_output=True,
+                )
+        except subprocess.CalledProcessError as e:
+            return {"error": f"Git push fallido: {e.stderr.decode(errors='replace')}"}
+
         repo = "damianes1802-ai/el-gadget-tienda"
         workflow = "redeploy_precios.yml"
         url = f"https://api.github.com/repos/{repo}/actions/workflows/{workflow}/dispatches"
