@@ -324,19 +324,18 @@ a { color: inherit; }
   z-index: 90;
 }
 .filters-inner { max-width: 1240px; margin: 0 auto; padding: 10px 1.25rem; }
-/* Mobile: solo el chips bar queda sticky, search y filtros hacen scroll */
+/* Mobile: buscador + chips en barra sticky unificada; sort/precio hacen scroll */
 @media (max-width: 759px) {
   .filters-wrap { position: static; border-bottom: none; background: transparent; }
-  .filters-inner { padding: 8px 1.25rem 0; }
-  .search-mobile { padding-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
-  .chips-wrap {
+  .filters-inner { padding: 4px 1.25rem 0; }
+  .mobile-sticky-bar {
     position: sticky; top: 66px; z-index: 90;
     background: var(--paper); border-bottom: 1px solid var(--gray-200);
-    padding: 8px 1.25rem; margin: 0 -1.25rem;
+    padding: 8px 1.25rem;
   }
-  /* Cuando JS mueve chips-wrap a nivel body, no necesita margin negativo */
-  .chips-wrap.chips-moved { margin: 0; }
-  .filters-extra { border-top: 1px solid var(--gray-200); padding: 8px 0 4px; justify-content: center; width: 100%; }
+  .mobile-sticky-bar .search-mobile { display: block; margin-bottom: 8px; }
+  .mobile-sticky-bar .chips-wrap { position: static; background: transparent; border-bottom: none; padding: 0; margin: 0; }
+  .filters-extra { border-top: 1px solid var(--gray-200); padding: 8px 0 4px; }
 }
 .search-mobile { display: block; margin-bottom: 10px; }
 @media (min-width: 760px) { .search-mobile { display: none; } }
@@ -375,6 +374,7 @@ a { color: inherit; }
 
 /* ── ORDEN Y RANGO DE PRECIO ── */
 .filters-extra { display: flex; gap: 10px; margin: 10px auto 0; flex-wrap: wrap; align-items: center; width: max-content; max-width: 100%; }
+@media (max-width: 759px) { .filters-extra { width: 100%; justify-content: center; margin: 0; } }
 .sort-select {
   padding: 8px 32px 8px 14px; border-radius: 20px; border: 1.5px solid var(--gray-200);
   background-color: var(--paper); font-size: 12.5px; font-weight: 600; color: var(--ink);

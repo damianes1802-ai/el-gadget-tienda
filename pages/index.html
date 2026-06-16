@@ -175,11 +175,18 @@
 
 <script src="assets/js/cart.js"></script>
 <script>
-// En mobile, mover chips-wrap fuera de filters-wrap para que sticky funcione en toda la página
+// En mobile: buscador + chips en barra sticky unificada, antes de filters-wrap
 if (window.innerWidth < 760) {
   const cw = document.getElementById('chipsWrap');
+  const sm = document.querySelector('.search-mobile');
   const fw = document.querySelector('.filters-wrap');
-  if (cw && fw) { fw.parentNode.insertBefore(cw, fw); cw.classList.add('chips-moved'); }
+  if (cw && sm && fw) {
+    const bar = document.createElement('div');
+    bar.className = 'mobile-sticky-bar';
+    fw.parentNode.insertBefore(bar, fw);
+    bar.appendChild(sm);
+    bar.appendChild(cw);
+  }
 }
 
 // ── CONFIGURACIÓN ──────────────────────────────────
