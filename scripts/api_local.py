@@ -52,7 +52,9 @@ from utils.email_notificaciones import (
 
 # Configuración
 _env = Config.cargar_env()
-ADMIN_PASSWORD = _env.get('ADMIN_PASSWORD', 'admin2024')
+ADMIN_PASSWORD = _env.get('ADMIN_PASSWORD')
+if not ADMIN_PASSWORD:
+    raise RuntimeError("ADMIN_PASSWORD no está configurado en las variables de entorno")
 
 # Catálogo versionado en git (productos/historial_precios, se actualiza a
 # diario vía el pipeline y se sobreescribe en cada deploy).
