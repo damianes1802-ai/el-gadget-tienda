@@ -334,6 +334,8 @@ a { color: inherit; }
     background: var(--paper); border-bottom: 1px solid var(--gray-200);
     padding: 8px 1.25rem; margin: 0 -1.25rem;
   }
+  /* Cuando JS mueve chips-wrap a nivel body, no necesita margin negativo */
+  .chips-wrap.chips-moved { margin: 0; }
   .filters-extra { border-top: 1px solid var(--gray-200); padding: 8px 0 4px; }
 }
 .search-mobile { display: block; margin-bottom: 10px; }

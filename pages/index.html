@@ -175,6 +175,13 @@
 
 <script src="assets/js/cart.js"></script>
 <script>
+// En mobile, mover chips-wrap fuera de filters-wrap para que sticky funcione en toda la página
+if (window.innerWidth < 760) {
+  const cw = document.getElementById('chipsWrap');
+  const fw = document.querySelector('.filters-wrap');
+  if (cw && fw) { fw.parentNode.insertBefore(cw, fw); cw.classList.add('chips-moved'); }
+}
+
 // ── CONFIGURACIÓN ──────────────────────────────────
 const API_URL = 'https://el-gadget-tienda.onrender.com';
 
