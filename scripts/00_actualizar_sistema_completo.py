@@ -449,6 +449,11 @@ class ActualizadorMaestro:
             )
 
             subprocess.run(
+                ['git', 'pull', '--rebase', 'origin', 'main'],
+                cwd=str(self.repo_dir),
+                check=True
+            )
+            subprocess.run(
                 ['git', 'push'],
                 cwd=str(self.repo_dir),
                 check=True
