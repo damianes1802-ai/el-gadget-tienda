@@ -31,16 +31,16 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 31780,
-    "margen_porcentaje": 50,
-    "precio_con_margen": 47670.0,
-    "precio_final": 48000.0,
-    "ganancia_neta": 16220.0,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 54026.0,
+    "precio_final": 54500.0,
+    "ganancia_neta": 22720.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 48000.0,
-  "fecha_calculo_precio": "2026-06-15T15:15:49.697807",
+  "precio_venta": 54500.0,
+  "fecha_calculo_precio": "2026-06-16T00:50:47.400662",
   "disponibilidad": "out of stock",
   "availability": "out of stock",
-  "fecha_agotado": "2026-06-15T12:08:30.766722",
+  "fecha_agotado": "2026-06-16T00:50:47.140183",
   "imagenes_cloudinary": []
 }

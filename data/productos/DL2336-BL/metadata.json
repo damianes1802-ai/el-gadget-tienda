@@ -15,8 +15,8 @@
   ],
   "cantidad_imagenes": 8,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5924/",
   "fecha_scraping": "2026-06-15T15:14:20.811439",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -37,12 +37,13 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 6990,
-    "margen_porcentaje": 50,
-    "precio_con_margen": 10485.0,
-    "precio_final": 10500.0,
-    "ganancia_neta": 3510.0,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 11883.0,
+    "precio_final": 12000.0,
+    "ganancia_neta": 5010.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 10500.0,
-  "fecha_calculo_precio": "2026-06-15T15:15:49.585697"
+  "precio_venta": 12000.0,
+  "fecha_calculo_precio": "2026-06-16T00:50:47.358042",
+  "fecha_agotado": "2026-06-16T00:50:47.129731"
 }

@@ -13,8 +13,8 @@
   ],
   "cantidad_imagenes": 6,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/remolcador-transportador-de-motos-autos-plataforma-remolque.html",
   "fecha_scraping": "2026-06-15T12:14:02.166133",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -40,13 +40,13 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 5990,
-    "margen_porcentaje": 50,
-    "precio_con_margen": 8985.0,
-    "precio_final": 9000.0,
-    "ganancia_neta": 3010.0,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 10183.0,
+    "precio_final": 10500.0,
+    "ganancia_neta": 4510.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 9000.0,
-  "fecha_calculo_precio": "2026-06-15T15:15:49.304322",
-  "fecha_agotado": "2026-06-15T12:08:30.770411"
+  "precio_venta": 10500.0,
+  "fecha_calculo_precio": "2026-06-16T00:50:47.260796",
+  "fecha_agotado": "2026-06-16T00:50:47.145196"
 }

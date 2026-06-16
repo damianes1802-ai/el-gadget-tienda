@@ -12,8 +12,8 @@
   ],
   "cantidad_imagenes": 5,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/rolls-de-mini-stickers.html",
   "fecha_scraping": "2026-06-15T12:12:45.987016",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -38,13 +38,13 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 3318,
-    "margen_porcentaje": 50,
-    "precio_con_margen": 4977.0,
-    "precio_final": 5000.0,
-    "ganancia_neta": 1682.0,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 5640.599999999999,
+    "precio_final": 6000.0,
+    "ganancia_neta": 2682.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 5000.0,
-  "fecha_calculo_precio": "2026-06-15T15:15:49.781500",
-  "fecha_agotado": "2026-06-15T12:08:30.780324"
+  "precio_venta": 6000.0,
+  "fecha_calculo_precio": "2026-06-16T00:50:47.432035",
+  "fecha_agotado": "2026-06-16T00:50:47.146361"
 }

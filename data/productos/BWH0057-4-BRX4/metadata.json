@@ -19,14 +19,14 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 14144,
-    "margen_porcentaje": 50,
-    "precio_con_margen": 21216.0,
-    "precio_final": 21500.0,
-    "ganancia_neta": 7356.0,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 24044.8,
+    "precio_final": 24500.0,
+    "ganancia_neta": 10356.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 21500.0,
-  "fecha_calculo_precio": "2026-06-15T15:15:49.406316",
+  "precio_venta": 24500.0,
+  "fecha_calculo_precio": "2026-06-16T00:50:47.295965",
   "categoria_principal": "Bazar y Cocina",
   "categoria": "Bazar y Cocina",
   "categorias_secundarias": [],
@@ -36,6 +36,6 @@
   "total_categorias": 1,
   "fecha_actualizacion_categorias": "2026-03-09T20:52:31.537218",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-15T12:08:30.787678",
+  "fecha_agotado": "2026-06-16T00:50:47.152292",
   "availability": "out of stock"
 }

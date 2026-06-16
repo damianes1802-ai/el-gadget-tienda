@@ -9,8 +9,8 @@
   ],
   "cantidad_imagenes": 2,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/mochila-bandolera-infantil.html",
   "fecha_scraping": "2026-06-15T12:13:50.853244",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -32,13 +32,13 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 9956,
-    "margen_porcentaje": 50,
-    "precio_con_margen": 14934.0,
-    "precio_final": 15000.0,
-    "ganancia_neta": 5044.0,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 16925.2,
+    "precio_final": 17000.0,
+    "ganancia_neta": 7044.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 15000.0,
-  "fecha_calculo_precio": "2026-06-15T15:15:49.782865",
-  "fecha_agotado": "2026-06-15T12:08:30.768699"
+  "precio_venta": 17000.0,
+  "fecha_calculo_precio": "2026-06-16T00:50:47.432534",
+  "fecha_agotado": "2026-06-16T00:50:47.123598"
 }

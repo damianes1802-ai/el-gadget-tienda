@@ -18,14 +18,14 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 0,
-    "margen_porcentaje": 50,
+    "margen_porcentaje": 70,
     "precio_con_margen": 0.0,
     "precio_final": 0.0,
     "ganancia_neta": 0.0,
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-06-15T15:15:49.699134",
+  "fecha_calculo_precio": "2026-06-16T00:50:47.401172",
   "categoria_principal": "OFERTAS",
   "categoria": "OFERTAS",
   "categorias_secundarias": [],
@@ -36,5 +36,5 @@
   "fecha_actualizacion_categorias": "2026-03-16T19:49:50.079202",
   "categoria_asignada_automaticamente": true,
   "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
-  "fecha_agotado": "2026-06-15T12:08:30.750716"
+  "fecha_agotado": "2026-06-16T00:50:47.147845"
 }
