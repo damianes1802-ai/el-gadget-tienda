@@ -294,6 +294,32 @@ class Api:
     def marcar_referido_pagado(self, ref_id, periodo):
         return self._post(f"/api/admin/referidos/{ref_id}/marcar-pagado", {"periodo": periodo})
 
+    # ── Redeploy de precios ──
+    def trigger_redeploy(self):
+        env = Config.cargar_env()
+        token = env.get('GITHUB_TOKEN', '')
+        if not token:
+            return {"error": "GITHUB_TOKEN no configurado en config/.env"}
+        repo = "damianes1802-ai/el-gadget-tienda"
+        workflow = "redeploy_precios.yml"
+        url = f"https://api.github.com/repos/{repo}/actions/workflows/{workflow}/dispatches"
+        try:
+            resp = requests.post(
+                url,
+                json={"ref": "main"},
+                headers={
+                    "Authorization": f"Bearer {token}",
+                    "Accept": "application/vnd.github+json",
+                    "X-GitHub-Api-Version": "2022-11-28",
+                },
+                timeout=15,
+            )
+            if resp.status_code == 204:
+                return {"ok": True}
+            return {"error": f"GitHub API: {resp.status_code} {resp.text}"}
+        except Exception as e:
+            return {"error": str(e)}
+
 
 def main():
     base_dir = Path(__file__).parent.parent

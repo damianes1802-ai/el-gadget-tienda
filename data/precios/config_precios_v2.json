@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "fecha_actualizacion": "2026-06-14 18:43:59",
+  "fecha_actualizacion": "2026-06-15 21:14:10",
   "moneda": "ARS",
   "perfiles_precio": {
     "default": {
@@ -8,7 +8,7 @@
       "descripcion": "Configuración por defecto para todos los productos",
       "activo": true,
       "cargos_fijos": [],
-      "margen_porcentaje": 50,
+      "margen_porcentaje": 70,
       "redondeo": {
         "activo": true,
         "multiplo": 500,
@@ -191,6 +191,18 @@
     },
     {
       "fecha": "2026-06-14T18:43:59.548507",
+      "usuario": "panel_escritorio",
+      "cambio": "Perfil editado: Estándar",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-06-15T21:13:21.493301",
+      "usuario": "panel_escritorio",
+      "cambio": "Perfil editado: Estándar",
+      "perfil_modificado": "default"
+    },
+    {
+      "fecha": "2026-06-15T21:14:10.374044",
       "usuario": "panel_escritorio",
       "cambio": "Perfil editado: Estándar",
       "perfil_modificado": "default"

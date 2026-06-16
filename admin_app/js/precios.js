@@ -151,7 +151,13 @@ document.getElementById('btn-guardar-precios').addEventListener('click', async (
   const perfil = leerPerfilFormulario();
   try {
     await apiCall('guardar_precios_config', perfil);
-    toast('Configuración de precios guardada', 'success');
+    toast('Configuración guardada. Iniciando redeploy…', 'success');
+    const r = await apiCall('trigger_redeploy');
+    if (r && r.error) {
+      toast('Redeploy: ' + r.error, 'error');
+    } else {
+      toast('Redeploy en curso (~5 min). Los precios se actualizarán automáticamente.', 'success');
+    }
   } catch (e) {
     toast('Error al guardar: ' + e.message, 'error');
   }
