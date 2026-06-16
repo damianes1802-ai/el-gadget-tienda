@@ -277,9 +277,13 @@ def sincronizar_catalogo_persistente():
 
     conn = sqlite3.connect(DB_PATH)
     conn.execute("ATTACH DATABASE ? AS src", (str(CATALOGO_REPO_PATH),))
-    for tabla in ("productos", "historial_precios"):
-        conn.execute(f"DROP TABLE IF EXISTS {tabla}")
-        conn.execute(f"CREATE TABLE {tabla} AS SELECT * FROM src.{tabla}")
+    for tabla in ("productos", "historial_precios", "historial_actualizaciones"):
+        src_exists = conn.execute(
+            "SELECT COUNT(*) FROM src.sqlite_master WHERE type='table' AND name=?", (tabla,)
+        ).fetchone()[0]
+        if src_exists:
+            conn.execute(f"DROP TABLE IF EXISTS {tabla}")
+            conn.execute(f"CREATE TABLE {tabla} AS SELECT * FROM src.{tabla}")
     conn.execute("DETACH DATABASE src")
     conn.commit()
     conn.close()
