@@ -137,12 +137,16 @@ class DetectorAgotadosRobusto:
                     break
                 
                 soup = BeautifulSoup(resp.content, 'html.parser')
-                
+
                 # Obtener enlaces a productos
                 enlaces = soup.select('a.product-item-link') or soup.select('a.product-photo')
-                
+
                 if not enlaces:
-                    # No hay más productos
+                    if pagina == 1:
+                        logger.warning(
+                            f"Página 1 de {url_cat} no devolvió enlaces de productos "
+                            f"(selectores: a.product-item-link, a.product-photo) — ¿cambió el HTML?"
+                        )
                     break
                 
                 productos_en_pagina = 0
@@ -180,19 +184,25 @@ class DetectorAgotadosRobusto:
         try:
             resp = self.session.get(url_producto, timeout=15)
             soup = BeautifulSoup(resp.content, 'html.parser')
-            
+
             # Método 1: div.product.attribute.sku .value
             sku_elem = soup.select_one('div.product.attribute.sku .value')
             if sku_elem:
                 return sku_elem.text.strip()
-            
+
             # Método 2: meta sku
             meta = soup.find('meta', {'itemprop': 'sku'})
             if meta:
                 return meta.get('content', '').strip()
-            
+
+            # Ambos selectores fallaron — posible cambio en la estructura HTML del proveedor
+            logger.warning(f"Selectores de SKU no coinciden en {url_producto} — ¿cambió el HTML?")
             return None
-        except:
+        except requests.RequestException as e:
+            logger.warning(f"Error de red extrayendo SKU de {url_producto}: {e}")
+            return None
+        except Exception as e:
+            logger.error(f"Error inesperado extrayendo SKU de {url_producto}: {e}")
             return None
     
     def scrapear_todos_los_skus_droppers(self):
@@ -474,6 +484,11 @@ class DetectorAgotadosRobusto:
                             disp_el = soup.select_one('.product-info-stock-sku, .availability, [class*="stock"]')
                             texto = disp_el.get_text() if disp_el else ''
                             es_agotado = bool(re.search(r'agotado|out of stock|sin stock', texto, re.IGNORECASE))
+                            if not disp_el:
+                                logger.warning(
+                                    f"Ningún selector de disponibilidad funcionó para {sku} ({url}) "
+                                    f"— asumiendo disponible. ¿Cambió el HTML del proveedor?"
+                                )
                 carpeta = Config.PRODUCTOS_DIR / sku
                 metadata_file = carpeta / 'metadata.json'
                 if not metadata_file.exists():
