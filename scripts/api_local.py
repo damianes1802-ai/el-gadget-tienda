@@ -22,6 +22,9 @@ http://localhost:8000 (API)
 from fastapi import FastAPI, HTTPException, Query, Header, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 import re
 import sqlite3
 import shutil
@@ -71,8 +74,10 @@ DB_PATH = Path(_persistent_dir) / 'catalogo.db' if _persistent_dir else CATALOGO
 _mp_env = _env.get('MP_ENV', 'test')
 if _mp_env == 'production':
     MP_ACCESS_TOKEN = _env.get('MP_ACCESS_TOKEN_PROD', '')
+    MP_WEBHOOK_SECRET = _env.get('MP_WEBHOOK_SECRET_PROD', '')
 else:
     MP_ACCESS_TOKEN = _env.get('MP_ACCESS_TOKEN_TEST', '')
+    MP_WEBHOOK_SECRET = _env.get('MP_WEBHOOK_SECRET_TEST', '')
 SITE_URL = _env.get('SITE_URL', 'http://localhost:5500')
 API_URL = _env.get('API_URL', 'https://el-gadget-tienda.onrender.com')
 
@@ -81,6 +86,10 @@ app = FastAPI(
     description="API para sistema de ecommerce con sincronización a Droppers",
     version="1.0.0"
 )
+
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Configurar CORS para permitir requests desde frontend
 app.add_middleware(
@@ -927,7 +936,8 @@ def productos_destacados(limit: int = 10):
 # ============================================================================
 
 @app.post("/api/registro")
-def registrar_usuario(registro: Registro):
+@limiter.limit("3/minute")
+def registrar_usuario(request: Request, registro: Registro):
     """
     Crea una cuenta de usuario (nombre, email, teléfono, contraseña) desde el
     popup de bienvenida y le asigna un código de descuento del 10% para su
@@ -1014,7 +1024,8 @@ def registrar_usuario(registro: Registro):
 
 
 @app.post("/api/login")
-def login_usuario(datos: Login):
+@limiter.limit("5/minute")
+def login_usuario(request: Request, datos: Login):
     """Inicia sesión en 'Mi cuenta' con email + contraseña y devuelve un token."""
     conn = get_db()
     cursor = conn.cursor()
@@ -1207,7 +1218,8 @@ def descuentos_activos():
 
 
 @app.post("/api/descuentos/validar")
-def validar_descuento(datos: ValidarDescuento):
+@limiter.limit("10/minute")
+def validar_descuento(request: Request, datos: ValidarDescuento):
     """Valida un código de descuento y calcula el monto a aplicar sobre el subtotal"""
     conn = get_db()
     cursor = conn.cursor()
@@ -1333,7 +1345,8 @@ def eliminar_descuento(descuento_id: int, x_admin_password: Optional[str] = Head
 # ============================================================================
 
 @app.post("/api/orden")
-def crear_orden(orden: CrearOrden):
+@limiter.limit("5/minute")
+def crear_orden(request: Request, orden: CrearOrden):
     """
     Crea una nueva orden
     
@@ -1668,6 +1681,26 @@ def detalle_orden(orden_id: int):
 
 @app.post("/api/mp/webhook")
 async def mp_webhook(request: Request):
+    # Verificar firma HMAC-SHA256 enviada por MercadoPago en x-signature
+    if MP_WEBHOOK_SECRET:
+        sig_header = request.headers.get('x-signature', '')
+        request_id = request.headers.get('x-request-id', '')
+        ts = v1 = ''
+        for part in sig_header.split(','):
+            k, _, val = part.partition('=')
+            if k.strip() == 'ts':
+                ts = val.strip()
+            elif k.strip() == 'v1':
+                v1 = val.strip()
+        data_id = request.query_params.get('data.id', '')
+        template = f"id:{data_id};request-id:{request_id};ts:{ts}"
+        expected = hmac.new(
+            MP_WEBHOOK_SECRET.encode(), template.encode(), hashlib.sha256
+        ).hexdigest()
+        if not hmac.compare_digest(expected, v1):
+            print(f"Webhook MP: firma inválida (template={template!r})")
+            return JSONResponse(status_code=400, content={"error": "invalid signature"})
+
     try:
         body = await request.json()
         topic = body.get("type") or body.get("topic", "")

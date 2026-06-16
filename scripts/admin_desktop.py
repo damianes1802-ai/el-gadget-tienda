@@ -14,6 +14,7 @@ Configuración de precios: archivo local data/precios/config_precios_v2.json
 """
 
 import json
+import os
 import sqlite3
 import subprocess
 import sys
@@ -319,9 +320,16 @@ class Api:
                     ["git", "commit", "-m", "Actualizar configuracion de precios (panel)"],
                     cwd=str(base_dir), check=True, capture_output=True,
                 )
+                _push_env = os.environ.copy()
+                _push_env.update({
+                    'GIT_CONFIG_COUNT': '1',
+                    'GIT_CONFIG_KEY_0': 'http.extraheader',
+                    'GIT_CONFIG_VALUE_0': f'Authorization: Bearer {token}',
+                    'GIT_TERMINAL_PROMPT': '0',
+                })
                 subprocess.run(
-                    ["git", "push", f"https://damianes1802-ai:{token}@github.com/damianes1802-ai/el-gadget-tienda.git", "main"],
-                    cwd=str(base_dir), check=True, capture_output=True,
+                    ["git", "push", "https://github.com/damianes1802-ai/el-gadget-tienda.git", "main"],
+                    cwd=str(base_dir), check=True, capture_output=True, env=_push_env,
                 )
         except subprocess.CalledProcessError as e:
             return {"error": f"Git push fallido: {e.stderr.decode(errors='replace')}"}
