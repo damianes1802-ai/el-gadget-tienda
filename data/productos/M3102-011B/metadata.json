@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cartera-mujer-bandolera-pvc-transparente-bordada-moda-2.html",
-  "fecha_scraping": "2026-06-15T12:14:50.499559",
+  "fecha_scraping": "2026-06-16T04:38:15.027652",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda",
@@ -28,7 +28,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-15T12:20:32.339630",
+  "fecha_mapeo_categorias": "2026-06-16T04:44:13.187788",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_002",
@@ -48,5 +48,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 37500.0,
-  "fecha_calculo_precio": "2026-06-16T00:50:47.385175"
+  "fecha_calculo_precio": "2026-06-16T04:46:02.689941"
 }

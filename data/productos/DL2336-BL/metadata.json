@@ -15,8 +15,8 @@
   ],
   "cantidad_imagenes": 8,
   "variantes_internas": [],
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5924/",
   "fecha_scraping": "2026-06-15T15:14:20.811439",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -44,6 +44,15 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 12000.0,
-  "fecha_calculo_precio": "2026-06-16T00:50:47.358042",
-  "fecha_agotado": "2026-06-16T00:50:47.129731"
+  "fecha_calculo_precio": "2026-06-16T04:46:02.666779",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585084/prod_DL2336-BL_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585085/prod_DL2336-BL_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585086/prod_DL2336-BL_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585087/prod_DL2336-BL_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585087/prod_DL2336-BL_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585088/prod_DL2336-BL_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585089/prod_DL2336-BL_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585090/prod_DL2336-BL_008.png"
+  ]
 }

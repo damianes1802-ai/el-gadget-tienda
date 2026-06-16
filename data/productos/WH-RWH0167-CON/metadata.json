@@ -11,10 +11,10 @@
   ],
   "cantidad_imagenes": 4,
   "variantes_internas": [],
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/espejo-dise-o-animal-personalizable-1.html",
-  "fecha_scraping": "2026-06-15T12:12:37.461590",
+  "fecha_scraping": "2026-06-16T04:38:39.403711",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -43,6 +43,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 6500.0,
-  "fecha_calculo_precio": "2026-06-16T00:50:47.414664",
-  "fecha_agotado": "2026-06-16T00:50:47.139200"
+  "fecha_calculo_precio": "2026-06-16T04:46:02.715336"
 }

@@ -16,10 +16,10 @@
   ],
   "cantidad_imagenes": 9,
   "variantes_internas": [],
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/4522/s/silla-higienica-inodoro-portatil-apto-ducha-premium/category/13/",
-  "fecha_scraping": "2026-06-15T12:14:56.202087",
+  "fecha_scraping": "2026-06-16T04:36:06.098952",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -53,6 +53,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 153000.0,
-  "fecha_calculo_precio": "2026-06-16T00:50:47.275697",
-  "fecha_agotado": "2026-06-16T00:50:47.125588"
+  "fecha_calculo_precio": "2026-06-16T04:46:02.589697"
 }

@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/lampara-led-colgante-arbol-de-navidad-verde-26cm.html",
-  "fecha_scraping": "2026-06-15T12:13:53.054162",
+  "fecha_scraping": "2026-06-16T04:38:57.987853",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Deco"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-15T12:20:32.366859",
+  "fecha_mapeo_categorias": "2026-06-16T04:44:13.225745",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 17000.0,
-  "fecha_calculo_precio": "2026-06-16T00:50:47.290852"
+  "fecha_calculo_precio": "2026-06-16T04:46:02.603082"
 }

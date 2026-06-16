@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/porta-rollo-papel-higienico-acero-inoxidable-1.html",
-  "fecha_scraping": "2026-06-15T12:12:43.587757",
+  "fecha_scraping": "2026-06-16T04:39:00.743481",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Baño y Limpieza",
@@ -29,7 +29,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-15T12:20:32.378142",
+  "fecha_mapeo_categorias": "2026-06-16T04:44:13.239025",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_002",
@@ -50,5 +50,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 5500.0,
-  "fecha_calculo_precio": "2026-06-16T00:50:47.352271"
+  "fecha_calculo_precio": "2026-06-16T04:46:02.661998"
 }

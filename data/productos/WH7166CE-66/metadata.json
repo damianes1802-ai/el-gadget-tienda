@@ -8,10 +8,10 @@
   ],
   "cantidad_imagenes": 1,
   "variantes_internas": [],
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/body-enterito-infantil-para-bebes.html",
-  "fecha_scraping": "2026-06-15T12:13:59.211215",
+  "fecha_scraping": "2026-06-16T04:36:37.057103",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -37,6 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 25500.0,
-  "fecha_calculo_precio": "2026-06-16T00:50:47.437352",
-  "fecha_agotado": "2026-06-16T00:50:47.124907"
+  "fecha_calculo_precio": "2026-06-16T04:46:02.737468"
 }

@@ -14,8 +14,8 @@
   ],
   "cantidad_imagenes": 7,
   "variantes_internas": [],
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5921/",
   "fecha_scraping": "2026-06-15T15:14:25.828209",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -43,6 +43,14 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 29000.0,
-  "fecha_calculo_precio": "2026-06-16T00:50:47.360272",
-  "fecha_agotado": "2026-06-16T00:50:47.125832"
+  "fecha_calculo_precio": "2026-06-16T04:46:02.669133",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585117/prod_DL2355-NE_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585118/prod_DL2355-NE_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585119/prod_DL2355-NE_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585120/prod_DL2355-NE_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585121/prod_DL2355-NE_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585122/prod_DL2355-NE_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585123/prod_DL2355-NE_007.png"
+  ]
 }

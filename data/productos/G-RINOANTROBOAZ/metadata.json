@@ -13,10 +13,10 @@
   ],
   "cantidad_imagenes": 6,
   "variantes_internas": [],
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/morral-antirrobo-oxford-1.html",
-  "fecha_scraping": "2026-06-15T12:14:53.278185",
+  "fecha_scraping": "2026-06-16T04:36:04.572106",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -47,6 +47,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 21000.0,
-  "fecha_calculo_precio": "2026-06-16T00:50:47.363760",
-  "fecha_agotado": "2026-06-16T00:50:47.138789"
+  "fecha_calculo_precio": "2026-06-16T04:46:02.672349"
 }

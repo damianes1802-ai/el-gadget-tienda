@@ -15,8 +15,8 @@
   ],
   "cantidad_imagenes": 8,
   "variantes_internas": [],
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5916/",
   "fecha_scraping": "2026-06-15T15:14:34.020412",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -44,6 +44,15 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 20500.0,
-  "fecha_calculo_precio": "2026-06-16T00:50:47.362062",
-  "fecha_agotado": "2026-06-16T00:50:47.146768"
+  "fecha_calculo_precio": "2026-06-16T04:46:02.670992",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585140/prod_DL2364-XXXL_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585141/prod_DL2364-XXXL_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585141/prod_DL2364-XXXL_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585142/prod_DL2364-XXXL_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585143/prod_DL2364-XXXL_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585144/prod_DL2364-XXXL_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585145/prod_DL2364-XXXL_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781585145/prod_DL2364-XXXL_008.png"
+  ]
 }
