@@ -4,6 +4,7 @@
 
 let todosLosReferidos = [];
 let _desactivarRefId = null;
+let _eliminarRefId = null;
 let _detalleReferidoData = null;
 
 async function loadReferidos() {
@@ -34,7 +35,7 @@ function renderReferidosTabla(referidos) {
       ? `<button class="btn btn-sm btn-outline" onclick="verDetalleReferido(${r.id})">Ver detalle</button>
          <button class="btn btn-sm btn-danger" onclick="confirmarDesactivarRef(${r.id}, '${escapeHtml(r.nombre)}')">Desactivar</button>`
       : `<button class="btn btn-sm btn-outline" onclick="verDetalleReferido(${r.id})">Ver detalle</button>
-         <span class="cell-muted">Inactivo</span>`;
+         <button class="btn btn-sm btn-danger" onclick="confirmarEliminarRef(${r.id}, '${escapeHtml(r.nombre)}')">Eliminar</button>`;
 
     return `<tr>
       <td>${escapeHtml(r.nombre)}</td>
@@ -125,21 +126,44 @@ function confirmarDesactivarRef(id, nombre) {
   openModal('modal-desactivar-ref-overlay');
 }
 
+function confirmarEliminarRef(id, nombre) {
+  document.getElementById('modal-eliminar-ref-nombre').textContent = nombre;
+  _eliminarRefId = id;
+  openModal('modal-eliminar-ref-overlay');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('btn-confirmar-desactivar-ref');
-  if (!btn) return;
+  const btnDesactivar = document.getElementById('btn-confirmar-desactivar-ref');
+  if (btnDesactivar) {
+    btnDesactivar.addEventListener('click', async () => {
+      const id = _desactivarRefId;
+      _desactivarRefId = null;
+      closeModal('modal-desactivar-ref-overlay');
 
-  btn.addEventListener('click', async () => {
-    const id = _desactivarRefId;
-    _desactivarRefId = null;
-    closeModal('modal-desactivar-ref-overlay');
+      try {
+        await apiCall('desactivar_referido', id);
+        toast('Referido desactivado correctamente');
+        await loadReferidos();
+      } catch (e) {
+        toast(e.message || 'Error al desactivar referido', 'error');
+      }
+    });
+  }
 
-    try {
-      await apiCall('desactivar_referido', id);
-      toast('Referido desactivado correctamente');
-      await loadReferidos();
-    } catch (e) {
-      toast(e.message || 'Error al desactivar referido', 'error');
-    }
-  });
+  const btnEliminar = document.getElementById('btn-confirmar-eliminar-ref');
+  if (btnEliminar) {
+    btnEliminar.addEventListener('click', async () => {
+      const id = _eliminarRefId;
+      _eliminarRefId = null;
+      closeModal('modal-eliminar-ref-overlay');
+
+      try {
+        await apiCall('eliminar_referido', id);
+        toast('Referido eliminado correctamente');
+        await loadReferidos();
+      } catch (e) {
+        toast(e.message || 'Error al eliminar referido', 'error');
+      }
+    });
+  }
 });

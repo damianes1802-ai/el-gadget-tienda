@@ -573,6 +573,22 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="modal-eliminar-ref-overlay">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2>Eliminar referido</h2>
+      <button class="modal-close" data-close="modal-eliminar-ref-overlay">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13.5px;color:#2C2E36">¿Eliminar permanentemente a <strong id="modal-eliminar-ref-nombre"></strong>? Se borrarán su perfil de referido, su código y todas sus comisiones. Esta acción no se puede deshacer.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" data-close="modal-eliminar-ref-overlay">Cancelar</button>
+      <button class="btn btn-danger" id="btn-confirmar-eliminar-ref">Sí, eliminar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="js/common.js"></script>

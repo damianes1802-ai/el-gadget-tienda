@@ -247,3 +247,92 @@ def enviar_email_bienvenida(nombre: str, email: str) -> dict:
     """
 
     return _enviar(email, f"¡Bienvenido/a a {TIENDA_NOMBRE}! Tu 10% OFF te espera", _layout(cuerpo))
+
+
+def enviar_email_referido_confirmacion(nombre: str, email: str, codigo: str) -> dict:
+    """Confirma al nuevo referente su alta en el programa: código, cómo usarlo y comisión."""
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Ya sos parte del programa de referidos, {nombre}!</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Tu registro fue aprobado. Este es tu código exclusivo para compartir:
+      </p>
+      <div style="text-align:center;margin:28px 0">
+        <span style="display:inline-block;background:{ACCENT};color:{INK};padding:16px 32px;
+           border-radius:12px;font-weight:700;font-size:24px;letter-spacing:1px">
+          {codigo}
+        </span>
+      </div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:24px">
+        <tr>
+          <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200};background:{CREAM} !important">
+            <strong style="color:{INK}">¿Cómo funciona?</strong>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200}">
+            Compartí tu código <strong style="color:{INK}">{codigo}</strong> con amigos, familia o en redes.
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200}">
+            Cada vez que alguien compre usando tu código, obtiene un
+            <strong style="color:{INK}">15% OFF</strong> en su pedido.
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:14px 18px">
+            Vos ganás una <strong style="color:{INK}">comisión del 5%</strong> sobre el monto de cada venta.
+            Las comisiones se liquidan mensualmente.
+          </td>
+        </tr>
+      </table>
+      <p style="color:{GRAY_600};font-size:13px;margin:0 0 8px">
+        Podés ver tus comisiones y estadísticas en cualquier momento desde tu cuenta:
+      </p>
+      {_boton('Ver mi panel de referidos', f"{site_url}/mi_cuenta")}
+    """
+    return _enviar(email, f"Tu código de referido {TIENDA_NOMBRE}: {codigo}", _layout(cuerpo))
+
+
+def enviar_email_referido_admin(nombre: str, email: str, codigo: str, admin_email: str) -> dict:
+    """Notifica al admin que se registró un nuevo referido."""
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Nuevo referido registrado</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Se acaba de sumar al programa de referidos un nuevo participante:
+      </p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:24px">
+        <tr>
+          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};background:{CREAM} !important;font-size:11.5px;text-transform:uppercase;letter-spacing:0.5px;color:{GRAY_600}">
+            Dato
+          </td>
+          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};background:{CREAM} !important;font-size:11.5px;text-transform:uppercase;letter-spacing:0.5px;color:{GRAY_600}">
+            Valor
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Nombre</td>
+          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};font-weight:600;color:{INK}">{nombre}</td>
+        </tr>
+        <tr>
+          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Email</td>
+          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};font-weight:600;color:{INK}">{email}</td>
+        </tr>
+        <tr>
+          <td style="padding:12px 18px;color:{GRAY_600}">Código asignado</td>
+          <td style="padding:12px 18px">
+            <span style="background:{ACCENT};color:{INK};padding:4px 12px;border-radius:6px;font-weight:700;font-size:15px">
+              {codigo}
+            </span>
+          </td>
+        </tr>
+      </table>
+      {_boton('Gestionar referidos', f"{site_url.replace('elgadget.com.ar', 'elgadget.com.ar')}")}
+    """
+    return _enviar(admin_email, f"Nuevo referido: {nombre} ({codigo})", _layout(cuerpo))

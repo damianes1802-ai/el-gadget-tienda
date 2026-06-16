@@ -47,7 +47,7 @@ from utils.config import Config
 from utils.facturacion_afip import facturacion_habilitada, generar_factura_c
 from utils.email_notificaciones import (
     email_habilitado, enviar_email_confirmacion, enviar_email_tracking,
-    enviar_email_bienvenida,
+    enviar_email_bienvenida, enviar_email_referido_confirmacion, enviar_email_referido_admin,
 )
 
 # Configuración
@@ -999,12 +999,12 @@ def registrar_usuario(request: Request, registro: Registro):
             "INSERT INTO usuarios_registrados (nombre, email, telefono, codigo_descuento, password_hash, password_salt) VALUES (?, ?, ?, ?, ?, ?)",
             (registro.nombre, registro.email, registro.telefono, codigo, password_hash, password_salt)
         )
+        usuario_id = cursor.lastrowid
+
         cursor.execute("""
             INSERT INTO descuentos (nombre, tipo, valor, alcance, codigo, email_asociado, activo, uso_maximo)
             VALUES (?, 'porcentaje', 10, 'todos', ?, ?, 1, 1)
         """, (f"Bienvenida {registro.email}", codigo, registro.email))
-
-        usuario_id = cursor.lastrowid
         token = _crear_sesion(usuario_id, cursor)
 
         conn.commit()
@@ -1570,7 +1570,8 @@ def crear_orden(request: Request, orden: CrearOrden):
                 },
                 "auto_return": "approved",
                 "external_reference": str(orden_id),
-                "notification_url": f"{API_URL}/api/mp/webhook"
+                "notification_url": f"{API_URL}/api/mp/webhook",
+                "statement_descriptor": "EL GADGET TIENDA"
             }
             print(f"🔵 Llamando MP para orden #{orden_id}...")
             mp_response = requests.post(
@@ -2445,6 +2446,17 @@ def registro_referido(datos: RegistroReferido):
     conn.commit()
     conn.close()
 
+    try:
+        enviar_email_referido_confirmacion(datos.nombre, datos.email, codigo)
+    except Exception as e:
+        print(f"Email confirmación referido fallido: {e}")
+
+    try:
+        admin_email = _env.get('ADMIN_EMAIL', 'damianes1802@gmail.com')
+        enviar_email_referido_admin(datos.nombre, datos.email, codigo, admin_email)
+    except Exception as e:
+        print(f"Email notificación admin referido fallido: {e}")
+
     return {"codigo": codigo, "token": token, "nombre": datos.nombre,
             "mensaje": f"¡Bienvenido al programa de referidos! Tu código es {codigo}"}
 
@@ -2573,6 +2585,27 @@ def admin_desactivar_referido(ref_id: int, x_admin_password: Optional[str] = Hea
     conn.commit()
     conn.close()
     return {"ok": True, "mensaje": "Referido desactivado correctamente"}
+
+
+@app.post("/api/admin/referidos/{ref_id}/eliminar")
+def admin_eliminar_referido(ref_id: int, x_admin_password: Optional[str] = Header(None)):
+    """Elimina permanentemente un referido, sus comisiones y su código de descuento."""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    ref = cursor.execute("SELECT codigo FROM referidos WHERE id = ?", (ref_id,)).fetchone()
+    if not ref:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Referido no encontrado")
+
+    cursor.execute("DELETE FROM comisiones_referidos WHERE referido_id = ?", (ref_id,))
+    cursor.execute("DELETE FROM descuentos WHERE codigo = ?", (ref[0],))
+    cursor.execute("DELETE FROM referidos WHERE id = ?", (ref_id,))
+    conn.commit()
+    conn.close()
+    return {"ok": True, "mensaje": "Referido eliminado correctamente"}
 
 
 @app.post("/api/admin/referidos/{ref_id}/marcar-pagado")

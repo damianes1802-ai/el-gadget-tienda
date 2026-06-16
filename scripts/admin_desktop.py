@@ -292,6 +292,9 @@ class Api:
     def desactivar_referido(self, ref_id):
         return self._delete(f"/api/admin/referidos/{ref_id}")
 
+    def eliminar_referido(self, ref_id):
+        return self._post(f"/api/admin/referidos/{ref_id}/eliminar", {})
+
     def marcar_referido_pagado(self, ref_id, periodo):
         return self._post(f"/api/admin/referidos/{ref_id}/marcar-pagado", {"periodo": periodo})
 
