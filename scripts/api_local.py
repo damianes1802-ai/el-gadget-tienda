@@ -1951,6 +1951,35 @@ def verificar_admin(x_admin_password: Optional[str] = Header(None)):
     return {"autorizado": True}
 
 
+@app.post("/api/admin/backup")
+def crear_backup(x_admin_password: Optional[str] = Header(None)):
+    """Exporta órdenes, clientes y referidos a JSON. Guarda copia en disco persistente."""
+    if x_admin_password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    tablas: dict = {}
+    for tabla in ("ordenes", "clientes", "referidos", "comisiones_referidos"):
+        existe = conn.execute(
+            "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=?", (tabla,)
+        ).fetchone()[0]
+        tablas[tabla] = [dict(r) for r in conn.execute(f"SELECT * FROM {tabla}").fetchall()] if existe else []
+    conn.close()
+
+    backup = {"fecha": datetime.now().isoformat(), **tablas}
+
+    if _persistent_dir:
+        backup_dir = Path(_persistent_dir) / "backups"
+        backup_dir.mkdir(exist_ok=True)
+        (backup_dir / f"backup_{datetime.now().strftime('%Y-%m-%d')}.json").write_text(
+            json.dumps(backup, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        for viejo in sorted(backup_dir.glob("backup_*.json"))[:-30]:
+            viejo.unlink()
+
+    return backup
+
+
 @app.get("/api/clientes")
 def listar_clientes(x_admin_password: Optional[str] = Header(None)):
     """Lista clientes con cantidad de órdenes y total comprado (solo admin)"""
