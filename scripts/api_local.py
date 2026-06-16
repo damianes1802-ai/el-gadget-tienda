@@ -286,18 +286,26 @@ def sincronizar_catalogo_persistente():
         shutil.copy(CATALOGO_REPO_PATH, DB_PATH)
         return
 
-    conn = sqlite3.connect(DB_PATH)
+    # isolation_level=None desactiva los commits implícitos de Python antes de DDL,
+    # lo que permite que DROP + CREATE queden en la misma transacción atómica.
+    conn = sqlite3.connect(DB_PATH, isolation_level=None)
     conn.execute("ATTACH DATABASE ? AS src", (str(CATALOGO_REPO_PATH),))
-    for tabla in ("productos", "historial_precios", "historial_actualizaciones"):
-        src_exists = conn.execute(
-            "SELECT COUNT(*) FROM src.sqlite_master WHERE type='table' AND name=?", (tabla,)
-        ).fetchone()[0]
-        if src_exists:
-            conn.execute(f"DROP TABLE IF EXISTS {tabla}")
-            conn.execute(f"CREATE TABLE {tabla} AS SELECT * FROM src.{tabla}")
-    conn.execute("DETACH DATABASE src")
-    conn.commit()
-    conn.close()
+    conn.execute("BEGIN")
+    try:
+        for tabla in ("productos", "historial_precios", "historial_actualizaciones"):
+            src_exists = conn.execute(
+                "SELECT COUNT(*) FROM src.sqlite_master WHERE type='table' AND name=?", (tabla,)
+            ).fetchone()[0]
+            if src_exists:
+                conn.execute(f"DROP TABLE IF EXISTS {tabla}")
+                conn.execute(f"CREATE TABLE {tabla} AS SELECT * FROM src.{tabla}")
+        conn.execute("COMMIT")
+    except Exception:
+        conn.execute("ROLLBACK")
+        raise
+    finally:
+        conn.execute("DETACH DATABASE src")
+        conn.close()
 
 
 def migrar_db():
