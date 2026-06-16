@@ -9,13 +9,13 @@ permissions:
   id-token: write
 
 concurrency:
-  group: actualizacion-catalogo
+  group: redeploy-precios
   cancel-in-progress: false
 
 jobs:
   redeploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -49,10 +49,57 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Recalcular precios y regenerar paginas
+      - name: Recalcular precios
         env:
           PYTHONIOENCODING: utf-8
-        run: python scripts/00_actualizar_sistema_completo.py --sin-scraper --auto-push
+        run: python scripts/04_calculo_precios.py --silencioso
+
+      - name: Actualizar precios en catalogo.db (sin tocar productos ni categorias)
+        run: |
+          python - <<'EOF'
+          import json, sqlite3
+          from pathlib import Path
+
+          db_path = Path('data/catalogo.db')
+          if not db_path.exists():
+              print("catalogo.db no encontrado, saltando actualizacion de DB")
+              raise SystemExit(0)
+
+          conn = sqlite3.connect(db_path)
+          updated = 0
+          skipped = 0
+          for meta_file in sorted(Path('data/productos').glob('*/metadata.json')):
+              try:
+                  data = json.loads(meta_file.read_text(encoding='utf-8'))
+                  sku = data.get('sku')
+                  precio_venta = data.get('precio_venta')
+                  calculo = data.get('calculo_precio') or {}
+                  precio_costo = calculo.get('precio_costo')
+                  if sku and precio_venta:
+                      conn.execute(
+                          'UPDATE productos SET precio_venta=?, precio_costo=?, actualizado_at=datetime("now") WHERE sku=?',
+                          (precio_venta, precio_costo, sku)
+                      )
+                      updated += 1
+                  else:
+                      skipped += 1
+              except Exception as e:
+                  print(f"Error procesando {meta_file}: {e}")
+          conn.commit()
+          conn.close()
+          print(f"Precios actualizados: {updated} productos (omitidos: {skipped})")
+          EOF
+
+      - name: Regenerar paginas de producto
+        env:
+          PYTHONIOENCODING: utf-8
+        run: python scripts/12_generar_paginas_producto.py
+
+      - name: Commitear y pushear catalogo.db actualizado
+        run: |
+          git add data/catalogo.db data/precios/ pages/producto/ pages/sitemap.xml || true
+          git diff --cached --quiet || git commit -m "Actualizar precios - $(date '+%Y-%m-%d %H:%M')"
+          git push || true
 
       - name: Configurar Pages
         uses: actions/configure-pages@v5
