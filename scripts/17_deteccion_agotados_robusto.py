@@ -18,6 +18,7 @@ WORKFLOW:
 """
 
 import json
+import re
 import time
 from pathlib import Path
 from typing import Set, Dict, List
@@ -61,9 +62,13 @@ class DetectorAgotadosRobusto:
         
         # Conjuntos de SKUs
         self.skus_droppers = set()  # SKUs disponibles en Droppers
-        self.skus_base_datos = set()  # SKUs en nuestra base
+        self.skus_base_datos = set()  # SKUs en nuestra base (solo los de categorias scrapeadas)
         self.skus_anteriormente_agotados = set()  # SKUs marcados como agotados
-        
+
+        # Productos fuera de categorias (OFERTAS / sin categoria): se verifican
+        # individualmente porque el scraper de categorias nunca los va a encontrar
+        self.skus_fuera_categorias = {}  # sku -> url_original
+
         # Resultados
         self.agotados = set()
         self.reingresados = set()
@@ -243,20 +248,33 @@ class DetectorAgotadosRobusto:
             try:
                 with open(metadata_file, 'r', encoding='utf-8') as f:
                     metadata = json.load(f)
-                
+
                 sku = metadata.get('sku', carpeta.name)
+                categoria = metadata.get('categoria_principal') or metadata.get('categoria', '')
+                sin_categoria = metadata.get('categorias_pendientes', False) or not categoria
+
+                # Productos de OFERTAS o sin categoría NO se incluyen en la comparación
+                # por categoria: el scraper de categorias nunca los va a listar.
+                # Se verifican individualmente en verificar_fuera_categorias().
+                if categoria == 'OFERTAS' or sin_categoria:
+                    url = metadata.get('url_original', '')
+                    if url:
+                        self.skus_fuera_categorias[sku] = url
+                    continue
+
                 self.skus_base_datos.add(sku)
-                
+
                 # Guardar si estaba marcado como agotado
                 if metadata.get('disponibilidad') == 'out of stock':
                     self.skus_anteriormente_agotados.add(sku)
-                
+
             except Exception as e:
                 logger.error(f"Error leyendo {carpeta}: {e}")
-        
+
         self.stats['total_skus_base'] = len(self.skus_base_datos)
-        
+
         print(f"✅ SKUs en base de datos: {len(self.skus_base_datos)}")
+        print(f"📦 SKUs OFERTAS/sin categoría (verificación individual): {len(self.skus_fuera_categorias)}")
         print(f"⚠️  Anteriormente agotados: {len(self.skus_anteriormente_agotados)}\n")
     
     def validar_datos(self) -> bool:
@@ -420,6 +438,49 @@ class DetectorAgotadosRobusto:
         
         print(f"\n✅ Total: {actualizados} archivos metadata actualizados\n")
     
+    def verificar_fuera_categorias(self):
+        """Verifica disponibilidad de productos OFERTAS/sin categoría visitando su URL directamente."""
+        if not self.skus_fuera_categorias:
+            return
+
+        print(f"🔍 Verificando {len(self.skus_fuera_categorias)} productos OFERTAS/sin categoría...\n")
+        disponibles = agotados = 0
+
+        for sku, url in self.skus_fuera_categorias.items():
+            try:
+                resp = self.session.get(url, timeout=20)
+                html = resp.text
+                es_agotado = bool(
+                    re.search(r'agotado|out of stock|sin stock', html, re.IGNORECASE)
+                    or '<span class="stock unavailable"' in html
+                )
+                carpeta = Config.PRODUCTOS_DIR / sku
+                metadata_file = carpeta / 'metadata.json'
+                if not metadata_file.exists():
+                    continue
+                with open(metadata_file, 'r', encoding='utf-8') as f:
+                    metadata = json.load(f)
+                nueva_disp = 'out of stock' if es_agotado else 'in stock'
+                if metadata.get('disponibilidad') != nueva_disp:
+                    metadata['disponibilidad'] = nueva_disp
+                    metadata['availability'] = nueva_disp
+                    if es_agotado:
+                        metadata['fecha_agotado'] = datetime.now().isoformat()
+                    else:
+                        metadata.pop('fecha_agotado', None)
+                    with open(metadata_file, 'w', encoding='utf-8') as f:
+                        json.dump(metadata, f, indent=2, ensure_ascii=False)
+                if es_agotado:
+                    agotados += 1
+                    logger.info(f"OFERTAS agotado: {sku}")
+                else:
+                    disponibles += 1
+                time.sleep(0.3)
+            except Exception as e:
+                logger.warning(f"No se pudo verificar {sku} ({url}): {e}")
+
+        print(f"   ✅ Disponibles: {disponibles}  🔴 Agotados: {agotados}\n")
+
     def generar_reporte_fallo(self, motivo: str):
         """Genera un reporte cuando el proceso se aborta sin aplicar cambios"""
 
@@ -557,13 +618,16 @@ class DetectorAgotadosRobusto:
                     return False
                 print()
 
-        # 7. Actualizar metadata
+        # 7. Verificar productos OFERTAS/sin categoría individualmente
+        self.verificar_fuera_categorias()
+
+        # 8. Actualizar metadata
         self.actualizar_metadata()
 
-        # 8. Generar reporte
+        # 9. Generar reporte
         self.generar_reporte()
 
-        # 9. Mostrar resumen
+        # 10. Mostrar resumen
         self.mostrar_resumen_detallado()
 
         return True
