@@ -271,10 +271,38 @@ function initOfertaYStockProducto() {
       }
 
       const stockBadge = document.getElementById('stockBadge');
-      if (stockBadge && data.stock > 0 && data.stock <= 3) {
-        stockBadge.className = 'stock-badge low-stock';
-        stockBadge.textContent = `¡Últimas ${data.stock} unidades!`;
+      if (stockBadge && data.stock > 0 && data.stock <= 5) {
+        const txt = data.stock === 1 ? '⚡ ¡Última unidad disponible!' : `⚡ ¡Últimas ${data.stock} unidades!`;
+        let urgencyEl = document.querySelector('.urgency-badge');
+        if (!urgencyEl) {
+          urgencyEl = document.createElement('div');
+          urgencyEl.className = 'urgency-badge';
+          stockBadge.insertAdjacentElement('afterend', urgencyEl);
+        }
+        urgencyEl.textContent = txt;
+        urgencyEl.style.display = 'flex';
       }
+    })
+    .catch(() => {});
+}
+
+function initVentasBadge() {
+  if (typeof PRODUCTO === 'undefined') return;
+
+  fetch(`${EG_API_URL}/api/producto/${PRODUCTO.sku}/ventas`)
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data || !data.ventas) return;
+      const n = data.ventas;
+      const badge = document.createElement('div');
+      badge.className = 'ventas-badge';
+      badge.textContent = `🛍️ ${n} ${n === 1 ? 'persona compró' : 'personas compraron'} este producto`;
+      const stockEl = document.getElementById('stockBadge');
+      if (!stockEl) return;
+      let insertAfter = stockEl;
+      const next = insertAfter.nextElementSibling;
+      if (next && next.classList.contains('urgency-badge')) insertAfter = next;
+      insertAfter.insertAdjacentElement('afterend', badge);
     })
     .catch(() => {});
 }
@@ -384,6 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
   actualizarCarritoUI();
   initPopupRegistro();
   initOfertaYStockProducto();
+  initVentasBadge();
   registrarProductoVisto();
   mostrarBannerBienvenida();
   initAccountLink();

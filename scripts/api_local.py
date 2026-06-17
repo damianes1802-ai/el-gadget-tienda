@@ -878,10 +878,42 @@ def detalle_producto(sku: str):
             relacionados.append(rel_dict)
     
     producto_dict['productos_relacionados'] = relacionados
-    
+
+    # 5. Contar órdenes pagadas que contienen este SKU
+    try:
+        row = cursor.execute("""
+            SELECT COUNT(DISTINCT oi.orden_id)
+            FROM orden_items oi
+            JOIN ordenes o ON oi.orden_id = o.id
+            WHERE oi.producto_sku = ?
+              AND o.estado_pago = 'aprobado'
+        """, (sku,)).fetchone()
+        producto_dict['ventas_count'] = row[0] if row else 0
+    except Exception:
+        producto_dict['ventas_count'] = 0
+
     conn.close()
-    
+
     return producto_dict
+
+
+@app.get("/api/producto/{sku}/ventas")
+def ventas_producto(sku: str):
+    """Devuelve la cantidad de órdenes pagadas que contienen este SKU."""
+    conn = get_db()
+    try:
+        row = conn.execute("""
+            SELECT COUNT(DISTINCT oi.orden_id)
+            FROM orden_items oi
+            JOIN ordenes o ON oi.orden_id = o.id
+            WHERE oi.producto_sku = ?
+              AND o.estado_pago = 'aprobado'
+        """, (sku,)).fetchone()
+        return {"ventas": row[0] if row else 0}
+    except Exception:
+        return {"ventas": 0}
+    finally:
+        conn.close()
 
 
 @app.get("/api/productos/grupo/{item_group_id}")

@@ -82,6 +82,7 @@
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       <div id="urgencyBadge" class="urgency-badge" style="display:none"></div>
+      <div id="ventasBadge" class="ventas-badge" style="display:none"></div>
 
       <!-- Variantes -->
       <div class="variants-section" id="variantsSection" style="display:none">
@@ -253,6 +254,14 @@ function mostrarProducto() {
     stockBadge.className = 'stock-badge out-of-stock';
     stockBadge.textContent = '✗ Agotado';
     urgencyBadge.style.display = 'none';
+  }
+
+  // Ventas
+  const ventasBadge = document.getElementById('ventasBadge');
+  const vc = productoActual.ventas_count || 0;
+  if (vc > 0) {
+    ventasBadge.textContent = `🛍️ ${vc} ${vc === 1 ? 'persona compró' : 'personas compraron'} este producto`;
+    ventasBadge.style.display = 'block';
   }
 
   // Descripción
