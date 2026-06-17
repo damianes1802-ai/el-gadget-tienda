@@ -1199,7 +1199,7 @@ def obtener_mi_cuenta(authorization: Optional[str] = Header(None)):
     if not usuario:
         raise HTTPException(status_code=401, detail="Sesión inválida, iniciá sesión nuevamente")
 
-    mayorista = bool(usuario.get("mayorista", 0))
+    mayorista = bool(usuario["mayorista"]) if "mayorista" in usuario.keys() else False
     codigo_mayorista = None
     if mayorista:
         conn2 = get_db()
