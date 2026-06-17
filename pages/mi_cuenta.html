@@ -69,7 +69,7 @@
   <!-- BANNER para no-referidos (se muestra si el usuario NO es referido) -->
   <div id="bannerReferidos" style="display:none;background:var(--ink);border-radius:14px;padding:24px 28px;margin-bottom:24px;text-align:center">
     <p style="color:var(--white);font-size:15px;font-weight:600;margin:0 0 6px">¿Querés ganar dinero recomendando El Gadget?</p>
-    <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0 0 16px">Sumate al programa de referidos: compartí tu código, tus amigos compran con 15% OFF y vos cobrás el 5% de cada venta.</p>
+    <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0 0 16px">Sumate al programa de referidos: compartí tu código, tus amigos compran con 10-20% OFF según lo que gastan, y vos cobrás comisión de cada venta.</p>
     <a href="referidos" class="btn btn-accent">Quiero mi código</a>
   </div>
 
@@ -244,6 +244,10 @@ async function cerrarSesion() {
   window.location.href = '/';
 }
 
+// ── Estado del catálogo ──────────────────────────────────────────────────────
+const _cat = { page: 1, search: '', categoria: '', precio_min: '', precio_max: '', sort: 'comision', order: 'desc', tierPct: 5 };
+let _todosProductos = [];  // cache para exportar CSV
+
 async function cargarReferidos() {
   try {
     const res = await fetch(`${API}/api/referidos/dashboard`, {
@@ -260,81 +264,259 @@ async function cargarReferidos() {
     const wrap = document.getElementById('referidosWrap');
     seccion.style.display = 'block';
 
+    window._codigoRef = data.codigo || '';
+    const tier = data.tier || { porcentaje: 5, tier: 'base', ventas_mes: 0, next_tier_en: 5, next_porcentaje: 7 };
+    _cat.tierPct = tier.porcentaje;
+
+    // Badge de tier
+    const tierLabels = { base: 'Base', activo: 'Activo', top: 'Top' };
+    const tierColors = { base: '#888', activo: '#3b82f6', top: '#FFC700' };
+    const tierColor = tierColors[tier.tier] || '#888';
+    const tierLabel = tierLabels[tier.tier] || tier.tier;
+
+    // Barra de progreso
+    let progressHtml = '';
+    if (tier.next_tier_en !== null) {
+      const tiers = { base: [0, 5], activo: [5, 15] };
+      const [start, end] = tiers[tier.tier] || [0, 5];
+      const pct = Math.min(100, Math.round(((tier.ventas_mes - start) / (end - start)) * 100));
+      progressHtml = `
+        <div style="margin-top:10px">
+          <div style="background:#e5e7eb;border-radius:6px;height:7px;overflow:hidden">
+            <div style="background:${tierColor};height:100%;width:${pct}%;border-radius:6px;transition:width .4s"></div>
+          </div>
+          <p style="font-size:11.5px;color:var(--gray-600);margin:4px 0 0;text-align:center">${tier.next_tier_en} venta${tier.next_tier_en !== 1 ? 's' : ''} más para ${tier.next_porcentaje}% de comisión</p>
+        </div>`;
+    } else {
+      progressHtml = `<p style="font-size:11.5px;color:${tierColor};margin:4px 0 0;text-align:center;font-weight:600">¡Máximo nivel alcanzado!</p>`;
+    }
+
     const periodos = data.resumen_por_periodo || [];
     const totalComision = data.total_comision || 0;
     const totalPendiente = data.total_pendiente || 0;
 
     const periodosHtml = periodos.length === 0
       ? '<p style="font-size:13.5px;color:var(--gray-600);text-align:center;padding:16px 0">Todavía no generaste comisiones.</p>'
-      : `<table class="order-table" style="margin-top:16px;width:100%">
-          <thead>
-            <tr>
-              <th style="text-align:left">Período</th>
-              <th style="text-align:center">Ventas</th>
-              <th style="text-align:right">Monto vendido</th>
-              <th style="text-align:right">Tu comisión</th>
-              <th style="text-align:center">Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${periodos.map(p => {
-              const [anio, mes] = (p.periodo || '').split('-');
-              const nombreMes = anio && mes ? new Date(+anio, +mes - 1).toLocaleDateString('es-AR', { month:'long', year:'numeric' }) : p.periodo;
-              const estado = p.pagado
-                ? '<span class="status-badge ok">✅ Pagado</span>'
-                : '<span class="status-badge pend">⏳ Pendiente</span>';
-              return `<tr>
-                <td style="text-transform:capitalize">${nombreMes}</td>
-                <td style="text-align:center">${p.cantidad_ventas || 0}</td>
-                <td style="text-align:right">${formatPrice(p.monto_total || 0)}</td>
-                <td style="text-align:right;font-weight:600;color:var(--accent)">${formatPrice(p.comision_total || 0)}</td>
-                <td style="text-align:center">${estado}</td>
-              </tr>`;
-            }).join('')}
-          </tbody>
-        </table>`;
+      : `<div style="overflow-x:auto"><table class="order-table" style="margin-top:0;width:100%">
+          <thead><tr>
+            <th style="text-align:left">Período</th>
+            <th style="text-align:center">Ventas</th>
+            <th style="text-align:right">Monto vendido</th>
+            <th style="text-align:right">Tu comisión</th>
+            <th style="text-align:center">Estado</th>
+          </tr></thead>
+          <tbody>${periodos.map(p => {
+            const [anio, mes] = (p.periodo || '').split('-');
+            const nombreMes = anio && mes ? new Date(+anio, +mes - 1).toLocaleDateString('es-AR', { month:'long', year:'numeric' }) : p.periodo;
+            const estado = p.pagado
+              ? '<span class="status-badge ok">Pagado</span>'
+              : '<span class="status-badge pend">Pendiente</span>';
+            return `<tr>
+              <td style="text-transform:capitalize">${nombreMes}</td>
+              <td style="text-align:center">${p.cantidad_ventas || 0}</td>
+              <td style="text-align:right">${formatPrice(p.monto_total || 0)}</td>
+              <td style="text-align:right;font-weight:600;color:var(--accent)">${formatPrice(p.comision_total || 0)}</td>
+              <td style="text-align:center">${estado}</td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table></div>`;
 
     wrap.innerHTML = `
-      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;justify-content:center">
-        <div style="flex:1;min-width:160px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
-          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Tu código de referido</p>
-          <p style="font-size:22px;font-weight:700;letter-spacing:2px;color:var(--ink);margin:0">${escapeHtmlBasico(data.codigo || '')}</p>
-          <button onclick="copiarCodigoRef()" style="margin-top:8px;font-size:12px;padding:5px 14px;border-radius:8px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Copiar</button>
+      <!-- TIER WIDGET -->
+      <div style="background:var(--cream);border-radius:14px;padding:20px 24px;margin-bottom:16px;text-align:center">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:${tierColor}1a;border:1.5px solid ${tierColor};border-radius:20px;padding:5px 16px;margin-bottom:8px">
+          <span style="font-size:13px;font-weight:700;color:${tierColor}">${tierLabel} · ${tier.porcentaje}% comisión</span>
         </div>
-        <div style="flex:1;min-width:140px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
+        <p style="font-size:12.5px;color:var(--gray-600);margin:0">${tier.ventas_mes} venta${tier.ventas_mes !== 1 ? 's' : ''} este mes · Próximo cobro: <strong>${escapeHtmlBasico(data.proximo_cobro || '')}</strong></p>
+        ${progressHtml}
+      </div>
+
+      <!-- CARDS: código + totales -->
+      <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+        <div style="flex:1.5;min-width:170px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
+          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Tu código de referido</p>
+          <p style="font-size:24px;font-weight:700;letter-spacing:3px;color:var(--ink);margin:0 0 10px">${escapeHtmlBasico(data.codigo || '')}</p>
+          <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+            <button onclick="copiarCodigoRef()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Copiar</button>
+            <button onclick="compartirCodigoRef('${escapeHtmlBasico(data.codigo || '')}')" style="font-size:12px;padding:6px 14px;border-radius:8px;border:none;background:var(--ink);color:var(--paper);cursor:pointer;font-weight:600">Compartir</button>
+          </div>
+        </div>
+        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
           <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Total ganado</p>
           <p style="font-size:20px;font-weight:700;color:var(--accent);margin:0">${formatPrice(totalComision)}</p>
         </div>
-        <div style="flex:1;min-width:140px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
+        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
           <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Por cobrar</p>
           <p style="font-size:20px;font-weight:700;color:${totalPendiente > 0 ? 'var(--ink)' : 'var(--gray-600)'};margin:0">${formatPrice(totalPendiente)}</p>
         </div>
       </div>
-      <p style="font-size:12.5px;color:var(--gray-600);text-align:center;margin:0 0 4px">Compartí tu código y ganá el 5% de cada venta que generes. Tu amigo recibe 15% OFF.</p>
-      <button onclick="compartirCodigoRef('${escapeHtmlBasico(data.codigo || '')}')" style="display:block;margin:10px auto 20px;font-size:13px;padding:8px 20px;border-radius:10px;border:none;background:var(--ink);color:var(--paper);cursor:pointer;font-weight:600">Compartir código</button>
+
+      <!-- CATÁLOGO -->
+      <div style="margin-bottom:24px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+          <h3 style="margin:0;font-size:15px">Catálogo de productos</h3>
+          <button onclick="generarCSVCatalogo()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Descargar CSV</button>
+        </div>
+        <!-- Filtros -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <input id="catSearch" type="text" placeholder="Buscar producto..." value="${escapeHtmlBasico(_cat.search)}"
+            style="flex:2;min-width:140px;padding:7px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)"
+            oninput="_cat.search=this.value;_cat.page=1;cargarCatalogo()">
+          <select id="catCategoria" onchange="_cat.categoria=this.value;_cat.page=1;cargarCatalogo()"
+            style="flex:1.2;min-width:130px;padding:7px 10px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)">
+            <option value="">Todas las categorías</option>
+          </select>
+          <input id="catPMin" type="number" placeholder="Precio mín" value="${_cat.precio_min}"
+            style="width:100px;padding:7px 10px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)"
+            onchange="_cat.precio_min=this.value;_cat.page=1;cargarCatalogo()">
+          <input id="catPMax" type="number" placeholder="Precio máx" value="${_cat.precio_max}"
+            style="width:100px;padding:7px 10px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)"
+            onchange="_cat.precio_max=this.value;_cat.page=1;cargarCatalogo()">
+          <select id="catSort" onchange="const[s,o]=this.value.split('|');_cat.sort=s;_cat.order=o;_cat.page=1;cargarCatalogo()"
+            style="flex:1;min-width:140px;padding:7px 10px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)">
+            <option value="comision|desc">Mayor comisión</option>
+            <option value="precio|asc">Precio: menor a mayor</option>
+            <option value="precio|desc">Precio: mayor a menor</option>
+            <option value="nombre|asc">Nombre A-Z</option>
+          </select>
+        </div>
+        <div id="catalogoWrap"><p style="font-size:13px;color:var(--gray-600);text-align:center;padding:20px 0">Cargando productos...</p></div>
+        <div id="catalogoPaginas" style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:12px"></div>
+      </div>
+
+      <!-- HISTORIAL -->
+      <h3 style="margin:0 0 12px;font-size:15px">Historial de comisiones</h3>
       ${periodosHtml}
     `;
 
-    window._codigoRef = data.codigo || '';
+    // Cargar el catálogo después de que el DOM esté listo
+    cargarCatalogo();
+
   } catch (e) {
     document.getElementById('bannerReferidos').style.display = 'block';
   }
 }
 
+async function cargarCatalogo() {
+  const wrap = document.getElementById('catalogoWrap');
+  const pagDiv = document.getElementById('catalogoPaginas');
+  if (!wrap) return;
+  wrap.innerHTML = '<p style="font-size:13px;color:var(--gray-600);text-align:center;padding:20px 0">Cargando...</p>';
+
+  const params = new URLSearchParams({
+    page: _cat.page, limit: 30,
+    sort: _cat.sort, order: _cat.order,
+  });
+  if (_cat.search) params.append('search', _cat.search);
+  if (_cat.categoria) params.append('categoria', _cat.categoria);
+  if (_cat.precio_min) params.append('precio_min', _cat.precio_min);
+  if (_cat.precio_max) params.append('precio_max', _cat.precio_max);
+
+  try {
+    const res = await fetch(`${API}/api/referidos/catalogo?${params}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) { wrap.innerHTML = '<p style="color:var(--red);text-align:center;padding:20px">Error al cargar el catálogo.</p>'; return; }
+    const data = await res.json();
+
+    _todosProductos = data.productos || [];
+    _cat.tierPct = (data.tier || {}).porcentaje || _cat.tierPct;
+
+    // Poblar categorías si está vacío
+    const sel = document.getElementById('catCategoria');
+    if (sel && sel.options.length === 1 && (data.categorias || []).length > 0) {
+      (data.categorias || []).forEach(c => {
+        const o = document.createElement('option');
+        o.value = c; o.textContent = c;
+        if (c === _cat.categoria) o.selected = true;
+        sel.appendChild(o);
+      });
+    }
+
+    if (_todosProductos.length === 0) {
+      wrap.innerHTML = '<p style="font-size:13px;color:var(--gray-600);text-align:center;padding:20px">Sin resultados para esa búsqueda.</p>';
+      if (pagDiv) pagDiv.innerHTML = '';
+      return;
+    }
+
+    const filas = _todosProductos.map(p => `
+      <tr>
+        <td style="width:52px;padding:8px 6px">
+          <img src="${escapeHtmlBasico(p.imagen_url)}" alt="" width="48" height="48"
+            style="object-fit:cover;border-radius:6px;display:block"
+            onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\'%3E%3Crect width=\'48\' height=\'48\' fill=\'%23f3f4f6\' rx=\'6\'/%3E%3C/svg%3E'">
+        </td>
+        <td style="font-size:12.5px;max-width:180px">
+          <a href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener" style="color:var(--ink);text-decoration:none;font-weight:500">${escapeHtmlBasico(p.nombre)}</a>
+          <div style="font-size:11px;color:var(--gray-600)">${escapeHtmlBasico(p.categoria || '')}</div>
+        </td>
+        <td style="text-align:right;font-size:12.5px;white-space:nowrap">${formatPrice(p.precio_venta)}</td>
+        <td style="text-align:right;font-size:12.5px;white-space:nowrap">
+          ${formatPrice(p.precio_con_descuento)}
+          <div style="font-size:11px;color:#10b981;font-weight:600">−${p.descuento_pct}%</div>
+        </td>
+        <td style="text-align:right;font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap">${formatPrice(p.comision_ars)}</td>
+        <td style="text-align:center;white-space:nowrap;padding:8px 6px">
+          <a href="${escapeHtmlBasico(p.imagen_url)}" download="${escapeHtmlBasico(p.sku)}.jpg" target="_blank" rel="noopener"
+            style="font-size:11px;padding:4px 8px;border-radius:6px;border:1.5px solid #e5e7eb;color:var(--ink);text-decoration:none;display:inline-block">Foto</a>
+        </td>
+      </tr>`).join('');
+
+    wrap.innerHTML = `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="border-bottom:2px solid #e5e7eb">
+        <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)"></th>
+        <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Producto</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Precio lista</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Comprador paga</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--accent)">Tu comisión</th>
+        <th style="text-align:center;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Foto</th>
+      </tr></thead>
+      <tbody>${filas}</tbody>
+    </table></div>`;
+
+    // Paginación
+    if (pagDiv) {
+      const total = data.total || 0;
+      const pages = data.pages || 1;
+      pagDiv.innerHTML = pages <= 1 ? `<span style="font-size:12.5px;color:var(--gray-600)">${total} producto${total !== 1 ? 's' : ''}</span>` : `
+        <button onclick="_cat.page=Math.max(1,_cat.page-1);cargarCatalogo()" ${_cat.page <= 1 ? 'disabled' : ''}
+          style="padding:5px 12px;border-radius:7px;border:1.5px solid #e5e7eb;background:var(--cream);cursor:pointer;font-size:12px">Anterior</button>
+        <span style="font-size:12.5px;color:var(--gray-600)">Página ${_cat.page} de ${pages} · ${total} productos</span>
+        <button onclick="_cat.page=Math.min(${pages},_cat.page+1);cargarCatalogo()" ${_cat.page >= pages ? 'disabled' : ''}
+          style="padding:5px 12px;border-radius:7px;border:1.5px solid #e5e7eb;background:var(--cream);cursor:pointer;font-size:12px">Siguiente</button>`;
+    }
+  } catch (e) {
+    wrap.innerHTML = '<p style="color:var(--red);text-align:center;padding:20px">Error al cargar el catálogo.</p>';
+  }
+}
+
+function generarCSVCatalogo() {
+  if (!_todosProductos.length) { showToast('Cargá el catálogo primero'); return; }
+  const headers = ['SKU','Nombre','Categoría','Precio lista','Precio con descuento','Descuento %','Comisión ARS','URL tienda','Imagen'];
+  const rows = _todosProductos.map(p => [
+    p.sku, `"${(p.nombre||'').replace(/"/g,'""')}"`, `"${(p.categoria||'').replace(/"/g,'""')}"`,
+    p.precio_venta, p.precio_con_descuento, p.descuento_pct, p.comision_ars,
+    p.url_tienda, p.imagen_url
+  ]);
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'catalogo-el-gadget.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
 function copiarCodigoRef() {
   if (window._codigoRef) {
-    navigator.clipboard.writeText(window._codigoRef).then(() => {
-      showToast('¡Código copiado!');
-    }).catch(() => {});
+    navigator.clipboard.writeText(window._codigoRef).then(() => showToast('¡Código copiado!')).catch(() => {});
   }
 }
 
 function compartirCodigoRef(codigo) {
-  const texto = `¡Comprá en El Gadget con mi código "${codigo}" y conseguís un 15% OFF en tu pedido! 🛍️ https://elgadget.com.ar`;
+  const texto = `¡Comprá en El Gadget con mi código "${codigo}" y conseguís hasta 20% OFF en tu pedido! Mientras más comprás, más descuento tenés. 🛍️ https://elgadget.com.ar`;
   if (navigator.share) {
     navigator.share({ title: 'Mi código El Gadget', text: texto });
   } else {
-    navigator.clipboard.writeText(texto).then(() => showToast('¡Enlace copiado!')).catch(() => {});
+    navigator.clipboard.writeText(texto).then(() => showToast('¡Texto copiado!')).catch(() => {});
   }
 }
 

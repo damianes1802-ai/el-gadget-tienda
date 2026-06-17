@@ -267,6 +267,43 @@ def _generar_codigo_referido(nombre: str, telefono: str, conn: sqlite3.Connectio
     return codigo
 
 
+def _descuento_referido_escalonado(subtotal: float) -> float:
+    """Descuento escalonado según total del carrito: <$4k→10%, $4k-$20k→15%, >$20k→20%."""
+    if subtotal < 4000:
+        return 10.0
+    elif subtotal <= 20000:
+        return 15.0
+    else:
+        return 20.0
+
+
+def _get_tier_comision(referido_id: int, conn: sqlite3.Connection) -> dict:
+    """Tier de comisión según ventas del mes: <5→5%, 5-14→7%, ≥15→10%."""
+    periodo = datetime.now().strftime('%Y-%m')
+    ventas_mes = conn.execute(
+        "SELECT COUNT(*) FROM comisiones_referidos WHERE referido_id=? AND periodo=?",
+        (referido_id, periodo)
+    ).fetchone()[0]
+    if ventas_mes >= 15:
+        return {'porcentaje': 10.0, 'tier': 'top', 'ventas_mes': ventas_mes,
+                'next_tier_en': None, 'next_porcentaje': None}
+    elif ventas_mes >= 5:
+        return {'porcentaje': 7.0, 'tier': 'activo', 'ventas_mes': ventas_mes,
+                'next_tier_en': 15 - ventas_mes, 'next_porcentaje': 10.0}
+    else:
+        return {'porcentaje': 5.0, 'tier': 'base', 'ventas_mes': ventas_mes,
+                'next_tier_en': 5 - ventas_mes, 'next_porcentaje': 7.0}
+
+
+def _comision_producto_referido(precio: float, tier_pct: float) -> dict:
+    """Calcula descuento del comprador y comisión ARS del referido para un producto."""
+    descuento_pct = _descuento_referido_escalonado(precio)
+    precio_con_descuento = round(precio * (1 - descuento_pct / 100), 2)
+    comision_ars = round(precio_con_descuento * (tier_pct / 100), 2)
+    return {'descuento_pct': descuento_pct, 'precio_con_descuento': precio_con_descuento,
+            'comision_ars': comision_ars}
+
+
 # ============================================================================
 # FUNCIONES DE BASE DE DATOS
 # ============================================================================
@@ -660,17 +697,30 @@ def _validar_descuento_row(d: Optional[dict], email: Optional[str], subtotal: fl
         if not email or email.strip().lower() != d["email_asociado"].strip().lower():
             return {"valido": False, "motivo": "Este código no corresponde a tu cuenta"}
 
-    # Prevención de auto-referido: el dueño del código no puede usarlo en sus propias compras
-    if email and d.get("codigo"):
+    # Verificar si el código pertenece a un referido
+    if d.get("codigo"):
         try:
             conn_check = sqlite3.connect(DB_PATH)
-            ref = conn_check.execute(
-                "SELECT email FROM referidos WHERE codigo = ? AND activo = 1",
+            ref_row = conn_check.execute(
+                "SELECT id, email FROM referidos WHERE codigo = ? AND activo = 1",
                 (d["codigo"],)
             ).fetchone()
             conn_check.close()
-            if ref and ref[0].strip().lower() == email.strip().lower():
-                return {"valido": False, "motivo": "No podés usar tu propio código de referido"}
+            if ref_row:
+                # Auto-referido bloqueado
+                if email and ref_row[1].strip().lower() == email.strip().lower():
+                    return {"valido": False, "motivo": "No podés usar tu propio código de referido"}
+                # Aplicar descuento escalonado según total del carrito
+                porcentaje = _descuento_referido_escalonado(subtotal)
+                monto = round(subtotal * porcentaje / 100, 2)
+                return {
+                    "valido": True,
+                    "monto_descuento": monto,
+                    "porcentaje_aplicado": porcentaje,
+                    "descripcion": d.get("nombre", f"Código de referido {d.get('codigo', '')}"),
+                    "id": d.get("id"),
+                    "tipo": "referido_escalonado",
+                }
         except Exception:
             pass
 
@@ -1860,7 +1910,8 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
             ).fetchone()
             if ref:
                 monto_base = max(0.0, float(orden.get('total') or 0) - float(orden.get('costo_envio') or 0))
-                comision = round(monto_base * 0.05, 2)
+                tier = _get_tier_comision(ref[0], conn)
+                comision = round(monto_base * (tier['porcentaje'] / 100), 2)
                 periodo = datetime.now().strftime('%Y-%m')
                 cursor.execute("""
                     INSERT OR IGNORE INTO comisiones_referidos
@@ -2602,15 +2653,154 @@ def dashboard_referido(authorization: Optional[str] = Header(None)):
             periodos[p]['comision_pendiente'] = round(periodos[p]['comision_pendiente'] + c['comision'], 2)
             periodos[p]['pagado'] = False
 
+    tier = _get_tier_comision(ref['id'], conn)
+
+    # Próximo cobro: día 5 del mes siguiente
+    from datetime import date
+    hoy = date.today()
+    if hoy.month == 12:
+        proximo_cobro = f"5 de enero {hoy.year + 1}"
+    else:
+        nombres_meses = ['enero','febrero','marzo','abril','mayo','junio',
+                         'julio','agosto','septiembre','octubre','noviembre','diciembre']
+        proximo_cobro = f"5 de {nombres_meses[hoy.month]} {hoy.year}"
+
     conn.close()
     return {
         "nombre": ref['nombre'], "email": ref['email'],
         "codigo": ref['codigo'], "activo": bool(ref['activo']),
         "creado_at": ref['creado_at'],
+        "tier": tier,
+        "proximo_cobro": proximo_cobro,
         "comisiones": comisiones,
         "resumen_por_periodo": sorted(periodos.values(), key=lambda x: x['periodo'], reverse=True),
         "total_comision": round(sum(c['comision'] for c in comisiones), 2),
         "total_pendiente": round(sum(c['comision'] for c in comisiones if not c['pagado']), 2),
+    }
+
+
+@app.get("/api/referidos/catalogo")
+def catalogo_referido(
+    authorization: Optional[str] = Header(None),
+    search: Optional[str] = None,
+    categoria: Optional[str] = None,
+    precio_min: Optional[float] = None,
+    precio_max: Optional[float] = None,
+    sort: Optional[str] = "comision",  # comision | precio | nombre
+    order: Optional[str] = "desc",
+    page: int = 1,
+    limit: int = 50,
+):
+    """Catálogo de productos con comisión por producto para el referido autenticado."""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Token requerido")
+    token = authorization.split(" ", 1)[1]
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    sesion = cursor.execute(
+        "SELECT usuario_id FROM sesiones_usuario WHERE token = ?", (token,)
+    ).fetchone()
+    if not sesion:
+        conn.close()
+        raise HTTPException(status_code=401, detail="Sesión inválida o expirada")
+
+    usuario = cursor.execute(
+        "SELECT email FROM usuarios_registrados WHERE id = ?", (sesion[0],)
+    ).fetchone()
+    if not usuario:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    ref = cursor.execute(
+        "SELECT id, codigo FROM referidos WHERE email = ? AND activo = 1", (usuario[0],)
+    ).fetchone()
+    if not ref:
+        conn.close()
+        raise HTTPException(status_code=404, detail="No estás registrado en el programa de referidos")
+
+    tier = _get_tier_comision(ref[0], conn)
+    tier_pct = tier['porcentaje']
+
+    # Categorías disponibles
+    categorias = [r[0] for r in cursor.execute(
+        "SELECT DISTINCT categoria FROM productos WHERE stock > 0 AND categoria IS NOT NULL ORDER BY categoria"
+    ).fetchall()]
+
+    # Construir query con filtros
+    where_clauses = ["stock > 0"]
+    params = []
+
+    if search:
+        where_clauses.append("(nombre LIKE ? OR sku LIKE ? OR marca LIKE ?)")
+        like = f"%{search}%"
+        params.extend([like, like, like])
+    if categoria:
+        where_clauses.append("categoria = ?")
+        params.append(categoria)
+    if precio_min is not None:
+        where_clauses.append("precio_venta >= ?")
+        params.append(precio_min)
+    if precio_max is not None:
+        where_clauses.append("precio_venta <= ?")
+        params.append(precio_max)
+
+    where_sql = " AND ".join(where_clauses)
+
+    # Mapeo de columnas para sort
+    sort_col_map = {"precio": "precio_venta", "nombre": "nombre", "comision": "precio_venta"}
+    sort_col = sort_col_map.get(sort, "precio_venta")
+    order_sql = "DESC" if order == "desc" else "ASC"
+    # Para comisión desc = precio desc (comisión es proporcional al precio)
+    if sort == "nombre":
+        order_sql = "ASC" if order != "desc" else "DESC"
+
+    total_count = cursor.execute(
+        f"SELECT COUNT(*) FROM productos WHERE {where_sql}", params
+    ).fetchone()[0]
+
+    offset = (page - 1) * limit
+    rows = cursor.execute(
+        f"""SELECT sku, nombre, precio_venta, categoria, marca, imagen_principal, stock
+            FROM productos WHERE {where_sql}
+            ORDER BY {sort_col} {order_sql}
+            LIMIT ? OFFSET ?""",
+        params + [limit, offset]
+    ).fetchall()
+
+    productos = []
+    for r in rows:
+        sku, nombre, precio, cat, marca, imagen, stock = r
+        calc = _comision_producto_referido(float(precio), tier_pct)
+        # Imagen: usar Cloudinary si no hay URL propia
+        if not imagen or imagen.strip() == '':
+            imagen_url = f"https://res.cloudinary.com/deq2ofluf/image/upload/prod_{sku}_001"
+        else:
+            imagen_url = imagen
+        productos.append({
+            "sku": sku,
+            "nombre": nombre,
+            "precio_venta": float(precio),
+            "categoria": cat,
+            "marca": marca,
+            "imagen_url": imagen_url,
+            "stock": stock,
+            "descuento_pct": calc['descuento_pct'],
+            "precio_con_descuento": calc['precio_con_descuento'],
+            "comision_ars": calc['comision_ars'],
+            "url_tienda": f"https://elgadget.com.ar/producto/{sku}?ref={ref[1]}",
+        })
+
+    conn.close()
+    return {
+        "tier": tier,
+        "categorias": categorias,
+        "total": total_count,
+        "page": page,
+        "limit": limit,
+        "pages": -(-total_count // limit),  # ceil division
+        "productos": productos,
     }
 
 
