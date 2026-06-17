@@ -22,6 +22,22 @@ function ga4Event(name, params) {
   if (typeof window.gtag === 'function') window.gtag('event', name, params);
 }
 
+const META_PIXEL_ID = '1749660892357733';
+
+function initMetaPixel() {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', META_PIXEL_ID);
+  fbq('track', 'PageView');
+}
+
+function fbqEvent(name, params) {
+  if (typeof window.fbq === 'function') window.fbq('track', name, params);
+}
+
 function getCarrito() {
   return JSON.parse(localStorage.getItem(CARRITO_KEY) || '[]');
 }
@@ -95,6 +111,7 @@ function addCartItem(item) {
     value: item.precio * (item.cantidad || 1),
     items: [{ item_id: item.sku, item_name: item.nombre, price: item.precio, quantity: item.cantidad || 1 }]
   });
+  fbqEvent('AddToCart', { content_ids: [item.sku], content_name: item.nombre, currency: 'ARS', value: item.precio * (item.cantidad || 1) });
   return carrito;
 }
 
@@ -431,6 +448,7 @@ function egCalcularEnvio(zonasData, provincia, partido) {
 
 document.addEventListener('DOMContentLoaded', () => {
   initGA4();
+  initMetaPixel();
   actualizarCarritoUI();
   initPopupRegistro();
   initOfertaYStockProducto();
@@ -445,6 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
       value: PRODUCTO.precio_venta,
       items: [{ item_id: PRODUCTO.sku, item_name: PRODUCTO.nombre, price: PRODUCTO.precio_venta, quantity: 1 }]
     });
+    fbqEvent('ViewContent', { content_ids: [PRODUCTO.sku], content_name: PRODUCTO.nombre, currency: 'ARS', value: PRODUCTO.precio_venta });
   }
 
   const enCheckout = location.pathname.endsWith('checkout') || location.pathname.endsWith('checkout.html');
@@ -456,6 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
         value: cartTotal(c),
         items: c.map(i => ({ item_id: i.sku, item_name: i.nombre, price: i.precio, quantity: i.cantidad }))
       });
+      fbqEvent('InitiateCheckout', { num_items: cartCount(c), currency: 'ARS', value: cartTotal(c) });
     }
   }
 });

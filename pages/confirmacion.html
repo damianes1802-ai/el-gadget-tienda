@@ -164,6 +164,11 @@ function mostrarConfirmacion(orden, estado) {
           quantity: i.cantidad
         }))
       });
+      fbqEvent('Purchase', {
+        content_ids: (orden.items || []).map(i => i.sku),
+        currency: 'ARS',
+        value: Number(orden.total || 0)
+      });
       sessionStorage.setItem(_key, '1');
     }
   }
