@@ -2834,7 +2834,7 @@ def catalogo_referido(
 
     offset = (page - 1) * limit
     rows = cursor.execute(
-        f"""SELECT sku, nombre, precio_venta, categoria, marca, imagen_principal, stock
+        f"""SELECT sku, nombre, precio_venta, categoria, marca, imagen_principal, stock, url_amigable
             FROM productos WHERE {where_sql}
             ORDER BY {sort_col} {order_sql}
             LIMIT ? OFFSET ?""",
@@ -2843,13 +2843,16 @@ def catalogo_referido(
 
     productos = []
     for r in rows:
-        sku, nombre, precio, cat, marca, imagen, stock = r
+        sku, nombre, precio, cat, marca, imagen, stock, url_amigable = r
         calc = _comision_producto_referido(float(precio), tier_pct)
-        # Imagen: usar Cloudinary si no hay URL propia
         if not imagen or imagen.strip() == '':
             imagen_url = f"https://res.cloudinary.com/deq2ofluf/image/upload/prod_{sku}_001"
         else:
             imagen_url = imagen
+        if url_amigable and url_amigable.strip():
+            url_tienda = f"https://elgadget.com.ar/producto/{url_amigable.strip()}/?ref={ref[1]}"
+        else:
+            url_tienda = f"https://elgadget.com.ar/producto_detalle?sku={sku}&ref={ref[1]}"
         productos.append({
             "sku": sku,
             "nombre": nombre,
@@ -2861,7 +2864,7 @@ def catalogo_referido(
             "descuento_pct": calc['descuento_pct'],
             "precio_con_descuento": calc['precio_con_descuento'],
             "comision_ars": calc['comision_ars'],
-            "url_tienda": f"https://elgadget.com.ar/producto/{sku}?ref={ref[1]}",
+            "url_tienda": url_tienda,
         })
 
     conn.close()
