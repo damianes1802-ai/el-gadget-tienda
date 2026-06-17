@@ -422,7 +422,7 @@ function mostrarRelacionados() {
       : `<div class="card-img-placeholder">📦</div>`;
 
     return `
-      <a class="card" href="${p.url_amigable ? `producto/${p.url_amigable}/` : `producto_detalle.html?sku=${p.sku}`}">
+      <a class="card" href="${p.url_amigable ? `producto/${p.url_amigable}/` : `producto_detalle?sku=${p.sku}`}">
         <div class="card-img-wrap">${img}</div>
         <div class="card-body">
           <div class="card-cat">${p.categoria || productoActual.categoria || ''}</div>

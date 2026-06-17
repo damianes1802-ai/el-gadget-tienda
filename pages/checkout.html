@@ -52,125 +52,153 @@
   <div class="checkout-layout">
     <!-- FORMULARIO -->
     <div class="form-panel">
-      <h2>Datos del comprador</h2>
 
-      <div class="form-section-title">Datos personales</div>
-
-      <div class="field-row">
-        <div class="field">
-          <label for="nombre">Nombre *</label>
-          <input type="text" id="nombre" placeholder="Ej: Juan">
+      <!-- Indicador de pasos -->
+      <div style="display:flex;align-items:center;margin-bottom:24px">
+        <div id="stepItem1" style="display:flex;align-items:center;gap:8px">
+          <div id="stepCircle1" style="width:28px;height:28px;border-radius:50%;background:#FFC700;color:#14151A;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s">1</div>
+          <span id="stepLabel1" style="font-size:14px;font-weight:600;color:#14151A;white-space:nowrap">Tus datos</span>
         </div>
-        <div class="field">
-          <label for="apellido">Apellido *</label>
-          <input type="text" id="apellido" placeholder="Ej: García">
+        <div style="flex:1;height:2px;background:#E5E7EB;margin:0 12px"></div>
+        <div id="stepItem2" style="display:flex;align-items:center;gap:8px;opacity:0.4;transition:opacity .3s">
+          <div id="stepCircle2" style="width:28px;height:28px;border-radius:50%;background:#E5E7EB;color:#6B7280;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s">2</div>
+          <span id="stepLabel2" style="font-size:14px;font-weight:600;color:#14151A;white-space:nowrap">Dirección de envío</span>
         </div>
       </div>
 
-      <div class="field">
-        <label for="razon_social">Razón social <span class="optional">(opcional)</span></label>
-        <input type="text" id="razon_social" placeholder="Nombre de empresa si aplica">
+      <!-- Banner descuento bienvenida -->
+      <div id="bannerBienvenida" style="display:none;background:#FFFBE6;border:1.5px solid #FFC700;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:14px;color:#14151A;line-height:1.5">
+        🎉 <strong>Tenés un 10% OFF de bienvenida</strong> — se aplica automáticamente al confirmar tu email.
       </div>
 
-      <div class="field-row">
-        <div class="field">
-          <label for="email">Email *</label>
-          <input type="email" id="email" placeholder="correo@ejemplo.com">
+      <!-- PASO 1: Datos personales -->
+      <div id="step1Panel">
+        <div class="form-section-title">Datos personales</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="nombre">Nombre *</label>
+            <input type="text" id="nombre" placeholder="Ej: Juan">
+          </div>
+          <div class="field">
+            <label for="apellido">Apellido *</label>
+            <input type="text" id="apellido" placeholder="Ej: García">
+          </div>
         </div>
-        <div class="field">
-          <label for="telefono">Teléfono / Celular *</label>
-          <input type="tel" id="telefono" placeholder="Ej: 1123456789">
+
+        <div class="field-row">
+          <div class="field">
+            <label for="email">Email *</label>
+            <input type="email" id="email" placeholder="correo@ejemplo.com">
+          </div>
+          <div class="field">
+            <label for="telefono">Teléfono / Celular *</label>
+            <input type="tel" id="telefono" placeholder="Ej: 1123456789">
+          </div>
         </div>
+
+        <div class="field">
+          <label for="cuit_dni">DNI o CUIT *</label>
+          <input type="text" id="cuit_dni" placeholder="Ej: 12345678 (DNI) o 20-12345678-9 (CUIT)">
+        </div>
+
+        <button type="button" class="btn btn-accent btn-block" style="margin-top:22px" onclick="avanzarStep2()">
+          Continuar con la dirección →
+        </button>
       </div>
 
-      <div class="field">
-        <label for="cuit_dni">CUIT / DNI *</label>
-        <input type="text" id="cuit_dni" placeholder="Ej: 20-12345678-9">
-      </div>
+      <!-- PASO 2: Dirección de envío -->
+      <div id="step2Panel" style="display:none">
+        <button type="button" onclick="volverStep1()" style="background:none;border:none;cursor:pointer;color:#FFC700;font-size:14px;font-weight:600;padding:0;margin-bottom:18px;display:inline-flex;align-items:center;gap:6px">
+          ← Volver a mis datos
+        </button>
 
-      <div class="form-section-title">Dirección de envío</div>
+        <div class="form-section-title">Dirección de envío</div>
 
-      <div class="field-row">
-        <div class="field" style="flex:2">
-          <label for="calle">Calle *</label>
-          <input type="text" id="calle" placeholder="Ej: Av. Corrientes">
+        <div class="field-row">
+          <div class="field" style="flex:2">
+            <label for="calle">Calle *</label>
+            <input type="text" id="calle" placeholder="Ej: Av. Corrientes">
+          </div>
+          <div class="field">
+            <label for="altura">Altura *</label>
+            <input type="text" id="altura" placeholder="1234">
+          </div>
+          <div class="field">
+            <label for="piso">Piso</label>
+            <input type="text" id="piso" placeholder="3">
+          </div>
+          <div class="field">
+            <label for="departamento">Dpto.</label>
+            <input type="text" id="departamento" placeholder="B">
+          </div>
         </div>
-        <div class="field">
-          <label for="altura">Altura *</label>
-          <input type="text" id="altura" placeholder="1234">
-        </div>
-        <div class="field">
-          <label for="piso">Piso</label>
-          <input type="text" id="piso" placeholder="3">
-        </div>
-        <div class="field">
-          <label for="departamento">Dpto.</label>
-          <input type="text" id="departamento" placeholder="B">
-        </div>
-      </div>
 
-      <div class="field-row">
-        <div class="field">
-          <label for="pais">País</label>
-          <select id="pais">
-            <option value="Argentina" selected>Argentina</option>
-          </select>
+        <div class="field-row">
+          <div class="field">
+            <label for="pais">País</label>
+            <select id="pais">
+              <option value="Argentina" selected>Argentina</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="provincia">Provincia *</label>
+            <select id="provincia">
+              <option value="">Seleccione una provincia...</option>
+              <option>CABA / Capital Federal</option>
+              <option>Provincia de Buenos Aires</option>
+              <option>Catamarca</option>
+              <option>Chaco</option>
+              <option>Chubut</option>
+              <option>Córdoba</option>
+              <option>Corrientes</option>
+              <option>Entre Ríos</option>
+              <option>Formosa</option>
+              <option>Jujuy</option>
+              <option>La Pampa</option>
+              <option>La Rioja</option>
+              <option>Mendoza</option>
+              <option>Misiones</option>
+              <option>Neuquén</option>
+              <option>Río Negro</option>
+              <option>Salta</option>
+              <option>San Juan</option>
+              <option>San Luis</option>
+              <option>Santa Cruz</option>
+              <option>Santa Fe</option>
+              <option>Santiago del Estero</option>
+              <option>Tierra del Fuego</option>
+              <option>Tucumán</option>
+            </select>
+          </div>
         </div>
-        <div class="field">
-          <label for="provincia">Provincia *</label>
-          <select id="provincia">
-            <option value="">Seleccione una provincia...</option>
-            <option>CABA / Capital Federal</option>
-            <option>Provincia de Buenos Aires</option>
-            <option>Catamarca</option>
-            <option>Chaco</option>
-            <option>Chubut</option>
-            <option>Córdoba</option>
-            <option>Corrientes</option>
-            <option>Entre Ríos</option>
-            <option>Formosa</option>
-            <option>Jujuy</option>
-            <option>La Pampa</option>
-            <option>La Rioja</option>
-            <option>Mendoza</option>
-            <option>Misiones</option>
-            <option>Neuquén</option>
-            <option>Río Negro</option>
-            <option>Salta</option>
-            <option>San Juan</option>
-            <option>San Luis</option>
-            <option>Santa Cruz</option>
-            <option>Santa Fe</option>
-            <option>Santiago del Estero</option>
-            <option>Tierra del Fuego</option>
-            <option>Tucumán</option>
-          </select>
-        </div>
-      </div>
 
-      <div class="field-row" id="partidoRow" style="display:none">
-        <div class="field">
-          <label for="partido">Partido *</label>
-          <select id="partido">
-            <option value="">Seleccione un partido...</option>
-          </select>
+        <div class="field-row" id="partidoRow" style="display:none">
+          <div class="field">
+            <label for="partido">Partido *</label>
+            <select id="partido">
+              <option value="">Seleccione un partido...</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div class="field-row">
-        <div class="field">
-          <label for="ciudad">Ciudad *</label>
-          <input type="text" id="ciudad" placeholder="Ej: Buenos Aires">
+        <div class="field-row">
+          <div class="field">
+            <label for="ciudad">Ciudad *</label>
+            <input type="text" id="ciudad" placeholder="Ej: Buenos Aires">
+          </div>
+          <div class="field">
+            <label for="codigo_postal">Código postal *</label>
+            <input type="text" id="codigo_postal" placeholder="Ej: 1043" maxlength="8">
+          </div>
         </div>
-        <div class="field">
-          <label for="codigo_postal">Código postal *</label>
-          <input type="text" id="codigo_postal" placeholder="Ej: 1043" maxlength="8">
-        </div>
-      </div>
 
-      <div class="field">
-        <label for="notas">Notas / Aclaraciones <span class="optional">(opcional)</span></label>
-        <input type="text" id="notas" placeholder="Instrucciones especiales para el envío...">
+        <div class="field">
+          <label for="notas">Notas / Aclaraciones <span class="optional">(opcional)</span></label>
+          <input type="text" id="notas" placeholder="Instrucciones especiales para el envío...">
+        </div>
+
+        <input type="hidden" id="razon_social" value="">
       </div>
     </div>
 
@@ -188,7 +216,7 @@
         <div class="field-error" id="descuentoError" style="display:none"></div>
         <div class="field-hint" id="descuentoOk" style="display:none; color:var(--green-ok)"></div>
       </div>
-      <button class="btn btn-accent btn-block" id="btnPagar" onclick="procesarPago()" disabled style="margin-top:16px">Ir a pagar con Mercado Pago</button>
+      <button class="btn btn-accent btn-block" id="btnPagar" onclick="procesarPago()" disabled style="margin-top:16px">Continuar con la dirección →</button>
       <div class="security-note">🔒 Pago seguro vía Mercado Pago</div>
     </div>
   </div>
@@ -247,15 +275,48 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 let zonasEnvioData = null;
 let descuentoAplicado = null;
+let currentStep = 1;
 
 const codigoBienvenida = localStorage.getItem('eg_descuento_codigo');
 const descuentoBienvenidaPendiente = localStorage.getItem('eg_descuento_pendiente') === '1';
 
-/**
- * Aplica en silencio el 10% OFF de bienvenida (sin que el cliente tenga
- * que ingresar ningún código). Si el email todavía no coincide con el de
- * registro no muestra error: simplemente no aplica hasta que coincida.
- */
+function avanzarStep2() {
+  const requeridos1 = ['nombre', 'apellido', 'email', 'telefono', 'cuit_dni'];
+  document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+  let ok = true;
+  requeridos1.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) { el.classList.add('error'); ok = false; }
+  });
+  if (!ok) { showToast('⚠️ Completá todos los campos antes de continuar'); return; }
+
+  currentStep = 2;
+  document.getElementById('step1Panel').style.display = 'none';
+  document.getElementById('step2Panel').style.display = '';
+  document.getElementById('stepCircle1').style.background = '#D1D5DB';
+  document.getElementById('stepCircle1').style.color = '#6B7280';
+  document.getElementById('stepItem2').style.opacity = '1';
+  document.getElementById('stepCircle2').style.background = '#FFC700';
+  document.getElementById('stepCircle2').style.color = '#14151A';
+  document.getElementById('btnPagar').textContent = 'Ir a pagar con Mercado Pago';
+  document.querySelector('.form-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  aplicarDescuentoBienvenida();
+}
+
+function volverStep1() {
+  currentStep = 1;
+  document.getElementById('step2Panel').style.display = 'none';
+  document.getElementById('step1Panel').style.display = '';
+  document.getElementById('stepCircle1').style.background = '#FFC700';
+  document.getElementById('stepCircle1').style.color = '#14151A';
+  document.getElementById('stepItem2').style.opacity = '0.4';
+  document.getElementById('stepCircle2').style.background = '#E5E7EB';
+  document.getElementById('stepCircle2').style.color = '#6B7280';
+  document.getElementById('btnPagar').textContent = 'Continuar con la dirección →';
+  document.querySelector('.form-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 async function aplicarDescuentoBienvenida() {
   if (!descuentoBienvenidaPendiente || !codigoBienvenida || descuentoAplicado) return;
 
@@ -276,6 +337,8 @@ async function aplicarDescuentoBienvenida() {
     const data = await res.json();
     if (data.valido) {
       descuentoAplicado = { codigo: codigoBienvenida, monto_descuento: data.monto_descuento, descripcion: data.descripcion, esBienvenida: true };
+      const banner = document.getElementById('bannerBienvenida');
+      if (banner) banner.innerHTML = '✅ <strong>¡Tu 10% OFF de bienvenida está aplicado!</strong> Ya lo ves en el resumen.';
       renderResumen();
     }
   } catch (e) {}
@@ -434,6 +497,7 @@ function validarFormulario() {
 }
 
 async function procesarPago() {
+  if (currentStep === 1) { avanzarStep2(); return; }
   if (!validarFormulario()) return;
   if (!carrito.length) { showToast('Tu pedido está vacío'); return; }
 
@@ -507,6 +571,7 @@ document.getElementById('codigoDescuento').addEventListener('keydown', (e) => {
 });
 
 if (descuentoBienvenidaPendiente) {
+  document.getElementById('bannerBienvenida').style.display = 'block';
   const emailField = document.getElementById('email');
   if (!emailField.value.trim()) {
     const emailRegistrado = localStorage.getItem('eg_email_registrado');

@@ -93,7 +93,7 @@ function escapeHtmlBasico(str) {
 }
 
 /**
- * Prefijo relativo para enlazar a páginas de la raíz de pages/ (login.html,
+ * Prefijo relativo para enlazar a páginas de la raíz de pages/ (login,
  * mi_cuenta.html, etc.) tanto desde la raíz como desde las páginas de
  * producto, que viven dos niveles más abajo (pages/producto/<slug>/).
  */
@@ -108,8 +108,8 @@ function egRootPath() {
  */
 function initPopupRegistro() {
   if (localStorage.getItem('eg_popup_dismissed')) return;
-  if (location.pathname.endsWith('checkout.html')) return;
-  if (location.pathname.endsWith('login.html') || location.pathname.endsWith('mi_cuenta.html')) return;
+  if (location.pathname.endsWith('checkout') || location.pathname.endsWith('checkout.html')) return;
+  if (location.pathname.endsWith('login') || location.pathname.endsWith('mi_cuenta') || location.pathname.endsWith('mi_cuenta.html')) return;
 
   const overlay = document.createElement('div');
   overlay.className = 'eg-popup-overlay';
@@ -143,7 +143,7 @@ function initPopupRegistro() {
         </div>
         <div class="eg-popup-error" id="egPopupError"></div>
         <button class="btn btn-accent btn-block" id="egPopupSubmit">Quiero mi 10% OFF</button>
-        <p style="margin-top:10px;font-size:12.5px">¿Ya tenés cuenta? <a href="${egRootPath()}login.html">Iniciá sesión</a></p>
+        <p style="margin-top:10px;font-size:12.5px">¿Ya tenés cuenta? <a href="${egRootPath()}login">Iniciá sesión</a></p>
       </div>
     </div>
   `;
@@ -200,7 +200,7 @@ function initPopupRegistro() {
       const data = await res.json();
       if (!res.ok) {
         if (res.status === 409) {
-          errorEl.innerHTML = `Ya existe una cuenta con ese email. <a href="${egRootPath()}login.html">Iniciá sesión</a>`;
+          errorEl.innerHTML = `Ya existe una cuenta con ese email. <a href="${egRootPath()}login">Iniciá sesión</a>`;
           errorEl.style.display = 'block';
           btn.disabled = false;
           btn.textContent = 'Quiero mi 10% OFF';
@@ -338,10 +338,10 @@ function initAccountLink() {
   }
 
   if (logueado) {
-    link.href = `${root}mi_cuenta.html`;
+    link.href = `${root}mi_cuenta`;
     link.innerHTML = '👤 <span class="label">Mi cuenta</span>';
   } else {
-    link.href = `${root}login.html`;
+    link.href = `${root}login`;
     link.innerHTML = '👤 <span class="label">Ingresar</span>';
   }
 }

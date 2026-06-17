@@ -48,6 +48,9 @@
     <div class="hero-eyebrow">Tienda online · Envíos a todo el país</div>
     <h1>Todo lo que buscás, a un <em>clic</em> de distancia</h1>
     <p>Explorá el catálogo, elegí tus productos favoritos y completá tu compra online de forma simple y segura.</p>
+    <div style="margin-bottom:16px">
+      <a href="#catalogo" class="btn btn-accent" onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'});return false;" style="font-size:16px;padding:14px 32px;border-radius:12px;font-weight:700;display:inline-block;text-decoration:none">Ver catálogo</a>
+    </div>
     <div class="hero-badges">
       <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="hero-badge" target="_blank" rel="noopener">💬 Hablar por WhatsApp</a>
       <a href="sobre_nosotros" class="hero-badge">ℹ️ Sobre nosotros</a>
@@ -71,7 +74,7 @@
 <div class="promo-banner" id="promoBanner"></div>
 
 <!-- FILTROS -->
-<div class="filters-wrap">
+<div class="filters-wrap" id="catalogo">
   <div class="filters-inner">
     <div class="search-mobile">
       <div class="search-box">
