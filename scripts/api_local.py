@@ -1370,6 +1370,43 @@ def toggle_mayorista(usuario_id: int, x_admin_password: Optional[str] = Header(N
     }
 
 
+@app.post("/api/mayorista/activar")
+def activar_mayorista_self(authorization: Optional[str] = Header(None)):
+    """Permite a un referido activo activar su precio mayorista de forma autónoma."""
+    conn = get_db()
+    cursor = conn.cursor()
+    usuario = _usuario_desde_token(_extraer_token(authorization), cursor)
+    if not usuario:
+        conn.close()
+        raise HTTPException(status_code=401, detail="Sesión inválida")
+
+    ref = cursor.execute(
+        "SELECT id FROM referidos WHERE email = ? AND activo = 1", (usuario["email"],)
+    ).fetchone()
+    if not ref:
+        conn.close()
+        raise HTTPException(status_code=403, detail="Solo los referidos activos pueden activar el precio mayorista")
+
+    ya_activo = bool(usuario["mayorista"]) if "mayorista" in usuario.keys() else False
+    if ya_activo:
+        conn.close()
+        return {"mensaje": "Ya tenés precio mayorista activo", "codigo_mayorista": f"MAY{usuario['id']}"}
+
+    cursor.execute("UPDATE usuarios_registrados SET mayorista = 1 WHERE id = ?", (usuario["id"],))
+    codigo_may = f"MAY{usuario['id']}"
+    existente = cursor.execute("SELECT id FROM descuentos WHERE codigo = ?", (codigo_may,)).fetchone()
+    if existente:
+        cursor.execute("UPDATE descuentos SET activo = 1 WHERE codigo = ?", (codigo_may,))
+    else:
+        cursor.execute("""
+            INSERT INTO descuentos (nombre, tipo, valor, alcance, codigo, email_asociado, monto_minimo, activo, uso_maximo)
+            VALUES (?, 'porcentaje', 25, 'todos', ?, ?, 100000, 1, NULL)
+        """, (f"Precio mayorista — {usuario['nombre']}", codigo_may, usuario["email"]))
+    conn.commit()
+    conn.close()
+    return {"mensaje": "Precio mayorista activado", "codigo_mayorista": codigo_may}
+
+
 @app.get("/api/mayorista/dashboard")
 def mayorista_dashboard(authorization: Optional[str] = Header(None)):
     """Dashboard del usuario mayorista: estadísticas + historial de compras propias."""

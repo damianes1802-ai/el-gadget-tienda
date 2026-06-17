@@ -53,6 +53,14 @@
 <div class="page-wrap" style="max-width:900px">
   <h1 class="page-title">Mi cuenta</h1>
 
+  <!-- Tab switcher: visible solo cuando el usuario es referido Y mayorista -->
+  <div id="panelSwitcher" style="display:none;background:var(--cream);border-radius:10px;padding:4px;margin-bottom:16px;position:sticky;top:12px;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.06)">
+    <div style="display:flex;gap:4px">
+      <button id="btnTabRef" onclick="mostrarPanelRef()" style="flex:1;padding:8px 12px;border-radius:7px;border:none;background:var(--ink);color:var(--white);font-size:13px;font-weight:600;cursor:pointer;transition:background .2s,color .2s">Mis Referidos</button>
+      <button id="btnTabMay" onclick="mostrarPanelMay()" style="flex:1;padding:8px 12px;border-radius:7px;border:none;background:transparent;color:var(--gray-600);font-size:13px;font-weight:600;cursor:pointer;transition:background .2s,color .2s">Panel Mayorista</button>
+    </div>
+  </div>
+
   <div class="info-grid" id="infoGrid"></div>
 
   <div class="content-section">
@@ -284,6 +292,8 @@ async function cargarReferidos() {
     const seccion = document.getElementById('referidosSection');
     const wrap = document.getElementById('referidosWrap');
     seccion.style.display = 'block';
+    window._esReferidoConfirmado = true;
+    intentarMostrarSwitcher();
 
     window._codigoRef = data.codigo || '';
     const tier = data.tier || { porcentaje: 7, tier: 'base', ventas_mes: 0, next_tier_en: 5, next_porcentaje: 11 };
@@ -408,6 +418,15 @@ async function cargarReferidos() {
       <!-- HISTORIAL -->
       <h3 style="margin:0 0 12px;font-size:15px">Historial de comisiones</h3>
       ${periodosHtml}
+
+      <!-- CTA MAYORISTA (oculto si el usuario ya es mayorista) -->
+      <div id="mayoristaCtaRef" style="border:1px dashed #d1d5db;border-radius:10px;padding:14px 18px;margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>
+          <p style="font-size:12.5px;font-weight:600;color:var(--ink);margin:0 0 2px">¿Comprás en volumen?</p>
+          <p style="font-size:11.5px;color:var(--gray-600);margin:0">Activá tu precio mayorista y comprá con 25% OFF en pedidos de $100.000 o más.</p>
+        </div>
+        <button onclick="activarMayorista(this)" style="font-size:12px;padding:5px 14px;border-radius:8px;border:1px solid #d1d5db;background:transparent;color:var(--gray-600);cursor:pointer;white-space:nowrap;flex-shrink:0">Activar precio mayorista →</button>
+      </div>
     `;
 
     // Cargar el catálogo después de que el DOM esté listo
@@ -558,6 +577,9 @@ async function cargarMayorista() {
     const seccion = document.getElementById('mayoristaSection');
     const wrap = document.getElementById('mayoristaWrap');
     seccion.style.display = 'block';
+    window._esMayoristaConfirmado = true;
+    document.getElementById('mayoristaCtaRef')?.remove();
+    intentarMostrarSwitcher();
 
     window._codigoMay = data.codigo_mayorista || '';
     const stats = data.stats || {};
@@ -789,6 +811,54 @@ function generarCSVComprasMayorista() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = 'compras-mayorista-el-gadget.csv'; a.click();
   URL.revokeObjectURL(url);
+}
+
+function intentarMostrarSwitcher() {
+  if (window._esReferidoConfirmado && window._esMayoristaConfirmado) {
+    document.getElementById('panelSwitcher').style.display = 'block';
+    mostrarPanelRef(); // Referido por defecto cuando el switcher aparece
+  }
+}
+
+function mostrarPanelRef() {
+  document.getElementById('referidosSection').style.display = 'block';
+  document.getElementById('mayoristaSection').style.display = 'none';
+  const btnRef = document.getElementById('btnTabRef');
+  const btnMay = document.getElementById('btnTabMay');
+  if (btnRef) { btnRef.style.background = 'var(--ink)'; btnRef.style.color = 'var(--white)'; }
+  if (btnMay) { btnMay.style.background = 'transparent'; btnMay.style.color = 'var(--gray-600)'; }
+  document.getElementById('panelSwitcher')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function mostrarPanelMay() {
+  document.getElementById('referidosSection').style.display = 'none';
+  document.getElementById('mayoristaSection').style.display = 'block';
+  const btnRef = document.getElementById('btnTabRef');
+  const btnMay = document.getElementById('btnTabMay');
+  if (btnMay) { btnMay.style.background = 'var(--ink)'; btnMay.style.color = 'var(--white)'; }
+  if (btnRef) { btnRef.style.background = 'transparent'; btnRef.style.color = 'var(--gray-600)'; }
+  document.getElementById('panelSwitcher')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+async function activarMayorista(btn) {
+  const textoOriginal = btn.textContent;
+  btn.textContent = 'Activando...';
+  btn.disabled = true;
+  try {
+    const res = await fetch(`${API}/api/mayorista/activar`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'No se pudo activar');
+    showToast('¡Precio mayorista activado!');
+    await cargarMayorista();
+    mostrarPanelMay();
+  } catch (e) {
+    showToast(e.message);
+    btn.textContent = textoOriginal;
+    btn.disabled = false;
+  }
 }
 
 if (token) cargarCuenta();
