@@ -1370,6 +1370,165 @@ def toggle_mayorista(usuario_id: int, x_admin_password: Optional[str] = Header(N
     }
 
 
+@app.get("/api/mayorista/dashboard")
+def mayorista_dashboard(authorization: Optional[str] = Header(None)):
+    """Dashboard del usuario mayorista: estadísticas + historial de compras propias."""
+    conn = get_db()
+    cursor = conn.cursor()
+    usuario = _usuario_desde_token(_extraer_token(authorization), cursor)
+    if not usuario:
+        conn.close()
+        raise HTTPException(status_code=401, detail="Sesión inválida")
+
+    if not (bool(usuario["mayorista"]) if "mayorista" in usuario.keys() else False):
+        conn.close()
+        raise HTTPException(status_code=403, detail="No tenés precio mayorista activo")
+
+    codigo_may = f"MAY{usuario['id']}"
+
+    ordenes_rows = cursor.execute("""
+        SELECT o.id, o.total, o.estado, o.estado_pago, o.fecha,
+               o.costo_envio, o.descuento_monto, o.tracking_url
+        FROM ordenes o
+        JOIN clientes c ON o.cliente_id = c.id
+        WHERE LOWER(c.email) = LOWER(?) AND o.descuento_codigo = ?
+        ORDER BY o.fecha DESC
+    """, (usuario["email"], codigo_may)).fetchall()
+
+    ordenes = []
+    total_pagado = 0.0
+    total_ahorrado = 0.0
+
+    for o in ordenes_rows:
+        o_dict = dict(o)
+        items = cursor.execute("""
+            SELECT producto_sku AS sku, producto_nombre AS nombre,
+                   cantidad, precio_unitario, subtotal
+            FROM orden_items WHERE orden_id = ?
+        """, (o_dict["id"],)).fetchall()
+        o_dict["items"] = [dict(i) for i in items]
+        o_dict["total_normal"] = round(o_dict["total"] + (o_dict["descuento_monto"] or 0), 2)
+        total_pagado += o_dict["total"] or 0
+        total_ahorrado += o_dict["descuento_monto"] or 0
+        ordenes.append(o_dict)
+
+    conn.close()
+    return {
+        "codigo_mayorista": codigo_may,
+        "stats": {
+            "total_pagado": round(total_pagado, 2),
+            "total_ahorrado": round(total_ahorrado, 2),
+            "cantidad_ordenes": len(ordenes),
+        },
+        "ordenes": ordenes,
+    }
+
+
+@app.get("/api/mayorista/catalogo")
+def catalogo_mayorista(
+    authorization: Optional[str] = Header(None),
+    search: Optional[str] = None,
+    categoria: Optional[str] = None,
+    precio_min: Optional[float] = None,
+    precio_max: Optional[float] = None,
+    sort: Optional[str] = "precio",
+    order: Optional[str] = "asc",
+    page: int = 1,
+    limit: int = 50,
+):
+    """Catálogo con precio mayorista (25% off) para el usuario mayorista autenticado."""
+    conn = get_db()
+    cursor = conn.cursor()
+    usuario = _usuario_desde_token(_extraer_token(authorization), cursor)
+    if not usuario:
+        conn.close()
+        raise HTTPException(status_code=401, detail="Sesión inválida")
+
+    if not (bool(usuario["mayorista"]) if "mayorista" in usuario.keys() else False):
+        conn.close()
+        raise HTTPException(status_code=403, detail="No tenés precio mayorista activo")
+
+    DESCUENTO_MAYORISTA = 0.25
+
+    categorias = [r[0] for r in cursor.execute(
+        "SELECT DISTINCT categoria FROM productos WHERE stock > 0 AND categoria IS NOT NULL ORDER BY categoria"
+    ).fetchall()]
+
+    where_clauses = ["stock > 0"]
+    params = []
+
+    if search:
+        where_clauses.append("(nombre LIKE ? OR sku LIKE ? OR marca LIKE ?)")
+        like = f"%{search}%"
+        params.extend([like, like, like])
+    if categoria:
+        where_clauses.append("categoria = ?")
+        params.append(categoria)
+    if precio_min is not None:
+        where_clauses.append("precio_venta >= ?")
+        params.append(precio_min)
+    if precio_max is not None:
+        where_clauses.append("precio_venta <= ?")
+        params.append(precio_max)
+
+    where_sql = " AND ".join(where_clauses)
+    sort_col_map = {"precio": "precio_venta", "nombre": "nombre", "ahorro": "precio_venta"}
+    sort_col = sort_col_map.get(sort, "precio_venta")
+    order_sql = "DESC" if order == "desc" else "ASC"
+    if sort == "nombre":
+        order_sql = "ASC" if order != "desc" else "DESC"
+
+    total_count = cursor.execute(
+        f"SELECT COUNT(*) FROM productos WHERE {where_sql}", params
+    ).fetchone()[0]
+
+    offset = (page - 1) * limit
+    rows = cursor.execute(
+        f"""SELECT sku, nombre, precio_venta, categoria, marca, imagen_principal, stock, url_amigable
+            FROM productos WHERE {where_sql}
+            ORDER BY {sort_col} {order_sql}
+            LIMIT ? OFFSET ?""",
+        params + [limit, offset]
+    ).fetchall()
+
+    productos = []
+    for r in rows:
+        sku, nombre, precio, cat, marca, imagen, stock, url_amigable = r
+        precio_normal = float(precio)
+        ahorro = round(precio_normal * DESCUENTO_MAYORISTA, 2)
+        precio_mayorista = round(precio_normal * (1 - DESCUENTO_MAYORISTA), 2)
+        if not imagen or imagen.strip() == '':
+            imagen_url = f"https://res.cloudinary.com/deq2ofluf/image/upload/prod_{sku}_001"
+        else:
+            imagen_url = imagen
+        if url_amigable and url_amigable.strip():
+            url_tienda = f"https://elgadget.com.ar/producto/{url_amigable.strip()}/"
+        else:
+            url_tienda = f"https://elgadget.com.ar/producto_detalle?sku={sku}"
+        productos.append({
+            "sku": sku,
+            "nombre": nombre,
+            "precio_normal": precio_normal,
+            "precio_mayorista": precio_mayorista,
+            "ahorro": ahorro,
+            "categoria": cat,
+            "marca": marca,
+            "imagen_url": imagen_url,
+            "stock": stock,
+            "url_tienda": url_tienda,
+        })
+
+    conn.close()
+    return {
+        "categorias": categorias,
+        "total": total_count,
+        "page": page,
+        "limit": limit,
+        "pages": -(-total_count // limit),
+        "productos": productos,
+    }
+
+
 @app.get("/api/descuentos/activos")
 def descuentos_activos():
     """Devuelve la campaña activa (vigente) que deba mostrarse como banner

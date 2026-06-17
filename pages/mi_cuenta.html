@@ -66,6 +66,12 @@
     <div id="referidosWrap"></div>
   </div>
 
+  <!-- SECCIÓN MAYORISTA (se muestra solo si el usuario es mayorista) -->
+  <div class="content-section" id="mayoristaSection" style="display:none">
+    <h2>Panel Mayorista</h2>
+    <div id="mayoristaWrap"></div>
+  </div>
+
   <!-- BANNER para no-referidos (se muestra si el usuario NO es referido) -->
   <div id="bannerReferidos" style="display:none;background:var(--ink);border-radius:14px;padding:24px 28px;margin-bottom:24px;text-align:center">
     <p style="color:var(--white);font-size:15px;font-weight:600;margin:0 0 6px">¿Querés ganar dinero recomendando El Gadget?</p>
@@ -535,8 +541,259 @@ function compartirCodigoRef(codigo) {
   }
 }
 
+// ── Estado del catálogo mayorista ────────────────────────────────────────────
+const _catMay = { page: 1, search: '', categoria: '', precio_min: '', precio_max: '', sort: 'precio', order: 'asc' };
+let _todosProductosMay = [];
+let _todasOrdenesMay = [];
+
+async function cargarMayorista() {
+  try {
+    const res = await fetch(`${API}/api/mayorista/dashboard`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (res.status === 403 || res.status === 404) return; // No es mayorista
+    if (!res.ok) return;
+    const data = await res.json();
+
+    const seccion = document.getElementById('mayoristaSection');
+    const wrap = document.getElementById('mayoristaWrap');
+    seccion.style.display = 'block';
+
+    window._codigoMay = data.codigo_mayorista || '';
+    const stats = data.stats || {};
+    _todasOrdenesMay = data.ordenes || [];
+
+    const ordenesHtml = _todasOrdenesMay.length === 0
+      ? '<p style="font-size:13.5px;color:var(--gray-600);text-align:center;padding:16px 0">Todavía no realizaste compras como mayorista.</p>'
+      : `<div style="overflow-x:auto"><table class="order-table" style="margin-top:0;width:100%">
+          <thead><tr>
+            <th style="text-align:left">Nro. Orden</th>
+            <th style="text-align:left">Fecha</th>
+            <th style="text-align:center">Estado</th>
+            <th style="text-align:right">Total normal</th>
+            <th style="text-align:right">Descuento</th>
+            <th style="text-align:right;color:var(--accent)">Total pagado</th>
+          </tr></thead>
+          <tbody>${_todasOrdenesMay.map(o => {
+            const fechaStr = o.fecha ? new Date(o.fecha).toLocaleDateString('es-AR', { day:'2-digit', month:'2-digit', year:'numeric' }) : '';
+            return `<tr>
+              <td>#${o.id}</td>
+              <td>${fechaStr}</td>
+              <td style="text-align:center">${badgeOrden(o.estado)}</td>
+              <td style="text-align:right">${formatPrice(o.total_normal || 0)}</td>
+              <td style="text-align:right;color:#10b981;font-weight:600">−${formatPrice(o.descuento_monto || 0)}</td>
+              <td style="text-align:right;font-weight:700;color:var(--accent)">${formatPrice(o.total || 0)}</td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table></div>`;
+
+    wrap.innerHTML = `
+      <!-- CÓDIGO MAYORISTA -->
+      <div style="background:linear-gradient(135deg,#fffbeb 0%,var(--cream) 100%);border:2px solid var(--accent);border-radius:14px;padding:20px 24px;margin-bottom:16px;text-align:center">
+        <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Tu código mayorista (25% OFF · mínimo $100.000)</p>
+        <p style="font-size:26px;font-weight:700;letter-spacing:3px;color:var(--ink);margin:0 0 12px">${escapeHtmlBasico(data.codigo_mayorista || '')}</p>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+          <button onclick="navigator.clipboard.writeText('${escapeHtmlBasico(data.codigo_mayorista || '')}').then(()=>showToast('¡Código copiado!'))"
+            style="font-size:12px;padding:6px 16px;border-radius:8px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Copiar código</button>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
+          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Órdenes mayoristas</p>
+          <p style="font-size:22px;font-weight:700;color:var(--ink);margin:0">${stats.cantidad_ordenes || 0}</p>
+        </div>
+        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
+          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Total comprado</p>
+          <p style="font-size:22px;font-weight:700;color:var(--ink);margin:0">${formatPrice(stats.total_pagado || 0)}</p>
+        </div>
+        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
+          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Total ahorrado</p>
+          <p style="font-size:22px;font-weight:700;color:#10b981;margin:0">${formatPrice(stats.total_ahorrado || 0)}</p>
+        </div>
+      </div>
+
+      <!-- CATÁLOGO MAYORISTA -->
+      <div style="margin-bottom:24px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+          <h3 style="margin:0;font-size:15px">Catálogo mayorista</h3>
+          <button onclick="generarCSVCatalogoMay()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Descargar CSV catálogo</button>
+        </div>
+        <!-- Filtros -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <input id="catMaySearch" type="text" placeholder="Buscar producto..." value="${escapeHtmlBasico(_catMay.search)}"
+            style="flex:2;min-width:140px;padding:7px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)"
+            oninput="_catMay.search=this.value;_catMay.page=1;cargarCatalogoMayorista()">
+          <select id="catMayCategoria" onchange="_catMay.categoria=this.value;_catMay.page=1;cargarCatalogoMayorista()"
+            style="flex:1.2;min-width:130px;padding:7px 10px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)">
+            <option value="">Todas las categorías</option>
+          </select>
+          <input id="catMayPMin" type="number" placeholder="Precio mín" value="${_catMay.precio_min}"
+            style="width:100px;padding:7px 10px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)"
+            onchange="_catMay.precio_min=this.value;_catMay.page=1;cargarCatalogoMayorista()">
+          <input id="catMayPMax" type="number" placeholder="Precio máx" value="${_catMay.precio_max}"
+            style="width:100px;padding:7px 10px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)"
+            onchange="_catMay.precio_max=this.value;_catMay.page=1;cargarCatalogoMayorista()">
+          <select id="catMaySort" onchange="const[s,o]=this.value.split('|');_catMay.sort=s;_catMay.order=o;_catMay.page=1;cargarCatalogoMayorista()"
+            style="flex:1;min-width:140px;padding:7px 10px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)">
+            <option value="precio|asc">Precio: menor a mayor</option>
+            <option value="precio|desc">Precio: mayor a menor</option>
+            <option value="ahorro|desc">Mayor ahorro</option>
+            <option value="nombre|asc">Nombre A-Z</option>
+          </select>
+        </div>
+        <div id="catalogoMayWrap"><p style="font-size:13px;color:var(--gray-600);text-align:center;padding:20px 0">Cargando productos...</p></div>
+        <div id="catalogoMayPaginas" style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:12px"></div>
+      </div>
+
+      <!-- HISTORIAL DE COMPRAS -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+        <h3 style="margin:0;font-size:15px">Historial de compras</h3>
+        <button onclick="generarCSVComprasMayorista()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Descargar CSV contable</button>
+      </div>
+      ${ordenesHtml}
+    `;
+
+    cargarCatalogoMayorista();
+
+  } catch (e) {
+    // No es mayorista o error silencioso
+  }
+}
+
+async function cargarCatalogoMayorista() {
+  const wrap = document.getElementById('catalogoMayWrap');
+  const pagDiv = document.getElementById('catalogoMayPaginas');
+  if (!wrap) return;
+  wrap.innerHTML = '<p style="font-size:13px;color:var(--gray-600);text-align:center;padding:20px 0">Cargando...</p>';
+
+  const params = new URLSearchParams({
+    page: _catMay.page, limit: 30,
+    sort: _catMay.sort, order: _catMay.order,
+  });
+  if (_catMay.search) params.append('search', _catMay.search);
+  if (_catMay.categoria) params.append('categoria', _catMay.categoria);
+  if (_catMay.precio_min) params.append('precio_min', _catMay.precio_min);
+  if (_catMay.precio_max) params.append('precio_max', _catMay.precio_max);
+
+  try {
+    const res = await fetch(`${API}/api/mayorista/catalogo?${params}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) { wrap.innerHTML = '<p style="color:var(--red);text-align:center;padding:20px">Error al cargar el catálogo.</p>'; return; }
+    const data = await res.json();
+
+    _todosProductosMay = data.productos || [];
+
+    const sel = document.getElementById('catMayCategoria');
+    if (sel && sel.options.length === 1 && (data.categorias || []).length > 0) {
+      (data.categorias || []).forEach(c => {
+        const o = document.createElement('option');
+        o.value = c; o.textContent = c;
+        if (c === _catMay.categoria) o.selected = true;
+        sel.appendChild(o);
+      });
+    }
+
+    if (_todosProductosMay.length === 0) {
+      wrap.innerHTML = '<p style="font-size:13px;color:var(--gray-600);text-align:center;padding:20px">Sin resultados para esa búsqueda.</p>';
+      if (pagDiv) pagDiv.innerHTML = '';
+      return;
+    }
+
+    const filas = _todosProductosMay.map(p => `
+      <tr>
+        <td style="width:52px;padding:8px 6px">
+          <img src="${escapeHtmlBasico(p.imagen_url)}" alt="" width="48" height="48"
+            style="object-fit:cover;border-radius:6px;display:block"
+            onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\'%3E%3Crect width=\'48\' height=\'48\' fill=\'%23f3f4f6\' rx=\'6\'/%3E%3C/svg%3E'">
+        </td>
+        <td style="font-size:12.5px;max-width:180px">
+          <a href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener" style="color:var(--ink);text-decoration:none;font-weight:500">${escapeHtmlBasico(p.nombre)}</a>
+          <div style="font-size:11px;color:var(--gray-600)">${escapeHtmlBasico(p.categoria || '')}</div>
+        </td>
+        <td style="text-align:right;font-size:12.5px;white-space:nowrap;color:var(--gray-600);text-decoration:line-through">${formatPrice(p.precio_normal)}</td>
+        <td style="text-align:right;font-size:13px;font-weight:700;white-space:nowrap;color:var(--ink)">${formatPrice(p.precio_mayorista)}</td>
+        <td style="text-align:right;font-size:12.5px;white-space:nowrap;font-weight:600;color:#10b981">${formatPrice(p.ahorro)}</td>
+        <td style="text-align:center;white-space:nowrap;padding:8px 6px">
+          <a href="${escapeHtmlBasico(p.imagen_url)}" download="${escapeHtmlBasico(p.sku)}.jpg" target="_blank" rel="noopener"
+            style="font-size:11px;padding:4px 8px;border-radius:6px;border:1.5px solid #e5e7eb;color:var(--ink);text-decoration:none;display:inline-block">Foto</a>
+        </td>
+      </tr>`).join('');
+
+    wrap.innerHTML = `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="border-bottom:2px solid #e5e7eb">
+        <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)"></th>
+        <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Producto</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Precio normal</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--accent)">Tu precio (−25%)</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:#10b981">Ahorrás</th>
+        <th style="text-align:center;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Foto</th>
+      </tr></thead>
+      <tbody>${filas}</tbody>
+    </table></div>`;
+
+    if (pagDiv) {
+      const total = data.total || 0;
+      const pages = data.pages || 1;
+      pagDiv.innerHTML = pages <= 1 ? `<span style="font-size:12.5px;color:var(--gray-600)">${total} producto${total !== 1 ? 's' : ''}</span>` : `
+        <button onclick="_catMay.page=Math.max(1,_catMay.page-1);cargarCatalogoMayorista()" ${_catMay.page <= 1 ? 'disabled' : ''}
+          style="padding:5px 12px;border-radius:7px;border:1.5px solid #e5e7eb;background:var(--cream);cursor:pointer;font-size:12px">Anterior</button>
+        <span style="font-size:12.5px;color:var(--gray-600)">Página ${_catMay.page} de ${pages} · ${total} productos</span>
+        <button onclick="_catMay.page=Math.min(${pages},_catMay.page+1);cargarCatalogoMayorista()" ${_catMay.page >= pages ? 'disabled' : ''}
+          style="padding:5px 12px;border-radius:7px;border:1.5px solid #e5e7eb;background:var(--cream);cursor:pointer;font-size:12px">Siguiente</button>`;
+    }
+  } catch (e) {
+    wrap.innerHTML = '<p style="color:var(--red);text-align:center;padding:20px">Error al cargar el catálogo.</p>';
+  }
+}
+
+function generarCSVCatalogoMay() {
+  if (!_todosProductosMay.length) { showToast('Cargá el catálogo primero'); return; }
+  const headers = ['SKU','Nombre','Categoría','Precio normal','Precio mayorista','Ahorrás','URL tienda','Imagen'];
+  const rows = _todosProductosMay.map(p => [
+    p.sku, `"${(p.nombre||'').replace(/"/g,'""')}"`, `"${(p.categoria||'').replace(/"/g,'""')}"`,
+    p.precio_normal, p.precio_mayorista, p.ahorro,
+    p.url_tienda, p.imagen_url
+  ]);
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'catalogo-mayorista-el-gadget.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function generarCSVComprasMayorista() {
+  if (!_todasOrdenesMay.length) { showToast('No hay compras para exportar'); return; }
+  const headers = ['Nro Orden','Fecha','Estado','SKU','Nombre','Cantidad','Precio unitario','Subtotal','Descuento','Total pagado'];
+  const rows = [];
+  _todasOrdenesMay.forEach(o => {
+    const fecha = o.fecha ? new Date(o.fecha).toLocaleDateString('es-AR') : '';
+    if ((o.items || []).length === 0) {
+      rows.push([o.id, fecha, o.estado, '', '', '', '', '', o.descuento_monto || 0, o.total || 0]);
+    } else {
+      o.items.forEach((item, idx) => {
+        rows.push([
+          o.id, fecha, o.estado,
+          item.sku, `"${(item.nombre||'').replace(/"/g,'""')}"`,
+          item.cantidad, item.precio_unitario, item.subtotal,
+          idx === 0 ? (o.descuento_monto || 0) : '',
+          idx === 0 ? (o.total || 0) : '',
+        ]);
+      });
+    }
+  });
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'compras-mayorista-el-gadget.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
 if (token) cargarCuenta();
 if (token) cargarReferidos();
+if (token) cargarMayorista();
 </script>
 </body>
 </html>
