@@ -1816,6 +1816,12 @@ def crear_orden(request: Request, orden: CrearOrden):
                     detail=f"Producto {item.sku} no encontrado"
                 )
             
+            if item.cantidad > 15:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"El máximo por producto es 15 unidades ({producto['nombre']}). Para compras de mayor volumen escribinos por WhatsApp."
+                )
+
             if producto['stock'] < item.cantidad:
                 raise HTTPException(
                     status_code=400,

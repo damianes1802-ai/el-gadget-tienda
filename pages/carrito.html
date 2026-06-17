@@ -120,6 +120,10 @@
       <a href="checkout" class="btn btn-accent btn-block" id="btnCheckout" style="margin-top:16px">Continuar con la compra →</a>
       <a href="/" class="btn btn-outline btn-block" style="margin-top:10px">← Seguir comprando</a>
 
+      <p style="font-size:11.5px;color:var(--gray-600);text-align:center;margin:10px 0 0;line-height:1.5">
+        Máximo 15 unidades por producto.<br>
+        ¿Comprás en volumen? <a href="https://wa.me/5491126228481?text=Hola!%20Quiero%20hacer%20una%20compra%20mayorista%20de%20m%C3%A1s%20de%2015%20unidades" target="_blank" rel="noopener" style="color:var(--ink);font-weight:600">Escribinos por WhatsApp →</a>
+      </p>
       <div class="security-note">🔒 Compra segura</div>
     </div>
   </div>
@@ -269,7 +273,14 @@ function actualizarResumen(carrito) {
 
 function cambiarCantidad(idx, delta) {
   const carrito = getCarrito();
-  carrito[idx].cantidad += delta;
+  const nuevaCantidad = carrito[idx].cantidad + delta;
+
+  if (delta > 0 && nuevaCantidad > 15) {
+    showToast('Máximo 15 unidades por producto. ¿Necesitás más? Escribinos por WhatsApp.');
+    return;
+  }
+
+  carrito[idx].cantidad = nuevaCantidad;
 
   if (carrito[idx].cantidad <= 0) {
     carrito.splice(idx, 1);

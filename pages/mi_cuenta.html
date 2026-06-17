@@ -55,9 +55,15 @@
 
   <div class="info-grid" id="infoGrid"></div>
 
-  <div class="content-section">
-    <h2>Mis pedidos</h2>
-    <div id="pedidosWrap"><p style="font-size:13.5px;color:var(--gray-600)">Cargando pedidos...</p></div>
+  <div class="content-section" style="padding:0">
+    <div onclick="togglePedidos()" style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;user-select:none">
+      <span style="font-size:17px;font-weight:700;color:var(--ink)">Mis pedidos <span id="pedidosCount" style="font-size:13px;font-weight:500;color:var(--gray-600)"></span></span>
+      <div style="display:flex;align-items:center;gap:10px" onclick="event.stopPropagation()">
+        <button id="btnCSVPedidos" onclick="generarCSVPedidos()" style="display:none;font-size:12px;padding:4px 12px;border-radius:7px;border:1px solid #d1d5db;background:transparent;color:var(--gray-600);cursor:pointer">Exportar CSV</button>
+        <span id="pedidosChevron" style="font-size:11px;color:var(--gray-600);display:inline-block;transition:transform .25s">▼</span>
+      </div>
+    </div>
+    <div id="pedidosWrap" style="display:none;padding:0 20px 16px"></div>
   </div>
 
   <!-- Tab switcher — visible solo cuando el usuario es referido Y mayorista -->
@@ -182,20 +188,6 @@ async function cargarCuenta() {
       ? '<span class="status-badge info">Ya usado</span>'
       : '<span class="status-badge ok">Disponible</span>';
 
-    const mayoristaCodigo = data.codigo_mayorista || '';
-    const mayoristaCard = data.mayorista ? `
-      <div class="info-card full" style="border:2px solid var(--accent);background:linear-gradient(135deg,#fffbeb 0%,var(--cream) 100%)">
-        <h2 style="color:var(--ink)">Precio mayorista activo</h2>
-        <div class="info-row"><span class="info-label">Descuento</span><span class="info-valor" style="font-weight:700;color:var(--accent)">25% OFF</span></div>
-        <div class="info-row"><span class="info-label">Mínimo de compra</span><span class="info-valor">$100.000</span></div>
-        <div class="info-row"><span class="info-label">Tu código</span>
-          <span class="info-valor" style="font-weight:700;letter-spacing:2px">${escapeHtmlBasico(mayoristaCodigo)}
-            <button onclick="navigator.clipboard.writeText('${escapeHtmlBasico(mayoristaCodigo)}').then(()=>showToast('¡Código copiado!'))" style="margin-left:8px;font-size:11px;padding:3px 10px;border-radius:6px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Copiar</button>
-          </span>
-        </div>
-        <p style="font-size:12px;color:var(--gray-600);margin-top:8px">Ingresá tu código al finalizar la compra. Aplica sobre el total del carrito con envío incluido.</p>
-      </div>` : '';
-
     grid.innerHTML = `
       <div class="info-card">
         <h2>Mis datos</h2>
@@ -212,7 +204,6 @@ async function cargarCuenta() {
             : 'Tenés un 10% OFF pendiente: se aplica automáticamente al finalizar tu primera compra.'}
         </p>
       </div>
-      ${mayoristaCard}
     `;
 
     cargarPedidos();
@@ -220,6 +211,35 @@ async function cargarCuenta() {
     localStorage.removeItem('eg_token');
     window.location.href = 'login';
   }
+}
+
+let _pedidos = [];
+
+function togglePedidos() {
+  const wrap = document.getElementById('pedidosWrap');
+  const chevron = document.getElementById('pedidosChevron');
+  if (!wrap) return;
+  const abierto = wrap.style.display !== 'none';
+  wrap.style.display = abierto ? 'none' : 'block';
+  if (chevron) chevron.style.transform = abierto ? '' : 'rotate(180deg)';
+}
+
+function generarCSVPedidos() {
+  if (!_pedidos.length) { showToast('No hay pedidos para exportar'); return; }
+  const headers = ['Nro Orden','Fecha','Estado pedido','Estado pago','SKU','Producto','Cantidad','Precio unit.','Subtotal','Total orden'];
+  const rows = [];
+  _pedidos.forEach(p => {
+    const fecha = p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR') : '';
+    (p.items || []).forEach((item, idx) => {
+      rows.push([p.id, fecha, p.estado, p.estado_pago, item.sku, `"${(item.nombre||'').replace(/"/g,'""')}"`, item.cantidad, item.precio_unitario, item.subtotal, idx === 0 ? p.total : '']);
+    });
+    if (!(p.items || []).length) rows.push([p.id, fecha, p.estado, p.estado_pago, '', '', '', '', '', p.total]);
+  });
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'mis-pedidos-el-gadget.csv'; a.click();
+  URL.revokeObjectURL(url);
 }
 
 async function cargarPedidos() {
@@ -232,32 +252,45 @@ async function cargarPedidos() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || 'No pudimos cargar tus pedidos');
 
-    const pedidos = data.pedidos || [];
-    if (pedidos.length === 0) {
+    _pedidos = data.pedidos || [];
+
+    const countEl = document.getElementById('pedidosCount');
+    if (countEl && _pedidos.length > 0) countEl.textContent = `(${_pedidos.length})`;
+
+    const csvBtn = document.getElementById('btnCSVPedidos');
+    if (csvBtn && _pedidos.length > 0) csvBtn.style.display = 'inline-block';
+
+    if (_pedidos.length === 0) {
       wrap.innerHTML = '<p style="font-size:13.5px;color:var(--gray-600)">Todavía no hiciste ninguna compra.</p>';
       return;
     }
 
-    wrap.innerHTML = pedidos.map(p => {
+    wrap.innerHTML = _pedidos.map(p => {
       const fechaStr = p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR', { day:'2-digit', month:'2-digit', year:'numeric' }) : '';
       const itemsHtml = (p.items || []).map(i =>
-        `<tr><td>${escapeHtmlBasico(i.nombre || i.sku)}</td><td style="text-align:center">x${i.cantidad}</td></tr>`
+        `<tr><td>${escapeHtmlBasico(i.nombre || i.sku)}</td><td style="text-align:center;color:var(--gray-600)">×${i.cantidad}</td></tr>`
       ).join('');
       const trackingHtml = p.tracking_url
         ? `<a href="${p.tracking_url}" target="_blank" rel="noopener" class="btn btn-accent" style="margin-top:10px">Ver seguimiento ↗</a>`
         : '';
 
       return `
-        <div class="info-card full" style="margin-bottom:16px">
-          <h2>Pedido #${p.id} ${fechaStr ? `· ${fechaStr}` : ''}</h2>
-          <div class="info-row"><span class="info-label">Estado del pedido</span><span class="info-valor">${badgeOrden(p.estado)}</span></div>
-          <div class="info-row"><span class="info-label">Estado del pago</span><span class="info-valor">${badgePago(p.estado_pago)}</span></div>
-          <div class="info-row"><span class="info-label">Total</span><span class="info-valor">${formatPrice(p.total)}</span></div>
-          <table class="order-table" style="margin-top:10px">
-            <tbody>${itemsHtml}</tbody>
-          </table>
-          ${trackingHtml}
-        </div>
+        <details style="border:1px solid #e5e7eb;border-radius:10px;margin-bottom:10px;overflow:hidden">
+          <summary style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;list-style:none;gap:8px">
+            <span style="font-weight:600;font-size:14px">Pedido #${p.id}${fechaStr ? ` · ${fechaStr}` : ''}</span>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              ${badgeOrden(p.estado)}
+              <span style="font-weight:700;font-size:14px">${formatPrice(p.total)}</span>
+            </div>
+          </summary>
+          <div style="padding:10px 16px 14px;border-top:1px solid #e5e7eb;background:var(--cream)">
+            <div class="info-row" style="margin-bottom:6px"><span class="info-label">Estado del pago</span><span class="info-valor">${badgePago(p.estado_pago)}</span></div>
+            <table class="order-table" style="margin-top:8px">
+              <tbody>${itemsHtml}</tbody>
+            </table>
+            ${trackingHtml}
+          </div>
+        </details>
       `;
     }).join('');
   } catch (e) {

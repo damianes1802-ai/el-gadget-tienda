@@ -90,9 +90,18 @@ function actualizarCarritoUI() {
  */
 function addCartItem(item) {
   const carrito = getCarrito();
+  const MAX_POR_PRODUCTO = 15;
   const existente = carrito.find(i => i.sku === item.sku);
   if (existente) {
-    existente.cantidad += item.cantidad || 1;
+    const nuevaCantidad = existente.cantidad + (item.cantidad || 1);
+    if (nuevaCantidad > MAX_POR_PRODUCTO) {
+      existente.cantidad = MAX_POR_PRODUCTO;
+      guardarCarrito(carrito);
+      actualizarCarritoUI();
+      if (typeof showToast === 'function') showToast('Máximo 15 unidades por producto. ¿Necesitás más? Escribinos por WhatsApp.');
+      return;
+    }
+    existente.cantidad = nuevaCantidad;
   } else {
     carrito.push({
       sku: item.sku,
@@ -101,7 +110,7 @@ function addCartItem(item) {
       imagen: item.imagen || '',
       color: item.color || '',
       talle: item.talle || '',
-      cantidad: item.cantidad || 1
+      cantidad: Math.min(item.cantidad || 1, MAX_POR_PRODUCTO)
     });
   }
   guardarCarrito(carrito);
