@@ -439,12 +439,19 @@ def migrar_db():
     columnas_usuarios_nuevas = [
         ("password_hash", "TEXT DEFAULT ''"),
         ("password_salt", "TEXT DEFAULT ''"),
+        ("mayorista", "INTEGER DEFAULT 0"),
     ]
     cursor.execute("PRAGMA table_info(usuarios_registrados)")
     columnas_usuarios_existentes = {row[1] for row in cursor.fetchall()}
     for col_name, col_def in columnas_usuarios_nuevas:
         if col_name not in columnas_usuarios_existentes:
             cursor.execute(f"ALTER TABLE usuarios_registrados ADD COLUMN {col_name} {col_def}")
+
+    # Monto mínimo de carrito para activar un descuento (NULL = sin límite)
+    cursor.execute("PRAGMA table_info(descuentos)")
+    columnas_descuentos_existentes = {row[1] for row in cursor.fetchall()}
+    if 'monto_minimo' not in columnas_descuentos_existentes:
+        cursor.execute("ALTER TABLE descuentos ADD COLUMN monto_minimo REAL")
 
     # Sesiones activas de "Mi cuenta" (login con email + contraseña)
     cursor.execute("""
@@ -696,6 +703,10 @@ def _validar_descuento_row(d: Optional[dict], email: Optional[str], subtotal: fl
     if d.get("email_asociado"):
         if not email or email.strip().lower() != d["email_asociado"].strip().lower():
             return {"valido": False, "motivo": "Este código no corresponde a tu cuenta"}
+
+    if d.get("monto_minimo") is not None and subtotal < d["monto_minimo"]:
+        minimo_fmt = f"${d['monto_minimo']:,.0f}".replace(",", ".")
+        return {"valido": False, "motivo": f"Este código requiere un mínimo de {minimo_fmt} en el carrito"}
 
     # Verificar si el código pertenece a un referido
     if d.get("codigo"):
@@ -1188,6 +1199,17 @@ def obtener_mi_cuenta(authorization: Optional[str] = Header(None)):
     if not usuario:
         raise HTTPException(status_code=401, detail="Sesión inválida, iniciá sesión nuevamente")
 
+    mayorista = bool(usuario.get("mayorista", 0))
+    codigo_mayorista = None
+    if mayorista:
+        conn2 = get_db()
+        row = conn2.execute(
+            "SELECT codigo FROM descuentos WHERE email_asociado=? AND monto_minimo=100000 AND activo=1 ORDER BY id DESC LIMIT 1",
+            (usuario["email"],)
+        ).fetchone()
+        conn2.close()
+        codigo_mayorista = row[0] if row else None
+
     return {
         "nombre": usuario["nombre"],
         "email": usuario["email"],
@@ -1195,6 +1217,8 @@ def obtener_mi_cuenta(authorization: Optional[str] = Header(None)):
         "codigo_descuento": usuario["codigo_descuento"],
         "descuento_usado": usuario["descuento_usado"],
         "creado_at": usuario["creado_at"],
+        "mayorista": mayorista,
+        "codigo_mayorista": codigo_mayorista,
     }
 
 
@@ -1238,7 +1262,7 @@ def listar_usuarios_registrados(x_admin_password: Optional[str] = Header(None)):
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT id, nombre, email, telefono, codigo_descuento, descuento_usado, creado_at
+        SELECT id, nombre, email, telefono, codigo_descuento, descuento_usado, mayorista, creado_at
         FROM usuarios_registrados ORDER BY creado_at DESC
     """)
     usuarios = cursor.fetchall()
@@ -1296,6 +1320,54 @@ def eliminar_usuario_registrado(usuario_id: int, x_admin_password: Optional[str]
     conn.close()
 
     return {"mensaje": "Usuario eliminado", "usuario_id": usuario_id}
+
+
+@app.post("/api/admin/usuarios/{usuario_id}/mayorista")
+def toggle_mayorista(usuario_id: int, x_admin_password: Optional[str] = Header(None)):
+    """Activa o desactiva el precio mayorista (25% off, mínimo $100.000) para un usuario."""
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    usuario = cursor.execute(
+        "SELECT id, nombre, email, mayorista FROM usuarios_registrados WHERE id = ?", (usuario_id,)
+    ).fetchone()
+    if not usuario:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    nuevo_estado = 0 if usuario["mayorista"] else 1
+    cursor.execute("UPDATE usuarios_registrados SET mayorista = ? WHERE id = ?", (nuevo_estado, usuario_id))
+
+    codigo_may = f"MAY{usuario_id}"
+
+    if nuevo_estado == 1:
+        # Crear código mayorista en descuentos si no existe
+        existente = cursor.execute(
+            "SELECT id FROM descuentos WHERE codigo = ?", (codigo_may,)
+        ).fetchone()
+        if existente:
+            cursor.execute("UPDATE descuentos SET activo = 1 WHERE codigo = ?", (codigo_may,))
+        else:
+            cursor.execute("""
+                INSERT INTO descuentos (nombre, tipo, valor, alcance, codigo, email_asociado, monto_minimo, activo, uso_maximo)
+                VALUES (?, 'porcentaje', 25, 'todos', ?, ?, 100000, 1, NULL)
+            """, (f"Precio mayorista — {usuario['nombre']}", codigo_may, usuario["email"]))
+    else:
+        # Desactivar el código mayorista
+        cursor.execute("UPDATE descuentos SET activo = 0 WHERE codigo = ?", (codigo_may,))
+
+    conn.commit()
+    conn.close()
+
+    return {
+        "usuario_id": usuario_id,
+        "mayorista": bool(nuevo_estado),
+        "codigo_mayorista": codigo_may if nuevo_estado else None,
+        "mensaje": f"Precio mayorista {'activado' if nuevo_estado else 'desactivado'}",
+    }
 
 
 @app.get("/api/descuentos/activos")
