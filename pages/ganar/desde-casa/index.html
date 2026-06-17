@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trabajo Extra Desde Casa en Argentina | El Gadget</title>
+<meta name="description" content="Ganá dinero desde casa en Argentina con un trabajo extra sin horario fijo. Referís las compras de tu red y cobrás el 5% de cada venta. Sin dejar tu empleo.">
+<link rel="canonical" href="https://elgadget.com.ar/ganar/desde-casa/">
+<meta name="theme-color" content="#14151A">
+<!-- OG para Meta Ads — Facebook Feed -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="El Gadget">
+<meta property="og:title" content="Trabajo extra desde casa en Argentina — sin horarios ni inversión">
+<meta property="og:description" content="Mantenés tu trabajo actual y sumás hasta el 5% de comisión por cada venta que genere tu red. Gratis. Sin stock. Sin horarios.">
+<meta property="og:url" content="https://elgadget.com.ar/ganar/desde-casa/">
+<meta property="og:image" content="https://elgadget.com.ar/assets/img/og-home.jpg">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<style>
+.g-hero {
+  background: var(--ink);
+  color: #fff;
+  text-align: center;
+  padding: 72px 24px 60px;
+}
+.g-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 99px;
+  margin-bottom: 20px;
+}
+.g-hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(26px, 5vw, 48px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+.g-hero h1 span { color: var(--accent); }
+.g-hero p {
+  font-size: clamp(15px, 2.5vw, 18px);
+  color: rgba(255,255,255,0.8);
+  max-width: 560px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+.g-hero-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.g-numbers {
+  background: var(--accent);
+  padding: 36px 24px;
+  text-align: center;
+}
+.g-numbers-grid {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.g-num-item { flex: 1; min-width: 140px; }
+.g-num-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+.g-num-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 6px;
+  opacity: 0.75;
+}
+
+.g-section {
+  padding: 64px 24px;
+  text-align: center;
+}
+.g-section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.g-section-sub {
+  color: var(--gray-600);
+  font-size: 15px;
+  max-width: 520px;
+  margin: 0 auto 48px;
+  line-height: 1.6;
+}
+
+/* Diferenciadores */
+.diff-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.diff-card {
+  flex: 1;
+  min-width: 200px;
+  max-width: 260px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.diff-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+.diff-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.diff-card p {
+  font-size: 13px;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Calculadora orientativa */
+.calc-box {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 20px;
+  padding: 40px 32px;
+  max-width: 540px;
+  margin: 0 auto;
+  text-align: left;
+}
+.calc-box h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 24px;
+  text-align: center;
+}
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 14px;
+}
+.calc-row:last-of-type { border-bottom: none; }
+.calc-label { color: rgba(255,255,255,0.7); }
+.calc-val { font-weight: 600; }
+.calc-total {
+  margin-top: 20px;
+  background: var(--accent);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.calc-total-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.calc-total-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.calc-note {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* Steps */
+.steps-grid {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.step-card {
+  flex: 1;
+  min-width: 220px;
+  max-width: 280px;
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+}
+.step-number {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--accent);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+.step-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.step-card p {
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* FAQ */
+.ref-faq-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: left;
+}
+.ref-faq-item {
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0;
+}
+.ref-faq-item:first-child { border-top: 1px solid var(--gray-200); }
+.ref-faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  gap: 16px;
+}
+.ref-faq-q .icon { font-size: 20px; flex-shrink: 0; transition: transform 0.2s; }
+.ref-faq-q.open .icon { transform: rotate(45deg); }
+.ref-faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.7;
+}
+.ref-faq-a.open { max-height: 300px; padding-bottom: 16px; }
+
+/* CTA strip */
+.g-cta-strip {
+  background: var(--ink);
+  padding: 56px 24px;
+  text-align: center;
+}
+.g-cta-strip h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 16px;
+}
+.g-cta-strip h2 span { color: var(--accent); }
+.g-cta-strip p {
+  color: rgba(255,255,255,0.75);
+  font-size: 16px;
+  margin: 0 0 32px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-badge">
+        <img src="../../assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
+    </a>
+    <div class="search-desktop">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){window.location.href='/?buscar='+encodeURIComponent(this.value)}">
+      </div>
+    </div>
+    <a href="/carrito" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="label">Mi pedido</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <a href="/">Inicio</a>
+  <span class="sep">/</span>
+  <a href="/ganar/">Ganar con El Gadget</a>
+  <span class="sep">/</span>
+  <span class="current">Trabajo extra desde casa</span>
+</div>
+
+<!-- HERO -->
+<section class="g-hero">
+  <div class="g-badge">Trabajo extra desde casa</div>
+  <h1>Trabajo extra desde casa<br><span>en Argentina — sin horarios</span></h1>
+  <p>Mantenés tu trabajo actual y sumás un ingreso extra desde casa recomendando productos de El Gadget. <strong style="color:var(--accent)">5% de comisión</strong> por cada venta que genere tu red. Sin invertir nada.</p>
+  <div class="g-hero-btns">
+    <a href="/referidos#registro" class="btn btn-accent">Quiero mi ingreso extra</a>
+    <a href="#como-funciona" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.3)">Cómo funciona</a>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<div class="g-numbers">
+  <div class="g-numbers-grid">
+    <div class="g-num-item">
+      <div class="g-num-value">5%</div>
+      <div class="g-num-label">de comisión por cada<br>venta que genere tu código</div>
+    </div>
+    <div class="g-num-item">
+      <div class="g-num-value">15%</div>
+      <div class="g-num-label">de descuento para<br>quien compra con tu código</div>
+    </div>
+    <div class="g-num-item">
+      <div class="g-num-value">$0</div>
+      <div class="g-num-label">de inversión<br>para empezar</div>
+    </div>
+  </div>
+</div>
+
+<!-- DIFERENCIADORES -->
+<section class="g-section" style="background:#fff">
+  <div class="g-section-title">Un ingreso extra que no interfiere con tu vida</div>
+  <div class="g-section-sub">Diseñado para personas con empleo fijo que quieren generar más sin sacrificar tiempo ni dinero.</div>
+  <div class="diff-grid">
+    <div class="diff-card">
+      <div class="diff-icon">🕐</div>
+      <h3>Sin horario fijo</h3>
+      <p>Compartís tu código cuando querés, desde el celular. No hay metas ni obligaciones diarias.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon">💼</div>
+      <h3>Mantenés tu trabajo</h3>
+      <p>No es un reemplazo de tu empleo, es un complemento. Seguís haciendo lo tuyo y esto trabaja en paralelo.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-icon">📲</div>
+      <h3>Solo compartís el código</h3>
+      <p>Sin manejo de productos, sin atención al cliente, sin envíos. El Gadget se encarga de todo eso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULADORA -->
+<section class="g-section" style="background:var(--cream)">
+  <div class="g-section-title">Cuánto podés generar</div>
+  <div class="g-section-sub">Un ejemplo real con números conservadores.</div>
+  <div class="calc-box">
+    <h3>Ejemplo orientativo mensual</h3>
+    <div class="calc-row">
+      <span class="calc-label">Personas a las que compartís el código</span>
+      <span class="calc-val">10</span>
+    </div>
+    <div class="calc-row">
+      <span class="calc-label">Compras generadas (estimado conservador, 30%)</span>
+      <span class="calc-val">3 ventas</span>
+    </div>
+    <div class="calc-row">
+      <span class="calc-label">Ticket promedio El Gadget</span>
+      <span class="calc-val">$15,000 ARS</span>
+    </div>
+    <div class="calc-row">
+      <span class="calc-label">Tu comisión (5% por venta)</span>
+      <span class="calc-val">$750 ARS c/u</span>
+    </div>
+    <div class="calc-total">
+      <span class="calc-total-label">Ingreso extra estimado</span>
+      <span class="calc-total-val">$2,250/mes</span>
+    </div>
+    <p class="calc-note">Con más alcance, más ventas. Los números escalan en proporción a tu red.</p>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="g-section" id="como-funciona" style="background:#fff">
+  <div class="g-section-title">Tres pasos y empezás</div>
+  <div class="g-section-sub">El proceso completo tarda menos de dos minutos.</div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-number">1</div>
+      <h3>Registrate gratis</h3>
+      <p>Completá el formulario con tus datos. Recibís tu código único (ej. <strong>JUAN21</strong>) al instante.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">2</div>
+      <h3>Compartí en tu red</h3>
+      <p>Mandá tu código por WhatsApp, en grupos de trabajo, a familia y amigos. Quienes lo usen obtienen <strong>15% off</strong>.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">3</div>
+      <h3>Cobrás el 5%</h3>
+      <p>Cada venta generada con tu código te acumula comisiones. Liquidamos el 5to día hábil de cada mes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PREGUNTAS FRECUENTES -->
+<section class="g-section" style="background:var(--cream)">
+  <div class="g-section-title">Preguntas frecuentes</div>
+  <div class="g-section-sub">Todo lo que querés saber antes de empezar.</div>
+  <div class="ref-faq-wrap">
+    <div class="ref-faq-item">
+      <button class="ref-faq-q" onclick="toggleFaq(this)">
+        ¿Necesito invertir algo para empezar?
+        <span class="icon">+</span>
+      </button>
+      <div class="ref-faq-a">
+        No. El registro es completamente gratuito. No comprás productos, no tenés gastos de ningún tipo. Solo compartís tu código y el sistema rastrea las ventas automáticamente.
+      </div>
+    </div>
+    <div class="ref-faq-item">
+      <button class="ref-faq-q" onclick="toggleFaq(this)">
+        ¿Qué productos puedo recomendar?
+        <span class="icon">+</span>
+      </button>
+      <div class="ref-faq-a">
+        Todo el catálogo de El Gadget: tecnología, gadgets, accesorios y artículos del hogar. El 5% aplica sobre cualquier producto que compren con tu código, sin excepción.
+      </div>
+    </div>
+    <div class="ref-faq-item">
+      <button class="ref-faq-q" onclick="toggleFaq(this)">
+        ¿Cuándo y cómo cobro?
+        <span class="icon">+</span>
+      </button>
+      <div class="ref-faq-a">
+        Las comisiones de cada mes se consolidan el último día del mes. El pago se realiza el 5to día hábil del mes siguiente por transferencia bancaria o MercadoPago. Podés ver el detalle en tiempo real desde "Mi cuenta".
+      </div>
+    </div>
+    <div class="ref-faq-item">
+      <button class="ref-faq-q" onclick="toggleFaq(this)">
+        ¿Hay límite de personas a las que puedo referir?
+        <span class="icon">+</span>
+      </button>
+      <div class="ref-faq-a">
+        No. Podés compartir tu código con todas las personas que quieras. No hay tope de referidos ni de comisiones mensuales.
+      </div>
+    </div>
+    <div class="ref-faq-item">
+      <button class="ref-faq-q" onclick="toggleFaq(this)">
+        ¿El descuento del 15% es solo en la primera compra?
+        <span class="icon">+</span>
+      </button>
+      <div class="ref-faq-a">
+        No. Tu código funciona en todas las compras que hagan quienes lo tengan. Cada compra te genera el 5% de comisión sin importar cuántas veces lo usen.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="g-cta-strip">
+  <h2>Empezá hoy tu<br><span>ingreso extra desde casa</span></h2>
+  <p>Registrate gratis, recibís tu código en segundos y empezás a generar comisiones hoy mismo.</p>
+  <a href="/referidos#registro" class="btn btn-accent" style="font-size:16px;padding:14px 36px">Registrarme ahora — es gratis</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="logo">
+        <div class="logo-badge">
+          <img src="../../assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+        </div>
+        <div class="logo-text">
+          <div class="logo-name">El<span> Gadget</span></div>
+          <div class="logo-tagline">Tienda online</div>
+        </div>
+      </a>
+      <p class="footer-desc">Tecnología, gadgets y accesorios con envío a todo el país.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Tienda</h4>
+      <a href="/">Catálogo</a>
+      <a href="/carrito">Mi pedido</a>
+      <a href="/seguimiento">Seguimiento</a>
+    </div>
+    <div class="footer-links">
+      <h4>Ganar con El Gadget</h4>
+      <a href="/ganar/">Todos los perfiles</a>
+      <a href="/ganar/marketing-afiliados/">Marketing de afiliados</a>
+      <a href="/ganar/monetizar-redes/">Monetizar Instagram</a>
+      <a href="/ganar/vender-sin-stock/">Vender sin stock</a>
+    </div>
+    <div class="footer-links">
+      <h4>Ayuda</h4>
+      <a href="/faq">Preguntas frecuentes</a>
+      <a href="/sobre_nosotros">Sobre nosotros</a>
+      <a href="/referidos">Programa de referidos</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 El Gadget. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+</a>
+
+<div class="toast" id="toast"></div>
+<script src="../../assets/js/cart.js"></script>
+<script>
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.ref-faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.ref-faq-q').forEach(b => b.classList.remove('open'));
+  if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
+}
+</script>
+</body>
+</html>

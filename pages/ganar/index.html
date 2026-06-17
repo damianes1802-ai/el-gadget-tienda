@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programa de Referidos en Argentina | Ganá con El Gadget</title>
+<meta name="description" content="El programa de referidos más simple de Argentina. Compartí tu código, tus amigos compran con 15% off y vos cobrás el 5% de cada venta. Sin inversión. Sin límites.">
+<link rel="canonical" href="https://elgadget.com.ar/ganar/">
+<meta name="theme-color" content="#14151A">
+<!-- OG para Meta Ads -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="El Gadget">
+<meta property="og:title" content="Programa de Referidos en Argentina | Ganá con El Gadget">
+<meta property="og:description" content="Compartí tu código único y cobrá el 5% de cada venta que generes. 15% de descuento para quien compra. Sin inversión.">
+<meta property="og:url" content="https://elgadget.com.ar/ganar/">
+<meta property="og:image" content="https://elgadget.com.ar/assets/img/og-home.jpg">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+.g-hero {
+  background: var(--ink);
+  color: #fff;
+  text-align: center;
+  padding: 72px 24px 60px;
+}
+.g-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 99px;
+  margin-bottom: 20px;
+}
+.g-hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(26px, 5vw, 48px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+.g-hero h1 span { color: var(--accent); }
+.g-hero p {
+  font-size: clamp(15px, 2.5vw, 18px);
+  color: rgba(255,255,255,0.8);
+  max-width: 560px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+.g-hero-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.g-numbers {
+  background: var(--accent);
+  padding: 36px 24px;
+  text-align: center;
+}
+.g-numbers-grid {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.g-num-item { flex: 1; min-width: 160px; }
+.g-num-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+.g-num-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 6px;
+  opacity: 0.75;
+}
+
+.g-section {
+  padding: 64px 24px;
+  text-align: center;
+}
+.g-section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.g-section-sub {
+  color: var(--gray-600);
+  font-size: 15px;
+  max-width: 520px;
+  margin: 0 auto 48px;
+  line-height: 1.6;
+}
+
+/* Persona cards */
+.persona-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.persona-card {
+  flex: 1;
+  min-width: 210px;
+  max-width: 230px;
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: border-color 0.18s, transform 0.18s;
+  display: block;
+}
+.persona-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.persona-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  display: block;
+}
+.persona-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.persona-card p {
+  font-size: 13px;
+  color: var(--gray-600);
+  line-height: 1.55;
+  margin: 0 0 16px;
+}
+.persona-tag {
+  display: inline-block;
+  background: var(--accent-pale);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+/* Steps */
+.steps-grid {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.step-card {
+  flex: 1;
+  min-width: 220px;
+  max-width: 280px;
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+}
+.step-number {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--accent);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+.step-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.step-card p {
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* CTA strip */
+.g-cta-strip {
+  background: var(--ink);
+  padding: 56px 24px;
+  text-align: center;
+}
+.g-cta-strip h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 16px;
+}
+.g-cta-strip h2 span { color: var(--accent); }
+.g-cta-strip p {
+  color: rgba(255,255,255,0.75);
+  font-size: 16px;
+  margin: 0 0 32px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-badge">
+        <img src="../assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
+    </a>
+    <div class="search-desktop">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){window.location.href='/?buscar='+encodeURIComponent(this.value)}">
+      </div>
+    </div>
+    <a href="/carrito" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="label">Mi pedido</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <a href="/">Inicio</a>
+  <span class="sep">/</span>
+  <span class="current">Ganá con El Gadget</span>
+</div>
+
+<!-- HERO -->
+<section class="g-hero">
+  <div class="g-badge">Programa de Referidos</div>
+  <h1>El programa de referidos<br><span>más simple de Argentina</span></h1>
+  <p>Compartí tu código único. Tus contactos compran con <strong style="color:var(--accent)">15% de descuento</strong> y vos cobrás el <strong style="color:var(--accent)">5% de comisión</strong> por cada venta. Sin inversión. Sin límites.</p>
+  <div class="g-hero-btns">
+    <a href="/referidos#registro" class="btn btn-accent">Quiero mi código gratis</a>
+    <a href="#quienes" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.3)">¿Es para mí?</a>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<div class="g-numbers">
+  <div class="g-numbers-grid">
+    <div class="g-num-item">
+      <div class="g-num-value">15%</div>
+      <div class="g-num-label">de descuento para<br>quien compra con tu código</div>
+    </div>
+    <div class="g-num-item">
+      <div class="g-num-value">5%</div>
+      <div class="g-num-label">de comisión para vos<br>por cada venta generada</div>
+    </div>
+    <div class="g-num-item">
+      <div class="g-num-value">$0</div>
+      <div class="g-num-label">de inversión necesaria<br>para empezar hoy</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIÉNES -->
+<section class="g-section" id="quienes" style="background:#fff">
+  <div class="g-section-title">¿Quién puede sumarse?</div>
+  <div class="g-section-sub">El programa funciona para cualquier persona con ganas de generar un ingreso extra. Encontrá tu perfil y aprendé cómo sacarle el máximo partido.</div>
+
+  <div class="persona-grid">
+    <a href="/ganar/desde-casa/" class="persona-card">
+      <span class="persona-icon">🏠</span>
+      <h3>Empleado con ganas de más</h3>
+      <p>Tenés trabajo fijo pero querés un ingreso extra desde casa, sin horarios y sin renunciar a nada.</p>
+      <span class="persona-tag">Trabajo extra desde casa</span>
+    </a>
+    <a href="/ganar/marketing-afiliados/" class="persona-card">
+      <span class="persona-icon">📊</span>
+      <h3>Microinfluencer o creador</h3>
+      <p>Tenés audiencia propia en redes o comunidades. Querés monetizarla con marketing de afiliados real.</p>
+      <span class="persona-tag">Marketing de afiliados</span>
+    </a>
+    <a href="/ganar/monetizar-redes/" class="persona-card">
+      <span class="persona-icon">📱</span>
+      <h3>Estudiante con red social</h3>
+      <p>Usás Instagram todos los días. Querés monetizarlo sin grandes seguidores ni inversión previa.</p>
+      <span class="persona-tag">Monetizar Instagram</span>
+    </a>
+    <a href="/ganar/vender-sin-stock/" class="persona-card">
+      <span class="persona-icon">📦</span>
+      <h3>Revendedor sin productos</h3>
+      <p>Querés vender online sin comprar mercadería ni manejar stock. Solo referís y cobrás tu comisión.</p>
+      <span class="persona-tag">Vender sin stock</span>
+    </a>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="g-section" style="background:var(--cream)">
+  <div class="g-section-title">Cómo funciona en 3 pasos</div>
+  <div class="g-section-sub">Sin complicaciones, sin costos ocultos. Registrate gratis y empezá a ganar hoy.</div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-number">1</div>
+      <h3>Registrate gratis</h3>
+      <p>Completá el formulario en menos de un minuto. Recibís tu código único personal (ej. <strong>JUAN21</strong>) al instante.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">2</div>
+      <h3>Compartí tu código</h3>
+      <p>Mandáselo a quien quieras: WhatsApp, Instagram, grupos, familia. Quien lo use obtiene <strong>15% off</strong> automático.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">3</div>
+      <h3>Cobrás el 5%</h3>
+      <p>Cada compra hecha con tu código te genera una comisión. Liquidamos el 5to día hábil de cada mes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="g-cta-strip">
+  <h2>¿Qué estás esperando?<br><span>Tu código es gratis</span></h2>
+  <p>Miles de personas en Argentina ya generan un ingreso extra desde su celular. El único paso que te falta es registrarte.</p>
+  <a href="/referidos#registro" class="btn btn-accent" style="font-size:16px;padding:14px 36px">Registrarme ahora — es gratis</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="logo">
+        <div class="logo-badge">
+          <img src="../assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+        </div>
+        <div class="logo-text">
+          <div class="logo-name">El<span> Gadget</span></div>
+          <div class="logo-tagline">Tienda online</div>
+        </div>
+      </a>
+      <p class="footer-desc">Tecnología, gadgets y accesorios con envío a todo el país.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Tienda</h4>
+      <a href="/">Catálogo</a>
+      <a href="/carrito">Mi pedido</a>
+      <a href="/seguimiento">Seguimiento</a>
+    </div>
+    <div class="footer-links">
+      <h4>Ganar con El Gadget</h4>
+      <a href="/ganar/desde-casa/">Desde casa</a>
+      <a href="/ganar/marketing-afiliados/">Marketing de afiliados</a>
+      <a href="/ganar/monetizar-redes/">Monetizar Instagram</a>
+      <a href="/ganar/vender-sin-stock/">Vender sin stock</a>
+    </div>
+    <div class="footer-links">
+      <h4>Ayuda</h4>
+      <a href="/faq">Preguntas frecuentes</a>
+      <a href="/sobre_nosotros">Sobre nosotros</a>
+      <a href="/referidos">Programa de referidos</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 El Gadget. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+</a>
+
+<div class="toast" id="toast"></div>
+<script src="../assets/js/cart.js"></script>
+</body>
+</html>
