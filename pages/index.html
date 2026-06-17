@@ -381,8 +381,10 @@ function renderProductCard(p) {
     precioHtml = `<div class="card-price">${formatPrice(p.precio_venta)}</div>`;
   }
 
-  const stockBajo = p.stock != null && p.stock > 0 && p.stock <= 3;
-  const stockHtml = stockBajo ? `<div class="card-stock-badge">¡Últimas ${p.stock}!</div>` : '';
+  const stockBajo = p.stock != null && p.stock > 0 && p.stock <= 5;
+  const stockHtml = stockBajo
+    ? `<div class="card-stock-badge${p.stock === 1 ? ' last' : ''}">⚡ ${p.stock === 1 ? '¡Última unidad!' : `¡Últimas ${p.stock} unidades!`}</div>`
+    : '';
 
   return `
     <div class="card" onclick="abrirProducto('${p.sku}', '${p.url_amigable || ''}')">

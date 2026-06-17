@@ -81,6 +81,7 @@
         <div class="product-sku" id="productSku"></div>
       </div>
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
+      <div id="urgencyBadge" class="urgency-badge" style="display:none"></div>
 
       <!-- Variantes -->
       <div class="variants-section" id="variantsSection" style="display:none">
@@ -238,12 +239,20 @@ function mostrarProducto() {
 
   // Stock
   const stockBadge = document.getElementById('stockBadge');
+  const urgencyBadge = document.getElementById('urgencyBadge');
   if (productoActual.stock > 0) {
     stockBadge.className = 'stock-badge in-stock';
     stockBadge.textContent = '✓ En stock';
+    if (productoActual.stock <= 5) {
+      urgencyBadge.textContent = productoActual.stock === 1 ? '⚡ ¡Última unidad disponible!' : `⚡ ¡Últimas ${productoActual.stock} unidades!`;
+      urgencyBadge.style.display = 'flex';
+    } else {
+      urgencyBadge.style.display = 'none';
+    }
   } else {
     stockBadge.className = 'stock-badge out-of-stock';
     stockBadge.textContent = '✗ Agotado';
+    urgencyBadge.style.display = 'none';
   }
 
   // Descripción

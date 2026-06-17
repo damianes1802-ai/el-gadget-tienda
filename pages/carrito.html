@@ -291,11 +291,28 @@ function eliminarItem(idx) {
   render();
 }
 
-document.getElementById('cartProvincia').addEventListener('change', actualizarEnvioCarrito);
-document.getElementById('cartPartido').addEventListener('change', actualizarEnvioCarrito);
+document.getElementById('cartProvincia').addEventListener('change', () => {
+  localStorage.setItem('eg_provincia', document.getElementById('cartProvincia').value);
+  actualizarEnvioCarrito();
+});
+document.getElementById('cartPartido').addEventListener('change', () => {
+  localStorage.setItem('eg_partido', document.getElementById('cartPartido').value);
+  actualizarEnvioCarrito();
+});
 
 render();
-initEnvioCarrito();
+initEnvioCarrito().then(() => {
+  const prov = localStorage.getItem('eg_provincia');
+  if (prov) {
+    document.getElementById('cartProvincia').value = prov;
+    actualizarEnvioCarrito();
+    const partido = localStorage.getItem('eg_partido');
+    if (partido && document.getElementById('cartPartidoRow').style.display !== 'none') {
+      document.getElementById('cartPartido').value = partido;
+      actualizarEnvioCarrito();
+    }
+  }
+});
 </script>
 </body>
 </html>

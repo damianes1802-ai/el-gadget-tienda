@@ -197,12 +197,16 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
 
     breadcrumb_producto = nombre if len(nombre) <= 40 else nombre[:40] + '…'
 
-    en_stock = (producto.get('stock') or 0) > 0
-    stock_badge = (
-        '<span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>'
-        if en_stock else
-        '<span class="stock-badge out-of-stock" id="stockBadge">✗ Agotado</span>'
-    )
+    stock_val = producto.get('stock') or 0
+    en_stock = stock_val > 0
+    if not en_stock:
+        stock_badge = '<span class="stock-badge out-of-stock" id="stockBadge">✗ Agotado</span>'
+    elif stock_val == 1:
+        stock_badge = '<span class="stock-badge in-stock" id="stockBadge">✓ En stock</span><div class="urgency-badge" style="display:flex">⚡ ¡Última unidad disponible!</div>'
+    elif stock_val <= 5:
+        stock_badge = f'<span class="stock-badge in-stock" id="stockBadge">✓ En stock</span><div class="urgency-badge" style="display:flex">⚡ ¡Últimas {stock_val} unidades!</div>'
+    else:
+        stock_badge = '<span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>'
 
     jsonld = {
         "@context": "https://schema.org/",
