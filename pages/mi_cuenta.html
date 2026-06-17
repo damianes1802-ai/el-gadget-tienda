@@ -597,64 +597,38 @@ async function cargarMayorista() {
     const stats = data.stats || {};
     _todasOrdenesMay = data.ordenes || [];
 
-    const ordenesHtml = _todasOrdenesMay.length === 0
-      ? '<p style="font-size:13.5px;color:var(--gray-600);text-align:center;padding:16px 0">Todavía no realizaste compras como mayorista.</p>'
-      : `<div style="overflow-x:auto"><table class="order-table" style="margin-top:0;width:100%">
-          <thead><tr>
-            <th style="text-align:left">Nro. Orden</th>
-            <th style="text-align:left">Fecha</th>
-            <th style="text-align:center">Estado</th>
-            <th style="text-align:right">Total normal</th>
-            <th style="text-align:right">Descuento</th>
-            <th style="text-align:right;color:var(--accent)">Total pagado</th>
-          </tr></thead>
-          <tbody>${_todasOrdenesMay.map(o => {
-            const fechaStr = o.fecha ? new Date(o.fecha).toLocaleDateString('es-AR', { day:'2-digit', month:'2-digit', year:'numeric' }) : '';
-            return `<tr>
-              <td>#${o.id}</td>
-              <td>${fechaStr}</td>
-              <td style="text-align:center">${badgeOrden(o.estado)}</td>
-              <td style="text-align:right">${formatPrice(o.total_normal || 0)}</td>
-              <td style="text-align:right;color:#10b981;font-weight:600">−${formatPrice(o.descuento_monto || 0)}</td>
-              <td style="text-align:right;font-weight:700;color:var(--accent)">${formatPrice(o.total || 0)}</td>
-            </tr>`;
-          }).join('')}</tbody>
-        </table></div>`;
-
     wrap.innerHTML = `
-      <!-- CÓDIGO MAYORISTA -->
-      <div style="background:linear-gradient(135deg,#fffbeb 0%,var(--cream) 100%);border:2px solid var(--accent);border-radius:14px;padding:20px 24px;margin-bottom:16px;text-align:center">
-        <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Tu código mayorista (25% OFF · mínimo $100.000)</p>
-        <p style="font-size:26px;font-weight:700;letter-spacing:3px;color:var(--ink);margin:0 0 12px">${escapeHtmlBasico(data.codigo_mayorista || '')}</p>
-        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button onclick="navigator.clipboard.writeText('${escapeHtmlBasico(data.codigo_mayorista || '')}').then(()=>showToast('¡Código copiado!'))"
-            style="font-size:12px;padding:6px 16px;border-radius:8px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Copiar código</button>
+      <!-- CABECERA: código + stats en una fila compacta -->
+      <div style="background:linear-gradient(135deg,#fffbeb 0%,var(--cream) 100%);border:1.5px solid var(--accent);border-radius:12px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <div>
+          <p style="font-size:11px;color:var(--gray-600);margin:0 0 4px;font-weight:500">Tu código mayorista · 25% OFF · mínimo $100.000</p>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span style="font-size:22px;font-weight:700;letter-spacing:3px;color:var(--ink)">${escapeHtmlBasico(data.codigo_mayorista || '')}</span>
+            <button onclick="navigator.clipboard.writeText('${escapeHtmlBasico(data.codigo_mayorista || '')}').then(()=>showToast('¡Código copiado!'))"
+              style="font-size:11.5px;padding:4px 12px;border-radius:7px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Copiar</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;flex-wrap:wrap">
+          <div style="text-align:center">
+            <p style="font-size:11px;color:var(--gray-600);margin:0 0 2px">Comprado</p>
+            <p style="font-size:15px;font-weight:700;color:var(--ink);margin:0">${formatPrice(stats.total_pagado || 0)}</p>
+          </div>
+          <div style="text-align:center">
+            <p style="font-size:11px;color:var(--gray-600);margin:0 0 2px">Ahorrado</p>
+            <p style="font-size:15px;font-weight:700;color:#10b981;margin:0">${formatPrice(stats.total_ahorrado || 0)}</p>
+          </div>
+          <div style="text-align:center">
+            <p style="font-size:11px;color:var(--gray-600);margin:0 0 2px">Órdenes</p>
+            <p style="font-size:15px;font-weight:700;color:var(--ink);margin:0">${stats.cantidad_ordenes || 0}</p>
+          </div>
         </div>
       </div>
 
-      <!-- STATS -->
-      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
-        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
-          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Órdenes mayoristas</p>
-          <p style="font-size:22px;font-weight:700;color:var(--ink);margin:0">${stats.cantidad_ordenes || 0}</p>
+      <!-- CATÁLOGO MAYORISTA (elemento principal) -->
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+          <h3 style="margin:0;font-size:15px">Catálogo de precios mayoristas</h3>
         </div>
-        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
-          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Total comprado</p>
-          <p style="font-size:22px;font-weight:700;color:var(--ink);margin:0">${formatPrice(stats.total_pagado || 0)}</p>
-        </div>
-        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
-          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Total ahorrado</p>
-          <p style="font-size:22px;font-weight:700;color:#10b981;margin:0">${formatPrice(stats.total_ahorrado || 0)}</p>
-        </div>
-      </div>
-
-      <!-- CATÁLOGO MAYORISTA -->
-      <div style="margin-bottom:24px">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-          <h3 style="margin:0;font-size:15px">Catálogo mayorista</h3>
-          <button onclick="generarCSVCatalogoMay()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Descargar CSV catálogo</button>
-        </div>
-        <!-- Filtros -->
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
           <input id="catMaySearch" type="text" placeholder="Buscar producto..." value="${escapeHtmlBasico(_catMay.search)}"
             style="flex:2;min-width:140px;padding:7px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)"
@@ -681,12 +655,11 @@ async function cargarMayorista() {
         <div id="catalogoMayPaginas" style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:12px"></div>
       </div>
 
-      <!-- HISTORIAL DE COMPRAS -->
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-        <h3 style="margin:0;font-size:15px">Historial de compras</h3>
-        <button onclick="generarCSVComprasMayorista()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Descargar CSV contable</button>
+      <!-- EXPORTS: sutiles, al fondo -->
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap;border-top:1px solid #e5e7eb;padding-top:14px">
+        <button onclick="generarCSVCatalogoMay()" style="font-size:12px;padding:5px 12px;border-radius:7px;border:1px solid #d1d5db;background:transparent;color:var(--gray-600);cursor:pointer">Exportar catálogo CSV</button>
+        <button onclick="generarCSVComprasMayorista()" style="font-size:12px;padding:5px 12px;border-radius:7px;border:1px solid #d1d5db;background:transparent;color:var(--gray-600);cursor:pointer">Exportar historial CSV</button>
       </div>
-      ${ordenesHtml}
     `;
 
     cargarCatalogoMayorista();
