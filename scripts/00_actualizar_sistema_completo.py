@@ -351,7 +351,7 @@ class ActualizadorMaestro:
             msg = (
                 f"SEO omitido: {len(nuevos_skus)} productos detectados como nuevos superan el "
                 f"cap de {CAP_SEO_POR_CORRIDA} por corrida (posible reset de DB). "
-                f"Para optimizar manualmente: python scripts/13_optimizar_seo_ia.py --skus <skus>"
+                f"Para optimizar manualmente: python scripts/13_optimizar_seo_ia.py --skus {' '.join(nuevos_skus)}"
             )
             print(f"\n⚠️  {msg}")
             logger.warning(msg)
@@ -461,7 +461,7 @@ class ActualizadorMaestro:
             )
 
             subprocess.run(
-                ['git', 'pull', '--no-rebase', '-X', 'ours', 'origin', 'main'],
+                ['git', 'pull', '--no-rebase', 'origin', 'main'],
                 cwd=str(self.repo_dir),
                 check=True
             )

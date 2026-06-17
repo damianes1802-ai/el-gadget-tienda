@@ -89,7 +89,14 @@ app = FastAPI(
     version="1.0.0"
 )
 
-limiter = Limiter(key_func=get_remote_address)
+def _get_real_ip(request: Request) -> str:
+    # Render y la mayoría de proxies reenvían la IP real en X-Forwarded-For
+    forwarded_for = request.headers.get("x-forwarded-for")
+    if forwarded_for:
+        return forwarded_for.split(",")[0].strip()
+    return get_remote_address(request)
+
+limiter = Limiter(key_func=_get_real_ip)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
@@ -2599,6 +2606,16 @@ def admin_eliminar_referido(ref_id: int, x_admin_password: Optional[str] = Heade
     if not ref:
         conn.close()
         raise HTTPException(status_code=404, detail="Referido no encontrado")
+
+    pendientes = cursor.execute(
+        "SELECT COUNT(*) FROM comisiones_referidos WHERE referido_id = ? AND pagado = 1", (ref_id,)
+    ).fetchone()[0]
+    if pendientes:
+        conn.close()
+        raise HTTPException(
+            status_code=409,
+            detail=f"No se puede eliminar: el referido tiene {pendientes} comisión/es ya pagada/s en el historial. Desactivalo en su lugar para conservar el registro contable."
+        )
 
     cursor.execute("DELETE FROM comisiones_referidos WHERE referido_id = ?", (ref_id,))
     cursor.execute("DELETE FROM descuentos WHERE codigo = ?", (ref[0],))

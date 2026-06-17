@@ -251,17 +251,20 @@ def enviar_email_bienvenida(nombre: str, email: str) -> dict:
 
 def enviar_email_referido_confirmacion(nombre: str, email: str, codigo: str) -> dict:
     """Confirma al nuevo referente su alta en el programa: código, cómo usarlo y comisión."""
+    import html as _html
+    nombre_s = _html.escape(nombre)
+    codigo_s = _html.escape(codigo)
     env = Config.cargar_env()
     site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
     cuerpo = f"""
-      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Ya sos parte del programa de referidos, {nombre}!</h2>
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Ya sos parte del programa de referidos, {nombre_s}!</h2>
       <p style="color:{GRAY_600};margin:0 0 22px">
         Tu registro fue aprobado. Este es tu código exclusivo para compartir:
       </p>
       <div style="text-align:center;margin:28px 0">
         <span style="display:inline-block;background:{ACCENT};color:{INK};padding:16px 32px;
            border-radius:12px;font-weight:700;font-size:24px;letter-spacing:1px">
-          {codigo}
+          {codigo_s}
         </span>
       </div>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
@@ -273,7 +276,7 @@ def enviar_email_referido_confirmacion(nombre: str, email: str, codigo: str) -> 
         </tr>
         <tr>
           <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200}">
-            Compartí tu código <strong style="color:{INK}">{codigo}</strong> con amigos, familia o en redes.
+            Compartí tu código <strong style="color:{INK}">{codigo_s}</strong> con amigos, familia o en redes.
           </td>
         </tr>
         <tr>
@@ -294,11 +297,15 @@ def enviar_email_referido_confirmacion(nombre: str, email: str, codigo: str) -> 
       </p>
       {_boton('Ver mi panel de referidos', f"{site_url}/mi_cuenta")}
     """
-    return _enviar(email, f"Tu código de referido {TIENDA_NOMBRE}: {codigo}", _layout(cuerpo))
+    return _enviar(email, f"Tu código de referido {TIENDA_NOMBRE}: {codigo_s}", _layout(cuerpo))
 
 
 def enviar_email_referido_admin(nombre: str, email: str, codigo: str, admin_email: str) -> dict:
     """Notifica al admin que se registró un nuevo referido."""
+    import html as _html
+    nombre_s = _html.escape(nombre)
+    email_s = _html.escape(email)
+    codigo_s = _html.escape(codigo)
     env = Config.cargar_env()
     site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
     cuerpo = f"""
@@ -318,21 +325,21 @@ def enviar_email_referido_admin(nombre: str, email: str, codigo: str, admin_emai
         </tr>
         <tr>
           <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Nombre</td>
-          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};font-weight:600;color:{INK}">{nombre}</td>
+          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};font-weight:600;color:{INK}">{nombre_s}</td>
         </tr>
         <tr>
           <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Email</td>
-          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};font-weight:600;color:{INK}">{email}</td>
+          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200};font-weight:600;color:{INK}">{email_s}</td>
         </tr>
         <tr>
           <td style="padding:12px 18px;color:{GRAY_600}">Código asignado</td>
           <td style="padding:12px 18px">
             <span style="background:{ACCENT};color:{INK};padding:4px 12px;border-radius:6px;font-weight:700;font-size:15px">
-              {codigo}
+              {codigo_s}
             </span>
           </td>
         </tr>
       </table>
-      {_boton('Gestionar referidos', f"{site_url.replace('elgadget.com.ar', 'elgadget.com.ar')}")}
+      {_boton('Gestionar referidos', site_url)}
     """
-    return _enviar(admin_email, f"Nuevo referido: {nombre} ({codigo})", _layout(cuerpo))
+    return _enviar(admin_email, f"Nuevo referido: {nombre_s} ({codigo_s})", _layout(cuerpo))
