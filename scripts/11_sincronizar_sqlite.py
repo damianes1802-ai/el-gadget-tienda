@@ -22,6 +22,7 @@ VERSION: 2.0 OPTIMIZADO
 
 import sqlite3
 import json
+import hashlib
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
@@ -334,8 +335,11 @@ class SincronizadorSQLiteOptimizado:
                 subcategoria = metadata.get('subcategoria', '')
                 url_amigable = metadata.get('url_amigable', '')
                 
-                # Stock: 999 por defecto; si el admin lo protegió manualmente, preservar
-                stock = 999
+                # Stock: valor determinístico por SKU (impares 6-14, más creíbles que 999);
+                # si el admin lo protegió manualmente, preservar ese valor.
+                _OPCIONES_STOCK = [6, 7, 8, 9, 11, 12, 13, 14, 7, 9, 11, 8]
+                _idx = int(hashlib.md5(sku.encode()).hexdigest(), 16) % len(_OPCIONES_STOCK)
+                stock = _OPCIONES_STOCK[_idx]
                 stock_manual = existente['stock_manual'] if existente else 0
                 if stock_manual and existente and existente['stock'] is not None:
                     stock = existente['stock']
