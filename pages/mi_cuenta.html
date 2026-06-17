@@ -340,27 +340,42 @@ async function cargarReferidos() {
     const tier = data.tier || { porcentaje: 7, tier: 'base', ventas_mes: 0, next_tier_en: 5, next_porcentaje: 11 };
     _cat.tierPct = tier.porcentaje;
 
-    // Badge de tier
-    const tierLabels = { base: 'Base', activo: 'Activo', top: 'Top' };
-    const tierColors = { base: '#888', activo: '#3b82f6', top: '#FFC700' };
-    const tierColor = tierColors[tier.tier] || '#888';
-    const tierLabel = tierLabels[tier.tier] || tier.tier;
+    // Tier setup
+    const tierColors = { base: '#9ca3af', activo: '#3b82f6', top: '#FFC700' };
+    const tierColor = tierColors[tier.tier] || '#9ca3af';
 
-    // Barra de progreso
+    // Timeline visual de 3 niveles
+    const _tSteps = [{ k:'base', l:'Base', p:7 }, { k:'activo', l:'Activo', p:11 }, { k:'top', l:'Top', p:15 }];
+    const tierTimelineHtml = `<div style="display:flex;align-items:center;justify-content:center;margin-bottom:14px">${_tSteps.map((s, i) => {
+      const isActive = tier.tier === s.k;
+      const isPast = (s.k === 'base' && tier.tier !== 'base') || (s.k === 'activo' && tier.tier === 'top');
+      const dot = isActive ? tierColor : (isPast ? '#10b981' : '#d1d5db');
+      const tc = isActive ? tierColor : (isPast ? '#10b981' : '#9ca3af');
+      const fw = isActive ? '700' : '500';
+      const line = i > 0 ? `<div style="width:36px;height:2px;background:${isPast ? '#10b981' : '#e5e7eb'};flex-shrink:0"></div>` : '';
+      return `${line}<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:11px;height:11px;border-radius:50%;background:${dot}"></div><span style="font-size:10px;font-weight:${fw};color:${tc};white-space:nowrap">${s.l} ${s.p}%</span></div>`;
+    }).join('')}</div>`;
+
+    // Barra de progreso con impacto en $
     let progressHtml = '';
     if (tier.next_tier_en !== null) {
       const tiers = { base: [0, 5], activo: [5, 15] };
       const [start, end] = tiers[tier.tier] || [0, 5];
       const pct = Math.min(100, Math.round(((tier.ventas_mes - start) / (end - start)) * 100));
+      const diffPct = (tier.next_porcentaje || 11) - tier.porcentaje;
+      const extraPor15k = formatPrice(Math.round(15000 * diffPct / 100));
       progressHtml = `
-        <div style="margin-top:10px">
-          <div style="background:#e5e7eb;border-radius:6px;height:7px;overflow:hidden">
+        <div style="margin-top:8px">
+          <div style="background:#e5e7eb;border-radius:6px;height:6px;overflow:hidden">
             <div style="background:${tierColor};height:100%;width:${pct}%;border-radius:6px;transition:width .4s"></div>
           </div>
-          <p style="font-size:11.5px;color:var(--gray-600);margin:4px 0 0;text-align:center">${tier.next_tier_en} venta${tier.next_tier_en !== 1 ? 's' : ''} más para ${tier.next_porcentaje}% de comisión</p>
+          <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:6px;flex-wrap:wrap">
+            <span style="font-size:11.5px;color:var(--ink);font-weight:600">${tier.next_tier_en} venta${tier.next_tier_en !== 1 ? 's' : ''} más → ${tier.next_porcentaje}% de comisión</span>
+            <span style="font-size:11px;color:#16a34a;font-weight:700">(+${extraPor15k} por venta de $15.000)</span>
+          </div>
         </div>`;
     } else {
-      progressHtml = `<p style="font-size:11.5px;color:${tierColor};margin:4px 0 0;text-align:center;font-weight:600">¡Máximo nivel alcanzado!</p>`;
+      progressHtml = `<p style="font-size:12px;color:${tierColor};margin:6px 0 0;text-align:center;font-weight:700">¡Máximo nivel — cobrás el 15% de cada venta!</p>`;
     }
 
     const periodos = data.resumen_por_periodo || [];
@@ -395,49 +410,50 @@ async function cargarReferidos() {
 
     wrap.innerHTML = `
       <!-- TIER WIDGET -->
-      <div style="background:var(--cream);border-radius:14px;padding:20px 24px;margin-bottom:16px;text-align:center">
-        <div style="display:inline-flex;align-items:center;gap:8px;background:${tierColor}1a;border:1.5px solid ${tierColor};border-radius:20px;padding:5px 16px;margin-bottom:8px">
-          <span style="font-size:13px;font-weight:700;color:${tierColor}">${tierLabel} · ${tier.porcentaje}% comisión</span>
-        </div>
-        <p style="font-size:12.5px;color:var(--gray-600);margin:0">${tier.ventas_mes} venta${tier.ventas_mes !== 1 ? 's' : ''} este mes · Próximo cobro: <strong>${escapeHtmlBasico(data.proximo_cobro || '')}</strong></p>
+      <div style="background:var(--cream);border-radius:14px;padding:18px 22px;margin-bottom:16px;text-align:center">
+        ${tierTimelineHtml}
+        <p style="font-size:12px;color:var(--gray-600);margin:0 0 2px">${tier.ventas_mes} venta${tier.ventas_mes !== 1 ? 's' : ''} este mes · Próximo cobro: <strong>${escapeHtmlBasico(data.proximo_cobro || '')}</strong></p>
         ${progressHtml}
       </div>
 
-      <!-- CARDS: código + totales -->
+      <!-- CARDS: Por cobrar → Total ganado → Código+Compartir -->
       <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
-        <div style="flex:1.5;min-width:170px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
-          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Tu código de referido</p>
-          <p style="font-size:24px;font-weight:700;letter-spacing:3px;color:var(--ink);margin:0 0 10px">${escapeHtmlBasico(data.codigo || '')}</p>
+        <div style="flex:1;min-width:130px;background:${totalPendiente > 0 ? 'linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%)' : 'var(--cream)'};border:1.5px solid ${totalPendiente > 0 ? '#86efac' : '#e5e7eb'};border-radius:12px;padding:16px 20px;text-align:center">
+          <p style="font-size:10.5px;color:var(--gray-600);margin:0 0 3px;text-transform:uppercase;letter-spacing:.5px">Por cobrar</p>
+          <p style="font-size:22px;font-weight:700;color:${totalPendiente > 0 ? '#16a34a' : 'var(--gray-600)'};margin:0 0 3px">${formatPrice(totalPendiente)}</p>
+          <p style="font-size:10.5px;margin:0;color:${totalPendiente > 0 ? '#16a34a' : 'var(--gray-600)'}">${totalPendiente > 0 ? 'Se acredita el ' + escapeHtmlBasico(data.proximo_cobro || '') : 'Compartí tu código para empezar'}</p>
+        </div>
+        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
+          <p style="font-size:10.5px;color:var(--gray-600);margin:0 0 3px;text-transform:uppercase;letter-spacing:.5px">Total ganado</p>
+          <p style="font-size:22px;font-weight:700;color:var(--accent);margin:0 0 3px">${formatPrice(totalComision)}</p>
+          <p style="font-size:10.5px;color:var(--gray-600);margin:0">desde que te uniste</p>
+        </div>
+        <div style="flex:1.5;min-width:170px;background:var(--ink);border-radius:12px;padding:16px 20px;text-align:center">
+          <p style="font-size:10.5px;color:var(--paper);opacity:.75;margin:0 0 3px;text-transform:uppercase;letter-spacing:.5px">Tu código</p>
+          <p style="font-size:22px;font-weight:700;letter-spacing:3px;color:var(--paper);margin:0 0 10px">${escapeHtmlBasico(data.codigo || '')}</p>
           <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-            <button onclick="copiarCodigoRef()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Copiar</button>
-            <button onclick="compartirCodigoRef('${escapeHtmlBasico(data.codigo || '')}')" style="font-size:12px;padding:6px 14px;border-radius:8px;border:none;background:var(--ink);color:var(--paper);cursor:pointer;font-weight:600">Compartir</button>
+            <button onclick="copiarCodigoRef()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--paper);cursor:pointer;font-weight:600">Copiar</button>
+            <button onclick="compartirCodigoRef('${escapeHtmlBasico(data.codigo || '')}')" style="font-size:12px;padding:6px 16px;border-radius:8px;border:none;background:var(--accent);color:var(--ink);cursor:pointer;font-weight:700">Compartir →</button>
           </div>
-        </div>
-        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
-          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Total ganado</p>
-          <p style="font-size:20px;font-weight:700;color:var(--accent);margin:0">${formatPrice(totalComision)}</p>
-        </div>
-        <div style="flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center">
-          <p style="font-size:11.5px;color:var(--gray-600);margin:0 0 4px">Por cobrar</p>
-          <p style="font-size:20px;font-weight:700;color:${totalPendiente > 0 ? 'var(--ink)' : 'var(--gray-600)'};margin:0">${formatPrice(totalPendiente)}</p>
         </div>
       </div>
 
       <!-- CTA MAYORISTA (oculto si el usuario ya es mayorista) -->
       <div id="mayoristaCtaRef" style="border:1px dashed #d1d5db;border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
         <div>
-          <p style="font-size:12.5px;font-weight:600;color:var(--ink);margin:0 0 2px">¿Comprás en volumen?</p>
-          <p style="font-size:11.5px;color:var(--gray-600);margin:0">Activá tu precio mayorista y comprá con 25% OFF en pedidos de $100.000 o más.</p>
+          <p style="font-size:12.5px;font-weight:600;color:var(--ink);margin:0 0 2px">¿Comprás en cantidad para revender?</p>
+          <p style="font-size:11.5px;color:var(--gray-600);margin:0">Activá precio mayorista: 25% OFF en pedidos de $100.000 o más. En un pedido de $100k ahorrás $25.000.</p>
         </div>
         <button onclick="activarMayorista(this)" style="font-size:12px;padding:5px 14px;border-radius:8px;border:1px solid #d1d5db;background:transparent;color:var(--gray-600);cursor:pointer;white-space:nowrap;flex-shrink:0">Activar precio mayorista →</button>
       </div>
 
       <!-- CATÁLOGO -->
       <div style="margin-bottom:24px">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-          <h3 style="margin:0;font-size:15px">Catálogo de productos</h3>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px">
+          <h3 style="margin:0;font-size:15px">Elegí qué compartir</h3>
           <button onclick="generarCSVCatalogo()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Descargar CSV</button>
         </div>
+        <p style="font-size:12px;color:var(--gray-600);margin:0 0 10px">Compartir un producto específico convierte mejor que el código solo. Usá el botón <strong>WA</strong> de cada fila para enviar un mensaje ya listo.</p>
         <!-- Filtros -->
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
           <input id="catSearch" type="text" placeholder="Buscar producto..." value="${escapeHtmlBasico(_cat.search)}"
@@ -520,8 +536,9 @@ async function cargarCatalogo() {
       return;
     }
 
-    const filas = _todosProductos.map(p => `
-      <tr>
+    const filas = _todosProductos.map(p => {
+      const waMsg = encodeURIComponent(`¡Mirá este ${p.nombre} en El Gadget! Te comparto el link con mi código de descuento: ${p.url_tienda}`);
+      return `<tr>
         <td style="width:52px;padding:8px 6px">
           <img src="${escapeHtmlBasico(p.imagen_url)}" alt="" width="48" height="48"
             style="object-fit:cover;border-radius:6px;display:block"
@@ -531,26 +548,33 @@ async function cargarCatalogo() {
           <a href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener" style="color:var(--ink);text-decoration:none;font-weight:500">${escapeHtmlBasico(p.nombre)}</a>
           <div style="font-size:11px;color:var(--gray-600)">${escapeHtmlBasico(p.categoria || '')}</div>
         </td>
-        <td style="text-align:right;font-size:12.5px;white-space:nowrap">${formatPrice(p.precio_venta)}</td>
+        <td style="text-align:right;font-size:12.5px;white-space:nowrap;color:var(--gray-600)">${formatPrice(p.precio_venta)}</td>
         <td style="text-align:right;font-size:12.5px;white-space:nowrap">
           ${formatPrice(p.precio_con_descuento)}
           <div style="font-size:11px;color:#10b981;font-weight:600">−${p.descuento_pct}%</div>
         </td>
-        <td style="text-align:right;font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap">${formatPrice(p.comision_ars)}</td>
-        <td style="text-align:center;white-space:nowrap;padding:8px 6px">
-          <a href="${escapeHtmlBasico(p.imagen_url)}" download="${escapeHtmlBasico(p.sku)}.jpg" target="_blank" rel="noopener"
-            style="font-size:11px;padding:4px 8px;border-radius:6px;border:1.5px solid #e5e7eb;color:var(--ink);text-decoration:none;display:inline-block">Foto</a>
+        <td style="text-align:right;white-space:nowrap;padding:8px 4px">
+          <span style="font-size:14px;font-weight:700;color:#16a34a">${formatPrice(p.comision_ars)}</span>
         </td>
-      </tr>`).join('');
+        <td style="text-align:center;white-space:nowrap;padding:8px 4px">
+          <div style="display:flex;gap:4px;justify-content:center">
+            <a href="${escapeHtmlBasico(p.imagen_url)}" download="${escapeHtmlBasico(p.sku)}.jpg" target="_blank" rel="noopener"
+              style="font-size:11px;padding:4px 7px;border-radius:6px;border:1.5px solid #e5e7eb;color:var(--ink);text-decoration:none;display:inline-block">Foto</a>
+            <a href="https://wa.me/?text=${waMsg}" target="_blank" rel="noopener"
+              style="font-size:11px;padding:4px 7px;border-radius:6px;border:none;background:#25D366;color:#fff;text-decoration:none;display:inline-block;font-weight:600">WA</a>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
 
     wrap.innerHTML = `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
       <thead><tr style="border-bottom:2px solid #e5e7eb">
         <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)"></th>
         <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Producto</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Precio lista</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Comprador paga</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--accent)">Tu comisión</th>
-        <th style="text-align:center;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Foto</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Precio público</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Con tu código</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:#16a34a;font-weight:700">Ganás vos</th>
+        <th style="text-align:center;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Compartir</th>
       </tr></thead>
       <tbody>${filas}</tbody>
     </table></div>`;
@@ -602,7 +626,7 @@ function compartirCodigoRef(codigo) {
 }
 
 // ── Estado del catálogo mayorista ────────────────────────────────────────────
-const _catMay = { page: 1, search: '', categoria: '', precio_min: '', precio_max: '', sort: 'precio', order: 'asc' };
+const _catMay = { page: 1, search: '', categoria: '', precio_min: '', precio_max: '', sort: 'ahorro', order: 'desc' };
 let _todosProductosMay = [];
 let _todasOrdenesMay = [];
 
@@ -630,38 +654,55 @@ async function cargarMayorista() {
     const stats = data.stats || {};
     _todasOrdenesMay = data.ordenes || [];
 
+    const _codMayEsc = escapeHtmlBasico(data.codigo_mayorista || '');
+    const _ahorradoMay = stats.total_ahorrado || 0;
+    const _pagadoMay = stats.total_pagado || 0;
+    const _ordenesMay = stats.cantidad_ordenes || 0;
+
+    const headerMayHtml = _ahorradoMay > 0 ? `
+      <div style="background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border:1.5px solid #86efac;border-radius:14px;padding:18px 22px;margin-bottom:16px;text-align:center">
+        <p style="font-size:11.5px;color:#16a34a;margin:0 0 2px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Ahorraste comprando a precio mayorista</p>
+        <p style="font-size:34px;font-weight:700;color:#16a34a;margin:0 0 14px;letter-spacing:-1px">${formatPrice(_ahorradoMay)}</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;padding-top:12px;border-top:1px solid #bbf7d0">
+          <div><p style="font-size:10.5px;color:#6b7280;margin:0 0 1px">Comprado</p><p style="font-size:14px;font-weight:700;color:var(--ink);margin:0">${formatPrice(_pagadoMay)}</p></div>
+          <div style="width:1px;height:26px;background:#bbf7d0"></div>
+          <div><p style="font-size:10.5px;color:#6b7280;margin:0 0 1px">Pedidos</p><p style="font-size:14px;font-weight:700;color:var(--ink);margin:0">${_ordenesMay}</p></div>
+          <div style="width:1px;height:26px;background:#bbf7d0"></div>
+          <div>
+            <p style="font-size:10.5px;color:#6b7280;margin:0 0 3px">Tu código exclusivo</p>
+            <div style="display:flex;align-items:center;gap:8px;justify-content:center">
+              <span style="font-size:17px;font-weight:700;letter-spacing:2px;color:var(--ink)">${_codMayEsc}</span>
+              <button onclick="navigator.clipboard.writeText('${_codMayEsc}').then(()=>showToast('¡Código copiado!'))"
+                style="font-size:11px;padding:3px 10px;border-radius:6px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Copiar</button>
+            </div>
+          </div>
+        </div>
+      </div>` : `
+      <div style="background:linear-gradient(135deg,#fffbeb 0%,var(--cream) 100%);border:1.5px solid var(--accent);border-radius:14px;padding:18px 22px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div>
+            <div style="display:inline-block;background:var(--accent);border-radius:20px;padding:3px 13px;margin-bottom:8px"><span style="font-size:12px;font-weight:700;color:var(--ink)">25% OFF — Precio mayorista activo</span></div>
+            <p style="font-size:13px;font-weight:600;color:var(--ink);margin:0 0 3px">En un pedido de $100.000 ahorrás $25.000 automáticamente.</p>
+            <p style="font-size:12px;color:var(--gray-600);margin:0">Ingresá tu código al hacer el pedido y el descuento se aplica solo.</p>
+          </div>
+          <div style="text-align:center;flex-shrink:0">
+            <p style="font-size:10.5px;color:var(--gray-600);margin:0 0 3px">Tu código exclusivo</p>
+            <span style="font-size:22px;font-weight:700;letter-spacing:3px;color:var(--ink);display:block;margin-bottom:7px">${_codMayEsc}</span>
+            <button onclick="navigator.clipboard.writeText('${_codMayEsc}').then(()=>showToast('¡Código copiado!'))"
+              style="font-size:11.5px;padding:5px 14px;border-radius:8px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Copiar código</button>
+          </div>
+        </div>
+      </div>`;
+
     wrap.innerHTML = `
-      <!-- CABECERA: código + stats en una fila compacta -->
-      <div style="background:linear-gradient(135deg,#fffbeb 0%,var(--cream) 100%);border:1.5px solid var(--accent);border-radius:12px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-        <div>
-          <p style="font-size:11px;color:var(--gray-600);margin:0 0 4px;font-weight:500">Tu código mayorista · 25% OFF · mínimo $100.000</p>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <span style="font-size:22px;font-weight:700;letter-spacing:3px;color:var(--ink)">${escapeHtmlBasico(data.codigo_mayorista || '')}</span>
-            <button onclick="navigator.clipboard.writeText('${escapeHtmlBasico(data.codigo_mayorista || '')}').then(()=>showToast('¡Código copiado!'))"
-              style="font-size:11.5px;padding:4px 12px;border-radius:7px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Copiar</button>
-          </div>
-        </div>
-        <div style="display:flex;gap:20px;flex-wrap:wrap">
-          <div style="text-align:center">
-            <p style="font-size:11px;color:var(--gray-600);margin:0 0 2px">Comprado</p>
-            <p style="font-size:15px;font-weight:700;color:var(--ink);margin:0">${formatPrice(stats.total_pagado || 0)}</p>
-          </div>
-          <div style="text-align:center">
-            <p style="font-size:11px;color:var(--gray-600);margin:0 0 2px">Ahorrado</p>
-            <p style="font-size:15px;font-weight:700;color:#10b981;margin:0">${formatPrice(stats.total_ahorrado || 0)}</p>
-          </div>
-          <div style="text-align:center">
-            <p style="font-size:11px;color:var(--gray-600);margin:0 0 2px">Órdenes</p>
-            <p style="font-size:15px;font-weight:700;color:var(--ink);margin:0">${stats.cantidad_ordenes || 0}</p>
-          </div>
-        </div>
-      </div>
+      ${headerMayHtml}
 
       <!-- CATÁLOGO MAYORISTA (elemento principal) -->
       <div>
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-          <h3 style="margin:0;font-size:15px">Catálogo de precios mayoristas</h3>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:4px">
+          <h3 style="margin:0;font-size:15px">Tus precios mayoristas</h3>
         </div>
+        <p style="font-size:12px;color:var(--gray-600);margin:0 0 10px">Precio tachado = precio público · Tu precio = −25%. Hacé clic en <strong>Ver →</strong> para ir al producto.</p>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
           <input id="catMaySearch" type="text" placeholder="Buscar producto..." value="${escapeHtmlBasico(_catMay.search)}"
             style="flex:2;min-width:140px;padding:7px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)"
@@ -680,7 +721,7 @@ async function cargarMayorista() {
             style="flex:1;min-width:140px;padding:7px 10px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:13px;background:var(--cream)">
             <option value="precio|asc">Precio: menor a mayor</option>
             <option value="precio|desc">Precio: mayor a menor</option>
-            <option value="ahorro|desc">Mayor ahorro</option>
+            <option value="ahorro|desc" selected>Mayor ahorro</option>
             <option value="nombre|asc">Nombre A-Z</option>
           </select>
         </div>
@@ -750,15 +791,17 @@ async function cargarCatalogoMayorista() {
             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\'%3E%3Crect width=\'48\' height=\'48\' fill=\'%23f3f4f6\' rx=\'6\'/%3E%3C/svg%3E'">
         </td>
         <td style="font-size:12.5px;max-width:180px">
-          <a href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener" style="color:var(--ink);text-decoration:none;font-weight:500">${escapeHtmlBasico(p.nombre)}</a>
+          <span style="color:var(--ink);font-weight:500">${escapeHtmlBasico(p.nombre)}</span>
           <div style="font-size:11px;color:var(--gray-600)">${escapeHtmlBasico(p.categoria || '')}</div>
         </td>
-        <td style="text-align:right;font-size:12.5px;white-space:nowrap;color:var(--gray-600);text-decoration:line-through">${formatPrice(p.precio_normal)}</td>
-        <td style="text-align:right;font-size:13px;font-weight:700;white-space:nowrap;color:var(--ink)">${formatPrice(p.precio_mayorista)}</td>
-        <td style="text-align:right;font-size:12.5px;white-space:nowrap;font-weight:600;color:#10b981">${formatPrice(p.ahorro)}</td>
-        <td style="text-align:center;white-space:nowrap;padding:8px 6px">
-          <a href="${escapeHtmlBasico(p.imagen_url)}" download="${escapeHtmlBasico(p.sku)}.jpg" target="_blank" rel="noopener"
-            style="font-size:11px;padding:4px 8px;border-radius:6px;border:1.5px solid #e5e7eb;color:var(--ink);text-decoration:none;display:inline-block">Foto</a>
+        <td style="text-align:right;font-size:12px;white-space:nowrap;color:var(--gray-600);text-decoration:line-through">${formatPrice(p.precio_normal)}</td>
+        <td style="text-align:right;white-space:nowrap">
+          <span style="font-size:14px;font-weight:700;color:var(--ink)">${formatPrice(p.precio_mayorista)}</span>
+        </td>
+        <td style="text-align:right;white-space:nowrap;font-weight:700;color:#16a34a;font-size:13px">${formatPrice(p.ahorro)}</td>
+        <td style="text-align:center;white-space:nowrap;padding:8px 4px">
+          <a href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener"
+            style="font-size:11.5px;padding:5px 10px;border-radius:7px;border:none;background:var(--ink);color:var(--paper);text-decoration:none;display:inline-block;font-weight:600">Ver →</a>
         </td>
       </tr>`).join('');
 
@@ -766,10 +809,10 @@ async function cargarCatalogoMayorista() {
       <thead><tr style="border-bottom:2px solid #e5e7eb">
         <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)"></th>
         <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Producto</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Precio normal</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--accent)">Tu precio (−25%)</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:#10b981">Ahorrás</th>
-        <th style="text-align:center;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Foto</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Precio público</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--accent);font-weight:700">Tu precio −25%</th>
+        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:#16a34a;font-weight:700">Ahorrás</th>
+        <th style="text-align:center;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Ver</th>
       </tr></thead>
       <tbody>${filas}</tbody>
     </table></div>`;
