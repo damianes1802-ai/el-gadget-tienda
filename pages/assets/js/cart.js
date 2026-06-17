@@ -5,6 +5,22 @@
 
 const CARRITO_KEY = 'carrito';
 const EG_API_URL = 'https://el-gadget-tienda.onrender.com';
+const GA4_ID = 'G-D8GWDT1CBS';
+
+function initGA4() {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function() { dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', GA4_ID);
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+  document.head.appendChild(s);
+}
+
+function ga4Event(name, params) {
+  if (typeof window.gtag === 'function') window.gtag('event', name, params);
+}
 
 function getCarrito() {
   return JSON.parse(localStorage.getItem(CARRITO_KEY) || '[]');
@@ -74,6 +90,11 @@ function addCartItem(item) {
   }
   guardarCarrito(carrito);
   actualizarCarritoUI();
+  ga4Event('add_to_cart', {
+    currency: 'ARS',
+    value: item.precio * (item.cantidad || 1),
+    items: [{ item_id: item.sku, item_name: item.nombre, price: item.precio, quantity: item.cantidad || 1 }]
+  });
   return carrito;
 }
 
@@ -409,6 +430,7 @@ function egCalcularEnvio(zonasData, provincia, partido) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initGA4();
   actualizarCarritoUI();
   initPopupRegistro();
   initOfertaYStockProducto();
@@ -416,4 +438,24 @@ document.addEventListener('DOMContentLoaded', () => {
   registrarProductoVisto();
   mostrarBannerBienvenida();
   initAccountLink();
+
+  if (typeof PRODUCTO !== 'undefined') {
+    ga4Event('view_item', {
+      currency: 'ARS',
+      value: PRODUCTO.precio_venta,
+      items: [{ item_id: PRODUCTO.sku, item_name: PRODUCTO.nombre, price: PRODUCTO.precio_venta, quantity: 1 }]
+    });
+  }
+
+  const enCheckout = location.pathname.endsWith('checkout') || location.pathname.endsWith('checkout.html');
+  if (enCheckout) {
+    const c = getCarrito();
+    if (c.length) {
+      ga4Event('begin_checkout', {
+        currency: 'ARS',
+        value: cartTotal(c),
+        items: c.map(i => ({ item_id: i.sku, item_name: i.nombre, price: i.precio, quantity: i.cantidad }))
+      });
+    }
+  }
 });

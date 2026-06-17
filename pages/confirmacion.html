@@ -150,6 +150,24 @@ function mostrarConfirmacion(orden, estado) {
        <a class="btn btn-outline" href="/">🏠 Volver al inicio</a>`
     : `<a class="btn btn-accent" href="/">🛍️ Seguir comprando</a>`;
 
+  if (est === 'approved') {
+    const _key = `ga4_p_${orden.id}`;
+    if (!sessionStorage.getItem(_key)) {
+      ga4Event('purchase', {
+        transaction_id: String(orden.id),
+        currency: 'ARS',
+        value: Number(orden.total || 0),
+        items: (orden.items || []).map(i => ({
+          item_id: i.sku,
+          item_name: i.producto_nombre || i.sku,
+          price: Number(i.precio_unitario || 0),
+          quantity: i.cantidad
+        }))
+      });
+      sessionStorage.setItem(_key, '1');
+    }
+  }
+
   // Items
   let totalItems = 0;
   const itemsHtml = (orden.items || []).map(i => {
