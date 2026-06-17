@@ -260,7 +260,7 @@ async function cerrarSesion() {
 }
 
 // ── Estado del catálogo ──────────────────────────────────────────────────────
-const _cat = { page: 1, search: '', categoria: '', precio_min: '', precio_max: '', sort: 'comision', order: 'desc', tierPct: 5 };
+const _cat = { page: 1, search: '', categoria: '', precio_min: '', precio_max: '', sort: 'comision', order: 'desc', tierPct: 7 };
 let _todosProductos = [];  // cache para exportar CSV
 
 async function cargarReferidos() {
@@ -280,7 +280,7 @@ async function cargarReferidos() {
     seccion.style.display = 'block';
 
     window._codigoRef = data.codigo || '';
-    const tier = data.tier || { porcentaje: 5, tier: 'base', ventas_mes: 0, next_tier_en: 5, next_porcentaje: 7 };
+    const tier = data.tier || { porcentaje: 7, tier: 'base', ventas_mes: 0, next_tier_en: 5, next_porcentaje: 11 };
     _cat.tierPct = tier.porcentaje;
 
     // Badge de tier

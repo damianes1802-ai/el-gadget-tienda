@@ -278,21 +278,21 @@ def _descuento_referido_escalonado(subtotal: float) -> float:
 
 
 def _get_tier_comision(referido_id: int, conn: sqlite3.Connection) -> dict:
-    """Tier de comisión según ventas del mes: <5→5%, 5-14→7%, ≥15→10%."""
+    """Tier de comisión según ventas del mes: <5→7%, 5-14→11%, ≥15→15%."""
     periodo = datetime.now().strftime('%Y-%m')
     ventas_mes = conn.execute(
         "SELECT COUNT(*) FROM comisiones_referidos WHERE referido_id=? AND periodo=?",
         (referido_id, periodo)
     ).fetchone()[0]
     if ventas_mes >= 15:
-        return {'porcentaje': 10.0, 'tier': 'top', 'ventas_mes': ventas_mes,
+        return {'porcentaje': 15.0, 'tier': 'top', 'ventas_mes': ventas_mes,
                 'next_tier_en': None, 'next_porcentaje': None}
     elif ventas_mes >= 5:
-        return {'porcentaje': 7.0, 'tier': 'activo', 'ventas_mes': ventas_mes,
-                'next_tier_en': 15 - ventas_mes, 'next_porcentaje': 10.0}
+        return {'porcentaje': 11.0, 'tier': 'activo', 'ventas_mes': ventas_mes,
+                'next_tier_en': 15 - ventas_mes, 'next_porcentaje': 15.0}
     else:
-        return {'porcentaje': 5.0, 'tier': 'base', 'ventas_mes': ventas_mes,
-                'next_tier_en': 5 - ventas_mes, 'next_porcentaje': 7.0}
+        return {'porcentaje': 7.0, 'tier': 'base', 'ventas_mes': ventas_mes,
+                'next_tier_en': 5 - ventas_mes, 'next_porcentaje': 11.0}
 
 
 def _comision_producto_referido(precio: float, tier_pct: float) -> dict:
