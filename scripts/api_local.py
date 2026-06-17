@@ -56,6 +56,12 @@ ADMIN_PASSWORD = _env.get('ADMIN_PASSWORD')
 if not ADMIN_PASSWORD:
     raise RuntimeError("ADMIN_PASSWORD no está configurado en las variables de entorno")
 
+def _es_admin(pwd: Optional[str]) -> bool:
+    """Comparación de contraseña admin en tiempo constante (evita timing oracle)."""
+    if not pwd:
+        return False
+    return hmac.compare_digest(pwd, ADMIN_PASSWORD)
+
 # Catálogo versionado en git (productos/historial_precios, se actualiza a
 # diario vía el pipeline y se sobreescribe en cada deploy).
 CATALOGO_REPO_PATH = Path(__file__).parent.parent / 'data' / 'catalogo.db'
@@ -1137,7 +1143,7 @@ def obtener_mis_pedidos(authorization: Optional[str] = Header(None)):
 @app.get("/api/admin/usuarios")
 def listar_usuarios_registrados(x_admin_password: Optional[str] = Header(None)):
     """Lista los usuarios registrados desde el popup de bienvenida (solo admin)"""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1155,7 +1161,7 @@ def listar_usuarios_registrados(x_admin_password: Optional[str] = Header(None)):
 @app.get("/api/admin/usuarios/csv")
 def exportar_usuarios_csv(x_admin_password: Optional[str] = Header(None)):
     """Exporta los usuarios registrados como CSV (solo admin)"""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1184,7 +1190,7 @@ def exportar_usuarios_csv(x_admin_password: Optional[str] = Header(None)):
 @app.delete("/api/admin/usuarios/{usuario_id}")
 def eliminar_usuario_registrado(usuario_id: int, x_admin_password: Optional[str] = Header(None)):
     """Elimina un usuario registrado y sus sesiones activas (solo admin)"""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1256,7 +1262,7 @@ def listar_descuentos(x_admin_password: Optional[str] = Header(None)):
     automáticamente para cada usuario: son una regla fija del sitio,
     no una campaña que se administre desde el panel.
     """
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1280,7 +1286,7 @@ def listar_descuentos(x_admin_password: Optional[str] = Header(None)):
 @app.post("/api/admin/descuentos")
 def crear_descuento(datos: Descuento, x_admin_password: Optional[str] = Header(None)):
     """Crea una nueva campaña de descuento (código, programado o banner) (solo admin)"""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1307,7 +1313,7 @@ def crear_descuento(datos: Descuento, x_admin_password: Optional[str] = Header(N
 @app.patch("/api/admin/descuentos/{descuento_id}")
 def editar_descuento(descuento_id: int, datos: Descuento, x_admin_password: Optional[str] = Header(None)):
     """Edita una campaña de descuento existente (solo admin)"""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1340,7 +1346,7 @@ def editar_descuento(descuento_id: int, datos: Descuento, x_admin_password: Opti
 @app.delete("/api/admin/descuentos/{descuento_id}")
 def eliminar_descuento(descuento_id: int, x_admin_password: Optional[str] = Header(None)):
     """Elimina una campaña de descuento (solo admin)"""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1834,7 +1840,7 @@ def admin_procesar_pago(orden_id: int, x_admin_password: Optional[str] = Header(
     confirmación para una orden (solo admin). Útil para reintentar si
     falló en el webhook, o para probar la integración sin un pago nuevo.
     """
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1862,7 +1868,7 @@ def actualizar_tracking(orden_id: int, datos: ActualizarTracking, x_admin_passwo
     Actualiza el link de seguimiento de Droppers de una orden (solo admin).
     Marca la orden como 'enviado' y registra la fecha de envío.
     """
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1938,7 +1944,7 @@ def eliminar_orden(orden_id: int, x_admin_password: Optional[str] = Header(None)
     Elimina/cancela una orden (solo admin).
     Requiere header X-Admin-Password con la clave correcta.
     """
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1970,7 +1976,7 @@ def verificar_admin(x_admin_password: Optional[str] = Header(None)):
 @app.post("/api/admin/backup")
 def crear_backup(x_admin_password: Optional[str] = Header(None)):
     """Exporta órdenes, clientes y referidos a JSON. Guarda copia en disco persistente."""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -1999,7 +2005,7 @@ def crear_backup(x_admin_password: Optional[str] = Header(None)):
 @app.get("/api/clientes")
 def listar_clientes(x_admin_password: Optional[str] = Header(None)):
     """Lista clientes con cantidad de órdenes y total comprado (solo admin)"""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -2026,7 +2032,7 @@ def eliminar_cliente(cliente_id: int, x_admin_password: Optional[str] = Header(N
     para no dejar pedidos/facturas huérfanos: hay que eliminar primero esas
     órdenes desde la pestaña Pedidos.
     """
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -2061,7 +2067,7 @@ def actualizar_producto(sku: str, datos: ActualizarProducto, x_admin_password: O
     escritorio; los mismos cambios se guardan también en data/catalogo.db
     como overrides_manuales para que sobrevivan a la sincronización diaria.
     """
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     cambios = datos.dict(exclude_unset=True)
@@ -2188,7 +2194,7 @@ def crear_solicitud_arrepentimiento(solicitud: SolicitudArrepentimiento):
 @app.get("/api/arrepentimientos")
 def listar_solicitudes_arrepentimiento(x_admin_password: Optional[str] = Header(None)):
     """Lista las solicitudes de arrepentimiento (solo admin)"""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -2213,7 +2219,7 @@ def actualizar_estado_arrepentimiento(
     x_admin_password: Optional[str] = Header(None)
 ):
     """Actualiza el estado de una solicitud de arrepentimiento (solo admin)"""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     estados_validos = ['pendiente', 'aprobado', 'rechazado']
@@ -2352,7 +2358,7 @@ def listar_historial_actualizaciones(
     (redeploys), ordenadas por fecha descendente, con el detalle de
     productos nuevos/agotados/reingresados de cada corrida (solo admin).
     """
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -2537,7 +2543,7 @@ def dashboard_referido(authorization: Optional[str] = Header(None)):
 @app.get("/api/admin/referidos")
 def admin_listar_referidos(x_admin_password: Optional[str] = Header(None)):
     """Lista todos los referidos con estadísticas agregadas (admin)."""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -2577,7 +2583,7 @@ def admin_listar_referidos(x_admin_password: Optional[str] = Header(None)):
 @app.delete("/api/admin/referidos/{ref_id}")
 def admin_desactivar_referido(ref_id: int, x_admin_password: Optional[str] = Header(None)):
     """Desactiva un referido y su código de descuento (sin eliminar la cuenta de usuario)."""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -2597,7 +2603,7 @@ def admin_desactivar_referido(ref_id: int, x_admin_password: Optional[str] = Hea
 @app.post("/api/admin/referidos/{ref_id}/eliminar")
 def admin_eliminar_referido(ref_id: int, x_admin_password: Optional[str] = Header(None)):
     """Elimina permanentemente un referido, sus comisiones y su código de descuento."""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()
@@ -2629,7 +2635,7 @@ def admin_eliminar_referido(ref_id: int, x_admin_password: Optional[str] = Heade
 def admin_marcar_pagado_referido(ref_id: int, datos: MarcarPagadoReferido,
                                   x_admin_password: Optional[str] = Header(None)):
     """Marca como pagadas todas las comisiones de un periodo para un referido."""
-    if x_admin_password != ADMIN_PASSWORD:
+    if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
 
     conn = get_db()

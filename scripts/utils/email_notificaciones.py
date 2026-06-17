@@ -8,6 +8,7 @@ de Resend (https://resend.com). Mientras no haya un dominio propio verificado,
 se puede usar la dirección sandbox onboarding@resend.dev.
 """
 
+import html as _html
 import sys
 from pathlib import Path
 
@@ -228,8 +229,10 @@ def enviar_email_tracking(orden: dict, tracking_url: str) -> dict:
 
 def enviar_email_bienvenida(nombre: str, email: str) -> dict:
     """Envía email de bienvenida confirmando el registro y el 10% OFF automático."""
+    nombre_s = _html.escape(nombre)
+    email_s = _html.escape(email)
     cuerpo = f"""
-      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Bienvenido/a a {TIENDA_NOMBRE}, {nombre}!</h2>
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Bienvenido/a a {TIENDA_NOMBRE}, {nombre_s}!</h2>
       <p style="color:{GRAY_600};margin:0 0 4px">
         Tu registro se completó con éxito. Como agradecimiento, tenés un
         <strong style="color:{INK}">10% OFF</strong> para tu primera compra.
@@ -242,7 +245,7 @@ def enviar_email_bienvenida(nombre: str, email: str) -> dict:
       </div>
       <p style="color:{GRAY_600};margin:0">
         No necesitás hacer nada más: el descuento se aplica <strong style="color:{INK}">automáticamente</strong>
-        al finalizar tu primera compra, usando este mismo email (<strong style="color:{INK}">{email}</strong>).
+        al finalizar tu primera compra, usando este mismo email (<strong style="color:{INK}">{email_s}</strong>).
       </p>
     """
 
@@ -251,7 +254,6 @@ def enviar_email_bienvenida(nombre: str, email: str) -> dict:
 
 def enviar_email_referido_confirmacion(nombre: str, email: str, codigo: str) -> dict:
     """Confirma al nuevo referente su alta en el programa: código, cómo usarlo y comisión."""
-    import html as _html
     nombre_s = _html.escape(nombre)
     codigo_s = _html.escape(codigo)
     env = Config.cargar_env()
@@ -302,7 +304,6 @@ def enviar_email_referido_confirmacion(nombre: str, email: str, codigo: str) -> 
 
 def enviar_email_referido_admin(nombre: str, email: str, codigo: str, admin_email: str) -> dict:
     """Notifica al admin que se registró un nuevo referido."""
-    import html as _html
     nombre_s = _html.escape(nombre)
     email_s = _html.escape(email)
     codigo_s = _html.escape(codigo)
