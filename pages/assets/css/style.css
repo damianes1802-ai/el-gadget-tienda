@@ -286,7 +286,8 @@ a { color: inherit; }
 }
 .hero h1 em { font-style: normal; color: var(--accent); }
 .hero p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.6; max-width: 480px; margin-bottom: 18px; }
-.hero-badges { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.hero-badges { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 360px; }
+@media (min-width: 600px) { .hero-badges { display: flex; flex-wrap: wrap; justify-content: center; max-width: none; } }
 .hero-badge {
   font-size: 12px;
   font-weight: 600;
@@ -297,9 +298,11 @@ a { color: inherit; }
   color: rgba(255,255,255,0.85);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   text-decoration: none;
   transition: background 0.15s, border-color 0.15s;
+  text-align: center;
 }
 .hero-badge:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); }
 
@@ -308,6 +311,14 @@ a { color: inherit; }
 .trust-strip-inner {
   max-width: 1240px; margin: 0 auto; padding: 0.85rem 1.25rem;
   display: flex; gap: 22px; flex-wrap: wrap; justify-content: center;
+}
+@media (max-width: 599px) {
+  .trust-strip-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+    padding: 0.9rem 1.25rem;
+  }
 }
 .trust-item {
   display: flex; align-items: center; gap: 8px;
