@@ -693,6 +693,7 @@ a { color: inherit; }
 }
 .variant-select:hover, .variant-select:focus { border-color: var(--accent); outline: none; }
 
+.product-description { order: 1; }
 .product-description h3 {
   font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--ink);
 }
