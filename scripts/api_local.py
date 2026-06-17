@@ -189,6 +189,7 @@ class ActualizarProducto(BaseModel):
     categoria: Optional[str] = None
     precio_venta: Optional[float] = None
     stock: Optional[int] = None
+    stock_manual: Optional[bool] = None
     imagen_principal: Optional[str] = None
     imagenes_adicionales: Optional[str] = None
 
@@ -363,6 +364,12 @@ def migrar_db():
     for col_name, col_def in columnas_ordenes_nuevas:
         if col_name not in columnas_ordenes_existentes:
             cursor.execute(f"ALTER TABLE ordenes ADD COLUMN {col_name} {col_def}")
+
+    # Columna de protección de stock manual en productos
+    cursor.execute("PRAGMA table_info(productos)")
+    columnas_productos_existentes = {row[1] for row in cursor.fetchall()}
+    if 'stock_manual' not in columnas_productos_existentes:
+        cursor.execute("ALTER TABLE productos ADD COLUMN stock_manual INTEGER NOT NULL DEFAULT 0")
 
     # Tabla de solicitudes de derecho de arrepentimiento (Ley 24.240 / Res. 424/2020)
     cursor.execute("""
@@ -2109,17 +2116,52 @@ def actualizar_producto(sku: str, datos: ActualizarProducto, x_admin_password: O
     conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT sku FROM productos WHERE sku = ?", (sku,))
-    if not cursor.fetchone():
+    cursor.execute("SELECT sku, overrides_manuales FROM productos WHERE sku = ?", (sku,))
+    fila = cursor.fetchone()
+    if not fila:
         conn.close()
         raise HTTPException(status_code=404, detail="Producto no encontrado")
 
-    columnas = list(cambios.keys())
-    valores = list(cambios.values())
+    overrides = {}
+    if fila['overrides_manuales']:
+        try:
+            overrides = json.loads(fila['overrides_manuales'])
+        except Exception:
+            overrides = {}
+
+    stock_manual_val = cambios.pop('stock_manual', None)
+
+    columnas = []
+    valores = []
+
+    for campo in ('nombre', 'descripcion', 'categoria', 'precio_venta', 'imagen_principal', 'imagenes_adicionales'):
+        if campo in cambios:
+            columnas.append(campo)
+            valores.append(cambios[campo])
+            if campo in ('categoria', 'precio_venta', 'imagen_principal', 'imagenes_adicionales'):
+                overrides[campo] = cambios[campo]
 
     if 'nombre' in cambios or 'descripcion' in cambios:
         columnas.append('seo_optimizado_at')
         valores.append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+    if 'stock' in cambios:
+        columnas.append('stock')
+        valores.append(cambios['stock'])
+        protect = stock_manual_val is not False
+        columnas.append('stock_manual')
+        valores.append(1 if protect else 0)
+        if protect:
+            overrides['stock'] = cambios['stock']
+        else:
+            overrides.pop('stock', None)
+    elif stock_manual_val is False:
+        columnas.append('stock_manual')
+        valores.append(0)
+        overrides.pop('stock', None)
+
+    columnas.append('overrides_manuales')
+    valores.append(json.dumps(overrides, ensure_ascii=False) if overrides else None)
 
     set_clause = ", ".join(f"{col} = ?" for col in columnas)
     cursor.execute(f"UPDATE productos SET {set_clause} WHERE sku = ?", (*valores, sku))

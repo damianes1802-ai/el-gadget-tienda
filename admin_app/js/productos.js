@@ -128,6 +128,7 @@ function abrirEditarProducto(sku) {
   document.getElementById('modal-producto-descripcion').value = p.descripcion || '';
   document.getElementById('modal-producto-categoria').value = p.categoria || '';
   document.getElementById('modal-producto-stock').value = p.stock ?? 0;
+  document.getElementById('modal-producto-stock-manual').checked = !!(p.stock_manual);
   document.getElementById('modal-producto-costo').value = formatPrice(p.precio_costo);
   document.getElementById('modal-producto-precio').value = p.precio_venta ?? 0;
 
@@ -148,12 +149,18 @@ document.getElementById('btn-guardar-producto').addEventListener('click', async 
   const descripcion = document.getElementById('modal-producto-descripcion').value.trim();
   const categoria = document.getElementById('modal-producto-categoria').value.trim();
   const stock = parseInt(document.getElementById('modal-producto-stock').value, 10);
+  const stockManual = document.getElementById('modal-producto-stock-manual').checked;
   const precio = parseFloat(document.getElementById('modal-producto-precio').value);
 
   if (nombre !== (p.nombre || '')) cambios.nombre = nombre;
   if (descripcion !== (p.descripcion || '')) cambios.descripcion = descripcion;
   if (categoria !== (p.categoria || '')) cambios.categoria = categoria;
-  if (!isNaN(stock) && stock !== (p.stock ?? 0)) cambios.stock = stock;
+  if (!isNaN(stock) && stock !== (p.stock ?? 0)) {
+    cambios.stock = stock;
+    cambios.stock_manual = stockManual;
+  } else if (stockManual !== !!(p.stock_manual)) {
+    cambios.stock_manual = stockManual;
+  }
   if (!isNaN(precio) && precio !== (p.precio_venta ?? 0)) cambios.precio_venta = precio;
 
   const imagenesOriginal = parsearImagenesProducto(p);

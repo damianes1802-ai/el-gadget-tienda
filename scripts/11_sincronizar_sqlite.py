@@ -203,6 +203,8 @@ class SincronizadorSQLiteOptimizado:
             cursor.execute("ALTER TABLE productos ADD COLUMN seo_optimizado_at TIMESTAMP")
         if 'overrides_manuales' not in columnas:
             cursor.execute("ALTER TABLE productos ADD COLUMN overrides_manuales TEXT")
+        if 'stock_manual' not in columnas:
+            cursor.execute("ALTER TABLE productos ADD COLUMN stock_manual INTEGER NOT NULL DEFAULT 0")
 
         # ÍNDICES para optimizar búsquedas
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_productos_categoria ON productos(categoria)")
@@ -272,13 +274,15 @@ class SincronizadorSQLiteOptimizado:
 
         # Cachear filas existentes para preservar copy SEO ya optimizado con IA
         cursor = self.conn.cursor()
-        cursor.execute("SELECT sku, nombre, descripcion, seo_optimizado_at, overrides_manuales FROM productos")
+        cursor.execute("SELECT sku, nombre, descripcion, seo_optimizado_at, overrides_manuales, stock_manual, stock FROM productos")
         db_existing = {
             row[0]: {
                 'nombre': row[1],
                 'descripcion': row[2],
                 'seo_optimizado_at': row[3],
                 'overrides_manuales': row[4],
+                'stock_manual': row[5] or 0,
+                'stock': row[6],
             }
             for row in cursor.fetchall()
         }
@@ -330,8 +334,11 @@ class SincronizadorSQLiteOptimizado:
                 subcategoria = metadata.get('subcategoria', '')
                 url_amigable = metadata.get('url_amigable', '')
                 
-                # Stock (siempre 999 si está disponible)
+                # Stock: 999 por defecto; si el admin lo protegió manualmente, preservar
                 stock = 999
+                stock_manual = existente['stock_manual'] if existente else 0
+                if stock_manual and existente and existente['stock'] is not None:
+                    stock = existente['stock']
 
                 # Aplicar overrides manuales (editados desde el Panel El Gadget),
                 # que tienen prioridad sobre los datos recién scrapeados
@@ -389,6 +396,7 @@ class SincronizadorSQLiteOptimizado:
                     precio_costo,
                     precio_venta,
                     stock,
+                    stock_manual,
                     categoria,
                     subcategoria,
                     '',  # marca
@@ -481,12 +489,12 @@ class SincronizadorSQLiteOptimizado:
             cursor.executemany("""
                 INSERT OR REPLACE INTO productos (
                     sku, nombre, descripcion, precio_costo, precio_venta,
-                    stock, categoria, subcategoria, marca,
+                    stock, stock_manual, categoria, subcategoria, marca,
                     imagen_principal, imagenes_adicionales,
                     item_group_id, color, talle, material, peso,
                     link_producto, url_amigable, variantes_internas, seo_optimizado_at,
                     overrides_manuales, actualizado_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
             """, productos_data)
             
             # BULK INSERT historial

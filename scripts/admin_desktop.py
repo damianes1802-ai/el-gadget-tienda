@@ -129,6 +129,10 @@ class Api:
 
             overrides = json.loads(row['overrides_manuales']) if row['overrides_manuales'] else {}
 
+            # stock_manual no es un campo de la tabla productos que se pueda pisar
+            # directamente con el loop genérico; lo extraemos antes.
+            stock_manual_val = cambios.pop('stock_manual', None)
+
             set_cols = []
             set_vals = []
 
@@ -142,11 +146,27 @@ class Api:
                 set_cols.append('seo_optimizado_at')
                 set_vals.append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
-            for campo in ('categoria', 'precio_venta', 'stock', 'imagen_principal', 'imagenes_adicionales'):
+            for campo in ('categoria', 'precio_venta', 'imagen_principal', 'imagenes_adicionales'):
                 if campo in cambios:
                     overrides[campo] = cambios[campo]
                     set_cols.append(campo)
                     set_vals.append(cambios[campo])
+
+            if 'stock' in cambios:
+                set_cols.append('stock')
+                set_vals.append(cambios['stock'])
+                protect = stock_manual_val is not False  # proteger por defecto al editar stock
+                set_cols.append('stock_manual')
+                set_vals.append(1 if protect else 0)
+                if protect:
+                    overrides['stock'] = cambios['stock']
+                else:
+                    overrides.pop('stock', None)
+            elif stock_manual_val is False:
+                # solo desproteger sin cambiar el valor de stock
+                set_cols.append('stock_manual')
+                set_vals.append(0)
+                overrides.pop('stock', None)
 
             set_cols.append('overrides_manuales')
             set_vals.append(json.dumps(overrides, ensure_ascii=False))
