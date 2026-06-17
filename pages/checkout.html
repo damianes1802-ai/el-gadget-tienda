@@ -102,7 +102,13 @@
           <input type="text" id="cuit_dni" placeholder="Ej: 12345678 (DNI) o 20-12345678-9 (CUIT)">
         </div>
 
-        <button type="button" class="btn btn-accent btn-block" style="margin-top:22px" onclick="avanzarStep2()">
+        <div class="field" style="margin-top:16px">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600)">
+            <input type="checkbox" id="consentimientoCheckout" style="margin-top:2px;flex-shrink:0;width:16px;height:16px">
+            <span>Acepto la <a href="privacidad" target="_blank" style="color:var(--ink);font-weight:600">Política de Privacidad</a>. Mis datos serán usados únicamente para gestionar mi pedido y envío.</span>
+          </label>
+        </div>
+        <button type="button" class="btn btn-accent btn-block" style="margin-top:16px" onclick="avanzarStep2()">
           Continuar con la dirección →
         </button>
       </div>
@@ -253,12 +259,12 @@
     <div class="footer-col">
       <h4>Información</h4>
       <a href="sobre_nosotros">Sobre nosotros</a>
-      <a href="#" onclick="return false;">Envíos a todo el país</a>
-      <a href="#" onclick="return false;">Pagos seguros</a>
+      <a href="privacidad">Política de privacidad</a>
+      <a href="devoluciones">Devoluciones y garantías</a>
       <a href="arrepentimiento">Botón de arrepentimiento</a>
     </div>
   </div>
-  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
+  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados · <a href="privacidad" style="color:inherit;opacity:.8;text-decoration:none">Privacidad</a> · <a href="arrepentimiento" style="color:inherit;opacity:.8;text-decoration:none">Arrepentimiento</a></div>
 </footer>
 
 <!-- WHATSAPP FLOTANTE -->
@@ -289,6 +295,9 @@ function avanzarStep2() {
     if (!el.value.trim()) { el.classList.add('error'); ok = false; }
   });
   if (!ok) { showToast('⚠️ Completá todos los campos antes de continuar'); return; }
+  if (!document.getElementById('consentimientoCheckout').checked) {
+    showToast('⚠️ Aceptá la Política de Privacidad para continuar'); return;
+  }
 
   currentStep = 2;
   document.getElementById('step1Panel').style.display = 'none';

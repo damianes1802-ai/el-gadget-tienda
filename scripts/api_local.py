@@ -195,7 +195,7 @@ class ActualizarProducto(BaseModel):
 
 
 class SolicitudArrepentimiento(BaseModel):
-    """Modelo para solicitar el derecho de arrepentimiento (Ley 24.240 / Res. 424/2020)"""
+    """Modelo para solicitar el derecho de arrepentimiento (Ley 24.240 / Disposición 954/2025)"""
     orden_id: int
     email: EmailStr
     motivo: Optional[str] = ""
@@ -408,7 +408,7 @@ def migrar_db():
     if 'stock_manual' not in columnas_productos_existentes:
         cursor.execute("ALTER TABLE productos ADD COLUMN stock_manual INTEGER NOT NULL DEFAULT 0")
 
-    # Tabla de solicitudes de derecho de arrepentimiento (Ley 24.240 / Res. 424/2020)
+    # Tabla de solicitudes de derecho de arrepentimiento (Ley 24.240 / Disposición 954/2025)
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS solicitudes_arrepentimiento (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -2538,7 +2538,7 @@ def seguimiento_orden(orden_id: int, email: str = Query(...)):
 
 
 # ============================================================================
-# ENDPOINTS - BOTÓN DE ARREPENTIMIENTO (Ley 24.240 / Res. 424/2020)
+# ENDPOINTS - BOTÓN DE ARREPENTIMIENTO (Ley 24.240 / Disposición 954/2025)
 # ============================================================================
 
 @app.post("/api/arrepentimiento")

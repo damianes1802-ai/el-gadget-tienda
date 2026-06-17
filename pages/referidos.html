@@ -440,7 +440,13 @@
         <input type="password" id="refPassword" placeholder="Mínimo 6 caracteres" required minlength="6" autocomplete="new-password">
         <div class="hint">Si ya tenés cuenta en El Gadget, usá la misma contraseña</div>
       </div>
-      <button type="submit" class="btn btn-accent" id="refSubmitBtn" style="width:100%;margin-top:8px">
+      <div class="ref-field" style="margin-top:8px">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600)">
+          <input type="checkbox" id="refConsentimiento" style="margin-top:3px;flex-shrink:0;width:16px;height:16px" required>
+          <span>Acepto la <a href="/privacidad" target="_blank" style="color:var(--ink);font-weight:600">Política de Privacidad</a>. Mis datos (nombre, email, teléfono, DNI) se usarán para gestionar mi cuenta de referido.</span>
+        </label>
+      </div>
+      <button type="submit" class="btn btn-accent" id="refSubmitBtn" style="width:100%;margin-top:12px">
         Quiero mi código gratis
       </button>
     </form>

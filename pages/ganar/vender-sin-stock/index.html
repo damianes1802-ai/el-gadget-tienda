@@ -360,10 +360,12 @@
       <a href="/faq">Preguntas frecuentes</a>
       <a href="/sobre_nosotros">Sobre nosotros</a>
       <a href="/referidos">Programa de referidos</a>
+      <a href="/privacidad">Política de privacidad</a>
+      <a href="/arrepentimiento">Botón de arrepentimiento</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2025 El Gadget. Todos los derechos reservados.</p>
+    <p>&copy; <span id="yearGanar"></span> El Gadget. Todos los derechos reservados. · <a href="/privacidad" style="color:inherit;opacity:.8;text-decoration:none">Privacidad</a> · <a href="/arrepentimiento" style="color:inherit;opacity:.8;text-decoration:none">Arrepentimiento</a></p>
   </div>
 </footer>
 
@@ -381,6 +383,7 @@ function toggleFaq(btn) {
   document.querySelectorAll('.ref-faq-q').forEach(b => b.classList.remove('open'));
   if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
 }
+document.getElementById("yearGanar") && (document.getElementById("yearGanar").textContent = new Date().getFullYear());
 </script>
 </body>
 </html>
