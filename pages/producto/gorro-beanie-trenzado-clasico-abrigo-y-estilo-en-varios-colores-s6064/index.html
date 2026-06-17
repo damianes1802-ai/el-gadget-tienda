@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Variedad para tu estilo: Disponible en 5 colores distintos. Cada compra es una sorpresa, ¡descubrí el color que te toca y dale un toque único a tu vestuario!
 - Precio imperdible: Aprovechá esta oferta especial para sumar un gorro esencial a tu guardarropa o para hacer un regalo práctico y con onda.
 No dejes que el invierno te frene. Elegí este gorro de lana tejido y preparate para disfrutar de la temporada con comodidad y a la moda. ¡Sumalo a tu carrito hoy y sorprendete con tu nuevo color!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ No dejes que el invierno te frene. Elegí este gorro de lana tejido y preparate 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "S6064", "nombre": "Gorro Beanie Trenzado Clásico - Abrigo y Estilo en Varios Colores", "precio_venta": 8000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Combatí el frío con estilo este invierno. El gorro beanie trenzado clásico es el accesorio perfecto para mantenerte abrigado sin sacrificar tu look, combinando funcionalidad y moda para tus días más frescos en Argentina.\n- Diseño trenzado clásico: Un estilo atemporal que combina con cualquier outfit, sumando un toque de elegancia y textura a tu look invernal.\n- Máximo confort y abrigo: Ideal para los días más frescos, te protege del frío con un tejido suave y cómodo, perfecto para la rutina o escapadas.\n- Variedad para tu estilo: Disponible en 5 colores distintos. Cada compra es una sorpresa, ¡descubrí el color que te toca y dale un toque único a tu vestuario!\n- Precio imperdible: Aprovechá esta oferta especial para sumar un gorro esencial a tu guardarropa o para hacer un regalo práctico y con onda.\nNo dejes que el invierno te frene. Elegí este gorro de lana tejido y preparate para disfrutar de la temporada con comodidad y a la moda. ¡Sumalo a tu carrito hoy y sorprendete con tu nuevo color!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6064_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "S6064", "nombre": "Gorro Beanie Trenzado Clásico - Abrigo y Estilo en Varios Colores", "precio_venta": 8000.0, "stock": 6, "color": "", "talle": "", "descripcion": "Combatí el frío con estilo este invierno. El gorro beanie trenzado clásico es el accesorio perfecto para mantenerte abrigado sin sacrificar tu look, combinando funcionalidad y moda para tus días más frescos en Argentina.\n- Diseño trenzado clásico: Un estilo atemporal que combina con cualquier outfit, sumando un toque de elegancia y textura a tu look invernal.\n- Máximo confort y abrigo: Ideal para los días más frescos, te protege del frío con un tejido suave y cómodo, perfecto para la rutina o escapadas.\n- Variedad para tu estilo: Disponible en 5 colores distintos. Cada compra es una sorpresa, ¡descubrí el color que te toca y dale un toque único a tu vestuario!\n- Precio imperdible: Aprovechá esta oferta especial para sumar un gorro esencial a tu guardarropa o para hacer un regalo práctico y con onda.\nNo dejes que el invierno te frene. Elegí este gorro de lana tejido y preparate para disfrutar de la temporada con comodidad y a la moda. ¡Sumalo a tu carrito hoy y sorprendete con tu nuevo color!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6064_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

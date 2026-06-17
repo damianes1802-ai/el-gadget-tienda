@@ -84,6 +84,12 @@
         <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)"><option value="S">S</option><option value="M">M</option><option value="L">L</option></select>
       </div>
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -93,12 +99,6 @@
 - Tiras regulables para un ajuste perfecto: adaptá la parte inferior a tu cuerpo para la máxima comodidad y un calce ideal.
 - Disponible en talles S, M y L: encontrá la medida justa para vos y disfrutá de cada momento del verano sin preocupaciones.
 Preparate para disfrutar de la temporada con un traje de baño que combina moda y confort. Esta bikini es ideal para tus escapadas veraniegas, ofreciendo un calce que te encantará. ¡Sumala hoy a tu carrito y lucí espectacular!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -197,7 +197,7 @@ Preparate para disfrutar de la temporada con un traje de baño que combina moda 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-PAS15B", "nombre": "Bikini Cherry Vedetina con Tiras Para Atar - Malla de Verano Trendy", "precio_venta": 28500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Llevate este bikini Cherry Vedetina, la malla perfecta para lucir radiante y cómoda este verano en la playa o pileta. Su diseño con tiras te permite ajustarla a tu medida, realzando tu figura con estilo y frescura.\n- Diseño exclusivo Cherry: un estampado fresco y divertido que te hará destacar en cualquier balneario argentino.\n- Vedetina cómoda y moderna: ofrece la cobertura justa para sentirte segura y a la moda, sin perder el toque audaz.\n- Tiras regulables para un ajuste perfecto: adaptá la parte inferior a tu cuerpo para la máxima comodidad y un calce ideal.\n- Disponible en talles S, M y L: encontrá la medida justa para vos y disfrutá de cada momento del verano sin preocupaciones.\nPreparate para disfrutar de la temporada con un traje de baño que combina moda y confort. Esta bikini es ideal para tus escapadas veraniegas, ofreciendo un calce que te encantará. ¡Sumala hoy a tu carrito y lucí espectacular!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS15B-S", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "A-PAS15B-M", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "L", "sku_interno": "A-PAS15B-L", "imagenes": []}], "variantes": []};
+const PRODUCTO = {"sku": "A-PAS15B", "nombre": "Bikini Cherry Vedetina con Tiras Para Atar - Malla de Verano Trendy", "precio_venta": 28500.0, "stock": 11, "color": "", "talle": "", "descripcion": "Llevate este bikini Cherry Vedetina, la malla perfecta para lucir radiante y cómoda este verano en la playa o pileta. Su diseño con tiras te permite ajustarla a tu medida, realzando tu figura con estilo y frescura.\n- Diseño exclusivo Cherry: un estampado fresco y divertido que te hará destacar en cualquier balneario argentino.\n- Vedetina cómoda y moderna: ofrece la cobertura justa para sentirte segura y a la moda, sin perder el toque audaz.\n- Tiras regulables para un ajuste perfecto: adaptá la parte inferior a tu cuerpo para la máxima comodidad y un calce ideal.\n- Disponible en talles S, M y L: encontrá la medida justa para vos y disfrutá de cada momento del verano sin preocupaciones.\nPreparate para disfrutar de la temporada con un traje de baño que combina moda y confort. Esta bikini es ideal para tus escapadas veraniegas, ofreciendo un calce que te encantará. ¡Sumala hoy a tu carrito y lucí espectacular!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS15B-S", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "A-PAS15B-M", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "L", "sku_interno": "A-PAS15B-L", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

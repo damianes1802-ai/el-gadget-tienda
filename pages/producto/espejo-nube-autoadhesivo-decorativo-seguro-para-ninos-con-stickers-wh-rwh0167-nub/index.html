@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Personalización sin límites: con los stickers incluidos, vos y tus hijos pueden crear diseños únicos y originales, ¡dale rienda suelta a la imaginación y hacé que cada pared cuente una historia!
 - Súper versátil y fácil de aplicar: pegalo en cualquier superficie lisa, desde paredes de dormitorios infantiles hasta puertas o armarios, renovando espacios sin esfuerzo.
 Ideal como regalo original o para darle un aire fresco a cualquier rincón, este espejo decorativo infantil es la forma más simple de sumar alegría y estilo. No esperes más, sumalo a tu carrito hoy y creá un espacio único para disfrutar.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Ideal como regalo original o para darle un aire fresco a cualquier rincón, este
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH-RWH0167-NUB", "nombre": "Espejo Nube Autoadhesivo Decorativo Seguro para Niños con Stickers", "precio_venta": 6500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Transformá la habitación de los más chicos con este encantador espejo autoadhesivo en forma de nube, ideal para agregar un toque mágico y seguro a sus espacios. Es el complemento perfecto para una decoración infantil moderna y divertida, sin los riesgos del vidrio.\n- Diseñado pensando en los más pequeños: olvidate de preocupaciones, este espejo no es de vidrio, garantizando un ambiente seguro y divertido para tus hijos.\n- Agrandá y iluminá el ambiente: su superficie reflectante hace que cualquier habitación parezca más amplia y luminosa al instante.\n- Personalización sin límites: con los stickers incluidos, vos y tus hijos pueden crear diseños únicos y originales, ¡dale rienda suelta a la imaginación y hacé que cada pared cuente una historia!\n- Súper versátil y fácil de aplicar: pegalo en cualquier superficie lisa, desde paredes de dormitorios infantiles hasta puertas o armarios, renovando espacios sin esfuerzo.\nIdeal como regalo original o para darle un aire fresco a cualquier rincón, este espejo decorativo infantil es la forma más simple de sumar alegría y estilo. No esperes más, sumalo a tu carrito hoy y creá un espacio único para disfrutar.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH-RWH0167-NUB", "nombre": "Espejo Nube Autoadhesivo Decorativo Seguro para Niños con Stickers", "precio_venta": 6500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Transformá la habitación de los más chicos con este encantador espejo autoadhesivo en forma de nube, ideal para agregar un toque mágico y seguro a sus espacios. Es el complemento perfecto para una decoración infantil moderna y divertida, sin los riesgos del vidrio.\n- Diseñado pensando en los más pequeños: olvidate de preocupaciones, este espejo no es de vidrio, garantizando un ambiente seguro y divertido para tus hijos.\n- Agrandá y iluminá el ambiente: su superficie reflectante hace que cualquier habitación parezca más amplia y luminosa al instante.\n- Personalización sin límites: con los stickers incluidos, vos y tus hijos pueden crear diseños únicos y originales, ¡dale rienda suelta a la imaginación y hacé que cada pared cuente una historia!\n- Súper versátil y fácil de aplicar: pegalo en cualquier superficie lisa, desde paredes de dormitorios infantiles hasta puertas o armarios, renovando espacios sin esfuerzo.\nIdeal como regalo original o para darle un aire fresco a cualquier rincón, este espejo decorativo infantil es la forma más simple de sumar alegría y estilo. No esperes más, sumalo a tu carrito hoy y creá un espacio único para disfrutar.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

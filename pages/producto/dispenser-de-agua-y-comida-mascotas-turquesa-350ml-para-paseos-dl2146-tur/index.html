@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Su capacidad de 350ml es ideal para llevar la porción justa que tu perro o gato necesita durante paseos diarios, visitas al parque o viajes cortos.
 - Viene en colores vibrantes como blanco, rosa y turquesa. El que recibas será una sorpresa, ¡pero siempre funcional y con estilo para tu compañero!
 Es el accesorio esencial para dueños que aman la vida al aire libre con sus mascotas. Sumalo hoy mismo a tu carrito y preparate para compartir momentos inolvidables sin preocupaciones.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Es el accesorio esencial para dueños que aman la vida al aire libre con sus mas
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL2146-TUR", "nombre": "Dispenser de Agua y Comida Mascotas Turquesa 350ml, para paseos", "precio_venta": 25500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Mantener a tu mascota hidratada y alimentada en cada paseo es clave. Con este dispenser de agua y comida, tenés la solución perfecta y práctica en tus manos. Este accesorio para mascotas te permite llevar todo lo necesario para tu compañero, ya sea un perro o un gato, garantizando su bienestar en cada aventura.\n- Disfrutá de la comodidad de tener agua y comida en un solo lugar. Este dispenser 2 en 1 te evita cargar con múltiples recipientes, simplificando cada salida.\n- Su capacidad de 350ml es ideal para llevar la porción justa que tu perro o gato necesita durante paseos diarios, visitas al parque o viajes cortos.\n- Viene en colores vibrantes como blanco, rosa y turquesa. El que recibas será una sorpresa, ¡pero siempre funcional y con estilo para tu compañero!\nEs el accesorio esencial para dueños que aman la vida al aire libre con sus mascotas. Sumalo hoy mismo a tu carrito y preparate para compartir momentos inolvidables sin preocupaciones.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_007"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL2146-TUR", "nombre": "Dispenser de Agua y Comida Mascotas Turquesa 350ml, para paseos", "precio_venta": 25500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Mantener a tu mascota hidratada y alimentada en cada paseo es clave. Con este dispenser de agua y comida, tenés la solución perfecta y práctica en tus manos. Este accesorio para mascotas te permite llevar todo lo necesario para tu compañero, ya sea un perro o un gato, garantizando su bienestar en cada aventura.\n- Disfrutá de la comodidad de tener agua y comida en un solo lugar. Este dispenser 2 en 1 te evita cargar con múltiples recipientes, simplificando cada salida.\n- Su capacidad de 350ml es ideal para llevar la porción justa que tu perro o gato necesita durante paseos diarios, visitas al parque o viajes cortos.\n- Viene en colores vibrantes como blanco, rosa y turquesa. El que recibas será una sorpresa, ¡pero siempre funcional y con estilo para tu compañero!\nEs el accesorio esencial para dueños que aman la vida al aire libre con sus mascotas. Sumalo hoy mismo a tu carrito y preparate para compartir momentos inolvidables sin preocupaciones.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_007"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

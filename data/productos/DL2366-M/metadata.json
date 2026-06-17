@@ -1,0 +1,52 @@
+{
+  "sku": "DL2366-M",
+  "titulo": "Corrector Postura Faja Soporte Lumbar Talle M",
+  "precio": 4290,
+  "descripcion": "CORRECTOR DE POSTURA Y SOPORTE LUMBAR ERGONÓMICO PREMIUM\nMejorá tu calidad de vida, aliviá tensiones musculares y corregí tu postura diaria con este soporte de diseño avanzado. Ideal para quienes pasan largas horas sentados frente a la computadora, realizan tareas de pie o desean entrenar su memoria muscular, este corrector ayuda a alinear los hombros, enderezar la espalda y estabilizar la región lumbar de forma progresiva y confortable.\nCARACTERÍSTICAS DESTACADAS:\nSistema de tracción ergonómico: Su estructura central ejerce una presión suave pero firme que empuja los hombros hacia atrás, forzando la alineación natural de la columna y evitando la postura encorvada.\nAjuste de compresión doble: Cuenta con bandas elásticas regulables que se sujetan firmemente alrededor del abdomen, permitiendo personalizar el nivel de tensión deseado según la contextura física de cada usuario.\nDiseño tipo mochila simple: Se coloca de forma rápida y sencilla sin necesidad de asistencia. Solo se pasan los brazos por los lazos, se estiran las correas elásticas hacia el frente y se sujetan con su sistema de abrojo de alta adherencia.\nConfortable y discreto: Confeccionado con materiales ligeros y paneles respirables que reducen la transpiración. Su perfil estilizado permite llevarlo cómodamente debajo de la ropa diaria, buzos o remeras sin que se note.\nGUÍA DE TALLES:\nPara seleccionar el talle adecuado, medí el contorno de la parte inferior de tu pecho (circunferencia del torso justo debajo de los pectorales/busto) y verificalo junto con tu estatura:\nTalle S: Adecuado para un contorno de torso de 71 cm a 81 cm / Estatura recomendada de 150 cm a 160 cm\nTalle M: Adecuado para un contorno de torso de 81 cm a 91 cm / Estatura recomendada de 155 cm a 170 cm\nTalle L: Adecuado para un contorno de torso de 91 cm a 111 cm / Estatura recomendada de 165 cm a 180 cm\nNota: Si tus medidas se encuentran en el límite superior de un talle, se sugiere elegir el talle siguiente para mayor comodidad. Si buscás un calce muy ajustado, seleccioná el talle menor.\nESPECIFICACIONES TÉCNICAS:\nColor: Gris\nModelo: Unisex (apto para hombres y mujeres)\nTipo de ajuste: Bandas elásticas con abrojo regulable\nZona de cuidado: Espalda alta, hombros y soporte lumbar bajo",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2366_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2366_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2366_10_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2366_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2366_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2366_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2366_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2366_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2366_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2366_9_.png"
+  ],
+  "cantidad_imagenes": 10,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5929/",
+  "fecha_scraping": "2026-06-17T11:28:27.508568",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696792/prod_DL2366-M_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696793/prod_DL2366-M_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696794/prod_DL2366-M_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696795/prod_DL2366-M_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696796/prod_DL2366-M_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696797/prod_DL2366-M_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696798/prod_DL2366-M_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696799/prod_DL2366-M_008.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696799/prod_DL2366-M_009.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696800/prod_DL2366-M_010.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 4290,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 4290,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 7293.0,
+    "precio_final": 7500.0,
+    "ganancia_neta": 3210.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 7500.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.073680"
+}

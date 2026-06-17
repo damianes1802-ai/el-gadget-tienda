@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/body-infantil-para-bebes-2.html",
-  "fecha_scraping": "2026-06-16T11:52:17.061544",
+  "fecha_scraping": "2026-06-17T11:35:43.274796",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-16T11:57:51.752555",
+  "fecha_mapeo_categorias": "2026-06-17T11:41:39.911659",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-59CR_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 28000.0,
-  "fecha_calculo_precio": "2026-06-16T11:59:40.173789"
+  "fecha_calculo_precio": "2026-06-17T11:47:31.142377"
 }

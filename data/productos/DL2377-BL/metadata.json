@@ -1,0 +1,55 @@
+{
+  "sku": "DL2377-BL",
+  "titulo": "Cerradura de Seguridad Traba Cajones Adhesivo Blanco",
+  "precio": 7490,
+  "descripcion": "CERRADURA DE SEGURIDAD PARA NIÑOS Y BEBES CON LLAVE\nProtegé a los más chicos de la casa y mantené tus ambientes seguros con este candado de seguridad multiuso. Diseñado especialmente para evitar que los bebés o las mascotas abran el refrigerador, cajones o armarios, previene accidentes domésticos de forma efectiva y cuida tus pertenencias sin alterar la estética de tu hogar.\nCARACTERÍSTICAS DESTACADAS:\nFijación autoadhesiva de alta resistencia: Cuenta con una potente almohadilla adhesiva en la parte posterior que garantiza un agarre firme y duradero. No requiere perforaciones, herramientas ni tornillos, protegiendo tus muebles costosos de cualquier daño.\nSistema de apertura con llave: Para abrir la cerradura, solo es necesario introducir la llave y girarla suavemente 90 grados. Al cerrarlo, simplemente retirás la llave para asegurarte de que tu hijo no pueda abrir el compartimento por su cuenta.\nMateriales premium duraderos: Fabricado con bases de material ABS de alta resistencia y un cable de acero inoxidable trenzado de gran durabilidad que soporta tirones y el desgaste diario.\nAplicación universal y versátil: Ideal para utilizar como traba de heladeras, congeladores, armarios, cajones, archivadores, estanterías y ventanas. Es apto para su colocación en superficies lisas como madera, vidrio, metal, plástico, mármol y PVC.\nMEDIDAS Y ESPECIFICACIONES:\nLargo total del cable de acero: 17 cm\nAncho de las bases adhesivas: 6 cm\nAlto de las bases adhesivas: 5 cm\nLargo de la llave: 3 cm\nAncho de la llave: 1.5 cm\nMaterial: ABS y acero inoxidable\nTipo de fijación: Adhesiva (no requiere perforar)\nIncluye: Base receptora con cable, base de bloqueo y llave de apertura",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2377-bl_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2377-bl_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2377-bl_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2377-bl_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2377-bl_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2377-bl_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2377-bl_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2377-bl_8_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/cerradura-de-seguridad-traba-cajones-adhesivo-blanco-1.html",
+  "fecha_scraping": "2026-06-17T11:37:55.142689",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-17T11:41:39.950505",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2377-BL_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2377-BL_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2377-BL_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2377-BL_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2377-BL_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2377-BL_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2377-BL_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2377-BL_008"
+  ],
+  "calculo_precio": {
+    "precio_costo": 7490,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 7490,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 12733.0,
+    "precio_final": 13000.0,
+    "ganancia_neta": 5510.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 13000.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.075042"
+}

@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Tamaño ideal para cualquier rincón: Con sus 20cm aproximados, esta velador unicornio es perfecta para una mesa de luz, estante o escritorio, sumando encanto sin ocupar mucho espacio.
 - Libertad inalámbrica: Funciona con 3 pilas AAA (no incluidas), para que puedas ubicarla donde quieras sin depender de enchufes ni cables a la vista.
 Ya sea para un regalo inolvidable, para darle onda a una habitación infantil o simplemente para sumar una pieza original a tu decoración, este velador LED de unicornio es el detalle que estabas buscando. Sumalo a tu carrito hoy y llevate la magia a casa.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Ya sea para un regalo inolvidable, para darle onda a una habitación infantil o 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-R2234-028C", "nombre": "Velador Led Unicornio Efecto Infinito Espejado Decorativo", "precio_venta": 20500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque mágico y único a cualquier espacio con esta lámpara LED Unicornio. Su diseño espejado crea un fascinante efecto infinito que encantará a grandes y chicos, ideal para transformar la deco de tu hogar.\n- Un efecto infinito que hipnotiza: La superficie espejada de esta lámpara unicornio multiplica la luz LED, creando una ilusión de profundidad sin fin que sorprende y decora.\n- Iluminación LED eficiente y segura: Disfrutá de una luz suave y blanca con bajo consumo energético, perfecta para crear un ambiente relajante en dormitorios o salitas.\n- Tamaño ideal para cualquier rincón: Con sus 20cm aproximados, esta velador unicornio es perfecta para una mesa de luz, estante o escritorio, sumando encanto sin ocupar mucho espacio.\n- Libertad inalámbrica: Funciona con 3 pilas AAA (no incluidas), para que puedas ubicarla donde quieras sin depender de enchufes ni cables a la vista.\nYa sea para un regalo inolvidable, para darle onda a una habitación infantil o simplemente para sumar una pieza original a tu decoración, este velador LED de unicornio es el detalle que estabas buscando. Sumalo a tu carrito hoy y llevate la magia a casa.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028C_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028C_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028C_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028C_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "A-R2234-028C", "nombre": "Velador Led Unicornio Efecto Infinito Espejado Decorativo", "precio_venta": 20500.0, "stock": 13, "color": "", "talle": "", "descripcion": "Dale un toque mágico y único a cualquier espacio con esta lámpara LED Unicornio. Su diseño espejado crea un fascinante efecto infinito que encantará a grandes y chicos, ideal para transformar la deco de tu hogar.\n- Un efecto infinito que hipnotiza: La superficie espejada de esta lámpara unicornio multiplica la luz LED, creando una ilusión de profundidad sin fin que sorprende y decora.\n- Iluminación LED eficiente y segura: Disfrutá de una luz suave y blanca con bajo consumo energético, perfecta para crear un ambiente relajante en dormitorios o salitas.\n- Tamaño ideal para cualquier rincón: Con sus 20cm aproximados, esta velador unicornio es perfecta para una mesa de luz, estante o escritorio, sumando encanto sin ocupar mucho espacio.\n- Libertad inalámbrica: Funciona con 3 pilas AAA (no incluidas), para que puedas ubicarla donde quieras sin depender de enchufes ni cables a la vista.\nYa sea para un regalo inolvidable, para darle onda a una habitación infantil o simplemente para sumar una pieza original a tu decoración, este velador LED de unicornio es el detalle que estabas buscando. Sumalo a tu carrito hoy y llevate la magia a casa.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028C_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028C_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028C_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028C_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

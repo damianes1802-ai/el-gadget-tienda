@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -91,12 +97,6 @@
 - Colores vibrantes: disponible en blanco y rosa. Te enviaremos una de estas opciones surtidas para sorprender a tu peque.
 
 Ideal para el día a día, esta botella es el gadget perfecto para el bazar y cocina de cualquier familia con chicos, o un regalo original y super útil. Que no se te escape: ¡sumala a tu carrito y asegurá la hidratación más divertida!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -195,7 +195,7 @@ Ideal para el día a día, esta botella es el gadget perfecto para el bazar y co
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH0063", "nombre": "Botella infantil 700ml divertida con stickers y apliques 3D", "precio_venta": 21000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Mantené a tus chicos hidratados y súper divertidos con esta botella infantil de 700ml, ideal para el colegio o cualquier salida. Combina funcionalidad con un toque personal único.\n\n- Capacidad ideal de 700ml: tus hijos tendrán suficiente agua para todo el día, sin necesidad de recargar constantemente.\n- ¡Personalización a full! Viene con stickers y apliques 3D para que cada niño la decore a su gusto, haciendo la hidratación mucho más divertida.\n- Diseñada pensando en los más pequeños: es liviana y fácil de transportar, perfecta para sus manos y sus mochilas.\n- Colores vibrantes: disponible en blanco y rosa. Te enviaremos una de estas opciones surtidas para sorprender a tu peque.\n\nIdeal para el día a día, esta botella es el gadget perfecto para el bazar y cocina de cualquier familia con chicos, o un regalo original y super útil. Que no se te escape: ¡sumala a tu carrito y asegurá la hidratación más divertida!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0063_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0063_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0063_003"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH0063", "nombre": "Botella infantil 700ml divertida con stickers y apliques 3D", "precio_venta": 21000.0, "stock": 8, "color": "", "talle": "", "descripcion": "Mantené a tus chicos hidratados y súper divertidos con esta botella infantil de 700ml, ideal para el colegio o cualquier salida. Combina funcionalidad con un toque personal único.\n\n- Capacidad ideal de 700ml: tus hijos tendrán suficiente agua para todo el día, sin necesidad de recargar constantemente.\n- ¡Personalización a full! Viene con stickers y apliques 3D para que cada niño la decore a su gusto, haciendo la hidratación mucho más divertida.\n- Diseñada pensando en los más pequeños: es liviana y fácil de transportar, perfecta para sus manos y sus mochilas.\n- Colores vibrantes: disponible en blanco y rosa. Te enviaremos una de estas opciones surtidas para sorprender a tu peque.\n\nIdeal para el día a día, esta botella es el gadget perfecto para el bazar y cocina de cualquier familia con chicos, o un regalo original y super útil. Que no se te escape: ¡sumala a tu carrito y asegurá la hidratación más divertida!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0063_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0063_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0063_003"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

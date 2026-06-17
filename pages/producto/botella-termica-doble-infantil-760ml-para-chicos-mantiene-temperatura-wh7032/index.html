@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Su amplia capacidad de 760ml asegura que los chicos estén hidratados sin necesidad de rellenar constantemente, ¡perfecta para una jornada completa!
 - Se envía en colores divertidos y atractivos como lila, turquesa o rosa, que encantan a los chicos y le dan un toque de alegría a sus días.
 Esta botella infantil es el gadget ideal para el día a día, garantizando que tus hijos se mantengan bien hidratados con estilo. ¡No te quedes sin la tuya! Sumala al carrito y asegurale a los más chicos su cantimplora termo favorita para todas sus aventuras.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Esta botella infantil es el gadget ideal para el día a día, garantizando que t
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7032", "nombre": "Botella Térmica Doble Infantil 760ml para Chicos - Mantiene Temperatura", "precio_venta": 21000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Asegurá la hidratación diaria de los más chicos con esta botella térmica doble infantil de 760ml. Perfecta para la escuela, el club o cualquier aventura, mantiene sus bebidas favoritas a la temperatura ideal por más tiempo.\n- Mantiene las bebidas frías o calientes durante horas gracias a su diseño de doble pared, ideal para los días de calor o las tardes frescas.\n- Su amplia capacidad de 760ml asegura que los chicos estén hidratados sin necesidad de rellenar constantemente, ¡perfecta para una jornada completa!\n- Se envía en colores divertidos y atractivos como lila, turquesa o rosa, que encantan a los chicos y le dan un toque de alegría a sus días.\nEsta botella infantil es el gadget ideal para el día a día, garantizando que tus hijos se mantengan bien hidratados con estilo. ¡No te quedes sin la tuya! Sumala al carrito y asegurale a los más chicos su cantimplora termo favorita para todas sus aventuras.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7032_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7032_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7032_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7032_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7032", "nombre": "Botella Térmica Doble Infantil 760ml para Chicos - Mantiene Temperatura", "precio_venta": 21000.0, "stock": 7, "color": "", "talle": "", "descripcion": "Asegurá la hidratación diaria de los más chicos con esta botella térmica doble infantil de 760ml. Perfecta para la escuela, el club o cualquier aventura, mantiene sus bebidas favoritas a la temperatura ideal por más tiempo.\n- Mantiene las bebidas frías o calientes durante horas gracias a su diseño de doble pared, ideal para los días de calor o las tardes frescas.\n- Su amplia capacidad de 760ml asegura que los chicos estén hidratados sin necesidad de rellenar constantemente, ¡perfecta para una jornada completa!\n- Se envía en colores divertidos y atractivos como lila, turquesa o rosa, que encantan a los chicos y le dan un toque de alegría a sus días.\nEsta botella infantil es el gadget ideal para el día a día, garantizando que tus hijos se mantengan bien hidratados con estilo. ¡No te quedes sin la tuya! Sumala al carrito y asegurale a los más chicos su cantimplora termo favorita para todas sus aventuras.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7032_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7032_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7032_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7032_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Diseño efectivo que atrapa restos de comida y suciedad, evitando taponamientos y manteniendo el desagüe de tu bacha de cocina siempre funcionando a la perfección.
 - Con medidas prácticas de 11x6.5x2.5, se adaptan a la mayoría de las piletas estándar, ofreciendo un ajuste seguro y eficaz.
 Ideal para el día a día en cualquier hogar, estos filtros son esenciales para una cocina más funcional y limpia. No esperes a que tu bacha se tape: sumá este set indispensable a tu carrito hoy y disfrutá de la tranquilidad.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Ideal para el día a día en cualquier hogar, estos filtros son esenciales para 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL1076", "nombre": "Filtro de bacha metálico x10 acero inoxidable evita obstrucciones", "precio_venta": 15500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Este set de 10 filtros metálicos para bacha es la solución definitiva para mantener tu pileta de cocina impecable y libre de obstrucciones.\n- Fabricados en acero inoxidable de alta calidad, garantizan máxima durabilidad y resistencia a la corrosión, para que te olvides de reemplazos constantes.\n- Incluye un pack de 10 unidades, para que siempre tengas un repuesto a mano o puedas equipar varias bachas de tu casa sin preocuparte.\n- Diseño efectivo que atrapa restos de comida y suciedad, evitando taponamientos y manteniendo el desagüe de tu bacha de cocina siempre funcionando a la perfección.\n- Con medidas prácticas de 11x6.5x2.5, se adaptan a la mayoría de las piletas estándar, ofreciendo un ajuste seguro y eficaz.\nIdeal para el día a día en cualquier hogar, estos filtros son esenciales para una cocina más funcional y limpia. No esperes a que tu bacha se tape: sumá este set indispensable a tu carrito hoy y disfrutá de la tranquilidad.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1076_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL1076", "nombre": "Filtro de bacha metálico x10 acero inoxidable evita obstrucciones", "precio_venta": 15500.0, "stock": 12, "color": "", "talle": "", "descripcion": "Este set de 10 filtros metálicos para bacha es la solución definitiva para mantener tu pileta de cocina impecable y libre de obstrucciones.\n- Fabricados en acero inoxidable de alta calidad, garantizan máxima durabilidad y resistencia a la corrosión, para que te olvides de reemplazos constantes.\n- Incluye un pack de 10 unidades, para que siempre tengas un repuesto a mano o puedas equipar varias bachas de tu casa sin preocuparte.\n- Diseño efectivo que atrapa restos de comida y suciedad, evitando taponamientos y manteniendo el desagüe de tu bacha de cocina siempre funcionando a la perfección.\n- Con medidas prácticas de 11x6.5x2.5, se adaptan a la mayoría de las piletas estándar, ofreciendo un ajuste seguro y eficaz.\nIdeal para el día a día en cualquier hogar, estos filtros son esenciales para una cocina más funcional y limpia. No esperes a que tu bacha se tape: sumá este set indispensable a tu carrito hoy y disfrutá de la tranquilidad.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1076_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

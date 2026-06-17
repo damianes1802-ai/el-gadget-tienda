@@ -1,0 +1,55 @@
+{
+  "sku": "DL2342",
+  "titulo": "Cajonera Infantil Organizador 3 Niveles Con Ruedas",
+  "precio": 50890,
+  "descripcion": "CAJONERA INFANTIL ORGANIZADOR 3 NIVELS RUEDAS PAÑALERO BEBE\nOptimizá el espacio de guardado y dale un toque tierno a las habitaciones con este práctico organizador infantil de tres niveles. Es el mueble ideal para mantener en perfecto orden los juguetes, pañales, ropa, calzado o artículos de higiene de los más chicos. Gracias a su diseño multifuncional con cajones deslizantes tipo cubeta, todo queda al alcance de la mano de forma prolija y accesible.\nSu estructura está fabricada en polipropileno ecológico (PP Material), un plástico de alta resistencia, totalmente seguro para entornos infantiles y sumamente fácil de limpiar. Cuenta con una superficie superior plana y súper útil, ideal para apoyar lámparas de noche, adornos o elementos que necesites tener a mano diariamente. Gracias a su sistema de ruedas giratorias integradas, vas a poder trasladarlo sin esfuerzo entre el dormitorio, el baño, el living o la sala de juegos según tus necesidades. Cada cajón posee una manija ergonómica con relieve en forma de tiernos animales, transformando el orden en un juego divertido para los niños.\nCARACTERÍSTICAS PRINCIPALES:\nMaterial seguro: Confeccionado en plástico polipropileno ecológico de alta durabilidad y bordes redondeados para mayor protección.\nDiseño amigable: Cajones con manijas decorativas de animalitos que facilitan la apertura.\nSistema de ruedas universales: Movilidad suave y ligera que permite trasladar el organizador de un ambiente a otro con total comodidad.\nCajones tipo cubeta: Contenedores profundos ideales para pañales, prendas de ropa o bloques de construcción.\nMúltiples escenarios: Su estética y funcionalidad se adaptan perfectamente a dormitorios, cuartos de estudio, salas de juego o baños.\nSuperficie superior plana: Espacio extra rígido para aprovechar como estante de apoyo.\nMEDIDAS DE LA CAJONERA:\nAlto total: 56 cm\nAncho frontal: 34 cm\nProfundidad: 40 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2342_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2342_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2342_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2342_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2342_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2342_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2342_9_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2342_10_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/cajonera-infantil-organizador-3-niveles-con-ruedas.html",
+  "fecha_scraping": "2026-06-17T11:34:24.842723",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-17T11:41:39.952995",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696743/prod_DL2342_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696744/prod_DL2342_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696744/prod_DL2342_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696745/prod_DL2342_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696746/prod_DL2342_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696747/prod_DL2342_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696747/prod_DL2342_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696749/prod_DL2342_008.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 50890,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 50890,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 86513.0,
+    "precio_final": 87000.0,
+    "ganancia_neta": 36110.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 87000.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.067731"
+}

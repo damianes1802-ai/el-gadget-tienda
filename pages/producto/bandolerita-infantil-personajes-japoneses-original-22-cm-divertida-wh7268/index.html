@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Estilo original: sus personajes japoneses aportan un toque divertido y único, haciendo que cada salida sea una aventura para los pequeños y un accesorio que los distingue.
 - Medida perfecta: con aproximadamente 22 cm, tiene el espacio justo para guardar sus juguetes pequeños, golosinas o algún secreto valioso sin ser un estorbo.
 Este morral infantil es el regalo perfecto para cualquier ocasión, combinando funcionalidad y ese toque de magia que tanto les gusta. Dale a tus hijos un accesorio original para sus aventuras diarias. ¡Sumala hoy a tu carrito y que disfruten de su nueva bandolera!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Este morral infantil es el regalo perfecto para cualquier ocasión, combinando f
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7268", "nombre": "Bandolerita infantil personajes japoneses original 22 cm divertida", "precio_venta": 10000.0, "stock": 999, "color": "", "talle": "", "descripcion": "La bandolerita infantil ideal para que los más chicos lleven sus cosas con onda. Con un diseño exclusivo de personajes japoneses, este accesorio es la mezcla perfecta de diversión y practicidad. Es un morral infantil que va a encantarles para sus aventuras diarias.\n- Diseñada para niños: su tamaño compacto es ideal para que puedan llevarla cómodamente y tener sus manos libres mientras juegan o pasean.\n- Estilo original: sus personajes japoneses aportan un toque divertido y único, haciendo que cada salida sea una aventura para los pequeños y un accesorio que los distingue.\n- Medida perfecta: con aproximadamente 22 cm, tiene el espacio justo para guardar sus juguetes pequeños, golosinas o algún secreto valioso sin ser un estorbo.\nEste morral infantil es el regalo perfecto para cualquier ocasión, combinando funcionalidad y ese toque de magia que tanto les gusta. Dale a tus hijos un accesorio original para sus aventuras diarias. ¡Sumala hoy a tu carrito y que disfruten de su nueva bandolera!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7268_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7268", "nombre": "Bandolerita infantil personajes japoneses original 22 cm divertida", "precio_venta": 10000.0, "stock": 11, "color": "", "talle": "", "descripcion": "La bandolerita infantil ideal para que los más chicos lleven sus cosas con onda. Con un diseño exclusivo de personajes japoneses, este accesorio es la mezcla perfecta de diversión y practicidad. Es un morral infantil que va a encantarles para sus aventuras diarias.\n- Diseñada para niños: su tamaño compacto es ideal para que puedan llevarla cómodamente y tener sus manos libres mientras juegan o pasean.\n- Estilo original: sus personajes japoneses aportan un toque divertido y único, haciendo que cada salida sea una aventura para los pequeños y un accesorio que los distingue.\n- Medida perfecta: con aproximadamente 22 cm, tiene el espacio justo para guardar sus juguetes pequeños, golosinas o algún secreto valioso sin ser un estorbo.\nEste morral infantil es el regalo perfecto para cualquier ocasión, combinando funcionalidad y ese toque de magia que tanto les gusta. Dale a tus hijos un accesorio original para sus aventuras diarias. ¡Sumala hoy a tu carrito y que disfruten de su nueva bandolera!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7268_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

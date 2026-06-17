@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Diseño en color blanco clásico: Versátil y combinable con cualquier prenda, ideal para el uso diario o para ocasiones especiales.
 - Talle 66 cm: Pensado para asegurar un ajuste perfecto, ofreciendo libertad de movimiento y comodidad en cada etapa de crecimiento.
 Este body de algodón es un básico indispensable en el guardarropa de tu bebé, perfecto para el uso diario o como un práctico regalo. Brindale la suavidad y el confort que se merece. ¡Sumalo hoy a tu carrito de compras y garantizale la máxima comodidad!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Este body de algodón es un básico indispensable en el guardarropa de tu bebé,
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7167-66BL", "nombre": "Body Bebé Algodón Blanco 66cm - Comodidad Pura para Niños", "precio_venta": 34500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Descubrí el body infantil de algodón puro ideal para la piel delicada de tu bebé. Una prenda esencial que combina suavidad, confort y practicidad para el día a día de los más pequeños. Este body para niños es un básico indispensable para el guardarropa de tu bebé.\n- Fabricado con algodón puro para el máximo confort: Suave al tacto y respirable, cuida la piel sensible de tu bebé, evitando irritaciones.\n- Diseño en color blanco clásico: Versátil y combinable con cualquier prenda, ideal para el uso diario o para ocasiones especiales.\n- Talle 66 cm: Pensado para asegurar un ajuste perfecto, ofreciendo libertad de movimiento y comodidad en cada etapa de crecimiento.\nEste body de algodón es un básico indispensable en el guardarropa de tu bebé, perfecto para el uso diario o como un práctico regalo. Brindale la suavidad y el confort que se merece. ¡Sumalo hoy a tu carrito de compras y garantizale la máxima comodidad!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-66BL_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7167-66BL", "nombre": "Body Bebé Algodón Blanco 66cm - Comodidad Pura para Niños", "precio_venta": 34500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Descubrí el body infantil de algodón puro ideal para la piel delicada de tu bebé. Una prenda esencial que combina suavidad, confort y practicidad para el día a día de los más pequeños. Este body para niños es un básico indispensable para el guardarropa de tu bebé.\n- Fabricado con algodón puro para el máximo confort: Suave al tacto y respirable, cuida la piel sensible de tu bebé, evitando irritaciones.\n- Diseño en color blanco clásico: Versátil y combinable con cualquier prenda, ideal para el uso diario o para ocasiones especiales.\n- Talle 66 cm: Pensado para asegurar un ajuste perfecto, ofreciendo libertad de movimiento y comodidad en cada etapa de crecimiento.\nEste body de algodón es un básico indispensable en el guardarropa de tu bebé, perfecto para el uso diario o como un práctico regalo. Brindale la suavidad y el confort que se merece. ¡Sumalo hoy a tu carrito de compras y garantizale la máxima comodidad!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-66BL_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

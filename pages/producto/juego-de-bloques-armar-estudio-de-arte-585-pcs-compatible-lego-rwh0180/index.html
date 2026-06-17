@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Armado sencillo y divertido para todas las edades, gracias a sus instrucciones claras y las 585 piezas que encajan a la perfección con bordes lisos.
 - Incluye un práctico separador de ladrillos para modificar fácilmente tus creaciones, ¡dándole alas a la creatividad sin límites ni frustraciones!
 Este juego de bloques es la elección perfecta para fomentar la creatividad y la habilidad de los más chicos. ¡Preparate para construir y diseñar sin límites, hacelo tuyo hoy y viví la experiencia!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Este juego de bloques es la elección perfecta para fomentar la creatividad y la
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "RWH0180", "nombre": "Juego de Bloques Armar Estudio de Arte 585 Pcs | Compatible Lego", "precio_venta": 37000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Descubrí el mundo de la creatividad con nuestro juego de bloques para armar un estudio de arte, perfecto para inspirar la imaginación de los más chicos. Horas de diversión garantizadas construyendo un rincón artístico único y vibrante.\n- Despertá la imaginación con un diseño de estudio de arte original y expandí tus colecciones de bloques existentes, ¡ya que es compatible con Lego Friends!\n- Disfrutá de una construcción robusta y duradera, diseñada para resistir el juego constante sin desmoronarse, asegurando una experiencia de armado de calidad premium.\n- Armado sencillo y divertido para todas las edades, gracias a sus instrucciones claras y las 585 piezas que encajan a la perfección con bordes lisos.\n- Incluye un práctico separador de ladrillos para modificar fácilmente tus creaciones, ¡dándole alas a la creatividad sin límites ni frustraciones!\nEste juego de bloques es la elección perfecta para fomentar la creatividad y la habilidad de los más chicos. ¡Preparate para construir y diseñar sin límites, hacelo tuyo hoy y viví la experiencia!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "RWH0180", "nombre": "Juego de Bloques Armar Estudio de Arte 585 Pcs | Compatible Lego", "precio_venta": 37000.0, "stock": 6, "color": "", "talle": "", "descripcion": "Descubrí el mundo de la creatividad con nuestro juego de bloques para armar un estudio de arte, perfecto para inspirar la imaginación de los más chicos. Horas de diversión garantizadas construyendo un rincón artístico único y vibrante.\n- Despertá la imaginación con un diseño de estudio de arte original y expandí tus colecciones de bloques existentes, ¡ya que es compatible con Lego Friends!\n- Disfrutá de una construcción robusta y duradera, diseñada para resistir el juego constante sin desmoronarse, asegurando una experiencia de armado de calidad premium.\n- Armado sencillo y divertido para todas las edades, gracias a sus instrucciones claras y las 585 piezas que encajan a la perfección con bordes lisos.\n- Incluye un práctico separador de ladrillos para modificar fácilmente tus creaciones, ¡dándole alas a la creatividad sin límites ni frustraciones!\nEste juego de bloques es la elección perfecta para fomentar la creatividad y la habilidad de los más chicos. ¡Preparate para construir y diseñar sin límites, hacelo tuyo hoy y viví la experiencia!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

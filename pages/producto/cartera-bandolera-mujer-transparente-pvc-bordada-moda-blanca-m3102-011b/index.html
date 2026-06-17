@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Disfrutá de la máxima versatilidad: su correa de tela de 4 cm es desmontable, permitiéndote adaptarla a cada ocasión y outfit, usándola como más te guste.
 - Con un acabado premium que marca la diferencia: sus costuras recubiertas de PU y cierre de cremallera plateado le dan un toque super elegante y sofisticado.
 Esta cartera bandolera de moda es el complemento ideal para tu día a día o para elevar cualquier evento. Olvidate de las dudas, su calidad y diseño la hacen una pieza única y funcional. ¡Sumala a tu colección de accesorios y marcá tendencia hoy mismo!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Esta cartera bandolera de moda es el complemento ideal para tu día a día o par
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "M3102-011B", "nombre": "Cartera Bandolera Mujer Transparente PVC Bordada Moda Blanca", "precio_venta": 37500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Destacá tu look con la Cartera Bandolera Transparente de PVC. Un accesorio moderno y versátil, ideal para llevar lo esencial con un toque de vanguardia, marcando tendencia en cada paso que des.\n- Llevá tus imprescindibles a la vista y con estilo gracias a su diseño transparente de PVC, perfecto para festivales, recitales o salidas cancheras.\n- Disfrutá de la máxima versatilidad: su correa de tela de 4 cm es desmontable, permitiéndote adaptarla a cada ocasión y outfit, usándola como más te guste.\n- Con un acabado premium que marca la diferencia: sus costuras recubiertas de PU y cierre de cremallera plateado le dan un toque super elegante y sofisticado.\nEsta cartera bandolera de moda es el complemento ideal para tu día a día o para elevar cualquier evento. Olvidate de las dudas, su calidad y diseño la hacen una pieza única y funcional. ¡Sumala a tu colección de accesorios y marcá tendencia hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "M3102-011B", "nombre": "Cartera Bandolera Mujer Transparente PVC Bordada Moda Blanca", "precio_venta": 37500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Destacá tu look con la Cartera Bandolera Transparente de PVC. Un accesorio moderno y versátil, ideal para llevar lo esencial con un toque de vanguardia, marcando tendencia en cada paso que des.\n- Llevá tus imprescindibles a la vista y con estilo gracias a su diseño transparente de PVC, perfecto para festivales, recitales o salidas cancheras.\n- Disfrutá de la máxima versatilidad: su correa de tela de 4 cm es desmontable, permitiéndote adaptarla a cada ocasión y outfit, usándola como más te guste.\n- Con un acabado premium que marca la diferencia: sus costuras recubiertas de PU y cierre de cremallera plateado le dan un toque super elegante y sofisticado.\nEsta cartera bandolera de moda es el complemento ideal para tu día a día o para elevar cualquier evento. Olvidate de las dudas, su calidad y diseño la hacen una pieza única y funcional. ¡Sumala a tu colección de accesorios y marcá tendencia hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Con sus medidas compactas (20cm de alto y 8cm de ancho), se adapta a cualquier rincón: desde tu escritorio hasta estantes, mesas de luz o la cocina, optimizando el espacio con estilo.
 - Disponible en elegantes tonos blanco o negro, te llevas una pieza que, además de ser una sorpresa encantadora, combina a la perfección con cualquier paleta de colores de tu deco actual.
 Ideal para regalar a amantes de la decoración o para darte ese gusto que tu casa pide a gritos. Transformá tus espacios con un objeto funcional y lleno de onda. No te quedes sin esta maceta de diseño, ¡sumala hoy a tu carrito y dale vida a tus plantas con un toque divertido!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Ideal para regalar a amantes de la decoración o para darte ese gusto que tu cas
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "R6125", "nombre": "Maceta Doble Hombrecitos Decorativa, Blanco o Negro, para tu Hogar", "precio_venta": 18500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque de alegría y estilo a tus espacios con esta maceta doble decorativa de hombrecitos. La pieza perfecta para quienes buscan originalidad en la decoración de su hogar u oficina.\n- Su diseño único con hombrecitos no solo decora, sino que añade un punto de conversación y personalidad a cualquier ambiente, ideal para macetas de plantas pequeñas o suculentas.\n- Con sus medidas compactas (20cm de alto y 8cm de ancho), se adapta a cualquier rincón: desde tu escritorio hasta estantes, mesas de luz o la cocina, optimizando el espacio con estilo.\n- Disponible en elegantes tonos blanco o negro, te llevas una pieza que, además de ser una sorpresa encantadora, combina a la perfección con cualquier paleta de colores de tu deco actual.\nIdeal para regalar a amantes de la decoración o para darte ese gusto que tu casa pide a gritos. Transformá tus espacios con un objeto funcional y lleno de onda. No te quedes sin esta maceta de diseño, ¡sumala hoy a tu carrito y dale vida a tus plantas con un toque divertido!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_R6125_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "R6125", "nombre": "Maceta Doble Hombrecitos Decorativa, Blanco o Negro, para tu Hogar", "precio_venta": 18500.0, "stock": 14, "color": "", "talle": "", "descripcion": "Dale un toque de alegría y estilo a tus espacios con esta maceta doble decorativa de hombrecitos. La pieza perfecta para quienes buscan originalidad en la decoración de su hogar u oficina.\n- Su diseño único con hombrecitos no solo decora, sino que añade un punto de conversación y personalidad a cualquier ambiente, ideal para macetas de plantas pequeñas o suculentas.\n- Con sus medidas compactas (20cm de alto y 8cm de ancho), se adapta a cualquier rincón: desde tu escritorio hasta estantes, mesas de luz o la cocina, optimizando el espacio con estilo.\n- Disponible en elegantes tonos blanco o negro, te llevas una pieza que, además de ser una sorpresa encantadora, combina a la perfección con cualquier paleta de colores de tu deco actual.\nIdeal para regalar a amantes de la decoración o para darte ese gusto que tu casa pide a gritos. Transformá tus espacios con un objeto funcional y lleno de onda. No te quedes sin esta maceta de diseño, ¡sumala hoy a tu carrito y dale vida a tus plantas con un toque divertido!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_R6125_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

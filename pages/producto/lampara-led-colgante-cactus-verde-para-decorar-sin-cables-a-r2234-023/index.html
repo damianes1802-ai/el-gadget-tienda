@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -90,12 +96,6 @@
 - La iluminación LED proporciona una luz suave y acogedora, ideal para crear ambientes relajados y originales.
 - Con sus 23cm de altura, es el tamaño justo para resaltar sin recargar el ambiente.
 Esta lámpara decorativa de cactus es el regalo perfecto para amantes de la naturaleza y el diseño, o para darle ese toque especial a tu propio espacio. ¡No esperes más para transformar tus ambientes con estilo! Sumala a tu carrito y disfrutá de una deco original.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -194,7 +194,7 @@ Esta lámpara decorativa de cactus es el regalo perfecto para amantes de la natu
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-R2234-023", "nombre": "Lámpara LED colgante cactus verde para decorar sin cables", "precio_venta": 17000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque original y divertido a cualquier rincón con la lámpara LED colgante diseño cactus. Es la solución ideal para sumar luz y estilo sin depender de enchufes.\n- Su diseño de cactus verde vibrante es perfecto para darle un aire fresco y moderno a tu living, dormitorio o espacio de trabajo.\n- Al ser colgante, podés ubicarla donde quieras para crear un punto focal único y personalizado.\n- Olvidate de los cables y los enchufes: funciona con 3 pilas AA (no incluidas), ofreciéndote total libertad para decorarla sin límites.\n- La iluminación LED proporciona una luz suave y acogedora, ideal para crear ambientes relajados y originales.\n- Con sus 23cm de altura, es el tamaño justo para resaltar sin recargar el ambiente.\nEsta lámpara decorativa de cactus es el regalo perfecto para amantes de la naturaleza y el diseño, o para darle ese toque especial a tu propio espacio. ¡No esperes más para transformar tus ambientes con estilo! Sumala a tu carrito y disfrutá de una deco original.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_006"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "A-R2234-023", "nombre": "Lámpara LED colgante cactus verde para decorar sin cables", "precio_venta": 17000.0, "stock": 11, "color": "", "talle": "", "descripcion": "Dale un toque original y divertido a cualquier rincón con la lámpara LED colgante diseño cactus. Es la solución ideal para sumar luz y estilo sin depender de enchufes.\n- Su diseño de cactus verde vibrante es perfecto para darle un aire fresco y moderno a tu living, dormitorio o espacio de trabajo.\n- Al ser colgante, podés ubicarla donde quieras para crear un punto focal único y personalizado.\n- Olvidate de los cables y los enchufes: funciona con 3 pilas AA (no incluidas), ofreciéndote total libertad para decorarla sin límites.\n- La iluminación LED proporciona una luz suave y acogedora, ideal para crear ambientes relajados y originales.\n- Con sus 23cm de altura, es el tamaño justo para resaltar sin recargar el ambiente.\nEsta lámpara decorativa de cactus es el regalo perfecto para amantes de la naturaleza y el diseño, o para darle ese toque especial a tu propio espacio. ¡No esperes más para transformar tus ambientes con estilo! Sumala a tu carrito y disfrutá de una deco original.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

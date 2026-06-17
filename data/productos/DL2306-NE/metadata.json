@@ -1,0 +1,48 @@
+{
+  "sku": "DL2306-NE",
+  "titulo": "Organizador Estante Esquinero Cocina Especias Frascos",
+  "precio": 26980,
+  "descripcion": "ORGANIZADOR ESTANTE ESQUINERO DE COCINA PARA ESPECIAS Y FRASCOS\nMaximizá el espacio de tu cocina y mantené todo al alcance de la mano con este elegante estante esquinero organizador de dos niveles. Diseñado específicamente para aprovechar los rincones de tus mesadas o alacenas, combina funcionalidad y estilo, convirtiéndose en el aliado ideal para eliminar el desorden de tus ambientes.\nSu estructura de dos estantes abiertos permite visualizar y acceder de manera rápida a todos tus condimentos, aceites y frascos de uso diario.\nCARACTERÍSTICAS DESTACADAS:\nMateriales de alta calidad: Fabricado con paneles de madera ecológica y un soporte de metal grueso y resistente. Esta combinación no solo garantiza una larga vida útil, sino que también aporta una estética moderna y cálida a tu hogar.\nEstructura firme y segura: Su diseño triangular está pensado para encastrar perfectamente en cualquier esquina. Cuenta con una estabilidad superior que evita tambaleos, soportando el peso de múltiples frascos y botellas con total seguridad gracias a su gran resistencia a la deformación.\nDiseño multifuncional: Si bien es el organizador ideal para frascos de especias, salsas y latas en la cocina, su versatilidad te permite utilizarlo en otros ambientes como el baño para ordenar artículos de cosmética, o incluso sobre escritorios y espacios de trabajo.\nArmado rápido y sencillo: No necesitás herramientas complejas ni mucho tiempo. Gracias a su diseño práctico, el montaje se completa en solo unos minutos siguiendo unos simples pasos.\nMEDIDAS Y ESPECIFICACIONES:\nAlto total: 34 cm\nLaterales rectos (apoyo esquinero): 29 cm x 29 cm\nMaterial del soporte: Metal\nMaterial de los estantes: Madera",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2306-ne_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2306-ne_8_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2306-ne_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2306-ne_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2306-ne_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2306-ne_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2306-ne_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2306-ne_6_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/organizador-estante-esquinero-cocina-especias-frascos.html",
+  "fecha_scraping": "2026-06-17T11:35:29.754886",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696636/prod_DL2306-NE_001.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696637/prod_DL2306-NE_002.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696638/prod_DL2306-NE_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696640/prod_DL2306-NE_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696641/prod_DL2306-NE_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696642/prod_DL2306-NE_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696643/prod_DL2306-NE_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696644/prod_DL2306-NE_008.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 26980,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 26980,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 45866.0,
+    "precio_final": 46000.0,
+    "ganancia_neta": 19020.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 46000.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.059243"
+}

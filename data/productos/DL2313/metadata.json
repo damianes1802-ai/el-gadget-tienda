@@ -1,0 +1,44 @@
+{
+  "sku": "DL2313",
+  "titulo": "Funda Cubre Sofá Sillón Elastizada Silla 90 A 140cm Premium",
+  "precio": 28990,
+  "descripcion": "FUNDA CUBRE SILLON ELASTIZADA PREMIUM TALLA S\nRenová y protegé tu sillón con nuestra funda elástica premium para el sofá. Diseñada especialmente para adaptarse a la forma de tu mueble, esta funda es la solución ideal para cambiar el aspecto de tu living en pocos minutos, brindando una estética moderna, prolija y sumamente elegante.\nSu tejido inteligente de alta elasticidad está confeccionado en una suave trama de poliéster y elastano (spandex). Este material proporciona un ajuste firme y anatómico sin perder la forma. Es el accesorio decorativo perfecto para proteger la tapicería nueva contra el polvo, el desgaste diario, las travesuras de los niños o los pelos de tus mascotas. Además, si tu sillón ya tiene un aspecto antiguo o desgastado, esta funda lo transforma por completo de manera económica y efectiva.\nEste set premium incluye adicionalmente una funda para cojín haciendo juego, ideal para complementar la decoración de tu living y lograr un ambiente completamente armónico.\nGracias a su flexibilidad excepcional, la colocación es sumamente sencilla, permitiendo cubrir la estructura de forma uniforme y sin pliegues molestos. Su mantenimiento es igual de práctico: se puede retirar fácilmente para un lavado rápido a máquina, manteniendo su color gris firme, su textura suave y sus propiedades elásticas intactas lavado tras lavado.\nBENEFICIOS PRINCIPALES:\nTela premium estirable: Confección de alta calidad en poliéster y elastano para máxima adaptabilidad.\nIncluye accesorio: Viene con una funda para cojín de regalo a juego con el diseño.\nProtección total: Ideal para prevenir manchas de comida, suciedad, polvo y el desgaste causado por mascotas.\nRenovación estética: Excelente opción para embellecer y modernizar sillones con tapizados gastados o antiguos.\nFácil colocación y limpieza: Diseño práctico que se instala en minutos y es completamente apto para lavarropas.\nTerminación prolija: Su elasticidad permite un calce firme que respeta las líneas del sillón.\nMEDIDAS DE LA FUNDA:\nTalla: S\nCompatibilidad: Recomendada para sillones que midan entre 90 cm y 140 cm de largo total.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2314_1__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2314_5__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2314_6__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2314_2__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2314_3__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2314_4__1.png"
+  ],
+  "cantidad_imagenes": 6,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/funda-cubre-sofa-sillon-elastizada-silla-145-a-185cm-premium-1.html",
+  "fecha_scraping": "2026-06-17T11:36:57.962945",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696656/prod_DL2313_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696657/prod_DL2313_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696658/prod_DL2313_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696659/prod_DL2313_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696660/prod_DL2313_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696661/prod_DL2313_006.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 28990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 28990,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 49283.0,
+    "precio_final": 49500.0,
+    "ganancia_neta": 20510.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 49500.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.060403"
+}

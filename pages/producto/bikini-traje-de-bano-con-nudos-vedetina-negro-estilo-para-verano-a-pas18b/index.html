@@ -84,6 +84,12 @@
         <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)" disabled><option value="S">S</option></select>
       </div>
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -93,12 +99,6 @@
 - El clásico color negro lo convierte en un fondo de armario infalible, ideal para combinar con cualquier accesorio de playa o pareo que tengas.
 - Pensado para que disfrutes de la pileta, la playa o tus vacaciones con total confianza y un look que siempre está de moda.
 Este bikini es la elección perfecta para renovar tu look de verano con una prenda atemporal y a la moda. No esperes más para tener tu malla ideal. ¡Sumala ahora a tu carrito y preparate para brillar bajo el sol!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -197,7 +197,7 @@ Este bikini es la elección perfecta para renovar tu look de verano con una pren
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-PAS18B", "nombre": "Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano", "precio_venta": 28500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Preparate para lucir espléndida este verano con nuestro Bikini Traje de Baño con Nudos Vedetina Negro. Un diseño clásico y versátil que te garantiza comodidad y estilo en cada momento.\n- El detalle de nudos laterales no solo añade un toque chic y moderno a esta malla, sino que te permite personalizar el ajuste para una silueta perfecta.\n- Con su corte vedetina, este traje de baño para mujer ofrece la cobertura justa que buscás, sin resignar sensualidad ni libertad de movimiento.\n- El clásico color negro lo convierte en un fondo de armario infalible, ideal para combinar con cualquier accesorio de playa o pareo que tengas.\n- Pensado para que disfrutes de la pileta, la playa o tus vacaciones con total confianza y un look que siempre está de moda.\nEste bikini es la elección perfecta para renovar tu look de verano con una prenda atemporal y a la moda. No esperes más para tener tu malla ideal. ¡Sumala ahora a tu carrito y preparate para brillar bajo el sol!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS18B-S", "imagenes": []}], "variantes": []};
+const PRODUCTO = {"sku": "A-PAS18B", "nombre": "Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano", "precio_venta": 28500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Preparate para lucir espléndida este verano con nuestro Bikini Traje de Baño con Nudos Vedetina Negro. Un diseño clásico y versátil que te garantiza comodidad y estilo en cada momento.\n- El detalle de nudos laterales no solo añade un toque chic y moderno a esta malla, sino que te permite personalizar el ajuste para una silueta perfecta.\n- Con su corte vedetina, este traje de baño para mujer ofrece la cobertura justa que buscás, sin resignar sensualidad ni libertad de movimiento.\n- El clásico color negro lo convierte en un fondo de armario infalible, ideal para combinar con cualquier accesorio de playa o pareo que tengas.\n- Pensado para que disfrutes de la pileta, la playa o tus vacaciones con total confianza y un look que siempre está de moda.\nEste bikini es la elección perfecta para renovar tu look de verano con una prenda atemporal y a la moda. No esperes más para tener tu malla ideal. ¡Sumala ahora a tu carrito y preparate para brillar bajo el sol!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS18B-S", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

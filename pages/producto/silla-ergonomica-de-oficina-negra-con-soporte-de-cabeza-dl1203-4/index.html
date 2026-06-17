@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Dimensiones Ideales: Con 107 x 64 cm, ofrece un asiento espacioso y respaldo generoso. Total libertad de movimiento para adaptarte cómodamente.
 - Elegancia en Color Negro: Su diseño clásico se integra perfectamente en cualquier ambiente. Desde tu home office hasta una oficina profesional, siempre combina.
 No esperes más para invertir en tu bienestar y productividad. Esta silla es la compañera perfecta para tu oficina o home office. Sumala a tu carrito hoy y sentí la diferencia.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ No esperes más para invertir en tu bienestar y productividad. Esta silla es la 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL1203-4", "nombre": "Silla Ergonómica de Oficina Negra con Soporte de Cabeza", "precio_venta": 125500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Mejorá tu día a día con esta Silla Ergonómica de Oficina Negra, diseñada para un confort excepcional. Olvidate de la incomodidad y trabajá o estudiá con el apoyo que tu cuerpo necesita. Es la clave para una postura correcta y para potenciar tu rendimiento en casa o en la oficina.\n- Diseño Ergonómico Superior: Cuida tu espalda y cuello, permitiendo una postura correcta. Evitá dolores y fatiga en tus largas jornadas de trabajo o estudio.\n- Soporte de Cabeza Integrado: Brinda apoyo cervical extra, aliviando la tensión en hombros y cuello. Potencia tu confort y concentración diaria.\n- Dimensiones Ideales: Con 107 x 64 cm, ofrece un asiento espacioso y respaldo generoso. Total libertad de movimiento para adaptarte cómodamente.\n- Elegancia en Color Negro: Su diseño clásico se integra perfectamente en cualquier ambiente. Desde tu home office hasta una oficina profesional, siempre combina.\nNo esperes más para invertir en tu bienestar y productividad. Esta silla es la compañera perfecta para tu oficina o home office. Sumala a tu carrito hoy y sentí la diferencia.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL1203-4", "nombre": "Silla Ergonómica de Oficina Negra con Soporte de Cabeza", "precio_venta": 125500.0, "stock": 11, "color": "", "talle": "", "descripcion": "Mejorá tu día a día con esta Silla Ergonómica de Oficina Negra, diseñada para un confort excepcional. Olvidate de la incomodidad y trabajá o estudiá con el apoyo que tu cuerpo necesita. Es la clave para una postura correcta y para potenciar tu rendimiento en casa o en la oficina.\n- Diseño Ergonómico Superior: Cuida tu espalda y cuello, permitiendo una postura correcta. Evitá dolores y fatiga en tus largas jornadas de trabajo o estudio.\n- Soporte de Cabeza Integrado: Brinda apoyo cervical extra, aliviando la tensión en hombros y cuello. Potencia tu confort y concentración diaria.\n- Dimensiones Ideales: Con 107 x 64 cm, ofrece un asiento espacioso y respaldo generoso. Total libertad de movimiento para adaptarte cómodamente.\n- Elegancia en Color Negro: Su diseño clásico se integra perfectamente en cualquier ambiente. Desde tu home office hasta una oficina profesional, siempre combina.\nNo esperes más para invertir en tu bienestar y productividad. Esta silla es la compañera perfecta para tu oficina o home office. Sumala a tu carrito hoy y sentí la diferencia.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

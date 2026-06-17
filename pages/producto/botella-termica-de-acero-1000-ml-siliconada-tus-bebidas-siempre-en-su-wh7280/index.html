@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -90,12 +96,6 @@
 - Su diseño siliconado proporciona un agarre cómodo y seguro, protegiéndola de golpes y rayones en tu día a día.
 - Recibí un color moderno y versátil (negro, blanco o gris) que se adapta a tu estilo y te acompaña a donde vayas.
 No importa si vas a la oficina, al gym o simplemente disfrutas de un paseo, esta botella térmica de 1 litro es la compañera ideal para tu bienestar en el hogar o al aire libre. Sumala hoy a tu carrito y mantené tus bebidas siempre a la temperatura perfecta.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -194,7 +194,7 @@ No importa si vas a la oficina, al gym o simplemente disfrutas de un paseo, esta
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7280", "nombre": "Botella térmica de acero 1000 ml siliconada: tus bebidas siempre en su punto", "precio_venta": 36000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Necesitas mantener tus bebidas favoritas frías o calientes por más tiempo? Esta botella térmica de acero de 1 litro es tu aliada perfecta para hidratarte o disfrutar de un buen mate en cualquier momento y lugar.\n- Mantiene la temperatura ideal de tus bebidas por horas, perfecta para disfrutar de agua fresca o un rico café en cualquier momento.\n- Con 1 litro de capacidad, tendrás hidratación de sobra para toda tu jornada de trabajo, estudio o entrenamiento sin recargar.\n- Fabricada en acero, garantiza máxima durabilidad y resistencia al uso diario, además de una limpieza sencilla e higiénica.\n- Su diseño siliconado proporciona un agarre cómodo y seguro, protegiéndola de golpes y rayones en tu día a día.\n- Recibí un color moderno y versátil (negro, blanco o gris) que se adapta a tu estilo y te acompaña a donde vayas.\nNo importa si vas a la oficina, al gym o simplemente disfrutas de un paseo, esta botella térmica de 1 litro es la compañera ideal para tu bienestar en el hogar o al aire libre. Sumala hoy a tu carrito y mantené tus bebidas siempre a la temperatura perfecta.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7280", "nombre": "Botella térmica de acero 1000 ml siliconada: tus bebidas siempre en su punto", "precio_venta": 36000.0, "stock": 9, "color": "", "talle": "", "descripcion": "Necesitas mantener tus bebidas favoritas frías o calientes por más tiempo? Esta botella térmica de acero de 1 litro es tu aliada perfecta para hidratarte o disfrutar de un buen mate en cualquier momento y lugar.\n- Mantiene la temperatura ideal de tus bebidas por horas, perfecta para disfrutar de agua fresca o un rico café en cualquier momento.\n- Con 1 litro de capacidad, tendrás hidratación de sobra para toda tu jornada de trabajo, estudio o entrenamiento sin recargar.\n- Fabricada en acero, garantiza máxima durabilidad y resistencia al uso diario, además de una limpieza sencilla e higiénica.\n- Su diseño siliconado proporciona un agarre cómodo y seguro, protegiéndola de golpes y rayones en tu día a día.\n- Recibí un color moderno y versátil (negro, blanco o gris) que se adapta a tu estilo y te acompaña a donde vayas.\nNo importa si vas a la oficina, al gym o simplemente disfrutas de un paseo, esta botella térmica de 1 litro es la compañera ideal para tu bienestar en el hogar o al aire libre. Sumala hoy a tu carrito y mantené tus bebidas siempre a la temperatura perfecta.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

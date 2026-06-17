@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Encontrá lo que buscás al instante: gracias a su práctico visor transparente, podés identificar el contenido sin necesidad de abrirlo, ahorrándote tiempo y esfuerzo en tu rutina diaria.
 - Protección y flexibilidad: fabricado en material textil resistente color gris, cuida tus pertenencias del polvo y la humedad, y se adapta fácilmente bajo la cama o dentro de armarios, incluso cuando no está lleno. 
 Este organizador textil es el aliado perfecto para mantener tu casa impecable y todo a mano, sin sacrificar estilo. Transformá tu habitación en un oasis de orden y tranquilidad. ¡No esperes más para ganar espacio y sumalo a tu carrito hoy!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Este organizador textil es el aliado perfecto para mantener tu casa impecable y 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL2123", "nombre": "Organizador bajo cama Mediano con visor gris | Maximizá tu espacio", "precio_venta": 9000.0, "stock": 999, "color": "", "talle": "", "descripcion": "¿Cansado de la ropa y objetos desordenados? Este Organizador bajo cama Mediano es la solución ideal para aprovechar cada rincón de tu hogar y mantener todo impecable. Decile adiós al caos y convertí ese espacio inutilizado en un área de guardado inteligente para tus pertenencias. Olvidate de buscar sin éxito, acá tenés la practicidad al alcance de tu mano. \n- Guarda de todo sin que estorbe: sus medidas de 65x45x15cm son perfectas para ropa de temporada, calzado, sábanas o juguetes, liberando espacio en tus placares y mesas de luz sin que se vea.\n- Encontrá lo que buscás al instante: gracias a su práctico visor transparente, podés identificar el contenido sin necesidad de abrirlo, ahorrándote tiempo y esfuerzo en tu rutina diaria.\n- Protección y flexibilidad: fabricado en material textil resistente color gris, cuida tus pertenencias del polvo y la humedad, y se adapta fácilmente bajo la cama o dentro de armarios, incluso cuando no está lleno. \nEste organizador textil es el aliado perfecto para mantener tu casa impecable y todo a mano, sin sacrificar estilo. Transformá tu habitación en un oasis de orden y tranquilidad. ¡No esperes más para ganar espacio y sumalo a tu carrito hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2123_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL2123", "nombre": "Organizador bajo cama Mediano con visor gris | Maximizá tu espacio", "precio_venta": 9000.0, "stock": 7, "color": "", "talle": "", "descripcion": "¿Cansado de la ropa y objetos desordenados? Este Organizador bajo cama Mediano es la solución ideal para aprovechar cada rincón de tu hogar y mantener todo impecable. Decile adiós al caos y convertí ese espacio inutilizado en un área de guardado inteligente para tus pertenencias. Olvidate de buscar sin éxito, acá tenés la practicidad al alcance de tu mano. \n- Guarda de todo sin que estorbe: sus medidas de 65x45x15cm son perfectas para ropa de temporada, calzado, sábanas o juguetes, liberando espacio en tus placares y mesas de luz sin que se vea.\n- Encontrá lo que buscás al instante: gracias a su práctico visor transparente, podés identificar el contenido sin necesidad de abrirlo, ahorrándote tiempo y esfuerzo en tu rutina diaria.\n- Protección y flexibilidad: fabricado en material textil resistente color gris, cuida tus pertenencias del polvo y la humedad, y se adapta fácilmente bajo la cama o dentro de armarios, incluso cuando no está lleno. \nEste organizador textil es el aliado perfecto para mantener tu casa impecable y todo a mano, sin sacrificar estilo. Transformá tu habitación en un oasis de orden y tranquilidad. ¡No esperes más para ganar espacio y sumalo a tu carrito hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2123_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

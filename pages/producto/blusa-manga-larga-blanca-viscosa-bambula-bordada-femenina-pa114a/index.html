@@ -84,6 +84,12 @@
         <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)"><option value="S">S</option><option value="M">M</option><option value="L">L</option></select>
       </div>
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -93,12 +99,6 @@
 - Disfrutá de un calce fluido y favorecedor que estiliza tu silueta sin ajustar, ofreciendo libertad de movimiento y confort.
 - Versatilidad garantizada: esta blusa es perfecta para combinar tanto en tus outfits casuales como en propuestas más formales.
 Esta es la elección ideal para quienes buscan comodidad y estilo sin concesiones en su ropa femenina. Sumala hoy a tu colección de accesorios de moda y destacate con un outfit fresco, femenino y lleno de personalidad.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -197,7 +197,7 @@ Esta es la elección ideal para quienes buscan comodidad y estilo sin concesione
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "PA114A", "nombre": "Blusa Manga Larga Blanca Viscosa Bambula Bordada Femenina", "precio_venta": 46000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Renová tu guardarropa con nuestra blusa manga larga de viscosa bambula bordada, una prenda blanca que combina frescura y elegancia para tus looks diarios y especiales. Disfrutá de un estilo femenino y delicado con total comodidad.\n- Experimentá el confort superior de la viscosa bambula, suave y liviana, para una sensación agradable durante todo el día.\n- Lucí un estilo sofisticado con sus mangas largas y los delicados bordados artesanales que le dan un toque único a cada look.\n- Disfrutá de un calce fluido y favorecedor que estiliza tu silueta sin ajustar, ofreciendo libertad de movimiento y confort.\n- Versatilidad garantizada: esta blusa es perfecta para combinar tanto en tus outfits casuales como en propuestas más formales.\nEsta es la elección ideal para quienes buscan comodidad y estilo sin concesiones en su ropa femenina. Sumala hoy a tu colección de accesorios de moda y destacate con un outfit fresco, femenino y lleno de personalidad.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "PA114AS", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "PA114AM", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "L", "sku_interno": "PA114AL", "imagenes": []}], "variantes": []};
+const PRODUCTO = {"sku": "PA114A", "nombre": "Blusa Manga Larga Blanca Viscosa Bambula Bordada Femenina", "precio_venta": 46000.0, "stock": 8, "color": "", "talle": "", "descripcion": "Renová tu guardarropa con nuestra blusa manga larga de viscosa bambula bordada, una prenda blanca que combina frescura y elegancia para tus looks diarios y especiales. Disfrutá de un estilo femenino y delicado con total comodidad.\n- Experimentá el confort superior de la viscosa bambula, suave y liviana, para una sensación agradable durante todo el día.\n- Lucí un estilo sofisticado con sus mangas largas y los delicados bordados artesanales que le dan un toque único a cada look.\n- Disfrutá de un calce fluido y favorecedor que estiliza tu silueta sin ajustar, ofreciendo libertad de movimiento y confort.\n- Versatilidad garantizada: esta blusa es perfecta para combinar tanto en tus outfits casuales como en propuestas más formales.\nEsta es la elección ideal para quienes buscan comodidad y estilo sin concesiones en su ropa femenina. Sumala hoy a tu colección de accesorios de moda y destacate con un outfit fresco, femenino y lleno de personalidad.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "PA114AS", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "PA114AM", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "L", "sku_interno": "PA114AL", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

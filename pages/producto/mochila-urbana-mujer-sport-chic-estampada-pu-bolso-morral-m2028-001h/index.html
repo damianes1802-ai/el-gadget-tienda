@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Estilo distintivo: sus estampados modernos y ese toque sport chic le dan una personalidad única a todos tus outfits, destacándote adonde vayas.
 - Espacio inteligente: tamaño mediano ideal para llevar tus imprescindibles organizados, como celular, billetera y llaves, sin sumar peso extra.
 Perfecta para tus paseos, salidas con amigas o el uso diario en la ciudad. Sumate a la tendencia con esta mochila o bolso morral que no puede faltar en tu guardarropa. ¡Hacela tuya hoy y viví la comodidad con un estilo que te representa!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Perfecta para tus paseos, salidas con amigas o el uso diario en la ciudad. Sumat
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "M2028-001H", "nombre": "Mochila Urbana Mujer Sport Chic Estampada PU - Bolso Morral", "precio_venta": 22000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque único a tu look diario con esta mochila urbana sport chic estampada. Diseñada para la mujer moderna que busca practicidad y estilo, es tu aliada ideal para llevar lo esencial con onda en cualquier momento.\n- Diseño 2 en 1: usala cómodamente como mochila para el día a día o transformala en un morral cruzado para un estilo más canchero y versátil.\n- Calidad asegurada: fabricada en poliuretano (PU) de alta calidad, es resistente, suave al tacto y súper fácil de mantener siempre impecable.\n- Estilo distintivo: sus estampados modernos y ese toque sport chic le dan una personalidad única a todos tus outfits, destacándote adonde vayas.\n- Espacio inteligente: tamaño mediano ideal para llevar tus imprescindibles organizados, como celular, billetera y llaves, sin sumar peso extra.\nPerfecta para tus paseos, salidas con amigas o el uso diario en la ciudad. Sumate a la tendencia con esta mochila o bolso morral que no puede faltar en tu guardarropa. ¡Hacela tuya hoy y viví la comodidad con un estilo que te representa!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001H_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001H_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001H_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001H_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "M2028-001H", "nombre": "Mochila Urbana Mujer Sport Chic Estampada PU - Bolso Morral", "precio_venta": 22000.0, "stock": 7, "color": "", "talle": "", "descripcion": "Dale un toque único a tu look diario con esta mochila urbana sport chic estampada. Diseñada para la mujer moderna que busca practicidad y estilo, es tu aliada ideal para llevar lo esencial con onda en cualquier momento.\n- Diseño 2 en 1: usala cómodamente como mochila para el día a día o transformala en un morral cruzado para un estilo más canchero y versátil.\n- Calidad asegurada: fabricada en poliuretano (PU) de alta calidad, es resistente, suave al tacto y súper fácil de mantener siempre impecable.\n- Estilo distintivo: sus estampados modernos y ese toque sport chic le dan una personalidad única a todos tus outfits, destacándote adonde vayas.\n- Espacio inteligente: tamaño mediano ideal para llevar tus imprescindibles organizados, como celular, billetera y llaves, sin sumar peso extra.\nPerfecta para tus paseos, salidas con amigas o el uso diario en la ciudad. Sumate a la tendencia con esta mochila o bolso morral que no puede faltar en tu guardarropa. ¡Hacela tuya hoy y viví la comodidad con un estilo que te representa!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001H_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001H_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001H_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001H_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

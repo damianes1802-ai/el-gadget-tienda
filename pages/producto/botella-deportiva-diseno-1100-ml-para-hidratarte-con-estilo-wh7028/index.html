@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Sumale un toque único a tu rutina con su diseño moderno y llamativo, perfecto para combinar con tu look deportivo o casual.
 - Dale un toque de color a tus días: recibí un tono vibrante entre fucsia, amarillo, celeste o rosa que le pondrá toda la onda a tu botella de agua reutilizable.
 Ya sea para entrenar, trabajar o simplemente mantenerte al día con tu consumo de agua, esta botella deportiva es tu aliada perfecta. ¡No esperes más para tener la tuya y sumarle onda a tu hidratación diaria!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Ya sea para entrenar, trabajar o simplemente mantenerte al día con tu consumo d
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7028", "nombre": "Botella deportiva diseño 1100 ML para hidratarte con estilo", "precio_venta": 42000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Mantenete hidratado todo el día con nuestra botella deportiva de diseño, pensada para acompañarte en cada actividad sin perder tu estilo. Ideal para el gimnasio, la oficina o tus salidas al aire libre, esta botella de agua te asegura la hidratación necesaria con un toque moderno y funcional.\n- Disfrutá de una hidratación constante gracias a su generosa capacidad de 1100 ML, ideal para no recargar tan seguido durante tus jornadas largas.\n- Sumale un toque único a tu rutina con su diseño moderno y llamativo, perfecto para combinar con tu look deportivo o casual.\n- Dale un toque de color a tus días: recibí un tono vibrante entre fucsia, amarillo, celeste o rosa que le pondrá toda la onda a tu botella de agua reutilizable.\nYa sea para entrenar, trabajar o simplemente mantenerte al día con tu consumo de agua, esta botella deportiva es tu aliada perfecta. ¡No esperes más para tener la tuya y sumarle onda a tu hidratación diaria!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7028", "nombre": "Botella deportiva diseño 1100 ML para hidratarte con estilo", "precio_venta": 42000.0, "stock": 9, "color": "", "talle": "", "descripcion": "Mantenete hidratado todo el día con nuestra botella deportiva de diseño, pensada para acompañarte en cada actividad sin perder tu estilo. Ideal para el gimnasio, la oficina o tus salidas al aire libre, esta botella de agua te asegura la hidratación necesaria con un toque moderno y funcional.\n- Disfrutá de una hidratación constante gracias a su generosa capacidad de 1100 ML, ideal para no recargar tan seguido durante tus jornadas largas.\n- Sumale un toque único a tu rutina con su diseño moderno y llamativo, perfecto para combinar con tu look deportivo o casual.\n- Dale un toque de color a tus días: recibí un tono vibrante entre fucsia, amarillo, celeste o rosa que le pondrá toda la onda a tu botella de agua reutilizable.\nYa sea para entrenar, trabajar o simplemente mantenerte al día con tu consumo de agua, esta botella deportiva es tu aliada perfecta. ¡No esperes más para tener la tuya y sumarle onda a tu hidratación diaria!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7028_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

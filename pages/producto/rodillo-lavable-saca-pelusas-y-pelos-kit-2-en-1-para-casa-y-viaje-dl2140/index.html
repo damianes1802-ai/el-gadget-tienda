@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Ideal para mascotas: Su diseño especial también funciona como cepillo para tu mejor amigo, retirando el pelo suelto sin molestarlos, manteniendo tu casa libre de pelos y a tu mascota feliz.
 - Limpieza sin esfuerzo: Súper efectivo sobre cualquier superficie, desde ropa y tapizados hasta el interior del auto. Atrapa pelos, pelusas, migas y polvo en una sola pasada.
 Transformá la forma de limpiar y mantené tu hogar impecable sin complicaciones. Este kit de limpieza es la solución inteligente que estabas buscando para el cuidado de tu ropa y tus mascotas. ¡Agregalo ahora a tu carrito y disfrutá de la practicidad!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Transformá la forma de limpiar y mantené tu hogar impecable sin complicaciones
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL2140", "nombre": "Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje", "precio_venta": 11500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Cansado de la ropa llena de pelusas y los pelos de tu mascota por toda la casa? Descubrí el Rodillo Saca Pelusas Lavable, la solución definitiva para mantener tus espacios impecables de forma fácil y ecológica.\n- Adiós a los repuestos: Este kit saca pelusas es totalmente lavable y reutilizable. Olvidate de gastar en repuestos, solo enjuagalo con agua y listo para usar de nuevo, siempre manteniendo su adherencia original.\n- Doble acción para tu día a día: Incluye un rodillo grande para limpiar sillones, alfombras y ropa en casa, y un mini rodillo portátil ideal para llevar en tu bolso o mochila y estar siempre impecable.\n- Ideal para mascotas: Su diseño especial también funciona como cepillo para tu mejor amigo, retirando el pelo suelto sin molestarlos, manteniendo tu casa libre de pelos y a tu mascota feliz.\n- Limpieza sin esfuerzo: Súper efectivo sobre cualquier superficie, desde ropa y tapizados hasta el interior del auto. Atrapa pelos, pelusas, migas y polvo en una sola pasada.\nTransformá la forma de limpiar y mantené tu hogar impecable sin complicaciones. Este kit de limpieza es la solución inteligente que estabas buscando para el cuidado de tu ropa y tus mascotas. ¡Agregalo ahora a tu carrito y disfrutá de la practicidad!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL2140", "nombre": "Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje", "precio_venta": 11500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Cansado de la ropa llena de pelusas y los pelos de tu mascota por toda la casa? Descubrí el Rodillo Saca Pelusas Lavable, la solución definitiva para mantener tus espacios impecables de forma fácil y ecológica.\n- Adiós a los repuestos: Este kit saca pelusas es totalmente lavable y reutilizable. Olvidate de gastar en repuestos, solo enjuagalo con agua y listo para usar de nuevo, siempre manteniendo su adherencia original.\n- Doble acción para tu día a día: Incluye un rodillo grande para limpiar sillones, alfombras y ropa en casa, y un mini rodillo portátil ideal para llevar en tu bolso o mochila y estar siempre impecable.\n- Ideal para mascotas: Su diseño especial también funciona como cepillo para tu mejor amigo, retirando el pelo suelto sin molestarlos, manteniendo tu casa libre de pelos y a tu mascota feliz.\n- Limpieza sin esfuerzo: Súper efectivo sobre cualquier superficie, desde ropa y tapizados hasta el interior del auto. Atrapa pelos, pelusas, migas y polvo en una sola pasada.\nTransformá la forma de limpiar y mantené tu hogar impecable sin complicaciones. Este kit de limpieza es la solución inteligente que estabas buscando para el cuidado de tu ropa y tus mascotas. ¡Agregalo ahora a tu carrito y disfrutá de la practicidad!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

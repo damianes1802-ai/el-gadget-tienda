@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Diversión sin límites: Con sus 695 piezas, este juego de construcción garantiza largas horas de entretenimiento y concentración.
 - Tamaño perfecto: Una vez armada, la tostadora de 8x12x11cm es ideal para jugar o exhibir en cualquier rincón.
 Este set es el regalo ideal para cumpleaños, el Día del Niño o simplemente para sorprender a ese pequeño constructor. No solo van a jugar, sino que van a aprender y crear algo único. ¡Sumalo al carrito y despertá su ingenio hoy mismo!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Este set es el regalo ideal para cumpleaños, el Día del Niño o simplemente pa
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "RWH0182", "nombre": "Juego de Bloques de Construcción Tostadora 695 Piezas para Niños", "precio_venta": 48000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale rienda suelta a la creatividad de los más chicos con este juego de bloques para armar una tostadora. Un juguete didáctico que combina diversión y aprendizaje en cada pieza.\n- Estimula la creatividad: Los niños de 6 años en adelante pueden construir su propia tostadora, potenciando su imaginación y pensamiento lógico.\n- Aprende jugando: Siguiendo las instrucciones, descubren principios técnicos mientras mejoran su motricidad fina e imaginación espacial.\n- Diversión sin límites: Con sus 695 piezas, este juego de construcción garantiza largas horas de entretenimiento y concentración.\n- Tamaño perfecto: Una vez armada, la tostadora de 8x12x11cm es ideal para jugar o exhibir en cualquier rincón.\nEste set es el regalo ideal para cumpleaños, el Día del Niño o simplemente para sorprender a ese pequeño constructor. No solo van a jugar, sino que van a aprender y crear algo único. ¡Sumalo al carrito y despertá su ingenio hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "RWH0182", "nombre": "Juego de Bloques de Construcción Tostadora 695 Piezas para Niños", "precio_venta": 48000.0, "stock": 6, "color": "", "talle": "", "descripcion": "Dale rienda suelta a la creatividad de los más chicos con este juego de bloques para armar una tostadora. Un juguete didáctico que combina diversión y aprendizaje en cada pieza.\n- Estimula la creatividad: Los niños de 6 años en adelante pueden construir su propia tostadora, potenciando su imaginación y pensamiento lógico.\n- Aprende jugando: Siguiendo las instrucciones, descubren principios técnicos mientras mejoran su motricidad fina e imaginación espacial.\n- Diversión sin límites: Con sus 695 piezas, este juego de construcción garantiza largas horas de entretenimiento y concentración.\n- Tamaño perfecto: Una vez armada, la tostadora de 8x12x11cm es ideal para jugar o exhibir en cualquier rincón.\nEste set es el regalo ideal para cumpleaños, el Día del Niño o simplemente para sorprender a ese pequeño constructor. No solo van a jugar, sino que van a aprender y crear algo único. ¡Sumalo al carrito y despertá su ingenio hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

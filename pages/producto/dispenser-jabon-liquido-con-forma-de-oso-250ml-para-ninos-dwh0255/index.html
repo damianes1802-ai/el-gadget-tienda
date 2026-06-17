@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Gran capacidad y recargable: Con 250ml, es ideal para jabón líquido, champú, acondicionador, lavado facial o gel de baño. Olvidate de rellenar seguido y usalo con confianza en todo tipo de productos líquidos.
 - Fácil de usar: Su diseño con bomba a presión garantiza una dosificación cómoda y sin esfuerzo, perfecta para manos pequeñas y grandes, evitando derrames.
 Más que un simple dispenser para el baño o la cocina, es un toque de alegría y funcionalidad para tu hogar. Asegurá diversión y limpieza para toda la familia. ¡Sumalo a tu carrito hoy y dale a tu casa un gadget con mucho onda!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Más que un simple dispenser para el baño o la cocina, es un toque de alegría 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DWH0255", "nombre": "Dispenser Jabón Líquido con Forma de Oso 250ml para Niños", "precio_venta": 18500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Transformá la rutina de lavado de manos en casa con este divertido dispenser de jabón líquido con forma de oso. Ideal para animar a los más chicos a mantener la higiene de forma alegre y sencilla, sumando un toque especial a tu baño o cocina.\n- Divertite lavando manos: Su forma de oso, súper linda y divertida, convierte la rutina de higiene en un momento esperado por los chicos, fomentando hábitos saludables con una sonrisa.\n- Calidad y durabilidad: Fabricado con materiales premium PP y PE, este dispenser de jabón espumoso es resistente, portátil y está pensado para acompañarte mucho tiempo en tu hogar.\n- Gran capacidad y recargable: Con 250ml, es ideal para jabón líquido, champú, acondicionador, lavado facial o gel de baño. Olvidate de rellenar seguido y usalo con confianza en todo tipo de productos líquidos.\n- Fácil de usar: Su diseño con bomba a presión garantiza una dosificación cómoda y sin esfuerzo, perfecta para manos pequeñas y grandes, evitando derrames.\nMás que un simple dispenser para el baño o la cocina, es un toque de alegría y funcionalidad para tu hogar. Asegurá diversión y limpieza para toda la familia. ¡Sumalo a tu carrito hoy y dale a tu casa un gadget con mucho onda!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_008"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DWH0255", "nombre": "Dispenser Jabón Líquido con Forma de Oso 250ml para Niños", "precio_venta": 18500.0, "stock": 11, "color": "", "talle": "", "descripcion": "Transformá la rutina de lavado de manos en casa con este divertido dispenser de jabón líquido con forma de oso. Ideal para animar a los más chicos a mantener la higiene de forma alegre y sencilla, sumando un toque especial a tu baño o cocina.\n- Divertite lavando manos: Su forma de oso, súper linda y divertida, convierte la rutina de higiene en un momento esperado por los chicos, fomentando hábitos saludables con una sonrisa.\n- Calidad y durabilidad: Fabricado con materiales premium PP y PE, este dispenser de jabón espumoso es resistente, portátil y está pensado para acompañarte mucho tiempo en tu hogar.\n- Gran capacidad y recargable: Con 250ml, es ideal para jabón líquido, champú, acondicionador, lavado facial o gel de baño. Olvidate de rellenar seguido y usalo con confianza en todo tipo de productos líquidos.\n- Fácil de usar: Su diseño con bomba a presión garantiza una dosificación cómoda y sin esfuerzo, perfecta para manos pequeñas y grandes, evitando derrames.\nMás que un simple dispenser para el baño o la cocina, es un toque de alegría y funcionalidad para tu hogar. Asegurá diversión y limpieza para toda la familia. ¡Sumalo a tu carrito hoy y dale a tu casa un gadget con mucho onda!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_008"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

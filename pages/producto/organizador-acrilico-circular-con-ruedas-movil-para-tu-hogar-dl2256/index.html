@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Su diseño compacto (67cm de alto x 30cm de diámetro) es ideal para departamentos o espacios reducidos, ofreciendo gran capacidad sin ocupar de más.
 - Fabricado en acrílico y metal de alta calidad, garantiza durabilidad y un estilo moderno que se integra a cualquier decoración, además de ser súper fácil de limpiar.
 Ideal como carrito auxiliar para el baño, mesa de luz o porta objetos en el living. Olvidate del desorden y sumale estilo a tu vida. ¡Hacelo tuyo hoy y transformá tus ambientes!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Ideal como carrito auxiliar para el baño, mesa de luz o porta objetos en el liv
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL2256", "nombre": "Organizador Acrílico Circular con Ruedas Móvil para tu Hogar", "precio_venta": 46000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque de diseño y funcionalidad a cada rincón de tu casa con nuestro organizador acrílico circular. Es la solución perfecta para mantener todo en su lugar, con estilo y a tu alcance. Pensado para quienes buscan optimizar el espacio y la practicidad en su hogar, este mueble organizador te va a encantar.\n- Aprovechá sus 3 estantes para organizar desde elementos de baño hasta pequeños accesorios de cocina o papelería, manteniendo tus espacios siempre impecables.\n- Gracias a sus 4 ruedas multidireccionales, movelo sin esfuerzo a donde lo necesites: del living al baño, de la cocina al escritorio, ¡la practicidad en tus manos!\n- Su diseño compacto (67cm de alto x 30cm de diámetro) es ideal para departamentos o espacios reducidos, ofreciendo gran capacidad sin ocupar de más.\n- Fabricado en acrílico y metal de alta calidad, garantiza durabilidad y un estilo moderno que se integra a cualquier decoración, además de ser súper fácil de limpiar.\nIdeal como carrito auxiliar para el baño, mesa de luz o porta objetos en el living. Olvidate del desorden y sumale estilo a tu vida. ¡Hacelo tuyo hoy y transformá tus ambientes!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2256_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL2256", "nombre": "Organizador Acrílico Circular con Ruedas Móvil para tu Hogar", "precio_venta": 46000.0, "stock": 11, "color": "", "talle": "", "descripcion": "Dale un toque de diseño y funcionalidad a cada rincón de tu casa con nuestro organizador acrílico circular. Es la solución perfecta para mantener todo en su lugar, con estilo y a tu alcance. Pensado para quienes buscan optimizar el espacio y la practicidad en su hogar, este mueble organizador te va a encantar.\n- Aprovechá sus 3 estantes para organizar desde elementos de baño hasta pequeños accesorios de cocina o papelería, manteniendo tus espacios siempre impecables.\n- Gracias a sus 4 ruedas multidireccionales, movelo sin esfuerzo a donde lo necesites: del living al baño, de la cocina al escritorio, ¡la practicidad en tus manos!\n- Su diseño compacto (67cm de alto x 30cm de diámetro) es ideal para departamentos o espacios reducidos, ofreciendo gran capacidad sin ocupar de más.\n- Fabricado en acrílico y metal de alta calidad, garantiza durabilidad y un estilo moderno que se integra a cualquier decoración, además de ser súper fácil de limpiar.\nIdeal como carrito auxiliar para el baño, mesa de luz o porta objetos en el living. Olvidate del desorden y sumale estilo a tu vida. ¡Hacelo tuyo hoy y transformá tus ambientes!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2256_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

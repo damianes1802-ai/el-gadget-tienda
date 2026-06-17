@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 Olvidate del calor y dale un toque único y súper divertido a tus vacaciones. El diseño de cereza es no solo original y llamativo, sino también perfecto para sacar fotos increíbles y compartirlas con amigos y familia en tus redes. Es un accesorio que te asegura risas y buenos momentos.
 
 Ideal para cualquier edad, este inflable es fácil de usar y transportar. Disfrutá de la comodidad de un flotador resistente mientras le ponés toda la onda a tu verano. Ya sea en tu casa, en un club o de viaje, el Inflable Cereza Gigante de El Gadget es la elección perfecta para agregar diversión y estilo a tus chapuzones.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Ideal para cualquier edad, este inflable es fácil de usar y transportar. Disfru
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-L2235-002", "nombre": "Inflable Cereza Gigante para Pileta - ¡Tu Verano Más Cool!", "precio_venta": 27000.0, "stock": 999, "color": "", "talle": "", "descripcion": "¡Preparate para un verano inolvidable con nuestro Inflable Cereza Gigante! Este flotador espectacular es el compañero ideal para que disfrutes al máximo tus días de pileta o playa en Argentina. Con sus generosas medidas aproximadas de 1,5 metros de largo por 0,8 metros de ancho, vas a tener espacio de sobra para relajarte cómodamente bajo el sol.\n\nOlvidate del calor y dale un toque único y súper divertido a tus vacaciones. El diseño de cereza es no solo original y llamativo, sino también perfecto para sacar fotos increíbles y compartirlas con amigos y familia en tus redes. Es un accesorio que te asegura risas y buenos momentos.\n\nIdeal para cualquier edad, este inflable es fácil de usar y transportar. Disfrutá de la comodidad de un flotador resistente mientras le ponés toda la onda a tu verano. Ya sea en tu casa, en un club o de viaje, el Inflable Cereza Gigante de El Gadget es la elección perfecta para agregar diversión y estilo a tus chapuzones.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-002_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-002_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-002_003"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "A-L2235-002", "nombre": "Inflable Cereza Gigante para Pileta - ¡Tu Verano Más Cool!", "precio_venta": 27000.0, "stock": 13, "color": "", "talle": "", "descripcion": "¡Preparate para un verano inolvidable con nuestro Inflable Cereza Gigante! Este flotador espectacular es el compañero ideal para que disfrutes al máximo tus días de pileta o playa en Argentina. Con sus generosas medidas aproximadas de 1,5 metros de largo por 0,8 metros de ancho, vas a tener espacio de sobra para relajarte cómodamente bajo el sol.\n\nOlvidate del calor y dale un toque único y súper divertido a tus vacaciones. El diseño de cereza es no solo original y llamativo, sino también perfecto para sacar fotos increíbles y compartirlas con amigos y familia en tus redes. Es un accesorio que te asegura risas y buenos momentos.\n\nIdeal para cualquier edad, este inflable es fácil de usar y transportar. Disfrutá de la comodidad de un flotador resistente mientras le ponés toda la onda a tu verano. Ya sea en tu casa, en un club o de viaje, el Inflable Cereza Gigante de El Gadget es la elección perfecta para agregar diversión y estilo a tus chapuzones.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-002_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-002_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-002_003"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

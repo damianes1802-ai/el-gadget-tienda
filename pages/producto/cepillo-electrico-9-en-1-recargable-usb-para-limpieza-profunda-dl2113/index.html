@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Su diseño recargable por USB te da total libertad de movimiento. Olvidate de las pilas y los cables, y tenelo siempre listo para usar donde lo necesites.
 - Disfrutá de una limpieza profunda y sin esfuerzo gracias a su potencia eléctrica, que remueve la suciedad más incrustada de forma rápida y efectiva, ahorrándote tiempo y energía.
 Transformá tu rutina y mantené tu hogar impecable con este innovador cepillo. Es el aliado perfecto para una limpieza inteligente y eficiente. Hacelo tuyo hoy y descubrí el placer de un ambiente reluciente con mínimo esfuerzo.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Transformá tu rutina y mantené tu hogar impecable con este innovador cepillo. 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL2113", "nombre": "Cepillo Eléctrico 9 en 1 Recargable USB para Limpieza Profunda", "precio_venta": 63000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Olvidate del esfuerzo extra en la limpieza de tu casa con el Cepillo Eléctrico 9 en 1. Este gadget de limpieza recargable te ofrece una solución versátil y eficiente para cada rincón del hogar, simplificando tus tareas diarias y haciendo que tu tiempo rinda más.\n- Con sus 9 formatos de uso, adaptá fácilmente este cepillo a cada tarea: desde la cocina hasta el baño, garantizando resultados impecables en diversas superficies sin necesidad de múltiples herramientas.\n- Su diseño recargable por USB te da total libertad de movimiento. Olvidate de las pilas y los cables, y tenelo siempre listo para usar donde lo necesites.\n- Disfrutá de una limpieza profunda y sin esfuerzo gracias a su potencia eléctrica, que remueve la suciedad más incrustada de forma rápida y efectiva, ahorrándote tiempo y energía.\nTransformá tu rutina y mantené tu hogar impecable con este innovador cepillo. Es el aliado perfecto para una limpieza inteligente y eficiente. Hacelo tuyo hoy y descubrí el placer de un ambiente reluciente con mínimo esfuerzo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_008"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL2113", "nombre": "Cepillo Eléctrico 9 en 1 Recargable USB para Limpieza Profunda", "precio_venta": 63000.0, "stock": 14, "color": "", "talle": "", "descripcion": "Olvidate del esfuerzo extra en la limpieza de tu casa con el Cepillo Eléctrico 9 en 1. Este gadget de limpieza recargable te ofrece una solución versátil y eficiente para cada rincón del hogar, simplificando tus tareas diarias y haciendo que tu tiempo rinda más.\n- Con sus 9 formatos de uso, adaptá fácilmente este cepillo a cada tarea: desde la cocina hasta el baño, garantizando resultados impecables en diversas superficies sin necesidad de múltiples herramientas.\n- Su diseño recargable por USB te da total libertad de movimiento. Olvidate de las pilas y los cables, y tenelo siempre listo para usar donde lo necesites.\n- Disfrutá de una limpieza profunda y sin esfuerzo gracias a su potencia eléctrica, que remueve la suciedad más incrustada de forma rápida y efectiva, ahorrándote tiempo y energía.\nTransformá tu rutina y mantené tu hogar impecable con este innovador cepillo. Es el aliado perfecto para una limpieza inteligente y eficiente. Hacelo tuyo hoy y descubrí el placer de un ambiente reluciente con mínimo esfuerzo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_008"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

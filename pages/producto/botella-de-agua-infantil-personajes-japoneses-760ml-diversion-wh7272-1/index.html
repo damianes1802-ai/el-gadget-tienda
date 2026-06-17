@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Práctica para el uso diario: Pensada para acompañarlos en el colegio, el club o sus juegos, es fácil de transportar y usar por manos pequeñas.
 - Fomenta la autonomía: Una botella de agua propia y con su diseño favorito les da independencia y responsabilidad sobre su hidratación.
 Esta botella es un infaltable en el equipo de cualquier chico activo y una excelente opción de regalo. Dale a tus hijos la mejor opción para su hidratación diaria y sumala hoy mismo a tu carrito. ¡No esperes más para que empiecen a disfrutarla!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Esta botella es un infaltable en el equipo de cualquier chico activo y una excel
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7272-1", "nombre": "Botella de agua infantil personajes japoneses 760ml, diversión", "precio_venta": 37500.0, "stock": 999, "color": "", "talle": "", "descripcion": "¡Hacé que tus hijos amen tomar agua con esta botella infantil de personajes japoneses! Es el accesorio perfecto para asegurar que se mantengan hidratados todo el día, ya sea en el colegio, las excursiones o jugando en casa. Este gadget indispensable de Bazar y Cocina es el aliado ideal para la merienda o cualquier actividad.\n- Diseño exclusivo con personajes japoneses: El atractivo visual es clave para que los más chicos adopten el hábito saludable de tomar agua con alegría.\n- Capacidad ideal de 760 ML: Suficiente agua para toda la jornada escolar o cualquier actividad, sin necesidad de recargarla constantemente y asegurando una hidratación completa.\n- Práctica para el uso diario: Pensada para acompañarlos en el colegio, el club o sus juegos, es fácil de transportar y usar por manos pequeñas.\n- Fomenta la autonomía: Una botella de agua propia y con su diseño favorito les da independencia y responsabilidad sobre su hidratación.\nEsta botella es un infaltable en el equipo de cualquier chico activo y una excelente opción de regalo. Dale a tus hijos la mejor opción para su hidratación diaria y sumala hoy mismo a tu carrito. ¡No esperes más para que empiecen a disfrutarla!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7272-1_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7272-1", "nombre": "Botella de agua infantil personajes japoneses 760ml, diversión", "precio_venta": 37500.0, "stock": 9, "color": "", "talle": "", "descripcion": "¡Hacé que tus hijos amen tomar agua con esta botella infantil de personajes japoneses! Es el accesorio perfecto para asegurar que se mantengan hidratados todo el día, ya sea en el colegio, las excursiones o jugando en casa. Este gadget indispensable de Bazar y Cocina es el aliado ideal para la merienda o cualquier actividad.\n- Diseño exclusivo con personajes japoneses: El atractivo visual es clave para que los más chicos adopten el hábito saludable de tomar agua con alegría.\n- Capacidad ideal de 760 ML: Suficiente agua para toda la jornada escolar o cualquier actividad, sin necesidad de recargarla constantemente y asegurando una hidratación completa.\n- Práctica para el uso diario: Pensada para acompañarlos en el colegio, el club o sus juegos, es fácil de transportar y usar por manos pequeñas.\n- Fomenta la autonomía: Una botella de agua propia y con su diseño favorito les da independencia y responsabilidad sobre su hidratación.\nEsta botella es un infaltable en el equipo de cualquier chico activo y una excelente opción de regalo. Dale a tus hijos la mejor opción para su hidratación diaria y sumala hoy mismo a tu carrito. ¡No esperes más para que empiecen a disfrutarla!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7272-1_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

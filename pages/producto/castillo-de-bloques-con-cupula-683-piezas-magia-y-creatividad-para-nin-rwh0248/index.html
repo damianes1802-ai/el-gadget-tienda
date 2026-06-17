@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Fabricado con plástico de alta calidad, este juguete infantil está pensado para resistir el juego de todos los días, asegurando diversión por mucho tiempo.
 - Ideal para chicos y chicas mayores de 6 años, es el regalo perfecto para estimular su mente y ofrecer una experiencia de juego inigualable.
 Ya sea para un cumpleaños, Navidad o simplemente para regalar un momento de alegría, este castillo de bloques es la elección perfecta. No esperes más para despertar la fantasía y el desarrollo de los más pequeños. ¡Sumalo a tu carrito y que empiece la aventura!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Ya sea para un cumpleaños, Navidad o simplemente para regalar un momento de ale
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "RWH0248", "nombre": "Castillo de Bloques con Cúpula 683 Piezas: Magia y creatividad para niños", "precio_venta": 56500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Sumérgete en un mundo de fantasía con este increíble Castillo de Bloques con Cúpula, ideal para que los chicos y chicas liberen su imaginación. Inspirado en cuentos de hadas, este juguete garantiza horas de magia y diversión constructiva.\n- Descubrí un mágico castillo de princesa con un diseño único estilo bola de nieve, transportando a los más chicos a sus cuentos favoritos.\n- Con 683 piezas para armar, este set de construcción desafía su ingenio y potencia la creatividad, ¡cada ensamble es un nuevo logro!\n- Fabricado con plástico de alta calidad, este juguete infantil está pensado para resistir el juego de todos los días, asegurando diversión por mucho tiempo.\n- Ideal para chicos y chicas mayores de 6 años, es el regalo perfecto para estimular su mente y ofrecer una experiencia de juego inigualable.\nYa sea para un cumpleaños, Navidad o simplemente para regalar un momento de alegría, este castillo de bloques es la elección perfecta. No esperes más para despertar la fantasía y el desarrollo de los más pequeños. ¡Sumalo a tu carrito y que empiece la aventura!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_009", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_010", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_011"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "RWH0248", "nombre": "Castillo de Bloques con Cúpula 683 Piezas: Magia y creatividad para niños", "precio_venta": 56500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Sumérgete en un mundo de fantasía con este increíble Castillo de Bloques con Cúpula, ideal para que los chicos y chicas liberen su imaginación. Inspirado en cuentos de hadas, este juguete garantiza horas de magia y diversión constructiva.\n- Descubrí un mágico castillo de princesa con un diseño único estilo bola de nieve, transportando a los más chicos a sus cuentos favoritos.\n- Con 683 piezas para armar, este set de construcción desafía su ingenio y potencia la creatividad, ¡cada ensamble es un nuevo logro!\n- Fabricado con plástico de alta calidad, este juguete infantil está pensado para resistir el juego de todos los días, asegurando diversión por mucho tiempo.\n- Ideal para chicos y chicas mayores de 6 años, es el regalo perfecto para estimular su mente y ofrecer una experiencia de juego inigualable.\nYa sea para un cumpleaños, Navidad o simplemente para regalar un momento de alegría, este castillo de bloques es la elección perfecta. No esperes más para despertar la fantasía y el desarrollo de los más pequeños. ¡Sumalo a tu carrito y que empiece la aventura!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_009", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_010", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_011"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

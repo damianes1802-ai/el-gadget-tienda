@@ -84,16 +84,16 @@
         <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)" disabled><option value="S">S</option></select>
       </div>
 
-      <!-- Descripción -->
-      <div class="product-description">
-        <h3>Descripción</h3>
-        <div class="description" id="productDescription">Descubrí la elegancia atemporal y la comodidad inigualable de nuestra malla enteriza negra, tu aliada perfecta para disfrutar cada momento del verano con total confianza y estilo. Es la prenda ideal para destacar en la playa o la pileta, sin resignar confort.</div>
-      </div>
-
       <!-- Acciones -->
       <div class="actions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
+      <!-- Descripción -->
+      <div class="product-description">
+        <h3>Descripción</h3>
+        <div class="description" id="productDescription">Descubrí la elegancia atemporal y la comodidad inigualable de nuestra malla enteriza negra, tu aliada perfecta para disfrutar cada momento del verano con total confianza y estilo. Es la prenda ideal para destacar en la playa o la pileta, sin resignar confort.</div>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-PAS17B", "nombre": "Malla Enteriza Negra - Comodidad y estilo para tu verano", "precio_venta": 28500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Descubrí la elegancia atemporal y la comodidad inigualable de nuestra malla enteriza negra, tu aliada perfecta para disfrutar cada momento del verano con total confianza y estilo. Es la prenda ideal para destacar en la playa o la pileta, sin resignar confort.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS17B-S", "imagenes": []}], "variantes": []};
+const PRODUCTO = {"sku": "A-PAS17B", "nombre": "Malla Enteriza Negra - Comodidad y estilo para tu verano", "precio_venta": 28500.0, "stock": 9, "color": "", "talle": "", "descripcion": "Descubrí la elegancia atemporal y la comodidad inigualable de nuestra malla enteriza negra, tu aliada perfecta para disfrutar cada momento del verano con total confianza y estilo. Es la prenda ideal para destacar en la playa o la pileta, sin resignar confort.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS17B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS17B-S", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

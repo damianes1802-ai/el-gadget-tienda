@@ -84,6 +84,12 @@
         <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)"><option value="S">S</option><option value="M">M</option></select>
       </div>
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -93,12 +99,6 @@
 - Tela liviana y suave: Disfrutá de total comodidad y frescura, ideal para días cálidos o para combinar.
 - Estilo versátil y combinable: Combinala fácilmente con jeans, shorts o faldas para un look casual o de evento informal.
 Sentite cómoda y a la moda con esta blusa que se adapta a tu cuerpo y a tu ritmo. Consultá nuestra tabla de talles para encontrar tu calce ideal y sumala a tu colección hoy.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -197,7 +197,7 @@ Sentite cómoda y a la moda con esta blusa que se adapta a tu cuerpo y a tu ritm
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "PA111D", "nombre": "Blusa Off Shoulder Mujer Rosa Manga Larga. Versátil y Chic", "precio_venta": 46000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Renová tu guardarropa con nuestra blusa off shoulder, la prenda clave para un look femenino, fresco y con un toque chic, perfecta para cualquier momento del día.\n- Diseño de hombros descubiertos: Resalta tu figura con un estilo moderno y sensual que marca tendencia.\n- Manga larga con detalles decorativos: Agrega elegancia sutil y distinción a tu outfit, ideal para media estación.\n- Tela liviana y suave: Disfrutá de total comodidad y frescura, ideal para días cálidos o para combinar.\n- Estilo versátil y combinable: Combinala fácilmente con jeans, shorts o faldas para un look casual o de evento informal.\nSentite cómoda y a la moda con esta blusa que se adapta a tu cuerpo y a tu ritmo. Consultá nuestra tabla de talles para encontrar tu calce ideal y sumala a tu colección hoy.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111D_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111D_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111D_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111D_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "PA111DS", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "PA111DM", "imagenes": []}], "variantes": []};
+const PRODUCTO = {"sku": "PA111D", "nombre": "Blusa Off Shoulder Mujer Rosa Manga Larga. Versátil y Chic", "precio_venta": 46000.0, "stock": 9, "color": "", "talle": "", "descripcion": "Renová tu guardarropa con nuestra blusa off shoulder, la prenda clave para un look femenino, fresco y con un toque chic, perfecta para cualquier momento del día.\n- Diseño de hombros descubiertos: Resalta tu figura con un estilo moderno y sensual que marca tendencia.\n- Manga larga con detalles decorativos: Agrega elegancia sutil y distinción a tu outfit, ideal para media estación.\n- Tela liviana y suave: Disfrutá de total comodidad y frescura, ideal para días cálidos o para combinar.\n- Estilo versátil y combinable: Combinala fácilmente con jeans, shorts o faldas para un look casual o de evento informal.\nSentite cómoda y a la moda con esta blusa que se adapta a tu cuerpo y a tu ritmo. Consultá nuestra tabla de talles para encontrar tu calce ideal y sumala a tu colección hoy.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111D_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111D_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111D_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111D_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "PA111DS", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "PA111DM", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

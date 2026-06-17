@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Reloj digital, fecha y temperatura: Tené la información clave siempre a la vista para organizar tu día sin distracciones, todo en un mismo gadget.
 - Batería recargable USB: Llevála a donde quieras sin cables, usala en cualquier rincón de tu casa o como luz de emergencia, con la practicidad que te da la carga por USB.
 Ideal para tu home office, el cuarto de los chicos o como un regalo original y súper útil. No dejes pasar esta lámpara multifunción que simplifica tu día a día, ¡sumala al carrito hoy mismo y disfrutá de la comodidad!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Ideal para tu home office, el cuarto de los chicos o como un regalo original y s
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL2150", "nombre": "Lampara Led Escritorio Ventilador USB Recargable y Reloj", "precio_venta": 48000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Optimiza tu espacio de trabajo o estudio con esta lámpara LED de escritorio que va mucho más allá de iluminar. Es la solución compacta y recargable que necesitás para tener todo organizado y a mano. Descubrí sus múltiples beneficios para tu día a día:\n- Iluminación LED de lectura: Disfrutá de una luz clara y eficiente, ideal para cuidar tu vista mientras leés, estudiás o trabajás sin fatiga visual.\n- Ventilador integrado y porta lápices: Mantené tu escritorio ordenado y fresco, con un espacio dedicado para tus útiles y una brisa suave en los días calurosos.\n- Reloj digital, fecha y temperatura: Tené la información clave siempre a la vista para organizar tu día sin distracciones, todo en un mismo gadget.\n- Batería recargable USB: Llevála a donde quieras sin cables, usala en cualquier rincón de tu casa o como luz de emergencia, con la practicidad que te da la carga por USB.\nIdeal para tu home office, el cuarto de los chicos o como un regalo original y súper útil. No dejes pasar esta lámpara multifunción que simplifica tu día a día, ¡sumala al carrito hoy mismo y disfrutá de la comodidad!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_009"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL2150", "nombre": "Lampara Led Escritorio Ventilador USB Recargable y Reloj", "precio_venta": 48000.0, "stock": 8, "color": "", "talle": "", "descripcion": "Optimiza tu espacio de trabajo o estudio con esta lámpara LED de escritorio que va mucho más allá de iluminar. Es la solución compacta y recargable que necesitás para tener todo organizado y a mano. Descubrí sus múltiples beneficios para tu día a día:\n- Iluminación LED de lectura: Disfrutá de una luz clara y eficiente, ideal para cuidar tu vista mientras leés, estudiás o trabajás sin fatiga visual.\n- Ventilador integrado y porta lápices: Mantené tu escritorio ordenado y fresco, con un espacio dedicado para tus útiles y una brisa suave en los días calurosos.\n- Reloj digital, fecha y temperatura: Tené la información clave siempre a la vista para organizar tu día sin distracciones, todo en un mismo gadget.\n- Batería recargable USB: Llevála a donde quieras sin cables, usala en cualquier rincón de tu casa o como luz de emergencia, con la practicidad que te da la carga por USB.\nIdeal para tu home office, el cuarto de los chicos o como un regalo original y súper útil. No dejes pasar esta lámpara multifunción que simplifica tu día a día, ¡sumala al carrito hoy mismo y disfrutá de la comodidad!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_009"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

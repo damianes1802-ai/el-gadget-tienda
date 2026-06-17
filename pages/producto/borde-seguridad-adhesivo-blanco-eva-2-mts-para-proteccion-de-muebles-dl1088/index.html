@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Disfrutá de una protección superior con el material EVA, que amortigua eficazmente los golpes y es seguro para el contacto, ideal para bebés y niños pequeños.
 - Integralo discretamente en cualquier ambiente de tu hogar. Su color blanco combina con la mayoría de los estilos de decoración, manteniendo la armonía visual.
 No esperes a que ocurra un accidente. Dale a tu casa la protección que necesita y convertí cada rincón en un espacio seguro para todos. Agregá este borde de seguridad a tu carrito y disfrutá de la tranquilidad que merecés.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ No esperes a que ocurra un accidente. Dale a tu casa la protección que necesita
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL1088", "nombre": "Borde seguridad adhesivo blanco EVA 2 mts para protección de muebles", "precio_venta": 5500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Protegé a tus chicos y evitá golpes con nuestro borde adhesivo de seguridad Bumper. Diseñado para ofrecer la máxima protección en tu hogar y asegurar la tranquilidad de tu familia.\n- Instalá fácilmente sin herramientas gracias a su diseño adhesivo, perfecto para proteger esquinas y bordes de mesas o muebles en tu casa.\n- Con 2 metros de largo, tenés suficiente para cubrir una superficie amplia o varios puntos críticos, adaptándose a tus necesidades de seguridad.\n- Disfrutá de una protección superior con el material EVA, que amortigua eficazmente los golpes y es seguro para el contacto, ideal para bebés y niños pequeños.\n- Integralo discretamente en cualquier ambiente de tu hogar. Su color blanco combina con la mayoría de los estilos de decoración, manteniendo la armonía visual.\nNo esperes a que ocurra un accidente. Dale a tu casa la protección que necesita y convertí cada rincón en un espacio seguro para todos. Agregá este borde de seguridad a tu carrito y disfrutá de la tranquilidad que merecés.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1088_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL1088", "nombre": "Borde seguridad adhesivo blanco EVA 2 mts para protección de muebles", "precio_venta": 5500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Protegé a tus chicos y evitá golpes con nuestro borde adhesivo de seguridad Bumper. Diseñado para ofrecer la máxima protección en tu hogar y asegurar la tranquilidad de tu familia.\n- Instalá fácilmente sin herramientas gracias a su diseño adhesivo, perfecto para proteger esquinas y bordes de mesas o muebles en tu casa.\n- Con 2 metros de largo, tenés suficiente para cubrir una superficie amplia o varios puntos críticos, adaptándose a tus necesidades de seguridad.\n- Disfrutá de una protección superior con el material EVA, que amortigua eficazmente los golpes y es seguro para el contacto, ideal para bebés y niños pequeños.\n- Integralo discretamente en cualquier ambiente de tu hogar. Su color blanco combina con la mayoría de los estilos de decoración, manteniendo la armonía visual.\nNo esperes a que ocurra un accidente. Dale a tu casa la protección que necesita y convertí cada rincón en un espacio seguro para todos. Agregá este borde de seguridad a tu carrito y disfrutá de la tranquilidad que merecés.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1088_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

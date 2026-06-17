@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Tamaño perfecto para los más chicos: sus medidas de 30 x 12 x 35 cm son ideales para el jardín de infantes o la guardería, ofreciendo espacio justo para meriendas y juguetes sin ser pesada. 
 - Comodidad garantizada: pensada para que puedan transportar sus objetos favoritos con total facilidad y autonomía. 
 Esta mochila es el regalo ideal para sorprender a los peques, asegurando que empiecen el día con una sonrisa. Dale un toque de magia y practicidad a sus jornadas. No esperes más y sumala al carrito para que sus días estén llenos de alegría y estilo.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Esta mochila es el regalo ideal para sorprender a los peques, asegurando que emp
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7261", "nombre": "Mochila infantil animalitos personajes japoneses, ideal jardín", "precio_venta": 40500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Prepará a los más chicos para sus aventuras diarias con esta mochila infantil de animalitos y personajes japoneses. Es el accesorio perfecto para llevar todo lo necesario al jardín o a las salidas, combinando diversión y funcionalidad. \n- Diseño encantador: con divertidos animalitos y personajes japoneses que harán de cada día una aventura, ideal para que los chicos adoren llevar sus cosas. \n- Tamaño perfecto para los más chicos: sus medidas de 30 x 12 x 35 cm son ideales para el jardín de infantes o la guardería, ofreciendo espacio justo para meriendas y juguetes sin ser pesada. \n- Comodidad garantizada: pensada para que puedan transportar sus objetos favoritos con total facilidad y autonomía. \nEsta mochila es el regalo ideal para sorprender a los peques, asegurando que empiecen el día con una sonrisa. Dale un toque de magia y practicidad a sus jornadas. No esperes más y sumala al carrito para que sus días estén llenos de alegría y estilo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7261", "nombre": "Mochila infantil animalitos personajes japoneses, ideal jardín", "precio_venta": 40500.0, "stock": 14, "color": "", "talle": "", "descripcion": "Prepará a los más chicos para sus aventuras diarias con esta mochila infantil de animalitos y personajes japoneses. Es el accesorio perfecto para llevar todo lo necesario al jardín o a las salidas, combinando diversión y funcionalidad. \n- Diseño encantador: con divertidos animalitos y personajes japoneses que harán de cada día una aventura, ideal para que los chicos adoren llevar sus cosas. \n- Tamaño perfecto para los más chicos: sus medidas de 30 x 12 x 35 cm son ideales para el jardín de infantes o la guardería, ofreciendo espacio justo para meriendas y juguetes sin ser pesada. \n- Comodidad garantizada: pensada para que puedan transportar sus objetos favoritos con total facilidad y autonomía. \nEsta mochila es el regalo ideal para sorprender a los peques, asegurando que empiecen el día con una sonrisa. Dale un toque de magia y practicidad a sus jornadas. No esperes más y sumala al carrito para que sus días estén llenos de alegría y estilo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

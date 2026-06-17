@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Confeccionada para la vida activa, su diseño es ideal para llevar a tus entrenamientos o a la oficina con total comodidad.
 - Agregale un toque de color a tus días. Viene en turquesa, rosa o negro, y se envía un color surtido moderno para vos.
 No más excusas para la deshidratación. Esta botella de agua reutilizable combina practicidad y estilo, siendo un complemento perfecto para tu rutina. Hacela tuya hoy y mantenete vital en cada momento.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ No más excusas para la deshidratación. Esta botella de agua reutilizable combi
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7194-1", "nombre": "Botella deportiva 750ml para entrenar, hidratate con estilo", "precio_venta": 15000.0, "stock": 999, "color": "", "talle": "", "descripcion": "La hidratación es clave para tu rendimiento, por eso esta botella deportiva de 750ml es tu aliada perfecta para el gimnasio, el running o tus actividades diarias. Un esencial en tu bazar y cocina, para tener siempre a mano tu bebida favorita.\n- Su generosa capacidad de 750ml te asegura la cantidad de agua que necesitás para tus rutinas, evitando recargas constantes.\n- Confeccionada para la vida activa, su diseño es ideal para llevar a tus entrenamientos o a la oficina con total comodidad.\n- Agregale un toque de color a tus días. Viene en turquesa, rosa o negro, y se envía un color surtido moderno para vos.\nNo más excusas para la deshidratación. Esta botella de agua reutilizable combina practicidad y estilo, siendo un complemento perfecto para tu rutina. Hacela tuya hoy y mantenete vital en cada momento.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7194-1_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7194-1", "nombre": "Botella deportiva 750ml para entrenar, hidratate con estilo", "precio_venta": 15000.0, "stock": 11, "color": "", "talle": "", "descripcion": "La hidratación es clave para tu rendimiento, por eso esta botella deportiva de 750ml es tu aliada perfecta para el gimnasio, el running o tus actividades diarias. Un esencial en tu bazar y cocina, para tener siempre a mano tu bebida favorita.\n- Su generosa capacidad de 750ml te asegura la cantidad de agua que necesitás para tus rutinas, evitando recargas constantes.\n- Confeccionada para la vida activa, su diseño es ideal para llevar a tus entrenamientos o a la oficina con total comodidad.\n- Agregale un toque de color a tus días. Viene en turquesa, rosa o negro, y se envía un color surtido moderno para vos.\nNo más excusas para la deshidratación. Esta botella de agua reutilizable combina practicidad y estilo, siendo un complemento perfecto para tu rutina. Hacela tuya hoy y mantenete vital en cada momento.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7194-1_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Amplia variedad de colores (6 colores): Recibí un gorro único en uno de los seis tonos disponibles. Ideal para sorprenderte o regalar un detalle práctico y lleno de onda. Se envían surtidos para garantizar una compra emocionante.
 - Esencial para el frío: Diseñado para ofrecerte abrigo y confort, este gorro de lana es el complemento indispensable para enfrentar las bajas temperaturas con comodidad.
 No dejes pasar esta oferta para sumar un gorro básico y funcional a tu vestuario invernal o para hacer un regalo útil. Sumalo a tu carrito hoy y disfrutá del invierno con estilo y calidez.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ No dejes pasar esta oferta para sumar un gorro básico y funcional a tu vestuari
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "T6109", "nombre": "Gorro Beanie Clásico de Lana - 6 Colores Surtidos para Invierno", "precio_venta": 11000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Prepárate para el frío en Argentina con nuestro Gorro Beanie Clásico, tu aliado perfecto para mantenerte abrigado y con estilo en cualquier ocasión. Un accesorio esencial que combina comodidad y tendencia, ideal para el día a día.\n- Beanie clásico: Un diseño atemporal que combina con todo, desde un look urbano hasta tu outfit casual favorito. Es un accesorio versátil que nunca pasa de moda.\n- Amplia variedad de colores (6 colores): Recibí un gorro único en uno de los seis tonos disponibles. Ideal para sorprenderte o regalar un detalle práctico y lleno de onda. Se envían surtidos para garantizar una compra emocionante.\n- Esencial para el frío: Diseñado para ofrecerte abrigo y confort, este gorro de lana es el complemento indispensable para enfrentar las bajas temperaturas con comodidad.\nNo dejes pasar esta oferta para sumar un gorro básico y funcional a tu vestuario invernal o para hacer un regalo útil. Sumalo a tu carrito hoy y disfrutá del invierno con estilo y calidez.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_T6109_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "T6109", "nombre": "Gorro Beanie Clásico de Lana - 6 Colores Surtidos para Invierno", "precio_venta": 11000.0, "stock": 9, "color": "", "talle": "", "descripcion": "Prepárate para el frío en Argentina con nuestro Gorro Beanie Clásico, tu aliado perfecto para mantenerte abrigado y con estilo en cualquier ocasión. Un accesorio esencial que combina comodidad y tendencia, ideal para el día a día.\n- Beanie clásico: Un diseño atemporal que combina con todo, desde un look urbano hasta tu outfit casual favorito. Es un accesorio versátil que nunca pasa de moda.\n- Amplia variedad de colores (6 colores): Recibí un gorro único en uno de los seis tonos disponibles. Ideal para sorprenderte o regalar un detalle práctico y lleno de onda. Se envían surtidos para garantizar una compra emocionante.\n- Esencial para el frío: Diseñado para ofrecerte abrigo y confort, este gorro de lana es el complemento indispensable para enfrentar las bajas temperaturas con comodidad.\nNo dejes pasar esta oferta para sumar un gorro básico y funcional a tu vestuario invernal o para hacer un regalo útil. Sumalo a tu carrito hoy y disfrutá del invierno con estilo y calidez.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_T6109_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

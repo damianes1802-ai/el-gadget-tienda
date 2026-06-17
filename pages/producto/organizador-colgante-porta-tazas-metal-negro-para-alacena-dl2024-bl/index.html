@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -90,12 +96,6 @@
 - Su acabado en color negro aporta un toque moderno y elegante, combinando perfectamente con cualquier estilo de cocina.
 - Con 27,5 cm de largo, ofrece un tamaño compacto que maximiza el orden sin estorbar en tu espacio de trabajo.
 Decile adiós al desorden y disfrutá de una cocina más funcional y visualmente atractiva. Este porta tazas es un infaltable para organizar tu bazar. ¡Hacelo tuyo hoy y sentí la diferencia!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -194,7 +194,7 @@ Decile adiós al desorden y disfrutá de una cocina más funcional y visualmente
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL2024-BL", "nombre": "Organizador colgante porta tazas metal negro para alacena", "precio_venta": 3000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Optimizá cada rincón de tu cocina con nuestro organizador colgante, ideal para tener tus tazas siempre a mano y ordenadas sin ocupar espacio en la mesada. Es la solución perfecta para ganar lugar y mantener tu vajilla impecable.\n- Fabricado en hierro pintado, su estructura robusta garantiza que tus tazas estén seguras y siempre a mano.\n- Con capacidad para hasta 6 tazas, transformá el espacio vertical de tu alacena en un sistema de guardado eficiente.\n- Diseñado para estantes de hasta 2,5 cm de espesor, se instala en segundos sin necesidad de herramientas ni perforaciones.\n- Su acabado en color negro aporta un toque moderno y elegante, combinando perfectamente con cualquier estilo de cocina.\n- Con 27,5 cm de largo, ofrece un tamaño compacto que maximiza el orden sin estorbar en tu espacio de trabajo.\nDecile adiós al desorden y disfrutá de una cocina más funcional y visualmente atractiva. Este porta tazas es un infaltable para organizar tu bazar. ¡Hacelo tuyo hoy y sentí la diferencia!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-BL_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-BL_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-BL_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-BL_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL2024-BL", "nombre": "Organizador colgante porta tazas metal negro para alacena", "precio_venta": 3000.0, "stock": 13, "color": "", "talle": "", "descripcion": "Optimizá cada rincón de tu cocina con nuestro organizador colgante, ideal para tener tus tazas siempre a mano y ordenadas sin ocupar espacio en la mesada. Es la solución perfecta para ganar lugar y mantener tu vajilla impecable.\n- Fabricado en hierro pintado, su estructura robusta garantiza que tus tazas estén seguras y siempre a mano.\n- Con capacidad para hasta 6 tazas, transformá el espacio vertical de tu alacena en un sistema de guardado eficiente.\n- Diseñado para estantes de hasta 2,5 cm de espesor, se instala en segundos sin necesidad de herramientas ni perforaciones.\n- Su acabado en color negro aporta un toque moderno y elegante, combinando perfectamente con cualquier estilo de cocina.\n- Con 27,5 cm de largo, ofrece un tamaño compacto que maximiza el orden sin estorbar en tu espacio de trabajo.\nDecile adiós al desorden y disfrutá de una cocina más funcional y visualmente atractiva. Este porta tazas es un infaltable para organizar tu bazar. ¡Hacelo tuyo hoy y sentí la diferencia!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-BL_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-BL_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-BL_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-BL_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

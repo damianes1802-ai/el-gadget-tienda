@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - El mango extensible se ajusta a tus necesidades, ideal para llegar cómodamente a las paredes más altas o al fondo de la ducha y bañera sin agacharte.
 - Con su amplio cabezal de 50 cm, cubrís una mayor superficie en cada pasada, haciendo la limpieza del baño mucho más eficiente y rápida.
 Transformá la rutina de limpieza en algo práctico y rápido. Es el gadget perfecto para mantener tu baño impecable día a día, ahorrando tiempo y energía. Hacelo tuyo hoy y disfrutá de la comodidad que te merecés.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Transformá la rutina de limpieza en algo práctico y rápido. Es el gadget perf
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL1097", "nombre": "Escobilla giratoria extensible para limpieza de baño sin esfuerzo", "precio_venta": 12000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Olvidate de las posturas incómodas y los rincones difíciles al limpiar tu baño. Esta escobilla con cabezal giratorio y mango extensible es tu aliada para una limpieza profunda y sin esfuerzo en todo tu hogar.\n- Su cabezal giratorio te permite limpiar en cualquier ángulo, alcanzando esos rincones complicados y suciedad acumulada sin que tengas que retorcerte.\n- El mango extensible se ajusta a tus necesidades, ideal para llegar cómodamente a las paredes más altas o al fondo de la ducha y bañera sin agacharte.\n- Con su amplio cabezal de 50 cm, cubrís una mayor superficie en cada pasada, haciendo la limpieza del baño mucho más eficiente y rápida.\nTransformá la rutina de limpieza en algo práctico y rápido. Es el gadget perfecto para mantener tu baño impecable día a día, ahorrando tiempo y energía. Hacelo tuyo hoy y disfrutá de la comodidad que te merecés.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL1097", "nombre": "Escobilla giratoria extensible para limpieza de baño sin esfuerzo", "precio_venta": 12000.0, "stock": 11, "color": "", "talle": "", "descripcion": "Olvidate de las posturas incómodas y los rincones difíciles al limpiar tu baño. Esta escobilla con cabezal giratorio y mango extensible es tu aliada para una limpieza profunda y sin esfuerzo en todo tu hogar.\n- Su cabezal giratorio te permite limpiar en cualquier ángulo, alcanzando esos rincones complicados y suciedad acumulada sin que tengas que retorcerte.\n- El mango extensible se ajusta a tus necesidades, ideal para llegar cómodamente a las paredes más altas o al fondo de la ducha y bañera sin agacharte.\n- Con su amplio cabezal de 50 cm, cubrís una mayor superficie en cada pasada, haciendo la limpieza del baño mucho más eficiente y rápida.\nTransformá la rutina de limpieza en algo práctico y rápido. Es el gadget perfecto para mantener tu baño impecable día a día, ahorrando tiempo y energía. Hacelo tuyo hoy y disfrutá de la comodidad que te merecés.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

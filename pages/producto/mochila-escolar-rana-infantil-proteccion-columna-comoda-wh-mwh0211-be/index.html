@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Protección para su espalda: incorpora una función específica para cuidar la columna vertebral de tu hijo, brindando tranquilidad a los padres.
 - Material resistente: confeccionada en tela Oxford, un material duradero que aguanta el ritmo de los chicos y asegura una larga vida útil.
 Esta mochila no solo es práctica para el colegio sino también un regalo ideal que une diversión y bienestar. Dale a tu hijo la comodidad y seguridad que necesita con un toque de alegría. ¡Sumala ahora al carrito!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Esta mochila no solo es práctica para el colegio sino también un regalo ideal 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH-MWH0211-BE", "nombre": "Mochila Escolar Rana infantil protección columna cómoda", "precio_venta": 29500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Prepará a tu hijo para la escuela o jardín con la Mochila Escolar Rana, diseñada para cuidar su espalda mientras lleva todo lo necesario con la máxima comodidad. Es la compañera ideal para las aventuras diarias de los más chicos y chicas en Argentina. Esta mochila infantil combina funcionalidad con un diseño encantador.\n- Diseño divertido y neutro: la ranita es adorable y su estilo unisex es perfecto para cualquier niño o niña, sin importar su género.\n- Comodidad garantizada: es ultraliviana, transpirable y está diseñada para una carga reducida, ideal para el día a día en el colegio o jardín.\n- Protección para su espalda: incorpora una función específica para cuidar la columna vertebral de tu hijo, brindando tranquilidad a los padres.\n- Material resistente: confeccionada en tela Oxford, un material duradero que aguanta el ritmo de los chicos y asegura una larga vida útil.\nEsta mochila no solo es práctica para el colegio sino también un regalo ideal que une diversión y bienestar. Dale a tu hijo la comodidad y seguridad que necesita con un toque de alegría. ¡Sumala ahora al carrito!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH-MWH0211-BE", "nombre": "Mochila Escolar Rana infantil protección columna cómoda", "precio_venta": 29500.0, "stock": 13, "color": "", "talle": "", "descripcion": "Prepará a tu hijo para la escuela o jardín con la Mochila Escolar Rana, diseñada para cuidar su espalda mientras lleva todo lo necesario con la máxima comodidad. Es la compañera ideal para las aventuras diarias de los más chicos y chicas en Argentina. Esta mochila infantil combina funcionalidad con un diseño encantador.\n- Diseño divertido y neutro: la ranita es adorable y su estilo unisex es perfecto para cualquier niño o niña, sin importar su género.\n- Comodidad garantizada: es ultraliviana, transpirable y está diseñada para una carga reducida, ideal para el día a día en el colegio o jardín.\n- Protección para su espalda: incorpora una función específica para cuidar la columna vertebral de tu hijo, brindando tranquilidad a los padres.\n- Material resistente: confeccionada en tela Oxford, un material duradero que aguanta el ritmo de los chicos y asegura una larga vida útil.\nEsta mochila no solo es práctica para el colegio sino también un regalo ideal que une diversión y bienestar. Dale a tu hijo la comodidad y seguridad que necesita con un toque de alegría. ¡Sumala ahora al carrito!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

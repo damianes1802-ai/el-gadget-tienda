@@ -1,0 +1,53 @@
+{
+  "sku": "DL2343",
+  "titulo": "Cajonera Infantil Organizador 4 Niveles Ruedas",
+  "precio": 62990,
+  "descripcion": "CAJONERA INFANTIL ORGANIZADOR 4 NIVELS RUEDAS PAÑALERO BEBE\nOptimizá el espacio de guardado y dale un toque tierno a las habitaciones con este práctico organizador infantil de tres niveles. Es el mueble ideal para mantener en perfecto orden los juguetes, pañales, ropa, calzado o artículos de higiene de los más chicos. Gracias a su diseño multifuncional con cajones deslizantes tipo cubeta, todo queda al alcance de la mano de forma prolija y accesible.\nSu estructura está fabricada en polipropileno ecológico (PP Material), un plástico de alta resistencia, totalmente seguro para entornos infantiles y sumamente fácil de limpiar. Cuenta con una superficie superior plana y súper útil, ideal para apoyar lámparas de noche, adornos o elementos que necesites tener a mano diariamente. Gracias a su sistema de ruedas giratorias integradas, vas a poder trasladarlo sin esfuerzo entre el dormitorio, el baño, el living o la sala de juegos según tus necesidades. Cada cajón posee una manija ergonómica con relieve en forma de tiernos animales, transformando el orden en un juego divertido para los niños.\nCARACTERÍSTICAS PRINCIPALES:\nMaterial seguro: Confeccionado en plástico polipropileno ecológico de alta durabilidad y bordes redondeados para mayor protección.\nDiseño amigable: Cajones con manijas decorativas de animalitos que facilitan la apertura.\nSistema de ruedas universales: Movilidad suave y ligera que permite trasladar el organizador de un ambiente a otro con total comodidad.\nCajones tipo cubeta: Contenedores profundos ideales para pañales, prendas de ropa o bloques de construcción.\nMúltiples escenarios: Su estética y funcionalidad se adaptan perfectamente a dormitorios, cuartos de estudio, salas de juego o baños.\nSuperficie superior plana: Espacio extra rígido para aprovechar como estante de apoyo.\nMEDIDAS DE LA CAJONERA:\nAlto total: 79 cm\nAncho frontal: 34 cm\nProfundidad: 40 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2343_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2343_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2343_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2343_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2343_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2343_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2343_6_.png"
+  ],
+  "cantidad_imagenes": 7,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/cajonera-infantil-organizador-4-niveles-ruedas.html",
+  "fecha_scraping": "2026-06-17T11:36:03.188652",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-17T11:41:39.949606",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696749/prod_DL2343_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696750/prod_DL2343_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696751/prod_DL2343_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696751/prod_DL2343_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696752/prod_DL2343_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696753/prod_DL2343_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696754/prod_DL2343_007.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 62990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 62990,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 107083.0,
+    "precio_final": 107500.0,
+    "ganancia_neta": 44510.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 107500.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.068164"
+}

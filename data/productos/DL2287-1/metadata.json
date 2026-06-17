@@ -1,0 +1,50 @@
+{
+  "sku": "DL2287-1",
+  "titulo": "Plato Giratorio Organizador Bandeja Antideslizante Mediano",
+  "precio": 10500,
+  "descripcion": "BANDEJA PLATO GIRATORIO MULTIUSO ORGANIZADOR\nOptimizá la organización de tu hogar con esta práctica bandeja plato giratorio multiuso en color blanco. Diseñado para ofrecer una solución estética y eficiente, este organizador es el accesorio ideal para mantener ordenados aquellos espacios que suelen acumular pequeños objetos, permitiendo encontrar lo que buscás en segundos.\nRotación completa de 360 grados\nEquipada con un sistema de rodamiento suave, la bandeja gira por completo para facilitarte un acceso rápido y cómodo a todos tus artículos desde cualquier ángulo. Ya no vas a tener que mover frascos o recipientes para alcanzar lo que quedó al fondo.\nMaterial de alta resistencia y fácil limpieza\nEste organizador está fabricada en plástico ABS (PVC) premium de excelente durabilidad. Su superficie es completamente impermeable, lo que garantiza una larga vida útil y un mantenimiento muy sencillo frente a posibles derrames.\nDiseño multifuncional para todo el hogar\nGracias a su versatilidad, es perfecta para ubicar en múltiples ambientes:\nEn la cocina: Excelente como especiero, organizador de aderezos, aceites o condimentos.\nEn el baño: Ideal para ordenar cosméticos, perfumes, cremas o artículos de higiene personal.\nEn el dormitorio o vestidor: Útil para mantener alineados accesorios, maquillaje o elementos de cuidado diario.\nAhorro inteligente de espacio\nAl centralizar los objetos pequeños sobre una misma superficie, maximizás el aprovechamiento de las esquinas de tus mesadas, alacenas o estantes. Esto ayuda a liberar áreas de trabajo y hace que tus habitaciones luzcan visualmente más amplias y despejadas.\nEstética moderna y elegante\nCon un aspecto simple, limpio y contemporáneo en color blanco, se integra perfectamente con cualquier estilo de decoración, aportando un toque de orden, prolijidad y sofisticación a tu día a día.\nMEDIDAS DE LA BANDEJA:\nDiámetro total: 25 cm\nAlto total: 4 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2287_5__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2287_9__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2287_8__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2287_1__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2287_2__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2287_3__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2287_4__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2287_6__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2287_7__1.png"
+  ],
+  "cantidad_imagenes": 9,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/plato-giratorio-organizador-bandeja-antideslizante-grande-1.html",
+  "fecha_scraping": "2026-06-17T11:36:16.502184",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696619/prod_DL2287-1_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696620/prod_DL2287-1_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696621/prod_DL2287-1_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696622/prod_DL2287-1_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696623/prod_DL2287-1_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696624/prod_DL2287-1_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696625/prod_DL2287-1_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696626/prod_DL2287-1_008.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696627/prod_DL2287-1_009.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 10500,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 10500,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 17850.0,
+    "precio_final": 18000.0,
+    "ganancia_neta": 7500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 18000.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.058411"
+}

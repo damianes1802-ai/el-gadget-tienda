@@ -15,20 +15,17 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/alfombra-absorbente-diatomita-para-mascotas-4.html",
-  "fecha_scraping": "2026-06-16T11:52:31.741930",
+  "fecha_scraping": "2026-06-17T11:36:59.709550",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
-    "Accesorios para Mascotas",
-    "Nuevos Ingresos"
+    "Accesorios para Mascotas"
   ],
   "categoria_principal": "Accesorios para Mascotas",
   "categoria": "Accesorios para Mascotas",
-  "categorias_secundarias": [
-    "Nuevos Ingresos"
-  ],
-  "total_categorias": 2,
+  "categorias_secundarias": [],
+  "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-16T11:57:51.787874",
+  "fecha_mapeo_categorias": "2026-06-17T11:41:39.940911",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-GR_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-GR_002",
@@ -48,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 10500.0,
-  "fecha_calculo_precio": "2026-06-16T11:59:40.065610"
+  "fecha_calculo_precio": "2026-06-17T11:47:31.022951"
 }

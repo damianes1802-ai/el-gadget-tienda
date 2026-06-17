@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - ¡Sorpresa asegurada!: Dejate llevar por la emoción de recibir un modelo surtido. Un toque de aventura que hace cada compra especial y diferente.
 - Calidad al mejor precio: Aprovechá esta oferta exclusiva para equipar a los chicos con un accesorio funcional y divertido, sin que afecte tu bolsillo.
 Perfecta para el uso diario en el colegio o como un regalo original y útil, esta cartuchera canopla es la elección ideal. ¡No te quedes sin la tuya y sumá una dosis de diversión a la mochila!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Perfecta para el uso diario en el colegio o como un regalo original y útil, est
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "M6024", "nombre": "Cartuchera canopla infantil 3 modelos: diseño sorpresa para el cole", "precio_venta": 11500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Prepará a los más chicos para el colegio con esta cartuchera canopla infantil, el toque divertido y práctico para sus útiles diarios. Cada una es una sorpresa especial que les encantará descubrir.\n- Espaciosa y práctica: La canopla ideal para que organicen todos sus lápices, lapiceras y marcadores, manteniendo el orden en la mochila sin esfuerzo.\n- Colección única: Disponibles en 3 modelos diferentes, cada cartuchera promete un diseño original y llamativo que les encantará.\n- ¡Sorpresa asegurada!: Dejate llevar por la emoción de recibir un modelo surtido. Un toque de aventura que hace cada compra especial y diferente.\n- Calidad al mejor precio: Aprovechá esta oferta exclusiva para equipar a los chicos con un accesorio funcional y divertido, sin que afecte tu bolsillo.\nPerfecta para el uso diario en el colegio o como un regalo original y útil, esta cartuchera canopla es la elección ideal. ¡No te quedes sin la tuya y sumá una dosis de diversión a la mochila!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M6024_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "M6024", "nombre": "Cartuchera canopla infantil 3 modelos: diseño sorpresa para el cole", "precio_venta": 11500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Prepará a los más chicos para el colegio con esta cartuchera canopla infantil, el toque divertido y práctico para sus útiles diarios. Cada una es una sorpresa especial que les encantará descubrir.\n- Espaciosa y práctica: La canopla ideal para que organicen todos sus lápices, lapiceras y marcadores, manteniendo el orden en la mochila sin esfuerzo.\n- Colección única: Disponibles en 3 modelos diferentes, cada cartuchera promete un diseño original y llamativo que les encantará.\n- ¡Sorpresa asegurada!: Dejate llevar por la emoción de recibir un modelo surtido. Un toque de aventura que hace cada compra especial y diferente.\n- Calidad al mejor precio: Aprovechá esta oferta exclusiva para equipar a los chicos con un accesorio funcional y divertido, sin que afecte tu bolsillo.\nPerfecta para el uso diario en el colegio o como un regalo original y útil, esta cartuchera canopla es la elección ideal. ¡No te quedes sin la tuya y sumá una dosis de diversión a la mochila!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M6024_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

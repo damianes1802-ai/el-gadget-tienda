@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -90,12 +96,6 @@
 - Material premium Oxford: resistente al agua y a los desgarros para acompañarte en cualquier aventura, urbana o al aire libre, sin preocuparte por el clima.
 - Diseño reflectante: mayor visibilidad y seguridad en tus desplazamientos nocturnos.
 Este morral bandolera no es solo un accesorio; es tu compañero ideal para el trabajo, la facultad o ese viaje de fin de semana, garantizando que todo esté seguro y a mano. No esperes más para tener la combinación perfecta de seguridad, estilo y funcionalidad. Sumalo hoy a tu carrito de El Gadget.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -194,7 +194,7 @@ Este morral bandolera no es solo un accesorio; es tu compañero ideal para el tr
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "G-RINOANTROBOGR", "nombre": "Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana", "precio_venta": 21000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Llevá tus esenciales con total tranquilidad. Este morral antirrobo Oxford gris y bronce te ofrece la máxima seguridad y comodidad para tu día a día en la ciudad o tus escapadas.\n- Bloqueo antirrobo de tres dígitos y bolsillo oculto: tus objetos de valor siempre a salvo de curiosos y protegidos con contraseña.\n- Espacio inteligente y organizado: compartimento principal amplio y bolsillos multifunción para todo, desde tu celular hasta tus llaves, manteniendo tus pertenencias en orden.\n- Puerto de carga USB integrado: cargá tu teléfono en movimiento, conectando tu power bank sin abrir la mochila (¡el power bank no está incluido!).\n- Material premium Oxford: resistente al agua y a los desgarros para acompañarte en cualquier aventura, urbana o al aire libre, sin preocuparte por el clima.\n- Diseño reflectante: mayor visibilidad y seguridad en tus desplazamientos nocturnos.\nEste morral bandolera no es solo un accesorio; es tu compañero ideal para el trabajo, la facultad o ese viaje de fin de semana, garantizando que todo esté seguro y a mano. No esperes más para tener la combinación perfecta de seguridad, estilo y funcionalidad. Sumalo hoy a tu carrito de El Gadget.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "G-RINOANTROBOGR", "nombre": "Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana", "precio_venta": 21000.0, "stock": 11, "color": "", "talle": "", "descripcion": "Llevá tus esenciales con total tranquilidad. Este morral antirrobo Oxford gris y bronce te ofrece la máxima seguridad y comodidad para tu día a día en la ciudad o tus escapadas.\n- Bloqueo antirrobo de tres dígitos y bolsillo oculto: tus objetos de valor siempre a salvo de curiosos y protegidos con contraseña.\n- Espacio inteligente y organizado: compartimento principal amplio y bolsillos multifunción para todo, desde tu celular hasta tus llaves, manteniendo tus pertenencias en orden.\n- Puerto de carga USB integrado: cargá tu teléfono en movimiento, conectando tu power bank sin abrir la mochila (¡el power bank no está incluido!).\n- Material premium Oxford: resistente al agua y a los desgarros para acompañarte en cualquier aventura, urbana o al aire libre, sin preocuparte por el clima.\n- Diseño reflectante: mayor visibilidad y seguridad en tus desplazamientos nocturnos.\nEste morral bandolera no es solo un accesorio; es tu compañero ideal para el trabajo, la facultad o ese viaje de fin de semana, garantizando que todo esté seguro y a mano. No esperes más para tener la combinación perfecta de seguridad, estilo y funcionalidad. Sumalo hoy a tu carrito de El Gadget.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

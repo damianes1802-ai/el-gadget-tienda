@@ -1,0 +1,49 @@
+{
+  "sku": "DL2369",
+  "titulo": "Organizador Estantería Colgante Tela Plegable Zapatos Ropa",
+  "precio": 9990,
+  "descripcion": "IMPORTANTE: LA PUBLICACION NO INCLUYE LOS GANCHOS PARA COLGAR EL ORGANIZADOR\nORGANIZADOR ESTANTE COLGANTE DE TELA MULTIUSO\nOptimizá al máximo el espacio de tus ambientes con este práctico organizador colgante vertical de 5 niveles. Su diseño inteligente te permite colgarlo fácilmente detrás de las puertas o dentro del placard, convirtiéndose en la solución perfecta para mantener tu ropa, zapatos, accesorios o juguetes perfectamente ordenados y siempre a mano sin ocupar lugar en el suelo.\nINFORMACION IMPORTANTE PARA TU COMPRA:\nNota de entrega: Este artículo no incluye los ganchos metálicos ni accesorios de sujeción para colgarlo en la puerta. Los mismos deben adquirirse por separado según la superficie donde decidas colocarlo.\nCARACTERÍSTICAS DESTACADAS:\nVentana frontal transparente: Cada uno de los compartimentos incorpora un visor transparente que te permite identificar el contenido de un solo vistazo, ahorrándote tiempo al buscar tus pertenencias.\nEstructura plegable y reforzada: Fabricado con tela ligera y resistente, incluye bases rígidas desmontables que mantienen la forma de los estantes y evitan que se deformen con el peso. Además, se puede plegar por completo si necesitás guardarlo o transportarlo.\nColocación adaptable: Cuenta con ojales reforzados en la parte superior para que puedas adaptarle los ganchos o el sistema de sujeción que mejor se ajuste a tus necesidades.\nUso versátil: Ideal para organizar prendas dobladas, calzado y textiles en el dormitorio, así como también para almacenar cosméticos en el baño, artículos de limpieza, juguetes infantiles o accesorios de uso diario.\nMEDIDAS Y ESPECIFICACIONES:\nAlto total del organizador: 107 cm\nAncho de los estantes: 30 cm\nProfundidad de los estantes: 10 cm\nAlto individual de cada estante: 14 cm\nCantidad de estantes: 5 compartimentos principales\nMaterial: Tela resistente con visor de PVC y soportes rígidos desmontables\nColor: Gris con detalles en contratono\nAclaración de accesorios: No incluye ganchos para colgar.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2369_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2369_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2369_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2369_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2369_5_.png"
+  ],
+  "cantidad_imagenes": 5,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/organizador-estanteria-colgante-tela-plegable-zapatos-ropa.html",
+  "fecha_scraping": "2026-06-17T11:37:36.596176",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-17T11:41:39.955364",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696809/prod_DL2369_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696810/prod_DL2369_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696811/prod_DL2369_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696812/prod_DL2369_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696812/prod_DL2369_005.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 9990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 9990,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 16983.0,
+    "precio_final": 17000.0,
+    "ganancia_neta": 7010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 17000.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.074614"
+}

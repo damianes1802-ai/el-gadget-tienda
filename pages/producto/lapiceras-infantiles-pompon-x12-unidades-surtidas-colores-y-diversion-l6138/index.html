@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Colores surtidos: Cada pack es una sorpresa de variedad, permitiendo a los chicos elegir su lapicera preferida para cada ocasión.
 - Pensadas para peques: Ergonómicas y seguras, añaden un toque de magia a los útiles escolares, fomentando el amor por el estudio.
 Son el regalo ideal para cumpleaños, para la vuelta al cole o simplemente para que la creatividad vuele en casa. ¡Hacé de cada hoja un arcoíris! Sumá este pack de lapiceras infantiles Pompón a tu carrito y sorprendé a los chicos hoy mismo.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Son el regalo ideal para cumpleaños, para la vuelta al cole o simplemente para 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "L6138", "nombre": "Lapiceras infantiles Pompón x12 unidades surtidas. Colores y diversión", "precio_venta": 46000.0, "stock": 999, "color": "", "talle": "", "descripcion": "¿Buscando lapiceras que diviertan y estimulen la creatividad? Descubrí nuestro pack de Bolígrafos Infantiles Pompón x12 unidades, perfectas para llenar de color y alegría cada dibujo o tarea.\n- Pack x12 unidades: Ideal para la escuela, la casa o para compartir, siempre tendrás un bolígrafo nuevo y divertido a mano.\n- Diseño Pompón: Su toque suave y lúdico estimula la imaginación, haciendo que escribir o dibujar sea un momento mucho más entretenido.\n- Colores surtidos: Cada pack es una sorpresa de variedad, permitiendo a los chicos elegir su lapicera preferida para cada ocasión.\n- Pensadas para peques: Ergonómicas y seguras, añaden un toque de magia a los útiles escolares, fomentando el amor por el estudio.\nSon el regalo ideal para cumpleaños, para la vuelta al cole o simplemente para que la creatividad vuele en casa. ¡Hacé de cada hoja un arcoíris! Sumá este pack de lapiceras infantiles Pompón a tu carrito y sorprendé a los chicos hoy mismo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "L6138", "nombre": "Lapiceras infantiles Pompón x12 unidades surtidas. Colores y diversión", "precio_venta": 46000.0, "stock": 7, "color": "", "talle": "", "descripcion": "¿Buscando lapiceras que diviertan y estimulen la creatividad? Descubrí nuestro pack de Bolígrafos Infantiles Pompón x12 unidades, perfectas para llenar de color y alegría cada dibujo o tarea.\n- Pack x12 unidades: Ideal para la escuela, la casa o para compartir, siempre tendrás un bolígrafo nuevo y divertido a mano.\n- Diseño Pompón: Su toque suave y lúdico estimula la imaginación, haciendo que escribir o dibujar sea un momento mucho más entretenido.\n- Colores surtidos: Cada pack es una sorpresa de variedad, permitiendo a los chicos elegir su lapicera preferida para cada ocasión.\n- Pensadas para peques: Ergonómicas y seguras, añaden un toque de magia a los útiles escolares, fomentando el amor por el estudio.\nSon el regalo ideal para cumpleaños, para la vuelta al cole o simplemente para que la creatividad vuele en casa. ¡Hacé de cada hoja un arcoíris! Sumá este pack de lapiceras infantiles Pompón a tu carrito y sorprendé a los chicos hoy mismo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

@@ -1,0 +1,34 @@
+{
+  "sku": "WH7166CE-80",
+  "titulo": "Body enterito infantil para bebés Celeste 80cm",
+  "precio": 14884,
+  "descripcion": "Body para niños.\nMaterial: algodón puro.\nCeleste.\nTalles 80cm.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7166_2__1_1.jpg"
+  ],
+  "cantidad_imagenes": 1,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/body-enterito-infantil-para-bebes-2.html",
+  "fecha_scraping": "2026-06-17T11:38:08.353567",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696837/prod_WH7166CE-80_001.jpg"
+  ],
+  "calculo_precio": {
+    "precio_costo": 14884,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 14884,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 25302.8,
+    "precio_final": 25500.0,
+    "ganancia_neta": 10616.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 25500.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.139666"
+}

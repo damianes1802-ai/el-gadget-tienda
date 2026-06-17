@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Gracias a su diseño flexible, esta herramienta se adapta sin problemas a las curvas de tus desagües, llegando a esos rincones difíciles donde otros destapadores no pueden.
 - Equipada con una pinza de agarre, podrás extraer fácilmente pelos, restos de jabón, comida y otros desechos que provocan los tapones, asegurando una remoción total.
 No dejes que un caño tapado arruine tu día. Esta herramienta esencial de Baño y Limpieza es la inversión inteligente para mantener tu hogar impecable. ¡Sumala a tu carrito hoy y recuperá la fluidez de tus cañerías al instante!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ No dejes que un caño tapado arruine tu día. Esta herramienta esencial de Baño
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL1254-2X1", "nombre": "Pinza Destapa Cañerías Flexible 160cm: adiós a las obstrucciones", "precio_venta": 3500.0, "stock": 999, "color": "", "talle": "", "descripcion": "¿Cansado de los desagües tapados en tu casa? La Pinza Destapa Cañerías Flexible de 160cm es la solución definitiva para decirle adiós a esas obstrucciones molestas en baños y cocinas, de forma rápida y sin complicaciones, evitando el costo de un plomero.\n- Su impresionante largo de 160cm te permite alcanzar y resolver obstrucciones profundas en cualquier tipo de cañería, garantizando una limpieza completa y efectiva.\n- Gracias a su diseño flexible, esta herramienta se adapta sin problemas a las curvas de tus desagües, llegando a esos rincones difíciles donde otros destapadores no pueden.\n- Equipada con una pinza de agarre, podrás extraer fácilmente pelos, restos de jabón, comida y otros desechos que provocan los tapones, asegurando una remoción total.\nNo dejes que un caño tapado arruine tu día. Esta herramienta esencial de Baño y Limpieza es la inversión inteligente para mantener tu hogar impecable. ¡Sumala a tu carrito hoy y recuperá la fluidez de tus cañerías al instante!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_006"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL1254-2X1", "nombre": "Pinza Destapa Cañerías Flexible 160cm: adiós a las obstrucciones", "precio_venta": 3500.0, "stock": 14, "color": "", "talle": "", "descripcion": "¿Cansado de los desagües tapados en tu casa? La Pinza Destapa Cañerías Flexible de 160cm es la solución definitiva para decirle adiós a esas obstrucciones molestas en baños y cocinas, de forma rápida y sin complicaciones, evitando el costo de un plomero.\n- Su impresionante largo de 160cm te permite alcanzar y resolver obstrucciones profundas en cualquier tipo de cañería, garantizando una limpieza completa y efectiva.\n- Gracias a su diseño flexible, esta herramienta se adapta sin problemas a las curvas de tus desagües, llegando a esos rincones difíciles donde otros destapadores no pueden.\n- Equipada con una pinza de agarre, podrás extraer fácilmente pelos, restos de jabón, comida y otros desechos que provocan los tapones, asegurando una remoción total.\nNo dejes que un caño tapado arruine tu día. Esta herramienta esencial de Baño y Limpieza es la inversión inteligente para mantener tu hogar impecable. ¡Sumala a tu carrito hoy y recuperá la fluidez de tus cañerías al instante!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

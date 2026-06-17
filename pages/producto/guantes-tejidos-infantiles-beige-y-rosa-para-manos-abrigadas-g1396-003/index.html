@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Colores beige y rosa: Recibí una opción surtida entre estos tonos clásicos y fáciles de combinar, ¡una sorpresa ideal para cada día!
 - Abrigo garantizado: Ideales para los días más frescos, protegiendo las manos de tus hijos del frío mientras disfrutan al aire libre.
 Estos guantes para niños son el complemento esencial para el invierno de los chicos, ya sea para ir al cole, jugar en la plaza o simplemente mantener las manos calentitas en casa. ¡No dejes pasar esta oferta y sumalos a su guardarropa hoy mismo!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Estos guantes para niños son el complemento esencial para el invierno de los ch
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "G1396-003", "nombre": "Guantes tejidos infantiles beige y rosa para manos abrigadas", "precio_venta": 8500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Protegé las manos de los más chicos del frío con estos guantes tejidos infantiles, ideales para mantenerlos calentitos y cómodos en cualquier actividad. Pensados para el día a día, son el accesorio perfecto para el invierno.\n- Tejido suave y confortable: Diseñados para cuidar la delicada piel de los niños, brindando calidez sin picazón ni molestias.\n- Talle perfecto para manitos pequeñas: Asegura un ajuste cómodo y seguro para que jueguen y se muevan con total libertad, sin que se les salgan.\n- Colores beige y rosa: Recibí una opción surtida entre estos tonos clásicos y fáciles de combinar, ¡una sorpresa ideal para cada día!\n- Abrigo garantizado: Ideales para los días más frescos, protegiendo las manos de tus hijos del frío mientras disfrutan al aire libre.\nEstos guantes para niños son el complemento esencial para el invierno de los chicos, ya sea para ir al cole, jugar en la plaza o simplemente mantener las manos calentitas en casa. ¡No dejes pasar esta oferta y sumalos a su guardarropa hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-003_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "G1396-003", "nombre": "Guantes tejidos infantiles beige y rosa para manos abrigadas", "precio_venta": 8500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Protegé las manos de los más chicos del frío con estos guantes tejidos infantiles, ideales para mantenerlos calentitos y cómodos en cualquier actividad. Pensados para el día a día, son el accesorio perfecto para el invierno.\n- Tejido suave y confortable: Diseñados para cuidar la delicada piel de los niños, brindando calidez sin picazón ni molestias.\n- Talle perfecto para manitos pequeñas: Asegura un ajuste cómodo y seguro para que jueguen y se muevan con total libertad, sin que se les salgan.\n- Colores beige y rosa: Recibí una opción surtida entre estos tonos clásicos y fáciles de combinar, ¡una sorpresa ideal para cada día!\n- Abrigo garantizado: Ideales para los días más frescos, protegiendo las manos de tus hijos del frío mientras disfrutan al aire libre.\nEstos guantes para niños son el complemento esencial para el invierno de los chicos, ya sea para ir al cole, jugar en la plaza o simplemente mantener las manos calentitas en casa. ¡No dejes pasar esta oferta y sumalos a su guardarropa hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-003_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

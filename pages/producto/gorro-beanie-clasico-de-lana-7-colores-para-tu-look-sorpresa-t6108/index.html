@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Ideal para todas las estaciones: protege del frío invernal y es un accesorio canchero para los días frescos de media estación, sumando estilo a tu outfit.
 - Precio de oferta imperdible: conseguí un gorro de calidad a un valor increíble, una verdadera oportunidad en nuestra sección de OFERTAS.
 No te quedes sin tu gorro de lana para los días más frescos. Perfecto para el uso diario o para regalar, este beanie clásico es la combinación ideal de moda y funcionalidad. Aprovechá esta OFERTA y sumá un toque de color y estilo a tu invierno. ¡Hacelo tuyo hoy!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ No te quedes sin tu gorro de lana para los días más frescos. Perfecto para el 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "T6108", "nombre": "Gorro Beanie Clásico de lana, 7 colores para tu look sorpresa", "precio_venta": 8000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Descubrí el Beanie Clásico, el accesorio perfecto para tus outfits de invierno. Combina estilo atemporal con la comodidad que necesitás para enfrentar el frío.\n- Estilo clásico que nunca pasa de moda: un gorro de lana versátil que complementa cualquier look, desde casual hasta urbano, ideal para hombres y mujeres.\n- Sorprendete con uno de los 7 colores disponibles: recibí un tono único y vibrante, ideal para darle un toque diferente a tu vestimenta cada día, ¡una verdadera sorpresa!\n- Ideal para todas las estaciones: protege del frío invernal y es un accesorio canchero para los días frescos de media estación, sumando estilo a tu outfit.\n- Precio de oferta imperdible: conseguí un gorro de calidad a un valor increíble, una verdadera oportunidad en nuestra sección de OFERTAS.\nNo te quedes sin tu gorro de lana para los días más frescos. Perfecto para el uso diario o para regalar, este beanie clásico es la combinación ideal de moda y funcionalidad. Aprovechá esta OFERTA y sumá un toque de color y estilo a tu invierno. ¡Hacelo tuyo hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_T6108_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T6108_002"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "T6108", "nombre": "Gorro Beanie Clásico de lana, 7 colores para tu look sorpresa", "precio_venta": 8000.0, "stock": 6, "color": "", "talle": "", "descripcion": "Descubrí el Beanie Clásico, el accesorio perfecto para tus outfits de invierno. Combina estilo atemporal con la comodidad que necesitás para enfrentar el frío.\n- Estilo clásico que nunca pasa de moda: un gorro de lana versátil que complementa cualquier look, desde casual hasta urbano, ideal para hombres y mujeres.\n- Sorprendete con uno de los 7 colores disponibles: recibí un tono único y vibrante, ideal para darle un toque diferente a tu vestimenta cada día, ¡una verdadera sorpresa!\n- Ideal para todas las estaciones: protege del frío invernal y es un accesorio canchero para los días frescos de media estación, sumando estilo a tu outfit.\n- Precio de oferta imperdible: conseguí un gorro de calidad a un valor increíble, una verdadera oportunidad en nuestra sección de OFERTAS.\nNo te quedes sin tu gorro de lana para los días más frescos. Perfecto para el uso diario o para regalar, este beanie clásico es la combinación ideal de moda y funcionalidad. Aprovechá esta OFERTA y sumá un toque de color y estilo a tu invierno. ¡Hacelo tuyo hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_T6108_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T6108_002"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

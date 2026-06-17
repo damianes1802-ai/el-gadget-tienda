@@ -1,0 +1,48 @@
+{
+  "sku": "DL2379",
+  "titulo": "Bolso Organizador De Herramientas Bolsa Plegable",
+  "precio": 24990,
+  "descripcion": "Organizador de Herramientas Plegable Verde Militar Premium\nOrganizador de herramientas plegable en verde militar premium. Fabricado en material Oxford resistente y duradero, ideal para mantener todas tus herramientas ordenadas y al alcance de la mano.\nCaracterísticas principales:\n- Diseño plegable con múltiples compartimentos y bolsillos con cierre zipper.\n- 4 bolsillos extra grandes + 2 bolsillos desmontables con mosquetón.\n- Asa superior reforzada y correa ajustable para llevar en bandolera.\n- Cierre con hebillas rápidas y sistema de enrollado compacto.\n- Material resistente al agua y fácil de limpiar.\n- Ideal para taller, auto, emergencias, camping o uso profesional.\nMedidas:\n- Abierto: 65 cm alto x 33 cm ancho.\n- Compacto y fácil de transportar.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2379_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2379_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2379_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2379_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2379_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2379_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2379_6_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2379_7_.jpg"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5928/",
+  "fecha_scraping": "2026-06-17T11:28:28.735902",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696813/prod_DL2379_001.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696814/prod_DL2379_002.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696815/prod_DL2379_003.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696816/prod_DL2379_004.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696817/prod_DL2379_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696817/prod_DL2379_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696818/prod_DL2379_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696819/prod_DL2379_008.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 24990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 24990,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 42483.0,
+    "precio_final": 42500.0,
+    "ganancia_neta": 17510.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 42500.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.075878"
+}

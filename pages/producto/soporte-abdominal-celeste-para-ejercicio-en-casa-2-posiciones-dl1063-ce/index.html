@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Foco total en tu core: diseñado específicamente como soporte para ejercicio abdominal, te ayuda a mantener la postura correcta y maximizar cada repetición.
 - Tu gimnasio en casa: es el accesorio ideal para sumar a tu rutina de fitness, facilitando un entrenamiento efectivo sin salir de tu hogar.
 No dejes que el gimnasio sea una excusa. Este soporte abdominal es tu aliado perfecto para un abdomen más fuerte y definido, con la comodidad de entrenar cuando quieras. ¡Hacelo tuyo hoy y transformá tu entrenamiento!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ No dejes que el gimnasio sea una excusa. Este soporte abdominal es tu aliado per
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL1063-CE", "nombre": "Soporte Abdominal CELESTE para Ejercicio en Casa - 2 Posiciones", "precio_venta": 15000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Potenciá tus rutinas de fitness en casa con el Soporte Abdominal CELESTE, diseñado para que entrenar tu core sea más fácil y efectivo. Este accesorio es ideal para quienes buscan fortalecer su abdomen con comodidad y versatilidad, sin depender de un gimnasio. Sumalo a tu equipamiento para ejercicios y sentí la diferencia en cada sesión.\n- Mayor versatilidad en tu entrenamiento: con sus 2 posiciones, adaptá el ejercicio a tu nivel y trabajá diferentes áreas del abdomen para resultados completos.\n- Foco total en tu core: diseñado específicamente como soporte para ejercicio abdominal, te ayuda a mantener la postura correcta y maximizar cada repetición.\n- Tu gimnasio en casa: es el accesorio ideal para sumar a tu rutina de fitness, facilitando un entrenamiento efectivo sin salir de tu hogar.\nNo dejes que el gimnasio sea una excusa. Este soporte abdominal es tu aliado perfecto para un abdomen más fuerte y definido, con la comodidad de entrenar cuando quieras. ¡Hacelo tuyo hoy y transformá tu entrenamiento!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1063-CE_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL1063-CE", "nombre": "Soporte Abdominal CELESTE para Ejercicio en Casa - 2 Posiciones", "precio_venta": 15000.0, "stock": 7, "color": "", "talle": "", "descripcion": "Potenciá tus rutinas de fitness en casa con el Soporte Abdominal CELESTE, diseñado para que entrenar tu core sea más fácil y efectivo. Este accesorio es ideal para quienes buscan fortalecer su abdomen con comodidad y versatilidad, sin depender de un gimnasio. Sumalo a tu equipamiento para ejercicios y sentí la diferencia en cada sesión.\n- Mayor versatilidad en tu entrenamiento: con sus 2 posiciones, adaptá el ejercicio a tu nivel y trabajá diferentes áreas del abdomen para resultados completos.\n- Foco total en tu core: diseñado específicamente como soporte para ejercicio abdominal, te ayuda a mantener la postura correcta y maximizar cada repetición.\n- Tu gimnasio en casa: es el accesorio ideal para sumar a tu rutina de fitness, facilitando un entrenamiento efectivo sin salir de tu hogar.\nNo dejes que el gimnasio sea una excusa. Este soporte abdominal es tu aliado perfecto para un abdomen más fuerte y definido, con la comodidad de entrenar cuando quieras. ¡Hacelo tuyo hoy y transformá tu entrenamiento!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1063-CE_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

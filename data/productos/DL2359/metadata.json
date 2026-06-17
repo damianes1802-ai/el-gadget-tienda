@@ -1,0 +1,46 @@
+{
+  "sku": "DL2359",
+  "titulo": "Perchero Comercial Metálico Desarmable 150 X 100 Móvil Ropa",
+  "precio": 16990,
+  "descripcion": "Perchero Ropero con Estante Inferior Metálico - Organizador de Ropa\nPerchero robusto de metal negro con barra superior y estante inferior. Ideal para organizar y exhibir tu ropa de forma práctica y ordenada en dormitorios, vestidores, tiendas o entradas.\nCaracterísticas principales:\n- Estructura metálica resistente y estable.\n- Barra superior amplia para colgar ropa con perchas.\n- Estante inferior para zapatos, cajas o accesorios.\n- Ganchos laterales para bolsos, bufandas o cinturones.\n- Diseño moderno y funcional que combina con cualquier decoración.\n- Fácil de armar y desarmar.\nMedidas aproximadas: Alto 154 cm x Ancho 101 cm.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2359.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2359_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2359_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2359_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2359_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2359_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2359_5_.png"
+  ],
+  "cantidad_imagenes": 7,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/perchero-comercial-metalico-desarmable-150-x-100-movil-ropa.html",
+  "fecha_scraping": "2026-06-17T11:37:13.571077",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696772/prod_DL2359_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696773/prod_DL2359_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696774/prod_DL2359_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696775/prod_DL2359_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696775/prod_DL2359_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696776/prod_DL2359_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696777/prod_DL2359_007.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 16990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 16990,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 28883.0,
+    "precio_final": 29000.0,
+    "ganancia_neta": 12010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 29000.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.071601"
+}

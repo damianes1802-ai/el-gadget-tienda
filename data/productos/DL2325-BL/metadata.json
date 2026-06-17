@@ -1,0 +1,51 @@
+{
+  "sku": "DL2325-BL",
+  "titulo": "Organizador Zapatos 6 Niveles Calzado Plegable BLANCO",
+  "precio": 48900,
+  "descripcion": "Organizador de zapatos plegable de 6 niveles, ideal para mantener tu calzado ordenado y ahorrar espacio en el hogar. Perfecto para guardar zapatos, botines, sandalias, zapatillas y más.\nCaracterísticas principales:\n- Diseño plegable: se arma y guarda fácilmente cuando no lo usas.\n- 6 niveles amplios: gran capacidad de almacenamiento.\n- Estructura resistente y estable.\n- Fácil de armar, sin necesidad de herramientas.\n- Compacto y versátil: se adapta a dormitorios, placares, entradas o vestidores.\n- Ayuda a mantener el orden y protege tus zapatos del polvo y la deformación.\n¡La solución práctica y económica para organizar todo tu calzado!",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2325-bl_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2325-bl_1__2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2325-bl_4__2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2325-bl_5__2.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2325-bl_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2325-bl_9_.png"
+  ],
+  "cantidad_imagenes": 6,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/organizador-zapatos-6-niveles-calzado-plegable-blanco.html",
+  "fecha_scraping": "2026-06-17T11:34:48.500127",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-17T11:41:39.955095",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696685/prod_DL2325-BL_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696686/prod_DL2325-BL_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696687/prod_DL2325-BL_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696688/prod_DL2325-BL_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696689/prod_DL2325-BL_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696690/prod_DL2325-BL_006.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 48900,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 48900,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 83130.0,
+    "precio_final": 83500.0,
+    "ganancia_neta": 34600.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 83500.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.062390"
+}

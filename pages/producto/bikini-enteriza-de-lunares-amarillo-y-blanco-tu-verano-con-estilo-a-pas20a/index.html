@@ -84,18 +84,18 @@
         <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)" disabled><option value="S">S</option></select>
       </div>
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
         <div class="description" id="productDescription">¡Preparate para deslumbrar este verano con nuestra enteriza de lunares de El Gadget! Si buscás un traje de baño que combine estilo, comodidad y un toque retro súper chic, esta es tu opción ideal para la temporada. Te vas a sentir cómoda y a la moda en cada chapuzón.
 Esta bikini enteriza es la vedette de la temporada en Argentina. Su diseño combinada con lunares, en los vibrantes tonos amarillo y blanco, la convierte en la elección perfecta para quienes quieren destacar en la pileta o la playa. Es un clásico renovado que nunca pasa de moda, y que te asegura un look fresco y alegre bajo el sol.
 Pensada para el disfrute de tus días libres, esta enteriza te ofrece un calce confortable y seguro, permitiéndote moverte con total libertad. ¡Sentite cómoda y radiante con este traje de baño que El Gadget trae para vos! Viví un verano inolvidable con estilo.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -194,7 +194,7 @@ Pensada para el disfrute de tus días libres, esta enteriza te ofrece un calce c
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-PAS20A", "nombre": "Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!", "precio_venta": 28500.0, "stock": 999, "color": "", "talle": "", "descripcion": "¡Preparate para deslumbrar este verano con nuestra enteriza de lunares de El Gadget! Si buscás un traje de baño que combine estilo, comodidad y un toque retro súper chic, esta es tu opción ideal para la temporada. Te vas a sentir cómoda y a la moda en cada chapuzón.\nEsta bikini enteriza es la vedette de la temporada en Argentina. Su diseño combinada con lunares, en los vibrantes tonos amarillo y blanco, la convierte en la elección perfecta para quienes quieren destacar en la pileta o la playa. Es un clásico renovado que nunca pasa de moda, y que te asegura un look fresco y alegre bajo el sol.\nPensada para el disfrute de tus días libres, esta enteriza te ofrece un calce confortable y seguro, permitiéndote moverte con total libertad. ¡Sentite cómoda y radiante con este traje de baño que El Gadget trae para vos! Viví un verano inolvidable con estilo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_003"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS20A-S", "imagenes": []}], "variantes": []};
+const PRODUCTO = {"sku": "A-PAS20A", "nombre": "Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!", "precio_venta": 28500.0, "stock": 14, "color": "", "talle": "", "descripcion": "¡Preparate para deslumbrar este verano con nuestra enteriza de lunares de El Gadget! Si buscás un traje de baño que combine estilo, comodidad y un toque retro súper chic, esta es tu opción ideal para la temporada. Te vas a sentir cómoda y a la moda en cada chapuzón.\nEsta bikini enteriza es la vedette de la temporada en Argentina. Su diseño combinada con lunares, en los vibrantes tonos amarillo y blanco, la convierte en la elección perfecta para quienes quieren destacar en la pileta o la playa. Es un clásico renovado que nunca pasa de moda, y que te asegura un look fresco y alegre bajo el sol.\nPensada para el disfrute de tus días libres, esta enteriza te ofrece un calce confortable y seguro, permitiéndote moverte con total libertad. ¡Sentite cómoda y radiante con este traje de baño que El Gadget trae para vos! Viví un verano inolvidable con estilo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_003"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS20A-S", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

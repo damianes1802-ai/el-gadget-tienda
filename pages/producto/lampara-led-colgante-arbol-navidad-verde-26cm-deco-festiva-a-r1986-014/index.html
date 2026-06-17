@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -91,12 +97,6 @@
 - Con sus 26cm de altura aproximada, es el tamaño justo para complementar tu arbolito o ser el centro de atención en tu mesa.
 
 Esta lámpara colgante es el adorno navideño que estabas buscando para celebrar las fiestas con estilo. Un regalo perfecto o la excusa ideal para que tu casa irradie toda la calidez de la Navidad. No dejes pasar la oportunidad de sumar esta pieza única a tu decoración navideña. ¡Hacela tuya hoy y encendé la magia!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -195,7 +195,7 @@ Esta lámpara colgante es el adorno navideño que estabas buscando para celebrar
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-R1986-014", "nombre": "Lampara Led Colgante Arbol Navidad Verde 26cm, deco festiva", "precio_venta": 17000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Preparate para la temporada más linda del año con la Lampara Led Colgante Árbol de Navidad Verde. Es el toque mágico que tu hogar necesita para crear un ambiente festivo y lleno de alegría. Ideal para ambientar cualquier rincón, esta luz decorativa transforma instantáneamente tu espacio, ¡y sin cables a la vista!\n\n- Su diseño de árbol de Navidad y el vibrante color verde se combinan para ofrecerte una decoración clásica y encantadora, perfecta para el espíritu navideño.\n- La tecnología LED te asegura una iluminación brillante, de bajo consumo y larga duración, para que disfrutes de la magia sin preocupaciones.\n- Al funcionar con 3 pilas AA (no incluidas), tenés total libertad para colgarla donde quieras, desde la ventana hasta el hall de entrada, sin depender de enchufes.\n- Con sus 26cm de altura aproximada, es el tamaño justo para complementar tu arbolito o ser el centro de atención en tu mesa.\n\nEsta lámpara colgante es el adorno navideño que estabas buscando para celebrar las fiestas con estilo. Un regalo perfecto o la excusa ideal para que tu casa irradie toda la calidez de la Navidad. No dejes pasar la oportunidad de sumar esta pieza única a tu decoración navideña. ¡Hacela tuya hoy y encendé la magia!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "A-R1986-014", "nombre": "Lampara Led Colgante Arbol Navidad Verde 26cm, deco festiva", "precio_venta": 17000.0, "stock": 13, "color": "", "talle": "", "descripcion": "Preparate para la temporada más linda del año con la Lampara Led Colgante Árbol de Navidad Verde. Es el toque mágico que tu hogar necesita para crear un ambiente festivo y lleno de alegría. Ideal para ambientar cualquier rincón, esta luz decorativa transforma instantáneamente tu espacio, ¡y sin cables a la vista!\n\n- Su diseño de árbol de Navidad y el vibrante color verde se combinan para ofrecerte una decoración clásica y encantadora, perfecta para el espíritu navideño.\n- La tecnología LED te asegura una iluminación brillante, de bajo consumo y larga duración, para que disfrutes de la magia sin preocupaciones.\n- Al funcionar con 3 pilas AA (no incluidas), tenés total libertad para colgarla donde quieras, desde la ventana hasta el hall de entrada, sin depender de enchufes.\n- Con sus 26cm de altura aproximada, es el tamaño justo para complementar tu arbolito o ser el centro de atención en tu mesa.\n\nEsta lámpara colgante es el adorno navideño que estabas buscando para celebrar las fiestas con estilo. Un regalo perfecto o la excusa ideal para que tu casa irradie toda la calidez de la Navidad. No dejes pasar la oportunidad de sumar esta pieza única a tu decoración navideña. ¡Hacela tuya hoy y encendé la magia!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-014_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

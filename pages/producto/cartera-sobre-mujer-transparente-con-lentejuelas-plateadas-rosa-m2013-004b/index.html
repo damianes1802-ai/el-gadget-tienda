@@ -80,16 +80,16 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
-      <!-- Descripción -->
-      <div class="product-description">
-        <h3>Descripción</h3>
-        <div class="description" id="productDescription">Dale un toque de brillo y originalidad a tus looks con esta cartera sobre transparente, el accesorio de moda ideal para llevar lo esencial con estilo y personalidad. Fabricada en PVC de alta resistencia y detalles en PU, esta cartera te asegura durabilidad y un estilo súper moderno que resiste el ritmo de tu día a día. Las lentejuelas móviles en su interior le dan un toque de brillo único, haciendo que tu sobre no pase desapercibido y capturando todas las miradas. Su cierre con cremallera reforzada en color rosa no solo es seguro para tus pertenencias, sino que además complementa el diseño con un toque chic. Llevala cómoda en la mano gracias a su correa desmontable de PU rosa, que te permite tener tus imprescindibles siempre a mano y con total libertad. Perfecta para realzar tus looks de noche o para sumar un toque divertido en cualquier salida. ¡No te quedes sin la tuya y sumala a tu colección de accesorios hoy mismo!</div>
-      </div>
-
       <!-- Acciones -->
       <div class="actions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
+      <!-- Descripción -->
+      <div class="product-description">
+        <h3>Descripción</h3>
+        <div class="description" id="productDescription">Dale un toque de brillo y originalidad a tus looks con esta cartera sobre transparente, el accesorio de moda ideal para llevar lo esencial con estilo y personalidad. Fabricada en PVC de alta resistencia y detalles en PU, esta cartera te asegura durabilidad y un estilo súper moderno que resiste el ritmo de tu día a día. Las lentejuelas móviles en su interior le dan un toque de brillo único, haciendo que tu sobre no pase desapercibido y capturando todas las miradas. Su cierre con cremallera reforzada en color rosa no solo es seguro para tus pertenencias, sino que además complementa el diseño con un toque chic. Llevala cómoda en la mano gracias a su correa desmontable de PU rosa, que te permite tener tus imprescindibles siempre a mano y con total libertad. Perfecta para realzar tus looks de noche o para sumar un toque divertido en cualquier salida. ¡No te quedes sin la tuya y sumala a tu colección de accesorios hoy mismo!</div>
       </div>
     </div>
   </div>
@@ -188,7 +188,7 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "M2013-004B", "nombre": "Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa", "precio_venta": 15500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque de brillo y originalidad a tus looks con esta cartera sobre transparente, el accesorio de moda ideal para llevar lo esencial con estilo y personalidad. Fabricada en PVC de alta resistencia y detalles en PU, esta cartera te asegura durabilidad y un estilo súper moderno que resiste el ritmo de tu día a día. Las lentejuelas móviles en su interior le dan un toque de brillo único, haciendo que tu sobre no pase desapercibido y capturando todas las miradas. Su cierre con cremallera reforzada en color rosa no solo es seguro para tus pertenencias, sino que además complementa el diseño con un toque chic. Llevala cómoda en la mano gracias a su correa desmontable de PU rosa, que te permite tener tus imprescindibles siempre a mano y con total libertad. Perfecta para realzar tus looks de noche o para sumar un toque divertido en cualquier salida. ¡No te quedes sin la tuya y sumala a tu colección de accesorios hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_006"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "M2013-004B", "nombre": "Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa", "precio_venta": 15500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Dale un toque de brillo y originalidad a tus looks con esta cartera sobre transparente, el accesorio de moda ideal para llevar lo esencial con estilo y personalidad. Fabricada en PVC de alta resistencia y detalles en PU, esta cartera te asegura durabilidad y un estilo súper moderno que resiste el ritmo de tu día a día. Las lentejuelas móviles en su interior le dan un toque de brillo único, haciendo que tu sobre no pase desapercibido y capturando todas las miradas. Su cierre con cremallera reforzada en color rosa no solo es seguro para tus pertenencias, sino que además complementa el diseño con un toque chic. Llevala cómoda en la mano gracias a su correa desmontable de PU rosa, que te permite tener tus imprescindibles siempre a mano y con total libertad. Perfecta para realzar tus looks de noche o para sumar un toque divertido en cualquier salida. ¡No te quedes sin la tuya y sumala a tu colección de accesorios hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

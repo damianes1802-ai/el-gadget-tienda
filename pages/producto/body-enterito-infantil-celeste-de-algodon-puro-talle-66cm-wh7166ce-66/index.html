@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Diseñado en talle 66 cm, este body para niños se adapta a la perfección, ofreciendo libertad de movimiento y un calce cómodo para jugar o descansar.
 - Un básico indispensable para la ropa de bebé, ideal para usarlo solo o debajo de otras prendas, siempre con el mayor confort.
 Ideal para el uso diario o como un lindo regalo, este enterito de algodón es sinónimo de ternura y bienestar. Asegurá la calidad y el confort para tu bebé con esta prenda de indumentaria infantil. ¡No dejes pasar esta oferta y sumalo al carrito de El Gadget hoy!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Ideal para el uso diario o como un lindo regalo, este enterito de algodón es si
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7166CE-66", "nombre": "Body enterito infantil Celeste de algodón puro - Talle 66cm", "precio_venta": 25500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Descubrí la comodidad que tu bebé merece con este body enterito infantil Celeste. Confeccionado en algodón puro, es la elección ideal para mantenerlo fresco y suave durante todo el día en Argentina. Un básico esencial que combina practicidad y ternura para los más chiquitos. Disfrutá de la tranquilidad de vestir a tu bebé con prendas de calidad.\n- Fabricado 100% en algodón puro, cuida la piel más delicada de tu pequeño, evitando irritaciones y garantizando máxima suavidad en cada uso.\n- Su encantador tono azul claro es clásico y fácil de combinar, perfecto para cualquier ocasión y momento del día.\n- Diseñado en talle 66 cm, este body para niños se adapta a la perfección, ofreciendo libertad de movimiento y un calce cómodo para jugar o descansar.\n- Un básico indispensable para la ropa de bebé, ideal para usarlo solo o debajo de otras prendas, siempre con el mayor confort.\nIdeal para el uso diario o como un lindo regalo, este enterito de algodón es sinónimo de ternura y bienestar. Asegurá la calidad y el confort para tu bebé con esta prenda de indumentaria infantil. ¡No dejes pasar esta oferta y sumalo al carrito de El Gadget hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CE-66_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7166CE-66", "nombre": "Body enterito infantil Celeste de algodón puro - Talle 66cm", "precio_venta": 25500.0, "stock": 12, "color": "", "talle": "", "descripcion": "Descubrí la comodidad que tu bebé merece con este body enterito infantil Celeste. Confeccionado en algodón puro, es la elección ideal para mantenerlo fresco y suave durante todo el día en Argentina. Un básico esencial que combina practicidad y ternura para los más chiquitos. Disfrutá de la tranquilidad de vestir a tu bebé con prendas de calidad.\n- Fabricado 100% en algodón puro, cuida la piel más delicada de tu pequeño, evitando irritaciones y garantizando máxima suavidad en cada uso.\n- Su encantador tono azul claro es clásico y fácil de combinar, perfecto para cualquier ocasión y momento del día.\n- Diseñado en talle 66 cm, este body para niños se adapta a la perfección, ofreciendo libertad de movimiento y un calce cómodo para jugar o descansar.\n- Un básico indispensable para la ropa de bebé, ideal para usarlo solo o debajo de otras prendas, siempre con el mayor confort.\nIdeal para el uso diario o como un lindo regalo, este enterito de algodón es sinónimo de ternura y bienestar. Asegurá la calidad y el confort para tu bebé con esta prenda de indumentaria infantil. ¡No dejes pasar esta oferta y sumalo al carrito de El Gadget hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CE-66_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

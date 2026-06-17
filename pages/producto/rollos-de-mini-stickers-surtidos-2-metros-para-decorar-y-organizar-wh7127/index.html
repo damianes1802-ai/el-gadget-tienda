@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Descubrí la sorpresa de los 4 modelos diferentes que llegan surtidos: una explosión de estilos para cada estado de ánimo o temática que quieras expresar en tus creaciones.
 - Perfectos para tu bullet journal, agenda, cartas, regalos o cualquier superficie que necesite un toque especial, estos pequeños detalles autoadhesivos son súper versátiles.
 Transformá lo ordinario en extraordinario con estos rollos de calcomanías que te invitan a jugar con tu imaginación sin límites. Son el regalo perfecto para chicos y grandes o tu próximo vicio creativo. No esperes más para sumar esta dosis de diversión y personalización a tu vida. ¡Hacelos tuyos hoy!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Transformá lo ordinario en extraordinario con estos rollos de calcomanías que 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7127", "nombre": "Rollos de mini stickers surtidos 2 metros para decorar y organizar", "precio_venta": 6000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque único y divertido a tus cuadernos, agendas o proyectos con estos mini stickers en rollo. Ideal para quienes aman personalizarlo todo con variedad y creatividad, agregando esos pequeños detalles que hacen la diferencia.\n- Cada rollo te da 2 metros de pura inspiración: tenés stickers de sobra para muchísimas decoraciones, planificaciones y hasta para compartir con amigos o familiares.\n- Descubrí la sorpresa de los 4 modelos diferentes que llegan surtidos: una explosión de estilos para cada estado de ánimo o temática que quieras expresar en tus creaciones.\n- Perfectos para tu bullet journal, agenda, cartas, regalos o cualquier superficie que necesite un toque especial, estos pequeños detalles autoadhesivos son súper versátiles.\nTransformá lo ordinario en extraordinario con estos rollos de calcomanías que te invitan a jugar con tu imaginación sin límites. Son el regalo perfecto para chicos y grandes o tu próximo vicio creativo. No esperes más para sumar esta dosis de diversión y personalización a tu vida. ¡Hacelos tuyos hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7127", "nombre": "Rollos de mini stickers surtidos 2 metros para decorar y organizar", "precio_venta": 6000.0, "stock": 8, "color": "", "talle": "", "descripcion": "Dale un toque único y divertido a tus cuadernos, agendas o proyectos con estos mini stickers en rollo. Ideal para quienes aman personalizarlo todo con variedad y creatividad, agregando esos pequeños detalles que hacen la diferencia.\n- Cada rollo te da 2 metros de pura inspiración: tenés stickers de sobra para muchísimas decoraciones, planificaciones y hasta para compartir con amigos o familiares.\n- Descubrí la sorpresa de los 4 modelos diferentes que llegan surtidos: una explosión de estilos para cada estado de ánimo o temática que quieras expresar en tus creaciones.\n- Perfectos para tu bullet journal, agenda, cartas, regalos o cualquier superficie que necesite un toque especial, estos pequeños detalles autoadhesivos son súper versátiles.\nTransformá lo ordinario en extraordinario con estos rollos de calcomanías que te invitan a jugar con tu imaginación sin límites. Son el regalo perfecto para chicos y grandes o tu próximo vicio creativo. No esperes más para sumar esta dosis de diversión y personalización a tu vida. ¡Hacelos tuyos hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Con funciones ultraligera, transpirable y de carga reducida, esta mochila protege la columna vertebral de los más pequeños, asegurando que lleven sus útiles cómodos y sin esfuerzo. 
 - Sus medidas de 32x28x15 cm la hacen espaciosa para cuadernos, libros y un snack, pero compacta para que no les pese de más. 
 Invertí en la salud y comodidad de tu hijo con esta mochila infantil que es un verdadero gadget para el colegio. ¡No esperes más y sumala al carrito para que empiece el año lectivo con la mejor onda y cuidado!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Invertí en la salud y comodidad de tu hijo con esta mochila infantil que es un 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH-MWH0211-RO", "nombre": "Mochila Escolar Conejo Protección Columna Ultraliviana", "precio_venta": 29500.0, "stock": 999, "color": "", "talle": "", "descripcion": "¿Buscás una mochila escolar infantil que combine diseño, confort y cuidado para tu hijo? La Mochila Escolar Conejo es la compañera ideal para el jardín o los primeros años de primaria, diseñada pensando en su bienestar y diversión. Esta mochila para niños destaca por su funcionalidad y ternura. \n- Su diseño neutro y divertido de conejito es perfecto para nenes y nenas, añadiendo un toque adorable a cada día escolar y haciendo que quieran llevarla a todos lados. \n- Fabricada en tela Oxford de alta resistencia y con forro de poliéster, garantiza durabilidad y es súper fácil de limpiar, ideal para el ajetreo diario y las aventuras de los chicos. \n- Con funciones ultraligera, transpirable y de carga reducida, esta mochila protege la columna vertebral de los más pequeños, asegurando que lleven sus útiles cómodos y sin esfuerzo. \n- Sus medidas de 32x28x15 cm la hacen espaciosa para cuadernos, libros y un snack, pero compacta para que no les pese de más. \nInvertí en la salud y comodidad de tu hijo con esta mochila infantil que es un verdadero gadget para el colegio. ¡No esperes más y sumala al carrito para que empiece el año lectivo con la mejor onda y cuidado!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-RO_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-RO_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-RO_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-RO_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH-MWH0211-RO", "nombre": "Mochila Escolar Conejo Protección Columna Ultraliviana", "precio_venta": 29500.0, "stock": 8, "color": "", "talle": "", "descripcion": "¿Buscás una mochila escolar infantil que combine diseño, confort y cuidado para tu hijo? La Mochila Escolar Conejo es la compañera ideal para el jardín o los primeros años de primaria, diseñada pensando en su bienestar y diversión. Esta mochila para niños destaca por su funcionalidad y ternura. \n- Su diseño neutro y divertido de conejito es perfecto para nenes y nenas, añadiendo un toque adorable a cada día escolar y haciendo que quieran llevarla a todos lados. \n- Fabricada en tela Oxford de alta resistencia y con forro de poliéster, garantiza durabilidad y es súper fácil de limpiar, ideal para el ajetreo diario y las aventuras de los chicos. \n- Con funciones ultraligera, transpirable y de carga reducida, esta mochila protege la columna vertebral de los más pequeños, asegurando que lleven sus útiles cómodos y sin esfuerzo. \n- Sus medidas de 32x28x15 cm la hacen espaciosa para cuadernos, libros y un snack, pero compacta para que no les pese de más. \nInvertí en la salud y comodidad de tu hijo con esta mochila infantil que es un verdadero gadget para el colegio. ¡No esperes más y sumala al carrito para que empiece el año lectivo con la mejor onda y cuidado!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-RO_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-RO_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-RO_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-RO_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

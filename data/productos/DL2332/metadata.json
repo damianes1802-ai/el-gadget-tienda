@@ -1,0 +1,50 @@
+{
+  "sku": "DL2332",
+  "titulo": "Cubre Colchón Protector Impermeable 160x200 Acolchonado",
+  "precio": 27990,
+  "descripcion": "PROTECTOR DE COLCHON ACOLCHADO IMPERMEABLE QUEEN\nProtegé tu colchón y prolongá su vida útil con este protector acolchado impermeable de alta calidad. Diseñado para brindar una capa de seguridad invisible sin alterar la comodidad de tu descanso, es la solución perfecta para mantener tu cama impecable, libre de manchas, líquidos y desgastes diarios.\nSu superficie sutilmente matelaseada añade una capa extra de suavidad y confort a tu colchón, integrándose de forma natural debajo de tus sábanas habituales.\nCARACTERÍSTICAS DESTACADAS:\nProtección 100% impermeable: Desarrollado con una tecnología de capas protectoras que impide por completo el paso de líquidos, sudor o derrames accidentales hacia el colchón, absorbiendo la humedad de manera eficiente.\nSuperficie acolchada y respirable: Su diseño combina una textura esponjosa y mullida con propiedades transpirables, asegurando que el flujo de aire se mantenga constante para evitar la acumulación de calor durante la noche.\nPráctico sistema de ajuste: Incorpora elásticos de gran resistencia en sus esquinas. Esto garantiza una sujeción firme que previene los molestos deslizamientos o arrugas mientras dormís, adaptándose con total facilidad.\nHigiénico y de fácil mantenimiento: Al ser completamente apto para lavarropas, podés higienizarlo periódicamente de forma rápida y cómoda en tu hogar, manteniendo tu entorno de descanso siempre fresco y saludable.\nMEDIDAS Y ESPECIFICACIONES:\nMedidas: 200 cm de largo x 160 cm de ancho (Equivalente a 2 Plazas y Media / Queen)\nMaterial: Poliéster premium\nColor: Blanco\nCompatibilidad de lavado: Apto para lavarropas",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2333_6__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2333_1__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2333_2__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2333_3__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2333_5__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2333_7__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2333_8__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2333_9__1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2333_10__1_1.png"
+  ],
+  "cantidad_imagenes": 9,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/cubre-colchon-protector-impermeable-90x190-acolchonado-1.html",
+  "fecha_scraping": "2026-06-17T11:35:29.109363",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696719/prod_DL2332_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696719/prod_DL2332_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696720/prod_DL2332_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696721/prod_DL2332_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696722/prod_DL2332_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696722/prod_DL2332_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696723/prod_DL2332_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696724/prod_DL2332_008.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696725/prod_DL2332_009.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 27990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 27990,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 47583.0,
+    "precio_final": 48000.0,
+    "ganancia_neta": 20010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 48000.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.064855"
+}

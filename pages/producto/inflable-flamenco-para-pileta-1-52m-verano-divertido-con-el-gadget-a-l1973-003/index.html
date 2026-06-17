@@ -80,16 +80,16 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
-      <!-- Descripción -->
-      <div class="product-description">
-        <h3>Descripción</h3>
-        <div class="description" id="productDescription">¡Preparate para un verano lleno de estilo y diversión con el inflable de flamenco más trendy! Ideal para relajarte flotando bajo el sol, darle un toque original a tus fotos o simplemente disfrutar de un chapuzón refrescante en la pileta. Este hermoso flamenco rosa se convertirá en el protagonista de tus días de calor. Con sus medidas aproximadas de 152cm x 89cm, tenés espacio de sobra para un descanso placentero. Es el flotador perfecto para grandes y chicos (siempre con supervisión), pensado para que tus jornadas en la pileta sean inolvidables. Llévalo a la pileta del club, a la casa de campo o disfrutalo en tu propio jardín. ¡Hacete de este inflable súper cool de El Gadget y que empiece la temporada!</div>
-      </div>
-
       <!-- Acciones -->
       <div class="actions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
+      <!-- Descripción -->
+      <div class="product-description">
+        <h3>Descripción</h3>
+        <div class="description" id="productDescription">¡Preparate para un verano lleno de estilo y diversión con el inflable de flamenco más trendy! Ideal para relajarte flotando bajo el sol, darle un toque original a tus fotos o simplemente disfrutar de un chapuzón refrescante en la pileta. Este hermoso flamenco rosa se convertirá en el protagonista de tus días de calor. Con sus medidas aproximadas de 152cm x 89cm, tenés espacio de sobra para un descanso placentero. Es el flotador perfecto para grandes y chicos (siempre con supervisión), pensado para que tus jornadas en la pileta sean inolvidables. Llévalo a la pileta del club, a la casa de campo o disfrutalo en tu propio jardín. ¡Hacete de este inflable súper cool de El Gadget y que empiece la temporada!</div>
       </div>
     </div>
   </div>
@@ -188,7 +188,7 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-L1973-003", "nombre": "Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!", "precio_venta": 43500.0, "stock": 999, "color": "", "talle": "", "descripcion": "¡Preparate para un verano lleno de estilo y diversión con el inflable de flamenco más trendy! Ideal para relajarte flotando bajo el sol, darle un toque original a tus fotos o simplemente disfrutar de un chapuzón refrescante en la pileta. Este hermoso flamenco rosa se convertirá en el protagonista de tus días de calor. Con sus medidas aproximadas de 152cm x 89cm, tenés espacio de sobra para un descanso placentero. Es el flotador perfecto para grandes y chicos (siempre con supervisión), pensado para que tus jornadas en la pileta sean inolvidables. Llévalo a la pileta del club, a la casa de campo o disfrutalo en tu propio jardín. ¡Hacete de este inflable súper cool de El Gadget y que empiece la temporada!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "A-L1973-003", "nombre": "Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!", "precio_venta": 43500.0, "stock": 11, "color": "", "talle": "", "descripcion": "¡Preparate para un verano lleno de estilo y diversión con el inflable de flamenco más trendy! Ideal para relajarte flotando bajo el sol, darle un toque original a tus fotos o simplemente disfrutar de un chapuzón refrescante en la pileta. Este hermoso flamenco rosa se convertirá en el protagonista de tus días de calor. Con sus medidas aproximadas de 152cm x 89cm, tenés espacio de sobra para un descanso placentero. Es el flotador perfecto para grandes y chicos (siempre con supervisión), pensado para que tus jornadas en la pileta sean inolvidables. Llévalo a la pileta del club, a la casa de campo o disfrutalo en tu propio jardín. ¡Hacete de este inflable súper cool de El Gadget y que empiece la temporada!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

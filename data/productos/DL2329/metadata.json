@@ -1,0 +1,53 @@
+{
+  "sku": "DL2329",
+  "titulo": "Rejilla Desagüe Tapón Click Pelos Insectos Olores Acero Inox",
+  "precio": 3290,
+  "descripcion": "REJILLA DE DESAGÜE DE PISO INTELIGENTE CON SISTEMA CLICK\nModernizá tus ambientes y olvídate de los problemas tradicionales del baño o la cocina con esta rejilla de desagüe premium. Equipada con un sistema de apertura y cierre por presión (Click), combina un diseño estético minimalista con la máxima funcionalidad tecnológica para tu hogar.\nCARACTERÍSTICAS DESTACADAS:\nSistema Click a presión: Podés abrir o cerrar el paso del agua de manera rápida utilizando el pie, sin necesidad de agacharte ni tocar la superficie con las manos, garantizando una higiene total en el uso diario.\nBloqueo hermético antiolores e insectos: Su diseño de sellado avanzado de 360 grados aísla de forma efectiva las tuberías cuando está cerrada. Esto impide por completo el retorno de malos olores, el ingreso de insectos, cucarachas o roedores, y el desborde de espuma.\nCesta interior antibloqueo para pelos: Incorpora un práctico filtro interno desmontable que retiene eficazmente los cabellos y residuos sólidos. Evita obstrucciones severas en las cañerías y se extrae con total facilidad para una limpieza rápida.\nMateriales de alta resistencia: Fabricada con un panel superior de acero inoxidable 304 de calidad premium y un núcleo interno de rebote de alta durabilidad, ofreciendo una resistencia excepcional a la corrosión, al desgaste y al paso del tiempo.\nAplicación universal: Su estética sofisticada y acabado cromado brillante se adaptan a la perfección en duchas, baños principales, cocinas, lavaderos o balcones.\nMEDIDAS Y ESPECIFICACIONES:\nAncho de la rejilla: 10 cm\nLargo de la rejilla: 10 cm\nMaterial del panel: Acero inoxidable 304\nColor: Cromado\nTipo de desagüe: De piso\nMecanismo: Clic con botón de presión neumática/resorte",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2329_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2329_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2329_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2329_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2329_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2329_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2329_6_.png"
+  ],
+  "cantidad_imagenes": 7,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/rejilla-desague-tapon-click-pelos-insectos-olores-acero-inox.html",
+  "fecha_scraping": "2026-06-17T11:36:57.128939",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-17T11:41:39.953920",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696695/prod_DL2329_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696697/prod_DL2329_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696698/prod_DL2329_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696701/prod_DL2329_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696701/prod_DL2329_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696702/prod_DL2329_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696703/prod_DL2329_007.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 3290,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 3290,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 5593.0,
+    "precio_final": 6000.0,
+    "ganancia_neta": 2710.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 6000.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.063175"
+}

@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Diseño exclusivo de dinosaurios: cada bolígrafo convierte la escritura y el dibujo en una aventura lúdica, inspirando la imaginación de los niños.
 - Colores surtidos y vibrantes: cada caja es una sorpresa con variedad de tonos que alegran cualquier momento de escritura o creación artística infantil.
 Son el regalo perfecto para amantes de los dinosaurios o para animar cualquier actividad escolar. Dale a los chicos una herramienta divertida que los inspire a escribir y crear. ¡No te quedes sin esta caja x 36 unidades y sumala a tu carrito hoy mismo!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Son el regalo perfecto para amantes de los dinosaurios o para animar cualquier a
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "L6169", "nombre": "Lapiceras dinosaurio infantiles caja x 36 unidades colores surtidos", "precio_venta": 132000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque prehistórico y divertido a la escritura con estos bolígrafos de dinosaurio. Un pack irresistible para los más chicos, ideal para el colegio, tareas o simplemente para dejar volar la imaginación y la creatividad en cada trazo. Son las lapiceras perfectas para hacer de cada momento una aventura.\n- Pack de 36 unidades: ideal para compartir en cumples, como souvenir o para tener siempre a mano en casa o el aula, asegurando que la diversión nunca termine.\n- Diseño exclusivo de dinosaurios: cada bolígrafo convierte la escritura y el dibujo en una aventura lúdica, inspirando la imaginación de los niños.\n- Colores surtidos y vibrantes: cada caja es una sorpresa con variedad de tonos que alegran cualquier momento de escritura o creación artística infantil.\nSon el regalo perfecto para amantes de los dinosaurios o para animar cualquier actividad escolar. Dale a los chicos una herramienta divertida que los inspire a escribir y crear. ¡No te quedes sin esta caja x 36 unidades y sumala a tu carrito hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6169_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6169_002"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "L6169", "nombre": "Lapiceras dinosaurio infantiles caja x 36 unidades colores surtidos", "precio_venta": 132000.0, "stock": 12, "color": "", "talle": "", "descripcion": "Dale un toque prehistórico y divertido a la escritura con estos bolígrafos de dinosaurio. Un pack irresistible para los más chicos, ideal para el colegio, tareas o simplemente para dejar volar la imaginación y la creatividad en cada trazo. Son las lapiceras perfectas para hacer de cada momento una aventura.\n- Pack de 36 unidades: ideal para compartir en cumples, como souvenir o para tener siempre a mano en casa o el aula, asegurando que la diversión nunca termine.\n- Diseño exclusivo de dinosaurios: cada bolígrafo convierte la escritura y el dibujo en una aventura lúdica, inspirando la imaginación de los niños.\n- Colores surtidos y vibrantes: cada caja es una sorpresa con variedad de tonos que alegran cualquier momento de escritura o creación artística infantil.\nSon el regalo perfecto para amantes de los dinosaurios o para animar cualquier actividad escolar. Dale a los chicos una herramienta divertida que los inspire a escribir y crear. ¡No te quedes sin esta caja x 36 unidades y sumala a tu carrito hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6169_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6169_002"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

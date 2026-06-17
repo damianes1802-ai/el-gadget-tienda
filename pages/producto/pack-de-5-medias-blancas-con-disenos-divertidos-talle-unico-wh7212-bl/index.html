@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -90,12 +96,6 @@
 - Talle único universal: No te preocupes por el tamaño, se adaptan perfectamente para brindarte el máximo confort.
 - Una oferta imperdible: Llevate este combo especial y renová tus cajones con el mejor estilo a un precio increíble.
 Estas medias son el detalle perfecto para quienes buscan confort, calidad y un guiño divertido en su vestimenta. Ya sea para vos o para sorprender a alguien, aprovechá esta oferta. ¡Sumalas a tu carrito y llená tus días de buena onda!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -194,7 +194,7 @@ Estas medias son el detalle perfecto para quienes buscan confort, calidad y un g
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7212-BL", "nombre": "Pack de 5 Medias Blancas con Diseños Divertidos Talle Único", "precio_venta": 7500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque de alegría y originalidad a tus pies con este pack de 5 medias blancas con diseños divertidos. Ideales para sumar estilo y comodidad a tu día a día, o para ese regalo original que estabas buscando.\n- Pack de 5 pares iguales: Tené siempre un par fresco y diferente a mano, ideal para toda la semana sin repetir.\n- Diseños divertidos y únicos: Expresá tu personalidad con un toque de humor, ¡rompé la rutina con cada paso!\n- Color blanco clásico: Combinan con todo tu guardarropa, sumando un toque de onda sin perder versatilidad.\n- Talle único universal: No te preocupes por el tamaño, se adaptan perfectamente para brindarte el máximo confort.\n- Una oferta imperdible: Llevate este combo especial y renová tus cajones con el mejor estilo a un precio increíble.\nEstas medias son el detalle perfecto para quienes buscan confort, calidad y un guiño divertido en su vestimenta. Ya sea para vos o para sorprender a alguien, aprovechá esta oferta. ¡Sumalas a tu carrito y llená tus días de buena onda!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-BL_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-BL_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-BL_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-BL_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7212-BL", "nombre": "Pack de 5 Medias Blancas con Diseños Divertidos Talle Único", "precio_venta": 7500.0, "stock": 12, "color": "", "talle": "", "descripcion": "Dale un toque de alegría y originalidad a tus pies con este pack de 5 medias blancas con diseños divertidos. Ideales para sumar estilo y comodidad a tu día a día, o para ese regalo original que estabas buscando.\n- Pack de 5 pares iguales: Tené siempre un par fresco y diferente a mano, ideal para toda la semana sin repetir.\n- Diseños divertidos y únicos: Expresá tu personalidad con un toque de humor, ¡rompé la rutina con cada paso!\n- Color blanco clásico: Combinan con todo tu guardarropa, sumando un toque de onda sin perder versatilidad.\n- Talle único universal: No te preocupes por el tamaño, se adaptan perfectamente para brindarte el máximo confort.\n- Una oferta imperdible: Llevate este combo especial y renová tus cajones con el mejor estilo a un precio increíble.\nEstas medias son el detalle perfecto para quienes buscan confort, calidad y un guiño divertido en su vestimenta. Ya sea para vos o para sorprender a alguien, aprovechá esta oferta. ¡Sumalas a tu carrito y llená tus días de buena onda!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-BL_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-BL_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-BL_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-BL_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

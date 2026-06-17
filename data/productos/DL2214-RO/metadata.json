@@ -1,0 +1,46 @@
+{
+  "sku": "DL2214-RO",
+  "titulo": "Organizador Con Cierre Superior y Frontal  ROSA",
+  "precio": 21500,
+  "descripcion": "Organizador de diseño con cierre superior y frontal.\nCalidad Premium.\nMedidas 50 x 40 x 33 cm.\nMaterial: PVC con soporte metálico reforzado.\nColores blanco, celeste y rosa. Se envían surtidos.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7085_1_1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2214-ro_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2214-ro_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2214-ro_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2214-ro_4_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2214-ro_5_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2214-ro_6_.jpg"
+  ],
+  "cantidad_imagenes": 7,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/organizador-con-cierre-superior-y-frontal-2.html",
+  "fecha_scraping": "2026-06-17T11:35:56.915064",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696584/prod_DL2214-RO_001.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696585/prod_DL2214-RO_002.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696586/prod_DL2214-RO_003.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696586/prod_DL2214-RO_004.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696587/prod_DL2214-RO_005.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696588/prod_DL2214-RO_006.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696588/prod_DL2214-RO_007.jpg"
+  ],
+  "calculo_precio": {
+    "precio_costo": 21500,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 21500,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 36550.0,
+    "precio_final": 37000.0,
+    "ganancia_neta": 15500.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 37000.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.055794"
+}

@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Siempre listo para usar: Incluye un set de 3 rollos adhesivos, asegurando que tengas repuesto para mantener tu casa impecable por más tiempo.
 - Cobertura amplia y rápida: Con un ancho de 24 cm por rollo, cubrí grandes superficies en menos pasadas, optimizando tu tiempo de limpieza.
 Este imprescindible de Baño y Limpieza te simplifica la rutina diaria. Sumá practicidad y eficiencia a tu hogar. Hacelo tuyo hoy y disfrutá de un ambiente siempre impecable.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Este imprescindible de Baño y Limpieza te simplifica la rutina diaria. Sumá pr
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "DL1101-1", "nombre": "Rodillo sacapelusas extensible 1 metro - Set 3 rollos para casa impecable", "precio_venta": 11500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Cansado de pelos y pelusas en tu hogar? El rodillo sacapelusas adhesivo extensible es la solución definitiva para mantener tus sillones, alfombras y cortinas impecables con el mínimo esfuerzo. Este kit de limpieza simplifica la tarea de quitar pelusas, garantizando resultados sorprendentes en cualquier superficie textil.\n- Limpieza profunda y versátil: Su potente adhesivo elimina eficazmente pelos de mascotas, pelusas e hilos de ropa, tapizados, alfombras y cortinas.\n- Alcance sin esfuerzo: Gracias a su mango extensible de 1 metro, accedé cómodamente a los rincones altos o debajo de los muebles sin agacharte ni usar escaleras.\n- Siempre listo para usar: Incluye un set de 3 rollos adhesivos, asegurando que tengas repuesto para mantener tu casa impecable por más tiempo.\n- Cobertura amplia y rápida: Con un ancho de 24 cm por rollo, cubrí grandes superficies en menos pasadas, optimizando tu tiempo de limpieza.\nEste imprescindible de Baño y Limpieza te simplifica la rutina diaria. Sumá practicidad y eficiencia a tu hogar. Hacelo tuyo hoy y disfrutá de un ambiente siempre impecable.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1101-1_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1101-1_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1101-1_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1101-1_004"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "DL1101-1", "nombre": "Rodillo sacapelusas extensible 1 metro - Set 3 rollos para casa impecable", "precio_venta": 11500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Cansado de pelos y pelusas en tu hogar? El rodillo sacapelusas adhesivo extensible es la solución definitiva para mantener tus sillones, alfombras y cortinas impecables con el mínimo esfuerzo. Este kit de limpieza simplifica la tarea de quitar pelusas, garantizando resultados sorprendentes en cualquier superficie textil.\n- Limpieza profunda y versátil: Su potente adhesivo elimina eficazmente pelos de mascotas, pelusas e hilos de ropa, tapizados, alfombras y cortinas.\n- Alcance sin esfuerzo: Gracias a su mango extensible de 1 metro, accedé cómodamente a los rincones altos o debajo de los muebles sin agacharte ni usar escaleras.\n- Siempre listo para usar: Incluye un set de 3 rollos adhesivos, asegurando que tengas repuesto para mantener tu casa impecable por más tiempo.\n- Cobertura amplia y rápida: Con un ancho de 24 cm por rollo, cubrí grandes superficies en menos pasadas, optimizando tu tiempo de limpieza.\nEste imprescindible de Baño y Limpieza te simplifica la rutina diaria. Sumá practicidad y eficiencia a tu hogar. Hacelo tuyo hoy y disfrutá de un ambiente siempre impecable.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1101-1_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1101-1_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1101-1_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1101-1_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

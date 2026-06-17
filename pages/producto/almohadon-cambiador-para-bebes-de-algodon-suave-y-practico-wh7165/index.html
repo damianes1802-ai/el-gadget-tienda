@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Sus medidas de 25 x 40 cm lo hacen el tamaño justo para usar cómodamente en casa o llevarlo en el bolso a donde vayas, ideal para padres activos.
 - Pensado para la rutina diaria, facilita el momento del cambio de pañales, brindando higiene y un espacio acogedor a tu pequeño en todo momento.
 Simplificá tu rutina y asegurá el bienestar de tu bebé en cada cambio. ¡Agregá este esencial almohadón cambiador a tus artículos infantiles y hacelo tuyo hoy!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Simplificá tu rutina y asegurá el bienestar de tu bebé en cada cambio. ¡Agre
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7165", "nombre": "Almohadón cambiador para bebés de algodón, suave y práctico", "precio_venta": 10500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Facilitá el momento del cambio de pañales con nuestro almohadón cambiador de algodón, diseñado para la comodidad de tu bebé y tu practicidad diaria. Un accesorio indispensable en tus artículos infantiles que combina funcionalidad y confort.\n- Confeccionado en suave algodón, cuida la delicada piel de tu bebé ofreciendo una superficie confortable y segura en cada cambio.\n- Sus medidas de 25 x 40 cm lo hacen el tamaño justo para usar cómodamente en casa o llevarlo en el bolso a donde vayas, ideal para padres activos.\n- Pensado para la rutina diaria, facilita el momento del cambio de pañales, brindando higiene y un espacio acogedor a tu pequeño en todo momento.\nSimplificá tu rutina y asegurá el bienestar de tu bebé en cada cambio. ¡Agregá este esencial almohadón cambiador a tus artículos infantiles y hacelo tuyo hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7165_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7165", "nombre": "Almohadón cambiador para bebés de algodón, suave y práctico", "precio_venta": 10500.0, "stock": 14, "color": "", "talle": "", "descripcion": "Facilitá el momento del cambio de pañales con nuestro almohadón cambiador de algodón, diseñado para la comodidad de tu bebé y tu practicidad diaria. Un accesorio indispensable en tus artículos infantiles que combina funcionalidad y confort.\n- Confeccionado en suave algodón, cuida la delicada piel de tu bebé ofreciendo una superficie confortable y segura en cada cambio.\n- Sus medidas de 25 x 40 cm lo hacen el tamaño justo para usar cómodamente en casa o llevarlo en el bolso a donde vayas, ideal para padres activos.\n- Pensado para la rutina diaria, facilita el momento del cambio de pañales, brindando higiene y un espacio acogedor a tu pequeño en todo momento.\nSimplificá tu rutina y asegurá el bienestar de tu bebé en cada cambio. ¡Agregá este esencial almohadón cambiador a tus artículos infantiles y hacelo tuyo hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7165_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

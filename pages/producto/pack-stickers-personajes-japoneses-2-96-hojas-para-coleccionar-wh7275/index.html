@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Su formato compacto de 16,5 x 16,5 x 2 cm hace que sea fácil de transportar y guardar, ¡llevá la diversión a donde vayas!
 - La emoción de la sorpresa: recibís una de las 4 variantes exclusivas, haciendo de cada apertura una experiencia única y coleccionable para tu pack de stickers.
 Ideal para hacer un regalo original a un fanático del anime o simplemente para consentirte y darle un upgrade a tus pertenencias. No te quedes sin tu pack de stickers de personajes japoneses y hacelo tuyo hoy.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Ideal para hacer un regalo original a un fanático del anime o simplemente para 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7275", "nombre": "Pack Stickers Personajes Japoneses 2 - 96 hojas para coleccionar", "precio_venta": 7000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Sumate a la fiebre de los personajes japoneses con esta increíble caja de stickers. Es ideal para darle un toque único y divertido a tus objetos favoritos, agendas, cuadernos o lo que quieras personalizar con estilo.\n- ¡Variedad infinita! Cada caja trae 96 hojas repletas de stickers para que tengas material de sobra para decorar, compartir o coleccionar sin límites.\n- Diseños adorables y a la moda con tus personajes japoneses favoritos. Son perfectos para los amantes del estilo kawaii y la cultura oriental.\n- Su formato compacto de 16,5 x 16,5 x 2 cm hace que sea fácil de transportar y guardar, ¡llevá la diversión a donde vayas!\n- La emoción de la sorpresa: recibís una de las 4 variantes exclusivas, haciendo de cada apertura una experiencia única y coleccionable para tu pack de stickers.\nIdeal para hacer un regalo original a un fanático del anime o simplemente para consentirte y darle un upgrade a tus pertenencias. No te quedes sin tu pack de stickers de personajes japoneses y hacelo tuyo hoy.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7275_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7275", "nombre": "Pack Stickers Personajes Japoneses 2 - 96 hojas para coleccionar", "precio_venta": 7000.0, "stock": 7, "color": "", "talle": "", "descripcion": "Sumate a la fiebre de los personajes japoneses con esta increíble caja de stickers. Es ideal para darle un toque único y divertido a tus objetos favoritos, agendas, cuadernos o lo que quieras personalizar con estilo.\n- ¡Variedad infinita! Cada caja trae 96 hojas repletas de stickers para que tengas material de sobra para decorar, compartir o coleccionar sin límites.\n- Diseños adorables y a la moda con tus personajes japoneses favoritos. Son perfectos para los amantes del estilo kawaii y la cultura oriental.\n- Su formato compacto de 16,5 x 16,5 x 2 cm hace que sea fácil de transportar y guardar, ¡llevá la diversión a donde vayas!\n- La emoción de la sorpresa: recibís una de las 4 variantes exclusivas, haciendo de cada apertura una experiencia única y coleccionable para tu pack de stickers.\nIdeal para hacer un regalo original a un fanático del anime o simplemente para consentirte y darle un upgrade a tus pertenencias. No te quedes sin tu pack de stickers de personajes japoneses y hacelo tuyo hoy.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7275_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Guardá tus pertenencias con tranquilidad: viene forrada por dentro y tiene un práctico cierre de cordón con detalles de bolitas de madera, que realzan su encanto.
 - Disfrutá de la comodidad de llevar solo lo esencial. Con sus medidas de 17x17 cm y correa trenzada, es perfecta para acompañarte liviana en tus paseos o días de playa.
 - Este bolso bandolera blanco ilumina cualquier outfit, ofreciéndote un accesorio versátil y fresco para la temporada estival. No te quedes sin tu bandolera de moda para esta temporada. Es el accesorio clave para tus momentos al aire libre, un regalo ideal o simplemente para consentirte. ¡Sumala a tu carrito y preparate para disfrutar del verano con estilo!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "M3022-001B", "nombre": "Bolso Bandolera Tejida Crochet Blanca Mujer Verano Playa", "precio_venta": 39000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Prepárate para un verano con estilo y frescura. Esta bandolera tejida de crochet es el accesorio perfecto para complementar tus looks estivales, combinando lo artesanal con la moda.\n- Dale un toque único a tus looks de verano con su diseño artesanal tejido en crochet y forma circular, ideal para destacar tu estilo boho chic.\n- Guardá tus pertenencias con tranquilidad: viene forrada por dentro y tiene un práctico cierre de cordón con detalles de bolitas de madera, que realzan su encanto.\n- Disfrutá de la comodidad de llevar solo lo esencial. Con sus medidas de 17x17 cm y correa trenzada, es perfecta para acompañarte liviana en tus paseos o días de playa.\n- Este bolso bandolera blanco ilumina cualquier outfit, ofreciéndote un accesorio versátil y fresco para la temporada estival. No te quedes sin tu bandolera de moda para esta temporada. Es el accesorio clave para tus momentos al aire libre, un regalo ideal o simplemente para consentirte. ¡Sumala a tu carrito y preparate para disfrutar del verano con estilo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_009", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_010"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "M3022-001B", "nombre": "Bolso Bandolera Tejida Crochet Blanca Mujer Verano Playa", "precio_venta": 39000.0, "stock": 13, "color": "", "talle": "", "descripcion": "Prepárate para un verano con estilo y frescura. Esta bandolera tejida de crochet es el accesorio perfecto para complementar tus looks estivales, combinando lo artesanal con la moda.\n- Dale un toque único a tus looks de verano con su diseño artesanal tejido en crochet y forma circular, ideal para destacar tu estilo boho chic.\n- Guardá tus pertenencias con tranquilidad: viene forrada por dentro y tiene un práctico cierre de cordón con detalles de bolitas de madera, que realzan su encanto.\n- Disfrutá de la comodidad de llevar solo lo esencial. Con sus medidas de 17x17 cm y correa trenzada, es perfecta para acompañarte liviana en tus paseos o días de playa.\n- Este bolso bandolera blanco ilumina cualquier outfit, ofreciéndote un accesorio versátil y fresco para la temporada estival. No te quedes sin tu bandolera de moda para esta temporada. Es el accesorio clave para tus momentos al aire libre, un regalo ideal o simplemente para consentirte. ¡Sumala a tu carrito y preparate para disfrutar del verano con estilo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_008", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_009", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_010"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - 3 en 1: usalo como un elegante bufandón, una manta chic sobre los hombros o un práctico poncho, ¡cambiando tu look al instante según la ocasión!
 - Diseñado para durar: cuenta con un acabado de calidad que asegura resistencia y durabilidad, para que disfrutes de tu prenda temporada tras temporada.
 Ya sea para realzar tu propio estilo de invierno o como un regalo que seguro sorprende, este accesorio de moda es un infaltable. Agregale un toque de distinción a tus outfits y hacelo tuyo hoy.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Ya sea para realzar tu propio estilo de invierno o como un regalo que seguro sor
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "T2606-002C", "nombre": "Poncho Bufanda Roja y Violeta - Abrigo Versátil de Diseño Único", "precio_venta": 22000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Este mantón poncho bufanda es tu aliado perfecto para combatir el frío con un toque de moda. Su diseño versátil rojo con líneas violeta te permite reinventar tus looks de invierno al instante, combinando elegancia y calidez como ningún otro accesorio.\n- Sentí la suavidad: confeccionado con materiales de alta calidad que te garantizan un tacto súper agradable y confort para usarlo todo el día.\n- Abrigo sin peso: su tejido es abrigado pero ligero, ideal para los días frescos y para llevar cómodamente en cualquier momento.\n- 3 en 1: usalo como un elegante bufandón, una manta chic sobre los hombros o un práctico poncho, ¡cambiando tu look al instante según la ocasión!\n- Diseñado para durar: cuenta con un acabado de calidad que asegura resistencia y durabilidad, para que disfrutes de tu prenda temporada tras temporada.\nYa sea para realzar tu propio estilo de invierno o como un regalo que seguro sorprende, este accesorio de moda es un infaltable. Agregale un toque de distinción a tus outfits y hacelo tuyo hoy.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_008"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "T2606-002C", "nombre": "Poncho Bufanda Roja y Violeta - Abrigo Versátil de Diseño Único", "precio_venta": 22000.0, "stock": 13, "color": "", "talle": "", "descripcion": "Este mantón poncho bufanda es tu aliado perfecto para combatir el frío con un toque de moda. Su diseño versátil rojo con líneas violeta te permite reinventar tus looks de invierno al instante, combinando elegancia y calidez como ningún otro accesorio.\n- Sentí la suavidad: confeccionado con materiales de alta calidad que te garantizan un tacto súper agradable y confort para usarlo todo el día.\n- Abrigo sin peso: su tejido es abrigado pero ligero, ideal para los días frescos y para llevar cómodamente en cualquier momento.\n- 3 en 1: usalo como un elegante bufandón, una manta chic sobre los hombros o un práctico poncho, ¡cambiando tu look al instante según la ocasión!\n- Diseñado para durar: cuenta con un acabado de calidad que asegura resistencia y durabilidad, para que disfrutes de tu prenda temporada tras temporada.\nYa sea para realzar tu propio estilo de invierno o como un regalo que seguro sorprende, este accesorio de moda es un infaltable. Agregale un toque de distinción a tus outfits y hacelo tuyo hoy.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_007", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_008"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

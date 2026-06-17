@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - Es práctico y fácil de lavar, lo que lo convierte en el compañero perfecto para las comidas diarias y esos momentos de babitas constantes, facilitando tu rutina.
 - Un esencial indispensable para la higiene y comodidad de los más chiquitos, disponible ahora en nuestra sección de OFERTAS con una excelente relación calidad-precio.
 No busques más: este babero no solo cuida la ropita, sino que aporta confort a tu bebé en cada momento. Sumalo hoy a tus accesorios para bebés indispensables o pensalo como un regalo práctico y de calidad para un recién nacido.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ No busques más: este babero no solo cuida la ropita, sino que aporta confort a 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7164", "nombre": "Babero para bebés de algodón puro, suavidad ideal para su piel", "precio_venta": 3500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Protegé la ropita de tu bebé con nuestro babero de algodón puro, diseñado para ofrecer la máxima suavidad y cuidado a su piel delicada. Un accesorio esencial que combina funcionalidad y confort para el día a día.\n- Confeccionado en algodón puro 100%, súper suave y amable con la piel sensible de tu bebé, evitando irritaciones y garantizando su bienestar.\n- Sus medidas de 22 x 24 cm son ideales para cubrir una zona amplia sin estorbar, capturando derrames y babitas con eficacia, manteniendo a tu pequeño limpio y seco.\n- Es práctico y fácil de lavar, lo que lo convierte en el compañero perfecto para las comidas diarias y esos momentos de babitas constantes, facilitando tu rutina.\n- Un esencial indispensable para la higiene y comodidad de los más chiquitos, disponible ahora en nuestra sección de OFERTAS con una excelente relación calidad-precio.\nNo busques más: este babero no solo cuida la ropita, sino que aporta confort a tu bebé en cada momento. Sumalo hoy a tus accesorios para bebés indispensables o pensalo como un regalo práctico y de calidad para un recién nacido.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7164_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7164", "nombre": "Babero para bebés de algodón puro, suavidad ideal para su piel", "precio_venta": 3500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Protegé la ropita de tu bebé con nuestro babero de algodón puro, diseñado para ofrecer la máxima suavidad y cuidado a su piel delicada. Un accesorio esencial que combina funcionalidad y confort para el día a día.\n- Confeccionado en algodón puro 100%, súper suave y amable con la piel sensible de tu bebé, evitando irritaciones y garantizando su bienestar.\n- Sus medidas de 22 x 24 cm son ideales para cubrir una zona amplia sin estorbar, capturando derrames y babitas con eficacia, manteniendo a tu pequeño limpio y seco.\n- Es práctico y fácil de lavar, lo que lo convierte en el compañero perfecto para las comidas diarias y esos momentos de babitas constantes, facilitando tu rutina.\n- Un esencial indispensable para la higiene y comodidad de los más chiquitos, disponible ahora en nuestra sección de OFERTAS con una excelente relación calidad-precio.\nNo busques más: este babero no solo cuida la ropita, sino que aporta confort a tu bebé en cada momento. Sumalo hoy a tus accesorios para bebés indispensables o pensalo como un regalo práctico y de calidad para un recién nacido.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7164_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

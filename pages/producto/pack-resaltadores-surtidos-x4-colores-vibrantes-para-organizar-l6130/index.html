@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Colores surtidos que te permiten crear un sistema de codificación visual, ideal para estudiar, clasificar información o resaltar prioridades de forma efectiva y rápida.
 - Aprovechá nuestra oferta especial para equiparte con estos marcadores fluo de calidad al mejor precio y llevar tu organización al siguiente nivel sin gastar de más.
 Ya sea para el colegio, la facultad, la oficina o tus proyectos personales, este pack de resaltadores es el compañero perfecto. Sumale color a tus tareas diarias y no dejes pasar esta oportunidad. Hacelos tuyos hoy mismo y dale un toque especial a todo lo que resaltás.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Ya sea para el colegio, la facultad, la oficina o tus proyectos personales, este
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "L6130", "nombre": "Pack Resaltadores Surtidos x4 - Colores Vibrantes para Organizar", "precio_venta": 9000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Organizá tus ideas y destacá lo importante con este pack de resaltadores. Cuatro colores vibrantes para que tus apuntes y documentos cobren vida, haciendo tu estudio o trabajo mucho más eficiente y atractivo. Es el set ideal para darle un toque único a cada tarea.\n- Cuatro unidades que te garantizan variedad y durabilidad para todas tus tareas, sin quedarte a mitad de camino y siempre con el color justo a mano.\n- Colores surtidos que te permiten crear un sistema de codificación visual, ideal para estudiar, clasificar información o resaltar prioridades de forma efectiva y rápida.\n- Aprovechá nuestra oferta especial para equiparte con estos marcadores fluo de calidad al mejor precio y llevar tu organización al siguiente nivel sin gastar de más.\nYa sea para el colegio, la facultad, la oficina o tus proyectos personales, este pack de resaltadores es el compañero perfecto. Sumale color a tus tareas diarias y no dejes pasar esta oportunidad. Hacelos tuyos hoy mismo y dale un toque especial a todo lo que resaltás.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6130_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6130_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6130_003"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "L6130", "nombre": "Pack Resaltadores Surtidos x4 - Colores Vibrantes para Organizar", "precio_venta": 9000.0, "stock": 6, "color": "", "talle": "", "descripcion": "Organizá tus ideas y destacá lo importante con este pack de resaltadores. Cuatro colores vibrantes para que tus apuntes y documentos cobren vida, haciendo tu estudio o trabajo mucho más eficiente y atractivo. Es el set ideal para darle un toque único a cada tarea.\n- Cuatro unidades que te garantizan variedad y durabilidad para todas tus tareas, sin quedarte a mitad de camino y siempre con el color justo a mano.\n- Colores surtidos que te permiten crear un sistema de codificación visual, ideal para estudiar, clasificar información o resaltar prioridades de forma efectiva y rápida.\n- Aprovechá nuestra oferta especial para equiparte con estos marcadores fluo de calidad al mejor precio y llevar tu organización al siguiente nivel sin gastar de más.\nYa sea para el colegio, la facultad, la oficina o tus proyectos personales, este pack de resaltadores es el compañero perfecto. Sumale color a tus tareas diarias y no dejes pasar esta oportunidad. Hacelos tuyos hoy mismo y dale un toque especial a todo lo que resaltás.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6130_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6130_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6130_003"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

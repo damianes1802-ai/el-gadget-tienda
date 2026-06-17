@@ -1,0 +1,55 @@
+{
+  "sku": "DL2364-L",
+  "titulo": "Corrector Faja Postura Endereza Espalda Soporte Lumbar L",
+  "precio": 11990,
+  "descripcion": "FAJA CORRECTORA DE POSTURA Y SOPORTE LUMBAR PREMIUM\nMejora tu calidad de vida, alivia tensiones y corrige tu postura diaria con este corrector de diseño avanzado. Ideal para personas que pasan largas jornadas sentadas, trabajando frente a la computadora o realizando esfuerzos físicos, brindando un soporte integral que endereza la espalda y estabiliza la zona lumbar de manera confortable.\nCARACTERÍSTICAS DESTACADAS:\nSistema de tracción en cruz (X-Type): Su diseño con bandas cruzadas en la espalda ejerce una tracción estratégica que empuja los hombros suavemente hacia atrás, alineando la columna de forma natural y efectiva.\nSoporte lumbar reforzado: Incorpora varillas flexibles de soporte (Soft fishbone) que se adaptan a la curvatura de tu cuerpo, proporcionando una estabilidad óptima en la parte baja de la espalda sin limitar tus movimientos.\nCorreas de hombros ensanchadas: Las tiras de los hombros cuentan con un ancho mayor al convencional para distribuir la presión de manera uniforme, evitando molestias o rozaduras en las axilas durante su uso prolongado.\nTela transpirable y ligera: Confeccionada en Nylon premium de alta resistencia, su estructura microperforada permite una excelente ventilación, siendo suave al tacto, fresca y sumamente discreta para utilizar tanto arriba como debajo de la ropa.\nGUÍA DE TALLES Y ESPECIFICACIONES:\nPara asegurar un calce perfecto, medí el contorno de tu cintura y verificá tu peso estimado antes de realizar la compra:\nTalle M: Adecuado para cinturas de 66 cm a 75 cm / Peso recomendado de 45 kg a 55 kg\nTalle L: Adecuado para cinturas de 75 cm a 83 cm / Peso recomendado de 55 kg a 65 kg\nTalle XL: Adecuado para cinturas de 83 cm a 90 cm / Peso recomendado de 65 kg a 75 kg\nTalle XXL: Adecuado para cinturas de 90 cm a 98 cm / Peso recomendado de 75 kg a 90 kg\nMaterial principal: Nylon de alta calidad\nColor: Negro\nTipo de ajuste: Regulable con abrojo de alta adherencia",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2364_7_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/corrector-faja-postura-endereza-espalda-soporte-lumbar.html",
+  "fecha_scraping": "2026-06-17T11:34:35.571527",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-17T11:41:39.950803",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696778/prod_DL2364-L_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696778/prod_DL2364-L_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696779/prod_DL2364-L_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696780/prod_DL2364-L_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696781/prod_DL2364-L_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696781/prod_DL2364-L_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696782/prod_DL2364-L_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696783/prod_DL2364-L_008.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 11990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 11990,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 20383.0,
+    "precio_final": 20500.0,
+    "ganancia_neta": 8510.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 20500.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.072029"
+}

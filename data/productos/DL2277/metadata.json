@@ -1,0 +1,46 @@
+{
+  "sku": "DL2277",
+  "titulo": "Organizador Escurre Platos Extraíble Bandeja Alacena",
+  "precio": 27990,
+  "descripcion": "Escurridor de Platos con Riel Adhesivo Organizador Bajo Fregadero - Metálico\nOrganizador y escurridor de platos con riel adhesivo, ideal para maximizar el espacio debajo del fregadero o dentro de gabinetes. Diseño práctico y resistente para mantener tu vajilla ordenada y seca.\nMEDIDAS: 41CM X 24.5CM X 13CM.\nCaracterísticas principales:\n- Sistema de riel adhesivo: fácil instalación sin taladrar.\n- Estructura metálica resistente (acero al carbono).\n- Permite escurrir y organizar platos, vasos, cubiertos y accesorios de cocina.\n- Removible y ajustable para mayor comodidad.\n- Optimiza el espacio en cocinas pequeñas o con poco almacenamiento.\nPerfecto para mantener tu cocina ordenada, seca y con todo al alcance de la mano.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2277_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2277_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2277_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2277_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2277_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2277_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2277_9_.png"
+  ],
+  "cantidad_imagenes": 7,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/organizador-escurre-platos-extraible-bandeja-alacena.html",
+  "fecha_scraping": "2026-06-17T11:37:07.664179",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696604/prod_DL2277_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696605/prod_DL2277_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696606/prod_DL2277_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696607/prod_DL2277_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696608/prod_DL2277_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696609/prod_DL2277_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696610/prod_DL2277_007.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 27990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 27990,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 47583.0,
+    "precio_final": 48000.0,
+    "ganancia_neta": 20010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 48000.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.057601"
+}

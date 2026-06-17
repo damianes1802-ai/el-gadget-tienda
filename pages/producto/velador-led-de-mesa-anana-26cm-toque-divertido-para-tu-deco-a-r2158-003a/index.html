@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Iluminación LED suave y eficiente para crear ambientes cálidos y relajados, perfecta para tu mesa de luz, escritorio o cualquier rincón que necesite un toque de luz especial y bajo consumo.
 - Totalmente portátil gracias a su funcionamiento con 3 pilas AA (no incluidas), lo que te permite ubicarla sin depender de enchufes y disfrutar de su diseño en cualquier lugar. Con 26cm, es el tamaño ideal para destacar.
 Ya sea para vos o para hacer un regalo súper original y con onda, este velador ananá es un &quot;must&quot; para los amantes de la buena deco. No te quedes sin la tuya. ¡Añadila al carrito y llevate un pedacito de verano hoy mismo!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Ya sea para vos o para hacer un regalo súper original y con onda, este velador 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-R2158-003A", "nombre": "Velador Led de Mesa Anana 26cm: toque divertido para tu deco", "precio_venta": 18500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque tropical y lleno de estilo a tu espacio con nuestra Lampara Led de Mesa Anana. Con su diseño divertido y su luz acogedora, es el velador perfecto para transformar cualquier rincón de tu casa, aportando onda y originalidad.\n- Diseño exclusivo de ananá en amarillo y verde que irradia alegría y frescura, ideal para quienes buscan una decoración original y divertida en su hogar o para un regalo especial.\n- Iluminación LED suave y eficiente para crear ambientes cálidos y relajados, perfecta para tu mesa de luz, escritorio o cualquier rincón que necesite un toque de luz especial y bajo consumo.\n- Totalmente portátil gracias a su funcionamiento con 3 pilas AA (no incluidas), lo que te permite ubicarla sin depender de enchufes y disfrutar de su diseño en cualquier lugar. Con 26cm, es el tamaño ideal para destacar.\nYa sea para vos o para hacer un regalo súper original y con onda, este velador ananá es un \"must\" para los amantes de la buena deco. No te quedes sin la tuya. ¡Añadila al carrito y llevate un pedacito de verano hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_005"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "A-R2158-003A", "nombre": "Velador Led de Mesa Anana 26cm: toque divertido para tu deco", "precio_venta": 18500.0, "stock": 9, "color": "", "talle": "", "descripcion": "Dale un toque tropical y lleno de estilo a tu espacio con nuestra Lampara Led de Mesa Anana. Con su diseño divertido y su luz acogedora, es el velador perfecto para transformar cualquier rincón de tu casa, aportando onda y originalidad.\n- Diseño exclusivo de ananá en amarillo y verde que irradia alegría y frescura, ideal para quienes buscan una decoración original y divertida en su hogar o para un regalo especial.\n- Iluminación LED suave y eficiente para crear ambientes cálidos y relajados, perfecta para tu mesa de luz, escritorio o cualquier rincón que necesite un toque de luz especial y bajo consumo.\n- Totalmente portátil gracias a su funcionamiento con 3 pilas AA (no incluidas), lo que te permite ubicarla sin depender de enchufes y disfrutar de su diseño en cualquier lugar. Con 26cm, es el tamaño ideal para destacar.\nYa sea para vos o para hacer un regalo súper original y con onda, este velador ananá es un \"must\" para los amantes de la buena deco. No te quedes sin la tuya. ¡Añadila al carrito y llevate un pedacito de verano hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

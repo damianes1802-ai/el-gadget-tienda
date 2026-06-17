@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -89,12 +95,6 @@
 - El mango cómodo y fácil de sujetar te permite controlar el vertido sin esfuerzo, haciendo el proceso más práctico y seguro para vos.
 - Fabricada con materiales de calidad y un acabado liso, es duradera y fácil de limpiar, asegurando que te acompañe por mucho tiempo en la rutina de higiene.
 Este accesorio infantil es un aliado indispensable para la rutina diaria de tu hijo, y también una excelente opción como regalo original y útil. Dale a tu bebé el baño que se merece, sin drama y con una sonrisa. Sumá esta regadera a tu carrito y disfrutá la tranquilidad.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@ Este accesorio infantil es un aliado indispensable para la rutina diaria de tu h
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH-RWH0133-AZ", "nombre": "Regadera Elefante Azul para Bebé - Baño sin lágrimas", "precio_venta": 3500.0, "stock": 999, "color": "", "talle": "", "descripcion": "Hacé de la hora del baño un momento de pura diversión y tranquilidad para tu bebé con esta adorable regadera de elefante azul. Olvidate de las lágrimas y los ojos irritados, transformando el lavado de cabello en una experiencia amigable y sin estrés para los más chiquitos.\n- Su diseño de elefante animado y color azul vibrante capta la atención de tu bebé, convirtiendo el baño en un juego divertido y estimulante.\n- Su forma ergonómica y bordes suaves garantizan un enjuague delicado del champú, manteniendo el agua lejos de los ojos y la cara de tu pequeño.\n- El mango cómodo y fácil de sujetar te permite controlar el vertido sin esfuerzo, haciendo el proceso más práctico y seguro para vos.\n- Fabricada con materiales de calidad y un acabado liso, es duradera y fácil de limpiar, asegurando que te acompañe por mucho tiempo en la rutina de higiene.\nEste accesorio infantil es un aliado indispensable para la rutina diaria de tu hijo, y también una excelente opción como regalo original y útil. Dale a tu bebé el baño que se merece, sin drama y con una sonrisa. Sumá esta regadera a tu carrito y disfrutá la tranquilidad.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_007"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH-RWH0133-AZ", "nombre": "Regadera Elefante Azul para Bebé - Baño sin lágrimas", "precio_venta": 3500.0, "stock": 9, "color": "", "talle": "", "descripcion": "Hacé de la hora del baño un momento de pura diversión y tranquilidad para tu bebé con esta adorable regadera de elefante azul. Olvidate de las lágrimas y los ojos irritados, transformando el lavado de cabello en una experiencia amigable y sin estrés para los más chiquitos.\n- Su diseño de elefante animado y color azul vibrante capta la atención de tu bebé, convirtiendo el baño en un juego divertido y estimulante.\n- Su forma ergonómica y bordes suaves garantizan un enjuague delicado del champú, manteniendo el agua lejos de los ojos y la cara de tu pequeño.\n- El mango cómodo y fácil de sujetar te permite controlar el vertido sin esfuerzo, haciendo el proceso más práctico y seguro para vos.\n- Fabricada con materiales de calidad y un acabado liso, es duradera y fácil de limpiar, asegurando que te acompañe por mucho tiempo en la rutina de higiene.\nEste accesorio infantil es un aliado indispensable para la rutina diaria de tu hijo, y también una excelente opción como regalo original y útil. Dale a tu bebé el baño que se merece, sin drama y con una sonrisa. Sumá esta regadera a tu carrito y disfrutá la tranquilidad.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_007"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

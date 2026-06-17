@@ -1,0 +1,46 @@
+{
+  "sku": "DL2349",
+  "titulo": "Bolas Atrapa Pelos Lavado Reutilizable X4",
+  "precio": 1390,
+  "descripcion": "BOLAS ATRAPA PELOS Y PELUSAS PARA LAVARROPAS REUTILIZABLES X4\nMantené tu ropa impecable, libre de pelos de mascotas y protegida en cada lavado con este set de bolas atrapa pelusas. Diseñadas para actuar de forma automática mientras el lavarropas gira, son la solución ideal para eliminar las molestas fibras y enredos que arruinan la textura de tus prendas, ahorrándote tiempo y esfuerzo en el cuidado diario de tus textiles.\nCARACTERÍSTICAS DESTACADAS:\nEliminación eficiente de pelos y pelusas: Su material absorbe activamente los cabellos, hilos y pelusas de las mascotas mediante la fricción con la ropa durante el ciclo de lavado, evitando que los residuos queden adheridos a las prendas y causen molestias o alergias en la piel.\nPrevención de enredos y arrugas: Al moverse constantemente entre las prendas, actúan como separadores naturales. Esto evita que la ropa se retuerza o se enrede al finalizar el centrifugado, reduciendo notablemente las arrugas y facilitando el planchado.\nAptas para secadora: Al utilizarlas en el ciclo de secado, ayudan a separar los textiles para que el aire circule mejor, lo que optimiza el rendimiento del equipo y reduce el tiempo de secado.\nMaterial de alta durabilidad y ecológico: Fabricadas con una combinación de esponja de poliuretano y polipropileno de alta calidad, son completamente reutilizables y resistentes al desgaste. Su tecnología es resistente al frío, por lo que no se deforman ni pierden efectividad a bajas temperaturas durante el invierno.\nMEDIDAS Y ESPECIFICACIONES:\nDiámetro de cada bola: 6 cm\nPeso individual: 11 gramos (diseño ultraliviano para no dañar el tambor)\nCantidad de piezas por pack: 4 unidades\nMaterial: Esponja de poliuretano y polipropileno (PP)\nColores incluidos en el set: Azul y naranja\nCompatibilidad: Apto para lavarropas automáticos, semiautomáticos y secadoras\nCONSEJOS DE USO:\nNo utilizar estas bolas de lavandería cuando laves prendas de lana o tejidos extremadamente delicados.\nEn casos de pelajes de animales extremadamente cortos, el efecto de recolección de vello puede ser menos visible, aunque el producto mantendrá intactos sus beneficios para evitar el enredo de la ropa y reducir las arrugas.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2349_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2349_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2349_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2349_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2349_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2349_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2349_8_.png"
+  ],
+  "cantidad_imagenes": 7,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5927/",
+  "fecha_scraping": "2026-06-17T11:28:29.974783",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696766/prod_DL2349_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696767/prod_DL2349_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696768/prod_DL2349_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696769/prod_DL2349_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696770/prod_DL2349_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696770/prod_DL2349_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696771/prod_DL2349_007.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 1390,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 1390,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 2363.0,
+    "precio_final": 2500.0,
+    "ganancia_neta": 1110.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 2500.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.069492"
+}

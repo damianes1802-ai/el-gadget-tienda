@@ -84,6 +84,12 @@
         <select class="variant-select" id="internalVariantSelect" onchange="cambiarVarianteInterna(this.value)"><option value="S">S</option><option value="M">M</option><option value="L">L</option></select>
       </div>
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -93,12 +99,6 @@
 - Disfrutá de un calce adaptable gracias a su cuello fruncido, mangas con puño elástico y cintura elastizada, que realzan tu figura con total comodidad.
 - Su delicado color rosa la convierte en una prenda súper versátil, ideal para combinar fácilmente con jeans, shorts o faldas en cualquier ocasión.
 Ya sea para una salida casual o una reunión informal, esta blusa moderna es tu aliada perfecta. Su diseño adaptable y tela elastizada aseguran un calce impecable. No esperes más para sumarla a tu guardarropa, ¡hacela tuya hoy!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -197,7 +197,7 @@ Ya sea para una salida casual o una reunión informal, esta blusa moderna es tu 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "PA112C", "nombre": "Blusa Manga Larga Blanca Satén Hombros Descubiertos Estilo Chic", "precio_venta": 38000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Renová tu look con esta blusa femenina de diseño moderno y delicado. Su estilo con hombros descubiertos te asegura una prenda fresca, elegante y súper versátil para cualquier ocasión. Es la pieza clave en accesorios de moda para tu guardarropa.\n- Luce un toque chic y sofisticado con el diseño de hombros descubiertos, ideal para realzar tu estilo femenino.\n- Sentí la frescura y confort de su tela liviana y suave, perfecta para usar en días cálidos o crear looks casuales impecables.\n- Disfrutá de un calce adaptable gracias a su cuello fruncido, mangas con puño elástico y cintura elastizada, que realzan tu figura con total comodidad.\n- Su delicado color rosa la convierte en una prenda súper versátil, ideal para combinar fácilmente con jeans, shorts o faldas en cualquier ocasión.\nYa sea para una salida casual o una reunión informal, esta blusa moderna es tu aliada perfecta. Su diseño adaptable y tela elastizada aseguran un calce impecable. No esperes más para sumarla a tu guardarropa, ¡hacela tuya hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_006"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "PA112CS", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "PA112CM", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "L", "sku_interno": "PA112CL", "imagenes": []}], "variantes": []};
+const PRODUCTO = {"sku": "PA112C", "nombre": "Blusa Manga Larga Blanca Satén Hombros Descubiertos Estilo Chic", "precio_venta": 38000.0, "stock": 12, "color": "", "talle": "", "descripcion": "Renová tu look con esta blusa femenina de diseño moderno y delicado. Su estilo con hombros descubiertos te asegura una prenda fresca, elegante y súper versátil para cualquier ocasión. Es la pieza clave en accesorios de moda para tu guardarropa.\n- Luce un toque chic y sofisticado con el diseño de hombros descubiertos, ideal para realzar tu estilo femenino.\n- Sentí la frescura y confort de su tela liviana y suave, perfecta para usar en días cálidos o crear looks casuales impecables.\n- Disfrutá de un calce adaptable gracias a su cuello fruncido, mangas con puño elástico y cintura elastizada, que realzan tu figura con total comodidad.\n- Su delicado color rosa la convierte en una prenda súper versátil, ideal para combinar fácilmente con jeans, shorts o faldas en cualquier ocasión.\nYa sea para una salida casual o una reunión informal, esta blusa moderna es tu aliada perfecta. Su diseño adaptable y tela elastizada aseguran un calce impecable. No esperes más para sumarla a tu guardarropa, ¡hacela tuya hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_006"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "PA112CS", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "PA112CM", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "L", "sku_interno": "PA112CL", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

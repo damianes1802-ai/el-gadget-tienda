@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Un metro de diversión: Su tamaño ideal te permite decorar estantes, espejos, cabeceras de cama o usarla como centro de mesa en tus reuniones con amigos. Es super versátil para tus ideas de decoración.
 - Funciona con 2 pilas AA: Olvidate de los enchufes y las extensiones. Podés llevar esta guirnalda de luces y colocarla donde quieras sin depender de tomas, logrando una iluminación flexible y sin límites.
 Perfecta para regalar o para darte un gusto y renovar tus espacios con una iluminación cálida y divertida. Recordá que no incluye las pilas, así que sumá un par a tu compra y hacela tuya hoy mismo para disfrutar de su encanto.</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@ Perfecta para regalar o para darte un gusto y renovar tus espacios con una ilumi
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "A-R2234-027", "nombre": "Tira de luz mini sandías deco 1 metro a pilas para ambientar", "precio_venta": 11000.0, "stock": 999, "color": "", "talle": "", "descripcion": "Dale un toque fresco y original a cualquier rincón de tu casa con esta tira de luz con mini sandías. Ideal para crear ambientes divertidos y llenos de onda en un segundo, transformando tus espacios con facilidad.\n- Diseño único de mini sandías: Transformá cualquier espacio con un estilo alegre y veraniego, perfecto para la habitación de los chicos, un living canchero o ese rincón olvidado que pide un poco de onda.\n- Un metro de diversión: Su tamaño ideal te permite decorar estantes, espejos, cabeceras de cama o usarla como centro de mesa en tus reuniones con amigos. Es super versátil para tus ideas de decoración.\n- Funciona con 2 pilas AA: Olvidate de los enchufes y las extensiones. Podés llevar esta guirnalda de luces y colocarla donde quieras sin depender de tomas, logrando una iluminación flexible y sin límites.\nPerfecta para regalar o para darte un gusto y renovar tus espacios con una iluminación cálida y divertida. Recordá que no incluye las pilas, así que sumá un par a tu compra y hacela tuya hoy mismo para disfrutar de su encanto.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_006"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "A-R2234-027", "nombre": "Tira de luz mini sandías deco 1 metro a pilas para ambientar", "precio_venta": 11000.0, "stock": 12, "color": "", "talle": "", "descripcion": "Dale un toque fresco y original a cualquier rincón de tu casa con esta tira de luz con mini sandías. Ideal para crear ambientes divertidos y llenos de onda en un segundo, transformando tus espacios con facilidad.\n- Diseño único de mini sandías: Transformá cualquier espacio con un estilo alegre y veraniego, perfecto para la habitación de los chicos, un living canchero o ese rincón olvidado que pide un poco de onda.\n- Un metro de diversión: Su tamaño ideal te permite decorar estantes, espejos, cabeceras de cama o usarla como centro de mesa en tus reuniones con amigos. Es super versátil para tus ideas de decoración.\n- Funciona con 2 pilas AA: Olvidate de los enchufes y las extensiones. Podés llevar esta guirnalda de luces y colocarla donde quieras sin depender de tomas, logrando una iluminación flexible y sin límites.\nPerfecta para regalar o para darte un gusto y renovar tus espacios con una iluminación cálida y divertida. Recordá que no incluye las pilas, así que sumá un par a tu compra y hacela tuya hoy mismo para disfrutar de su encanto.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

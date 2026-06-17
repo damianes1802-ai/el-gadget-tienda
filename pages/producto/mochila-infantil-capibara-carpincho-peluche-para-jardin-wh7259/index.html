@@ -80,6 +80,12 @@
       <span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>
       
 
+      <!-- Acciones -->
+      <div class="actions">
+        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
+        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+      </div>
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -88,12 +94,6 @@
 - Fabricada en suave peluche, es ideal para que los niños la abracen y la lleven a todos lados, ofreciendo una textura amigable y cómoda.
 - Con sus medidas compactas (26x11x29 cm), tiene el tamaño justo para guardar la vianda, un juguete o el cuadernito de jardín sin que les pese, facilitando su autonomía.
 - Perfecta como mochila de jardín, para llevar a la guardería o a cualquier juego, es un accesorio funcional y sumamente divertido para el día a día.No solo es una mochila práctica para el día a día o el jardín, sino también el regalo ideal para sorprender a ese peque especial. ¡Sumá este adorable amigo Capibara Carpincho al carrito y mirá su sonrisa!</div>
-      </div>
-
-      <!-- Acciones -->
-      <div class="actions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
@@ -192,7 +192,7 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const PRODUCTO = {"sku": "WH7259", "nombre": "Mochila Infantil Capibara Carpincho peluche para jardín", "precio_venta": 22500.0, "stock": 999, "color": "", "talle": "", "descripcion": "¿Buscás una mochila que sea tan adorable como práctica para los más chicos? La mochila infantil Capibara Carpincho de peluche es el compañero perfecto para sus primeras aventuras, combinando diversión y funcionalidad.\n- Su diseño de Capibara Carpincho, inspirado en los adorables personajes japoneses, encanta a los peques y los hace sentir únicos en cada salida.\n- Fabricada en suave peluche, es ideal para que los niños la abracen y la lleven a todos lados, ofreciendo una textura amigable y cómoda.\n- Con sus medidas compactas (26x11x29 cm), tiene el tamaño justo para guardar la vianda, un juguete o el cuadernito de jardín sin que les pese, facilitando su autonomía.\n- Perfecta como mochila de jardín, para llevar a la guardería o a cualquier juego, es un accesorio funcional y sumamente divertido para el día a día.No solo es una mochila práctica para el día a día o el jardín, sino también el regalo ideal para sorprender a ese peque especial. ¡Sumá este adorable amigo Capibara Carpincho al carrito y mirá su sonrisa!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7259_001"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7259", "nombre": "Mochila Infantil Capibara Carpincho peluche para jardín", "precio_venta": 22500.0, "stock": 11, "color": "", "talle": "", "descripcion": "¿Buscás una mochila que sea tan adorable como práctica para los más chicos? La mochila infantil Capibara Carpincho de peluche es el compañero perfecto para sus primeras aventuras, combinando diversión y funcionalidad.\n- Su diseño de Capibara Carpincho, inspirado en los adorables personajes japoneses, encanta a los peques y los hace sentir únicos en cada salida.\n- Fabricada en suave peluche, es ideal para que los niños la abracen y la lleven a todos lados, ofreciendo una textura amigable y cómoda.\n- Con sus medidas compactas (26x11x29 cm), tiene el tamaño justo para guardar la vianda, un juguete o el cuadernito de jardín sin que les pese, facilitando su autonomía.\n- Perfecta como mochila de jardín, para llevar a la guardería o a cualquier juego, es un accesorio funcional y sumamente divertido para el día a día.No solo es una mochila práctica para el día a día o el jardín, sino también el regalo ideal para sorprender a ese peque especial. ¡Sumá este adorable amigo Capibara Carpincho al carrito y mirá su sonrisa!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7259_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

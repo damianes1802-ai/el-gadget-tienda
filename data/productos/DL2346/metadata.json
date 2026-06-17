@@ -1,0 +1,51 @@
+{
+  "sku": "DL2346",
+  "titulo": "Cama Elevada Cucha Moises Perro Chico Gato 92x58 Mascotas",
+  "precio": 21980,
+  "descripcion": "Cama Elevada para Mascotas Perros y Gatos con Estructura Metálica 92x58 cm\nBrindale a tu mascota un descanso más cómodo, fresco y saludable con esta cama elevada para perros y gatos. Su diseño elevado mantiene a tu mascota alejada de la humedad, el frío del suelo y las superficies calientes, favoreciendo una mejor ventilación y mayor confort durante todo el año.\nFabricada con una resistente estructura metálica y tela de malla Teslin de alta calidad, ofrece una superficie firme, transpirable e impermeable que ayuda a mantener a tu mascota fresca y cómoda. Además, distribuye el peso de manera uniforme, reduciendo la presión sobre las articulaciones, ideal para mascotas mayores o con sobrepeso.\nSu diseño práctico permite una limpieza rápida y sencilla, ya que la malla puede lavarse fácilmente con agua, una manguera o un paño húmedo. También es fácil de montar y desmontar, siendo una excelente opción tanto para interiores como para exteriores.\nCaracterísticas\n• Estructura metálica resistente y duradera.\n• Tela de malla Teslin transpirable, impermeable y lavable.\n• Mantiene a la mascota elevada del suelo.\n• Favorece la circulación del aire por debajo de la cama.\n• Ayuda a reducir la humedad y el calor acumulado.\n• Fácil limpieza y mantenimiento.\n• Diseño estable con gran capacidad de carga.\n• Ideal para perros y gatos.\n• Apta para uso interior y exterior.\n• Fácil armado, incluye accesorios de montaje.\n• Portátil, ideal para viajes, camping, picnics y paseos.\nBeneficios\n• Mayor comodidad para el descanso diario.\n• Reduce el contacto con pisos húmedos, fríos o calientes.\n• Ayuda a disminuir la presión sobre articulaciones y músculos.\n• Material resistente al uso frecuente.\n• Secado rápido y excelente ventilación.\nMedidas\n• Largo total: 92 cm.\n• Ancho total: 58 cm.\n• Altura desde el suelo: 15 cm.\n• Superficie útil de descanso: 74 x 54 cm.\nCapacidad\n• Peso recomendado para mascotas: hasta 35 kg.\n• Carga máxima soportada: 75 kg.\nContenido del paquete\n• 1 Cama elevada para mascotas.\n• Kit de accesorios para armado.\n• Manual de montaje.\nIdeal para perros medianos, cachorros, gatos y mascotas que necesitan un espacio fresco, limpio y cómodo para descansar.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2346_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2346_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2346_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2346_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2346_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2346_6_.png"
+  ],
+  "cantidad_imagenes": 6,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/cama-elevada-cucha-moises-perro-chico-gato-92x58-mascotas.html",
+  "fecha_scraping": "2026-06-17T11:36:10.200892",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Nuevos Ingresos"
+  ],
+  "categoria_principal": "Nuevos Ingresos",
+  "categoria": "Nuevos Ingresos",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-17T11:41:39.949332",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696755/prod_DL2346_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696755/prod_DL2346_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696756/prod_DL2346_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696757/prod_DL2346_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696758/prod_DL2346_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696759/prod_DL2346_006.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 21980,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 21980,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 37366.0,
+    "precio_final": 37500.0,
+    "ganancia_neta": 15520.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 37500.0,
+  "fecha_calculo_precio": "2026-06-17T11:47:31.068636"
+}
