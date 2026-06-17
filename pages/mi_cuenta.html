@@ -53,19 +53,23 @@
 <div class="page-wrap" style="max-width:900px">
   <h1 class="page-title">Mi cuenta</h1>
 
-  <!-- Tab switcher: visible solo cuando el usuario es referido Y mayorista -->
-  <div id="panelSwitcher" style="display:none;background:var(--cream);border-radius:10px;padding:4px;margin-bottom:16px;position:sticky;top:12px;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.06)">
-    <div style="display:flex;gap:4px">
-      <button id="btnTabRef" onclick="mostrarPanelRef()" style="flex:1;padding:8px 12px;border-radius:7px;border:none;background:var(--ink);color:var(--white);font-size:13px;font-weight:600;cursor:pointer;transition:background .2s,color .2s">Mis Referidos</button>
-      <button id="btnTabMay" onclick="mostrarPanelMay()" style="flex:1;padding:8px 12px;border-radius:7px;border:none;background:transparent;color:var(--gray-600);font-size:13px;font-weight:600;cursor:pointer;transition:background .2s,color .2s">Panel Mayorista</button>
-    </div>
-  </div>
-
   <div class="info-grid" id="infoGrid"></div>
 
   <div class="content-section">
     <h2>Mis pedidos</h2>
     <div id="pedidosWrap"><p style="font-size:13.5px;color:var(--gray-600)">Cargando pedidos...</p></div>
+  </div>
+
+  <!-- Tab switcher — visible solo cuando el usuario es referido Y mayorista -->
+  <div id="panelSwitcher" style="display:none;border-bottom:2px solid #e5e7eb;margin:0 0 0 0">
+    <button id="btnTabRef" onclick="mostrarPanelRef()"
+      style="padding:11px 28px;border:none;border-bottom:3px solid var(--ink);margin-bottom:-2px;background:transparent;color:var(--ink);font-size:14px;font-weight:700;cursor:pointer">
+      Mis Referidos
+    </button>
+    <button id="btnTabMay" onclick="mostrarPanelMay()"
+      style="padding:11px 28px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:transparent;color:var(--gray-600);font-size:14px;font-weight:600;cursor:pointer">
+      Panel Mayorista
+    </button>
   </div>
 
   <!-- SECCIÓN REFERIDOS (se muestra solo si el usuario es referido) -->
@@ -293,7 +297,11 @@ async function cargarReferidos() {
     const wrap = document.getElementById('referidosWrap');
     seccion.style.display = 'block';
     window._esReferidoConfirmado = true;
-    intentarMostrarSwitcher();
+    if (window._esMayoristaConfirmado) {
+      document.getElementById('panelSwitcher').style.display = 'block';
+      document.getElementById('mayoristaSection').style.display = 'none';
+      setTabActivo('ref');
+    }
 
     window._codigoRef = data.codigo || '';
     const tier = data.tier || { porcentaje: 7, tier: 'base', ventas_mes: 0, next_tier_en: 5, next_porcentaje: 11 };
@@ -579,7 +587,11 @@ async function cargarMayorista() {
     seccion.style.display = 'block';
     window._esMayoristaConfirmado = true;
     document.getElementById('mayoristaCtaRef')?.remove();
-    intentarMostrarSwitcher();
+    if (window._esReferidoConfirmado) {
+      document.getElementById('panelSwitcher').style.display = 'block';
+      document.getElementById('mayoristaSection').style.display = 'none';
+      setTabActivo('ref');
+    }
 
     window._codigoMay = data.codigo_mayorista || '';
     const stats = data.stats || {};
@@ -813,31 +825,28 @@ function generarCSVComprasMayorista() {
   URL.revokeObjectURL(url);
 }
 
-function intentarMostrarSwitcher() {
-  if (window._esReferidoConfirmado && window._esMayoristaConfirmado) {
-    document.getElementById('panelSwitcher').style.display = 'block';
-    mostrarPanelRef(); // Referido por defecto cuando el switcher aparece
-  }
+function setTabActivo(tab) {
+  const btnRef = document.getElementById('btnTabRef');
+  const btnMay = document.getElementById('btnTabMay');
+  if (!btnRef || !btnMay) return;
+  btnRef.style.borderBottom = tab === 'ref' ? '3px solid var(--ink)' : '3px solid transparent';
+  btnRef.style.color = tab === 'ref' ? 'var(--ink)' : 'var(--gray-600)';
+  btnRef.style.fontWeight = tab === 'ref' ? '700' : '600';
+  btnMay.style.borderBottom = tab === 'may' ? '3px solid var(--ink)' : '3px solid transparent';
+  btnMay.style.color = tab === 'may' ? 'var(--ink)' : 'var(--gray-600)';
+  btnMay.style.fontWeight = tab === 'may' ? '700' : '600';
 }
 
 function mostrarPanelRef() {
   document.getElementById('referidosSection').style.display = 'block';
   document.getElementById('mayoristaSection').style.display = 'none';
-  const btnRef = document.getElementById('btnTabRef');
-  const btnMay = document.getElementById('btnTabMay');
-  if (btnRef) { btnRef.style.background = 'var(--ink)'; btnRef.style.color = 'var(--white)'; }
-  if (btnMay) { btnMay.style.background = 'transparent'; btnMay.style.color = 'var(--gray-600)'; }
-  document.getElementById('panelSwitcher')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  setTabActivo('ref');
 }
 
 function mostrarPanelMay() {
   document.getElementById('referidosSection').style.display = 'none';
   document.getElementById('mayoristaSection').style.display = 'block';
-  const btnRef = document.getElementById('btnTabRef');
-  const btnMay = document.getElementById('btnTabMay');
-  if (btnMay) { btnMay.style.background = 'var(--ink)'; btnMay.style.color = 'var(--white)'; }
-  if (btnRef) { btnRef.style.background = 'transparent'; btnRef.style.color = 'var(--gray-600)'; }
-  document.getElementById('panelSwitcher')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  setTabActivo('may');
 }
 
 async function activarMayorista(btn) {
