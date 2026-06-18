@@ -1,0 +1,46 @@
+{
+  "sku": "DL2319",
+  "titulo": "Cinta Membrana Aislante Térmica Impermeable Reparación Techo",
+  "precio": 7980,
+  "descripcion": "CINTA MEMBRANA AUTOADHESIVA IMPERMEABLE Y AISLANTE TÉRMICO PARA TECHOS\nSolucioná de forma definitiva las filtraciones, goteras y grietas con esta cinta membrana autoadhesiva de grado industrial y alta resistencia. Diseñada especialmente para el mantenimiento y sellado duradero de techos, superficies metálicas y placas de hierro, combina una fijación ultra potente con propiedades térmicas avanzadas que protegen tu hogar o comercio frente a cualquier condición climática.\nCARACTERÍSTICAS DESTACADAS:\nMáxima impermeabilidad y sellado nano: Cuenta con un recubrimiento nano impermeable de alta tecnología que bloquea por completo el paso del agua y previene las filtraciones. Es la solución ideal y más confiable para obturar huecos, juntas y reparar fugas de manera inmediata.\nPropiedades de aislamiento térmico: Equipada con una película protectora anti-sol de PE que brinda un excelente escudo térmico. Esto ayuda a regular la temperatura de las superficies, evita la pérdida de calor en invierno y el calentamiento excesivo en verano.\nAgarre ultra potente y tracción: Posee una adherencia excepcional de servicio pesado que le permite unirse firmemente a una enorme variedad de materiales, incluyendo chapas de acero de color y estructuras metálicas, soportando tirones y movimientos estructurales sin despegarse.\nResistencia al calor extremo y larga vida útil: Soporta temperaturas elevadas sin perder sus propiedades adhesivas ni deteriorarse. Gracias a sus componentes formulados contra el envejecimiento, resiste el desgaste por rayos UV y la intemperie, garantizando un rendimiento eficaz durante años.\nAplicación rápida y sencilla: Su uso es práctico y directo. Solo requiere limpiar la zona, cortar la cinta según la longitud necesaria con una tijera o cúter, retirar el film protector de la parte trasera, pegarla sobre la superficie y presionar firmemente para asegurar un sellado hermético.\nSUPERFICIES RECOMENDADAS:\nChapas de zinc, chapas galvanizadas, cincalum, chapas plásticas, tejas coloniales, tejas francesas, tejas de hormigón, losas, techos de hormigón, carpetas cementicias, membranas asfálticas previas, canaletas, bajadas de agua, desagües de PVC, desagües metálicos, tanques de agua plásticos, tanques de fibrocemento, vidrio, policarbonato, claraboyas, madera tratada, aluminio, hierro.\nMEDIDAS Y ESPECIFICACIONES:\nAncho de la cinta: 10 centímetros\nLargo del rollo: 5 metros\nRango de temperatura máxima soportada: Entre 80°C y 100°C\nCapa externa: Película protectora anti-sol de PE (Color Azul)\nTipo de sellador: Banda impermeable de butilo/asfalto modificado de alto grado\nRequisito de colocación: La superficie debe estar completamente limpia, seca y libre de polvo o grasa antes de instalar.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2319_8_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2319_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2319_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2319_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2319_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2319_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2319_2_.png"
+  ],
+  "cantidad_imagenes": 7,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5932/",
+  "fecha_scraping": "2026-06-18T10:59:50.054365",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781503/prod_DL2319_001.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781504/prod_DL2319_002.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781505/prod_DL2319_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781507/prod_DL2319_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781507/prod_DL2319_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781508/prod_DL2319_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781509/prod_DL2319_007.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 7980,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 7980,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 13566.0,
+    "precio_final": 14000.0,
+    "ganancia_neta": 6020.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 14000.0,
+  "fecha_calculo_precio": "2026-06-18T11:19:16.750202"
+}

@@ -17,18 +17,18 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/estanteria-plegable-metal-negra-5-niveles-ruedas-organizador.html",
-  "fecha_scraping": "2026-06-17T11:35:48.508449",
+  "fecha_scraping": "2026-06-18T11:06:14.315276",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696679/prod_DL2321_001.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696680/prod_DL2321_002.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696681/prod_DL2321_003.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696682/prod_DL2321_004.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696683/prod_DL2321_005.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696684/prod_DL2321_006.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696685/prod_DL2321_007.png"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_007"
   ],
   "calculo_precio": {
     "precio_costo": 82990,
@@ -42,5 +42,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 141500.0,
-  "fecha_calculo_precio": "2026-06-17T11:47:31.062024"
+  "fecha_calculo_precio": "2026-06-18T11:19:16.750680"
 }

@@ -16,17 +16,17 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/funda-cubre-sofa-sillon-elastizada-silla-145-a-185cm-premium-1.html",
-  "fecha_scraping": "2026-06-17T11:36:57.962945",
+  "fecha_scraping": "2026-06-18T11:06:03.704189",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696656/prod_DL2313_001.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696657/prod_DL2313_002.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696658/prod_DL2313_003.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696659/prod_DL2313_004.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696660/prod_DL2313_005.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696661/prod_DL2313_006.png"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2313_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2313_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2313_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2313_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2313_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2313_006"
   ],
   "calculo_precio": {
     "precio_costo": 28990,
@@ -40,5 +40,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 49500.0,
-  "fecha_calculo_precio": "2026-06-17T11:47:31.060403"
+  "fecha_calculo_precio": "2026-06-18T11:19:16.748601"
 }

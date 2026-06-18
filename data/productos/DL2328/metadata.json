@@ -1,0 +1,50 @@
+{
+  "sku": "DL2328",
+  "titulo": "Bandeja Desayuno Madera Plegable Brazo Sofá Antideslizante",
+  "precio": 30990,
+  "descripcion": "BANDEJA DE MADERA PLEGABLE PARA BRAZO DE SOFA CON BASE ANTIDESLIZANTE\nDisfrutá de tus momentos de descanso con la máxima comodidad utilizando este práctico organizador para tu sofá. Esta bandeja portátil es la solución ideal para mantener tus bebidas, snacks, vasos, tazas, controles remotos o el celular siempre al alcance de la mano de forma segura, transformando el apoyabrazos de tu sillón en una superficie totalmente firme y estable.\nCARACTERÍSTICAS DESTACADAS:\nDiseño flexible y universal: Su estructura plegable tipo persiana le permite amoldarse con total facilidad a la silueta de la gran mayoría de los diseños de sofás del mercado, brindando un soporte seguro e inmediato.\nBorde contenedor anti-caída: Cuenta con un reborde perimetral sobreelevado que actúa como una barrera de contención estable, protegiendo tus pertenencias y evitando que los objetos o pequeños derrames se deslicen hacia el sillón.\nBase con almohadilla antideslizante: Equipado en su parte posterior con un pad antideslizante texturado de gran agarre que garantiza que la bandeja se mantenga firme en su lugar, evitando movimientos molestos sin dañar ni desgastar el tapizado del sofá.\nMaterial ecológico de alta calidad: Fabricada en bambú natural seleccionado, un material sustentable, resistente y muy duradero. Su superficie lisa facilita una limpieza rápida utilizando simplemente un paño seco.\nPráctica y sin instalaciones: No requiere ningún tipo de ensamblado, herramientas ni instalación previa. Al ser ligera y completamente plegable, resulta sumamente conveniente para usar de forma diaria en casa, llevar a la oficina o trasladar en tus viajes.\nMEDIDAS DEL PRODUCTO:\nLargo: 46 centímetros\nAncho: 34 centímetros\nProfundidad: 3 centímetros\nESPECIFICACIONES TÉCNICAS:\nMaterial de la estructura: Bambú natural ecológico\nTipo de base: Capa inferior con pad antideslizante de alta fijación\nCaracterísticas de diseño: Laterales flexibles con compartimento central contenedor\nCuidado y limpieza: Limpiar con un paño seco, no requiere mantenimiento especial\nUso recomendado: Apoyabrazos de sillones, sofás, camas o superficies planas afines",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2328_1_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2328_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2328_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2328_4_.1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2328_4_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2328_5_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2328_6_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2328_7_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2328_8_.jpg"
+  ],
+  "cantidad_imagenes": 9,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5936/",
+  "fecha_scraping": "2026-06-18T10:59:43.894563",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categorias_pendientes": true,
+  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781511/prod_DL2328_001.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781511/prod_DL2328_002.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781512/prod_DL2328_003.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781513/prod_DL2328_004.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781514/prod_DL2328_005.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781515/prod_DL2328_006.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781516/prod_DL2328_007.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781518/prod_DL2328_008.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781518/prod_DL2328_009.jpg"
+  ],
+  "calculo_precio": {
+    "precio_costo": 30990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 30990,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 52683.0,
+    "precio_final": 53000.0,
+    "ganancia_neta": 22010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 53000.0,
+  "fecha_calculo_precio": "2026-06-18T11:19:16.752163"
+}

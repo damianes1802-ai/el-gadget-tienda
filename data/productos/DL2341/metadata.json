@@ -17,7 +17,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cajonera-infantil-organizador-2-niveles-ruedas-pa-alero-bebe.html",
-  "fecha_scraping": "2026-06-17T11:34:53.345379",
+  "fecha_scraping": "2026-06-18T11:06:18.482199",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -27,7 +27,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-17T11:41:39.954804",
+  "fecha_mapeo_categorias": "2026-06-18T11:17:18.865335",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2341_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2341_002",
@@ -49,5 +49,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 66500.0,
-  "fecha_calculo_precio": "2026-06-17T11:47:31.067323"
+  "fecha_calculo_precio": "2026-06-18T11:19:16.756142"
 }

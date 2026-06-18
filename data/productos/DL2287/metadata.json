@@ -19,20 +19,20 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/plato-giratorio-organizador-bandeja-antideslizante-grande.html",
-  "fecha_scraping": "2026-06-17T11:38:02.399522",
+  "fecha_scraping": "2026-06-18T11:06:59.541542",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696611/prod_DL2287_001.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696612/prod_DL2287_002.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696612/prod_DL2287_003.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696613/prod_DL2287_004.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696614/prod_DL2287_005.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696615/prod_DL2287_006.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696616/prod_DL2287_007.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696617/prod_DL2287_008.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696618/prod_DL2287_009.png"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287_009"
   ],
   "calculo_precio": {
     "precio_costo": 13890,
@@ -46,5 +46,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 24000.0,
-  "fecha_calculo_precio": "2026-06-17T11:47:31.058013"
+  "fecha_calculo_precio": "2026-06-18T11:19:16.746211"
 }

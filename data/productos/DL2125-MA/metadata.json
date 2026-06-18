@@ -11,12 +11,12 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/ropero-organizador-armable-grande-2-cierres-6.html",
-  "fecha_scraping": "2026-06-17T11:37:15.101560",
+  "fecha_scraping": "2026-06-18T11:05:20.857486",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696565/prod_DL2125-MA_001.jpg"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-MA_001"
   ],
   "calculo_precio": {
     "precio_costo": 31900,
@@ -30,5 +30,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 54500.0,
-  "fecha_calculo_precio": "2026-06-17T11:47:31.049431"
+  "fecha_calculo_precio": "2026-06-18T11:19:16.736428"
 }

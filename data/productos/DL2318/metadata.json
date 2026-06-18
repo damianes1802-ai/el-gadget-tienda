@@ -21,22 +21,22 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cesto-canasto-ropa-sucia-plegable-impermeable-resistente.html",
-  "fecha_scraping": "2026-06-17T11:36:43.688933",
+  "fecha_scraping": "2026-06-18T11:06:48.490728",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696671/prod_DL2318_001.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696672/prod_DL2318_002.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696673/prod_DL2318_003.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696674/prod_DL2318_004.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696674/prod_DL2318_005.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696675/prod_DL2318_006.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696676/prod_DL2318_007.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696676/prod_DL2318_008.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696677/prod_DL2318_009.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696678/prod_DL2318_010.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696679/prod_DL2318_011.png"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_010",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2318_011"
   ],
   "calculo_precio": {
     "precio_costo": 17990,
@@ -50,5 +50,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 31000.0,
-  "fecha_calculo_precio": "2026-06-17T11:47:31.061618"
+  "fecha_calculo_precio": "2026-06-18T11:19:16.749771"
 }

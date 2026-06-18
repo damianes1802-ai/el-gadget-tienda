@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/organizador-zapatos-6-niveles-calzado-plegable-blanco-1.html",
-  "fecha_scraping": "2026-06-17T11:37:03.188186",
+  "fecha_scraping": "2026-06-18T11:07:50.045716",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -25,13 +25,13 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-17T11:41:39.955946",
+  "fecha_mapeo_categorias": "2026-06-18T11:17:18.865598",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696691/prod_DL2325-RO_001.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696691/prod_DL2325-RO_002.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696692/prod_DL2325-RO_003.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696693/prod_DL2325-RO_004.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781696694/prod_DL2325-RO_005.png"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2325-RO_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2325-RO_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2325-RO_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2325-RO_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2325-RO_005"
   ],
   "calculo_precio": {
     "precio_costo": 48900,
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 83500.0,
-  "fecha_calculo_precio": "2026-06-17T11:47:31.062788"
+  "fecha_calculo_precio": "2026-06-18T11:19:16.751758"
 }
