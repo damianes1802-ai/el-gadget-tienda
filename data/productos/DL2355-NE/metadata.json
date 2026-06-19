@@ -17,7 +17,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/perchero-comercial-metalico-desarmable-56-x-120-blanco-1.html",
-  "fecha_scraping": "2026-06-18T11:09:05.870434",
+  "fecha_scraping": "2026-06-19T11:14:53.615704",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -27,7 +27,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-18T11:17:18.863667",
+  "fecha_mapeo_categorias": "2026-06-19T11:24:08.357625",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2355-NE_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2355-NE_002",
@@ -49,5 +49,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 29000.0,
-  "fecha_calculo_precio": "2026-06-18T11:19:16.759404"
+  "fecha_calculo_precio": "2026-06-19T11:25:57.927345"
 }

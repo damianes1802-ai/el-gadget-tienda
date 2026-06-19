@@ -19,7 +19,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cubre-colchon-protector-impermeable-90x190-acolchonado-3.html",
-  "fecha_scraping": "2026-06-18T11:05:17.040207",
+  "fecha_scraping": "2026-06-19T11:17:09.871761",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -46,5 +46,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 54500.0,
-  "fecha_calculo_precio": "2026-06-18T11:19:16.752950"
+  "fecha_calculo_precio": "2026-06-19T11:25:57.920621"
 }

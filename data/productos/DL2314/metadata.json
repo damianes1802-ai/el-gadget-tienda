@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/funda-cubre-sofa-sillon-elastizada-silla-145-a-185cm-premium.html",
-  "fecha_scraping": "2026-06-18T11:08:00.228248",
+  "fecha_scraping": "2026-06-19T11:17:13.236787",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -40,5 +40,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 61500.0,
-  "fecha_calculo_precio": "2026-06-18T11:19:16.748990"
+  "fecha_calculo_precio": "2026-06-19T11:25:57.916274"
 }

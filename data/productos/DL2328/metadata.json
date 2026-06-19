@@ -24,15 +24,15 @@
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781511/prod_DL2328_001.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781511/prod_DL2328_002.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781512/prod_DL2328_003.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781513/prod_DL2328_004.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781514/prod_DL2328_005.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781515/prod_DL2328_006.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781516/prod_DL2328_007.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781518/prod_DL2328_008.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1781781518/prod_DL2328_009.jpg"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2328_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2328_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2328_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2328_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2328_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2328_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2328_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2328_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2328_009"
   ],
   "calculo_precio": {
     "precio_costo": 30990,
@@ -46,5 +46,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 53000.0,
-  "fecha_calculo_precio": "2026-06-18T11:19:16.752163"
+  "fecha_calculo_precio": "2026-06-19T11:25:57.919593"
 }
