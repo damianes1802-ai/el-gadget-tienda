@@ -37,10 +37,15 @@ let _cache = {
 
 async function fetchAllData(force = false) {
   if (_cache.lastFetch && !force) return _cache;
-  setStatus(false, 'Cargando datos...');
+  setStatus(false, 'Despertando servidor...');
+  const loaderText = document.querySelector('.loader-text');
   try {
-    const [estadisticas, ordenes, referidos, clientes, usuarios, descuentos, productos] = await Promise.all([
-      apiCall('get_estadisticas'),
+    if (loaderText) loaderText.textContent = 'Despertando servidor (puede tardar ~30s)...';
+    const estadisticas = await apiCall('get_estadisticas');
+
+    setStatus(false, 'Cargando datos...');
+    if (loaderText) loaderText.textContent = 'Cargando datos...';
+    const [ordenes, referidos, clientes, usuarios, descuentos, productos] = await Promise.all([
       apiCall('get_all_ordenes'),
       apiCall('get_referidos'),
       apiCall('get_clientes'),

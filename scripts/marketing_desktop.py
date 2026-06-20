@@ -32,7 +32,7 @@ class Api:
 
     def _get(self, path, params=None):
         try:
-            resp = requests.get(f"{API_URL}{path}", params=params, headers=self._headers(), timeout=20)
+            resp = requests.get(f"{API_URL}{path}", params=params, headers=self._headers(), timeout=60)
             resp.raise_for_status()
             return resp.json()
         except Exception as e:

@@ -1,12 +1,15 @@
-Set WshShell = CreateObject("WScript.Shell")
-strDir = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
+' Marketing El Gadget - lanzador silencioso (sin ventana de consola)
+Set fso = CreateObject("Scripting.FileSystemObject")
+Set shell = CreateObject("WScript.Shell")
 
-' Activar venv si existe
-Dim venvPython
-venvPython = strDir & "\venv\Scripts\pythonw.exe"
+baseDir = fso.GetParentFolderName(WScript.ScriptFullName)
+shell.CurrentDirectory = baseDir
 
-If CreateObject("Scripting.FileSystemObject").FileExists(venvPython) Then
-    WshShell.Run """" & venvPython & """ """ & strDir & "\scripts\marketing_desktop.py""", 0, False
-Else
-    WshShell.Run "pythonw """ & strDir & "\scripts\marketing_desktop.py""", 0, False
+cmdLine = "cmd /c "
+If fso.FileExists(baseDir & "\venv\Scripts\activate.bat") Then
+    cmdLine = cmdLine & "call venv\Scripts\activate.bat && "
 End If
+cmdLine = cmdLine & "pythonw scripts\marketing_desktop.py"
+
+' 0 = ventana oculta, False = no esperar a que termine
+shell.Run cmdLine, 0, False
