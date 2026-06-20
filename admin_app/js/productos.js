@@ -176,11 +176,12 @@ document.getElementById('btn-guardar-producto').addEventListener('click', async 
 
   try {
     const actualizado = await apiCall('actualizar_producto', sku, cambios);
-    if (actualizado._remoto && actualizado._remoto.error) {
-      throw new Error('Guardado local OK, pero falló en la tienda online: ' + actualizado._remoto.error);
-    }
     closeModal('modal-producto-overlay');
-    toast('Producto actualizado', 'success');
+    if (actualizado._remoto && actualizado._remoto.error) {
+      toast('Guardado local OK, pero falló en la tienda online: ' + actualizado._remoto.error, 'warning');
+    } else {
+      toast('Producto actualizado', 'success');
+    }
     loadProductos();
   } catch (e) {
     toast('Error al guardar el producto: ' + e.message, 'error');
