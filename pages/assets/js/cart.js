@@ -390,6 +390,7 @@ function mostrarBannerBienvenida() {
 /**
  * Captura el parámetro ?ref= de la URL y lo guarda en localStorage
  * para aplicar automáticamente el código de referido en checkout.
+ * Muestra un banner verde en todas las páginas mientras el código esté activo.
  */
 function capturaRefCode() {
   const params = new URLSearchParams(window.location.search);
@@ -397,6 +398,14 @@ function capturaRefCode() {
   if (ref && ref.trim()) {
     localStorage.setItem('eg_ref_code', ref.trim().toUpperCase());
   }
+  const code = localStorage.getItem('eg_ref_code');
+  if (!code) return;
+  if (document.getElementById('egRefBanner')) return;
+  const banner = document.createElement('div');
+  banner.className = 'eg-ref-banner';
+  banner.id = 'egRefBanner';
+  banner.innerHTML = '🏷️ Código de descuento <strong>' + code + '</strong> activo — hasta 20% OFF se aplica automáticamente al pagar';
+  document.body.insertBefore(banner, document.body.firstChild);
 }
 
 function initAccountLink() {
