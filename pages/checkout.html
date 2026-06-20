@@ -591,6 +591,15 @@ if (descuentoBienvenidaPendiente) {
 }
 
 cargarZonasEnvio();
+
+const _refCode = localStorage.getItem('eg_ref_code');
+if (_refCode && !descuentoAplicado) {
+  const input = document.getElementById('codigoDescuento');
+  if (input && !input.value.trim()) {
+    input.value = _refCode;
+    aplicarCodigoDescuento();
+  }
+}
 </script>
 <div class="toast" id="toast"></div>
 </body>

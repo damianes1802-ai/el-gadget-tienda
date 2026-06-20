@@ -564,7 +564,8 @@ async function cargarCatalogo() {
     }
 
     const filas = _todosProductos.map(p => {
-      const waMsg = encodeURIComponent(`¡Mirá este ${p.nombre} en El Gadget! Te comparto el link con mi código de descuento: ${p.url_tienda}`);
+      const _utmUrl = p.url_tienda + (p.url_tienda.includes('?') ? '&' : '?') + 'utm_source=whatsapp&utm_medium=referral&utm_campaign=producto_share';
+      const waMsg = encodeURIComponent(`¡Mirá este ${p.nombre} en El Gadget! Te comparto el link con mi código de descuento: ${_utmUrl}`);
       return `<div class="prod-card">
         <img class="prod-card-img" src="${escapeHtmlBasico(p.imagen_url)}" alt="" loading="lazy"
           onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'56\\' height=\\'56\\'%3E%3Crect width=\\'56\\' height=\\'56\\' fill=\\'%23f3f4f6\\' rx=\\'8\\'/%3E%3C/svg%3E'">
@@ -625,7 +626,7 @@ function copiarCodigoRef() {
 }
 
 function compartirCodigoRef(codigo) {
-  const texto = `¡Comprá en El Gadget con mi código "${codigo}" y conseguís hasta 20% OFF en tu pedido! Mientras más comprás, más descuento tenés. 🛍️ https://elgadget.com.ar`;
+  const texto = `¡Comprá en El Gadget con mi código "${codigo}" y conseguís hasta 20% OFF en tu pedido! Mientras más comprás, más descuento tenés. 🛍️ https://elgadget.com.ar/?ref=${codigo}&utm_source=whatsapp&utm_medium=referral&utm_campaign=codigo_share`;
   if (navigator.share) {
     navigator.share({ title: 'Mi código El Gadget', text: texto });
   } else {

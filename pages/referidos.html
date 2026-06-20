@@ -573,7 +573,7 @@ function copiarCodigo(el) {
 
 function compartirCodigo() {
   const codigo = document.getElementById('codigoDisplay').textContent.trim();
-  const url = `https://elgadget.com.ar/`;
+  const url = `https://elgadget.com.ar/?ref=${codigo}&utm_source=share&utm_medium=referral&utm_campaign=codigo_share`;
   const text = `Usá mi código ${codigo} en El Gadget y conseguís hasta 20% de descuento en tu compra: ${url}`;
   if (navigator.share) {
     navigator.share({ title: 'Mi código de descuento El Gadget', text });

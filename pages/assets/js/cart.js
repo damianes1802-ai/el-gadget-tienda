@@ -388,10 +388,17 @@ function mostrarBannerBienvenida() {
 }
 
 /**
- * Inyecta en el header (.header-inner, antes del botón de carrito) un
- * enlace a "Mi cuenta" (si hay sesión activa) o "Ingresar" (si no la hay).
- * Se ejecuta en todas las páginas porque cart.js se carga en todas.
+ * Captura el parámetro ?ref= de la URL y lo guarda en localStorage
+ * para aplicar automáticamente el código de referido en checkout.
  */
+function capturaRefCode() {
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get('ref');
+  if (ref && ref.trim()) {
+    localStorage.setItem('eg_ref_code', ref.trim().toUpperCase());
+  }
+}
+
 function initAccountLink() {
   const headerInner = document.querySelector('.header-inner');
   if (!headerInner) return;
@@ -464,6 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initVentasBadge();
   registrarProductoVisto();
   mostrarBannerBienvenida();
+  capturaRefCode();
   initAccountLink();
 
   if (typeof PRODUCTO !== 'undefined') {
