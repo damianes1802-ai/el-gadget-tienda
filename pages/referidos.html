@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ganá con nosotros – Programa de Referidos | El Gadget</title>
-<meta name="description" content="Sumate al programa de referidos de El Gadget: compartí tu código único, tus amigos compran con 15% off y vos cobrás el 5% de cada venta. Sin inversión. Sin límites.">
+<meta name="description" content="Sumate al programa de referidos de El Gadget: compartí tu código único, tus amigos compran con 10-20% off y vos cobrás hasta el 15% de cada venta. Sin inversión. Sin límites.">
 <link rel="canonical" href="https://elgadget.com.ar/referidos">
 <meta name="theme-color" content="#14151A">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
@@ -305,7 +305,7 @@
 <section class="ref-hero">
   <div class="badge-label">Programa de Referidos</div>
   <h1>Ganá dinero<br><span>compartiendo El Gadget</span></h1>
-  <p>Compartí tu código único con quien quieras. Ellos compran con <strong style="color:var(--accent)">15% de descuento</strong> y vos cobrás el <strong style="color:var(--accent)">5% de cada venta</strong>. Sin inversión. Sin límites de referidos.</p>
+  <p>Compartí tu código único con quien quieras. Ellos compran con <strong style="color:var(--accent)">10-20% de descuento</strong> según el producto, y vos cobrás <strong style="color:var(--accent)">hasta el 15% de cada venta</strong>. Sin inversión. Sin límites de referidos.</p>
   <div class="hero-btns">
     <a href="#registro" class="btn btn-accent" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'}); return false;">Quiero mi código</a>
     <a href="#como-funciona" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.3)" onclick="document.getElementById('como-funciona').scrollIntoView({behavior:'smooth'}); return false;">Ver cómo funciona</a>
@@ -316,8 +316,8 @@
 <div class="ref-numbers">
   <div class="ref-numbers-grid">
     <div class="ref-num-item">
-      <div class="ref-num-value">15%</div>
-      <div class="ref-num-label">de descuento para quien compra<br>con tu código</div>
+      <div class="ref-num-value">10-20%</div>
+      <div class="ref-num-label">de descuento para quien compra<br>con tu código (según producto)</div>
     </div>
     <div class="ref-num-item">
       <div class="ref-num-value">hasta 15%</div>
@@ -343,7 +343,7 @@
     <div class="step-card">
       <div class="step-number">2</div>
       <h3>Compartí tu código</h3>
-      <p>Mandáselo a amigos, familia o seguidores. Quienes lo usen en su compra obtienen <strong>15% off automático</strong>.</p>
+      <p>Mandáselo a amigos, familia o seguidores. Quienes lo usen en su compra obtienen <strong>entre 10% y 20% off</strong> según el producto.</p>
     </div>
     <div class="step-card">
       <div class="step-number">3</div>
@@ -378,11 +378,11 @@
     </div>
     <div class="ref-faq-item">
       <button class="ref-faq-q" onclick="toggleRefFaq(this)">
-        ¿El descuento del 15% aplica solo en la primera compra?
+        ¿El descuento del 10-20% aplica solo en la primera compra?
         <span class="icon">+</span>
       </button>
       <div class="ref-faq-a">
-        No. Tu código puede usarse en todas las compras, tantas veces como quieran quienes lo tengan. Cada compra con tu código te genera comisión (entre 7% y 15% según tus ventas del mes).
+        No. Tu código puede usarse en todas las compras, tantas veces como quieran quienes lo tengan. Cada compra con tu código te genera comisión (entre 7% y 15% según tus ventas del mes). El porcentaje de descuento varía entre 10% y 20% según el producto.
       </div>
     </div>
     <div class="ref-faq-item">
@@ -574,7 +574,7 @@ function copiarCodigo(el) {
 function compartirCodigo() {
   const codigo = document.getElementById('codigoDisplay').textContent.trim();
   const url = `https://elgadget.com.ar/`;
-  const text = `Usá mi código ${codigo} en El Gadget y conseguís 15% de descuento en tu compra: ${url}`;
+  const text = `Usá mi código ${codigo} en El Gadget y conseguís hasta 20% de descuento en tu compra: ${url}`;
   if (navigator.share) {
     navigator.share({ title: 'Mi código de descuento El Gadget', text });
   } else {
