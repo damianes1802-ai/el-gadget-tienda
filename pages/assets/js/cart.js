@@ -378,6 +378,7 @@ function registrarProductoVisto() {
  */
 function mostrarBannerBienvenida() {
   if (localStorage.getItem('eg_descuento_pendiente') !== '1') return;
+  if (localStorage.getItem('eg_ref_code')) return;
   if (document.getElementById('egWelcomeBanner')) return;
 
   const banner = document.createElement('div');
