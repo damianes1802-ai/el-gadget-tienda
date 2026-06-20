@@ -48,6 +48,8 @@ from utils.facturacion_afip import facturacion_habilitada, generar_factura_c
 from utils.email_notificaciones import (
     email_habilitado, enviar_email_confirmacion, enviar_email_tracking,
     enviar_email_bienvenida, enviar_email_referido_confirmacion, enviar_email_referido_admin,
+    enviar_email_nurturing_d3, enviar_email_nurturing_d7, enviar_email_nurturing_d14,
+    enviar_email_primera_venta, enviar_email_carrito_abandonado, enviar_email_invitar_referido,
 )
 
 # Configuración
@@ -395,6 +397,8 @@ def migrar_db():
         ("zona_envio", "TEXT DEFAULT ''"),
         ("descuento_codigo", "TEXT"),
         ("descuento_monto", "REAL DEFAULT 0"),
+        ("email_carrito_abandonado", "INTEGER DEFAULT 0"),
+        ("email_invitar_referido", "INTEGER DEFAULT 0"),
     ]
     cursor.execute("PRAGMA table_info(ordenes)")
     columnas_ordenes_existentes = {row[1] for row in cursor.fetchall()}
@@ -537,6 +541,19 @@ def migrar_db():
             creado_at       TEXT DEFAULT (datetime('now'))
         )
     """)
+
+    # Columnas de nurturing en referidos
+    columnas_referidos_nuevas = [
+        ("nurturing_d3_enviado", "INTEGER DEFAULT 0"),
+        ("nurturing_d7_enviado", "INTEGER DEFAULT 0"),
+        ("nurturing_d14_enviado", "INTEGER DEFAULT 0"),
+        ("nurturing_primera_venta_enviado", "INTEGER DEFAULT 0"),
+    ]
+    cursor.execute("PRAGMA table_info(referidos)")
+    cols_ref = {row[1] for row in cursor.fetchall()}
+    for col_name, col_def in columnas_referidos_nuevas:
+        if col_name not in cols_ref:
+            cursor.execute(f"ALTER TABLE referidos ADD COLUMN {col_name} {col_def}")
 
     conn.commit()
     conn.close()
@@ -3190,6 +3207,169 @@ def admin_marcar_pagado_referido(ref_id: int, datos: MarcarPagadoReferido,
     conn.commit()
     conn.close()
     return {"ok": True, "comisiones_actualizadas": filas}
+
+
+# ============================================================================
+# NURTURING — procesamiento automático de emails de marketing
+# ============================================================================
+
+def _obtener_productos_top(cursor, limit=5):
+    cursor.execute("""
+        SELECT p.sku, p.nombre, p.precio_venta, p.imagen_principal, p.url_amigable
+        FROM orden_items oi
+        JOIN ordenes o ON oi.orden_id = o.id
+        JOIN productos p ON oi.producto_sku = p.sku
+        WHERE o.estado_pago = 'approved' AND p.stock > 0
+        GROUP BY oi.producto_sku
+        ORDER BY SUM(oi.cantidad) DESC
+        LIMIT ?
+    """, (limit,))
+    return [dict(r) for r in cursor.fetchall()]
+
+
+def _obtener_stats_referidos(cursor):
+    periodo = datetime.now().strftime('%Y-%m')
+    total_activos = cursor.execute(
+        "SELECT COUNT(DISTINCT referido_id) FROM comisiones_referidos WHERE periodo = ?", (periodo,)
+    ).fetchone()[0] or 0
+    comisiones_mes = cursor.execute(
+        "SELECT COALESCE(SUM(comision), 0) FROM comisiones_referidos WHERE periodo = ?", (periodo,)
+    ).fetchone()[0] or 0
+    return {
+        'total_referidos_activos': max(total_activos, 1),
+        'comisiones_pagadas_mes': round(comisiones_mes, 2),
+    }
+
+
+@app.post("/api/admin/nurturing/procesar")
+def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
+    """
+    Procesa todos los emails automáticos de marketing:
+    - Nurturing de referidos (D+3, D+7, D+14)
+    - Celebración primera venta
+    - Carrito abandonado (>24hs sin pagar)
+    - Post-compra invitación a referir
+
+    Diseñado para ejecutarse cada 6-12hs vía cron. Idempotente.
+    """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+    if not email_habilitado():
+        return {"ok": False, "motivo": "Email no configurado (falta RESEND_API_KEY)"}
+
+    conn = get_db()
+    cursor = conn.cursor()
+    resultado = {"nurturing": {}, "primera_venta": 0, "carrito_abandonado": 0, "invitar_referido": 0, "errores": []}
+    now = datetime.now()
+
+    # ── Bloque 1: Nurturing referidos D+3, D+7, D+14 ──
+    try:
+        cursor.execute("SELECT * FROM referidos WHERE activo = 1")
+        referidos = [dict(r) for r in cursor.fetchall()]
+        productos_top_3 = _obtener_productos_top(cursor, 3)
+        productos_top_5 = _obtener_productos_top(cursor, 5)
+        stats = _obtener_stats_referidos(cursor)
+        d3 = d7 = d14 = 0
+
+        for ref in referidos:
+            try:
+                creado = datetime.strptime(ref['creado_at'], '%Y-%m-%d %H:%M:%S')
+            except (ValueError, TypeError):
+                continue
+            dias = (now - creado).days
+
+            if dias >= 3 and not ref.get('nurturing_d3_enviado') and productos_top_3:
+                res = enviar_email_nurturing_d3(ref['nombre'], ref['email'], ref['codigo'], productos_top_3)
+                if 'error' not in res:
+                    cursor.execute("UPDATE referidos SET nurturing_d3_enviado = 1 WHERE id = ?", (ref['id'],))
+                    d3 += 1
+
+            if dias >= 7 and not ref.get('nurturing_d7_enviado'):
+                res = enviar_email_nurturing_d7(ref['nombre'], ref['email'], ref['codigo'], stats)
+                if 'error' not in res:
+                    cursor.execute("UPDATE referidos SET nurturing_d7_enviado = 1 WHERE id = ?", (ref['id'],))
+                    d7 += 1
+
+            if dias >= 14 and not ref.get('nurturing_d14_enviado') and productos_top_5:
+                res = enviar_email_nurturing_d14(ref['nombre'], ref['email'], ref['codigo'], productos_top_5)
+                if 'error' not in res:
+                    cursor.execute("UPDATE referidos SET nurturing_d14_enviado = 1 WHERE id = ?", (ref['id'],))
+                    d14 += 1
+
+        resultado['nurturing'] = {"d3": d3, "d7": d7, "d14": d14}
+    except Exception as e:
+        resultado['errores'].append(f"nurturing: {e}")
+
+    # ── Bloque 2: Celebración primera venta ──
+    try:
+        cursor.execute("""
+            SELECT r.id, r.nombre, r.email, r.codigo, c.comision
+            FROM referidos r
+            JOIN comisiones_referidos c ON c.referido_id = r.id
+            WHERE r.activo = 1 AND r.nurturing_primera_venta_enviado = 0
+              AND c.creado_at = (SELECT MIN(c2.creado_at) FROM comisiones_referidos c2 WHERE c2.referido_id = r.id)
+        """)
+        for row in cursor.fetchall():
+            r = dict(row)
+            res = enviar_email_primera_venta(r['nombre'], r['email'], r['codigo'], r['comision'])
+            if 'error' not in res:
+                cursor.execute("UPDATE referidos SET nurturing_primera_venta_enviado = 1 WHERE id = ?", (r['id'],))
+                resultado['primera_venta'] += 1
+    except Exception as e:
+        resultado['errores'].append(f"primera_venta: {e}")
+
+    # ── Bloque 3: Carrito abandonado ──
+    try:
+        cursor.execute("""
+            SELECT o.id, o.total, o.fecha, c.nombre, c.email
+            FROM ordenes o
+            JOIN clientes c ON o.cliente_id = c.id
+            WHERE (o.estado_pago = 'pending' OR o.estado_pago IS NULL)
+              AND o.email_carrito_abandonado = 0
+              AND datetime(o.fecha, '+24 hours') < datetime('now')
+              AND datetime(o.fecha, '+7 days') > datetime('now')
+        """)
+        for row in cursor.fetchall():
+            o = dict(row)
+            items_rows = cursor.execute(
+                "SELECT producto_nombre, cantidad, subtotal FROM orden_items WHERE orden_id = ?", (o['id'],)
+            ).fetchall()
+            items = [dict(i) for i in items_rows]
+            if items:
+                res = enviar_email_carrito_abandonado(o, items)
+                if 'error' not in res:
+                    cursor.execute("UPDATE ordenes SET email_carrito_abandonado = 1 WHERE id = ?", (o['id'],))
+                    resultado['carrito_abandonado'] += 1
+    except Exception as e:
+        resultado['errores'].append(f"carrito_abandonado: {e}")
+
+    # ── Bloque 4: Post-compra invitar a referir ──
+    try:
+        cursor.execute("""
+            SELECT DISTINCT c.nombre, c.email, c.id as cliente_id
+            FROM ordenes o
+            JOIN clientes c ON o.cliente_id = c.id
+            WHERE o.estado_pago = 'approved'
+              AND o.email_invitar_referido = 0
+              AND (o.estado = 'entregado' OR datetime(o.fecha, '+5 days') < datetime('now'))
+              AND NOT EXISTS (SELECT 1 FROM referidos WHERE email = c.email)
+        """)
+        for row in cursor.fetchall():
+            cl = dict(row)
+            res = enviar_email_invitar_referido(cl['nombre'], cl['email'])
+            if 'error' not in res:
+                cursor.execute(
+                    "UPDATE ordenes SET email_invitar_referido = 1 WHERE cliente_id = ? AND estado_pago = 'approved'",
+                    (cl['cliente_id'],)
+                )
+                resultado['invitar_referido'] += 1
+    except Exception as e:
+        resultado['errores'].append(f"invitar_referido: {e}")
+
+    conn.commit()
+    conn.close()
+    resultado['ok'] = True
+    return resultado
 
 
 # ============================================================================
