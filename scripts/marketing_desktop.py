@@ -44,7 +44,7 @@ class Api:
         return self._get("/api/estadisticas")
 
     def get_all_ordenes(self):
-        return self._get("/api/ordenes", params={"limit": 5000})
+        return self._get("/api/ordenes", params={"limit": 200})
 
     def get_referidos(self):
         return self._get("/api/admin/referidos")

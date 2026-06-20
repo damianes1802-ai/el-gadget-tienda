@@ -94,8 +94,13 @@ document.getElementById('btn-refresh').addEventListener('click', refreshAll);
 // ── Init ──
 (async function init() {
   try {
+    console.log('[MKT] init: esperando pywebview bridge...');
+    await pywebviewReadyPromise;
+    console.log('[MKT] bridge listo, fetching data...');
     await fetchAllData(true);
+    console.log('[MKT] data loaded OK', Object.keys(_cache));
   } catch (e) {
+    console.error('[MKT] init error:', e);
     toast('No se pudo conectar con la API: ' + e.message, 'error');
   } finally {
     hideLoader();
