@@ -400,11 +400,21 @@ function capturaRefCode() {
   }
   const code = localStorage.getItem('eg_ref_code');
   if (!code) return;
-  if (document.getElementById('egRefBanner')) return;
+  if (document.getElementById('egRefBanner') || document.getElementById('egComboBanner')) return;
+
+  const tieneBienvenida = localStorage.getItem('eg_descuento_pendiente') === '1';
   const banner = document.createElement('div');
-  banner.className = 'eg-ref-banner';
-  banner.id = 'egRefBanner';
-  banner.innerHTML = '🏷️ Código de descuento <strong>' + code + '</strong> activo — hasta 20% OFF se aplica automáticamente al pagar';
+
+  if (tieneBienvenida) {
+    banner.className = 'eg-combo-banner';
+    banner.id = 'egComboBanner';
+    banner.innerHTML = '<div class="eg-combo-big">Hasta 30% OFF</div>'
+      + '<div class="eg-combo-detail">🎉 10% por tu primera compra + hasta 20% con el código <strong>' + code + '</strong> — se aplican automáticamente al pagar</div>';
+  } else {
+    banner.className = 'eg-ref-banner';
+    banner.id = 'egRefBanner';
+    banner.innerHTML = '🏷️ Código de descuento <strong>' + code + '</strong> activo — hasta 20% OFF se aplica automáticamente al pagar';
+  }
   document.body.insertBefore(banner, document.body.firstChild);
 }
 

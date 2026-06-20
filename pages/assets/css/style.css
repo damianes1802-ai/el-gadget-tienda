@@ -953,6 +953,22 @@ a { color: inherit; }
 }
 .eg-ref-banner strong { font-weight: 800; letter-spacing: 0.5px; }
 
+/* ── BANNER COMBO (referido + bienvenida = hasta 30% OFF) ── */
+.eg-combo-banner {
+  background: linear-gradient(135deg, #FFC700 0%, #E0AC00 100%);
+  padding: 14px 16px; text-align: center;
+}
+.eg-combo-big {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 800; color: #B91C1C;
+  letter-spacing: -0.5px; line-height: 1.2;
+}
+.eg-combo-detail {
+  font-size: 12px; font-weight: 600; color: #14151A;
+  margin-top: 4px; line-height: 1.4;
+}
+.eg-combo-detail strong { font-weight: 800; }
+
 /* ── BANNER PROMOCIONAL (home) ── */
 .promo-banner { display: none; max-width: 1240px; margin: 0 auto; padding: 0 1.25rem; }
 .promo-banner.show { display: block; }
