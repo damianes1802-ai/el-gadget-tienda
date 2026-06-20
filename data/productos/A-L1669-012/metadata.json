@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/inflable-de-cisne-para-bebes-80cm-x-80cm.html",
-  "fecha_scraping": "2026-06-19T11:16:12.508960",
+  "fecha_scraping": "2026-06-20T09:55:33.874892",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles",
@@ -28,7 +28,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-19T11:24:08.310984",
+  "fecha_mapeo_categorias": "2026-06-20T09:59:50.025272",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_002",
@@ -48,5 +48,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 21000.0,
-  "fecha_calculo_precio": "2026-06-19T11:25:57.831673"
+  "fecha_calculo_precio": "2026-06-20T10:01:11.676051"
 }

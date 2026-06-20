@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/almohadon-de-cambiado-para-bebes.html",
-  "fecha_scraping": "2026-06-19T11:16:04.631799",
+  "fecha_scraping": "2026-06-20T09:52:44.954970",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-19T11:24:08.319771",
+  "fecha_mapeo_categorias": "2026-06-20T09:59:50.026197",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7165_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 10500.0,
-  "fecha_calculo_precio": "2026-06-19T11:25:57.995920"
+  "fecha_calculo_precio": "2026-06-20T10:01:11.823837"
 }

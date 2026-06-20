@@ -19,7 +19,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/plato-giratorio-organizador-bandeja-antideslizante-grande-1.html",
-  "fecha_scraping": "2026-06-19T11:16:53.691192",
+  "fecha_scraping": "2026-06-20T09:52:58.674317",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -46,5 +46,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 18000.0,
-  "fecha_calculo_precio": "2026-06-19T11:25:57.913871"
+  "fecha_calculo_precio": "2026-06-20T10:01:11.747584"
 }

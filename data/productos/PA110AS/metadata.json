@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/camisa-blusa-manga-3-4-confeccionada-en-broderie-talle-s.html",
-  "fecha_scraping": "2026-06-19T11:15:29.951289",
+  "fecha_scraping": "2026-06-20T09:55:35.562703",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-19T11:24:08.304708",
+  "fecha_mapeo_categorias": "2026-06-20T09:59:50.007252",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA110AS_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA110AS_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 67000.0,
-  "fecha_calculo_precio": "2026-06-19T11:25:57.954257"
+  "fecha_calculo_precio": "2026-06-20T10:01:11.784905"
 }
