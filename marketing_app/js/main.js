@@ -11,15 +11,6 @@ const SECTION_TITLES = {
   configuracion: 'Configuración',
 };
 
-const SECTION_LOADERS = {
-  dashboard: loadDashboard,
-  referidos: loadReferidos,
-  productos: loadProductos,
-  ventas: loadVentas,
-  campanias: loadCampanias,
-  configuracion: loadConfiguracion,
-};
-
 const loadedSections = new Set();
 let currentSection = 'dashboard';
 
@@ -63,6 +54,19 @@ async function fetchAllData(force = false) {
   }
 }
 
+function callSectionLoader(name) {
+  const loaders = {
+    dashboard: typeof loadDashboard !== 'undefined' ? loadDashboard : null,
+    referidos: typeof loadReferidos !== 'undefined' ? loadReferidos : null,
+    productos: typeof loadProductos !== 'undefined' ? loadProductos : null,
+    ventas: typeof loadVentas !== 'undefined' ? loadVentas : null,
+    campanias: typeof loadCampanias !== 'undefined' ? loadCampanias : null,
+    configuracion: typeof loadConfiguracion !== 'undefined' ? loadConfiguracion : null,
+  };
+  const fn = loaders[name];
+  if (fn) fn();
+}
+
 function showSection(name) {
   document.querySelectorAll('.nav-item').forEach(el => {
     el.classList.toggle('active', el.dataset.section === name);
@@ -75,7 +79,7 @@ function showSection(name) {
 
   if (!loadedSections.has(name)) {
     loadedSections.add(name);
-    SECTION_LOADERS[name]();
+    callSectionLoader(name);
   }
 }
 
@@ -85,25 +89,24 @@ async function refreshAll() {
   showSection(currentSection);
 }
 
-document.querySelectorAll('.nav-item').forEach(el => {
-  el.addEventListener('click', () => showSection(el.dataset.section));
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.addEventListener('click', () => showSection(el.dataset.section));
+  });
+
+  document.getElementById('btn-refresh').addEventListener('click', refreshAll);
+
+  // ── Init ──
+  (async function init() {
+    try {
+      await pywebviewReadyPromise;
+      await fetchAllData(true);
+    } catch (e) {
+      console.error('[MKT] init error:', e);
+      toast('No se pudo conectar con la API: ' + e.message, 'error');
+    } finally {
+      hideLoader();
+      showSection('dashboard');
+    }
+  })();
 });
-
-document.getElementById('btn-refresh').addEventListener('click', refreshAll);
-
-// ── Init ──
-(async function init() {
-  try {
-    console.log('[MKT] init: esperando pywebview bridge...');
-    await pywebviewReadyPromise;
-    console.log('[MKT] bridge listo, fetching data...');
-    await fetchAllData(true);
-    console.log('[MKT] data loaded OK', Object.keys(_cache));
-  } catch (e) {
-    console.error('[MKT] init error:', e);
-    toast('No se pudo conectar con la API: ' + e.message, 'error');
-  } finally {
-    hideLoader();
-    showSection('dashboard');
-  }
-})();
