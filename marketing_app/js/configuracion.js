@@ -26,7 +26,7 @@ async function loadConfiguracion() {
   // Cargar data counts
   const data = _cache;
   document.getElementById('config-count-ordenes').textContent = Array.isArray(data.ordenes) ? data.ordenes.length : '-';
-  document.getElementById('config-count-productos').textContent = (data.productos?.productos || []).length || '-';
+  document.getElementById('config-count-productos').textContent = Array.isArray(data.productos) ? data.productos.length : '-';
   document.getElementById('config-count-referidos').textContent = Array.isArray(data.referidos) ? data.referidos.length : '-';
   document.getElementById('config-count-clientes').textContent = Array.isArray(data.clientes) ? data.clientes.length : '-';
 }

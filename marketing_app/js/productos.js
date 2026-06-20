@@ -6,7 +6,7 @@ async function loadProductos() {
   const data = _cache;
   if (!data.estadisticas) return;
 
-  const productos = (data.productos || {}).productos || [];
+  const productos = Array.isArray(data.productos) ? data.productos : [];
   const enStock = productos.filter(p => p.stock > 0).length;
   const agotados = productos.length - enStock;
   const topProds = calcTopProductos(data.estadisticas, 10);

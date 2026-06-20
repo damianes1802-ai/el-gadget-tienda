@@ -28,7 +28,7 @@ async function loadDashboard() {
     label: 'Pedidos del mes',
     value: formatNumber(mesActual.length),
     delta: formatDelta(mesActual.length, mesAnterior.length),
-    sub: `${calcCurrentMonth(ordenes.filter(o => { const d = o._fecha; return d && d.toDateString() === new Date().toDateString(); })).length} hoy`,
+    sub: `${ordenes.filter(o => o._fecha && o._fecha.toDateString() === new Date().toDateString()).length} hoy`,
   });
 
   const activeRefs = calcActiveReferidos(data.referidos);

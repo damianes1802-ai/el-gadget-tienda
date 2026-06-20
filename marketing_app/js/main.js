@@ -45,13 +45,14 @@ async function fetchAllData(force = false) {
 
     setStatus(false, 'Cargando datos...');
     if (loaderText) loaderText.textContent = 'Cargando datos...';
+    const safe = (p) => p.catch(e => { console.error(e); return []; });
     const [ordenes, referidos, clientes, usuarios, descuentos, productos] = await Promise.all([
-      apiCall('get_all_ordenes'),
-      apiCall('get_referidos'),
-      apiCall('get_clientes'),
-      apiCall('get_usuarios'),
-      apiCall('get_descuentos'),
-      apiCall('get_productos'),
+      safe(apiCall('get_all_ordenes')),
+      safe(apiCall('get_referidos')),
+      safe(apiCall('get_clientes')),
+      safe(apiCall('get_usuarios')),
+      safe(apiCall('get_descuentos')),
+      safe(apiCall('get_productos')),
     ]);
     _cache = { estadisticas, ordenes, referidos, clientes, usuarios, descuentos, productos, lastFetch: Date.now() };
     setStatus(true, 'Conectado');
