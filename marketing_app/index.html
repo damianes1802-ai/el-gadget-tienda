@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Gadget — Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/marketing.css">
+</head>
+<body>
+
+<div class="loader-overlay" id="loader-overlay">
+  <div class="spinner"></div>
+  <div class="loader-text">Conectando con El Gadget...</div>
+</div>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-badge">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" rx="22" fill="#14151A"/>
+          <rect x="14" y="34" width="72" height="34" rx="17" fill="none" stroke="white" stroke-width="7"/>
+          <circle cx="34" cy="51" r="6" fill="white"/>
+          <rect x="58" y="42" width="6" height="18" rx="2" fill="#FFC700"/>
+          <rect x="68" y="36" width="6" height="30" rx="2" fill="#FFC700"/>
+          <rect x="78" y="45" width="6" height="12" rx="2" fill="#FFC700"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Marketing</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-section="dashboard">📊 Dashboard</button>
+      <button class="nav-item" data-section="referidos">👥 Referidos</button>
+      <button class="nav-item" data-section="productos">📦 Productos</button>
+      <button class="nav-item" data-section="ventas">💰 Ventas</button>
+      <button class="nav-item" data-section="campanias">📢 Campañas</button>
+      <button class="nav-item" data-section="configuracion">⚙️ Configuración</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-line">
+        <div class="status-dot" id="status-dot"></div>
+        <span id="status-text">Conectando...</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+    <header class="content-header">
+      <h1 id="section-title">Dashboard</h1>
+      <button class="btn btn-outline btn-sm" id="btn-refresh">Actualizar</button>
+    </header>
+
+    <div class="content-body">
+
+      <!-- ═══ DASHBOARD ═══ -->
+      <section class="section active" id="section-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card" id="stat-revenue"></div>
+          <div class="stat-card" id="stat-orders"></div>
+          <div class="stat-card" id="stat-referidos"></div>
+          <div class="stat-card" id="stat-aov"></div>
+        </div>
+        <div class="panel-grid">
+          <div class="panel">
+            <h2>Ventas por mes</h2>
+            <div id="chart-monthly"></div>
+          </div>
+          <div class="panel">
+            <h2>Fuente de ventas</h2>
+            <div id="chart-sources"></div>
+          </div>
+        </div>
+        <div class="panel-grid">
+          <div class="panel">
+            <h2>Top referidos</h2>
+            <div id="top-referidos"></div>
+          </div>
+          <div class="panel">
+            <h2>Top productos</h2>
+            <div id="top-productos"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ REFERIDOS ═══ -->
+      <section class="section" id="section-referidos">
+        <div class="stats-grid">
+          <div class="stat-card" id="ref-stat-activos"></div>
+          <div class="stat-card" id="ref-stat-revenue"></div>
+          <div class="stat-card" id="ref-stat-pagadas"></div>
+          <div class="stat-card" id="ref-stat-pendientes"></div>
+        </div>
+        <div class="toolbar">
+          <select id="ref-sort">
+            <option value="revenue">Ordenar: por revenue</option>
+            <option value="comision">Ordenar: por comisión</option>
+            <option value="fecha">Ordenar: por fecha</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Referido</th>
+              <th>Código</th>
+              <th class="text-center">Ventas</th>
+              <th class="text-right">Revenue</th>
+              <th class="text-right">Comisión</th>
+              <th class="text-center">Tier</th>
+              <th class="text-center">Último período</th>
+              <th class="text-center">Estado</th>
+            </tr></thead>
+            <tbody id="referidos-tbody">
+              <tr><td colspan="8" class="table-empty">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ═══ PRODUCTOS ═══ -->
+      <section class="section" id="section-productos">
+        <div class="stats-grid">
+          <div class="stat-card" id="prod-stat-stock"></div>
+          <div class="stat-card" id="prod-stat-top"></div>
+          <div class="stat-card" id="prod-stat-revenue"></div>
+          <div class="stat-card" id="prod-stat-units"></div>
+        </div>
+        <div class="panel">
+          <h2>Top productos por revenue</h2>
+          <div id="chart-top-productos"></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th class="text-center">#</th>
+              <th>Producto</th>
+              <th>SKU</th>
+              <th class="text-center">Unidades</th>
+              <th class="text-right">Revenue</th>
+            </tr></thead>
+            <tbody id="productos-tbody">
+              <tr><td colspan="5" class="table-empty">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ═══ VENTAS ═══ -->
+      <section class="section" id="section-ventas">
+        <div class="stats-grid">
+          <div class="stat-card" id="ventas-stat-revenue"></div>
+          <div class="stat-card" id="ventas-stat-aov"></div>
+          <div class="stat-card" id="ventas-stat-orders"></div>
+          <div class="stat-card" id="ventas-stat-repeat"></div>
+        </div>
+        <div class="period-bar" id="ventas-period-bar">
+          <button data-period="7d">7 días</button>
+          <button data-period="30d">30 días</button>
+          <button data-period="90d">90 días</button>
+          <button data-period="ytd">YTD</button>
+          <button class="active" data-period="all">Todo</button>
+        </div>
+        <div class="panel">
+          <h2>Revenue por mes</h2>
+          <div id="chart-ventas-monthly"></div>
+        </div>
+        <div class="panel-grid-3">
+          <div class="panel">
+            <h2>Por fuente</h2>
+            <div id="chart-ventas-source"></div>
+          </div>
+          <div class="panel">
+            <h2>Por zona de envío</h2>
+            <div id="chart-ventas-zona"></div>
+          </div>
+          <div class="panel">
+            <h2>Por día de semana</h2>
+            <div id="chart-ventas-day"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ CAMPAÑAS ═══ -->
+      <section class="section" id="section-campanias">
+        <div class="stats-grid">
+          <div class="stat-card" id="camp-stat-activas"></div>
+          <div class="stat-card" id="camp-stat-revenue"></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Nombre</th>
+              <th>Código</th>
+              <th class="text-center">Descuento</th>
+              <th class="text-center">Usos</th>
+              <th class="text-right">Revenue</th>
+              <th class="text-center">Estado</th>
+            </tr></thead>
+            <tbody id="campanias-tbody">
+              <tr><td colspan="6" class="table-empty">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-grid">
+          <div class="placeholder-panel">
+            <h3>Meta Ads</h3>
+            <p>Conectá tu cuenta de Meta Ads para ver métricas de campañas pagadas en Facebook e Instagram.</p>
+          </div>
+          <div class="placeholder-panel">
+            <h3>Google Ads</h3>
+            <p>Conectá tu cuenta de Google Ads para ver métricas de campañas de búsqueda y shopping.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ CONFIGURACIÓN ═══ -->
+      <section class="section" id="section-configuracion">
+        <div class="panel">
+          <h2>Conexión API</h2>
+          <div class="config-row">
+            <span class="config-label">Estado</span>
+            <span class="config-value" id="config-api-status"></span>
+          </div>
+          <div class="config-row">
+            <span class="config-label">Latencia</span>
+            <span class="config-value" id="config-api-latency"></span>
+          </div>
+          <div class="config-row">
+            <span class="config-label">URL</span>
+            <span class="config-value">el-gadget-tienda.onrender.com</span>
+          </div>
+          <button class="btn btn-outline btn-sm" id="btn-test-connection" style="margin-top:12px">Probar conexión</button>
+        </div>
+        <div class="panel">
+          <h2>Datos cargados</h2>
+          <div class="config-row">
+            <span class="config-label">Órdenes</span>
+            <span class="config-value" id="config-count-ordenes">-</span>
+          </div>
+          <div class="config-row">
+            <span class="config-label">Productos</span>
+            <span class="config-value" id="config-count-productos">-</span>
+          </div>
+          <div class="config-row">
+            <span class="config-label">Referidos</span>
+            <span class="config-value" id="config-count-referidos">-</span>
+          </div>
+          <div class="config-row">
+            <span class="config-label">Clientes</span>
+            <span class="config-value" id="config-count-clientes">-</span>
+          </div>
+        </div>
+        <div class="panel-grid">
+          <div class="placeholder-panel">
+            <h3>Meta Ads API</h3>
+            <p>Configurá tu App ID y Access Token de Meta para conectar campañas de Facebook e Instagram.</p>
+          </div>
+          <div class="placeholder-panel">
+            <h3>Google Ads API</h3>
+            <p>Configurá tu Developer Token y Client ID para conectar campañas de Google Ads.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/common.js"></script>
+<script src="js/metrics.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/main.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/referidos.js"></script>
+<script src="js/productos.js"></script>
+<script src="js/ventas.js"></script>
+<script src="js/campanias.js"></script>
+<script src="js/configuracion.js"></script>
+</body>
+</html>
