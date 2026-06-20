@@ -11,6 +11,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<style>
+.prod-list{border:1.5px solid #e5e7eb;border-radius:12px;overflow:hidden;background:#fff}
+.prod-card{display:flex;align-items:flex-start;gap:12px;padding:14px;border-bottom:1px solid #f3f4f6;transition:background .15s}
+.prod-card:last-child{border-bottom:none}
+.prod-card:hover{background:#fafafa}
+.prod-card-img{width:56px;height:56px;object-fit:cover;border-radius:8px;flex-shrink:0;background:#f3f4f6}
+.prod-card-info{flex:1;min-width:0}
+.prod-card-name{font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;display:block;line-height:1.35}
+.prod-card-name:hover{text-decoration:underline}
+.prod-card-cat{font-size:11px;color:var(--gray-600);margin-top:2px}
+.prod-card-prices{display:flex;align-items:baseline;gap:8px;margin-top:6px;flex-wrap:wrap}
+.prod-card-old{font-size:12px;color:var(--gray-600);text-decoration:line-through}
+.prod-card-new{font-size:15px;font-weight:700;color:var(--ink)}
+.prod-card-pct{font-size:11px;color:#10b981;font-weight:600}
+.prod-card-earn{font-size:13.5px;font-weight:700;color:#16a34a;margin-top:4px}
+.prod-card-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0;align-items:flex-end;padding-top:4px}
+.prod-btn{font-size:11.5px;padding:5px 12px;border-radius:7px;text-decoration:none;display:inline-block;font-weight:600;text-align:center;white-space:nowrap;cursor:pointer;border:none}
+.prod-btn-wa{background:#25D366;color:#fff}
+.prod-btn-foto{border:1.5px solid #e5e7eb;color:var(--ink);background:transparent}
+.prod-btn-ver{background:var(--ink);color:var(--paper)}
+</style>
 </head>
 <body>
 
@@ -67,7 +88,7 @@
   </div>
 
   <!-- Tab switcher — visible solo cuando el usuario es referido Y mayorista -->
-  <div id="panelSwitcher" style="display:none;border-bottom:2px solid #e5e7eb;margin:0 0 0 0">
+  <div id="panelSwitcher" style="display:none;border-bottom:2px solid #e5e7eb;margin:28px 0 0 0">
     <button id="btnTabRef" onclick="mostrarPanelRef()"
       style="padding:11px 28px;border:none;border-bottom:3px solid var(--ink);margin-bottom:-2px;background:transparent;color:var(--ink);font-size:14px;font-weight:700;cursor:pointer">
       Mis Referidos
@@ -184,6 +205,12 @@ async function cargarCuenta() {
     localStorage.setItem('eg_nombre', data.nombre || '');
 
     const yaUsado = data.descuento_usado === 1 || data.descuento_usado === true;
+    if (yaUsado) {
+      localStorage.setItem('eg_descuento_pendiente', '0');
+      localStorage.removeItem('eg_descuento_codigo');
+      const _wb = document.getElementById('egWelcomeBanner');
+      if (_wb) _wb.remove();
+    }
     const descuentoHtml = yaUsado
       ? '<span class="status-badge info">Ya usado</span>'
       : '<span class="status-badge ok">Disponible</span>';
@@ -538,46 +565,27 @@ async function cargarCatalogo() {
 
     const filas = _todosProductos.map(p => {
       const waMsg = encodeURIComponent(`¡Mirá este ${p.nombre} en El Gadget! Te comparto el link con mi código de descuento: ${p.url_tienda}`);
-      return `<tr>
-        <td style="width:52px;padding:8px 6px">
-          <img src="${escapeHtmlBasico(p.imagen_url)}" alt="" width="48" height="48"
-            style="object-fit:cover;border-radius:6px;display:block"
-            onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\'%3E%3Crect width=\'48\' height=\'48\' fill=\'%23f3f4f6\' rx=\'6\'/%3E%3C/svg%3E'">
-        </td>
-        <td style="font-size:12.5px;max-width:180px">
-          <a href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener" style="color:var(--ink);text-decoration:none;font-weight:500">${escapeHtmlBasico(p.nombre)}</a>
-          <div style="font-size:11px;color:var(--gray-600)">${escapeHtmlBasico(p.categoria || '')}</div>
-        </td>
-        <td style="text-align:right;font-size:12.5px;white-space:nowrap;color:var(--gray-600)">${formatPrice(p.precio_venta)}</td>
-        <td style="text-align:right;font-size:12.5px;white-space:nowrap">
-          ${formatPrice(p.precio_con_descuento)}
-          <div style="font-size:11px;color:#10b981;font-weight:600">−${p.descuento_pct}%</div>
-        </td>
-        <td style="text-align:right;white-space:nowrap;padding:8px 4px">
-          <span style="font-size:14px;font-weight:700;color:#16a34a">${formatPrice(p.comision_ars)}</span>
-        </td>
-        <td style="text-align:center;white-space:nowrap;padding:8px 4px">
-          <div style="display:flex;gap:4px;justify-content:center">
-            <a href="${escapeHtmlBasico(p.imagen_url)}" download="${escapeHtmlBasico(p.sku)}.jpg" target="_blank" rel="noopener"
-              style="font-size:11px;padding:4px 7px;border-radius:6px;border:1.5px solid #e5e7eb;color:var(--ink);text-decoration:none;display:inline-block">Foto</a>
-            <a href="https://wa.me/?text=${waMsg}" target="_blank" rel="noopener"
-              style="font-size:11px;padding:4px 7px;border-radius:6px;border:none;background:#25D366;color:#fff;text-decoration:none;display:inline-block;font-weight:600">WA</a>
+      return `<div class="prod-card">
+        <img class="prod-card-img" src="${escapeHtmlBasico(p.imagen_url)}" alt="" loading="lazy"
+          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'56\\' height=\\'56\\'%3E%3Crect width=\\'56\\' height=\\'56\\' fill=\\'%23f3f4f6\\' rx=\\'8\\'/%3E%3C/svg%3E'">
+        <div class="prod-card-info">
+          <a class="prod-card-name" href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener">${escapeHtmlBasico(p.nombre)}</a>
+          <div class="prod-card-cat">${escapeHtmlBasico(p.categoria || '')}</div>
+          <div class="prod-card-prices">
+            <span class="prod-card-old">${formatPrice(p.precio_venta)}</span>
+            <span class="prod-card-new">${formatPrice(p.precio_con_descuento)}</span>
+            <span class="prod-card-pct">−${p.descuento_pct}%</span>
           </div>
-        </td>
-      </tr>`;
+          <div class="prod-card-earn">Ganás ${formatPrice(p.comision_ars)}</div>
+        </div>
+        <div class="prod-card-actions">
+          <a class="prod-btn prod-btn-wa" href="https://wa.me/?text=${waMsg}" target="_blank" rel="noopener">WA</a>
+          <a class="prod-btn prod-btn-foto" href="${escapeHtmlBasico(p.imagen_url)}" download="${escapeHtmlBasico(p.sku)}.jpg" target="_blank" rel="noopener">Foto</a>
+        </div>
+      </div>`;
     }).join('');
 
-    wrap.innerHTML = `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
-      <thead><tr style="border-bottom:2px solid #e5e7eb">
-        <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)"></th>
-        <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Producto</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Precio público</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Con tu código</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:#16a34a;font-weight:700">Ganás vos</th>
-        <th style="text-align:center;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Compartir</th>
-      </tr></thead>
-      <tbody>${filas}</tbody>
-    </table></div>`;
+    wrap.innerHTML = `<div class="prod-list">${filas}</div>`;
 
     // Paginación
     if (pagDiv) {
@@ -784,38 +792,24 @@ async function cargarCatalogoMayorista() {
     }
 
     const filas = _todosProductosMay.map(p => `
-      <tr>
-        <td style="width:52px;padding:8px 6px">
-          <img src="${escapeHtmlBasico(p.imagen_url)}" alt="" width="48" height="48"
-            style="object-fit:cover;border-radius:6px;display:block"
-            onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\'%3E%3Crect width=\'48\' height=\'48\' fill=\'%23f3f4f6\' rx=\'6\'/%3E%3C/svg%3E'">
-        </td>
-        <td style="font-size:12.5px;max-width:180px">
-          <span style="color:var(--ink);font-weight:500">${escapeHtmlBasico(p.nombre)}</span>
-          <div style="font-size:11px;color:var(--gray-600)">${escapeHtmlBasico(p.categoria || '')}</div>
-        </td>
-        <td style="text-align:right;font-size:12px;white-space:nowrap;color:var(--gray-600);text-decoration:line-through">${formatPrice(p.precio_normal)}</td>
-        <td style="text-align:right;white-space:nowrap">
-          <span style="font-size:14px;font-weight:700;color:var(--ink)">${formatPrice(p.precio_mayorista)}</span>
-        </td>
-        <td style="text-align:right;white-space:nowrap;font-weight:700;color:#16a34a;font-size:13px">${formatPrice(p.ahorro)}</td>
-        <td style="text-align:center;white-space:nowrap;padding:8px 4px">
-          <a href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener"
-            style="font-size:11.5px;padding:5px 10px;border-radius:7px;border:none;background:var(--ink);color:var(--paper);text-decoration:none;display:inline-block;font-weight:600">Ver →</a>
-        </td>
-      </tr>`).join('');
+      <div class="prod-card">
+        <img class="prod-card-img" src="${escapeHtmlBasico(p.imagen_url)}" alt="" loading="lazy"
+          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'56\\' height=\\'56\\'%3E%3Crect width=\\'56\\' height=\\'56\\' fill=\\'%23f3f4f6\\' rx=\\'8\\'/%3E%3C/svg%3E'">
+        <div class="prod-card-info">
+          <a class="prod-card-name" href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener">${escapeHtmlBasico(p.nombre)}</a>
+          <div class="prod-card-cat">${escapeHtmlBasico(p.categoria || '')}</div>
+          <div class="prod-card-prices">
+            <span class="prod-card-old">${formatPrice(p.precio_normal)}</span>
+            <span class="prod-card-new">${formatPrice(p.precio_mayorista)}</span>
+          </div>
+          <div class="prod-card-earn">Ahorrás ${formatPrice(p.ahorro)}</div>
+        </div>
+        <div class="prod-card-actions">
+          <a class="prod-btn prod-btn-ver" href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener">Ver →</a>
+        </div>
+      </div>`).join('');
 
-    wrap.innerHTML = `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
-      <thead><tr style="border-bottom:2px solid #e5e7eb">
-        <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)"></th>
-        <th style="text-align:left;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Producto</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Precio público</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:var(--accent);font-weight:700">Tu precio −25%</th>
-        <th style="text-align:right;padding:6px 6px 8px;font-size:11.5px;color:#16a34a;font-weight:700">Ahorrás</th>
-        <th style="text-align:center;padding:6px 6px 8px;font-size:11.5px;color:var(--gray-600)">Ver</th>
-      </tr></thead>
-      <tbody>${filas}</tbody>
-    </table></div>`;
+    wrap.innerHTML = `<div class="prod-list">${filas}</div>`;
 
     if (pagDiv) {
       const total = data.total || 0;
