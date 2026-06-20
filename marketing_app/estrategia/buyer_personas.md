@@ -1,228 +1,349 @@
-# Buyer Personas — El Gadget
+# Buyer Personas & Estrategia de Contenido — El Gadget
 
 ## Contexto del mercado (Argentina 2026)
 
-- 25 millones de compradores online activos
-- 6 de cada 10 compran al menos 1 vez por mes
-- 71% de las compras se hacen desde celular
-- Comprador promedio: 25-44 años, compara precios, lee reviews
-- 70% dice que el precio es lo más importante al comprar online
-- Mercado Libre lanzó su programa de afiliados (hasta 15%) — validación de que el modelo funciona
-- TikTok tiene mayor alcance orgánico para cuentas nuevas; Instagram convierte mejor con comunidad existente
+- 25.1M compradores online activos (+1.3M nuevos en el último año)
+- 60% compra al menos 1 vez por mes, 19% semanalmente
+- Ticket promedio: $100.000-134.000 ARS
+- 71% de compras desde mobile
+- 70% dice que el precio es lo más importante
+- 89% confía en recomendaciones boca a boca
+- WhatsApp: 93% de penetración, tasa de lectura >90%
+- TikTok: mayor alcance orgánico para cuentas nuevas
+- Instagram: mayor conversión con comunidad existente
+- ML lanzó programa de afiliados (hasta 15%) — validación del modelo
 
 ---
 
-## Persona 1: COMPRADORA FINAL — "Laura"
+## 5 Buyer Personas
 
-### Demografía
-- **Edad**: 28-42 años
-- **Género**: Mujer (75% de las compras en categorías hogar/moda/niños)
-- **Ubicación**: CABA, GBA, ciudades grandes del interior
-- **Ingreso**: Medio — busca buena relación calidad/precio
-- **Dispositivo**: Celular (casi exclusivo)
+### Persona 1: MARÍA — La Mamá Urbana Activa
 
-### Psicografía
-- Busca soluciones prácticas para el hogar y la familia
-- Le importa la opinión de otros (reviews, recomendaciones de amigas)
-- Compra por impulso cuando ve una oferta o un producto que resuelve un problema cotidiano
-- Desconfía de tiendas que no conoce — necesita prueba social
-- Comparte productos con amigas por WhatsApp cuando encuentra algo bueno
+> La que comparte "gangas" en el grupo de mamás
 
-### Pain points
-- "No quiero pagar de más pero tampoco quiero algo malo"
-- "¿Llegará bien? ¿Es confiable esta tienda?"
-- "No tengo tiempo de ir a buscar — necesito que me lo manden"
-- "¿Tiene garantía? ¿Qué pasa si no me gusta?"
+**Demografía**
+- Mujer, 25-40 años
+- CABA/GBA o Córdoba/Rosario
+- NSE medio-alto, 1-2 hijos
+- Trabaja o freelance
 
-### Journey de compra
-1. Ve un producto en WhatsApp (link de amiga/referido) o en redes sociales
-2. Entra al link, mira fotos y precio
-3. Busca en Google el nombre del producto para comparar
-4. Vuelve a la tienda si el precio es competitivo
-5. Lee la descripción y la política de devoluciones
-6. Agrega al carrito, aplica código de descuento si tiene
-7. Paga con MercadoPago (cuotas o débito)
+**Comportamiento digital**
+- Compra frecuente en ML, Tienda Nube, Shein/Temu
+- Categorías: moda infantil, hogar, belleza, alimentos
+- Muy activa en Instagram, TikTok y WhatsApp (grupos de mamás)
+- Compara precios obsesivamente, valora envíos rápidos y cuotas
 
-### Métricas que la representan
-| Métrica | Cómo medirla | Fuente |
-|---------|-------------|--------|
-| Tasa de conversión | Visitas vs compras | GA4 + Backend |
-| AOV (ticket promedio) | Total / cantidad de órdenes | Backend |
-| Tasa de recompra | Clientes con >1 orden / total clientes | Backend |
-| Fuente de adquisición | UTM source del primer contacto | UTM tracking |
-| Tiempo hasta la compra | Fecha primera visita vs fecha compra | GA4 |
-| Tasa de uso de código referido | Órdenes con descuento_codigo / total órdenes | Backend |
-| Tasa de abandono de carrito | Carritos creados vs pagados | MercadoPago + Backend |
+**Motivación para referir**
+- Descuentos en próximas compras para la familia
+- Le encanta compartir hallazgos — ya lo hace gratis, cobrar es un plus
+- Estatus social en su grupo: "la que encuentra todo"
 
-### Contenido que la convierte
+**Pain points**
+- "No quiero pagar de más pero necesito calidad para mis hijos"
+- "¿Es confiable? ¿Llega bien?"
+- "No tengo tiempo de ir a comprar — necesito que me lo manden"
 
-| Tipo | Canal | Formato | Ejemplo | Por qué funciona |
-|------|-------|---------|---------|------------------|
-| Problema → Solución | Instagram/TikTok | Video 15-30s | "¿Tu placard es un caos? Mirá cómo quedó con este organizador" | Identifica su dolor y muestra resultado |
-| Antes/Después | Instagram Stories | Foto doble | Placard desordenado → ordenado con producto | Contraste visual genera deseo |
-| Testimonio real | WhatsApp/IG | Captura de chat | "Me llegó ayer y ya lo armé, una masa" | Prueba social de gente como ella |
-| Precio + descuento | WhatsApp | Texto + link | "Este organizador está $X con mi código tenés 15% OFF" | Urgencia + ahorro concreto |
-| Comparación de valor | Email | HTML con imágenes | "En ML está $X, acá $Y con envío gratis" | Justifica la compra racional |
-| Unboxing | TikTok/IG Reels | Video 30-60s | Abrir el paquete, mostrar calidad real | Reduce miedo de "¿será bueno?" |
-| FAQ visual | IG Stories/Carrusel | Slides 4-6 | "¿Envían a mi provincia? ¿Tiene garantía?" | Elimina objeciones |
+**Rol en el sistema**: REFERIDA DE ALTO POTENCIAL ORGÁNICO
+- Redes cerradas (grupos WA) con engagement altísimo (>90% lectura)
+- Compra frecuente = más oportunidades de referir naturalmente
+- Confianza personal = conversión alta de sus referidos
+
+**Métricas clave**
+| Métrica | Target | Fuente |
+|---------|--------|--------|
+| Ventas generadas vía código / mes | ≥3 | Backend |
+| Personas referidas activas | ≥5 | Backend |
+| Tasa de conversión de sus links | >8% | UTM |
+| Ticket promedio de sus referidos | >$25.000 | Backend |
+| Retención (activa a los 90 días) | >60% | Backend |
 
 ---
 
-## Persona 2: REFERIDO POTENCIAL — "Nico"
+### Persona 2: LUCAS — El Millennial/Gen Z Urbano
 
-### Demografía
-- **Edad**: 22-38 años
-- **Género**: Mixto (leve mayoría femenina)
-- **Ubicación**: Todo el país (online)
-- **Ingreso**: Bajo a medio — busca ingresos extra
-- **Ocupación**: Empleado, freelancer, estudiante, ama de casa, emprendedor sin capital
+> El que comparte en Stories y arma su "side hustle"
 
-### Psicografía
-- Busca formas de ganar dinero sin inversión inicial
-- Activo en WhatsApp y/o redes sociales
-- Tiene una red de contactos (familia, amigos, grupos de WA, seguidores de IG)
-- Es escéptico de las promesas de "dinero fácil" — necesita ver que es real
-- Valora la transparencia: quiere saber exactamente cuánto va a ganar
-- Le motiva más la prueba de ingresos reales que las promesas
+**Demografía**
+- Hombre o mujer, 18-34 años
+- Estudiante o joven profesional, grandes ciudades
+- NSE medio, alto uso mobile
+- Nativo digital
 
-### Pain points
-- "No tengo plata para invertir en un negocio"
-- "¿Realmente se puede ganar o es una estafa?"
-- "No sé cómo vender ni tengo experiencia"
-- "¿Cuánto necesito vender para que valga la pena?"
-- "No quiero quedar como spammer con mis amigos"
+**Comportamiento digital**
+- Compras impulsivas: moda, tech, gadgets, belleza, sneakers
+- Dominante en TikTok e Instagram
+- Sigue influencers, busca productos virales
+- Alta adopción de compras internacionales (Temu, Shein)
 
-### Journey de registro
-1. Ve contenido sobre el programa (artículo SEO /ganar/*, redes, boca a boca)
-2. Lee la landing /referidos — necesita: prueba social, números claros, cero riesgo
-3. Se pregunta "¿cuánto puedo ganar realísticamente?"
-4. Se registra (formulario simple: nombre, email, teléfono, DNI)
-5. Recibe su código y ve el panel de referido
-6. Comparte con 2-3 personas cercanas como "test"
-7. Si ve resultados (comisión acreditada), escala su esfuerzo
-8. Si no ve resultados en 2-3 semanas, abandona
+**Motivación para referir**
+- Cashback y descuentos inmediatos
+- Le motiva el estatus: "mirá lo que gané recomendando"
+- Quiere armar un ingreso pasivo sin esfuerzo
+- Gamificación: subir de tier le parece un logro
 
-### Métricas que lo representan
-| Métrica | Cómo medirla | Fuente |
-|---------|-------------|--------|
-| Registros de referidos / mes | Nuevos registros en tabla referidos | Backend |
-| Tasa de activación | Referidos con ≥1 venta / total registrados | Backend |
-| Tiempo hasta primera venta | Fecha registro vs fecha primer comisión | Backend |
-| Ventas por referido activo / mes | Promedio de ventas mensuales por referido | Backend |
-| Revenue por referido | Ventas totales / referidos activos | Backend |
-| Tasa de churn | Referidos sin venta en 60 días / total | Backend |
-| Fuente de registro del referido | UTM del registro | UTM tracking |
-| Productos más compartidos | Links con ?ref= + UTM producto_share | UTM tracking |
+**Pain points**
+- "¿Es posta que se puede ganar o es humo?"
+- "Quiero algo que sea fácil de compartir, no quiero parecer vendedor"
+- "Necesito ver resultados rápido o me aburro"
 
-### Contenido que lo convierte
+**Rol en el sistema**: AMPLIFICADOR DE ALCANCE
+- Mayor alcance en redes (IG Stories, TikTok, Reels)
+- Capacidad de viralización alta
+- Menos profundidad por contacto pero más volumen
+- Si funciona, puede escalar a micro-influencer
 
-| Tipo | Canal | Formato | Ejemplo | Por qué funciona |
-|------|-------|---------|---------|------------------|
-| Calculadora de ganancias | Landing web | Interactivo | "Si compartís con 10 amigos y 2 compran $15.000, ganás $2.100/mes" | Hace tangible la oportunidad |
-| Caso de éxito real | IG/TikTok/Email | Testimonio video/texto | "Soy referido hace 2 meses y ya cobré $X" | Prueba social de que funciona |
-| Paso a paso | WhatsApp/Blog | Guía corta | "3 pasos para empezar a ganar: registrate, compartí, cobrá" | Reduce barrera de entrada |
-| Templates listos | Panel mi_cuenta | Mensajes pre-armados | "Copiar mensaje para WhatsApp → pegar → enviar" | Elimina la dificultad de "no sé qué decir" |
-| Comparación con competencia | Blog SEO | Artículo | "El Gadget vs MercadoLibre Afiliados: ¿cuál conviene?" | Posiciona ventajas competitivas |
-| Contenido educativo | Email nurturing | Secuencia 3-5 emails | "Día 1: Tu código listo / Día 3: 5 tips para compartir / Día 7: ¿Ya cobraste?" | Acompaña y evita abandono temprano |
-| Notificación de logro | Push/Email | Alerta automática | "¡Tu primer referido compró! Ganaste $X" | Dopamina → refuerza comportamiento |
+**Métricas clave**
+| Métrica | Target | Fuente |
+|---------|--------|--------|
+| Shares por semana | ≥5 | UTM tracking |
+| Alcance estimado (seguidores) | >500 | Registro |
+| Tiempo hasta primera venta | <14 días | Backend |
+| Tier progression (Base→Activo) | <60 días | Backend |
+| Contenido generado (UGC) | ≥1/mes | Manual/IG tracking |
 
 ---
 
-## Persona 3: MAYORISTA — "Martín"
+### Persona 3: ANA — La Profesional Recurrente
 
-### Demografía
-- **Edad**: 30-50 años
-- **Género**: Mixto
-- **Ubicación**: Todo el país (más interior — reventa local)
-- **Ingreso**: Medio — revende como actividad principal o secundaria
-- **Ocupación**: Comerciante local, vendedor de feria, revendedor online
+> La que recomienda solo lo que probó y le encantó
 
-### Psicografía
-- Piensa en márgenes: "¿cuánto gano por unidad?"
-- Compra en cantidad, no productos individuales
-- Necesita precio competitivo + variedad de productos
-- Valora la previsibilidad: que el producto llegue y sea igual a la foto
-- Menos sensible al marketing emocional, más al racional (números, márgenes)
+**Demografía**
+- Mujer u hombre, 35-50 años
+- Profesional o empleado/a, NSE medio-alto
+- AMBA u otras capitales provinciales
 
-### Pain points
-- "¿El 25% OFF es real o el precio público ya está inflado?"
-- "¿Puedo pedir variedad o tengo que comprar todo igual?"
-- "¿Los envíos son confiables para cantidad?"
-- "Necesito factura para mi negocio"
+**Comportamiento digital**
+- Compras regulares de alto ticket: hogar, herramientas, electrónica
+- E-commerce como canal principal (60% mensual)
+- Valora precio, reseñas y experiencia post-compra
+- Menos redes sociales, más email y WhatsApp directo
 
-### Métricas que lo representan
-| Métrica | Cómo medirla | Fuente |
-|---------|-------------|--------|
-| AOV mayorista | Ticket promedio de órdenes con código MAY* | Backend |
-| Frecuencia de compra | Órdenes por mayorista por mes | Backend |
-| Productos más pedidos por mayoristas | Items en órdenes mayoristas | Backend |
-| Tasa de recompra mayorista | Mayoristas con >1 orden / total | Backend |
-| Revenue mayorista / mes | Sum de órdenes con código mayorista | Backend |
+**Motivación para referir**
+- Descuentos grandes, envíos gratis o puntos acumulables
+- Solo recomienda cuando el producto supera expectativas
+- Le importa no "quemar" su reputación profesional
 
-### Contenido que lo convierte
-| Tipo | Canal | Formato | Ejemplo |
-|------|-------|---------|---------|
-| Catálogo con márgenes | Email/PDF | Tabla de precios | "Comprás a $X, vendés a $Y, tu ganancia: $Z" |
-| Productos nuevos | Email automático | Newsletter semanal | "3 productos nuevos esta semana con margen de 40%+" |
-| Stock alert | Email/WhatsApp | Notificación | "Se agotó X, ya volvió: aprovechá antes de que se acabe" |
+**Pain points**
+- "Si recomiendo algo malo, quedo yo como el responsable"
+- "No tengo tiempo para estar compartiendo constantemente"
+- "Quiero que sea simple: mando un link y listo"
 
----
+**Rol en el sistema**: REFERIDOS DE ALTA CALIDAD
+- Mayor ticket promedio en sus referidos
+- Menos volumen pero mayor LTV por referido
+- Redes profesionales y familiares = compradores serios
+- Lealtad alta si la experiencia es buena
 
-## Matriz de contenido por persona × canal × etapa del embudo
-
-### TOFU (Atracción — no nos conocen)
-
-| Persona | Canal | Contenido | Frecuencia |
-|---------|-------|-----------|------------|
-| Laura | TikTok/IG Reels | Videos problema→solución con productos | 4-5/semana |
-| Laura | Google (SEO) | Artículos "mejor organizador de placard 2026" | 2/mes |
-| Nico | Google (SEO) | Artículos /ganar/* "ganar dinero desde casa" | Ya existen 4 |
-| Nico | TikTok/IG | "Así gano plata recomendando productos" | 2-3/semana |
-| Nico | Facebook Groups | Posts en grupos de "trabajos" / "ingresos extra" | 3/semana |
-
-### MOFU (Consideración — nos conocen, evalúan)
-
-| Persona | Canal | Contenido | Frecuencia |
-|---------|-------|-----------|------------|
-| Laura | Email | Productos recomendados basados en lo que vio | Automático |
-| Laura | WhatsApp (referido) | Link de producto con descuento | Orgánico vía referidos |
-| Nico | Email nurturing | Secuencia post-registro (3-5 emails) | Automático |
-| Nico | Landing /referidos | FAQ + calculadora + testimonios | Estático (mejorable) |
-| Martín | Email | Catálogo con márgenes actualizado | 1/semana |
-
-### BOFU (Conversión — listos para actuar)
-
-| Persona | Canal | Contenido | Frecuencia |
-|---------|-------|-----------|------------|
-| Laura | Email/WhatsApp | Código de descuento + urgencia | Puntual |
-| Laura | Checkout | Banner "10% OFF aplicado" | Automático |
-| Nico | Panel mi_cuenta | Templates de share listos + stats | Siempre disponible |
-| Nico | Email | "¡Felicitaciones! Tu primer referido compró" | Automático |
-| Martín | Email | "Productos nuevos con margen 45%+" | Automático |
+**Métricas clave**
+| Métrica | Target | Fuente |
+|---------|--------|--------|
+| Ticket promedio de sus referidos | >$50.000 | Backend |
+| LTV de clientes que refiere | >$150.000 | Backend |
+| NPS (satisfacción post-compra) | >8 | Encuesta |
+| Tasa de recompra de sus referidos | >30% | Backend |
+| Referidos que a su vez refieren | ≥1 | Backend |
 
 ---
 
-## KPIs del sistema de contenido
+### Persona 4: INFLUENCER/MICRO-INFLUENCER — "Sofi"
 
-### Métricas de PRODUCCIÓN
-- Piezas de contenido generadas / semana
-- Tiempo de generación por pieza (target: <2 min con IA)
-- Variaciones por producto (target: 3 por producto por canal)
+> La creadora que monetiza su audiencia con productos reales
 
-### Métricas de DISTRIBUCIÓN
-- Posts publicados / semana por canal
-- Emails enviados / semana
-- Templates de WhatsApp disponibles por producto
+**Demografía**
+- 18-45 años, predominantemente mujer
+- 1.000-100.000 seguidores (micro = más efectivo)
+- Nichos: moda, belleza, lifestyle, mamá, tech, fitness, deco
 
-### Métricas de RENDIMIENTO
-- CTR por tipo de contenido
-- Conversiones por pieza de contenido (UTM tracking)
-- Revenue atribuido por canal
-- Costo por adquisición por canal (hoy $0 en orgánico)
-- Engagement rate por formato (video vs imagen vs texto)
+**Comportamiento digital**
+- Ya monetiza con marcas (afiliados, canjes)
+- Activa en Instagram y TikTok
+- Busca partnerships auténticos, no spam
+- Mide su propio engagement y ROI
 
-### Métricas de OPTIMIZACIÓN
-- Mejor hora de publicación por canal
-- Formato con mayor conversión
-- Producto con mayor "compartibilidad"
-- A/B winner rate (qué % de variantes B supera a la A)
+**Motivación para referir**
+- Comisión por venta (performance-based)
+- Productos gratis + crédito
+- Contenido real para su audiencia (no forzado)
+- Código exclusivo que le da "identidad" con su comunidad
+
+**Pain points**
+- "No quiero recomendar algo malo y perder credibilidad"
+- "Necesito que el tracking sea transparente — quiero ver mis ventas"
+- "El producto tiene que ser instagrameable"
+- "Quiero flexibilidad, no obligaciones de publicación"
+
+**Rol en el sistema**: ESCALADOR DEL PROGRAMA
+- Reach alto y credibilidad establecida
+- Mejor ROI que macro-influencers (mayor engagement)
+- Genera contenido que El Gadget puede re-utilizar (UGC)
+- Puede traer 50-200 compradores por campaña
+
+**Métricas clave**
+| Métrica | Target | Fuente |
+|---------|--------|--------|
+| Revenue generado / mes | >$100.000 | Backend |
+| Engagement rate de sus posts | >3% | IG/TikTok |
+| Contenido generado (reusable) | ≥2/mes | Manual |
+| Costo por adquisición (si hay canje) | <$2.000 | Calculado |
+| Seguidores que se registran como referidos | ≥3/mes | UTM |
+
+---
+
+### Persona 5: MARTÍN — El Mayorista/Revendedor
+
+> El que compra en cantidad para revender en su zona
+
+**Demografía**
+- 30-50 años, mixto
+- Todo el país (fuerte interior — reventa local)
+- Comerciante, vendedor de feria, revendedor online
+
+**Comportamiento digital**
+- Piensa en márgenes por unidad
+- Compra en cantidad, variedad de productos
+- Menos sensible al marketing emocional, más al racional
+- Necesita factura y previsibilidad
+
+**Motivación**
+- Margen claro: "comprás a $X, vendés a $Y, ganás $Z"
+- Variedad de productos para ofrecer a sus clientes
+- Envío confiable en cantidad
+
+**Rol en el sistema**: VOLUMEN RECURRENTE
+- AOV alto ($100.000+)
+- Compra regular (mensual)
+- Menos costo de adquisición (ya busca proveedores)
+
+**Métricas clave**
+| Métrica | Target | Fuente |
+|---------|--------|--------|
+| AOV mayorista | >$100.000 | Backend |
+| Frecuencia de compra | ≥1/mes | Backend |
+| Margen promedio del mayorista | >35% | Calculado |
+| Tasa de recompra | >50% | Backend |
+
+---
+
+## Matriz de contenido por persona × canal × etapa
+
+### TOFU — Atracción (no nos conocen)
+
+| Persona | Canal | Tipo de contenido | Formato | Frecuencia | Ejemplo concreto |
+|---------|-------|--------------------|---------|------------|------------------|
+| María | IG Reels/TikTok | Problema→Solución | Video 15-30s | 5/semana | "¿Tu placard es un caos? Mirá cómo quedó" |
+| María | WhatsApp (viral) | Producto en contexto | Foto + texto corto | Orgánico | "Encontré esto para los juguetes de los nenes" |
+| María | Google SEO | Artículo comparativo | Blog 800 palabras | 2/mes | "Mejor organizador infantil 2026" |
+| Lucas | TikTok | Producto viral + descuento | Video 15-30s | 5/semana | "Este gadget está $X con mi código" |
+| Lucas | IG Stories | Unboxing / Haul | Video 30-60s | 3/semana | Abrir paquete, mostrar productos |
+| Lucas | TikTok | "Cómo gano plata" | Video storytime | 2/semana | "Así gano $X/mes recomendando productos" |
+| Ana | Google SEO | Review detallado | Blog 1000 palabras | 1/mes | "Review: Silla ergonómica DL1203 — 3 meses de uso" |
+| Ana | Email | Newsletter productos | HTML con fotos | 1/semana | "Novedades de la semana en El Gadget" |
+| Sofi | IG/TikTok | Contenido co-creado | Reel/TikTok branded | 2/mes | "Mi selección de El Gadget para tu hogar" |
+| Martín | Google Ads (futuro) | Búsqueda transaccional | Ad + landing | Cuando haya budget | "Comprar por mayor productos hogar Argentina" |
+
+### MOFU — Consideración (nos conocen, evalúan)
+
+| Persona | Canal | Tipo de contenido | Trigger | Ejemplo |
+|---------|-------|--------------------|---------|---------|
+| María | Email | Productos similares a lo que vio | Visita sin compra | "¿Te gustó el organizador? Mirá estos también" |
+| María | WhatsApp (referido) | Recomendación personal | Referido activo comparte | "Mi amiga me lo recomendó, tiene descuento" |
+| Lucas | IG Stories | Social proof + código | Post-registro | "Ya 50 personas usan mi código" |
+| Lucas | Email nurturing | Secuencia activación | Post-registro referido | "Día 1: Tu código / Día 3: Tips para compartir / Día 7: ¿Ya ganaste?" |
+| Ana | Email | Comparación de valor | Post primera visita | "En ML está $X, acá $Y con garantía de 6 meses" |
+| Sofi | Email directo | Propuesta de partnership | Manual (detectar en IG) | "Hola Sofi, vimos tu contenido de deco..." |
+| Martín | Email | Catálogo con márgenes | Semanal | "3 productos nuevos con margen 40%+" |
+
+### BOFU — Conversión (listos para actuar)
+
+| Persona | Canal | Tipo de contenido | Trigger | Ejemplo |
+|---------|-------|--------------------|---------|---------|
+| María | Email/WA | Código descuento + urgencia | Carrito abandonado | "Tu carrito te espera — con 15% OFF expira en 24hs" |
+| María | Checkout | Banner auto-aplicado | Tiene código de referido en localStorage | "15% OFF aplicado automáticamente" |
+| Lucas | Panel mi_cuenta | Templates share listos | Siempre disponible | Mensajes pre-armados por producto |
+| Lucas | Email | Celebración de milestone | Primera venta generada | "¡Tu primer referido compró! Ganaste $X" |
+| Ana | Email | Post-compra + invite | Compra exitosa entregada | "¿Te gustó? Compartí tu código y ganá con cada recomendación" |
+| Sofi | Panel referido | Dashboard de performance | Login | Stats en tiempo real de ventas + comisión |
+| Martín | Email | Alerta de restock | Producto agotado vuelve | "Volvió el organizador DL2321 — pedí antes de que se agote" |
+
+### POST-VENTA — Fidelización + activación de referidos
+
+| Persona | Canal | Tipo | Trigger | Ejemplo |
+|---------|-------|------|---------|---------|
+| TODOS | Email | Confirmación + tracking | Compra aprobada | "Tu pedido #X está en camino" |
+| TODOS | Email | Review request | Entrega confirmada (+3 días) | "¿Qué te pareció? Tu opinión ayuda a otros" |
+| María/Ana | Email | Invitación a referir | Post primera compra satisfactoria | "¿Querés ganar recomendando? Te damos hasta 15% de comisión" |
+| Lucas | Email | Reactivación | 14 días sin compartir | "Nico, tenés $0 pendientes — compartí y empezá a ganar" |
+| Sofi | Email | Resumen mensual | Fin de mes | "Este mes generaste $X en ventas y ganaste $Y" |
+| Martín | Email | Productos nuevos | Nuevos SKUs en catálogo | "5 productos nuevos esta semana — margen promedio 42%" |
+
+---
+
+## Tipos de contenido que el sistema multiagente debe generar
+
+### 1. CONTENIDO PARA REDES SOCIALES (Agente Creativo)
+
+| ID | Tipo | Para quién | Canal | Componentes a generar |
+|----|------|-----------|-------|----------------------|
+| RS-01 | Problema→Solución | María/Laura | IG Reels, TikTok | Script de video + caption + hashtags + CTA |
+| RS-02 | Antes/Después | María | IG Stories, TikTok | 2 imágenes + texto overlay |
+| RS-03 | Unboxing/Haul | Lucas | TikTok, IG Reels | Script de video + caption |
+| RS-04 | "Así gano plata" | Lucas | TikTok | Script storytime + CTA a /referidos |
+| RS-05 | Producto viral | Lucas | TikTok | Hook + demo + precio + código |
+| RS-06 | Testimonio | María/Ana | IG Stories | Template de captura de chat + caption |
+| RS-07 | FAQ visual | María | IG Carrusel | 4-6 slides con preguntas frecuentes |
+| RS-08 | Selección curada | Sofi | IG Reel/Post | "Mi top 5 de El Gadget" + caption |
+
+### 2. EMAILS AUTOMATIZADOS (Agente Publicador vía Resend)
+
+| ID | Tipo | Trigger | Destinatario | Componentes |
+|----|------|---------|-------------|-------------|
+| EM-01 | Bienvenida compradora | Registro usuario | María/Ana | Subject + body HTML + CTA |
+| EM-02 | Nurturing referido D+0 | Registro referido | Lucas/María | "Tu código está listo" + primer paso |
+| EM-03 | Nurturing referido D+3 | 3 días post-registro | Lucas/María | "5 tips para compartir y ganar" |
+| EM-04 | Nurturing referido D+7 | 7 días post-registro | Lucas/María | "¿Ya compartiste? Mirá cuánto podés ganar" |
+| EM-05 | Nurturing referido D+14 | 14 días sin venta | Lucas/María | "Estos 3 productos son los que más se venden" |
+| EM-06 | Celebración 1ra venta | Primera comisión | Todos referidos | "¡Ganaste $X! Así podés seguir creciendo" |
+| EM-07 | Reactivación | 30 días sin venta | Referidos inactivos | "Te extrañamos — estos productos nuevos están volando" |
+| EM-08 | Productos nuevos | Nuevos SKUs cargados | Mayoristas | "X productos nuevos con margen Y%" |
+| EM-09 | Carrito abandonado | Carrito sin pagar 24hs | Compradores | "Tu carrito te espera — completá tu compra" |
+| EM-10 | Post-compra + referir | Entrega confirmada | Compradores satisfechos | "¿Te gustó? Ganá plata recomendándolo" |
+| EM-11 | Resumen mensual | Fin de mes | Referidos activos | "Este mes: X ventas, $Y comisión, tier Z" |
+
+### 3. MENSAJES WHATSAPP (Templates para referidos)
+
+| ID | Tipo | Contexto | Componentes |
+|----|------|----------|-------------|
+| WA-01 | Share de producto genérico | Referido comparte desde panel | Texto + link con ?ref= + UTM |
+| WA-02 | Share de producto con foto | Referido comparte desde panel | Texto + imagen Cloudinary + link |
+| WA-03 | Share de código general | Referido comparte su código | Texto con código + link a home |
+| WA-04 | Share de oferta | Producto en oferta/tendencia | Texto urgencia + link |
+| WA-05 | Invitación a programa | Referido invita a otro referido | "Vos también podés ganar..." |
+
+### 4. CONTENIDO SEO (Blog/Landing pages)
+
+| ID | Tipo | Target persona | URL pattern | Componentes |
+|----|------|---------------|-------------|-------------|
+| SEO-01 | "Ganar dinero desde casa" | Lucas/María | /ganar/* | Ya existen 4 artículos |
+| SEO-02 | Review de producto | Ana | /blog/review-{producto} | Título SEO + body + fotos + CTA |
+| SEO-03 | Comparativa | María | /blog/mejor-{categoria}-2026 | Título + tabla + pros/cons + CTA |
+| SEO-04 | Guía de uso | María | /blog/como-usar-{producto} | Título + pasos + fotos + CTA |
+
+---
+
+## Priorización del sistema multiagente
+
+### Fase 1 — AHORA (Resend + Claude API, $0)
+1. **EM-02 a EM-06**: Secuencia nurturing de referidos (activar Nicos y Marías)
+2. **EM-09**: Carrito abandonado (rescatar ventas perdidas)
+3. **EM-10**: Post-compra con invitación a referir (convertir Anas)
+4. **WA-01 a WA-03**: Templates mejorados en panel mi_cuenta
+
+### Fase 2 — MES 1 (Instagram + contenido IA)
+5. **RS-01 a RS-05**: Generación de contenido para IG/TikTok
+6. **EM-08**: Newsletter mayorista semanal
+7. **EM-11**: Resumen mensual para referidos
+
+### Fase 3 — MES 2+ (Escalamiento)
+8. **SEO-02 a SEO-04**: Contenido SEO long-tail
+9. **RS-06 a RS-08**: Contenido UGC + influencer
+10. Integración Meta/Google Ads APIs
