@@ -70,6 +70,10 @@
       <div id="bannerBienvenida" style="display:none;background:#FFFBE6;border:1.5px solid #FFC700;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:14px;color:#14151A;line-height:1.5">
         🎉 <strong>Tenés un 10% OFF de bienvenida</strong> — se aplica automáticamente al confirmar tu email.
       </div>
+      <!-- Banner código referido -->
+      <div id="bannerReferido" style="display:none;background:#E9F5EE;border:1.5px solid #2E8B57;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:14px;color:#14151A;line-height:1.5">
+        🏷️ <strong>Código de descuento aplicado:</strong> <span id="bannerRefCodigo"></span> — tu descuento se refleja en el total.
+      </div>
 
       <!-- PASO 1: Datos personales -->
       <div id="step1Panel">
@@ -597,7 +601,16 @@ if (_refCode && !descuentoAplicado) {
   const input = document.getElementById('codigoDescuento');
   if (input && !input.value.trim()) {
     input.value = _refCode;
-    aplicarCodigoDescuento();
+    const okEl = document.getElementById('descuentoOk');
+    aplicarCodigoDescuento().then(() => {
+      renderResumen();
+      if (descuentoAplicado) {
+        const rb = document.getElementById('bannerReferido');
+        const rc = document.getElementById('bannerRefCodigo');
+        if (rb) { rb.style.display = 'block'; }
+        if (rc) { rc.textContent = _refCode; }
+      }
+    });
   }
 }
 </script>
