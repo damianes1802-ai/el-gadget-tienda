@@ -27,11 +27,20 @@
 .prod-card-new{font-size:15px;font-weight:700;color:var(--ink)}
 .prod-card-pct{font-size:11px;color:#10b981;font-weight:600}
 .prod-card-earn{font-size:13.5px;font-weight:700;color:#16a34a;margin-top:4px}
-.prod-card-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0;align-items:flex-end;padding-top:4px}
+.prod-card-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0;align-items:flex-end;padding-top:4px;position:relative}
 .prod-btn{font-size:11.5px;padding:5px 12px;border-radius:7px;text-decoration:none;display:inline-block;font-weight:600;text-align:center;white-space:nowrap;cursor:pointer;border:none}
 .prod-btn-wa{background:#25D366;color:#fff}
 .prod-btn-foto{border:1.5px solid #e5e7eb;color:var(--ink);background:transparent}
 .prod-btn-ver{background:var(--ink);color:var(--paper)}
+.share-menu{position:absolute;top:100%;right:0;background:#fff;border:1.5px solid #e5e7eb;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:50;min-width:200px;padding:6px 0;margin-top:4px}
+.share-opt{display:block;width:100%;padding:10px 16px;font-size:13px;font-weight:500;color:var(--ink);text-decoration:none;border:none;background:none;cursor:pointer;text-align:left;box-sizing:border-box}
+.share-opt:hover{background:var(--cream)}
+.share-wa::before{content:"📱 "}
+.share-fb::before{content:"📘 "}
+.share-x::before{content:"🐦 "}
+.share-ig::before{content:"📸 "}
+.share-link::before{content:"🔗 "}
+.share-foto::before{content:"📷 "}
 </style>
 </head>
 <body>
@@ -568,9 +577,20 @@ async function cargarCatalogo() {
       return;
     }
 
-    const filas = _todosProductos.map(p => {
-      const _utmUrl = p.url_tienda + (p.url_tienda.includes('?') ? '&' : '?') + 'utm_source=whatsapp&utm_medium=referral&utm_campaign=producto_share';
-      const waMsg = encodeURIComponent(`¡Mirá este ${p.nombre} en El Gadget! Te comparto el link con mi código de descuento: ${_utmUrl}`);
+    const _codigo = window._codigoRef || '';
+    const filas = _todosProductos.map((p, idx) => {
+      const baseUrl = p.url_tienda + (p.url_tienda.includes('?') ? '&' : '?') + `ref=${_codigo}`;
+      const waUrl = baseUrl + '&utm_source=whatsapp&utm_medium=referral&utm_campaign=producto_share';
+      const fbUrl = baseUrl + '&utm_source=facebook&utm_medium=referral&utm_campaign=producto_share';
+      const xUrl = baseUrl + '&utm_source=twitter&utm_medium=referral&utm_campaign=producto_share';
+      const igUrl = baseUrl + '&utm_source=instagram&utm_medium=referral&utm_campaign=producto_share';
+      const precioDesc = formatPrice(p.precio_con_descuento);
+      const precioOrig = formatPrice(p.precio_venta);
+      const waMsg = encodeURIComponent(`Mirá este producto en El Gadget:\n\n${p.nombre}\nAntes: ${precioOrig} → Ahora: ${precioDesc} (${p.descuento_pct}% OFF)\n\nUsá mi código "${_codigo}" para el descuento:\n${waUrl}`);
+      const fbShareUrl = encodeURIComponent(fbUrl);
+      const xText = encodeURIComponent(`${p.nombre} con ${p.descuento_pct}% OFF en El Gadget. Usá mi código "${_codigo}" para el descuento`);
+      const xShareUrl = encodeURIComponent(xUrl);
+      const igCaption = `${p.nombre}\n\nAntes: ${precioOrig} → Ahora: ${precioDesc} (${p.descuento_pct}% OFF)\n\nUsá mi código "${_codigo}" en elgadget.com.ar para tu descuento.\n\n#ElGadget #ReferidosElGadget #DescuentoOnline #Argentina`;
       return `<div class="prod-card">
         <img class="prod-card-img" src="${escapeHtmlBasico(p.imagen_url)}" alt="" loading="lazy"
           onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'56\\' height=\\'56\\'%3E%3Crect width=\\'56\\' height=\\'56\\' fill=\\'%23f3f4f6\\' rx=\\'8\\'/%3E%3C/svg%3E'">
@@ -578,18 +598,33 @@ async function cargarCatalogo() {
           <a class="prod-card-name" href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener">${escapeHtmlBasico(p.nombre)}</a>
           <div class="prod-card-cat">${escapeHtmlBasico(p.categoria || '')}</div>
           <div class="prod-card-prices">
-            <span class="prod-card-old">${formatPrice(p.precio_venta)}</span>
-            <span class="prod-card-new">${formatPrice(p.precio_con_descuento)}</span>
+            <span class="prod-card-old">${precioOrig}</span>
+            <span class="prod-card-new">${precioDesc}</span>
             <span class="prod-card-pct">−${p.descuento_pct}%</span>
           </div>
           <div class="prod-card-earn">Ganás ${formatPrice(p.comision_ars)}</div>
         </div>
         <div class="prod-card-actions">
-          <a class="prod-btn prod-btn-wa" href="https://wa.me/?text=${waMsg}" target="_blank" rel="noopener">WA</a>
-          <a class="prod-btn prod-btn-foto" href="${escapeHtmlBasico(p.imagen_url)}" download="${escapeHtmlBasico(p.sku)}.jpg" target="_blank" rel="noopener">Foto</a>
+          <button class="prod-btn prod-btn-ver" onclick="toggleShareMenu(${idx})" style="position:relative">Compartir ▾</button>
+          <div id="shareMenu${idx}" class="share-menu" style="display:none">
+            <a href="https://wa.me/?text=${waMsg}" target="_blank" rel="noopener" class="share-opt share-wa">WhatsApp</a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${fbShareUrl}" target="_blank" rel="noopener" class="share-opt share-fb">Facebook</a>
+            <a href="https://twitter.com/intent/tweet?text=${xText}&url=${xShareUrl}" target="_blank" rel="noopener" class="share-opt share-x">X / Twitter</a>
+            <button onclick="copiarCaptionIG(${idx})" class="share-opt share-ig">Instagram (copiar caption)</button>
+            <button onclick="copiarLinkProducto(${idx})" class="share-opt share-link">Copiar link</button>
+            <a class="share-opt share-foto" href="${escapeHtmlBasico(p.imagen_url)}" download="${escapeHtmlBasico(p.sku)}.jpg" target="_blank" rel="noopener">Descargar foto</a>
+          </div>
         </div>
       </div>`;
     }).join('');
+
+    window._shareData = _todosProductos.map((p, idx) => {
+      const baseUrl = p.url_tienda + (p.url_tienda.includes('?') ? '&' : '?') + `ref=${_codigo}`;
+      return {
+        link: baseUrl + '&utm_source=link&utm_medium=referral&utm_campaign=producto_share',
+        igCaption: `${p.nombre}\n\nAntes: ${formatPrice(p.precio_venta)} → Ahora: ${formatPrice(p.precio_con_descuento)} (${p.descuento_pct}% OFF)\n\nUsá mi código "${_codigo}" en elgadget.com.ar para tu descuento.\n\n#ElGadget #ReferidosElGadget #DescuentoOnline #Argentina`,
+      };
+    });
 
     wrap.innerHTML = `<div class="prod-list">${filas}</div>`;
 
@@ -631,13 +666,41 @@ function copiarCodigoRef() {
 }
 
 function compartirCodigoRef(codigo) {
-  const texto = `¡Comprá en El Gadget con mi código "${codigo}" y conseguís hasta 20% OFF en tu pedido! Mientras más comprás, más descuento tenés. 🛍️ https://elgadget.com.ar/?ref=${codigo}&utm_source=whatsapp&utm_medium=referral&utm_campaign=codigo_share`;
+  const texto = `Comprá en El Gadget con mi código "${codigo}" y conseguís hasta 20% OFF en tu pedido. Mientras más comprás, más descuento tenés.\nhttps://elgadget.com.ar/?ref=${codigo}&utm_source=share&utm_medium=referral&utm_campaign=codigo_share`;
   if (navigator.share) {
     navigator.share({ title: 'Mi código El Gadget', text: texto });
   } else {
     navigator.clipboard.writeText(texto).then(() => showToast('¡Texto copiado!')).catch(() => {});
   }
 }
+
+function toggleShareMenu(idx) {
+  const menu = document.getElementById('shareMenu' + idx);
+  if (!menu) return;
+  const isOpen = menu.style.display !== 'none';
+  document.querySelectorAll('.share-menu').forEach(m => m.style.display = 'none');
+  if (!isOpen) menu.style.display = 'block';
+}
+
+function copiarCaptionIG(idx) {
+  const data = (window._shareData || [])[idx];
+  if (!data) return;
+  navigator.clipboard.writeText(data.igCaption).then(() => showToast('¡Caption copiado! Pegalo en tu post de Instagram.')).catch(() => {});
+  document.querySelectorAll('.share-menu').forEach(m => m.style.display = 'none');
+}
+
+function copiarLinkProducto(idx) {
+  const data = (window._shareData || [])[idx];
+  if (!data) return;
+  navigator.clipboard.writeText(data.link).then(() => showToast('¡Link copiado!')).catch(() => {});
+  document.querySelectorAll('.share-menu').forEach(m => m.style.display = 'none');
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.prod-card-actions')) {
+    document.querySelectorAll('.share-menu').forEach(m => m.style.display = 'none');
+  }
+});
 
 // ── Estado del catálogo mayorista ────────────────────────────────────────────
 const _catMay = { page: 1, search: '', categoria: '', precio_min: '', precio_max: '', sort: 'ahorro', order: 'desc' };
