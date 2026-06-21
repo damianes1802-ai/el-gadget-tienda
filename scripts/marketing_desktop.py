@@ -1040,7 +1040,7 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
             fingerprints_lote = set()
 
             for i in range(cantidad):
-                usar_producto = (i % 2 == 0) and bool(prods_top)
+                usar_producto = (i == 0) and bool(prods_top)
                 if usar_producto:
                     prod = prods_top[i // 2 % len(prods_top)]
                     prod["_usar_producto"] = True
