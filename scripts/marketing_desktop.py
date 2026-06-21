@@ -388,7 +388,9 @@ Elegí UN SOLO pain point de la lista y basá todo el post en ese ángulo.
 
 Producto disponible (usalo si el pilar es PRODUCTO, sino como contexto):
 - Nombre: {nombre}
-- Precio: ${precio:,.0f}
+- Precio público: ${precio:,.0f}
+- Con código referido (10% OFF): ${round(precio * 0.90):,.0f}
+- Con código referido (20% OFF): ${round(precio * 0.80):,.0f}
 - Categoría: {cat}
 - Descripción: {desc}
 
@@ -491,7 +493,8 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
                 formatos_por_pilar.setdefault(pilar, []).append(k)
 
             distribucion = []
-            for pilar, peso in [("educativo", 35), ("motivacional", 30), ("engagement", 20), ("producto", 15)]:
+            for pilar, info in PILARES.items():
+                peso = info["peso"]
                 n = max(1, round(cantidad * peso / 100))
                 fmts = formatos_por_pilar.get(pilar, [])
                 for i in range(n):

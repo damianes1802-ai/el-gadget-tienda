@@ -142,6 +142,10 @@ def _top_bar(img, draw, pal, h):
     draw.text((82, 22), "El", fill=WHITE, font=_font("h", 28))
     draw.text((114, 22), " Gadget", fill=ACCENT, font=_font("h", 28))
     draw.text((82, 54), "TIENDA ONLINE", fill=(160, 160, 160), font=_font("m", 12))
+    ig = "@elgadget.ok"
+    igf = _font("m", 16)
+    igw = draw.textbbox((0, 0), ig, font=igf)[2]
+    draw.text((W - igw - 24, 36), ig, fill=(140, 140, 140), font=igf)
 
 
 def _bottom_bar(draw, text, pal, h):
@@ -175,7 +179,7 @@ def _layout_educativo(img, draw, pal, data, h):
     pfs = 28 if n <= 4 else 23
     gap = 22 if n <= 4 else 16
 
-    titulo = data.get("titulo", data.get("hook", ""))
+    titulo = data.get("hook") or data.get("titulo", "")
     t_lines = _wrap(titulo, _font("h", ts), 960, draw)[:3]
     total_h = len(t_lines) * (ts + 14) + 30 + n * (ch + gap) + 40 + 30 + 3 * 36 + 20 + 30 + 30
     zone_top, zone_bot = 88, h - 72
