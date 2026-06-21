@@ -123,21 +123,23 @@ def _text_with_emoji(draw, pos, text, font, fill, img=None):
 
 def _top_bar(img, draw, pal, h):
     draw.rounded_rectangle([0, 0, W, 88], radius=0, fill=pal["bar"])
+    draw.line([(0, 88), (W, 88)], fill=ACCENT, width=3)
     logo = _logo(48)
     if logo:
         img.paste(logo, (24, 20), logo)
-    draw.text((82, 24), "El", fill=WHITE, font=_font("h", 26))
-    draw.text((112, 24), " Gadget", fill=ACCENT, font=_font("h", 26))
-    draw.text((82, 54), "TIENDA ONLINE", fill=(140, 140, 140), font=_font("m", 11))
+    draw.text((82, 22), "El", fill=WHITE, font=_font("h", 28))
+    draw.text((114, 22), " Gadget", fill=ACCENT, font=_font("h", 28))
+    draw.text((82, 54), "TIENDA ONLINE", fill=(160, 160, 160), font=_font("m", 12))
 
 
 def _bottom_bar(draw, text, pal, h):
     bar_h = 72
     y = h - bar_h
     draw.rounded_rectangle([0, y, W, h], radius=0, fill=pal["badge_bg"])
+    draw.line([(0, y), (W, y)], fill=pal["accent"], width=3)
     f = _font("h", 21)
     tw = draw.textbbox((0, 0), text, font=f)[2]
-    draw.text(((W - tw) // 2, y + 22), text, fill=pal["badge_text"], font=f)
+    draw.text(((W - tw) // 2, y + 24), text, fill=pal["badge_text"], font=f)
 
 
 def _pilar_badge(draw, label, pal):
@@ -214,36 +216,36 @@ def _layout_motivacional(img, draw, pal, data, h):
 
     bullets = data.get("bullets", [])
     hook = data.get("hook", "")
-    hook_h = (30 + len(_wrap(hook, _font("b", 22), 880, draw)) * 32) if hook else 0
-    content_h = 92 + 30 + 26 + 30 + 3 + len(bullets) * 50 + hook_h + 40 + 30 + 100 + 30 + 30
+    hook_h = (40 + len(_wrap(hook, _font("b", 24), 880, draw)) * 36) if hook else 0
+    content_h = 120 + 40 + 30 + 30 + 3 + len(bullets) * 60 + hook_h + 50 + 30 + 120 + 40 + 30
     usable = h - 88 - 72
     mid_y = 88 + max(20, (usable - content_h) // 2)
 
     numero = data.get("numero_grande", "$45.600")
-    nf = _font("h", 92)
+    nf = _font("h", 110)
     nw = draw.textbbox((0, 0), numero, font=nf)[2]
-    draw.text(((W - nw) // 2, mid_y - 60), numero, fill=pal["accent"], font=nf)
+    draw.text(((W - nw) // 2, mid_y), numero, fill=pal["accent"], font=nf)
 
     subtexto = data.get("subtexto", "")
     if subtexto:
-        sf = _font("m", 26)
+        sf = _font("m", 28)
         sw = draw.textbbox((0, 0), subtexto, font=sf)[2]
-        draw.text(((W - sw) // 2, mid_y + 50), subtexto, fill=pal["text2"], font=sf)
+        draw.text(((W - sw) // 2, mid_y + 130), subtexto, fill=pal["text2"], font=sf)
 
-    draw.line([(180, mid_y + 110), (W - 180, mid_y + 110)], fill=pal["accent"], width=3)
+    draw.line([(180, mid_y + 190), (W - 180, mid_y + 190)], fill=pal["accent"], width=3)
 
-    y = mid_y + 150
+    y = mid_y + 230
     for b in bullets[:5]:
         b_clean = ''.join(c if ord(c) < 0x10000 else '' for c in b)
-        draw.text((100, y), "→", fill=pal["accent"], font=_font("h", 30))
-        draw.text((145, y), b_clean, fill=pal["text"], font=_font("h", 30))
-        y += 50
+        draw.text((100, y), "→", fill=pal["accent"], font=_font("h", 34))
+        draw.text((150, y), b_clean, fill=pal["text"], font=_font("h", 34))
+        y += 60
 
     if hook:
-        y += 30
-        for line in _wrap(hook, _font("b", 22), 880, draw)[:3]:
-            draw.text((80, y), line, fill=pal["text2"], font=_font("b", 22))
-            y += 32
+        y += 40
+        for line in _wrap(hook, _font("b", 24), 880, draw)[:3]:
+            draw.text((80, y), line, fill=pal["text2"], font=_font("b", 24))
+            y += 36
 
     # Bloque inferior: 3 pasos
     y += 40
@@ -336,7 +338,7 @@ def _layout_producto(img, draw, pal, data, h):
     prod_url = data.get("producto_imagen", "")
     prod_img = _download_img(prod_url) if prod_url else None
     if prod_img:
-        ps = 560
+        ps = 620
         prod_img = prod_img.resize((ps, ps), Image.LANCZOS)
         mask = Image.new("L", prod_img.size, 0)
         ImageDraw.Draw(mask).rounded_rectangle([0, 0, ps, ps], radius=28, fill=255)
@@ -344,12 +346,12 @@ def _layout_producto(img, draw, pal, data, h):
         shadow = Image.new("RGBA", (ps + 24, ps + 24), (0, 0, 0, 0))
         ImageDraw.Draw(shadow).rounded_rectangle([12, 12, ps + 12, ps + 12], radius=28, fill=(0, 0, 0, 35))
         shadow = shadow.filter(ImageFilter.GaussianBlur(12))
-        img.paste(shadow, (W // 2 - ps // 2 - 12, 108), shadow)
-        img.paste(prod_img, (W // 2 - ps // 2, 120), prod_img)
+        img.paste(shadow, (W // 2 - ps // 2 - 12, 100), shadow)
+        img.paste(prod_img, (W // 2 - ps // 2, 112), prod_img)
 
     # Hook grande
     hook = data.get("hook", "")
-    y = 720
+    y = 770
     for line in _wrap(hook, _font("h", 44), 960, draw)[:2]:
         draw.text((60, y), line, fill=pal["text"], font=_font("h", 44))
         y += 56
