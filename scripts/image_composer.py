@@ -17,7 +17,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 BASE_DIR = Path(__file__).parent.parent
 FONTS_DIR = BASE_DIR / "marketing_app" / "assets" / "fonts"
-LOGO_PATH = BASE_DIR / "pages" / "assets" / "img" / "logo-cuadrado.png"
+LOGO_PATH = BASE_DIR / "marketing_app" / "assets" / "logo_transparente.png"
 OUTPUT_DIR = BASE_DIR / "marketing_app" / "data" / "generated_images"
 
 W = 1080
@@ -86,15 +86,7 @@ def _font(role, size):
 
 def _logo(size=48):
     if LOGO_PATH.exists():
-        logo = Image.open(LOGO_PATH).convert("RGBA").resize((size, size), Image.LANCZOS)
-        # Remover fondo blanco/claro del logo
-        pixels = logo.load()
-        for y in range(logo.height):
-            for x in range(logo.width):
-                r, g, b, a = pixels[x, y]
-                if r > 220 and g > 220 and b > 220:
-                    pixels[x, y] = (r, g, b, 0)
-        return logo
+        return Image.open(LOGO_PATH).convert("RGBA").resize((size, size), Image.LANCZOS)
     return None
 
 
