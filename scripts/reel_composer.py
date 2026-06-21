@@ -268,8 +268,8 @@ def _slide_proof_counting(pal, numero_text, subtexto, frame_progress, style="cen
     digits = ''.join(c for c in cleaned if c.isdigit())
     target = int(digits) if digits else 0
 
-    eased = ease_out_expo(min(frame_progress * 1.5, 1.0))
-    current = int(target * eased)
+    linear = min(frame_progress * 1.5, 1.0)
+    current = int(target * linear)
     if target < 100:
         display = f"{prefix}{current}{suffix}"
     else:
