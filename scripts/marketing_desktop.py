@@ -302,6 +302,19 @@ class Api:
             if not fmt:
                 return {"error": f"Formato {formato} no existe"}
 
+            # Anti-duplicados: no generar si ya existe aprobado con mismo formato+producto
+            try:
+                conn_dup = self._contenidos_db()
+                dup = conn_dup.execute(
+                    "SELECT id FROM contenidos WHERE formato = ? AND producto_sku = ? AND estado = 'aprobado'",
+                    (formato, producto.get("sku", ""))
+                ).fetchone()
+                conn_dup.close()
+                if dup:
+                    return {"error": f"Ya existe contenido aprobado para {formato} + {producto.get('sku', '')}"}
+            except Exception:
+                pass
+
             persona_desc = PERSONAS_DESC.get(persona, PERSONAS_DESC.get(fmt["persona"], ""))
             nombre = producto.get("nombre", "Producto")
             precio = producto.get("precio_venta", 0)

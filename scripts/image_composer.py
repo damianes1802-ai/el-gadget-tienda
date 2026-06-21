@@ -86,7 +86,11 @@ def _font(role, size):
 
 def _logo(size=48):
     if LOGO_PATH.exists():
-        return Image.open(LOGO_PATH).convert("RGBA").resize((size, size), Image.LANCZOS)
+        logo = Image.open(LOGO_PATH).convert("RGBA").resize((size, size), Image.LANCZOS)
+        mask = Image.new("L", (size, size), 0)
+        ImageDraw.Draw(mask).rounded_rectangle([0, 0, size, size], radius=12, fill=255)
+        logo.putalpha(mask)
+        return logo
     return None
 
 
@@ -114,16 +118,29 @@ def _remove_bg(img):
 
 
 def _wrap(text, font, max_w, draw):
-    words = text.split()
-    lines, cur = [], ""
-    for w in words:
-        test = f"{cur} {w}".strip()
-        if draw.textbbox((0, 0), test, font=font)[2] <= max_w:
-            cur = test
-        else:
-            if cur: lines.append(cur)
-            cur = w
-    if cur: lines.append(cur)
+    # Primero dividir por signos de interrogación/exclamación (punto de corte natural)
+    parts = []
+    current = ""
+    for ch in text:
+        current += ch
+        if ch in ('?', '!') and len(current.strip()) > 0:
+            parts.append(current.strip())
+            current = ""
+    if current.strip():
+        parts.append(current.strip())
+
+    lines = []
+    for part in parts:
+        words = part.split()
+        cur = ""
+        for w in words:
+            test = f"{cur} {w}".strip()
+            if draw.textbbox((0, 0), test, font=font)[2] <= max_w:
+                cur = test
+            else:
+                if cur: lines.append(cur)
+                cur = w
+        if cur: lines.append(cur)
     return lines
 
 
@@ -170,7 +187,7 @@ def _pilar_badge(draw, label, pal):
 # ============================================================================
 def _layout_educativo(img, draw, pal, data, h):
     _top_bar(img, draw, pal, h)
-    _pilar_badge(draw, "EDUCATIVO", pal)
+    # Badge de pilar removido por diseño
 
     puntos = data.get("puntos", [])
     n = min(len(puntos), 6)
@@ -230,7 +247,7 @@ def _layout_educativo(img, draw, pal, data, h):
 # ============================================================================
 def _layout_motivacional(img, draw, pal, data, h):
     _top_bar(img, draw, pal, h)
-    _pilar_badge(draw, "MOTIVACIONAL", pal)
+    # Badge de pilar removido por diseño
 
     bullets = data.get("bullets", [])
     hook = data.get("hook", "")
@@ -298,7 +315,7 @@ def _layout_motivacional(img, draw, pal, data, h):
 # ============================================================================
 def _layout_engagement(img, draw, pal, data, h):
     _top_bar(img, draw, pal, h)
-    _pilar_badge(draw, "COMUNIDAD", pal)
+    # Badge de pilar removido por diseño
 
     pregunta = data.get("pregunta", data.get("hook", ""))
     opciones = data.get("opciones", [])
@@ -312,7 +329,8 @@ def _layout_engagement(img, draw, pal, data, h):
     y = zone_top + max(10, (zone_bot - zone_top - total_h) // 2)
 
     for line in p_lines:
-        draw.text((60, y), line, fill=pal["text"], font=_font("h", 54))
+        lw = draw.textbbox((0, 0), line, font=_font("h", 54))[2]
+        draw.text(((W - lw) // 2, y), line, fill=pal["text"], font=_font("h", 54))
         y += 68
     y += 40
     for i, opc in enumerate(opciones[:4]):
@@ -356,7 +374,7 @@ def _layout_engagement(img, draw, pal, data, h):
 # ============================================================================
 def _layout_producto(img, draw, pal, data, h):
     _top_bar(img, draw, pal, h)
-    _pilar_badge(draw, "PRODUCTO", pal)
+    # Badge de pilar removido por diseño
 
     prod_url = data.get("producto_imagen", "")
     prod_img = _download_img(prod_url) if prod_url else None
@@ -506,7 +524,7 @@ def compose_carousel(
     img = Image.new("RGBA", (W, h), pal["bg"])
     draw = ImageDraw.Draw(img)
     _top_bar(img, draw, pal, h)
-    _pilar_badge(draw, "EDUCATIVO", pal)
+    # Badge de pilar removido por diseño
 
     cover_title = hook or titulo or "Tips"
     y = h // 2 - 120
