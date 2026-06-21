@@ -62,7 +62,10 @@ function _renderCards() {
     const tipo = (c.tipo || '').toUpperCase();
     const persona = (c.persona || '').charAt(0).toUpperCase() + (c.persona || '').slice(1);
     const img = c.producto_imagen || '';
-    const mediaUrl = c.media_url || '';
+    let mediaUrl = c.media_url || '';
+    if (mediaUrl && !mediaUrl.startsWith('http')) {
+      mediaUrl = 'file:///' + mediaUrl.replace(/\\/g, '/');
+    }
     const nombre = escapeHtml(c.producto_nombre || '');
     const precio = formatPrice(c.producto_precio || 0);
     const captionA = escapeHtml(c.caption || '');

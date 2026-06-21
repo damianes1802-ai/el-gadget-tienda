@@ -146,38 +146,6 @@ class Api:
         conn.row_factory = sqlite3.Row
         return conn
 
-    def _branded_image(self, producto_imagen, precio, pilar="producto"):
-        """Genera URL de imagen branded con Cloudinary transformations."""
-        from urllib.parse import quote
-        img_id = producto_imagen.replace(f"{CLOUDINARY_BASE}/", "") if producto_imagen else ""
-        if not img_id:
-            return ""
-
-        precio_text = quote(f"${precio:,.0f}".replace(",", "."))
-        badge_text = quote("Código referido = hasta 20% OFF")
-
-        if pilar == "educativo":
-            bg = "14151A"
-            badge_text = quote("Registrate gratis en elgadget.com.ar/referidos")
-        elif pilar == "motivacional":
-            bg = "14151A"
-            badge_text = quote("Ganá 7-15% de comisión por cada venta")
-        elif pilar == "engagement":
-            bg = "14151A"
-            badge_text = quote("¿Querés ganar plata recomendando productos?")
-        else:
-            bg = "14151A"
-
-        return (
-            f"{CLOUDINARY_BASE}"
-            f"/c_pad,w_1080,h_1080,b_rgb:{bg}"
-            f"/l_{img_id},c_fit,w_650,h_650,g_center/fl_layer_apply"
-            f"/l_brand_logo,w_120,g_north_west,x_30,y_30,o_90/fl_layer_apply"
-            f"/l_text:Arial_36_bold:{precio_text},co_rgb:FFC700,g_south,y_120/fl_layer_apply"
-            f"/l_text:Arial_22_bold:{badge_text},co_rgb:FFFFFF,g_south,y_70/fl_layer_apply"
-            f"/{img_id}"
-        )
-
     def _headers(self):
         return {"X-Admin-Password": self.admin_password}
 
@@ -287,7 +255,22 @@ El objetivo es que quien vea este contenido quiera comprar el producto o registr
             conn = self._contenidos_db()
             cursor = conn.cursor()
             pilar = fmt.get("pilar", "producto")
-            branded_url = self._branded_image(producto.get("imagen_principal", ""), precio, pilar)
+
+            from image_composer import compose_image
+            import time as _time
+            try:
+                branded_url = compose_image(
+                    producto_nombre=nombre,
+                    producto_precio=precio,
+                    producto_imagen_url=producto.get("imagen_principal", ""),
+                    persona=persona,
+                    pilar=pilar,
+                    formato=formato,
+                    hook=data.get("hook", ""),
+                    output_filename=f"{formato}_{producto.get('sku', '')}_{int(_time.time())}.jpg",
+                )
+            except Exception:
+                branded_url = producto.get("imagen_principal", "")
 
             cursor.execute("""
                 INSERT INTO contenidos (tipo, formato, persona, producto_sku, producto_nombre,
