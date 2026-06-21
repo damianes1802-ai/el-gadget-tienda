@@ -108,13 +108,14 @@ Respondé SOLAMENTE con un objeto JSON válido (sin texto adicional, sin markdow
 Los campos varían según el pilar de contenido indicado en el prompt del usuario:
 
 PILAR EDUCATIVO:
-{"titulo": "título corto (máx 8 palabras)", "emoji": "1 emoji relevante", "puntos": ["punto 1", "punto 2", ...max 5], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto corto para barra inferior de la imagen"}
+{"titulo": "título corto (máx 6 palabras)", "puntos": ["punto 1 (MÁXIMO 40 caracteres)", "punto 2", ...max 5], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto corto para barra inferior"}
+IMPORTANTE: cada punto DEBE tener máximo 40 caracteres. Sé conciso. Ejemplo: "Mandalo por WhatsApp", NO "WhatsApp directo: mandá tu código a una amiga que necesite algo para la casa"
 
 PILAR MOTIVACIONAL:
-{"numero_grande": "$X.XXX (número impactante real o estimado)", "subtexto": "qué representa ese número", "bullets": ["beneficio 1", "beneficio 2", ...max 4], "hook": "frase motivacional corta", "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}
+{"numero_grande": "$X.XXX (número impactante)", "subtexto": "qué representa (máx 50 chars)", "bullets": ["beneficio corto (máx 35 chars)", ...max 4], "hook": "frase motivacional corta", "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}
 
 PILAR ENGAGEMENT:
-{"pregunta": "pregunta grande que detenga el scroll", "opciones": ["emoji opción 1", "emoji opción 2", ...max 4], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}
+{"pregunta": "pregunta grande que detenga el scroll (máx 50 chars)", "opciones": ["opción corta (máx 30 chars)", ...max 4], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}
 
 PILAR PRODUCTO:
 {"hook": "3-5 palabras que detengan el scroll", "caption": "texto para IG con ángulo de referido", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}"""

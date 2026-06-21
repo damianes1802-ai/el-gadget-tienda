@@ -101,6 +101,18 @@ def _download_img(url):
     return None
 
 
+def _remove_bg(img):
+    """Remueve el fondo de una imagen de producto usando rembg."""
+    try:
+        from rembg import remove
+        img_bytes = io.BytesIO()
+        img.save(img_bytes, format="PNG")
+        result_bytes = remove(img_bytes.getvalue())
+        return Image.open(io.BytesIO(result_bytes)).convert("RGBA")
+    except Exception:
+        return img
+
+
 def _wrap(text, font, max_w, draw):
     words = text.split()
     lines, cur = [], ""
@@ -338,15 +350,15 @@ def _layout_producto(img, draw, pal, data, h):
     prod_url = data.get("producto_imagen", "")
     prod_img = _download_img(prod_url) if prod_url else None
     if prod_img:
-        ps = 620
+        prod_img = _remove_bg(prod_img)
+        ps = 580
         prod_img = prod_img.resize((ps, ps), Image.LANCZOS)
-        mask = Image.new("L", prod_img.size, 0)
-        ImageDraw.Draw(mask).rounded_rectangle([0, 0, ps, ps], radius=28, fill=255)
-        prod_img.putalpha(mask)
-        shadow = Image.new("RGBA", (ps + 24, ps + 24), (0, 0, 0, 0))
-        ImageDraw.Draw(shadow).rounded_rectangle([12, 12, ps + 12, ps + 12], radius=28, fill=(0, 0, 0, 35))
-        shadow = shadow.filter(ImageFilter.GaussianBlur(12))
-        img.paste(shadow, (W // 2 - ps // 2 - 12, 100), shadow)
+        # Sombra proyectada debajo del producto (sin fondo)
+        shadow = Image.new("RGBA", (ps, ps + 30), (0, 0, 0, 0))
+        shadow_draw = ImageDraw.Draw(shadow)
+        shadow_draw.ellipse([ps // 6, ps - 20, ps - ps // 6, ps + 20], fill=(0, 0, 0, 30))
+        shadow = shadow.filter(ImageFilter.GaussianBlur(15))
+        img.paste(shadow, (W // 2 - ps // 2, 130), shadow)
         img.paste(prod_img, (W // 2 - ps // 2, 112), prod_img)
 
     # Hook grande
