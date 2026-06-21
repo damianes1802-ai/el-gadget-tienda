@@ -92,15 +92,20 @@ Reglas de tono:
 - Emojis con moderación (1-3 por caption)
 - El contenido debe sentirse natural, no un aviso publicitario
 
-Respondé SOLAMENTE con un objeto JSON válido (sin texto adicional, sin markdown):
-{"caption": "...", "caption_b": "...", "hashtags": "...", "hook": "...", "cta": "..."}
+Respondé SOLAMENTE con un objeto JSON válido (sin texto adicional, sin markdown).
+Los campos varían según el pilar de contenido indicado en el prompt del usuario:
 
-Donde:
-- caption: el texto principal del post (máx 2200 caracteres para IG, ideal 150-300)
-- caption_b: una variante alternativa para A/B testing
-- hashtags: 8-12 hashtags relevantes separados por espacio (mezcla de populares y nicho)
-- hook: las primeras 3-5 palabras impactantes que detienen el scroll
-- cta: call to action final claro (1 línea, orientado a registro como referido cuando aplique)"""
+PILAR EDUCATIVO:
+{"titulo": "título corto (máx 8 palabras)", "emoji": "1 emoji relevante", "puntos": ["punto 1", "punto 2", ...max 5], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto corto para barra inferior de la imagen"}
+
+PILAR MOTIVACIONAL:
+{"numero_grande": "$X.XXX (número impactante real o estimado)", "subtexto": "qué representa ese número", "bullets": ["beneficio 1", "beneficio 2", ...max 4], "hook": "frase motivacional corta", "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}
+
+PILAR ENGAGEMENT:
+{"pregunta": "pregunta grande que detenga el scroll", "opciones": ["emoji opción 1", "emoji opción 2", ...max 4], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}
+
+PILAR PRODUCTO:
+{"hook": "3-5 palabras que detengan el scroll", "caption": "texto para IG con ángulo de referido", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}"""
 
 
 class Api:
@@ -228,13 +233,16 @@ class Api:
             desc = producto.get("descripcion", "")[:200]
             cat = producto.get("categoria", "")
 
+            pilar = fmt.get("pilar", "producto")
+
             user_prompt = f"""Generá contenido para Instagram.
 
+PILAR: {pilar.upper()}
 Formato: {formato} — {fmt['desc']}
 Tipo: {fmt['tipo']}
 Persona target: {persona.upper()} — {persona_desc}
 
-Producto:
+Producto (usalo como contexto, especialmente para pilar PRODUCTO):
 - Nombre: {nombre}
 - Precio: ${precio:,.0f}
 - Categoría: {cat}
@@ -254,7 +262,6 @@ El objetivo es que quien vea este contenido quiera comprar el producto o registr
 
             conn = self._contenidos_db()
             cursor = conn.cursor()
-            pilar = fmt.get("pilar", "producto")
 
             from image_composer import compose_image
             import time as _time
@@ -268,6 +275,15 @@ El objetivo es que quien vea este contenido quiera comprar el producto o registr
                     formato=formato,
                     hook=data.get("hook", ""),
                     output_filename=f"{formato}_{producto.get('sku', '')}_{int(_time.time())}.jpg",
+                    titulo=data.get("titulo", ""),
+                    puntos=data.get("puntos"),
+                    numero_grande=data.get("numero_grande", ""),
+                    subtexto=data.get("subtexto", ""),
+                    bullets=data.get("bullets"),
+                    pregunta=data.get("pregunta", ""),
+                    opciones=data.get("opciones"),
+                    cta_bar=data.get("cta_bar", ""),
+                    emoji=data.get("emoji", ""),
                 )
             except Exception:
                 branded_url = producto.get("imagen_principal", "")
