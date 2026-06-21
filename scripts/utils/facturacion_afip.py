@@ -30,9 +30,12 @@ CUIT_TEST_AFIPSDK = '20409378472'
 
 
 def facturacion_habilitada() -> bool:
-    """True si hay un AFIP_ACCESS_TOKEN configurado en config/.env"""
+    """True si hay certificado propio o access_token configurado."""
     env = Config.cargar_env()
-    return bool(env.get('AFIP_ACCESS_TOKEN'))
+    has_cert_files = bool(env.get('AFIP_CERT_PATH')) and bool(env.get('AFIP_KEY_PATH'))
+    has_cert_content = bool(env.get('AFIP_CERT_CONTENT')) and bool(env.get('AFIP_KEY_CONTENT'))
+    has_token = bool(env.get('AFIP_ACCESS_TOKEN'))
+    return has_cert_files or has_cert_content or has_token
 
 
 def _get_afip_client():
@@ -40,16 +43,28 @@ def _get_afip_client():
 
     env = Config.cargar_env()
     cuit = int(env.get('AFIP_CUIT', CUIT_TEST_AFIPSDK))
-    config = {
-        'CUIT': cuit,
-        'access_token': env['AFIP_ACCESS_TOKEN'],
-    }
 
+    base_dir = Path(__file__).parent.parent.parent
     cert_path = env.get('AFIP_CERT_PATH', '')
     key_path = env.get('AFIP_KEY_PATH', '')
-    if cert_path and key_path:
-        config['cert'] = Path(cert_path).read_text()
-        config['key'] = Path(key_path).read_text()
+
+    config = {'CUIT': cuit}
+
+    cert_content = env.get('AFIP_CERT_CONTENT', '')
+    key_content = env.get('AFIP_KEY_CONTENT', '')
+
+    if cert_content and key_content:
+        config['cert'] = cert_content.replace('\\n', '\n')
+        config['key'] = key_content.replace('\\n', '\n')
+    elif cert_path and key_path:
+        cert_full = base_dir / cert_path if not Path(cert_path).is_absolute() else Path(cert_path)
+        key_full = base_dir / key_path if not Path(key_path).is_absolute() else Path(key_path)
+        config['cert'] = cert_full.read_text()
+        config['key'] = key_full.read_text()
+
+    access_token = env.get('AFIP_ACCESS_TOKEN', '')
+    if access_token:
+        config['access_token'] = access_token
 
     return Afip(config)
 
