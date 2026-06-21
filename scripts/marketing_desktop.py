@@ -27,6 +27,7 @@ API_URL = "https://el-gadget-tienda.onrender.com"
 BASE_DIR = Path(__file__).parent.parent
 MARKETING_CONFIG_FILE = BASE_DIR / "marketing_app" / "config.json"
 CONTENIDOS_DB = BASE_DIR / "marketing_app" / "data" / "contenidos.db"
+CLOUDINARY_BASE = "https://res.cloudinary.com/deq2ofluf/image/upload"
 
 # ── Pilares y formatos de contenido Instagram ──
 # Distribución: 35% educativo + 30% motivacional + 20% engagement + 15% producto
@@ -128,6 +129,7 @@ class Api:
                 hook TEXT,
                 cta TEXT,
                 estado TEXT DEFAULT 'borrador',
+                media_url TEXT,
                 score_esperado TEXT,
                 score_real TEXT,
                 notas_owner TEXT,
@@ -143,6 +145,38 @@ class Api:
         conn = sqlite3.connect(str(CONTENIDOS_DB))
         conn.row_factory = sqlite3.Row
         return conn
+
+    def _branded_image(self, producto_imagen, precio, pilar="producto"):
+        """Genera URL de imagen branded con Cloudinary transformations."""
+        from urllib.parse import quote
+        img_id = producto_imagen.replace(f"{CLOUDINARY_BASE}/", "") if producto_imagen else ""
+        if not img_id:
+            return ""
+
+        precio_text = quote(f"${precio:,.0f}".replace(",", "."))
+        badge_text = quote("Código referido = hasta 20% OFF")
+
+        if pilar == "educativo":
+            bg = "14151A"
+            badge_text = quote("Registrate gratis en elgadget.com.ar/referidos")
+        elif pilar == "motivacional":
+            bg = "14151A"
+            badge_text = quote("Ganá 7-15% de comisión por cada venta")
+        elif pilar == "engagement":
+            bg = "14151A"
+            badge_text = quote("¿Querés ganar plata recomendando productos?")
+        else:
+            bg = "14151A"
+
+        return (
+            f"{CLOUDINARY_BASE}"
+            f"/c_pad,w_1080,h_1080,b_rgb:{bg}"
+            f"/l_{img_id},c_fit,w_650,h_650,g_center/fl_layer_apply"
+            f"/l_brand_logo,w_120,g_north_west,x_30,y_30,o_90/fl_layer_apply"
+            f"/l_text:Arial_36_bold:{precio_text},co_rgb:FFC700,g_south,y_120/fl_layer_apply"
+            f"/l_text:Arial_22_bold:{badge_text},co_rgb:FFFFFF,g_south,y_70/fl_layer_apply"
+            f"/{img_id}"
+        )
 
     def _headers(self):
         return {"X-Admin-Password": self.admin_password}
@@ -252,11 +286,14 @@ El objetivo es que quien vea este contenido quiera comprar el producto o registr
 
             conn = self._contenidos_db()
             cursor = conn.cursor()
+            pilar = fmt.get("pilar", "producto")
+            branded_url = self._branded_image(producto.get("imagen_principal", ""), precio, pilar)
+
             cursor.execute("""
                 INSERT INTO contenidos (tipo, formato, persona, producto_sku, producto_nombre,
                     producto_precio, producto_imagen, caption, caption_variante_b,
-                    hashtags, hook, cta, score_esperado)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    hashtags, hook, cta, media_url, score_esperado)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 fmt["tipo"], formato, persona,
                 producto.get("sku", ""),
@@ -267,6 +304,7 @@ El objetivo es que quien vea este contenido quiera comprar el producto o registr
                 data.get("hashtags", ""),
                 data.get("hook", ""),
                 data.get("cta", ""),
+                branded_url,
                 json.dumps({"reach_min": 500, "reach_max": 2000, "eng_min": 3, "eng_max": 5}),
             ))
             conn.commit()

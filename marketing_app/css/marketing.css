@@ -322,6 +322,8 @@ code { background: var(--gray-100); padding: 2px 7px; border-radius: 4px; font-s
   overflow: hidden; transition: border-color 0.15s;
 }
 .contenido-card:hover { border-color: var(--accent); }
+.contenido-card-preview { background: var(--ink); }
+.contenido-card-preview img { width: 100%; display: block; aspect-ratio: 1/1; object-fit: contain; }
 .contenido-card-header {
   display: flex; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--gray-100);
   align-items: flex-start;

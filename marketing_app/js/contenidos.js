@@ -62,6 +62,7 @@ function _renderCards() {
     const tipo = (c.tipo || '').toUpperCase();
     const persona = (c.persona || '').charAt(0).toUpperCase() + (c.persona || '').slice(1);
     const img = c.producto_imagen || '';
+    const mediaUrl = c.media_url || '';
     const nombre = escapeHtml(c.producto_nombre || '');
     const precio = formatPrice(c.producto_precio || 0);
     const captionA = escapeHtml(c.caption || '');
@@ -97,8 +98,13 @@ function _renderCards() {
       } catch (e) {}
     }
 
+    const brandedPreview = mediaUrl
+      ? `<div class="contenido-card-preview"><img src="${escapeHtml(mediaUrl)}" alt="Preview branded" loading="lazy"></div>`
+      : '';
+
     return `
       <div class="contenido-card">
+        ${brandedPreview}
         <div class="contenido-card-header">
           <img src="${escapeHtml(img)}" alt="" class="contenido-card-img" onerror="this.style.display='none'">
           <div class="contenido-card-meta">

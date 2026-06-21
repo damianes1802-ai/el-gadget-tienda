@@ -7,6 +7,7 @@ config/sheets_id.txt
 # Datos generados (imagenes, reportes, metadata) - muy pesado para git
 data/*
 !data/catalogo.db
+marketing_app/data/contenidos.db
 
 # Checkpoint de alertas Droppers (necesario en CI para no reprocesar el historial)
 !data/droppers_alertas_estado.json
