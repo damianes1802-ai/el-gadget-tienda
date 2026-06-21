@@ -30,12 +30,13 @@ CONTENIDOS_DB = BASE_DIR / "marketing_app" / "data" / "contenidos.db"
 CLOUDINARY_BASE = "https://res.cloudinary.com/deq2ofluf/image/upload"
 
 # ── Pilares y formatos de contenido Instagram ──
-# Distribución: 35% educativo + 30% motivacional + 20% engagement + 15% producto
+# Distribución: 2/7 educativo + 1/7 motivacional + 2/7 engagement + 2/7 producto
+# El perfil debe verse como tienda desde el primer momento (2 de cada 7 posts son producto)
 PILARES = {
-    "educativo":    {"peso": 35, "desc": "Contenido de valor que enseña cómo funciona el programa de referidos y cómo ganar dinero"},
-    "motivacional": {"peso": 30, "desc": "Historias de éxito, cálculos de ganancias, inspiración para empezar"},
-    "engagement":   {"peso": 20, "desc": "Preguntas, encuestas, interacción con la comunidad"},
-    "producto":     {"peso": 15, "desc": "Producto en acción con ángulo de referido (compartí y ganá)"},
+    "educativo":    {"peso": 28, "desc": "Contenido de valor que enseña cómo funciona el programa de referidos y cómo ganar dinero"},
+    "motivacional": {"peso": 15, "desc": "Historias de éxito, cálculos de ganancias, inspiración para empezar"},
+    "engagement":   {"peso": 28, "desc": "Preguntas, encuestas, interacción con la comunidad"},
+    "producto":     {"peso": 29, "desc": "Producto destacado con precio, descuento referido y ángulo de venta"},
 }
 
 FORMATOS = {
@@ -56,10 +57,12 @@ FORMATOS = {
     "EN-02": {"tipo": "post",     "pilar": "engagement",   "persona": "lucas", "desc": "Pregunta abierta: '¿Cuál es el producto de El Gadget que más recomendarías? Contanos en comentarios'"},
     "EN-03": {"tipo": "reel",     "pilar": "engagement",   "persona": "maria", "desc": "Challenge: 'Compartí este reel con alguien que necesita un ingreso extra — taggealo'"},
 
-    # PRODUCTO (15%) — showcase con ángulo referido
-    "PR-01": {"tipo": "reel",     "pilar": "producto",     "persona": "maria", "desc": "Producto en acción: problema → solución. Al final: 'Compartilo con tu código y ganá comisión por cada venta'"},
-    "PR-02": {"tipo": "carrusel", "pilar": "producto",     "persona": "sofi",  "desc": "Selección curada: 'Top 5 productos de El Gadget que se venden solos — ideales para compartir como referido'"},
-    "PR-03": {"tipo": "reel",     "pilar": "producto",     "persona": "lucas", "desc": "Producto viral + código: 'Este producto está volando. Con tu código le das hasta 20% OFF a quien compre'"},
+    # PRODUCTO (29%) — showcase con ángulo referido (2 de cada 7 posts)
+    "PR-01": {"tipo": "reel",     "pilar": "producto",     "persona": "maria", "desc": "Producto en acción: problema → solución. Mostrá el antes/después. CTA: 'Compartilo con tu código y ganá comisión'"},
+    "PR-02": {"tipo": "post",     "pilar": "producto",     "persona": "sofi",  "desc": "Foto producto destacada: nombre, precio público tachado, precio con descuento referido, CTA 'link en bio'"},
+    "PR-03": {"tipo": "reel",     "pilar": "producto",     "persona": "lucas", "desc": "Producto viral: 'Este producto está volando — con código referido hasta 20% OFF'. Mostrar el producto y el ahorro"},
+    "PR-04": {"tipo": "post",     "pilar": "producto",     "persona": "ana",   "desc": "Review/reseña: opinión honesta del producto con datos (material, medidas, utilidad real). Enfoque profesional"},
+    "PR-05": {"tipo": "carrusel", "pilar": "producto",     "persona": "maria", "desc": "Comparativa de valor: precio El Gadget vs precio en otros lados. Mostrar el ahorro + descuento referido adicional"},
 }
 
 PERSONAS_DESC = {

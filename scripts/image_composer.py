@@ -336,7 +336,7 @@ def _layout_producto(img, draw, pal, data, h):
     prod_url = data.get("producto_imagen", "")
     prod_img = _download_img(prod_url) if prod_url else None
     if prod_img:
-        ps = 580
+        ps = 560
         prod_img = prod_img.resize((ps, ps), Image.LANCZOS)
         mask = Image.new("L", prod_img.size, 0)
         ImageDraw.Draw(mask).rounded_rectangle([0, 0, ps, ps], radius=28, fill=255)
@@ -347,29 +347,65 @@ def _layout_producto(img, draw, pal, data, h):
         img.paste(shadow, (W // 2 - ps // 2 - 12, 108), shadow)
         img.paste(prod_img, (W // 2 - ps // 2, 120), prod_img)
 
+    # Hook grande
     hook = data.get("hook", "")
-    y = 740
-    for line in _wrap(hook, _font("h", 48), 960, draw)[:2]:
-        draw.text((60, y), line, fill=pal["text"], font=_font("h", 48))
-        y += 60
+    y = 720
+    for line in _wrap(hook, _font("h", 44), 960, draw)[:2]:
+        draw.text((60, y), line, fill=pal["text"], font=_font("h", 44))
+        y += 56
 
+    # Nombre producto
     nombre = data.get("producto_nombre", "")
-    y += 8
-    for line in _wrap(nombre, _font("m", 26), 750, draw)[:2]:
-        draw.text((60, y), line, fill=pal["text2"], font=_font("m", 26))
-        y += 34
+    y += 6
+    for line in _wrap(nombre, _font("m", 24), 750, draw)[:2]:
+        draw.text((60, y), line, fill=pal["text2"], font=_font("m", 24))
+        y += 32
 
+    # Precios: público tachado + con descuento
     precio = data.get("producto_precio", 0)
-    y += 16
-    precio_text = f"${precio:,.0f}".replace(",", ".")
-    draw.text((60, y), precio_text, fill=pal["accent"], font=_font("h", 58))
+    precio_desc = round(precio * 0.80)  # 20% OFF máximo
+    y += 18
 
-    # Precio tachado (público) + precio con descuento
-    y += 70
-    desc_text = "Con codigo referido: hasta 20% OFF"
-    draw.text((60, y), desc_text, fill=pal["text2"], font=_font("m", 22))
+    # Precio público tachado
+    precio_pub = f"${precio:,.0f}".replace(",", ".")
+    ppf = _font("m", 32)
+    ppw = draw.textbbox((0, 0), precio_pub, font=ppf)[2]
+    draw.text((60, y), precio_pub, fill=pal["text2"], font=ppf)
+    # Línea de tachado
+    pp_mid = y + 18
+    draw.line([(58, pp_mid), (62 + ppw, pp_mid)], fill=pal["text2"], width=3)
 
-    _bottom_bar(draw, data.get("cta_bar", "Compartilo con tu codigo y gana comision"), pal, h)
+    # Precio con descuento
+    precio_off = f"${precio_desc:,.0f}".replace(",", ".")
+    draw.text((80 + ppw, y - 10), precio_off, fill=pal["accent"], font=_font("h", 48))
+
+    # Badge de descuento
+    y += 60
+    badge_text = "Hasta 20% OFF con codigo referido"
+    btf = _font("h", 20)
+    btw = draw.textbbox((0, 0), badge_text, font=btf)[2] + 28
+    draw.rounded_rectangle([56, y, 56 + btw, y + 40], radius=20, fill=pal["accent"])
+    draw.text((70, y + 8), badge_text, fill=INK, font=btf)
+
+    # Info de confianza
+    y += 56
+    trust_items = [
+        ("Envio a todo el pais", "Pagos con MercadoPago"),
+        ("10 dias de devolucion", "6 meses de garantia"),
+    ]
+    for row in trust_items:
+        text_row = "  ·  ".join(row)
+        draw.text((60, y), text_row, fill=pal["text2"], font=_font("b", 19))
+        y += 30
+
+    # URL
+    y += 20
+    url = "elgadget.com.ar"
+    uf = _font("h", 28)
+    uw = draw.textbbox((0, 0), url, font=uf)[2]
+    draw.text(((W - uw) // 2, y), url, fill=pal["accent"], font=uf)
+
+    _bottom_bar(draw, data.get("cta_bar", "Link en bio · elgadget.com.ar"), pal, h)
 
 
 # ============================================================================
