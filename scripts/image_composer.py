@@ -33,31 +33,31 @@ GREEN = (46, 139, 87)
 PALETAS = {
     "maria": {
         "bg": (253, 249, 240), "bar": (42, 36, 28),
-        "text": INK, "text2": (111, 106, 99), "accent": ACCENT,
+        "text": INK, "text2": (90, 85, 78), "accent": ACCENT,
         "badge_bg": GREEN, "badge_text": WHITE,
         "bullet_bg": (255, 243, 200), "bullet_icon": ACCENT_DEEP,
     },
     "lucas": {
         "bg": INK, "bar": (5, 5, 8),
-        "text": WHITE, "text2": (180, 180, 190), "accent": ACCENT,
+        "text": WHITE, "text2": (190, 190, 195), "accent": ACCENT,
         "badge_bg": ACCENT, "badge_text": INK,
         "bullet_bg": (35, 35, 45), "bullet_icon": ACCENT,
     },
     "ana": {
         "bg": WHITE, "bar": (35, 35, 40),
-        "text": INK, "text2": (120, 120, 125), "accent": (180, 160, 120),
+        "text": INK, "text2": (90, 90, 95), "accent": (160, 140, 100),
         "badge_bg": INK, "badge_text": WHITE,
-        "bullet_bg": (240, 238, 233), "bullet_icon": (180, 160, 120),
+        "bullet_bg": (240, 238, 233), "bullet_icon": (160, 140, 100),
     },
     "sofi": {
         "bg": (255, 245, 248), "bar": (40, 25, 35),
-        "text": INK, "text2": (140, 100, 120), "accent": (255, 150, 180),
-        "badge_bg": (220, 120, 160), "badge_text": WHITE,
-        "bullet_bg": (255, 230, 238), "bullet_icon": (220, 120, 160),
+        "text": INK, "text2": (110, 75, 95), "accent": (230, 100, 145),
+        "badge_bg": (200, 90, 140), "badge_text": WHITE,
+        "bullet_bg": (255, 225, 235), "bullet_icon": (200, 90, 140),
     },
     "martin": {
         "bg": (20, 30, 50), "bar": (10, 15, 30),
-        "text": WHITE, "text2": (160, 175, 200), "accent": ACCENT,
+        "text": WHITE, "text2": (175, 185, 210), "accent": ACCENT,
         "badge_bg": GREEN, "badge_text": WHITE,
         "bullet_bg": (30, 45, 75), "bullet_icon": ACCENT,
     },
@@ -295,8 +295,8 @@ def _layout_motivacional(img, draw, pal, data, h):
         draw.ellipse([cx - 22, y - 2, cx + 22, y + 42], fill=pal["accent"])
         nw = draw.textbbox((0, 0), num, font=_font("h", 22))[2]
         draw.text((cx - nw // 2, y + 6), num, fill=INK, font=_font("h", 22))
-        tw = draw.textbbox((0, 0), txt, font=_font("m", 18))[2]
-        draw.text((cx - tw // 2, y + 52), txt, fill=pal["text2"], font=_font("m", 18))
+        tw = draw.textbbox((0, 0), txt, font=_font("m", 20))[2]
+        draw.text((cx - tw // 2, y + 52), txt, fill=pal["text2"], font=_font("m", 20))
 
     y += 100
     url = "elgadget.com.ar/referidos"
@@ -438,8 +438,8 @@ def _layout_producto(img, draw, pal, data, h):
         "10 dias de devolucion  ·  6 meses de garantia",
     ]
     for text_row in trust_items:
-        trw = draw.textbbox((0, 0), text_row, font=_font("b", 19))[2]
-        draw.text(((W - trw) // 2, y), text_row, fill=pal["text2"], font=_font("b", 19))
+        trw = draw.textbbox((0, 0), text_row, font=_font("b", 22))[2]
+        draw.text(((W - trw) // 2, y), text_row, fill=pal["text2"], font=_font("b", 22))
         y += 30
 
     # URL centrada
@@ -467,8 +467,8 @@ def _programa_footer(draw, pal, y, h):
         draw.ellipse([cx - 22, y - 2, cx + 22, y + 42], fill=pal["accent"])
         nw = draw.textbbox((0, 0), num, font=_font("h", 22))[2]
         draw.text((cx - nw // 2, y + 6), num, fill=INK, font=_font("h", 22))
-        tw = draw.textbbox((0, 0), txt, font=_font("m", 18))[2]
-        draw.text((cx - tw // 2, y + 52), txt, fill=pal["text2"], font=_font("m", 18))
+        tw = draw.textbbox((0, 0), txt, font=_font("m", 20))[2]
+        draw.text((cx - tw // 2, y + 52), txt, fill=pal["text2"], font=_font("m", 20))
     return y + 100
 
 
@@ -775,7 +775,7 @@ def _layout_pasos(img, draw, pal, data, h):
 
         y += 150
 
-    y += 20
+    y += 10
     y = _url_block(draw, pal, y)
     _bottom_bar(draw, data.get("cta_bar", "Empeza hoy mismo"), pal, h)
 
@@ -920,21 +920,29 @@ def compose_carousel(
     # Badge de pilar removido por diseño
 
     cover_title = hook or titulo or "Tips"
-    y = h // 2 - 120
-    for line in _wrap(cover_title, _font("h", 58), 900, draw)[:4]:
-        lw = draw.textbbox((0, 0), line, font=_font("h", 58))[2]
-        draw.text(((W - lw) // 2, y), line, fill=pal["text"], font=_font("h", 58))
-        y += 72
+    # Centrado vertical del bloque completo
+    hf = _font("h", 56)
+    c_lines = _wrap(cover_title, hf, 880, draw)[:4]
+    block_h = len(c_lines) * 70 + 30 + 3 + 40 + 30 + 34
+    y = 88 + max(40, (h - 88 - 72 - block_h) // 2)
 
+    for line in c_lines:
+        lw = draw.textbbox((0, 0), line, font=hf)[2]
+        draw.text(((W - lw) // 2, y), line, fill=pal["text"], font=hf)
+        y += 70
+
+    y += 20
+    draw.line([(250, y), (W - 250, y)], fill=pal["accent"], width=3)
     y += 30
+
     sub = f"{len(items)} tips que necesitas saber"
-    sf = _font("m", 26)
+    sf = _font("m", 28)
     sw = draw.textbbox((0, 0), sub, font=sf)[2]
     draw.text(((W - sw) // 2, y), sub, fill=pal["text2"], font=sf)
 
     y += 50
     desliza = "Desliza para ver todos  →"
-    df = _font("h", 28)
+    df = _font("h", 30)
     dw = draw.textbbox((0, 0), desliza, font=df)[2]
     draw.text(((W - dw) // 2, y), desliza, fill=pal["accent"], font=df)
 
