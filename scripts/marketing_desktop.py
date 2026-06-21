@@ -898,9 +898,16 @@ PALABRAS PROHIBIDAS (NUNCA USES): {', '.join(persona_data.get('palabras_prohibid
 HASHTAGS PARA ESTA PERSONA (elegí 5-8, mezclá con 1-2 branded #ElGadget #ReferidosElGadget): {' '.join(persona_data.get('hashtags', []))}
 {stats_line}{few_shot}
 
-Producto (contexto):
-- {nombre} · ${precio:,.0f} · {cat}
-- Con referido 10% OFF: ${round(precio*0.90):,.0f} · 20% OFF: ${round(precio*0.80):,.0f}
+{f"""PRODUCTO CONCRETO (USALO como ejemplo real en el reel):
+- Nombre: {nombre}
+- Precio: ${precio:,.0f}
+- Categoría: {cat}
+- Con referido 10%% OFF: ${round(precio*0.90):,.0f} · 20%% OFF: ${round(precio*0.80):,.0f}
+- Comisión 7%%: ${round(precio*0.07):,.0f} · 15%%: ${round(precio*0.15):,.0f}
+IMPORTANTE: Mencioná este producto por nombre en el slide de solución o prueba social.
+El numero_grande puede ser la comisión real de este producto o un cálculo con 3 ventas.""" if producto.get("_usar_producto") else """REEL GENÉRICO DEL PROGRAMA (sin producto específico):
+Usá cálculos genéricos del programa de referidos.
+No menciones un producto específico, hablá del programa en general."""}
 
 REGLAS CRÍTICAS PARA EL REEL:
 - Cada slide se lee en 2-3 segundos. MÁXIMO 10 PALABRAS por slide.
@@ -1033,13 +1040,17 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
             fingerprints_lote = set()
 
             for i in range(cantidad):
-                prod = prods_top[i % len(prods_top)] if prods_top else {}
+                usar_producto = (i % 2 == 0) and bool(prods_top)
+                if usar_producto:
+                    prod = prods_top[i // 2 % len(prods_top)]
+                    prod["_usar_producto"] = True
+                else:
+                    prod = {"nombre": "", "precio_venta": 0, "categoria": "", "sku": f"GEN-{i}", "imagen_principal": "", "_usar_producto": False}
 
                 for intento in range(3):
                     try:
                         ctx = self._seleccionar_contexto(historial)
 
-                        # Force layout to R01 for reels
                         ctx["layout_id"] = "R01"
                         ctx["layout_info"] = LAYOUTS_INFO["R01"]
                         ctx["tipo"] = "reel"
