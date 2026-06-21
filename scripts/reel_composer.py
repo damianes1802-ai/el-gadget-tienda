@@ -147,39 +147,101 @@ def _centered_lines(draw, text, font, fill, max_w, base_y, spacing=0):
     return base_y + len(lines) * gap
 
 
+# ── Visual styles ──
+# Cada estilo define cómo se renderizan los slides internos (no hook ni CTA)
+# Esto genera variedad visual real entre reels de la misma persona
+
+VISUAL_STYLES = ["centered", "lateral", "card", "split"]
+
+
+def _left_aligned_lines(draw, text, font, fill, max_w, base_y, x_start=80, spacing=0):
+    lines = _wrap(text, font, max_w, draw)[:5]
+    bbox_h = draw.textbbox((0, 0), "Ay", font=font)[3]
+    gap = bbox_h + spacing
+    for i, line in enumerate(lines):
+        _shadow(draw, (x_start, base_y + i * gap), line, font, fill)
+    return base_y + len(lines) * gap
+
+
 # ── Slide renderers ──
 
-def _slide_standard(pal, text, font_size=48, bar_text="elgadget.com.ar/referidos"):
+def _slide_standard(pal, text, font_size=48, bar_text="elgadget.com.ar/referidos", style="centered"):
     img = Image.new("RGB", (W, H), pal["bg"])
     draw = ImageDraw.Draw(img)
     _top_bar(img, draw, pal)
     tf = _font("h", font_size)
-    lines = _wrap(text, tf, 860, draw)[:5]
+    lines = _wrap(text, tf, 780 if style != "centered" else 860, draw)[:5]
     bbox_h = draw.textbbox((0, 0), "Ay", font=tf)[3]
     total_h = len(lines) * (bbox_h + 14)
     base_y = (H - total_h) // 2
-    _centered_lines(draw, text, tf, pal["text"], 860, base_y, 14)
+
+    if style == "lateral":
+        draw.rectangle([0, 100, 12, H - 80], fill=pal["accent"])
+        _left_aligned_lines(draw, text, tf, pal["text"], 780, base_y, 80, 14)
+    elif style == "card":
+        pad = 50
+        card_y1 = base_y - pad
+        card_y2 = base_y + total_h + pad
+        draw.rounded_rectangle([60, card_y1, W - 60, card_y2], radius=28, fill=pal.get("bullet_bg", pal["bar"]))
+        draw.rounded_rectangle([60, card_y1, W - 60, card_y1 + 6], radius=0, fill=pal["accent"])
+        _centered_lines(draw, text, tf, pal["text"], 780, base_y, 14)
+    elif style == "split":
+        draw.rectangle([0, 100, W // 3, H - 80], fill=pal["accent"])
+        _left_aligned_lines(draw, text, tf, pal["text"], 620, base_y, W // 3 + 60, 14)
+    else:
+        _centered_lines(draw, text, tf, pal["text"], 860, base_y, 14)
+
     _bottom_bar(draw, bar_text, pal)
     return np.array(img)
 
 
-def _slide_hook(pal, hook):
+def _slide_hook(pal, hook, style="centered"):
     img = Image.new("RGB", (W, H), pal["bg"])
     draw = ImageDraw.Draw(img)
     _top_bar(img, draw, pal)
     hf = _font("h", 72)
-    lines = _wrap(hook, hf, 860, draw)[:3]
-    bbox_h = draw.textbbox((0, 0), "Ay", font=hf)[3]
-    total_h = len(lines) * (bbox_h + 20)
-    base_y = (H - total_h) // 2 - 40
-    y = _centered_lines(draw, hook, hf, pal["text"], 860, base_y, 20)
-    draw.line([(W // 2 - 200, y + 10), (W // 2 + 200, y + 10)], fill=pal["accent"], width=4)
+
+    if style == "lateral":
+        draw.rectangle([0, 100, 16, H - 80], fill=pal["accent"])
+        lines = _wrap(hook, hf, 800, draw)[:3]
+        bbox_h = draw.textbbox((0, 0), "Ay", font=hf)[3]
+        total_h = len(lines) * (bbox_h + 20)
+        base_y = (H - total_h) // 2 - 40
+        y = _left_aligned_lines(draw, hook, hf, pal["text"], 800, base_y, 80, 20)
+        draw.line([(80, y + 10), (480, y + 10)], fill=pal["accent"], width=4)
+    elif style == "card":
+        lines = _wrap(hook, hf, 820, draw)[:3]
+        bbox_h = draw.textbbox((0, 0), "Ay", font=hf)[3]
+        total_h = len(lines) * (bbox_h + 20)
+        base_y = (H - total_h) // 2 - 40
+        pad = 50
+        draw.rounded_rectangle([50, base_y - pad, W - 50, base_y + total_h + pad + 20], radius=30, fill=pal.get("bullet_bg", pal["bar"]))
+        draw.rounded_rectangle([50, base_y + total_h + pad - 4, W - 50, base_y + total_h + pad + 20], radius=0, fill=pal["accent"])
+        y = _centered_lines(draw, hook, hf, pal["text"], 820, base_y, 20)
+    elif style == "split":
+        draw.rectangle([0, H // 2 - 40, W, H - 80], fill=pal["accent"])
+        lines = _wrap(hook, hf, 900, draw)[:3]
+        bbox_h = draw.textbbox((0, 0), "Ay", font=hf)[3]
+        total_h = len(lines) * (bbox_h + 20)
+        base_y = (H - total_h) // 2 - 60
+        y = _centered_lines(draw, hook, hf, pal["text"], 900, base_y, 20)
+        sub = "@elgadget.ok"
+        sf = _font("m", 28)
+        sw = draw.textbbox((0, 0), sub, font=sf)[2]
+        draw.text(((W - sw) // 2, H // 2 + 60), sub, fill=INK, font=sf)
+    else:
+        lines = _wrap(hook, hf, 860, draw)[:3]
+        bbox_h = draw.textbbox((0, 0), "Ay", font=hf)[3]
+        total_h = len(lines) * (bbox_h + 20)
+        base_y = (H - total_h) // 2 - 40
+        y = _centered_lines(draw, hook, hf, pal["text"], 860, base_y, 20)
+        draw.line([(W // 2 - 200, y + 10), (W // 2 + 200, y + 10)], fill=pal["accent"], width=4)
+
     _bottom_bar(draw, "Referidos El Gadget - hasta 15% - dia 5", pal)
     return np.array(img)
 
 
-def _slide_proof_counting(pal, numero_text, subtexto, frame_progress):
-    """Renderiza el slide de prueba social con conteo animado."""
+def _slide_proof_counting(pal, numero_text, subtexto, frame_progress, style="centered"):
     img = Image.new("RGB", (W, H), pal["bg"])
     draw = ImageDraw.Draw(img)
     _top_bar(img, draw, pal)
@@ -197,39 +259,103 @@ def _slide_proof_counting(pal, numero_text, subtexto, frame_progress):
     current = int(target * eased)
     display = f"{prefix}{current:,.0f}".replace(",", ".")
 
-    nf = _font("h", 120)
-    nw = draw.textbbox((0, 0), display, font=nf)[2]
-    _shadow(draw, ((W - nw) // 2, H // 2 - 180), display, nf, pal["accent"])
-
-    if frame_progress > 0.3:
-        sf = _font("m", 32)
-        lines = _wrap(subtexto, sf, 800, draw)[:3]
-        y = H // 2 + 20
-        for line in lines:
-            sw = draw.textbbox((0, 0), line, font=sf)[2]
-            _shadow(draw, ((W - sw) // 2, y), line, sf, pal["text2"])
-            y += 44
+    if style == "card":
+        card_w, card_h = 700, 400
+        cx = (W - card_w) // 2
+        cy = H // 2 - card_h // 2 - 40
+        draw.rounded_rectangle([cx, cy, cx + card_w, cy + card_h], radius=28, fill=pal.get("bullet_bg", pal["bar"]))
+        nf = _font("h", 100)
+        nw = draw.textbbox((0, 0), display, font=nf)[2]
+        _shadow(draw, ((W - nw) // 2, cy + 60), display, nf, pal["accent"])
+        if frame_progress > 0.3:
+            sf = _font("m", 28)
+            lines = _wrap(subtexto, sf, card_w - 60, draw)[:2]
+            sy = cy + 200
+            for line in lines:
+                sw = draw.textbbox((0, 0), line, font=sf)[2]
+                draw.text(((W - sw) // 2, sy), line, fill=pal["text2"], font=sf)
+                sy += 38
+    elif style == "lateral":
+        draw.rectangle([0, 100, 12, H - 80], fill=pal["accent"])
+        nf = _font("h", 110)
+        _shadow(draw, (80, H // 2 - 180), display, nf, pal["accent"])
+        if frame_progress > 0.3:
+            sf = _font("m", 30)
+            _left_aligned_lines(draw, subtexto, sf, pal["text2"], 700, H // 2 + 10, 80, 10)
+    elif style == "split":
+        draw.rectangle([0, 100, W, H // 2 + 60], fill=pal["accent"])
+        nf = _font("h", 110)
+        nw = draw.textbbox((0, 0), display, font=nf)[2]
+        _shadow(draw, ((W - nw) // 2, H // 2 - 200), display, nf, INK, offset=2)
+        if frame_progress > 0.3:
+            sf = _font("m", 30)
+            lines = _wrap(subtexto, sf, 800, draw)[:3]
+            sy = H // 2 + 100
+            for line in lines:
+                sw = draw.textbbox((0, 0), line, font=sf)[2]
+                _shadow(draw, ((W - sw) // 2, sy), line, sf, pal["text2"])
+                sy += 44
+    else:
+        nf = _font("h", 120)
+        nw = draw.textbbox((0, 0), display, font=nf)[2]
+        _shadow(draw, ((W - nw) // 2, H // 2 - 180), display, nf, pal["accent"])
+        if frame_progress > 0.3:
+            sf = _font("m", 32)
+            lines = _wrap(subtexto, sf, 800, draw)[:3]
+            y = H // 2 + 20
+            for line in lines:
+                sw = draw.textbbox((0, 0), line, font=sf)[2]
+                _shadow(draw, ((W - sw) // 2, y), line, sf, pal["text2"])
+                y += 44
 
     _bottom_bar(draw, "Referidos El Gadget - hasta 15% - dia 5", pal)
     return np.array(img)
 
 
-def _slide_benefit(pal, texto, badge_text="Sin inversion - Desde el celular"):
+def _slide_benefit(pal, texto, badge_text="Sin inversion - Desde el celular", style="centered"):
     img = Image.new("RGB", (W, H), pal["bg"])
     draw = ImageDraw.Draw(img)
     _top_bar(img, draw, pal)
     bf = _font("h", 52)
-    lines = _wrap(texto, bf, 860, draw)[:4]
-    bbox_h = draw.textbbox((0, 0), "Ay", font=bf)[3]
-    total_h = len(lines) * (bbox_h + 14)
-    base_y = (H - total_h) // 2 - 50
-    y = _centered_lines(draw, texto, bf, pal["text"], 860, base_y, 14)
-
     bbf = _font("h", 24)
-    bbw = draw.textbbox((0, 0), badge_text, font=bbf)[2] + 40
-    bx = (W - bbw) // 2
-    draw.rounded_rectangle([bx, y + 20, bx + bbw, y + 68], radius=24, fill=pal["accent"])
-    draw.text((bx + 20, y + 30), badge_text, fill=INK, font=bbf)
+
+    if style == "lateral":
+        draw.rectangle([0, 100, 12, H - 80], fill=pal["accent"])
+        base_y = (H - 300) // 2
+        y = _left_aligned_lines(draw, texto, bf, pal["text"], 780, base_y, 80, 14)
+        bbw = draw.textbbox((0, 0), badge_text, font=bbf)[2] + 40
+        draw.rounded_rectangle([80, y + 20, 80 + bbw, y + 68], radius=24, fill=pal["accent"])
+        draw.text((100, y + 30), badge_text, fill=INK, font=bbf)
+    elif style == "card":
+        lines = _wrap(texto, bf, 780, draw)[:4]
+        bbox_h = draw.textbbox((0, 0), "Ay", font=bf)[3]
+        total_h = len(lines) * (bbox_h + 14)
+        base_y = (H - total_h) // 2 - 60
+        pad = 50
+        draw.rounded_rectangle([60, base_y - pad, W - 60, base_y + total_h + pad + 70], radius=28, fill=pal.get("bullet_bg", pal["bar"]))
+        y = _centered_lines(draw, texto, bf, pal["text"], 780, base_y, 14)
+        bbw = draw.textbbox((0, 0), badge_text, font=bbf)[2] + 40
+        bx = (W - bbw) // 2
+        draw.rounded_rectangle([bx, y + 20, bx + bbw, y + 68], radius=24, fill=pal["accent"])
+        draw.text((bx + 20, y + 30), badge_text, fill=INK, font=bbf)
+    elif style == "split":
+        draw.rectangle([0, H - 350, W, H - 80], fill=pal["accent"])
+        base_y = (H - 300) // 2 - 80
+        _centered_lines(draw, texto, bf, pal["text"], 860, base_y, 14)
+        bbw = draw.textbbox((0, 0), badge_text, font=bbf)[2] + 40
+        bx = (W - bbw) // 2
+        draw.rounded_rectangle([bx, H - 300, bx + bbw, H - 252], radius=24, fill=INK)
+        draw.text((bx + 20, H - 290), badge_text, fill=ACCENT, font=bbf)
+    else:
+        lines = _wrap(texto, bf, 860, draw)[:4]
+        bbox_h = draw.textbbox((0, 0), "Ay", font=bf)[3]
+        total_h = len(lines) * (bbox_h + 14)
+        base_y = (H - total_h) // 2 - 50
+        y = _centered_lines(draw, texto, bf, pal["text"], 860, base_y, 14)
+        bbw = draw.textbbox((0, 0), badge_text, font=bbf)[2] + 40
+        bx = (W - bbw) // 2
+        draw.rounded_rectangle([bx, y + 20, bx + bbw, y + 68], radius=24, fill=pal["accent"])
+        draw.text((bx + 20, y + 30), badge_text, fill=INK, font=bbf)
 
     _bottom_bar(draw, "elgadget.com.ar/referidos", pal)
     return np.array(img)
@@ -471,7 +597,10 @@ def compose_reel(
     if not cta_text:
         cta_text = "¿Queres empezar a ganar?"
 
+    import random as _rnd
+    style = _rnd.choice(VISUAL_STYLES)
     trans_frames = int(ritmo["transition"] * FPS)
+    print(f"[REEL] Estilo visual: {style}")
 
     # Render static slides
     slides = []
@@ -479,17 +608,17 @@ def compose_reel(
     transitions = []
 
     if hook:
-        slides.append(("hook", _slide_hook(pal, hook)))
+        slides.append(("hook", _slide_hook(pal, hook, style)))
         durations.append(ritmo["hook"])
         transitions.append("zoom")
 
     if dolor:
-        slides.append(("dolor", _slide_standard(pal, dolor, 46, "Referidos El Gadget - hasta 15% - dia 5")))
+        slides.append(("dolor", _slide_standard(pal, dolor, 46, "Referidos El Gadget - hasta 15% - dia 5", style)))
         durations.append(ritmo["slide"])
         transitions.append("slide_right")
 
     if solucion:
-        slides.append(("solucion", _slide_standard(pal, solucion, 44)))
+        slides.append(("solucion", _slide_standard(pal, solucion, 44, "elgadget.com.ar/referidos", style)))
         durations.append(ritmo["slide"])
         transitions.append("crossfade")
 
@@ -499,12 +628,12 @@ def compose_reel(
         transitions.append("scale_in")
 
     if beneficio:
-        slides.append(("benefit", _slide_benefit(pal, beneficio)))
+        slides.append(("benefit", _slide_benefit(pal, beneficio, style=style)))
         durations.append(ritmo["slide"])
         transitions.append("crossfade")
 
     if dato_extra:
-        slides.append(("extra", _slide_standard(pal, dato_extra, 40, "elgadget.com.ar/referidos")))
+        slides.append(("extra", _slide_standard(pal, dato_extra, 40, "elgadget.com.ar/referidos", style)))
         durations.append(2.0)
         transitions.append("slide_right")
 
@@ -524,7 +653,7 @@ def compose_reel(
         if slide_type == "proof":
             for i in range(hold_n):
                 progress = i / hold_n
-                frame = _slide_proof_counting(pal, numero_grande, subtexto_proof, progress)
+                frame = _slide_proof_counting(pal, numero_grande, subtexto_proof, progress, style)
                 all_frames.append(frame)
         elif slide_type == "hook" and trans_type == "zoom":
             static_frames = [slide_arr] * hold_n
@@ -537,7 +666,7 @@ def compose_reel(
         if idx < len(slides) - 1:
             next_type, next_arr = slides[idx + 1]
             current_arr = all_frames[-1] if all_frames else bg_frame
-            next_static = next_arr if next_arr is not None else _slide_proof_counting(pal, numero_grande, subtexto_proof, 0.0)
+            next_static = next_arr if next_arr is not None else _slide_proof_counting(pal, numero_grande, subtexto_proof, 0.0, style)
 
             if trans_type == "slide_right":
                 tf = _slide_from_right(next_static, current_arr, trans_frames)
