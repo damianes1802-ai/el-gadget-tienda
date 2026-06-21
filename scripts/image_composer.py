@@ -456,9 +456,380 @@ def _layout_producto(img, draw, pal, data, h):
 
 
 # ============================================================================
+# HELPERS REUTILIZABLES
+# ============================================================================
+
+def _programa_footer(draw, pal, y, h):
+    """3 pasos circulares: Registrate → Compartí → Cobrá"""
+    draw.line([(180, y), (W - 180, y)], fill=pal["accent"], width=2)
+    y += 30
+    pasos = [("1", "Registrate gratis"), ("2", "Comparti tu codigo"), ("3", "Cobra comisiones")]
+    paso_w = (W - 120) // 3
+    for i, (num, txt) in enumerate(pasos):
+        cx = 60 + i * paso_w + paso_w // 2
+        draw.ellipse([cx - 22, y - 2, cx + 22, y + 42], fill=pal["accent"])
+        nw = draw.textbbox((0, 0), num, font=_font("h", 22))[2]
+        draw.text((cx - nw // 2, y + 6), num, fill=INK, font=_font("h", 22))
+        tw = draw.textbbox((0, 0), txt, font=_font("m", 18))[2]
+        draw.text((cx - tw // 2, y + 52), txt, fill=pal["text2"], font=_font("m", 18))
+    return y + 100
+
+
+def _url_block(draw, pal, y, url="elgadget.com.ar/referidos"):
+    """URL centrada en dorado"""
+    uf = _font("h", 30)
+    uw = draw.textbbox((0, 0), url, font=uf)[2]
+    draw.text(((W - uw) // 2, y), url, fill=pal["accent"], font=uf)
+    return y + 40
+
+
+def _centered_text(draw, y, text, font, fill, max_w=960):
+    """Dibuja texto centrado, retorna nuevo Y"""
+    for line in _wrap(text, font, max_w, draw):
+        lw = draw.textbbox((0, 0), line, font=font)[2]
+        draw.text(((W - lw) // 2, y), line, fill=fill, font=font)
+        y += font.size + 14
+    return y
+
+
+def _clean(text):
+    """Limpia emojis unicode no renderizables"""
+    return ''.join(c if ord(c) < 0x10000 else '' for c in str(text))
+
+
+# ============================================================================
+# LAYOUT L02: ANTES / DESPUÉS (split screen)
+# ============================================================================
+def _layout_antes_despues(img, draw, pal, data, h):
+    _top_bar(img, draw, pal, h)
+
+    hook = data.get("hook", "")
+    antes = _clean(data.get("antes_texto", "Antes"))
+    despues = _clean(data.get("despues_texto", "Después"))
+
+    # Hook centrado arriba
+    y = 130
+    y = _centered_text(draw, y, hook, _font("h", 48), pal["text"], 900)
+    y += 40
+
+    # Split: dos cards lado a lado
+    card_w = 460
+    card_h = 500
+    gap = 40
+    left_x = (W - card_w * 2 - gap) // 2
+    right_x = left_x + card_w + gap
+
+    # Card ANTES (rojo suave)
+    antes_bg = (255, 235, 235) if pal["bg"][0] > 100 else (60, 30, 30)
+    antes_text_color = (180, 50, 50) if pal["bg"][0] > 100 else (255, 120, 120)
+    draw.rounded_rectangle([left_x, y, left_x + card_w, y + card_h], radius=20, fill=antes_bg)
+    label = "ANTES"
+    lf = _font("h", 28)
+    lw = draw.textbbox((0, 0), label, font=lf)[2]
+    draw.text((left_x + (card_w - lw) // 2, y + 30), label, fill=antes_text_color, font=lf)
+    # Texto del antes centrado en la card
+    af = _font("m", 26)
+    ay = y + 100
+    for line in _wrap(antes, af, card_w - 60, draw)[:6]:
+        alw = draw.textbbox((0, 0), line, font=af)[2]
+        draw.text((left_x + (card_w - alw) // 2, ay), line, fill=pal["text"], font=af)
+        ay += 36
+
+    # Card DESPUÉS (verde suave)
+    desp_bg = (230, 250, 235) if pal["bg"][0] > 100 else (20, 50, 30)
+    desp_text_color = (40, 140, 70) if pal["bg"][0] > 100 else (100, 220, 130)
+    draw.rounded_rectangle([right_x, y, right_x + card_w, y + card_h], radius=20, fill=desp_bg)
+    label = "DESPUÉS"
+    lw = draw.textbbox((0, 0), label, font=lf)[2]
+    draw.text((right_x + (card_w - lw) // 2, y + 30), label, fill=desp_text_color, font=lf)
+    df = _font("m", 26)
+    dy = y + 100
+    for line in _wrap(despues, df, card_w - 60, draw)[:6]:
+        dlw = draw.textbbox((0, 0), line, font=df)[2]
+        draw.text((right_x + (card_w - dlw) // 2, dy), line, fill=pal["text"], font=df)
+        dy += 36
+
+    y += card_h + 50
+    y = _url_block(draw, pal, y)
+    _bottom_bar(draw, data.get("cta_bar", "elgadget.com.ar/referidos"), pal, h)
+
+
+# ============================================================================
+# LAYOUT L04: HISTORIA + CTA (storytelling centrado)
+# ============================================================================
+def _layout_historia(img, draw, pal, data, h):
+    _top_bar(img, draw, pal, h)
+
+    hook = data.get("hook", "")
+    historia = _clean(data.get("historia_texto", ""))
+
+    # Hook grande centrado
+    zone_top, zone_bot = 88, h - 72
+    hf = _font("h", 52)
+    h_lines = _wrap(hook, hf, 900, draw)[:3]
+    bf = _font("b", 26)
+    b_lines = _wrap(historia, bf, 860, draw)[:8] if historia else []
+    content_h = len(h_lines) * 66 + 50 + len(b_lines) * 38 + 120 + 100 + 40
+    y = zone_top + max(20, (zone_bot - zone_top - content_h) // 2)
+
+    for line in h_lines:
+        lw = draw.textbbox((0, 0), line, font=hf)[2]
+        draw.text(((W - lw) // 2, y), line, fill=pal["text"], font=hf)
+        y += 66
+    y += 50
+
+    # Historia como párrafo centrado
+    for line in b_lines:
+        lw = draw.textbbox((0, 0), line, font=bf)[2]
+        draw.text(((W - lw) // 2, y), line, fill=pal["text2"], font=bf)
+        y += 38
+    y += 40
+
+    y = _programa_footer(draw, pal, y, h)
+    y = _url_block(draw, pal, y)
+    _bottom_bar(draw, data.get("cta_bar", "elgadget.com.ar/referidos"), pal, h)
+
+
+# ============================================================================
+# LAYOUT L06: MITO VS REALIDAD (2 columnas)
+# ============================================================================
+def _layout_mito_realidad(img, draw, pal, data, h):
+    _top_bar(img, draw, pal, h)
+
+    hook = data.get("hook", "")
+    mitos = [_clean(m) for m in (data.get("mitos") or [])][:3]
+    realidades = [_clean(r) for r in (data.get("realidades") or [])][:3]
+    n = max(len(mitos), len(realidades))
+
+    # Hook centrado
+    y = 130
+    y = _centered_text(draw, y, hook, _font("h", 46), pal["text"], 900)
+    y += 30
+
+    # Headers
+    col_w = 460
+    gap = 30
+    lx = (W - col_w * 2 - gap) // 2
+    rx = lx + col_w + gap
+
+    mito_hdr = "MITO"
+    real_hdr = "REALIDAD"
+    hf = _font("h", 24)
+    mhw = draw.textbbox((0, 0), mito_hdr, font=hf)[2]
+    rhw = draw.textbbox((0, 0), real_hdr, font=hf)[2]
+    mito_color = (200, 60, 60) if pal["bg"][0] > 100 else (255, 100, 100)
+    real_color = (40, 160, 70) if pal["bg"][0] > 100 else (100, 220, 130)
+    draw.text((lx + (col_w - mhw) // 2, y), mito_hdr, fill=mito_color, font=hf)
+    draw.text((rx + (col_w - rhw) // 2, y), real_hdr, fill=real_color, font=hf)
+    y += 44
+
+    # Filas de cards
+    card_h = 120
+    card_gap = 18
+    for i in range(n):
+        # Card mito (rojo suave)
+        m_bg = (255, 240, 240) if pal["bg"][0] > 100 else (50, 25, 25)
+        draw.rounded_rectangle([lx, y, lx + col_w, y + card_h], radius=14, fill=m_bg)
+        # X icon
+        draw.text((lx + 16, y + 20), "✗", fill=mito_color, font=_font("h", 32))
+        if i < len(mitos):
+            mf = _font("m", 22)
+            for j, ml in enumerate(_wrap(mitos[i], mf, col_w - 70, draw)[:2]):
+                draw.text((lx + 56, y + 24 + j * 30), ml, fill=pal["text"], font=mf)
+
+        # Card realidad (verde suave)
+        r_bg = (235, 250, 238) if pal["bg"][0] > 100 else (20, 45, 25)
+        draw.rounded_rectangle([rx, y, rx + col_w, y + card_h], radius=14, fill=r_bg)
+        draw.text((rx + 16, y + 20), "✓", fill=real_color, font=_font("h", 32))
+        if i < len(realidades):
+            rf = _font("m", 22)
+            for j, rl in enumerate(_wrap(realidades[i], rf, col_w - 70, draw)[:2]):
+                draw.text((rx + 56, y + 24 + j * 30), rl, fill=pal["text"], font=rf)
+
+        y += card_h + card_gap
+
+    y += 30
+    y = _url_block(draw, pal, y)
+    _bottom_bar(draw, data.get("cta_bar", "La realidad es mas simple de lo que pensas"), pal, h)
+
+
+# ============================================================================
+# LAYOUT L08: COMPARATIVA PRECIOS (El Gadget vs competencia)
+# ============================================================================
+def _layout_comparativa(img, draw, pal, data, h):
+    _top_bar(img, draw, pal, h)
+
+    hook = data.get("hook", "")
+    comp_label = _clean(data.get("precio_competencia_label", "En otros lados: $150.000"))
+    prop_label = _clean(data.get("precio_propio_label", "En El Gadget: $106.125"))
+
+    # Hook centrado
+    y = 130
+    y = _centered_text(draw, y, hook, _font("h", 46), pal["text"], 900)
+    y += 50
+
+    # Dos cards de precio
+    card_w = 440
+    card_h = 280
+    gap = 40
+    lx = (W - card_w * 2 - gap) // 2
+    rx = lx + card_w + gap
+
+    # Card competencia (gris/rojo)
+    comp_bg = (245, 240, 240) if pal["bg"][0] > 100 else (45, 35, 35)
+    draw.rounded_rectangle([lx, y, lx + card_w, y + card_h], radius=20, fill=comp_bg)
+    comp_parts = comp_label.split(":")
+    comp_title = comp_parts[0].strip() if comp_parts else "Otros"
+    comp_price = comp_parts[1].strip() if len(comp_parts) > 1 else comp_label
+    ctf = _font("m", 22)
+    ctw = draw.textbbox((0, 0), comp_title, font=ctf)[2]
+    draw.text((lx + (card_w - ctw) // 2, y + 30), comp_title, fill=pal["text2"], font=ctf)
+    cpf = _font("h", 48)
+    cpw = draw.textbbox((0, 0), comp_price, font=cpf)[2]
+    draw.text((lx + (card_w - cpw) // 2, y + 100), comp_price, fill=pal["text2"], font=cpf)
+    # Tachado
+    line_y = y + 128
+    draw.line([(lx + (card_w - cpw) // 2 - 10, line_y), (lx + (card_w + cpw) // 2 + 10, line_y)], fill=(200, 60, 60), width=4)
+
+    # Card El Gadget (accent/verde)
+    prop_bg = pal["bullet_bg"]
+    draw.rounded_rectangle([rx, y, rx + card_w, y + card_h], radius=20, fill=prop_bg)
+    prop_parts = prop_label.split(":")
+    prop_title = prop_parts[0].strip() if prop_parts else "El Gadget"
+    prop_price = prop_parts[1].strip() if len(prop_parts) > 1 else prop_label
+    ptf = _font("m", 22)
+    ptw = draw.textbbox((0, 0), prop_title, font=ptf)[2]
+    draw.text((rx + (card_w - ptw) // 2, y + 30), prop_title, fill=pal["text"], font=ptf)
+    ppf = _font("h", 52)
+    ppw = draw.textbbox((0, 0), prop_price, font=ppf)[2]
+    draw.text((rx + (card_w - ppw) // 2, y + 95), prop_price, fill=pal["accent"], font=ppf)
+    # Badge
+    badge = "Hasta 20% OFF extra"
+    bbf = _font("h", 18)
+    bbw = draw.textbbox((0, 0), badge, font=bbf)[2] + 24
+    bx = rx + (card_w - bbw) // 2
+    draw.rounded_rectangle([bx, y + 180, bx + bbw, y + 212], radius=16, fill=pal["accent"])
+    draw.text((bx + 12, y + 185), badge, fill=INK, font=bbf)
+
+    # VS entre las cards
+    vs_f = _font("h", 36)
+    vs_w = draw.textbbox((0, 0), "VS", font=vs_f)[2]
+    draw.text(((W - vs_w) // 2, y + card_h // 2 - 20), "VS", fill=pal["text2"], font=vs_f)
+
+    y += card_h + 50
+    y = _url_block(draw, pal, y)
+    _bottom_bar(draw, data.get("cta_bar", "Mejor precio + descuento referido"), pal, h)
+
+
+# ============================================================================
+# LAYOUT L09: PASO A PASO (N pasos circulares)
+# ============================================================================
+def _layout_pasos(img, draw, pal, data, h):
+    _top_bar(img, draw, pal, h)
+
+    hook = data.get("hook", "")
+    pasos = [_clean(p) for p in (data.get("pasos") or [])][:5]
+
+    # Hook centrado
+    zone_top, zone_bot = 88, h - 72
+    hf = _font("h", 48)
+    h_lines = _wrap(hook, hf, 900, draw)[:3]
+    content_h = len(h_lines) * 62 + 40 + len(pasos) * 160 + 80 + 40
+    y = zone_top + max(20, (zone_bot - zone_top - content_h) // 2)
+
+    for line in h_lines:
+        lw = draw.textbbox((0, 0), line, font=hf)[2]
+        draw.text(((W - lw) // 2, y), line, fill=pal["text"], font=hf)
+        y += 62
+    y += 40
+
+    # Pasos como cards verticales con número circular
+    for i, paso in enumerate(pasos):
+        card_y = y
+        draw.rounded_rectangle([80, card_y, W - 80, card_y + 120], radius=16, fill=pal["bullet_bg"])
+
+        # Número circular
+        cx = 150
+        cy = card_y + 60
+        draw.ellipse([cx - 28, cy - 28, cx + 28, cy + 28], fill=pal["accent"])
+        num = str(i + 1)
+        nf = _font("h", 28)
+        nw = draw.textbbox((0, 0), num, font=nf)[2]
+        draw.text((cx - nw // 2, cy - 16), num, fill=INK, font=nf)
+
+        # Texto del paso
+        pf = _font("m", 28)
+        for j, pl in enumerate(_wrap(paso, pf, W - 320, draw)[:2]):
+            draw.text((200, card_y + 30 + j * 36), pl, fill=pal["text"], font=pf)
+
+        # Línea conectora (excepto último)
+        if i < len(pasos) - 1:
+            draw.line([(150, card_y + 120), (150, card_y + 150)], fill=pal["accent"], width=3)
+
+        y += 150
+
+    y += 20
+    y = _url_block(draw, pal, y)
+    _bottom_bar(draw, data.get("cta_bar", "Empeza hoy mismo"), pal, h)
+
+
+# ============================================================================
+# LAYOUT L10: CHECKLIST (items con checkmarks)
+# ============================================================================
+def _layout_checklist(img, draw, pal, data, h):
+    _top_bar(img, draw, pal, h)
+
+    hook = data.get("hook", "")
+    items = [_clean(it) for it in (data.get("items_check") or [])][:6]
+
+    # Hook centrado
+    zone_top, zone_bot = 88, h - 72
+    hf = _font("h", 48)
+    h_lines = _wrap(hook, hf, 900, draw)[:3]
+    ch = 90
+    gap = 18
+    content_h = len(h_lines) * 62 + 30 + len(items) * (ch + gap) + 80 + 40
+    y = zone_top + max(20, (zone_bot - zone_top - content_h) // 2)
+
+    for line in h_lines:
+        lw = draw.textbbox((0, 0), line, font=hf)[2]
+        draw.text(((W - lw) // 2, y), line, fill=pal["text"], font=hf)
+        y += 62
+    y += 30
+
+    # Items con checkmarks
+    check_color = (40, 160, 70) if pal["bg"][0] > 100 else (100, 220, 130)
+    for item in items:
+        draw.rounded_rectangle([50, y, W - 50, y + ch], radius=14, fill=pal["bullet_bg"])
+        # Checkmark circle
+        cx, cy = 96, y + ch // 2
+        draw.ellipse([cx - 20, cy - 20, cx + 20, cy + 20], fill=check_color)
+        draw.text((cx - 10, cy - 14), "✓", fill=WHITE, font=_font("h", 22))
+        # Item text
+        draw.text((134, y + (ch - 26) // 2), item[:60], fill=pal["text"], font=_font("m", 26))
+        y += ch + gap
+
+    y += 20
+    y = _url_block(draw, pal, y)
+    _bottom_bar(draw, data.get("cta_bar", "elgadget.com.ar/referidos"), pal, h)
+
+
+# ============================================================================
 # MAIN
 # ============================================================================
 LAYOUTS = {
+    # Mapeo L01-L10
+    "L01": _layout_educativo,
+    "L02": _layout_antes_despues,
+    "L03": _layout_motivacional,
+    "L04": _layout_historia,
+    "L05": _layout_engagement,
+    "L06": _layout_mito_realidad,
+    "L07": _layout_producto,
+    "L08": _layout_comparativa,
+    "L09": _layout_pasos,
+    "L10": _layout_checklist,
+    # Legacy fallbacks (pilar name → function)
     "educativo": _layout_educativo,
     "motivacional": _layout_motivacional,
     "engagement": _layout_engagement,
@@ -468,12 +839,17 @@ LAYOUTS = {
 def compose_image(
     producto_nombre="", producto_precio=0, producto_imagen_url="",
     persona="maria", pilar="producto", formato="PR-01", hook="",
-    output_filename=None,
+    output_filename=None, layout_id=None,
     titulo="", puntos=None, numero_grande="", subtexto="",
     bullets=None, pregunta="", opciones=None, cta_bar="", emoji="",
+    antes_texto="", despues_texto="", historia_texto="",
+    mitos=None, realidades=None,
+    precio_competencia_label="", precio_propio_label="",
+    pasos=None, items_check=None,
     size_format="feed",
 ) -> str:
     """Genera imagen branded para Instagram.
+    layout_id: L01-L10 (toma precedencia sobre pilar)
     size_format: 'feed' (1080x1350) o 'story' (1080x1920)
     """
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -490,9 +866,19 @@ def compose_image(
         "pregunta": pregunta or hook, "opciones": opciones or [],
         "producto_nombre": producto_nombre, "producto_precio": producto_precio,
         "producto_imagen": producto_imagen_url, "cta_bar": cta_bar, "emoji": emoji,
+        "antes_texto": antes_texto, "despues_texto": despues_texto,
+        "historia_texto": historia_texto,
+        "mitos": mitos or [], "realidades": realidades or [],
+        "precio_competencia_label": precio_competencia_label,
+        "precio_propio_label": precio_propio_label,
+        "pasos": pasos or [], "items_check": items_check or [],
     }
 
-    layout_fn = LAYOUTS.get(pilar, _layout_producto)
+    # Layout resolution: layout_id > pilar > fallback
+    if layout_id and layout_id in LAYOUTS:
+        layout_fn = LAYOUTS[layout_id]
+    else:
+        layout_fn = LAYOUTS.get(pilar, _layout_producto)
     layout_fn(img, draw, pal, data, h)
 
     final = img.convert("RGB")
@@ -624,38 +1010,33 @@ def compose_carousel(
 
 
 if __name__ == "__main__":
-    compose_image(
-        persona="maria", pilar="educativo",
-        titulo="5 formas de compartir tu codigo y ganar",
-        puntos=["Mandalo por WhatsApp a tus contactos", "Subilo a tus Instagram Stories",
-                "Compartilo en grupos de mamas", "Envia el link directo por mensaje",
-                "Publicalo en Facebook o TikTok"],
-        cta_bar="Registrate gratis en elgadget.com.ar/referidos",
-        output_filename="test_educativo.jpg",
-    )
-    compose_image(
-        persona="lucas", pilar="motivacional",
-        numero_grande="$45.600", subtexto="ganaron nuestros referidos este mes",
-        bullets=["Sin inversion inicial", "Sin manejar stock ni envios",
-                 "Cobras el dia 5 de cada mes", "Comisiones de 7% a 15%"],
-        hook="Empeza a ganar hoy compartiendo productos de El Gadget",
-        cta_bar="Sumate gratis al programa de referidos",
-        output_filename="test_motivacional.jpg",
-    )
-    compose_image(
-        persona="maria", pilar="engagement",
-        pregunta="Que harias con $30.000 extra por mes?",
-        opciones=["Pagar deudas", "Vacaciones", "Compras para la casa", "Tecnologia nueva"],
-        cta_bar="Contanos en los comentarios",
-        output_filename="test_engagement.jpg",
-    )
-    compose_image(
-        persona="lucas", pilar="producto",
-        producto_nombre="Estanteria Plegable Metal Negra 5 Niveles",
-        producto_precio=106125,
-        producto_imagen_url="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_001",
-        hook="Tu casa parece un caos?",
-        cta_bar="Codigo referido = hasta 20% OFF",
-        output_filename="test_producto.jpg",
-    )
-    print("4 imagenes generadas (1080x1350 feed format)")
+    tests = [
+        ("L01", dict(persona="maria", layout_id="L01", hook="5 formas de compartir tu codigo",
+            titulo="5 formas de compartir tu codigo", puntos=["Mandalo por WhatsApp", "Subilo a Stories", "Grupos de mamas", "Link directo", "Facebook o TikTok"])),
+        ("L02", dict(persona="lucas", layout_id="L02", hook="Tu espacio de trabajo cambio para siempre",
+            antes_texto="Escritorio lleno de cables, papeles y tazas de ayer. No encontras nada cuando lo necesitas.",
+            despues_texto="Todo organizado, cada cosa en su lugar. Arrancas el dia con la cabeza despejada.")),
+        ("L03", dict(persona="lucas", layout_id="L03", hook="La matematica es simple",
+            numero_grande="$45.600", subtexto="ganaron nuestros referidos este mes",
+            bullets=["Sin inversion inicial", "Sin stock ni envios", "Cobras el dia 5", "Comisiones 7-15%"])),
+        ("L04", dict(persona="ana", layout_id="L04", hook="No es otro trabajo. Es cobrar por lo que ya haces.",
+            historia_texto="Cada vez que alguien te pregunta donde compraste algo, le estas regalando una recomendacion. El programa de referidos de El Gadget convierte eso en comisiones reales. Sin contratos, sin obligaciones.")),
+        ("L05", dict(persona="maria", layout_id="L05", hook="Tu opinion nos importa",
+            pregunta="Que harias con $30.000 extra por mes?", opciones=["Pagar deudas", "Vacaciones", "Compras para casa", "Tecnologia"])),
+        ("L06", dict(persona="lucas", layout_id="L06", hook="Lo que pensas vs lo que es",
+            mitos=["Necesitas invertir plata", "Tenes que vender puerta a puerta", "Solo ganan los influencers"],
+            realidades=["Registrarte es 100% gratis", "Compartis un link y listo", "Cualquiera puede ganar"])),
+        ("L07", dict(persona="maria", layout_id="L07", hook="Tu casa parece un caos?",
+            producto_nombre="Estanteria Plegable Metal Negra", producto_precio=106125,
+            producto_imagen_url="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_001")),
+        ("L08", dict(persona="sofi", layout_id="L08", hook="El mismo producto, diferente precio",
+            precio_competencia_label="En MercadoLibre: $153.000", precio_propio_label="En El Gadget: $106.125")),
+        ("L09", dict(persona="lucas", layout_id="L09", hook="Empeza a ganar en 3 pasos",
+            pasos=["Registrate gratis en 2 minutos", "Recibi tu codigo personalizado", "Comparti con amigos y familia", "Cobra comisiones el dia 5"])),
+        ("L10", dict(persona="ana", layout_id="L10", hook="Checklist del referido exitoso",
+            items_check=["Registrarse gratis", "Compartir codigo con 5 amigos", "Esperar la primera compra", "Cobrar comision el dia 5", "Repetir y subir de tier"])),
+    ]
+    for name, kwargs in tests:
+        compose_image(**kwargs, output_filename=f"test_{name}.jpg")
+        print(f"  {name}: OK")
+    print(f"\n{len(tests)} layouts generados (1080x1350)")
