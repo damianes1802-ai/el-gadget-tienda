@@ -29,9 +29,153 @@ MARKETING_CONFIG_FILE = BASE_DIR / "marketing_app" / "config.json"
 CONTENIDOS_DB = BASE_DIR / "marketing_app" / "data" / "contenidos.db"
 CLOUDINARY_BASE = "https://res.cloudinary.com/deq2ofluf/image/upload"
 
-# ── Pilares y formatos de contenido Instagram ──
-# Distribución: 2/7 educativo + 1/7 motivacional + 2/7 engagement + 2/7 producto
-# El perfil debe verse como tienda desde el primer momento (2 de cada 7 posts son producto)
+# ══════════════════════════════════════════════════════════════════════
+# SISTEMA DE SELECCIÓN INTELIGENTE: Persona × Dolor × Ángulo × Layout
+# ══════════════════════════════════════════════════════════════════════
+
+PERSONAS = {
+    "maria": {
+        "nombre": "María", "peso": 35,
+        "descripcion": "Mamá urbana 28-42, CABA/GBA, 1-2 hijos, NSE medio-alto",
+        "tono": "Cálido, de mamá a mamá. Como una amiga que le cuenta un dato útil.",
+        "dolores": [
+            {"id": "M1", "cat": "financiero", "texto": "Con la inflación no me alcanza, necesito plata extra sin dejar a los chicos", "trigger": "fin de mes, supermercado", "contenido": "Cálculo real: 3 amigas compran = $X para vos"},
+            {"id": "M2", "cat": "emocional", "texto": "Mi casa es un caos y me siento abrumada", "trigger": "llegar a casa después del trabajo", "contenido": "Antes/después con producto + en 10 minutos"},
+            {"id": "M3", "cat": "social", "texto": "Ya recomiendo cosas gratis en el grupo de mamás", "trigger": "cuando alguien pregunta dónde compraste", "contenido": "Convertí tus recomendaciones en ingresos"},
+            {"id": "M4", "cat": "social", "texto": "No quiero parecer que les vendo a mis amigas", "trigger": "miedo al rechazo", "contenido": "No es vender, es compartir un descuento"},
+            {"id": "M5", "cat": "practico", "texto": "Quiero algo flexible que pueda hacer desde casa", "trigger": "falta de tiempo", "contenido": "Sin horarios, sin jefe, desde el celular"},
+        ],
+        "angulos": [
+            {"id": "MA1", "texto": "Tu grupo de mamás es tu mejor negocio", "tipo": "identificacion", "hook_ej": "Ya recomendás todo gratis. ¿Y si cobraras?", "layouts": ["L03", "L04"]},
+            {"id": "MA2", "texto": "Transformación del hogar", "tipo": "aspiracional", "hook_ej": "De caos a revista en 10 minutos", "layouts": ["L02", "L07"]},
+            {"id": "MA3", "texto": "Calculá cuánto ganarías", "tipo": "racional", "hook_ej": "3 amigas × $50.000 = $10.500 para vos", "layouts": ["L03", "L01"]},
+            {"id": "MA4", "texto": "Sin ser vendedora", "tipo": "objecion", "hook_ej": "No vendés nada. Compartís un descuento.", "layouts": ["L06", "L04"]},
+            {"id": "MA5", "texto": "Mamá multitarea", "tipo": "empatia", "hook_ej": "Mientras los chicos duermen, vos ganás", "layouts": ["L04", "L09"]},
+        ],
+        "palabras_conectan": ["sin salir de casa", "desde el celular", "mientras los chicos duermen", "tus amigas", "el grupo de mamás", "tu familia", "ahorro", "llegar a fin de mes", "ingreso extra", "sin invertir", "gratis", "fácil"],
+        "palabras_prohibidas": ["negocio", "vender", "emprender", "inversión", "multinivel", "red de contactos", "oportunidad única"],
+    },
+    "lucas": {
+        "nombre": "Lucas", "peso": 25,
+        "descripcion": "Joven urbano 18-34, nativo digital, estudiante o joven profesional",
+        "tono": "Directo, sin vueltas. Como un amigo que te cuenta algo que funciona. Nada de gurú.",
+        "dolores": [
+            {"id": "L1", "cat": "emocional", "texto": "Estoy cansado de laburar para otro y ganar poco", "trigger": "lunes a la mañana", "contenido": "Un ingreso que no depende de tu jefe"},
+            {"id": "L2", "cat": "social", "texto": "Mis amigos ganan plata en redes y yo no arranco", "trigger": "ver stories de amigos", "contenido": "El programa recién arranca — entrá ahora"},
+            {"id": "L3", "cat": "financiero", "texto": "No tengo plata para invertir en nada", "trigger": "querer emprender sin capital", "contenido": "Registrarte es gratis. En serio."},
+            {"id": "L4", "cat": "practico", "texto": "Quiero resultados rápidos, no promesas", "trigger": "ver oportunidades que nunca funcionan", "contenido": "Cálculo con números reales"},
+            {"id": "L5", "cat": "practico", "texto": "No sé qué decir al compartir", "trigger": "vergüenza de parecer vendedor", "contenido": "Templates listos, solo pegás y enviás"},
+        ],
+        "angulos": [
+            {"id": "LA1", "texto": "Side hustle real", "tipo": "aspiracional", "hook_ej": "Un side hustle que no te roba el día", "layouts": ["L03", "L09"]},
+            {"id": "LA2", "texto": "Hacé la cuenta", "tipo": "racional", "hook_ej": "1 link = $7.400 de comisión. La matemática es simple.", "layouts": ["L03", "L01"]},
+            {"id": "LA3", "texto": "Escéptico convertido", "tipo": "historia", "hook_ej": "También pensé que era humo. Acá van los números.", "layouts": ["L04", "L06"]},
+            {"id": "LA4", "texto": "Antes de que se llene", "tipo": "urgencia", "hook_ej": "El programa recién arranca. Los primeros tienen ventaja.", "layouts": ["L04", "L03"]},
+            {"id": "LA5", "texto": "Tu celular ya es tu herramienta", "tipo": "facilidad", "hook_ej": "WhatsApp + tu código = comisiones", "layouts": ["L09", "L01"]},
+        ],
+        "palabras_conectan": ["side hustle", "ingreso extra", "sin jefe", "rápido", "fácil", "desde el celu", "la matemática es simple", "hacé la cuenta", "sin humo", "real", "transparente"],
+        "palabras_prohibidas": ["oportunidad de la vida", "millonario", "libertad financiera", "jefe de tu propio destino"],
+    },
+    "ana": {
+        "nombre": "Ana", "peso": 15,
+        "descripcion": "Profesional 35-50, NSE medio-alto, valora calidad y transparencia",
+        "tono": "Adulto, profesional, sin exageraciones. Datos concretos. Respeto a su inteligencia.",
+        "dolores": [
+            {"id": "A1", "cat": "social", "texto": "Si recomiendo algo malo, quedo yo como la responsable", "trigger": "miedo a quedar mal", "contenido": "Solo recomendá lo que te gusta. Sin obligaciones."},
+            {"id": "A2", "cat": "practico", "texto": "No tengo tiempo para otro compromiso", "trigger": "agenda llena", "contenido": "Compartís un link y listo. Sin horarios."},
+            {"id": "A3", "cat": "racional", "texto": "Quiero saber exactamente cuánto gano y cuándo cobro", "trigger": "desconfianza de programas", "contenido": "Panel en tiempo real con números claros"},
+            {"id": "A4", "cat": "financiero", "texto": "Un ingreso pasivo real, no otro trabajo", "trigger": "fin de mes cómodo pero podría ser mejor", "contenido": "Cobrás por recomendaciones que ya hacés"},
+        ],
+        "angulos": [
+            {"id": "AA1", "texto": "Recomendación genuina", "tipo": "confianza", "hook_ej": "Si te gusta un producto, ¿por qué no cobrar por recomendarlo?", "layouts": ["L04", "L01"]},
+            {"id": "AA2", "texto": "Transparencia total", "tipo": "racional", "hook_ej": "Panel en tiempo real. Ves cada venta, cada comisión.", "layouts": ["L01", "L10"]},
+            {"id": "AA3", "texto": "Ingreso pasivo real", "tipo": "aspiracional", "hook_ej": "No es otro trabajo. Es cobrar por lo que ya hacés.", "layouts": ["L06", "L03"]},
+            {"id": "AA4", "texto": "Calidad garantizada", "tipo": "confianza", "hook_ej": "10 días de devolución. 6 meses de garantía. MercadoPago.", "layouts": ["L10", "L07"]},
+        ],
+        "palabras_conectan": ["transparente", "claro", "sin letra chica", "recomendación genuina", "lo que ya hacés", "ingreso pasivo", "sin compromiso", "calidad", "garantía", "confianza"],
+        "palabras_prohibidas": ["ganá plata fácil", "sin hacer nada", "oportunidad única", "no te lo pierdas"],
+    },
+    "sofi": {
+        "nombre": "Sofi", "peso": 15,
+        "descripcion": "Creadora de contenido 18-45, tiene audiencia, busca monetizar auténticamente",
+        "tono": "Natural, como una creadora hablando de una oportunidad real. Sin parecer publicidad.",
+        "dolores": [
+            {"id": "S1", "cat": "financiero", "texto": "Los programas de afiliados pagan poco y tarde", "trigger": "ver comisiones míseras", "contenido": "7-15% de comisión. Cobro el día 5."},
+            {"id": "S2", "cat": "social", "texto": "No quiero perder credibilidad recomendando algo malo", "trigger": "miedo a la audiencia", "contenido": "Productos reales, garantía de 6 meses"},
+            {"id": "S3", "cat": "practico", "texto": "Necesito tracking transparente para saber cuánto generé", "trigger": "no saber si funciona", "contenido": "Panel en tiempo real con cada venta"},
+            {"id": "S4", "cat": "practico", "texto": "Quiero productos que mi audiencia realmente compre", "trigger": "recomendar y que nadie compre", "contenido": "Productos con descuento = mayor conversión"},
+        ],
+        "angulos": [
+            {"id": "SA1", "texto": "Monetizá tu audiencia", "tipo": "aspiracional", "hook_ej": "Tu audiencia ya te pide recomendaciones. Cobrá por ellas.", "layouts": ["L03", "L07"]},
+            {"id": "SA2", "texto": "Comisiones que valen la pena", "tipo": "racional", "hook_ej": "7-15% > lo que pagan la mayoría de programas", "layouts": ["L08", "L03"]},
+            {"id": "SA3", "texto": "Sin contratos", "tipo": "libertad", "hook_ej": "Sin obligaciones de publicación. Tu contenido, tu ritmo.", "layouts": ["L04", "L10"]},
+            {"id": "SA4", "texto": "Productos instagrameables", "tipo": "visual", "hook_ej": "Productos que tu audiencia quiere tener", "layouts": ["L07", "L02"]},
+        ],
+        "palabras_conectan": ["tu audiencia", "monetizar", "tracking", "comisiones transparentes", "sin contratos", "tu contenido", "productos reales", "tu ritmo"],
+        "palabras_prohibidas": ["influencer barato", "obligación", "publicar X veces", "contrato"],
+    },
+    "martin": {
+        "nombre": "Martín", "peso": 10,
+        "descripcion": "Mayorista/revendedor 30-50, busca margen y variedad",
+        "tono": "Directo, con números, orientado al negocio. Mostrá márgenes concretos.",
+        "dolores": [
+            {"id": "MT1", "cat": "financiero", "texto": "Necesito margen real, no descuentos que no dejan ganancia", "trigger": "calcular márgenes", "contenido": "25% OFF = margen del 40%+ en reventa"},
+            {"id": "MT2", "cat": "practico", "texto": "Quiero variedad de productos para ofrecer", "trigger": "catálogo limitado", "contenido": "300+ productos en 10 categorías"},
+            {"id": "MT3", "cat": "practico", "texto": "Me importa que el envío sea confiable", "trigger": "reclamos de clientes", "contenido": "Envío a todo el país con tracking"},
+        ],
+        "angulos": [
+            {"id": "MTA1", "texto": "Números claros", "tipo": "racional", "hook_ej": "25% OFF = margen del 40%+ en reventa", "layouts": ["L03", "L08"]},
+            {"id": "MTA2", "texto": "Catálogo amplio", "tipo": "variedad", "hook_ej": "300+ productos en 10 categorías", "layouts": ["L01", "L10"]},
+            {"id": "MTA3", "texto": "Confianza logística", "tipo": "confianza", "hook_ej": "Envío a todo el país con tracking", "layouts": ["L10", "L07"]},
+        ],
+        "palabras_conectan": ["margen", "reventa", "mayorista", "catálogo", "factura", "envío seguro", "precio por mayor"],
+        "palabras_prohibidas": ["emprendedor", "influencer", "redes sociales", "viral"],
+    },
+}
+
+# ── Layouts: mapeo ID → info para prompt y selección ──
+LAYOUTS_INFO = {
+    "L01": {"nombre": "Bullets numerados", "pilares": ["educativo"], "campos": ["hook", "titulo", "puntos"]},
+    "L02": {"nombre": "Antes/después", "pilares": ["educativo", "producto"], "campos": ["hook", "antes_texto", "despues_texto"]},
+    "L03": {"nombre": "Número grande + desglose", "pilares": ["motivacional"], "campos": ["hook", "numero_grande", "subtexto", "bullets"]},
+    "L04": {"nombre": "Historia + CTA", "pilares": ["motivacional"], "campos": ["hook", "historia_texto"]},
+    "L05": {"nombre": "Pregunta + opciones", "pilares": ["engagement"], "campos": ["hook", "pregunta", "opciones"]},
+    "L06": {"nombre": "Mito vs realidad", "pilares": ["educativo", "engagement"], "campos": ["hook", "mitos", "realidades"]},
+    "L07": {"nombre": "Producto lifestyle", "pilares": ["producto"], "campos": ["hook"]},
+    "L08": {"nombre": "Comparativa precios", "pilares": ["producto"], "campos": ["hook", "precio_competencia_label", "precio_propio_label"]},
+    "L09": {"nombre": "Paso a paso", "pilares": ["educativo"], "campos": ["hook", "pasos"]},
+    "L10": {"nombre": "Checklist", "pilares": ["educativo"], "campos": ["hook", "items_check"]},
+}
+
+# ── Schemas JSON por layout (lo que Claude debe devolver) ──
+LAYOUT_SCHEMAS = {
+    "L01": '{"hook":"frase corta OBLIGATORIO","titulo":"titulo max 6 palabras","puntos":["punto max 40 chars",...max 5],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+    "L02": '{"hook":"frase corta OBLIGATORIO","antes_texto":"descripcion del antes max 60 chars","despues_texto":"descripcion del despues max 60 chars","caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+    "L03": '{"hook":"frase corta OBLIGATORIO","numero_grande":"$X.XXX","subtexto":"que representa max 50 chars","bullets":["beneficio max 35 chars",...max 4],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+    "L04": '{"hook":"frase corta OBLIGATORIO","historia_texto":"parrafo storytelling 2-3 oraciones max 200 chars","caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+    "L05": '{"hook":"frase corta OBLIGATORIO","pregunta":"pregunta max 50 chars","opciones":["opcion max 30 chars",...max 4],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+    "L06": '{"hook":"frase corta OBLIGATORIO","mitos":["mito max 40 chars",...max 3],"realidades":["realidad max 40 chars",...max 3],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+    "L07": '{"hook":"frase sobre PROBLEMA que resuelve OBLIGATORIO","caption":"texto IG con angulo referido","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+    "L08": '{"hook":"frase corta OBLIGATORIO","precio_competencia_label":"En MercadoLibre: $X.XXX","precio_propio_label":"En El Gadget: $X.XXX","caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+    "L09": '{"hook":"frase corta OBLIGATORIO","pasos":["paso max 40 chars",...max 4],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+    "L10": '{"hook":"frase corta OBLIGATORIO","items_check":["item max 40 chars",...max 6],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+}
+
+# ── Mapeo legacy para backward compat del modal individual ──
+FORMATOS_LEGACY = {
+    "ED-01": {"layout_id": "L01", "tipo": "reel"}, "ED-02": {"layout_id": "L01", "tipo": "carrusel"},
+    "ED-03": {"layout_id": "L09", "tipo": "reel"}, "ED-04": {"layout_id": "L10", "tipo": "carrusel"},
+    "MO-01": {"layout_id": "L04", "tipo": "reel"}, "MO-02": {"layout_id": "L03", "tipo": "post"},
+    "MO-03": {"layout_id": "L03", "tipo": "reel"}, "MO-04": {"layout_id": "L04", "tipo": "story"},
+    "EN-01": {"layout_id": "L05", "tipo": "story"}, "EN-02": {"layout_id": "L06", "tipo": "post"},
+    "EN-03": {"layout_id": "L05", "tipo": "reel"},
+    "PR-01": {"layout_id": "L07", "tipo": "reel"}, "PR-02": {"layout_id": "L07", "tipo": "post"},
+    "PR-03": {"layout_id": "L07", "tipo": "reel"}, "PR-04": {"layout_id": "L08", "tipo": "post"},
+    "PR-05": {"layout_id": "L08", "tipo": "carrusel"},
+}
+
+# ── Pilares y formatos de contenido Instagram (LEGACY — usado por modal individual) ──
+# Distribución controlada por PERSONAS[].peso, no por pesos fijos de pilar
 PILARES = {
     "educativo":    {"peso": 28, "desc": "Contenido de valor que enseña cómo funciona el programa de referidos y cómo ganar dinero"},
     "motivacional": {"peso": 15, "desc": "Historias de éxito, cálculos de ganancias, inspiración para empezar"},
@@ -218,6 +362,13 @@ class Api:
                 publicado_at TEXT
             )
         """)
+        conn.commit()
+        # Migration: columnas nuevas para selección inteligente
+        for col, tipo in [("dolor_id", "TEXT"), ("angulo_id", "TEXT"), ("layout_id", "TEXT"), ("contexto_fingerprint", "TEXT")]:
+            try:
+                conn.execute(f"ALTER TABLE contenidos ADD COLUMN {col} {tipo}")
+            except sqlite3.OperationalError:
+                pass
         conn.commit()
         conn.close()
 
