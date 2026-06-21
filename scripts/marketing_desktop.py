@@ -167,7 +167,7 @@ LAYOUT_SCHEMAS = {
     "L08": '{"hook":"OBLIGATORIO","precio_competencia_label":"Titulo corto: $X.XXX (max 20 chars el precio)","precio_propio_label":"Titulo corto: $X.XXX (max 20 chars el precio)","caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
     "L09": '{"hook":"OBLIGATORIO","pasos":["max 40 chars",...max 4],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
     "L10": '{"hook":"OBLIGATORIO","items_check":["max 40 chars",...max 6],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
-    "R01": '{"hook":"pregunta de dolor max 50 chars OBLIGATORIO","dolor":"ampliar el dolor 1 oracion max 80 chars","solucion":"como se resuelve 1-2 oraciones max 100 chars","numero_grande":"$X.XXX numero impactante","subtexto_proof":"contexto del numero max 60 chars","beneficio":"frase emocional corta max 60 chars","dato_extra":"prueba social adicional max 60 chars","cta_text":"CTA max 40 chars con signos","voiceover":"texto complementario para voz en off 3-4 oraciones NO repetir lo que dice el texto visual sino agregar contexto persuasivo","caption":"caption para publicar el reel en IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R01": '{"hook":"PREGUNTA DIRECTA de dolor con ¿? max 8 palabras. Ej: ¿Laburás 8 horas y seguís sin plata?","dolor":"1 frase que amplíe el dolor y genere identificación max 12 palabras. Ej: Tus amigos ya generan plata extra. Vos seguís scrolleando.","solucion":"1-2 frases claras de cómo funciona max 20 palabras. Ej: Compartí un link. Tu contacto compra con descuento. Vos cobrás comisión.","numero_grande":"NUMERO CON SIGNO $ y SIEMPRE con % si es porcentaje. Ej: $10.500 o 15%. NUNCA sin el signo.","subtexto_proof":"explicacion del numero max 10 palabras. Ej: ganás si 3 amigos compran este mes","beneficio":"frase emocional con puntos concretos max 10 palabras. Ej: Sin jefe. Sin horarios. Desde el celular.","dato_extra":"prueba social o urgencia max 10 palabras. Ej: El programa recién arranca. Los primeros ganan más.","cta_text":"CTA con ¿? max 6 palabras. Ej: ¿Querés empezar a ganar?","voiceover":"3-4 oraciones en tono conversacional argentino que COMPLEMENTEN el texto visual (NO repitan). Agregan contexto, emoción o datos que el texto no dice. Max 200 chars.","caption":"caption para publicar el reel en IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
 }
 
 # ── Mapeo legacy para backward compat del modal individual ──
@@ -895,25 +895,35 @@ Producto (contexto):
 - {nombre} · ${precio:,.0f} · {cat}
 - Con referido 10% OFF: ${round(precio*0.90):,.0f} · 20% OFF: ${round(precio*0.80):,.0f}
 
-ESTRUCTURA DEL REEL (7 slides, 20-25 seg total):
-1. Hook (2-3s) — pregunta de dolor que frena el scroll
-2. Dolor (2s) — ampliar el dolor, que se identifiquen
-3. Solución (3s) — cómo se resuelve
-4. Prueba (3.5s) — número grande impactante con contexto
-5. Beneficio (2.5s) — frase emocional
-6. Social proof (2s) — dato extra de confianza
-7. CTA (4s) — llamado a la acción claro
+REGLAS CRÍTICAS PARA EL REEL:
+- Cada slide se lee en 2-3 segundos. MÁXIMO 10 PALABRAS por slide.
+- El hook DEBE ser una pregunta con ¿? que duela. Máximo 8 palabras.
+- El dolor es UNA frase que genere identificación inmediata. Máximo 12 palabras.
+- La solución explica cómo funciona en lenguaje simple. Máximo 20 palabras.
+- El numero_grande SIEMPRE lleva $ si es plata o % si es porcentaje. NUNCA sin signo.
+- El subtexto_proof contextualiza el número. Máximo 10 palabras.
+- El beneficio son 3-4 frases cortas separadas por punto. Máximo 10 palabras total.
+- El dato_extra genera urgencia o confianza. Máximo 10 palabras.
+- El cta_text es una pregunta con ¿? que invite a actuar. Máximo 6 palabras.
+- El voiceover NO repite el texto visual. Agrega contexto persuasivo en tono conversacional argentino (como si le hablaras a un amigo). 3-4 oraciones cortas.
 
-El voiceover debe COMPLEMENTAR el texto visual, NO repetirlo. Agregar contexto persuasivo adicional.
+EJEMPLO de reel bien hecho (Lucas):
+  hook: "¿Laburás 8 horas y seguís sin plata?"
+  dolor: "Tus amigos ya generan plata extra. Vos seguís scrolleando."
+  solucion: "Compartí un link. Tu contacto compra con descuento. Vos cobrás comisión."
+  numero_grande: "$10.500"
+  subtexto_proof: "ganás si 3 amigos compran este mes"
+  beneficio: "Sin jefe. Sin horarios. Desde el celu."
+  dato_extra: "El programa recién arranca. Entrá ahora."
+  cta_text: "¿Querés empezar a ganar?"
+  voiceover: "Mirá, hay otra forma de generar plata sin depender de nadie. Compartís un link, tu contacto compra con descuento, y vos cobrás. Los que arrancaron primero ya están cobrando."
 
-CHECKLIST:
-- Hook fuerte que frene el scroll?
-- Toca el dolor específico?
-- Tiene prueba social o cálculo real?
-- CTA claro y de baja fricción?
-- Voiceover complementa sin repetir?
-- TODAS las preguntas tienen ¿?
-- Hashtags: 5-8, incluyen branded + nicho?
+CHECKLIST (verificá antes de responder):
+- ¿Cada slide tiene MÁXIMO 10 palabras? Si no, acortalo.
+- ¿El hook tiene ¿? y duele?
+- ¿El numero_grande tiene $ o %? NUNCA sin signo.
+- ¿El voiceover complementa sin repetir?
+- ¿Usás las palabras que conectan de esta persona?
 
 RESPONDÉ SOLO con este JSON exacto (sin markdown):
 {schema}"""
