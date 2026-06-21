@@ -473,6 +473,7 @@ class Api:
         }
 
     def _headers(self):
+        return {"X-Admin-Password": self.admin_password}
 
     def _get(self, path, params=None):
         try:
