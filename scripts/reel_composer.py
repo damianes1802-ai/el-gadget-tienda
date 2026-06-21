@@ -104,6 +104,102 @@ def ease_out_expo(t):
     return 1 if t >= 1 else 1 - 2 ** (-10 * t)
 
 
+# ── Elementos decorativos por persona (psicología visual) ──
+
+def _v(base, var, rang=60):
+    """Desplaza una coordenada según la variación del slide."""
+    import math
+    return base + int(math.sin(var * 2.3 + base * 0.01) * rang)
+
+
+def _decor_color(pal):
+    """Color de decorativos con contraste garantizado sobre el fondo."""
+    bg_lum = sum(pal["bg"][:3]) / 3
+    if bg_lum > 180:
+        return (180, 160, 120)
+    elif bg_lum > 80:
+        return (120, 110, 100)
+    else:
+        return (60, 65, 80)
+
+
+def _decor_maria(draw, pal, var=0):
+    """María: círculos suaves, puntos dispersos — calidez, seguridad maternal."""
+    c = _decor_color(pal)
+    for cx, cy, r in [(120, 250, 35), (950, 300, 25), (80, 1500, 30), (980, 1550, 20), (200, 1600, 15), (900, 1650, 22)]:
+        dx, dy = _v(cx, var, 50), _v(cy, var, 40)
+        draw.ellipse([dx - r, dy - r, dx + r, dy + r], outline=c, width=3)
+    for cx, cy in [(160, 350), (920, 400), (100, 1400), (960, 1480), (200, 1700), (880, 1720), (500, 200), (600, 1680)]:
+        dx, dy = _v(cx, var, 30), _v(cy, var, 25)
+        draw.ellipse([dx - 6, dy - 6, dx + 6, dy + 6], fill=c)
+
+
+def _decor_lucas(draw, pal, var=0):
+    """Lucas: líneas diagonales, flechas — energía, acción, movimiento."""
+    c = _decor_color(pal)
+    off = var * 40
+    draw.line([(_v(0, var, 30), 200 + off % 80), (_v(180, var, 40), 100 + off % 60)], fill=c, width=2)
+    draw.line([(_v(W, var, 30), 250 + off % 70), (_v(W - 160, var, 40), 150 + off % 50)], fill=c, width=2)
+    draw.line([(_v(0, var, 30), 1550 - off % 80), (_v(140, var, 40), 1650 - off % 60)], fill=c, width=2)
+    draw.line([(_v(W, var, 30), 1500 - off % 70), (_v(W - 120, var, 40), 1600 - off % 50)], fill=c, width=2)
+    for bx, by, s in [(60, 300, 20), (W - 80, 350, 16), (80, 1450, 18), (W - 60, 1500, 14)]:
+        dx, dy = _v(bx, var, 40), _v(by, var, 35)
+        draw.rectangle([dx, dy, dx + s, dy + s], outline=c, width=2)
+
+
+def _decor_ana(draw, pal, var=0):
+    """Ana: líneas finas horizontales, grid sutil — profesionalismo, estructura."""
+    c = _decor_color(pal)
+    positions = [220, 260, 1560, 1600]
+    for i, y_pos in enumerate(positions):
+        dy = _v(y_pos, var + i, 20)
+        margin = 80 + (var * 15 + i * 20) % 60
+        draw.line([(margin, dy), (W - margin, dy)], fill=c, width=1)
+
+
+def _decor_sofi(draw, pal, var=0):
+    """Sofi: formas orgánicas suaves — autenticidad, creatividad."""
+    c = _decor_color(pal)
+    for cx, cy, rx, ry in [(100, 280, 50, 35), (960, 320, 40, 28), (120, 1520, 45, 30), (940, 1580, 35, 25)]:
+        dx, dy = _v(cx, var, 50), _v(cy, var, 40)
+        draw.ellipse([dx - rx, dy - ry, dx + rx, dy + ry], outline=c, width=2)
+    for cx, cy in [(180, 350), (880, 380), (200, 1620), (860, 1660)]:
+        dx, dy = _v(cx, var, 35), _v(cy, var, 30)
+        draw.ellipse([dx - 6, dy - 6, dx + 6, dy + 6], fill=c)
+
+
+def _decor_martin(draw, pal, var=0):
+    """Martín: barras gruesas, bordes sólidos — estabilidad, negocio, resultados."""
+    c = _decor_color(pal)
+    bars = [(60, 220, 80, 320), (W - 80, 240, W - 60, 340), (60, 1500, 80, 1600), (W - 80, 1520, W - 60, 1620)]
+    for i, (x1, y1, x2, y2) in enumerate(bars):
+        dy = _v(0, var + i, 30)
+        draw.rectangle([x1, y1 + dy, x2, y2 + dy], fill=c)
+    crosses = [(120, 280), (W - 120, 300), (120, 1560), (W - 120, 1580)]
+    for i, (x, y) in enumerate(crosses):
+        dx, dy = _v(x, var + i, 25), _v(y, var + i, 20)
+        draw.line([(dx - 10, dy), (dx + 10, dy)], fill=c, width=3)
+        draw.line([(dx, dy - 10), (dx, dy + 10)], fill=c, width=3)
+
+
+DECOR_MAP = {
+    "maria": _decor_maria,
+    "lucas": _decor_lucas,
+    "ana": _decor_ana,
+    "sofi": _decor_sofi,
+    "martin": _decor_martin,
+}
+
+_decor_counter = 0
+
+def _apply_decor(draw, pal, persona):
+    global _decor_counter
+    fn = DECOR_MAP.get(persona)
+    if fn:
+        fn(draw, pal, _decor_counter)
+        _decor_counter += 1
+
+
 # ── Drawing helpers ──
 
 def _shadow(draw, xy, text, font, fill, offset=3):
@@ -183,12 +279,13 @@ def _gradient_bg(img, color_top, color_bot):
 
 # ── Slide renderers ──
 
-def _slide_standard(pal, text, font_size=48, bar_text="elgadget.com.ar/referidos", style="centered"):
+def _slide_standard(pal, text, font_size=52, bar_text="elgadget.com.ar/referidos", style="centered", persona="lucas"):
     img = Image.new("RGB", (W, H), pal["bg"])
     if style == "gradient":
         dark = tuple(max(0, c - 40) for c in pal["bg"])
         _gradient_bg(img, dark, pal["bg"])
     draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona)
     _top_bar(img, draw, pal)
     tf = _font("h", font_size)
     lines = _wrap(text, tf, 860, draw)[:5]
@@ -214,14 +311,15 @@ def _slide_standard(pal, text, font_size=48, bar_text="elgadget.com.ar/referidos
     return np.array(img)
 
 
-def _slide_hook(pal, hook, style="centered"):
+def _slide_hook(pal, hook, style="centered", persona="lucas"):
     img = Image.new("RGB", (W, H), pal["bg"])
     if style == "gradient":
         dark = tuple(max(0, c - 50) for c in pal["bg"])
         _gradient_bg(img, dark, pal["bg"])
     draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona)
     _top_bar(img, draw, pal)
-    hf = _font("h", 72)
+    hf = _font("h", 78)
     lines = _wrap(hook, hf, 860, draw)[:3]
     bbox_h = draw.textbbox((0, 0), "Ay", font=hf)[3]
     total_h = len(lines) * (bbox_h + 20)
@@ -243,12 +341,13 @@ def _slide_hook(pal, hook, style="centered"):
     return np.array(img)
 
 
-def _slide_proof_counting(pal, numero_text, subtexto, frame_progress, style="centered"):
+def _slide_proof_counting(pal, numero_text, subtexto, frame_progress, style="centered", persona="lucas"):
     img = Image.new("RGB", (W, H), pal["bg"])
     if style == "gradient":
         dark = tuple(max(0, c - 40) for c in pal["bg"])
         _gradient_bg(img, dark, pal["bg"])
     draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona)
     _top_bar(img, draw, pal)
 
     cleaned = numero_text.replace(".", "").replace(",", "")
@@ -325,14 +424,15 @@ def _slide_proof_counting(pal, numero_text, subtexto, frame_progress, style="cen
     return np.array(img)
 
 
-def _slide_benefit(pal, texto, badge_text="Sin inversion - Desde el celular", style="centered"):
+def _slide_benefit(pal, texto, badge_text="Sin inversion - Desde el celular", style="centered", persona="lucas"):
     img = Image.new("RGB", (W, H), pal["bg"])
     if style == "gradient":
         dark = tuple(max(0, c - 40) for c in pal["bg"])
         _gradient_bg(img, dark, pal["bg"])
     draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona)
     _top_bar(img, draw, pal)
-    bf = _font("h", 52)
+    bf = _font("h", 56)
     bbf = _font("h", 24)
     lines = _wrap(texto, bf, 860, draw)[:4]
     bbox_h = draw.textbbox((0, 0), "Ay", font=bf)[3]
@@ -614,17 +714,17 @@ def compose_reel(
     transitions = []
 
     if hook:
-        slides.append(("hook", _slide_hook(pal, hook, style)))
+        slides.append(("hook", _slide_hook(pal, hook, style, persona)))
         durations.append(ritmo["hook"])
         transitions.append("zoom")
 
     if dolor:
-        slides.append(("dolor", _slide_standard(pal, dolor, 46, "elgadget.com.ar/referidos", style)))
+        slides.append(("dolor", _slide_standard(pal, dolor, 50, "elgadget.com.ar/referidos", style, persona)))
         durations.append(ritmo["slide"])
         transitions.append("slide_right")
 
     if solucion:
-        slides.append(("solucion", _slide_standard(pal, solucion, 44, "elgadget.com.ar/referidos", style)))
+        slides.append(("solucion", _slide_standard(pal, solucion, 48, "elgadget.com.ar/referidos", style, persona)))
         durations.append(ritmo["slide"])
         transitions.append("crossfade")
 
@@ -634,12 +734,12 @@ def compose_reel(
         transitions.append("scale_in")
 
     if beneficio:
-        slides.append(("benefit", _slide_benefit(pal, beneficio, style=style)))
+        slides.append(("benefit", _slide_benefit(pal, beneficio, style=style, persona=persona)))
         durations.append(ritmo["slide"])
         transitions.append("crossfade")
 
     if dato_extra:
-        slides.append(("extra", _slide_standard(pal, dato_extra, 40, "elgadget.com.ar/referidos", style)))
+        slides.append(("extra", _slide_standard(pal, dato_extra, 44, "elgadget.com.ar/referidos", style, persona)))
         durations.append(2.0)
         transitions.append("slide_right")
 
@@ -659,7 +759,7 @@ def compose_reel(
         if slide_type == "proof":
             for i in range(hold_n):
                 progress = i / hold_n
-                frame = _slide_proof_counting(pal, numero_grande, subtexto_proof, progress, style)
+                frame = _slide_proof_counting(pal, numero_grande, subtexto_proof, progress, style, persona)
                 all_frames.append(frame)
         elif slide_type == "hook" and trans_type == "zoom":
             static_frames = [slide_arr] * hold_n
@@ -672,7 +772,7 @@ def compose_reel(
         if idx < len(slides) - 1:
             next_type, next_arr = slides[idx + 1]
             current_arr = all_frames[-1] if all_frames else bg_frame
-            next_static = next_arr if next_arr is not None else _slide_proof_counting(pal, numero_grande, subtexto_proof, 0.0, style)
+            next_static = next_arr if next_arr is not None else _slide_proof_counting(pal, numero_grande, subtexto_proof, 0.0, style, persona)
 
             if trans_type == "slide_right":
                 tf = _slide_from_right(next_static, current_arr, trans_frames)
