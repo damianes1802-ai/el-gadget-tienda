@@ -44,7 +44,7 @@ def email_habilitado() -> bool:
     return bool(env.get('RESEND_API_KEY'))
 
 
-def _layout(cuerpo_html: str) -> str:
+def _layout(cuerpo_html: str, marketing: bool = False) -> str:
     """Envoltorio común (header con logo + footer) para todos los emails.
 
     Estructura basada en <table> con atributos bgcolor (no solo CSS) porque
@@ -98,6 +98,7 @@ def _layout(cuerpo_html: str) -> str:
                   font-size:11px;letter-spacing:0.4px">
                 <span style="color:#B8B8BD !important">{TIENDA_NOMBRE} · Tienda online</span><br>
                 <a href="{site_url}" style="color:{ACCENT} !important;text-decoration:none">{dominio}</a>
+                {'<br><span style="color:#7a7a7f !important;font-size:10px">No querés recibir más estos tips? <a href="' + site_url + '/mi_cuenta" style="color:#7a7a7f !important;text-decoration:underline">Desuscribirme</a></span>' if marketing else ''}
               </td>
             </tr>
           </table>
@@ -120,12 +121,27 @@ def _boton(texto: str, url: str) -> str:
     """
 
 
-def _enviar(to_email: str, subject: str, html: str) -> dict:
+def _enviar(to_email: str, subject: str, html: str, is_marketing: bool = False) -> dict:
     env = Config.cargar_env()
     if not email_habilitado():
         return {'error': 'Email no configurado (falta RESEND_API_KEY)'}
 
     from_email = env.get('RESEND_FROM_EMAIL', 'onboarding@resend.dev')
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    payload = {
+        "from": f"{TIENDA_NOMBRE} <{from_email}>",
+        "to": [to_email],
+        "subject": subject,
+        "html": html,
+    }
+
+    if is_marketing:
+        unsub_url = f"{site_url}/mi_cuenta"
+        payload["headers"] = {
+            "List-Unsubscribe": f"<{unsub_url}>",
+            "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        }
 
     try:
         response = requests.post(
@@ -134,12 +150,7 @@ def _enviar(to_email: str, subject: str, html: str) -> dict:
                 "Authorization": f"Bearer {env['RESEND_API_KEY']}",
                 "Content-Type": "application/json",
             },
-            json={
-                "from": f"{TIENDA_NOMBRE} <{from_email}>",
-                "to": [to_email],
-                "subject": subject,
-                "html": html,
-            },
+            json=payload,
             timeout=10,
         )
         if response.status_code >= 300:
@@ -430,7 +441,7 @@ def enviar_email_nurturing_d3(nombre: str, email: str, codigo: str, productos_to
       {prods_html}
       {_boton('Ver más productos para compartir', f"{site_url}/mi_cuenta")}
     """
-    return _enviar(email, f"{nombre_s}, 3 tips para empezar a ganar con tu código - {TIENDA_NOMBRE}", _layout(cuerpo))
+    return _enviar(email, f"{nombre_s}, 3 tips para empezar a ganar con tu código - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
 
 
 def enviar_email_nurturing_d7(nombre: str, email: str, codigo: str, stats: dict) -> dict:
@@ -475,7 +486,7 @@ def enviar_email_nurturing_d7(nombre: str, email: str, codigo: str, stats: dict)
       </p>
       {_boton('Compartir mi código ahora', f"{site_url}/mi_cuenta")}
     """
-    return _enviar(email, f"Ya hay {total_activos} referidos ganando este mes - {TIENDA_NOMBRE}", _layout(cuerpo))
+    return _enviar(email, f"Ya hay {total_activos} referidos ganando este mes - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
 
 
 def enviar_email_nurturing_d14(nombre: str, email: str, codigo: str, productos_top: list) -> dict:
@@ -494,7 +505,7 @@ def enviar_email_nurturing_d14(nombre: str, email: str, codigo: str, productos_t
       {prods_html}
       {_boton('Ver todo el catálogo', f"{site_url}/mi_cuenta")}
     """
-    return _enviar(email, f"Los 5 productos que más se venden este mes - {TIENDA_NOMBRE}", _layout(cuerpo))
+    return _enviar(email, f"Los 5 productos que más se venden este mes - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
 
 
 def enviar_email_primera_venta(nombre: str, email: str, codigo: str, monto_comision: float) -> dict:
@@ -568,7 +579,7 @@ def enviar_email_carrito_abandonado(orden: dict, items: list) -> dict:
         Si ya completaste el pago, ignorá este email.
       </p>
     """
-    return _enviar(orden['email'], f"Tu pedido #{orden.get('id', '')} te espera - {TIENDA_NOMBRE}", _layout(cuerpo))
+    return _enviar(orden['email'], f"Tu pedido #{orden.get('id', '')} te espera - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
 
 
 def enviar_email_invitar_referido(nombre: str, email: str) -> dict:
@@ -609,4 +620,4 @@ def enviar_email_invitar_referido(nombre: str, email: str) -> dict:
         Sin inversión. Sin límites de referidos. Cobrás por cada venta.
       </p>
     """
-    return _enviar(email, f"¿Te gustó tu compra? Ganá plata recomendándonos - {TIENDA_NOMBRE}", _layout(cuerpo))
+    return _enviar(email, f"¿Te gustó tu compra? Ganá plata recomendándonos - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)

@@ -110,7 +110,13 @@
         <div class="field" style="margin-top:16px">
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600)">
             <input type="checkbox" id="consentimientoCheckout" style="margin-top:2px;flex-shrink:0;width:16px;height:16px">
-            <span>Acepto la <a href="privacidad" target="_blank" style="color:var(--ink);font-weight:600">Política de Privacidad</a>. Mis datos serán usados únicamente para gestionar mi pedido y envío.</span>
+            <span>Acepto la <a href="privacidad" target="_blank" style="color:var(--ink);font-weight:600">Política de Privacidad</a> y los <a href="terminos" target="_blank" style="color:var(--ink);font-weight:600">Términos y Condiciones</a>. Mis datos serán usados para gestionar mi pedido y envío.</span>
+          </label>
+        </div>
+        <div class="field" style="margin-top:8px">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600)">
+            <input type="checkbox" id="marketingOptIn" style="margin-top:2px;flex-shrink:0;width:16px;height:16px">
+            <span>Quiero recibir tips, ofertas y recomendaciones de productos por email (podés desuscribirte en cualquier momento).</span>
           </label>
         </div>
         <button type="button" class="btn btn-accent btn-block" style="margin-top:16px" onclick="avanzarStep2()">

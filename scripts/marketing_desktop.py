@@ -54,6 +54,7 @@ PERSONAS = {
         ],
         "palabras_conectan": ["sin salir de casa", "desde el celular", "mientras los chicos duermen", "tus amigas", "el grupo de mamás", "tu familia", "ahorro", "llegar a fin de mes", "ingreso extra", "sin invertir", "gratis", "fácil"],
         "palabras_prohibidas": ["negocio", "vender", "emprender", "inversión", "multinivel", "red de contactos", "oportunidad única"],
+        "hashtags": ["#MamasArgentinas", "#MamaEmprendedora", "#OrganizacionDelHogar", "#VidaDeMama", "#HogarOrganizado", "#IngresoExtra", "#GanarPlataDesdeCasa", "#MamasQueEmprenden", "#ElGadget", "#Argentina"],
     },
     "lucas": {
         "nombre": "Lucas", "peso": 25,
@@ -75,6 +76,7 @@ PERSONAS = {
         ],
         "palabras_conectan": ["side hustle", "ingreso extra", "sin jefe", "rápido", "fácil", "desde el celu", "la matemática es simple", "hacé la cuenta", "sin humo", "real", "transparente"],
         "palabras_prohibidas": ["oportunidad de la vida", "millonario", "libertad financiera", "jefe de tu propio destino"],
+        "hashtags": ["#SideHustleArgentina", "#IngresoExtra", "#GanarPlataDesdeCasa", "#EmprenderSinInversion", "#DineroExtra", "#TrabajarDesdeCasa", "#JovenEmprendedor", "#ElGadget", "#Argentina"],
     },
     "ana": {
         "nombre": "Ana", "peso": 15,
@@ -94,6 +96,7 @@ PERSONAS = {
         ],
         "palabras_conectan": ["transparente", "claro", "sin letra chica", "recomendación genuina", "lo que ya hacés", "ingreso pasivo", "sin compromiso", "calidad", "garantía", "confianza"],
         "palabras_prohibidas": ["ganá plata fácil", "sin hacer nada", "oportunidad única", "no te lo pierdas"],
+        "hashtags": ["#ProfesionalesArgentina", "#IngresoPasivo", "#HomeOfficeArgentina", "#Productividad", "#TransparenciaTotal", "#NegociosReales", "#EmprenderConCabeza", "#ElGadget", "#Argentina"],
     },
     "sofi": {
         "nombre": "Sofi", "peso": 15,
@@ -113,6 +116,7 @@ PERSONAS = {
         ],
         "palabras_conectan": ["tu audiencia", "monetizar", "tracking", "comisiones transparentes", "sin contratos", "tu contenido", "productos reales", "tu ritmo"],
         "palabras_prohibidas": ["influencer barato", "obligación", "publicar X veces", "contrato"],
+        "hashtags": ["#LifestyleArgentina", "#UGCArgentina", "#CreadorasDeContenido", "#MonetizaTuAudiencia", "#AfiliadosInstagram", "#DecoracionHogar", "#AestheticHome", "#ElGadget", "#Argentina"],
     },
     "martin": {
         "nombre": "Martín", "peso": 10,
@@ -130,6 +134,7 @@ PERSONAS = {
         ],
         "palabras_conectan": ["margen", "reventa", "mayorista", "catálogo", "factura", "envío seguro", "precio por mayor"],
         "palabras_prohibidas": ["emprendedor", "influencer", "redes sociales", "viral"],
+        "hashtags": ["#MayoristasArgentina", "#Revendedores", "#NegociosArgentina", "#PrecioDeMayor", "#MargenDeGanancia", "#TiendaOnlineArgentina", "#RevenderOnline", "#ElGadget", "#Argentina"],
     },
 }
 
@@ -158,7 +163,7 @@ LAYOUT_SCHEMAS = {
     "L05": '{"hook":"OBLIGATORIO","pregunta":"max 50 chars","opciones":["max 30 chars",...max 4],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
     "L06": '{"hook":"OBLIGATORIO","mitos":["max 40 chars",...max 3],"realidades":["max 40 chars",...max 3],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
     "L07": '{"hook":"problema que resuelve OBLIGATORIO","caption":"hook+valor+cta con angulo referido","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
-    "L08": '{"hook":"OBLIGATORIO","precio_competencia_label":"En MercadoLibre: $X.XXX","precio_propio_label":"En El Gadget: $X.XXX","caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
+    "L08": '{"hook":"OBLIGATORIO","precio_competencia_label":"Titulo corto: $X.XXX (max 20 chars el precio)","precio_propio_label":"Titulo corto: $X.XXX (max 20 chars el precio)","caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
     "L09": '{"hook":"OBLIGATORIO","pasos":["max 40 chars",...max 4],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
     "L10": '{"hook":"OBLIGATORIO","items_check":["max 40 chars",...max 6],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
 }
@@ -286,20 +291,15 @@ REGLAS DE TONO:
 - Storytelling desde cuenta oficial: escenarios relatables, datos reales, NO historias inventadas.
 - Cada post = UN SOLO dolor + UN SOLO ángulo. No listes todos los beneficios.
 - Variá estructura y arranque. No repitas patrones.
+- PREGUNTAS SIEMPRE con ¿? (ej: "¿Ya recomendás productos gratis?"). NUNCA sin signos de apertura.
 
 ESTRUCTURA DEL CAPTION (seguí este orden):
 1. Hook (primera línea, detiene el scroll)
 2. Desarrollo (2-4 oraciones con valor real)
 3. CTA (última línea, baja fricción)
-4. Hashtags al final (8-12, mezcla populares + nicho)
+4. Hashtags al final (5-8 hashtags, mezcla: 1-2 broad + 3-4 nicho + 1-2 branded + 1 geográfico)
 
-El prompt del usuario indica el schema JSON exacto. Respondé SOLO con ese JSON, sin markdown.
-
-Hashtags disponibles (elegí los más relevantes):
-#referidoselgadget #ganardinero #ingresosextra #comisiones #dineroextra #negocioonline
-#emprendedoresargentinos #tiendaonlineargentina #compraonline #ofertasargentina
-#organizaciondelhogar #decoracion #hogarorganizado #ideasparaelhogar
-#mamasargentinas #mamaemprendedora #vidademama #gadgets #productosvirales"""
+El prompt del usuario indica el schema JSON exacto. Respondé SOLO con ese JSON, sin markdown."""
 
 # Legacy SYSTEM_PROMPT (mantener para backward compat con modal individual)
 SYSTEM_PROMPT = """Sos el community manager de El Gadget, una tienda online argentina. Publicás desde la CUENTA OFICIAL de El Gadget en Instagram.
@@ -644,6 +644,7 @@ Hook ejemplo (inspirate, NO copies): "{angulo['hook_ej']}"
 
 PALABRAS QUE CONECTAN (USÁ ESTAS): {', '.join(persona_data.get('palabras_conectan', [])[:8])}
 PALABRAS PROHIBIDAS (NUNCA USES): {', '.join(persona_data.get('palabras_prohibidas', [])[:5])}
+HASHTAGS PARA ESTA PERSONA (elegí 5-8, mezclá con 1-2 branded #ElGadget #ReferidosElGadget): {' '.join(persona_data.get('hashtags', []))}
 {stats_line}{few_shot}
 
 Producto (contexto, usalo especialmente si el layout es L07/L08):
@@ -658,6 +659,8 @@ CHECKLIST (verificá internamente antes de responder):
 - Invita a guardar o compartir por DM? (señales #1 y #2 del algoritmo)
 - Usa palabras que conectan? Evita las prohibidas?
 - Caption sigue estructura Hook → Valor → CTA?
+- TODAS las preguntas tienen ¿? (NUNCA "Ya recomendás..." sin ¿?)
+- Hashtags: 5-8, incluyen branded + nicho de esta persona?
 
 RESPONDÉ SOLO con este JSON exacto (sin markdown):
 {schema}"""

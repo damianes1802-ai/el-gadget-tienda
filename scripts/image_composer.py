@@ -696,19 +696,30 @@ def _layout_comparativa(img, draw, pal, data, h):
     ctf = _font("m", 24)
     ctw = draw.textbbox((0, 0), comp_title, font=ctf)[2]
     draw.text((lx + (card_w - ctw) // 2, y + 40), comp_title, fill=pal["text2"], font=ctf)
-    cpf = _font("h", 56)
+    max_price_w = card_w - 50
+    cp_sz = 56
+    cpf = _font("h", cp_sz)
     cpw = draw.textbbox((0, 0), comp_price, font=cpf)[2]
+    while cpw > max_price_w and cp_sz > 28:
+        cp_sz -= 4
+        cpf = _font("h", cp_sz)
+        cpw = draw.textbbox((0, 0), comp_price, font=cpf)[2]
     cp_y = y + card_h // 2 - 20
     draw.text((lx + (card_w - cpw) // 2, cp_y), comp_price, fill=pal["text2"], font=cpf)
-    draw.line([(lx + (card_w - cpw) // 2 - 10, cp_y + 32), (lx + (card_w + cpw) // 2 + 10, cp_y + 32)], fill=(200, 60, 60), width=4)
+    draw.line([(lx + (card_w - cpw) // 2 - 10, cp_y + cp_sz // 2 + 4), (lx + (card_w + cpw) // 2 + 10, cp_y + cp_sz // 2 + 4)], fill=(200, 60, 60), width=4)
 
     # Card El Gadget
     prop_bg = pal["bullet_bg"]
     draw.rounded_rectangle([rx, y, rx + card_w, y + card_h], radius=22, fill=prop_bg)
     ptw = draw.textbbox((0, 0), prop_title, font=ctf)[2]
     draw.text((rx + (card_w - ptw) // 2, y + 40), prop_title, fill=pal["text"], font=ctf)
-    ppf = _font("h", 62)
+    pp_sz = 62
+    ppf = _font("h", pp_sz)
     ppw = draw.textbbox((0, 0), prop_price, font=ppf)[2]
+    while ppw > max_price_w and pp_sz > 28:
+        pp_sz -= 4
+        ppf = _font("h", pp_sz)
+        ppw = draw.textbbox((0, 0), prop_price, font=ppf)[2]
     draw.text((rx + (card_w - ppw) // 2, y + card_h // 2 - 25), prop_price, fill=pal["accent"], font=ppf)
     badge = "Hasta 20% OFF extra con referido"
     bbf = _font("h", 18)

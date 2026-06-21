@@ -482,9 +482,44 @@ function egCalcularEnvio(zonasData, provincia, partido) {
   return { zona: zonaId, ...zonasData.zonas[zonaId] };
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function hasConsentCookies() {
+  return localStorage.getItem('eg_cookies_accepted') === '1';
+}
+
+function showCookieBanner() {
+  if (localStorage.getItem('eg_cookies_decided')) return;
+  const banner = document.createElement('div');
+  banner.id = 'eg-cookie-banner';
+  banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#14151A;color:#fff;padding:16px 24px;z-index:9999;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;line-height:1.5;box-shadow:0 -2px 12px rgba(0,0,0,0.3)';
+  banner.innerHTML = `
+    <span style="flex:1;min-width:200px">Usamos cookies técnicas (necesarias) y de analítica/publicidad (opcionales). <a href="/privacidad#cookies" style="color:#FFC700;text-decoration:underline">Más info</a></span>
+    <button onclick="acceptCookies()" style="background:#FFC700;color:#14151A;border:none;padding:8px 20px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap">Aceptar todas</button>
+    <button onclick="rejectOptionalCookies()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3);padding:8px 20px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap">Solo necesarias</button>
+  `;
+  document.body.appendChild(banner);
+}
+
+function acceptCookies() {
+  localStorage.setItem('eg_cookies_accepted', '1');
+  localStorage.setItem('eg_cookies_decided', '1');
+  document.getElementById('eg-cookie-banner')?.remove();
   initGA4();
   initMetaPixel();
+}
+
+function rejectOptionalCookies() {
+  localStorage.setItem('eg_cookies_accepted', '0');
+  localStorage.setItem('eg_cookies_decided', '1');
+  document.getElementById('eg-cookie-banner')?.remove();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (hasConsentCookies()) {
+    initGA4();
+    initMetaPixel();
+  } else {
+    showCookieBanner();
+  }
   actualizarCarritoUI();
   initPopupRegistro();
   initOfertaYStockProducto();
