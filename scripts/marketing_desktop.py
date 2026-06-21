@@ -260,6 +260,27 @@ TONO: directo, con números, orientado al negocio. Mostrá márgenes concretos.
 ÁNGULOS que funcionan con Martín: 25% OFF, márgenes de reventa, variedad de catálogo, envío confiable.""",
 }
 
+SYSTEM_PROMPT_NEW = """Sos el community manager de El Gadget, tienda online argentina. Publicás desde la CUENTA OFICIAL en Instagram.
+
+OBJETIVO: conseguir referidos para el programa de comisiones + mostrar productos.
+Programa: registro gratis, comisión 7-15%, descuento comprador 10-20%, cobro día 5.
+
+REGLAS:
+- Español argentino (vos/voseo). Cercano, directo, sin exagerar.
+- NUNCA menciones "Droppers". Precios reales. No inventes testimonios.
+- Hook OBLIGATORIO (nunca vacío). Máximo 2 emojis. No empieces con emoji.
+- Storytelling desde cuenta oficial: escenarios relatables, datos reales, NO historias personales inventadas.
+- Cada post toca UN SOLO dolor/ángulo. No listes todos los beneficios.
+- Variá estructura y arranque entre posts.
+- El prompt del usuario indica el schema JSON exacto a devolver. Respondé SOLO con ese JSON, sin markdown.
+
+Hashtags (8-12, mezcla populares + nicho):
+#referidoselgadget #ganardinero #ingresosextra #comisiones #dineroextra #negocioonline
+#emprendedoresargentinos #tiendaonlineargentina #compraonline #ofertasargentina
+#organizaciondelhogar #decoracion #hogarorganizado #ideasparaelhogar
+#mamasargentinas #mamaemprendedora #vidademama #gadgets #productosvirales"""
+
+# Legacy SYSTEM_PROMPT (mantener para backward compat con modal individual)
 SYSTEM_PROMPT = """Sos el community manager de El Gadget, una tienda online argentina. Publicás desde la CUENTA OFICIAL de El Gadget en Instagram.
 
 OBJETIVO: conseguir referidos para el programa de comisiones + mostrar productos.
@@ -377,8 +398,81 @@ class Api:
         conn.row_factory = sqlite3.Row
         return conn
 
+    def _get_historial(self, limit=15):
+        """Obtiene historial reciente para evitar repeticiones."""
+        try:
+            conn = self._contenidos_db()
+            rows = conn.execute(
+                "SELECT persona, dolor_id, angulo_id, layout_id, producto_sku FROM contenidos ORDER BY creado_at DESC LIMIT ?",
+                (limit,)
+            ).fetchall()
+            conn.close()
+            return [dict(r) for r in rows]
+        except Exception:
+            return []
+
+    def _seleccionar_contexto(self, historial=None, forzar_pilar=None):
+        """Selección inteligente: persona → dolor → ángulo → layout → pilar"""
+        if historial is None:
+            historial = self._get_historial(20)
+
+        personas_recientes = [h.get("persona") for h in historial[:6] if h.get("persona")]
+        dolores_usados = {h.get("dolor_id") for h in historial if h.get("dolor_id")}
+        angulos_usados = {h.get("angulo_id") for h in historial[:10] if h.get("angulo_id")}
+
+        # 1. Persona ponderada con penalización gradual
+        pool = []
+        for key, p in PERSONAS.items():
+            peso = p["peso"]
+            penalizacion = personas_recientes.count(key)
+            peso = max(1, peso - penalizacion * 4)
+            pool.extend([key] * peso)
+        persona_key = random.choice(pool)
+        persona = PERSONAS[persona_key]
+
+        # 2. Dolor: evitar usados, fallback a menos recientes
+        dolores_disp = [d for d in persona["dolores"] if d["id"] not in dolores_usados]
+        if not dolores_disp:
+            dolores_disp = persona["dolores"]
+        dolor = random.choice(dolores_disp)
+
+        # 3. Ángulo: evitar usados recientemente
+        angulos_disp = [a for a in persona["angulos"] if a["id"] not in angulos_usados]
+        if not angulos_disp:
+            angulos_disp = persona["angulos"]
+        angulo = random.choice(angulos_disp)
+
+        # 4. Layout: de los compatibles del ángulo
+        layouts_posibles = angulo.get("layouts", [])
+        if forzar_pilar and layouts_posibles:
+            layouts_posibles = [lid for lid in layouts_posibles if forzar_pilar in LAYOUTS_INFO.get(lid, {}).get("pilares", [])]
+        if not layouts_posibles:
+            layouts_posibles = angulo.get("layouts", list(LAYOUTS_INFO.keys())[:3])
+        layout_id = random.choice(layouts_posibles)
+        layout_info = LAYOUTS_INFO.get(layout_id, {})
+
+        # 5. Pilar y tipo derivados
+        pilar = layout_info.get("pilares", ["educativo"])[0]
+        tipo = "post"
+        if layout_id in ("L01", "L06", "L08", "L09", "L10"):
+            tipo = random.choice(["carrusel", "post"])
+        elif layout_id in ("L02", "L04", "L07"):
+            tipo = random.choice(["reel", "post"])
+
+        formato = f"{layout_id}-{persona_key[:3].upper()}"
+        fingerprint = f"{persona_key}|{dolor['id']}|{angulo['id']}|{layout_id}"
+
+        print(f"[MKT] {persona['nombre']:8s} {dolor['id']:4s} ({dolor['cat']:10s}) {angulo['id']:4s} {layout_id} {pilar}")
+
+        return {
+            "persona_key": persona_key, "persona": persona,
+            "dolor": dolor, "angulo": angulo,
+            "layout_id": layout_id, "layout_info": layout_info,
+            "pilar": pilar, "tipo": tipo,
+            "formato": formato, "fingerprint": fingerprint,
+        }
+
     def _headers(self):
-        return {"X-Admin-Password": self.admin_password}
 
     def _get(self, path, params=None):
         try:
@@ -444,127 +538,124 @@ class Api:
         cleaned = re.sub(r'\s*```$', '', cleaned)
         return json.loads(cleaned)
 
-    def generar_contenido(self, producto, formato, persona):
+    def generar_contenido(self, producto, formato=None, persona=None, contexto=None):
         try:
             if not self.anthropic_key:
                 return {"error": "ANTHROPIC_API_KEY no configurada"}
 
-            fmt = FORMATOS.get(formato)
-            if not fmt:
-                return {"error": f"Formato {formato} no existe"}
-
-            # Anti-duplicados: no generar si ya existe aprobado con mismo formato+producto
-            try:
-                conn_dup = self._contenidos_db()
-                dup = conn_dup.execute(
-                    "SELECT id FROM contenidos WHERE formato = ? AND producto_sku = ? AND estado = 'aprobado'",
-                    (formato, producto.get("sku", ""))
-                ).fetchone()
-                conn_dup.close()
-                if dup:
-                    return {"error": f"Ya existe contenido aprobado para {formato} + {producto.get('sku', '')}"}
-            except Exception:
-                pass
-
-            persona_desc = PERSONAS_DESC.get(persona, PERSONAS_DESC.get(fmt["persona"], ""))
             nombre = producto.get("nombre", "Producto")
             precio = producto.get("precio_venta", 0)
             desc = producto.get("descripcion", "")[:200]
             cat = producto.get("categoria", "")
 
-            pilar = fmt.get("pilar", "producto")
+            # ── PATH NUEVO: selección inteligente via contexto ──
+            if contexto:
+                ctx = contexto
+                pilar = ctx["pilar"]
+                layout_id = ctx["layout_id"]
+                dolor = ctx["dolor"]
+                angulo = ctx["angulo"]
+                persona_data = ctx["persona"]
+                persona = ctx["persona_key"]
+                formato = ctx["formato"]
 
-            # Datos reales del programa para enriquecer el contenido
-            stats_line = ""
-            try:
-                refs = self.get_referidos()
-                if isinstance(refs, list) and refs:
-                    activos = len([r for r in refs if r.get("activo")])
-                    total_com = sum(r.get("comision_total", 0) for r in refs)
-                    stats_line = f"""
-DATOS REALES DEL PROGRAMA (usá estos números en el contenido cuando sea relevante):
-- Referidos activos actualmente: {activos}
-- Comisiones totales generadas: ${total_com:,.0f}
-- Comisión promedio por referido: ${total_com / max(activos, 1):,.0f}"""
-            except Exception:
-                pass
+                # Anti-duplicados por fingerprint
+                try:
+                    conn_dup = self._contenidos_db()
+                    dup = conn_dup.execute(
+                        "SELECT id FROM contenidos WHERE contexto_fingerprint = ? AND producto_sku = ? AND estado = 'aprobado'",
+                        (ctx.get("fingerprint", ""), producto.get("sku", ""))
+                    ).fetchone()
+                    conn_dup.close()
+                    if dup:
+                        return {"error": f"Duplicado: {ctx.get('fingerprint', '')}"}
+                except Exception:
+                    pass
 
-            # Few-shot: incluir captions aprobados como ejemplo de tono
-            few_shot = ""
-            try:
-                conn_fs = self._contenidos_db()
-                aprobados = conn_fs.execute(
-                    "SELECT caption FROM contenidos WHERE estado = 'aprobado' ORDER BY aprobado_at DESC LIMIT 3"
-                ).fetchall()
-                conn_fs.close()
-                if aprobados:
-                    ejemplos = "\n".join(f"- \"{row['caption'][:200]}\"" for row in aprobados)
-                    few_shot = f"""
-EJEMPLOS DE CAPTIONS APROBADOS ANTERIORMENTE (usá como referencia de tono, NO copies):
-{ejemplos}"""
-            except Exception:
-                pass
+                # Stats reales
+                stats_line = ""
+                try:
+                    refs = self.get_referidos()
+                    if isinstance(refs, list) and refs:
+                        activos = len([r for r in refs if r.get("activo")])
+                        total_com = sum(r.get("comision_total", 0) for r in refs)
+                        stats_line = f"\nDATOS REALES: {activos} referidos activos, ${total_com:,.0f} comisiones generadas."
+                except Exception:
+                    pass
 
-            # Instrucciones específicas por pilar
-            pilar_instrucciones = {
-                "educativo": """INSTRUCCIONES PARA ESTE POST EDUCATIVO:
-- Enseñá algo útil y concreto sobre el programa de referidos
-- Usá un escenario cotidiano como punto de entrada (NO empeces explicando el programa)
-- Los puntos/bullets deben ser accionables y cortos (máx 40 caracteres cada uno)
-- El tono debe ser "te cuento un dato que te va a servir", no "te vendo algo"
-- Terminá con una invitación suave, no un CTA agresivo""",
-                "motivacional": """INSTRUCCIONES PARA ESTE POST MOTIVACIONAL:
-- Arrancá con un número impactante o una situación que genere identificación
-- Mostrá el cálculo real de cuánto se puede ganar (con números verificables)
-- Los bullets deben ser beneficios DISTINTOS entre sí (no parafrasear lo mismo)
-- El número grande debe ser un dato real o un cálculo honesto, no inflado
-- El tono es "mirá lo que es posible", no "¡hacete millonario!"
-- Bullets máximo 35 caracteres cada uno""",
-                "engagement": """INSTRUCCIONES PARA ESTE POST DE ENGAGEMENT:
-- La pregunta debe generar una respuesta REAL (que la gente quiera comentar)
-- NO hagas preguntas obvias ni que se respondan con sí/no
-- Las opciones deben ser divertidas, relatables y variadas (máx 30 chars cada una)
-- El post debe provocar que la gente se sienta identificada con una opción
-- Relacioná la pregunta con la vida cotidiana de la persona target, no con el programa directamente
-- La conexión con el programa de referidos debe ser sutil, en el caption, no en la pregunta""",
-                "producto": """INSTRUCCIONES PARA ESTE POST DE PRODUCTO:
-- El producto es el protagonista. Mostrá cómo resuelve un problema real
-- El hook debe describir el PROBLEMA, no el producto
-- Mencioná el precio con y sin descuento de referido
-- El ángulo de referido es secundario: "y si lo compartís con tu código, ganás comisión"
-- Describí la experiencia de uso, no las especificaciones técnicas
-- El CTA puede ser "compralo" o "compartilo con tu código" según el ángulo""",
-            }
+                # Few-shot
+                few_shot = ""
+                try:
+                    conn_fs = self._contenidos_db()
+                    aprobados = conn_fs.execute("SELECT caption FROM contenidos WHERE estado='aprobado' ORDER BY aprobado_at DESC LIMIT 2").fetchall()
+                    conn_fs.close()
+                    if aprobados:
+                        few_shot = "\nEJEMPLOS DE TONO (NO copies):\n" + "\n".join(f"- \"{r['caption'][:150]}\"" for r in aprobados)
+                except Exception:
+                    pass
 
-            user_prompt = f"""Generá contenido para Instagram. Publicás desde la CUENTA OFICIAL de El Gadget.
+                schema = LAYOUT_SCHEMAS.get(layout_id, LAYOUT_SCHEMAS["L01"])
 
+                user_prompt = f"""Genera contenido para Instagram. Cuenta OFICIAL de El Gadget.
+
+LAYOUT: {layout_id} — {ctx['layout_info'].get('nombre', '')}
 PILAR: {pilar.upper()}
-Formato: {formato} — {fmt['desc']}
-Tipo de publicación: {fmt['tipo']}
 
-{pilar_instrucciones.get(pilar, '')}
+PERSONA: {persona_data['nombre']} — {persona_data.get('descripcion', '')}
+TONO: {persona_data.get('tono', '')}
 
-PERSONA A LA QUE LE HABLÁS:
-{persona_desc}
-Elegí UN SOLO pain point de la lista y basá todo el post en ese ángulo.
-{stats_line}
-{few_shot}
+DOLOR ESPECÍFICO (basa TODO el post en este dolor):
+"{dolor['texto']}"
+Categoría: {dolor['cat']} | Trigger: {dolor['trigger']}
+Contenido recomendado: {dolor['contenido']}
 
-Producto disponible (usalo si el pilar es PRODUCTO, sino como contexto):
-- Nombre: {nombre}
-- Precio público: ${precio:,.0f}
-- Con código referido (10% OFF): ${round(precio * 0.90):,.0f}
-- Con código referido (20% OFF): ${round(precio * 0.80):,.0f}
-- Categoría: {cat}
-- Descripción: {desc}
+ÁNGULO DE CONVERSIÓN:
+"{angulo['texto']}" (tipo: {angulo['tipo']})
+Hook ejemplo (inspirate, NO copies): "{angulo['hook_ej']}"
 
-RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emoji, variá la estructura."""
+PALABRAS QUE CONECTAN (USÁ ESTAS): {', '.join(persona_data.get('palabras_conectan', [])[:8])}
+PALABRAS PROHIBIDAS (NUNCA USES): {', '.join(persona_data.get('palabras_prohibidas', [])[:5])}
+{stats_line}{few_shot}
+
+Producto (contexto, usalo especialmente si el layout es L07/L08):
+- {nombre} · ${precio:,.0f} · {cat}
+- Con referido 10% OFF: ${round(precio*0.90):,.0f} · 20% OFF: ${round(precio*0.80):,.0f}
+
+RESPONDÉ SOLO con este JSON exacto (sin markdown):
+{schema}"""
+
+                sys_prompt = SYSTEM_PROMPT_NEW
+
+            # ── PATH LEGACY: formato string del modal individual ──
+            else:
+                if not formato:
+                    return {"error": "Se requiere formato o contexto"}
+                fmt = FORMATOS.get(formato)
+                if not fmt:
+                    legacy = FORMATOS_LEGACY.get(formato)
+                    if legacy:
+                        layout_id = legacy["layout_id"]
+                        pilar = LAYOUTS_INFO.get(layout_id, {}).get("pilares", ["educativo"])[0]
+                        fmt = {"tipo": legacy["tipo"], "pilar": pilar, "persona": persona or "maria", "desc": formato}
+                    else:
+                        return {"error": f"Formato {formato} no existe"}
+
+                pilar = fmt.get("pilar", "producto")
+                layout_id = None
+                persona = persona or fmt.get("persona", "maria")
+
+                user_prompt = f"""Genera contenido para Instagram. Cuenta OFICIAL de El Gadget.
+PILAR: {pilar.upper()} | Formato: {formato}
+Producto: {nombre} · ${precio:,.0f} · {cat} · {desc}
+Hook OBLIGATORIO. Máximo 2 emojis. Respondé SOLO JSON."""
+
+                sys_prompt = SYSTEM_PROMPT
 
             client = anthropic.Anthropic(api_key=self.anthropic_key)
             response = client.messages.create(
                 model="claude-sonnet-4-6",
                 max_tokens=1024,
-                system=[{"type": "text", "text": SYSTEM_PROMPT, "cache_control": {"type": "ephemeral"}}],
+                system=[{"type": "text", "text": sys_prompt, "cache_control": {"type": "ephemeral"}}],
                 messages=[{"role": "user", "content": user_prompt}]
             )
 
@@ -595,6 +686,7 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
                         producto_precio=precio,
                         producto_imagen_url=producto.get("imagen_principal", ""),
                         persona=persona, pilar=pilar, formato=formato,
+                        layout_id=layout_id,
                         hook=data.get("hook", ""),
                         output_filename=f"{formato}_{producto.get('sku', '')}_{ts}.jpg",
                         titulo=data.get("titulo", ""),
@@ -606,17 +698,34 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
                         opciones=data.get("opciones"),
                         cta_bar=data.get("cta_bar", ""),
                         emoji=data.get("emoji", ""),
+                        antes_texto=data.get("antes_texto", ""),
+                        despues_texto=data.get("despues_texto", ""),
+                        historia_texto=data.get("historia_texto", ""),
+                        mitos=data.get("mitos"),
+                        realidades=data.get("realidades"),
+                        precio_competencia_label=data.get("precio_competencia_label", ""),
+                        precio_propio_label=data.get("precio_propio_label", ""),
+                        pasos=data.get("pasos"),
+                        items_check=data.get("items_check"),
                     )
             except Exception:
                 branded_url = producto.get("imagen_principal", "")
 
+            # Extraer IDs del contexto si existe
+            dolor_id = contexto["dolor"]["id"] if contexto else None
+            angulo_id = contexto["angulo"]["id"] if contexto else None
+            ctx_layout_id = layout_id
+            ctx_fingerprint = contexto.get("fingerprint") if contexto else None
+            tipo_post = contexto["tipo"] if contexto else (fmt.get("tipo") if fmt else "post")
+
             cursor.execute("""
                 INSERT INTO contenidos (tipo, formato, persona, producto_sku, producto_nombre,
                     producto_precio, producto_imagen, caption, caption_variante_b,
-                    hashtags, hook, cta, media_url, score_esperado)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    hashtags, hook, cta, media_url, score_esperado,
+                    dolor_id, angulo_id, layout_id, contexto_fingerprint)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
-                fmt["tipo"], formato, persona,
+                tipo_post, formato, persona,
                 producto.get("sku", ""),
                 nombre, precio,
                 producto.get("imagen_principal", ""),
@@ -627,6 +736,7 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
                 data.get("cta", ""),
                 branded_url,
                 json.dumps({"reach_min": 500, "reach_max": 2000, "eng_min": 3, "eng_max": 5}),
+                dolor_id, angulo_id, ctx_layout_id, ctx_fingerprint,
             ))
             conn.commit()
             contenido_id = cursor.lastrowid
@@ -648,9 +758,6 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
                 return {"error": productos_raw["error"]}
 
             productos = [p for p in productos_raw if p.get("stock", 0) > 0 and p.get("precio_venta", 0) > 0]
-            productos.sort(key=lambda p: p.get("precio_venta", 0) * p.get("stock", 0), reverse=True)
-
-            # Seleccionar productos con variedad de categoría y randomización
             random.shuffle(productos)
             prods_top = []
             cat_count = {}
@@ -663,54 +770,35 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
                 if len(prods_top) >= cantidad * 2:
                     break
 
-            # Distribuir formatos según pilares: 35% edu + 30% moti + 20% eng + 15% prod
-            formatos_por_pilar = {}
-            for k, v in FORMATOS.items():
-                pilar = v.get("pilar", "producto")
-                formatos_por_pilar.setdefault(pilar, []).append(k)
-
-            # Distribuir garantizando que sume exactamente `cantidad`
-            pilares_orden = sorted(PILARES.items(), key=lambda x: x[1]["peso"], reverse=True)
-            asignados = {}
-            restante = cantidad
-            for i, (pilar, info) in enumerate(pilares_orden):
-                if i == len(pilares_orden) - 1:
-                    asignados[pilar] = max(0, restante)
-                else:
-                    n = max(1, round(cantidad * info["peso"] / 100))
-                    n = min(n, restante - (len(pilares_orden) - i - 1))
-                    asignados[pilar] = max(0, n)
-                    restante -= asignados[pilar]
-
-            distribucion = []
-            for pilar, n in asignados.items():
-                fmts = formatos_por_pilar.get(pilar, [])
-                for i in range(n):
-                    distribucion.append(fmts[i % len(fmts)])
-            random.shuffle(distribucion)
-
+            # Selección inteligente — cada pieza usa _seleccionar_contexto
+            historial = self._get_historial(20)
             resultados = []
             errores = []
-            personas_pool = ["maria", "lucas", "ana", "sofi"]
-            random.shuffle(personas_pool)
+            fingerprints_lote = set()
 
-            for i, fmt_key in enumerate(distribucion):
-                fmt = FORMATOS[fmt_key]
-                persona = personas_pool[i % len(personas_pool)] if fmt.get("pilar") != "producto" else fmt["persona"]
+            for i in range(cantidad):
                 prod = prods_top[i % len(prods_top)] if prods_top else {}
 
-                for intento in range(2):
+                for intento in range(3):
                     try:
-                        result = self.generar_contenido(prod, fmt_key, persona)
+                        ctx = self._seleccionar_contexto(historial)
+
+                        # Evitar duplicados dentro del mismo lote
+                        fp = f"{ctx.get('fingerprint', '')}|{prod.get('sku', '')}"
+                        if fp in fingerprints_lote:
+                            continue
+                        result = self.generar_contenido(prod, contexto=ctx)
                         if isinstance(result, dict) and "error" in result:
-                            if intento == 1:
-                                errores.append(f"{fmt_key}: {result['error']}")
+                            if intento == 2:
+                                errores.append(f"{ctx['layout_id']}: {result['error']}")
                         else:
                             resultados.append(result)
+                            fingerprints_lote.add(fp)
+                            historial.insert(0, {"persona": ctx["persona_key"], "dolor_id": ctx["dolor"]["id"], "angulo_id": ctx["angulo"]["id"], "layout_id": ctx["layout_id"]})
                             break
                     except Exception as e:
-                        if intento == 1:
-                            errores.append(f"{fmt_key}: {e}")
+                        if intento == 2:
+                            errores.append(f"{ctx.get('layout_id', '?')}: {e}")
 
             return {"ok": True, "generados": len(resultados), "contenidos": resultados, "errores": errores}
 
