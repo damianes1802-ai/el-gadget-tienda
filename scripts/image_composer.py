@@ -350,15 +350,15 @@ def _layout_producto(img, draw, pal, data, h):
     prod_url = data.get("producto_imagen", "")
     prod_img = _download_img(prod_url) if prod_url else None
     if prod_img:
-        prod_img = _remove_bg(prod_img)
-        ps = 580
+        ps = 620
         prod_img = prod_img.resize((ps, ps), Image.LANCZOS)
-        # Sombra proyectada debajo del producto (sin fondo)
-        shadow = Image.new("RGBA", (ps, ps + 30), (0, 0, 0, 0))
-        shadow_draw = ImageDraw.Draw(shadow)
-        shadow_draw.ellipse([ps // 6, ps - 20, ps - ps // 6, ps + 20], fill=(0, 0, 0, 30))
-        shadow = shadow.filter(ImageFilter.GaussianBlur(15))
-        img.paste(shadow, (W // 2 - ps // 2, 130), shadow)
+        mask = Image.new("L", prod_img.size, 0)
+        ImageDraw.Draw(mask).rounded_rectangle([0, 0, ps, ps], radius=28, fill=255)
+        prod_img.putalpha(mask)
+        shadow = Image.new("RGBA", (ps + 24, ps + 24), (0, 0, 0, 0))
+        ImageDraw.Draw(shadow).rounded_rectangle([12, 12, ps + 12, ps + 12], radius=28, fill=(0, 0, 0, 35))
+        shadow = shadow.filter(ImageFilter.GaussianBlur(12))
+        img.paste(shadow, (W // 2 - ps // 2 - 12, 100), shadow)
         img.paste(prod_img, (W // 2 - ps // 2, 112), prod_img)
 
     # Hook grande
