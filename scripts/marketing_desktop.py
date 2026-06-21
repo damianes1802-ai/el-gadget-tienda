@@ -474,7 +474,8 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
             productos = [p for p in productos_raw if p.get("stock", 0) > 0 and p.get("precio_venta", 0) > 0]
             productos.sort(key=lambda p: p.get("precio_venta", 0) * p.get("stock", 0), reverse=True)
 
-            # Seleccionar productos top con variedad de categoría
+            # Seleccionar productos con variedad de categoría y randomización
+            random.shuffle(productos)
             prods_top = []
             cat_count = {}
             for p in productos:
@@ -483,7 +484,7 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
                     continue
                 prods_top.append(p)
                 cat_count[cat] = cat_count.get(cat, 0) + 1
-                if len(prods_top) >= 10:
+                if len(prods_top) >= cantidad * 2:
                     break
 
             # Distribuir formatos según pilares: 35% edu + 30% moti + 20% eng + 15% prod
@@ -492,34 +493,48 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
                 pilar = v.get("pilar", "producto")
                 formatos_por_pilar.setdefault(pilar, []).append(k)
 
+            # Distribuir garantizando que sume exactamente `cantidad`
+            pilares_orden = sorted(PILARES.items(), key=lambda x: x[1]["peso"], reverse=True)
+            asignados = {}
+            restante = cantidad
+            for i, (pilar, info) in enumerate(pilares_orden):
+                if i == len(pilares_orden) - 1:
+                    asignados[pilar] = max(0, restante)
+                else:
+                    n = max(1, round(cantidad * info["peso"] / 100))
+                    n = min(n, restante - (len(pilares_orden) - i - 1))
+                    asignados[pilar] = max(0, n)
+                    restante -= asignados[pilar]
+
             distribucion = []
-            for pilar, info in PILARES.items():
-                peso = info["peso"]
-                n = max(1, round(cantidad * peso / 100))
+            for pilar, n in asignados.items():
                 fmts = formatos_por_pilar.get(pilar, [])
                 for i in range(n):
-                    if len(distribucion) >= cantidad:
-                        break
                     distribucion.append(fmts[i % len(fmts)])
-
-            distribucion = distribucion[:cantidad]
             random.shuffle(distribucion)
 
             resultados = []
             errores = []
+            personas_pool = ["maria", "lucas", "ana", "sofi"]
+            random.shuffle(personas_pool)
+
             for i, fmt_key in enumerate(distribucion):
                 fmt = FORMATOS[fmt_key]
-                persona = fmt["persona"]
+                persona = personas_pool[i % len(personas_pool)] if fmt.get("pilar") != "producto" else fmt["persona"]
                 prod = prods_top[i % len(prods_top)] if prods_top else {}
 
-                try:
-                    result = self.generar_contenido(prod, fmt_key, persona)
-                    if isinstance(result, dict) and "error" in result:
-                        errores.append(f"{fmt_key}: {result['error']}")
-                    else:
-                        resultados.append(result)
-                except Exception as e:
-                    errores.append(f"{fmt_key}: {e}")
+                for intento in range(2):
+                    try:
+                        result = self.generar_contenido(prod, fmt_key, persona)
+                        if isinstance(result, dict) and "error" in result:
+                            if intento == 1:
+                                errores.append(f"{fmt_key}: {result['error']}")
+                        else:
+                            resultados.append(result)
+                            break
+                    except Exception as e:
+                        if intento == 1:
+                            errores.append(f"{fmt_key}: {e}")
 
             return {"ok": True, "generados": len(resultados), "contenidos": resultados, "errores": errores}
 
