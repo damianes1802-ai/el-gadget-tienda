@@ -295,6 +295,13 @@ REGLAS DE TONO:
 - Variá estructura y arranque. No repitas patrones.
 - PREGUNTAS SIEMPRE con ¿? (ej: "¿Ya recomendás productos gratis?"). NUNCA sin signos de apertura.
 
+REGLAS DE IDIOMA Y REALISMO (OBLIGATORIAS):
+- TODO en español argentino. NUNCA uses palabras en inglés (dollars, money, business, side hustle en el texto visual o voiceover). Usá: pesos, plata, ingreso extra.
+- Precios SIEMPRE en pesos argentinos con $. NUNCA dólares.
+- Ejemplos de productos deben ser REALES del catálogo de El Gadget (organizadores, gadgets, deco, accesorios). NUNCA inventes productos genéricos como "velas", "remeras" o "tazas".
+- Los cálculos de comisiones deben ser verificables: precio real × 7-15% = comisión real.
+- NUNCA exageres ingresos. Usá rangos conservadores basados en 3-5 ventas reales.
+
 ESTRUCTURA DEL CAPTION (seguí este orden):
 1. Hook (primera línea, detiene el scroll)
 2. Desarrollo (2-4 oraciones con valor real)
