@@ -253,16 +253,27 @@ def _slide_proof_counting(pal, numero_text, subtexto, frame_progress, style="cen
 
     cleaned = numero_text.replace(".", "").replace(",", "")
     prefix = ""
+    suffix = ""
+    digits_started = False
+    digits_ended = False
     for c in cleaned:
         if c.isdigit():
-            break
-        prefix += c
+            digits_started = True
+        elif not digits_started:
+            prefix += c
+        elif digits_started:
+            digits_ended = True
+        if digits_ended:
+            suffix += c
     digits = ''.join(c for c in cleaned if c.isdigit())
     target = int(digits) if digits else 0
 
     eased = ease_out_expo(min(frame_progress * 1.5, 1.0))
     current = int(target * eased)
-    display = f"{prefix}{current:,.0f}".replace(",", ".")
+    if target < 100:
+        display = f"{prefix}{current}{suffix}"
+    else:
+        display = f"{prefix}{current:,.0f}{suffix}".replace(",", ".")
 
     if style == "card":
         card_w, card_h = 740, 420
