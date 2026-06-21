@@ -235,12 +235,45 @@ class Api:
 
             pilar = fmt.get("pilar", "producto")
 
+            # Datos reales del programa para enriquecer el contenido
+            stats_line = ""
+            try:
+                refs = self.get_referidos()
+                if isinstance(refs, list) and refs:
+                    activos = len([r for r in refs if r.get("activo")])
+                    total_com = sum(r.get("comision_total", 0) for r in refs)
+                    stats_line = f"""
+DATOS REALES DEL PROGRAMA (usá estos números en el contenido cuando sea relevante):
+- Referidos activos actualmente: {activos}
+- Comisiones totales generadas: ${total_com:,.0f}
+- Comisión promedio por referido: ${total_com / max(activos, 1):,.0f}"""
+            except Exception:
+                pass
+
+            # Few-shot: incluir captions aprobados como ejemplo de tono
+            few_shot = ""
+            try:
+                conn_fs = self._contenidos_db()
+                aprobados = conn_fs.execute(
+                    "SELECT caption FROM contenidos WHERE estado = 'aprobado' ORDER BY aprobado_at DESC LIMIT 3"
+                ).fetchall()
+                conn_fs.close()
+                if aprobados:
+                    ejemplos = "\n".join(f"- \"{row['caption'][:200]}\"" for row in aprobados)
+                    few_shot = f"""
+EJEMPLOS DE CAPTIONS APROBADOS ANTERIORMENTE (usá como referencia de tono, NO copies):
+{ejemplos}"""
+            except Exception:
+                pass
+
             user_prompt = f"""Generá contenido para Instagram.
 
 PILAR: {pilar.upper()}
 Formato: {formato} — {fmt['desc']}
 Tipo: {fmt['tipo']}
 Persona target: {persona.upper()} — {persona_desc}
+{stats_line}
+{few_shot}
 
 Producto (usalo como contexto, especialmente para pilar PRODUCTO):
 - Nombre: {nombre}

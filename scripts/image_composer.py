@@ -155,44 +155,50 @@ def _layout_educativo(img, draw, pal, data, h):
     _pilar_badge(draw, "EDUCATIVO", pal)
 
     puntos = data.get("puntos", [])
-    n_puntos = min(len(puntos), 6)
-
-    titulo_size = 52 if n_puntos <= 4 else 44
-    card_h = 90 if n_puntos <= 4 else 74
-    punto_font_size = 26 if n_puntos <= 4 else 22
-    gap = 20 if n_puntos <= 4 else 14
-
-    # Calcular altura total del contenido para centrar verticalmente
-    titulo_lines = len(_wrap(data.get("titulo", data.get("hook", "")), _font("h", titulo_size), 960, draw))
-    content_h = titulo_lines * (titulo_size + 14) + 30 + n_puntos * (card_h + gap) + 80
-    y_start = max(130, (h - 72 - content_h) // 2)
+    n = min(len(puntos), 6)
+    ts = 56 if n <= 4 else 46
+    ch = 110 if n <= 4 else 84
+    pfs = 28 if n <= 4 else 23
+    gap = 22 if n <= 4 else 16
 
     titulo = data.get("titulo", data.get("hook", ""))
-    y = y_start
-    for line in _wrap(titulo, _font("h", titulo_size), 960, draw)[:3]:
-        draw.text((60, y), line, fill=pal["text"], font=_font("h", titulo_size))
-        y += titulo_size + 14
+    t_lines = _wrap(titulo, _font("h", ts), 960, draw)[:3]
+    total_h = len(t_lines) * (ts + 14) + 30 + n * (ch + gap) + 40 + 30 + 3 * 36 + 20 + 30 + 30
+    zone_top, zone_bot = 88, h - 72
+    y = zone_top + max(10, (zone_bot - zone_top - total_h) // 2)
+
+    for line in t_lines:
+        draw.text((60, y), line, fill=pal["text"], font=_font("h", ts))
+        y += ts + 14
     y += 30
 
     for i, punto in enumerate(puntos[:6]):
-        by = y
-        draw.rounded_rectangle([50, by, W - 50, by + card_h], radius=16, fill=pal["bullet_bg"])
-        cx, cy = 96, by + card_h // 2
-        r = 22 if n_puntos <= 4 else 18
+        draw.rounded_rectangle([50, y, W - 50, y + ch], radius=16, fill=pal["bullet_bg"])
+        cx, cy = 96, y + ch // 2
+        r = 22 if n <= 4 else 18
         draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=pal["bullet_icon"])
         num = str(i + 1)
-        nf = _font("h", 21 if n_puntos <= 4 else 17)
+        nf = _font("h", 21 if n <= 4 else 17)
         nw = draw.textbbox((0, 0), num, font=nf)[2]
-        icon_text_color = WHITE if pal["bullet_icon"] != ACCENT else INK
-        draw.text((cx - nw // 2, cy - 12), num, fill=icon_text_color, font=nf)
-        punto_clean = ''.join(c if ord(c) < 0x10000 else '' for c in punto)
-        draw.text((134, by + (card_h - punto_font_size) // 2 - 2), punto_clean[:65], fill=pal["text"], font=_font("m", punto_font_size))
-        y += card_h + gap
+        draw.text((cx - nw // 2, cy - 12), num, fill=WHITE if pal["bullet_icon"] != ACCENT else INK, font=nf)
+        pt = ''.join(c if ord(c) < 0x10000 else '' for c in punto)
+        draw.text((134, y + (ch - pfs) // 2 - 2), pt[:65], fill=pal["text"], font=_font("m", pfs))
+        y += ch + gap
 
-    # URL visible debajo de los puntos
+    # Bloque inferior: beneficios resumidos
+    y += 40
+    draw.line([(100, y), (W - 100, y)], fill=(*pal["accent"], 80), width=2)
+    y += 30
+    beneficios = ["Comisiones del 7% al 15%", "Sin inversion inicial", "Cobras el dia 5 de cada mes"]
+    for b in beneficios:
+        bf = _font("m", 22)
+        draw.text((100, y), "→", fill=pal["accent"], font=bf)
+        draw.text((135, y), b, fill=pal["text2"], font=bf)
+        y += 36
+
     y += 20
     url = "elgadget.com.ar/referidos"
-    uf = _font("h", 28)
+    uf = _font("h", 30)
     uw = draw.textbbox((0, 0), url, font=uf)[2]
     draw.text(((W - uw) // 2, y), url, fill=pal["accent"], font=uf)
 
@@ -206,7 +212,11 @@ def _layout_motivacional(img, draw, pal, data, h):
     _top_bar(img, draw, pal, h)
     _pilar_badge(draw, "MOTIVACIONAL", pal)
 
-    mid_y = h // 2 - 120
+    bullets = data.get("bullets", [])
+    hook = data.get("hook", "")
+    content_h = 92 + 30 + 26 + 30 + 3 + len(bullets) * 50 + (80 + len(_wrap(hook, _font("b", 22), 880, draw)) * 32 if hook else 0)
+    usable = h - 88 - 72
+    mid_y = 88 + max(20, (usable - content_h) // 2)
 
     numero = data.get("numero_grande", "$45.600")
     nf = _font("h", 92)
@@ -221,7 +231,6 @@ def _layout_motivacional(img, draw, pal, data, h):
 
     draw.line([(180, mid_y + 110), (W - 180, mid_y + 110)], fill=pal["accent"], width=3)
 
-    bullets = data.get("bullets", [])
     y = mid_y + 150
     for b in bullets[:5]:
         b_clean = ''.join(c if ord(c) < 0x10000 else '' for c in b)
@@ -229,7 +238,6 @@ def _layout_motivacional(img, draw, pal, data, h):
         draw.text((145, y), b_clean, fill=pal["text"], font=_font("h", 30))
         y += 50
 
-    hook = data.get("hook", "")
     if hook:
         y += 30
         for line in _wrap(hook, _font("b", 22), 880, draw)[:3]:
@@ -252,12 +260,12 @@ def _layout_engagement(img, draw, pal, data, h):
     card_h = 100
     gap = 22
 
-    # Centrar verticalmente
-    preg_lines = len(_wrap(pregunta, _font("h", 54), 960, draw))
-    content_h = preg_lines * 68 + 40 + n_opc * (card_h + gap) + 80
-    y = max(140, (h - 72 - content_h) // 2)
+    p_lines = _wrap(pregunta, _font("h", 54), 960, draw)[:4]
+    total_h = len(p_lines) * 68 + 40 + n_opc * (card_h + gap) + 50 + 24
+    zone_top, zone_bot = 88, h - 72
+    y = zone_top + max(10, (zone_bot - zone_top - total_h) // 2)
 
-    for line in _wrap(pregunta, _font("h", 54), 960, draw)[:4]:
+    for line in p_lines:
         draw.text((60, y), line, fill=pal["text"], font=_font("h", 54))
         y += 68
     y += 40
