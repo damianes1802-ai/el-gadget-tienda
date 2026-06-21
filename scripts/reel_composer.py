@@ -106,10 +106,10 @@ def ease_out_expo(t):
 
 # ── Elementos decorativos por persona (psicología visual) ──
 
-def _v(base, var, rang=60):
-    """Desplaza una coordenada según la variación del slide."""
-    import math
-    return base + int(math.sin(var * 2.3 + base * 0.01) * rang)
+def _v(base, var, rang=15):
+    """Desplaza una coordenada sutilmente entre slides."""
+    offsets = [0, 8, -5, 12, -10, 6, -8, 14, -3, 10]
+    return base + offsets[var % len(offsets)] * rang // 15
 
 
 def _decor_color(pal):
@@ -127,23 +127,22 @@ def _decor_maria(draw, pal, var=0):
     """María: círculos suaves, puntos dispersos — calidez, seguridad maternal."""
     c = _decor_color(pal)
     for cx, cy, r in [(120, 250, 35), (950, 300, 25), (80, 1500, 30), (980, 1550, 20), (200, 1600, 15), (900, 1650, 22)]:
-        dx, dy = _v(cx, var, 50), _v(cy, var, 40)
+        dx, dy = _v(cx, var, 12), _v(cy, var, 10)
         draw.ellipse([dx - r, dy - r, dx + r, dy + r], outline=c, width=3)
     for cx, cy in [(160, 350), (920, 400), (100, 1400), (960, 1480), (200, 1700), (880, 1720), (500, 200), (600, 1680)]:
-        dx, dy = _v(cx, var, 30), _v(cy, var, 25)
+        dx, dy = _v(cx, var, 8), _v(cy, var, 8)
         draw.ellipse([dx - 6, dy - 6, dx + 6, dy + 6], fill=c)
 
 
 def _decor_lucas(draw, pal, var=0):
     """Lucas: líneas diagonales, flechas — energía, acción, movimiento."""
     c = _decor_color(pal)
-    off = var * 40
-    draw.line([(_v(0, var, 30), 200 + off % 80), (_v(180, var, 40), 100 + off % 60)], fill=c, width=2)
-    draw.line([(_v(W, var, 30), 250 + off % 70), (_v(W - 160, var, 40), 150 + off % 50)], fill=c, width=2)
-    draw.line([(_v(0, var, 30), 1550 - off % 80), (_v(140, var, 40), 1650 - off % 60)], fill=c, width=2)
-    draw.line([(_v(W, var, 30), 1500 - off % 70), (_v(W - 120, var, 40), 1600 - off % 50)], fill=c, width=2)
+    draw.line([(_v(0, var, 10), _v(200, var, 8)), (_v(180, var, 10), _v(100, var, 8))], fill=c, width=2)
+    draw.line([(_v(W, var, 10), _v(250, var, 8)), (_v(W - 160, var, 10), _v(150, var, 8))], fill=c, width=2)
+    draw.line([(_v(0, var, 10), _v(1550, var, 8)), (_v(140, var, 10), _v(1650, var, 8))], fill=c, width=2)
+    draw.line([(_v(W, var, 10), _v(1500, var, 8)), (_v(W - 120, var, 10), _v(1600, var, 8))], fill=c, width=2)
     for bx, by, s in [(60, 300, 20), (W - 80, 350, 16), (80, 1450, 18), (W - 60, 1500, 14)]:
-        dx, dy = _v(bx, var, 40), _v(by, var, 35)
+        dx, dy = _v(bx, var, 10), _v(by, var, 10)
         draw.rectangle([dx, dy, dx + s, dy + s], outline=c, width=2)
 
 
@@ -152,8 +151,8 @@ def _decor_ana(draw, pal, var=0):
     c = _decor_color(pal)
     positions = [220, 260, 1560, 1600]
     for i, y_pos in enumerate(positions):
-        dy = _v(y_pos, var + i, 20)
-        margin = 80 + (var * 15 + i * 20) % 60
+        dy = _v(y_pos, var + i, 8)
+        margin = 80 + (var * 5 + i * 10) % 30
         draw.line([(margin, dy), (W - margin, dy)], fill=c, width=1)
 
 
@@ -161,10 +160,10 @@ def _decor_sofi(draw, pal, var=0):
     """Sofi: formas orgánicas suaves — autenticidad, creatividad."""
     c = _decor_color(pal)
     for cx, cy, rx, ry in [(100, 280, 50, 35), (960, 320, 40, 28), (120, 1520, 45, 30), (940, 1580, 35, 25)]:
-        dx, dy = _v(cx, var, 50), _v(cy, var, 40)
+        dx, dy = _v(cx, var, 12), _v(cy, var, 10)
         draw.ellipse([dx - rx, dy - ry, dx + rx, dy + ry], outline=c, width=2)
     for cx, cy in [(180, 350), (880, 380), (200, 1620), (860, 1660)]:
-        dx, dy = _v(cx, var, 35), _v(cy, var, 30)
+        dx, dy = _v(cx, var, 8), _v(cy, var, 8)
         draw.ellipse([dx - 6, dy - 6, dx + 6, dy + 6], fill=c)
 
 
@@ -173,11 +172,11 @@ def _decor_martin(draw, pal, var=0):
     c = _decor_color(pal)
     bars = [(60, 220, 80, 320), (W - 80, 240, W - 60, 340), (60, 1500, 80, 1600), (W - 80, 1520, W - 60, 1620)]
     for i, (x1, y1, x2, y2) in enumerate(bars):
-        dy = _v(0, var + i, 30)
+        dy = _v(0, var + i, 10)
         draw.rectangle([x1, y1 + dy, x2, y2 + dy], fill=c)
     crosses = [(120, 280), (W - 120, 300), (120, 1560), (W - 120, 1580)]
     for i, (x, y) in enumerate(crosses):
-        dx, dy = _v(x, var + i, 25), _v(y, var + i, 20)
+        dx, dy = _v(x, var + i, 8), _v(y, var + i, 8)
         draw.line([(dx - 10, dy), (dx + 10, dy)], fill=c, width=3)
         draw.line([(dx, dy - 10), (dx, dy + 10)], fill=c, width=3)
 
