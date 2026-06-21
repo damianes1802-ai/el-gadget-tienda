@@ -343,16 +343,22 @@ El objetivo es que quien vea este contenido quiera comprar el producto o registr
             random.shuffle(distribucion)
 
             resultados = []
+            errores = []
             for i, fmt_key in enumerate(distribucion):
                 fmt = FORMATOS[fmt_key]
                 persona = fmt["persona"]
                 prod = prods_top[i % len(prods_top)] if prods_top else {}
 
-                result = self.generar_contenido(prod, fmt_key, persona)
-                if "error" not in result:
-                    resultados.append(result)
+                try:
+                    result = self.generar_contenido(prod, fmt_key, persona)
+                    if isinstance(result, dict) and "error" in result:
+                        errores.append(f"{fmt_key}: {result['error']}")
+                    else:
+                        resultados.append(result)
+                except Exception as e:
+                    errores.append(f"{fmt_key}: {e}")
 
-            return {"ok": True, "generados": len(resultados), "contenidos": resultados}
+            return {"ok": True, "generados": len(resultados), "contenidos": resultados, "errores": errores}
 
         except Exception as e:
             return {"error": str(e)}
@@ -361,12 +367,24 @@ El objetivo es que quien vea este contenido quiera comprar el producto o registr
 
     def get_contenidos(self, estado=None):
         try:
+            import base64
             conn = self._contenidos_db()
             if estado and estado != 'todos':
                 rows = conn.execute("SELECT * FROM contenidos WHERE estado = ? ORDER BY creado_at DESC", (estado,)).fetchall()
             else:
                 rows = conn.execute("SELECT * FROM contenidos ORDER BY creado_at DESC").fetchall()
-            result = [dict(r) for r in rows]
+            result = []
+            for r in rows:
+                d = dict(r)
+                media = d.get("media_url", "")
+                if media and not media.startswith("http") and not media.startswith("data:"):
+                    p = Path(media)
+                    if p.exists():
+                        b64 = base64.b64encode(p.read_bytes()).decode()
+                        d["media_url"] = f"data:image/jpeg;base64,{b64}"
+                    else:
+                        d["media_url"] = ""
+                result.append(d)
             conn.close()
             return result
         except Exception as e:
