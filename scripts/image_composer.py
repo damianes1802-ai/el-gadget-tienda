@@ -87,9 +87,13 @@ def _font(role, size):
 def _logo(size=48):
     if LOGO_PATH.exists():
         logo = Image.open(LOGO_PATH).convert("RGBA").resize((size, size), Image.LANCZOS)
-        mask = Image.new("L", (size, size), 0)
-        ImageDraw.Draw(mask).rounded_rectangle([0, 0, size, size], radius=12, fill=255)
-        logo.putalpha(mask)
+        # Remover fondo blanco/claro del logo
+        pixels = logo.load()
+        for y in range(logo.height):
+            for x in range(logo.width):
+                r, g, b, a = pixels[x, y]
+                if r > 220 and g > 220 and b > 220:
+                    pixels[x, y] = (r, g, b, 0)
         return logo
     return None
 
@@ -153,12 +157,12 @@ def _text_with_emoji(draw, pos, text, font, fill, img=None):
 def _top_bar(img, draw, pal, h):
     draw.rounded_rectangle([0, 0, W, 88], radius=0, fill=pal["bar"])
     draw.line([(0, 88), (W, 88)], fill=ACCENT, width=3)
-    logo = _logo(48)
+    logo = _logo(44)
     if logo:
-        img.paste(logo, (24, 20), logo)
-    draw.text((82, 22), "El", fill=WHITE, font=_font("h", 28))
-    draw.text((114, 22), " Gadget", fill=ACCENT, font=_font("h", 28))
-    draw.text((82, 54), "TIENDA ONLINE", fill=(160, 160, 160), font=_font("m", 12))
+        img.paste(logo, (26, 22), logo)
+    draw.text((80, 22), "El", fill=WHITE, font=_font("h", 28))
+    draw.text((112, 22), " Gadget", fill=ACCENT, font=_font("h", 28))
+    draw.text((80, 54), "TIENDA ONLINE", fill=(160, 160, 160), font=_font("m", 12))
     ig = "@elgadget.ok"
     igf = _font("m", 16)
     igw = draw.textbbox((0, 0), ig, font=igf)[2]
@@ -168,6 +172,7 @@ def _top_bar(img, draw, pal, h):
 def _bottom_bar(draw, text, pal, h):
     bar_h = 72
     y = h - bar_h
+    text = _clean(text)
     draw.rounded_rectangle([0, y, W, h], radius=0, fill=pal["badge_bg"])
     draw.line([(0, y), (W, y)], fill=pal["accent"], width=3)
     f = _font("h", 21)
@@ -915,17 +920,21 @@ def compose_carousel(
     cover_title = hook or titulo or "Tips"
     y = h // 2 - 120
     for line in _wrap(cover_title, _font("h", 58), 900, draw)[:4]:
-        draw.text((80, y), line, fill=pal["text"], font=_font("h", 58))
+        lw = draw.textbbox((0, 0), line, font=_font("h", 58))[2]
+        draw.text(((W - lw) // 2, y), line, fill=pal["text"], font=_font("h", 58))
         y += 72
 
     y += 30
     sub = f"{len(items)} tips que necesitas saber"
     sf = _font("m", 26)
-    draw.text((80, y), sub, fill=pal["text2"], font=sf)
+    sw = draw.textbbox((0, 0), sub, font=sf)[2]
+    draw.text(((W - sw) // 2, y), sub, fill=pal["text2"], font=sf)
 
     y += 50
-    draw.text((80, y), "Desliza para ver todos", fill=pal["accent"], font=_font("h", 28))
-    draw.text((430, y), "→", fill=pal["accent"], font=_font("h", 32))
+    desliza = "Desliza para ver todos  →"
+    df = _font("h", 28)
+    dw = draw.textbbox((0, 0), desliza, font=df)[2]
+    draw.text(((W - dw) // 2, y), desliza, fill=pal["accent"], font=df)
 
     # Indicador de slides (puntos)
     dot_y = h - 120
