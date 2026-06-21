@@ -268,6 +268,7 @@ Programa: registro gratis, comisión 7-15%, descuento comprador 10-20%, cobro d�
 REGLAS:
 - Español argentino (vos/voseo). Cercano, directo, sin exagerar.
 - NUNCA menciones "Droppers". Precios reales. No inventes testimonios.
+- NUNCA nombres a la persona target por su nombre (no digas "María", "Lucas", "Martín"). Son perfiles internos, no personas reales.
 - Hook OBLIGATORIO (nunca vacío). Máximo 2 emojis. No empieces con emoji.
 - Storytelling desde cuenta oficial: escenarios relatables, datos reales, NO historias personales inventadas.
 - Cada post toca UN SOLO dolor/ángulo. No listes todos los beneficios.
@@ -669,7 +670,8 @@ Hook OBLIGATORIO. Máximo 2 emojis. Respondé SOLO JSON."""
             import time as _time
             ts = int(_time.time())
             try:
-                if fmt["tipo"] == "carrusel" and data.get("puntos"):
+                tipo_actual = contexto["tipo"] if contexto else (fmt.get("tipo") if fmt else "post")
+                if tipo_actual == "carrusel" and data.get("puntos"):
                     paths = compose_carousel(
                         persona=persona, pilar=pilar,
                         hook=data.get("hook", ""),
@@ -709,7 +711,8 @@ Hook OBLIGATORIO. Máximo 2 emojis. Respondé SOLO JSON."""
                         pasos=data.get("pasos"),
                         items_check=data.get("items_check"),
                     )
-            except Exception:
+            except Exception as img_err:
+                print(f"[MKT] ERROR imagen: {img_err}")
                 branded_url = producto.get("imagen_principal", "")
 
             # Extraer IDs del contexto si existe
