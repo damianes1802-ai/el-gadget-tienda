@@ -28,16 +28,37 @@ BASE_DIR = Path(__file__).parent.parent
 MARKETING_CONFIG_FILE = BASE_DIR / "marketing_app" / "config.json"
 CONTENIDOS_DB = BASE_DIR / "marketing_app" / "data" / "contenidos.db"
 
-# ── Formatos de contenido Instagram ──
+# ── Pilares y formatos de contenido Instagram ──
+# Distribución: 35% educativo + 30% motivacional + 20% engagement + 15% producto
+PILARES = {
+    "educativo":    {"peso": 35, "desc": "Contenido de valor que enseña cómo funciona el programa de referidos y cómo ganar dinero"},
+    "motivacional": {"peso": 30, "desc": "Historias de éxito, cálculos de ganancias, inspiración para empezar"},
+    "engagement":   {"peso": 20, "desc": "Preguntas, encuestas, interacción con la comunidad"},
+    "producto":     {"peso": 15, "desc": "Producto en acción con ángulo de referido (compartí y ganá)"},
+}
+
 FORMATOS = {
-    "RS-01": {"tipo": "reel",     "persona": "maria", "desc": "Problema → Solución: mostrar cómo el producto resuelve un problema cotidiano"},
-    "RS-02": {"tipo": "story",    "persona": "maria", "desc": "Antes/Después: transformación visual con el producto"},
-    "RS-03": {"tipo": "reel",     "persona": "lucas", "desc": "Unboxing/Haul: abrir paquete, mostrar productos, reacción auténtica"},
-    "RS-04": {"tipo": "reel",     "persona": "lucas", "desc": "Storytime 'Así gano plata': contar cómo se gana dinero recomendando"},
-    "RS-05": {"tipo": "reel",     "persona": "lucas", "desc": "Producto viral + código: mostrar producto trending con código de descuento"},
-    "RS-06": {"tipo": "story",    "persona": "maria", "desc": "Testimonio: captura de chat o review real de un cliente"},
-    "RS-07": {"tipo": "carrusel", "persona": "maria", "desc": "FAQ visual: responder preguntas frecuentes en slides"},
-    "RS-08": {"tipo": "post",     "persona": "sofi",  "desc": "Selección curada: 'Mi top 5 de El Gadget para tu hogar'"},
+    # EDUCATIVO (35%) — enseñar sobre el programa
+    "ED-01": {"tipo": "reel",     "pilar": "educativo",    "persona": "lucas", "desc": "Tutorial: 'Así funciona el programa de referidos de El Gadget — paso a paso en 30 segundos'"},
+    "ED-02": {"tipo": "carrusel", "pilar": "educativo",    "persona": "maria", "desc": "Guía visual: '5 formas de compartir tu código y ganar comisiones' (slide por forma: WA, IG Stories, grupos, link directo, redes)"},
+    "ED-03": {"tipo": "reel",     "pilar": "educativo",    "persona": "lucas", "desc": "Tips de venta: '3 errores que comete todo referido nuevo (y cómo evitarlos)'"},
+    "ED-04": {"tipo": "carrusel", "pilar": "educativo",    "persona": "ana",   "desc": "FAQ del programa: responder las 5 preguntas más comunes sobre cómo cobrar, cuánto se gana, cómo subir de tier"},
+
+    # MOTIVACIONAL (30%) — inspirar a registrarse
+    "MO-01": {"tipo": "reel",     "pilar": "motivacional", "persona": "lucas", "desc": "Storytime: 'Así gano plata extra sin inversión — mi experiencia como referido de El Gadget'"},
+    "MO-02": {"tipo": "post",     "pilar": "motivacional", "persona": "maria", "desc": "Cálculo real: 'Si compartís con 10 amigos y 3 compran, ganás $X por mes. Sin invertir un peso.'"},
+    "MO-03": {"tipo": "reel",     "pilar": "motivacional", "persona": "lucas", "desc": "Comparación: 'El Gadget vs otros programas de afiliados en Argentina — por qué este conviene más'"},
+    "MO-04": {"tipo": "story",    "pilar": "motivacional", "persona": "sofi",  "desc": "Behind the scenes: mostrar el panel de comisiones con números reales (difuminados) y reaccionar"},
+
+    # ENGAGEMENT (20%) — interacción y comunidad
+    "EN-01": {"tipo": "story",    "pilar": "engagement",   "persona": "maria", "desc": "Encuesta/Poll: '¿Qué harías con $30.000 extra por mes?' con opciones divertidas"},
+    "EN-02": {"tipo": "post",     "pilar": "engagement",   "persona": "lucas", "desc": "Pregunta abierta: '¿Cuál es el producto de El Gadget que más recomendarías? Contanos en comentarios'"},
+    "EN-03": {"tipo": "reel",     "pilar": "engagement",   "persona": "maria", "desc": "Challenge: 'Compartí este reel con alguien que necesita un ingreso extra — taggealo'"},
+
+    # PRODUCTO (15%) — showcase con ángulo referido
+    "PR-01": {"tipo": "reel",     "pilar": "producto",     "persona": "maria", "desc": "Producto en acción: problema → solución. Al final: 'Compartilo con tu código y ganá comisión por cada venta'"},
+    "PR-02": {"tipo": "carrusel", "pilar": "producto",     "persona": "sofi",  "desc": "Selección curada: 'Top 5 productos de El Gadget que se venden solos — ideales para compartir como referido'"},
+    "PR-03": {"tipo": "reel",     "pilar": "producto",     "persona": "lucas", "desc": "Producto viral + código: 'Este producto está volando. Con tu código le das hasta 20% OFF a quien compre'"},
 }
 
 PERSONAS_DESC = {
@@ -50,28 +71,35 @@ PERSONAS_DESC = {
 
 SYSTEM_PROMPT = """Sos el community manager de El Gadget, una tienda online argentina de productos para el hogar, moda, tecnología y más.
 
-Tu objetivo principal: atraer referidos al programa de comisiones de El Gadget. Cada pieza de contenido debe motivar a la audiencia a registrarse como referido o a comprar usando un código de referido.
+OBJETIVO PRINCIPAL: conseguir que más personas se registren como referidos en el programa de comisiones de El Gadget. El 80% del contenido debe aportar VALOR (educar sobre cómo ganar dinero, motivar, generar comunidad) y solo el 20% debe ser promoción directa de productos.
 
-Reglas:
-- Usá español argentino (vos/voseo): "mirá", "comprá", "registrate"
-- Tono cercano, directo, sin exagerar. No uses lenguaje corporativo.
+Datos clave del programa de referidos:
+- Registrarse es gratis, sin inversión, sin stock, sin envíos
+- El referido comparte su código personalizado con amigos/familia/seguidores
+- Quien compra con el código obtiene 10-20% de descuento (según monto del carrito)
+- El referido gana comisión: 7% (base), 11% (5+ ventas/mes), 15% (15+ ventas/mes)
+- Las comisiones se cobran el día 5 de cada mes
+- URL de registro: elgadget.com.ar/referidos
+
+Reglas de tono:
+- Español argentino (vos/voseo): "mirá", "registrate", "compartí"
+- Cercano, directo, sin exagerar. No uses lenguaje corporativo ni de "gurú"
 - NUNCA menciones "Droppers" ni ningún proveedor
 - Los precios que te doy son reales y actuales
-- Descuento para compradores con código de referido: 10-20% según monto del carrito
-- Comisión para referidos: 7% a 15% según cantidad de ventas en el mes
-- No prometas envío gratis salvo que se indique explícitamente
+- No prometas envío gratis salvo que se indique
 - No inventes testimonios ni reviews
-- Usá emojis con moderación (1-3 por caption)
+- Emojis con moderación (1-3 por caption)
+- El contenido debe sentirse natural, no un aviso publicitario
 
 Respondé SOLAMENTE con un objeto JSON válido (sin texto adicional, sin markdown):
 {"caption": "...", "caption_b": "...", "hashtags": "...", "hook": "...", "cta": "..."}
 
 Donde:
-- caption: el texto principal del post (máx 300 caracteres)
-- caption_b: una variante alternativa para A/B testing (máx 300 caracteres)
-- hashtags: 8-12 hashtags relevantes separados por espacio
-- hook: las primeras 3-5 palabras impactantes (para Reels)
-- cta: call to action final (1 línea)"""
+- caption: el texto principal del post (máx 2200 caracteres para IG, ideal 150-300)
+- caption_b: una variante alternativa para A/B testing
+- hashtags: 8-12 hashtags relevantes separados por espacio (mezcla de populares y nicho)
+- hook: las primeras 3-5 palabras impactantes que detienen el scroll
+- cta: call to action final claro (1 línea, orientado a registro como referido cuando aplique)"""
 
 
 class Api:
@@ -263,25 +291,41 @@ El objetivo es que quien vea este contenido quiera comprar el producto o registr
             productos = [p for p in productos_raw if p.get("stock", 0) > 0 and p.get("precio_venta", 0) > 0]
             productos.sort(key=lambda p: p.get("precio_venta", 0) * p.get("stock", 0), reverse=True)
 
-            # Máximo 2 por categoría
-            seleccionados = []
+            # Seleccionar productos top con variedad de categoría
+            prods_top = []
             cat_count = {}
             for p in productos:
                 cat = p.get("categoria", "General")
                 if cat_count.get(cat, 0) >= 2:
                     continue
-                seleccionados.append(p)
+                prods_top.append(p)
                 cat_count[cat] = cat_count.get(cat, 0) + 1
-                if len(seleccionados) >= cantidad:
+                if len(prods_top) >= 10:
                     break
 
-            formatos_keys = list(FORMATOS.keys())
-            resultados = []
+            # Distribuir formatos según pilares: 35% edu + 30% moti + 20% eng + 15% prod
+            formatos_por_pilar = {}
+            for k, v in FORMATOS.items():
+                pilar = v.get("pilar", "producto")
+                formatos_por_pilar.setdefault(pilar, []).append(k)
 
-            for i, prod in enumerate(seleccionados):
-                fmt_key = formatos_keys[i % len(formatos_keys)]
+            distribucion = []
+            for pilar, peso in [("educativo", 35), ("motivacional", 30), ("engagement", 20), ("producto", 15)]:
+                n = max(1, round(cantidad * peso / 100))
+                fmts = formatos_por_pilar.get(pilar, [])
+                for i in range(n):
+                    if len(distribucion) >= cantidad:
+                        break
+                    distribucion.append(fmts[i % len(fmts)])
+
+            distribucion = distribucion[:cantidad]
+            random.shuffle(distribucion)
+
+            resultados = []
+            for i, fmt_key in enumerate(distribucion):
                 fmt = FORMATOS[fmt_key]
                 persona = fmt["persona"]
+                prod = prods_top[i % len(prods_top)] if prods_top else {}
 
                 result = self.generar_contenido(prod, fmt_key, persona)
                 if "error" not in result:
