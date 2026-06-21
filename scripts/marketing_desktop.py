@@ -46,11 +46,11 @@ PERSONAS = {
             {"id": "M5", "cat": "practico", "texto": "Quiero algo flexible que pueda hacer desde casa", "trigger": "falta de tiempo", "contenido": "Sin horarios, sin jefe, desde el celular"},
         ],
         "angulos": [
-            {"id": "MA1", "texto": "Tu grupo de mamás es tu mejor negocio", "tipo": "identificacion", "hook_ej": "Ya recomendás todo gratis. ¿Y si cobraras?", "layouts": ["L03", "L04", "R01"]},
-            {"id": "MA2", "texto": "Transformación del hogar", "tipo": "aspiracional", "hook_ej": "De caos a revista en 10 minutos", "layouts": ["L02", "L07"]},
-            {"id": "MA3", "texto": "Calculá cuánto ganarías", "tipo": "racional", "hook_ej": "3 amigas × $50.000 = $10.500 para vos", "layouts": ["L03", "L01", "R01"]},
-            {"id": "MA4", "texto": "Sin ser vendedora", "tipo": "objecion", "hook_ej": "No vendés nada. Compartís un descuento.", "layouts": ["L06", "L04"]},
-            {"id": "MA5", "texto": "Mamá multitarea", "tipo": "empatia", "hook_ej": "Mientras los chicos duermen, vos ganás", "layouts": ["L04", "L09"]},
+            {"id": "MA1", "texto": "Tu grupo de mamás es tu mejor negocio", "tipo": "identificacion", "hook_ej": "Ya recomendás todo gratis. ¿Y si cobraras?", "layouts": ["L03", "L04", "R01", "R04", "R10"]},
+            {"id": "MA2", "texto": "Transformación del hogar", "tipo": "aspiracional", "hook_ej": "De caos a revista en 10 minutos", "layouts": ["L02", "L07", "R02", "R07"]},
+            {"id": "MA3", "texto": "Calculá cuánto ganarías", "tipo": "racional", "hook_ej": "3 amigas × $50.000 = $10.500 para vos", "layouts": ["L03", "L01", "R01", "R03", "R05"]},
+            {"id": "MA4", "texto": "Sin ser vendedora", "tipo": "objecion", "hook_ej": "No vendés nada. Compartís un descuento.", "layouts": ["L06", "L04", "R06"]},
+            {"id": "MA5", "texto": "Mamá multitarea", "tipo": "empatia", "hook_ej": "Mientras los chicos duermen, vos ganás", "layouts": ["L04", "L09", "R02"]},
         ],
         "palabras_conectan": ["sin salir de casa", "desde el celular", "mientras los chicos duermen", "tus amigas", "el grupo de mamás", "tu familia", "ahorro", "llegar a fin de mes", "ingreso extra", "sin invertir", "gratis", "fácil"],
         "palabras_prohibidas": ["negocio", "vender", "emprender", "inversión", "multinivel", "red de contactos", "oportunidad única"],
@@ -69,10 +69,10 @@ PERSONAS = {
         ],
         "angulos": [
             {"id": "LA1", "texto": "Side hustle real", "tipo": "aspiracional", "hook_ej": "Un side hustle que no te roba el día", "layouts": ["L03", "L09", "R01"]},
-            {"id": "LA2", "texto": "Hacé la cuenta", "tipo": "racional", "hook_ej": "1 link = $7.400 de comisión. La matemática es simple.", "layouts": ["L03", "L01", "R01"]},
-            {"id": "LA3", "texto": "Escéptico convertido", "tipo": "historia", "hook_ej": "También pensé que era humo. Acá van los números.", "layouts": ["L04", "L06"]},
-            {"id": "LA4", "texto": "Antes de que se llene", "tipo": "urgencia", "hook_ej": "El programa recién arranca. Los primeros tienen ventaja.", "layouts": ["L04", "L03"]},
-            {"id": "LA5", "texto": "Tu celular ya es tu herramienta", "tipo": "facilidad", "hook_ej": "WhatsApp + tu código = comisiones", "layouts": ["L09", "L01"]},
+            {"id": "LA2", "texto": "Hacé la cuenta", "tipo": "racional", "hook_ej": "1 link = $7.400 de comisión. La matemática es simple.", "layouts": ["L03", "L01", "R01", "R03", "R08"]},
+            {"id": "LA3", "texto": "Escéptico convertido", "tipo": "historia", "hook_ej": "También pensé que era humo. Acá van los números.", "layouts": ["L04", "L06", "R02", "R04"]},
+            {"id": "LA4", "texto": "Antes de que se llene", "tipo": "urgencia", "hook_ej": "El programa recién arranca. Los primeros tienen ventaja.", "layouts": ["L04", "L03", "R04", "R10"]},
+            {"id": "LA5", "texto": "Tu celular ya es tu herramienta", "tipo": "facilidad", "hook_ej": "WhatsApp + tu código = comisiones", "layouts": ["L09", "L01", "R05"]},
         ],
         "palabras_conectan": ["side hustle", "ingreso extra", "sin jefe", "rápido", "fácil", "desde el celu", "la matemática es simple", "hacé la cuenta", "sin humo", "real", "transparente"],
         "palabras_prohibidas": ["oportunidad de la vida", "millonario", "libertad financiera", "jefe de tu propio destino"],
@@ -89,10 +89,10 @@ PERSONAS = {
             {"id": "A4", "cat": "financiero", "texto": "Un ingreso pasivo real, no otro trabajo", "trigger": "fin de mes cómodo pero podría ser mejor", "contenido": "Cobrás por recomendaciones que ya hacés"},
         ],
         "angulos": [
-            {"id": "AA1", "texto": "Recomendación genuina", "tipo": "confianza", "hook_ej": "Si te gusta un producto, ¿por qué no cobrar por recomendarlo?", "layouts": ["L04", "L01"]},
-            {"id": "AA2", "texto": "Transparencia total", "tipo": "racional", "hook_ej": "Panel en tiempo real. Ves cada venta, cada comisión.", "layouts": ["L01", "L10"]},
-            {"id": "AA3", "texto": "Ingreso pasivo real", "tipo": "aspiracional", "hook_ej": "No es otro trabajo. Es cobrar por lo que ya hacés.", "layouts": ["L06", "L03", "R01"]},
-            {"id": "AA4", "texto": "Calidad garantizada", "tipo": "confianza", "hook_ej": "10 días de devolución. 6 meses de garantía. MercadoPago.", "layouts": ["L10", "L07"]},
+            {"id": "AA1", "texto": "Recomendación genuina", "tipo": "confianza", "hook_ej": "Si te gusta un producto, ¿por qué no cobrar por recomendarlo?", "layouts": ["L04", "L01", "R04", "R06"]},
+            {"id": "AA2", "texto": "Transparencia total", "tipo": "racional", "hook_ej": "Panel en tiempo real. Ves cada venta, cada comisión.", "layouts": ["L01", "L10", "R05", "R09"]},
+            {"id": "AA3", "texto": "Ingreso pasivo real", "tipo": "aspiracional", "hook_ej": "No es otro trabajo. Es cobrar por lo que ya hacés.", "layouts": ["L06", "L03", "R01", "R03"]},
+            {"id": "AA4", "texto": "Calidad garantizada", "tipo": "confianza", "hook_ej": "10 días de devolución. 6 meses de garantía. MercadoPago.", "layouts": ["L10", "L07", "R09"]},
         ],
         "palabras_conectan": ["transparente", "claro", "sin letra chica", "recomendación genuina", "lo que ya hacés", "ingreso pasivo", "sin compromiso", "calidad", "garantía", "confianza"],
         "palabras_prohibidas": ["ganá plata fácil", "sin hacer nada", "oportunidad única", "no te lo pierdas"],
@@ -109,10 +109,10 @@ PERSONAS = {
             {"id": "S4", "cat": "practico", "texto": "Quiero productos que mi audiencia realmente compre", "trigger": "recomendar y que nadie compre", "contenido": "Productos con descuento = mayor conversión"},
         ],
         "angulos": [
-            {"id": "SA1", "texto": "Monetizá tu audiencia", "tipo": "aspiracional", "hook_ej": "Tu audiencia ya te pide recomendaciones. Cobrá por ellas.", "layouts": ["L03", "L07"]},
-            {"id": "SA2", "texto": "Comisiones que valen la pena", "tipo": "racional", "hook_ej": "7-15% > lo que pagan la mayoría de programas", "layouts": ["L08", "L03", "R01"]},
-            {"id": "SA3", "texto": "Sin contratos", "tipo": "libertad", "hook_ej": "Sin obligaciones de publicación. Tu contenido, tu ritmo.", "layouts": ["L04", "L10"]},
-            {"id": "SA4", "texto": "Productos instagrameables", "tipo": "visual", "hook_ej": "Productos que tu audiencia quiere tener", "layouts": ["L07", "L02"]},
+            {"id": "SA1", "texto": "Monetizá tu audiencia", "tipo": "aspiracional", "hook_ej": "Tu audiencia ya te pide recomendaciones. Cobrá por ellas.", "layouts": ["L03", "L07", "R10"]},
+            {"id": "SA2", "texto": "Comisiones que valen la pena", "tipo": "racional", "hook_ej": "7-15% > lo que pagan la mayoría de programas", "layouts": ["L08", "L03", "R01", "R06", "R08"]},
+            {"id": "SA3", "texto": "Sin contratos", "tipo": "libertad", "hook_ej": "Sin obligaciones de publicación. Tu contenido, tu ritmo.", "layouts": ["L04", "L10", "R04", "R09"]},
+            {"id": "SA4", "texto": "Productos instagrameables", "tipo": "visual", "hook_ej": "Productos que tu audiencia quiere tener", "layouts": ["L07", "L02", "R02", "R07"]},
         ],
         "palabras_conectan": ["tu audiencia", "monetizar", "tracking", "comisiones transparentes", "sin contratos", "tu contenido", "productos reales", "tu ritmo"],
         "palabras_prohibidas": ["influencer barato", "obligación", "publicar X veces", "contrato"],
@@ -128,8 +128,8 @@ PERSONAS = {
             {"id": "MT3", "cat": "practico", "texto": "Me importa que el envío sea confiable", "trigger": "reclamos de clientes", "contenido": "Envío a todo el país con tracking"},
         ],
         "angulos": [
-            {"id": "MTA1", "texto": "Números claros", "tipo": "racional", "hook_ej": "25% OFF = margen del 40%+ en reventa", "layouts": ["L03", "L08", "R01"]},
-            {"id": "MTA2", "texto": "Catálogo amplio", "tipo": "variedad", "hook_ej": "300+ productos en 10 categorías", "layouts": ["L01", "L10"]},
+            {"id": "MTA1", "texto": "Números claros", "tipo": "racional", "hook_ej": "25% OFF = margen del 40%+ en reventa", "layouts": ["L03", "L08", "R01", "R03", "R08"]},
+            {"id": "MTA2", "texto": "Catálogo amplio", "tipo": "variedad", "hook_ej": "300+ productos en 10 categorías", "layouts": ["L01", "L10", "R07", "R09"]},
             {"id": "MTA3", "texto": "Confianza logística", "tipo": "confianza", "hook_ej": "Envío a todo el país con tracking", "layouts": ["L10", "L07"]},
         ],
         "palabras_conectan": ["margen", "reventa", "mayorista", "catálogo", "factura", "envío seguro", "precio por mayor"],
@@ -151,6 +151,15 @@ LAYOUTS_INFO = {
     "L09": {"nombre": "Paso a paso", "pilares": ["educativo"], "campos": ["hook", "pasos"]},
     "L10": {"nombre": "Checklist", "pilares": ["educativo"], "campos": ["hook", "items_check"]},
     "R01": {"nombre": "Reel 7 slides", "pilares": ["motivacional", "educativo", "producto"], "campos": ["hook", "dolor", "solucion", "numero_grande", "subtexto_proof", "beneficio", "dato_extra"]},
+    "R02": {"nombre": "Reel Antes/después", "pilares": ["educativo", "producto"], "campos": ["hook", "antes_texto", "despues_texto", "numero_grande", "subtexto_proof"]},
+    "R03": {"nombre": "Reel Número corto", "pilares": ["motivacional"], "campos": ["hook", "numero_grande", "subtexto_proof", "bullets"]},
+    "R04": {"nombre": "Reel Storytelling", "pilares": ["motivacional"], "campos": ["hook", "historia_slides"]},
+    "R05": {"nombre": "Reel Paso a paso", "pilares": ["educativo"], "campos": ["hook", "pasos"]},
+    "R06": {"nombre": "Reel Mito vs realidad", "pilares": ["educativo", "engagement"], "campos": ["hook", "mitos", "realidades"]},
+    "R07": {"nombre": "Reel Producto", "pilares": ["producto"], "campos": ["hook", "producto_nombre", "precio_original", "precio_descuento", "comision"]},
+    "R08": {"nombre": "Reel Comparativa", "pilares": ["producto", "educativo"], "campos": ["hook", "otros_stats", "gadget_stats"]},
+    "R09": {"nombre": "Reel Checklist", "pilares": ["educativo"], "campos": ["hook", "items_check"]},
+    "R10": {"nombre": "Reel Dato viral", "pilares": ["motivacional", "engagement"], "campos": ["hook", "dato_grande", "dato_contexto", "dato_como"]},
 }
 
 # ── Schemas JSON por layout (lo que Claude debe devolver) ──
@@ -168,6 +177,15 @@ LAYOUT_SCHEMAS = {
     "L09": '{"hook":"OBLIGATORIO","pasos":["max 40 chars",...max 4],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
     "L10": '{"hook":"OBLIGATORIO","items_check":["max 40 chars",...max 6],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
     "R01": '{"hook":"frase que frena el scroll max 8 palabras. VARIÁ tipo: pregunta O dato O afirmación O escenario","dolor":"1 frase identificación max 12 palabras","solucion":"cómo funciona max 20 palabras","numero_grande":"NUMERO con $ o %. Si hay producto usar la comisión EXACTA indicada","subtexto_proof":"contexto del numero max 10 palabras","beneficio":"frase emocional max 10 palabras","dato_extra":"prueba social o urgencia max 10 palabras","cta_text":"CTA max 6 palabras","voiceover":"3-4 oraciones complementarias en argentino. El numero que menciones DEBE ser IDÉNTICO al de numero_grande. Max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R02": '{"hook":"frase que frena el scroll max 8 palabras","antes_texto":"situación ANTES max 50 chars","despues_texto":"situación DESPUÉS max 50 chars","numero_grande":"resultado con $ o %","subtexto_proof":"contexto del numero max 10 palabras","voiceover":"3-4 oraciones en argentino max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R03": '{"hook":"frase que frena el scroll max 8 palabras","numero_grande":"NUMERO con $ o %","subtexto_proof":"contexto del numero max 10 palabras","bullets":["beneficio max 30 chars","max 3 items"],"voiceover":"3-4 oraciones en argentino max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R04": '{"hook":"frase que frena el scroll max 8 palabras","historia_slides":["slide 1 max 12 palabras","slide 2 progresión","slide 3 giro","slide 4 cierre — 4 strings"],"voiceover":"3-4 oraciones en argentino max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R05": '{"hook":"frase que frena el scroll max 8 palabras","pasos":["paso 1 max 10 palabras","paso 2","paso 3","paso 4 — 4 strings"],"voiceover":"3-4 oraciones en argentino max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R06": '{"hook":"frase que frena el scroll max 8 palabras","mitos":["mito 1 max 40 chars","mito 2 — 2 strings"],"realidades":["realidad 1 max 40 chars","realidad 2 — 2 strings"],"voiceover":"3-4 oraciones en argentino max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R07": '{"hook":"frase que frena el scroll max 8 palabras","producto_nombre":"nombre del producto","precio_original":"$XX.XXX","precio_descuento":"$XX.XXX con referido","comision":"$X.XXX por venta","beneficio":"frase emocional max 10 palabras","voiceover":"3-4 oraciones en argentino max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R08": '{"hook":"frase que frena el scroll max 8 palabras","otros_stats":"lo que ofrecen otros programas max 50 chars","gadget_stats":"lo que ofrece El Gadget max 50 chars","beneficio":"frase emocional max 10 palabras","voiceover":"3-4 oraciones en argentino max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R09": '{"hook":"frase que frena el scroll max 8 palabras","items_check":["item 1 max 30 chars","item 2","item 3","item 4","item 5 — 5 strings"],"voiceover":"3-4 oraciones en argentino max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R10": '{"dato_grande":"numero gigante con $ o %","dato_contexto":"contexto del dato max 50 chars","dato_como":"cómo conseguirlo max 50 chars","voiceover":"3-4 oraciones en argentino max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
 }
 
 # ── Mapeo legacy para backward compat del modal individual ──
@@ -832,7 +850,7 @@ Hook OBLIGATORIO. Máximo 2 emojis. Respondé SOLO JSON."""
             cat = producto.get("categoria", "")
 
             ctx = contexto
-            layout_id = ctx["layout_id"]  # Should be R01
+            layout_id = ctx["layout_id"]  # R01-R10
             dolor = ctx["dolor"]
             angulo = ctx["angulo"]
             persona_data = ctx["persona"]
@@ -874,11 +892,12 @@ Hook OBLIGATORIO. Máximo 2 emojis. Respondé SOLO JSON."""
             except Exception:
                 pass
 
-            schema = LAYOUT_SCHEMAS["R01"]
+            schema = LAYOUT_SCHEMAS.get(layout_id, LAYOUT_SCHEMAS["R01"])
+            layout_nombre = ctx['layout_info'].get('nombre', 'Reel 7 slides')
 
             user_prompt = f"""Genera contenido para un REEL de Instagram (video vertical 9:16, 20-25 segundos). Cuenta OFICIAL de El Gadget.
 
-LAYOUT: R01 — Reel 7 slides
+LAYOUT: {layout_id} — {layout_nombre}
 PILAR: {ctx['layout_info'].get('pilares', ['motivacional'])[0].upper()}
 
 PERSONA: {persona_data['nombre']} — {persona_data.get('descripcion', '')}
@@ -960,23 +979,53 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
             data = self._parse_json_response(response.content[0].text)
 
             # Compose the reel video
-            from reel_composer import compose_reel
             import time as _time
             ts = int(_time.time())
 
-            reel_path = compose_reel(
-                persona=persona,
-                hook=data.get("hook", ""),
-                dolor=data.get("dolor", ""),
-                solucion=data.get("solucion", ""),
-                numero_grande=data.get("numero_grande", ""),
-                subtexto_proof=data.get("subtexto_proof", ""),
-                beneficio=data.get("beneficio", ""),
-                dato_extra=data.get("dato_extra", ""),
-                cta_text=data.get("cta_text", ""),
-                voiceover_text=data.get("voiceover", ""),
-                output_filename=f"R01_{producto.get('sku', '')}_{ts}.mp4",
-            )
+            if layout_id == "R01":
+                from reel_composer import compose_reel
+                reel_path = compose_reel(
+                    persona=persona,
+                    hook=data.get("hook", ""),
+                    dolor=data.get("dolor", ""),
+                    solucion=data.get("solucion", ""),
+                    numero_grande=data.get("numero_grande", ""),
+                    subtexto_proof=data.get("subtexto_proof", ""),
+                    beneficio=data.get("beneficio", ""),
+                    dato_extra=data.get("dato_extra", ""),
+                    cta_text=data.get("cta_text", ""),
+                    voiceover_text=data.get("voiceover", ""),
+                    output_filename=f"R01_{producto.get('sku', '')}_{ts}.mp4",
+                )
+            else:
+                from reel_composer import compose_reel_variant
+                reel_path = compose_reel_variant(
+                    reel_type=layout_id,
+                    persona=persona,
+                    hook=data.get("hook", ""),
+                    antes_texto=data.get("antes_texto", ""),
+                    despues_texto=data.get("despues_texto", ""),
+                    numero_grande=data.get("numero_grande", ""),
+                    subtexto_proof=data.get("subtexto_proof", ""),
+                    bullets=data.get("bullets"),
+                    historia_slides=data.get("historia_slides"),
+                    pasos=data.get("pasos"),
+                    mitos=data.get("mitos"),
+                    realidades=data.get("realidades"),
+                    producto_nombre=data.get("producto_nombre", ""),
+                    precio_original=data.get("precio_original", ""),
+                    precio_descuento=data.get("precio_descuento", ""),
+                    comision=data.get("comision", ""),
+                    beneficio=data.get("beneficio", ""),
+                    otros_stats=data.get("otros_stats", ""),
+                    gadget_stats=data.get("gadget_stats", ""),
+                    items_check=data.get("items_check"),
+                    dato_grande=data.get("dato_grande", ""),
+                    dato_contexto=data.get("dato_contexto", ""),
+                    dato_como=data.get("dato_como", ""),
+                    voiceover_text=data.get("voiceover", ""),
+                    output_filename=f"{layout_id}_{producto.get('sku', '')}_{ts}.mp4",
+                )
 
             # Save to DB
             dolor_id = ctx["dolor"]["id"]
@@ -1022,7 +1071,7 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
             return {"error": str(e)}
 
     def generar_lote_reels(self, cantidad=3):
-        """Genera un lote de Reels usando selección inteligente con layout R01."""
+        """Genera un lote de Reels usando selección inteligente con layouts R01-R10."""
         try:
             productos_raw = self.get_productos()
             if isinstance(productos_raw, dict) and "error" in productos_raw:
@@ -1058,11 +1107,20 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
                     try:
                         ctx = self._seleccionar_contexto(historial)
 
-                        ctx["layout_id"] = "R01"
-                        ctx["layout_info"] = LAYOUTS_INFO["R01"]
+                        # Force a reel layout: pick from R* layouts of this angulo
+                        angulo_layouts = ctx["angulo"].get("layouts", [])
+                        reel_layouts = [lid for lid in angulo_layouts if lid.startswith("R")]
+                        if reel_layouts:
+                            chosen = random.choice(reel_layouts)
+                        else:
+                            chosen = "R01"
+                        ctx["layout_id"] = chosen
+                        ctx["layout_info"] = LAYOUTS_INFO.get(chosen, LAYOUTS_INFO["R01"])
+
+                        reel_layout = ctx["layout_id"]
                         ctx["tipo"] = "reel"
-                        ctx["formato"] = f"R01-{ctx['persona_key'][:3].upper()}"
-                        ctx["fingerprint"] = f"{ctx['persona_key']}|{ctx['dolor']['id']}|{ctx['angulo']['id']}|R01"
+                        ctx["formato"] = f"{reel_layout}-{ctx['persona_key'][:3].upper()}"
+                        ctx["fingerprint"] = f"{ctx['persona_key']}|{ctx['dolor']['id']}|{ctx['angulo']['id']}|{reel_layout}"
 
                         fp = f"{ctx.get('fingerprint', '')}|{prod.get('sku', '')}"
                         if fp in fingerprints_lote:
@@ -1070,15 +1128,15 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
                         result = self.generar_reel(prod, contexto=ctx)
                         if isinstance(result, dict) and "error" in result:
                             if intento == 2:
-                                errores.append(f"R01: {result['error']}")
+                                errores.append(f"{reel_layout}: {result['error']}")
                         else:
                             resultados.append(result)
                             fingerprints_lote.add(fp)
-                            historial.insert(0, {"persona": ctx["persona_key"], "dolor_id": ctx["dolor"]["id"], "angulo_id": ctx["angulo"]["id"], "layout_id": "R01"})
+                            historial.insert(0, {"persona": ctx["persona_key"], "dolor_id": ctx["dolor"]["id"], "angulo_id": ctx["angulo"]["id"], "layout_id": reel_layout})
                             break
                     except Exception as e:
                         if intento == 2:
-                            errores.append(f"R01: {e}")
+                            errores.append(f"{ctx.get('layout_id', 'R01')}: {e}")
 
             return {"ok": True, "generados": len(resultados), "contenidos": resultados, "errores": errores}
 

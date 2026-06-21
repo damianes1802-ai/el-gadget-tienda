@@ -858,6 +858,652 @@ def compose_reel(
     return output_path
 
 
+# ── Slide renderers para variantes R02-R10 ──
+
+def _slide_antes_despues(pal, label, text, is_positive, persona, slide_index):
+    """Renders ANTES/DESPUES or MITO/REALIDAD cards. Red tint negative, green positive."""
+    import random as _rnd
+    style = _rnd.choice(VISUAL_STYLES)
+    img = Image.new("RGB", (W, H), pal["bg"])
+    if style == "gradient":
+        dark = tuple(max(0, c - 40) for c in pal["bg"])
+        _gradient_bg(img, dark, pal["bg"])
+    draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona, slide_index)
+    _top_bar(img, draw, pal)
+
+    # Tint color for the card
+    if is_positive:
+        tint = (30, 120, 60)
+        label_color = (46, 180, 90)
+    else:
+        tint = (140, 30, 30)
+        label_color = (200, 50, 50)
+
+    # Card background with tint
+    card_bg = tuple(min(255, c + 20) for c in tint)
+    card_w, card_h = 900, 500
+    cx = (W - card_w) // 2
+    cy = H // 2 - card_h // 2 - 40
+    draw.rounded_rectangle([cx, cy, cx + card_w, cy + card_h], radius=28, fill=card_bg)
+    draw.line([(cx, cy + card_h - 6), (cx + card_w, cy + card_h - 6)], fill=label_color, width=6)
+
+    # Label
+    lf = _font("h", 60)
+    lw = draw.textbbox((0, 0), label, font=lf)[2]
+    _shadow(draw, ((W - lw) // 2, cy + 40), label, lf, WHITE)
+
+    # Separator line
+    sep_y = cy + 130
+    draw.line([(cx + 60, sep_y), (cx + card_w - 60, sep_y)], fill=label_color, width=3)
+
+    # Text content
+    tf = _font("h", 44)
+    _centered_lines(draw, text, tf, WHITE, card_w - 120, cy + 160, 14)
+
+    _bottom_bar(draw, "elgadget.com.ar/referidos", pal)
+    return np.array(img)
+
+
+def _slide_step(pal, step_num, text, persona, slide_index):
+    """Renders a step with big number + text."""
+    import random as _rnd
+    style = _rnd.choice(VISUAL_STYLES)
+    img = Image.new("RGB", (W, H), pal["bg"])
+    if style == "gradient":
+        dark = tuple(max(0, c - 40) for c in pal["bg"])
+        _gradient_bg(img, dark, pal["bg"])
+    draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona, slide_index)
+    _top_bar(img, draw, pal)
+
+    # Big step number
+    nf = _font("h", 180)
+    num_str = str(step_num)
+    nw = draw.textbbox((0, 0), num_str, font=nf)[2]
+    nh = draw.textbbox((0, 0), num_str, font=nf)[3]
+    _shadow(draw, ((W - nw) // 2, H // 2 - 280), num_str, nf, pal["accent"])
+
+    # Separator
+    sep_y = H // 2 - 60
+    draw.line([(W // 2 - 150, sep_y), (W // 2 + 150, sep_y)], fill=pal["accent"], width=4)
+
+    # Step text
+    tf = _font("h", 48)
+    _centered_lines(draw, text, tf, pal["text"], 860, H // 2, 14)
+
+    _bottom_bar(draw, "elgadget.com.ar/referidos", pal)
+    return np.array(img)
+
+
+def _slide_check_item(pal, text, persona, slide_index):
+    """Renders a checklist item with checkmark in accent color + text."""
+    import random as _rnd
+    style = _rnd.choice(VISUAL_STYLES)
+    img = Image.new("RGB", (W, H), pal["bg"])
+    if style == "gradient":
+        dark = tuple(max(0, c - 40) for c in pal["bg"])
+        _gradient_bg(img, dark, pal["bg"])
+    draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona, slide_index)
+    _top_bar(img, draw, pal)
+
+    # Checkmark
+    check = "✓"
+    cf = _font("h", 140)
+    cw = draw.textbbox((0, 0), check, font=cf)[2]
+    _shadow(draw, ((W - cw) // 2, H // 2 - 260), check, cf, pal["accent"])
+
+    # Separator
+    sep_y = H // 2 - 60
+    draw.line([(W // 2 - 150, sep_y), (W // 2 + 150, sep_y)], fill=pal["accent"], width=4)
+
+    # Item text
+    tf = _font("h", 52)
+    _centered_lines(draw, text, tf, pal["text"], 860, H // 2, 14)
+
+    _bottom_bar(draw, "elgadget.com.ar/referidos", pal)
+    return np.array(img)
+
+
+def _slide_precio(pal, nombre, precio_orig, precio_desc, persona, slide_index):
+    """Renders price comparison: original crossed out + discounted price."""
+    import random as _rnd
+    style = _rnd.choice(VISUAL_STYLES)
+    img = Image.new("RGB", (W, H), pal["bg"])
+    if style == "gradient":
+        dark = tuple(max(0, c - 40) for c in pal["bg"])
+        _gradient_bg(img, dark, pal["bg"])
+    draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona, slide_index)
+    _top_bar(img, draw, pal)
+
+    # Product name
+    nf = _font("h", 48)
+    _centered_lines(draw, nombre, nf, pal["text"], 860, H // 2 - 280, 14)
+
+    # Original price (crossed out)
+    opf = _font("h", 56)
+    orig_str = str(precio_orig)
+    ow = draw.textbbox((0, 0), orig_str, font=opf)[2]
+    oh = draw.textbbox((0, 0), orig_str, font=opf)[3]
+    ox = (W - ow) // 2
+    oy = H // 2 - 100
+    _shadow(draw, (ox, oy), orig_str, opf, pal["text2"])
+    # Strikethrough line
+    draw.line([(ox - 10, oy + oh // 2), (ox + ow + 10, oy + oh // 2)], fill=(200, 50, 50), width=4)
+
+    # Discounted price (big, accent color)
+    dpf = _font("h", 90)
+    desc_str = str(precio_desc)
+    dw = draw.textbbox((0, 0), desc_str, font=dpf)[2]
+    _shadow(draw, ((W - dw) // 2, H // 2 + 20), desc_str, dpf, pal["accent"])
+
+    # Savings badge
+    badge = "PRECIO REFERIDO"
+    bf = _font("h", 26)
+    bw = draw.textbbox((0, 0), badge, font=bf)[2] + 40
+    bx = (W - bw) // 2
+    by = H // 2 + 170
+    draw.rounded_rectangle([bx, by, bx + bw, by + 50], radius=24, fill=pal["accent"])
+    draw.text((bx + 20, by + 12), badge, fill=INK, font=bf)
+
+    _bottom_bar(draw, "elgadget.com.ar/referidos", pal)
+    return np.array(img)
+
+
+def _slide_dato_gigante(pal, dato, persona, slide_index):
+    """Renders just a giant number/stat centered (no hook, just the number)."""
+    import random as _rnd
+    style = _rnd.choice(VISUAL_STYLES)
+    img = Image.new("RGB", (W, H), pal["bg"])
+    if style == "gradient":
+        dark = tuple(max(0, c - 50) for c in pal["bg"])
+        _gradient_bg(img, dark, pal["bg"])
+    draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona, slide_index)
+    _top_bar(img, draw, pal)
+
+    # Giant number/stat
+    df = _font("h", 140)
+    lines = _wrap(dato, df, 960, draw)[:2]
+    bbox_h = draw.textbbox((0, 0), "Ay", font=df)[3]
+    total_h = len(lines) * (bbox_h + 20)
+    base_y = (H - total_h) // 2 - 40
+
+    for i, line in enumerate(lines):
+        lw = draw.textbbox((0, 0), line, font=df)[2]
+        _shadow(draw, ((W - lw) // 2, base_y + i * (bbox_h + 20)), line, df, pal["accent"])
+
+    _bottom_bar(draw, "elgadget.com.ar/referidos", pal)
+    return np.array(img)
+
+
+def _slide_comision(pal, comision_text, persona, slide_index):
+    """Renders commission calculation slide."""
+    import random as _rnd
+    style = _rnd.choice(VISUAL_STYLES)
+    img = Image.new("RGB", (W, H), pal["bg"])
+    if style == "gradient":
+        dark = tuple(max(0, c - 40) for c in pal["bg"])
+        _gradient_bg(img, dark, pal["bg"])
+    draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona, slide_index)
+    _top_bar(img, draw, pal)
+
+    # Label
+    lf = _font("h", 36)
+    label = "TU COMISION"
+    lw = draw.textbbox((0, 0), label, font=lf)[2]
+    _shadow(draw, ((W - lw) // 2, H // 2 - 220), label, lf, pal["text2"])
+
+    # Separator
+    draw.line([(W // 2 - 150, H // 2 - 160), (W // 2 + 150, H // 2 - 160)], fill=pal["accent"], width=3)
+
+    # Big commission amount
+    cf = _font("h", 100)
+    cw = draw.textbbox((0, 0), comision_text, font=cf)[2]
+    _shadow(draw, ((W - cw) // 2, H // 2 - 120), comision_text, cf, pal["accent"])
+
+    # Sub-label
+    sf = _font("m", 30)
+    sub = "por cada venta referida"
+    sw = draw.textbbox((0, 0), sub, font=sf)[2]
+    _shadow(draw, ((W - sw) // 2, H // 2 + 30), sub, sf, pal["text2"])
+
+    _bottom_bar(draw, "elgadget.com.ar/referidos", pal)
+    return np.array(img)
+
+
+def _slide_bullets(pal, bullets, persona, slide_index):
+    """Renders 3 bullet points stacked centered."""
+    import random as _rnd
+    style = _rnd.choice(VISUAL_STYLES)
+    img = Image.new("RGB", (W, H), pal["bg"])
+    if style == "gradient":
+        dark = tuple(max(0, c - 40) for c in pal["bg"])
+        _gradient_bg(img, dark, pal["bg"])
+    draw = ImageDraw.Draw(img)
+    _apply_decor(draw, pal, persona, slide_index)
+    _top_bar(img, draw, pal)
+
+    bf = _font("h", 46)
+    bbox_h = draw.textbbox((0, 0), "Ay", font=bf)[3]
+    gap = bbox_h + 50
+    total_h = len(bullets) * gap
+    base_y = (H - total_h) // 2
+
+    for i, bullet in enumerate(bullets[:3]):
+        dot = "•"
+        line = f"{dot}  {bullet}"
+        lw = draw.textbbox((0, 0), line, font=bf)[2]
+        _shadow(draw, ((W - lw) // 2, base_y + i * gap), line, bf, pal["text"])
+
+    _bottom_bar(draw, "elgadget.com.ar/referidos", pal)
+    return np.array(img)
+
+
+# ── Compositor de variantes R02-R10 ──
+
+def compose_reel_variant(
+    reel_type="R02",
+    persona="lucas",
+    hook="",
+    antes_texto="", despues_texto="",
+    numero_grande="", subtexto_proof="",
+    bullets=None,
+    historia_slides=None,
+    pasos=None,
+    mitos=None, realidades=None,
+    producto_nombre="", precio_original="", precio_descuento="", comision="",
+    otros_stats="", gadget_stats="",
+    items_check=None,
+    dato_grande="", dato_contexto="", dato_como="",
+    beneficio="",
+    cta_text="",
+    voiceover_text="",
+    output_filename=None,
+) -> str:
+    """
+    Genera un Reel con estructura variable segun reel_type (R02-R10).
+
+    Cada tipo tiene su propia cantidad de slides y estructura,
+    pero reutiliza los helpers existentes y el sistema de paletas/ritmo/decor.
+
+    Args:
+        reel_type: tipo de reel (R02-R10)
+        persona: buyer persona (paleta + ritmo)
+        hook: frase hook (slide 1 en la mayoria)
+        antes_texto/despues_texto: textos para R02
+        numero_grande/subtexto_proof: para conteo animado (R03, R10)
+        bullets: lista de 3 strings (R03)
+        historia_slides: lista de 4 strings (R04)
+        pasos: lista de 4 strings (R05)
+        mitos/realidades: listas de 2 strings cada una (R06)
+        producto_nombre/precio_original/precio_descuento/comision: R07
+        otros_stats/gadget_stats: R08
+        items_check: lista de 5 strings (R09)
+        dato_grande/dato_contexto/dato_como: R10
+        beneficio: texto beneficio generico
+        cta_text: texto del CTA final
+        voiceover_text: texto completo para voz en off (opcional)
+        output_filename: nombre del archivo de salida
+
+    Returns: path al .mp4
+    """
+    from moviepy import VideoClip, AudioFileClip, CompositeAudioClip
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    pal = PALETAS.get(persona, PALETAS["lucas"])
+    ritmo = RITMO.get(persona, RITMO["lucas"])
+    if not output_filename:
+        import time as _t
+        output_filename = f"reel_{reel_type}_{persona}_{int(_t.time())}.mp4"
+    if not cta_text:
+        cta_text = "¿Queres empezar a ganar?"
+
+    import random as _rnd
+    style = _rnd.choice(VISUAL_STYLES)
+    trans_frames = int(ritmo["transition"] * FPS)
+    print(f"[REEL {reel_type}] Estilo visual: {style}")
+
+    slides = []
+    durations = []
+    transitions = []
+    proof_si = None
+    si = 0
+
+    if reel_type == "R02":
+        # Antes/despues: 5 slides, ~18s
+        if hook:
+            slides.append(("hook", _slide_hook(pal, hook, style, persona, si)))
+            durations.append(ritmo["hook"])
+            transitions.append("zoom")
+            si += 1
+
+        slides.append(("antes", _slide_antes_despues(pal, "ANTES", antes_texto, False, persona, si)))
+        durations.append(ritmo["slide"])
+        transitions.append("slide_right")
+        si += 1
+
+        slides.append(("despues", _slide_antes_despues(pal, "DESPUES", despues_texto, True, persona, si)))
+        durations.append(ritmo["slide"])
+        transitions.append("crossfade")
+        si += 1
+
+        proof_si = si
+        if numero_grande:
+            slides.append(("proof", None))
+            durations.append(ritmo["proof"])
+            transitions.append("scale_in")
+            si += 1
+
+        slides.append(("cta", _slide_cta(pal, cta_text)))
+        durations.append(ritmo["cta"])
+        transitions.append("crossfade")
+
+    elif reel_type == "R03":
+        # Numero corto: 4 slides, ~12s
+        if hook:
+            slides.append(("hook", _slide_hook(pal, hook, style, persona, si)))
+            durations.append(ritmo["hook"])
+            transitions.append("zoom")
+            si += 1
+
+        proof_si = si
+        if numero_grande:
+            slides.append(("proof", None))
+            durations.append(ritmo["proof"])
+            transitions.append("scale_in")
+            si += 1
+
+        if bullets:
+            slides.append(("bullets", _slide_bullets(pal, bullets, persona, si)))
+            durations.append(ritmo["slide"])
+            transitions.append("crossfade")
+            si += 1
+
+        slides.append(("cta", _slide_cta(pal, cta_text)))
+        durations.append(ritmo["cta"])
+        transitions.append("crossfade")
+
+    elif reel_type == "R04":
+        # Storytelling: 6 slides, ~20s
+        if hook:
+            slides.append(("hook", _slide_hook(pal, hook, style, persona, si)))
+            durations.append(ritmo["hook"])
+            transitions.append("zoom")
+            si += 1
+
+        historia = historia_slides or ["", "", "", ""]
+        for h_text in historia[:4]:
+            slides.append(("story", _slide_standard(pal, h_text, 52, "elgadget.com.ar/referidos", style, persona, si)))
+            durations.append(ritmo["slide"])
+            transitions.append("crossfade")
+            si += 1
+
+        slides.append(("cta", _slide_cta(pal, cta_text)))
+        durations.append(ritmo["cta"])
+        transitions.append("crossfade")
+
+    elif reel_type == "R05":
+        # Paso a paso: 6 slides, ~20s
+        if hook:
+            slides.append(("hook", _slide_hook(pal, hook, style, persona, si)))
+            durations.append(ritmo["hook"])
+            transitions.append("zoom")
+            si += 1
+
+        steps = pasos or ["", "", "", ""]
+        for step_i, step_text in enumerate(steps[:4], 1):
+            slides.append(("step", _slide_step(pal, step_i, step_text, persona, si)))
+            durations.append(ritmo["slide"])
+            transitions.append("slide_right")
+            si += 1
+
+        slides.append(("cta", _slide_cta(pal, cta_text)))
+        durations.append(ritmo["cta"])
+        transitions.append("crossfade")
+
+    elif reel_type == "R06":
+        # Mito vs realidad: 6 slides, ~20s
+        if hook:
+            slides.append(("hook", _slide_hook(pal, hook, style, persona, si)))
+            durations.append(ritmo["hook"])
+            transitions.append("zoom")
+            si += 1
+
+        mitos_list = mitos or ["", ""]
+        realidades_list = realidades or ["", ""]
+        for m_i in range(min(2, len(mitos_list))):
+            slides.append(("mito", _slide_antes_despues(pal, "MITO", mitos_list[m_i], False, persona, si)))
+            durations.append(ritmo["slide"])
+            transitions.append("slide_right")
+            si += 1
+
+            if m_i < len(realidades_list):
+                slides.append(("realidad", _slide_antes_despues(pal, "REALIDAD", realidades_list[m_i], True, persona, si)))
+                durations.append(ritmo["slide"])
+                transitions.append("crossfade")
+                si += 1
+
+        slides.append(("cta", _slide_cta(pal, cta_text)))
+        durations.append(ritmo["cta"])
+        transitions.append("crossfade")
+
+    elif reel_type == "R07":
+        # Producto showcase: 5 slides, ~18s
+        if hook:
+            slides.append(("hook", _slide_hook(pal, hook, style, persona, si)))
+            durations.append(ritmo["hook"])
+            transitions.append("zoom")
+            si += 1
+
+        slides.append(("precio", _slide_precio(pal, producto_nombre, precio_original, precio_descuento, persona, si)))
+        durations.append(ritmo["slide"])
+        transitions.append("scale_in")
+        si += 1
+
+        if comision:
+            slides.append(("comision", _slide_comision(pal, comision, persona, si)))
+            durations.append(ritmo["slide"])
+            transitions.append("crossfade")
+            si += 1
+
+        if beneficio:
+            slides.append(("benefit", _slide_benefit(pal, beneficio, style=style, persona=persona, slide_index=si)))
+            durations.append(ritmo["slide"])
+            transitions.append("crossfade")
+            si += 1
+
+        slides.append(("cta", _slide_cta(pal, cta_text)))
+        durations.append(ritmo["cta"])
+        transitions.append("crossfade")
+
+    elif reel_type == "R08":
+        # Comparativa: 5 slides, ~18s
+        if hook:
+            slides.append(("hook", _slide_hook(pal, hook, style, persona, si)))
+            durations.append(ritmo["hook"])
+            transitions.append("zoom")
+            si += 1
+
+        slides.append(("otros", _slide_antes_despues(pal, "OTROS PROGRAMAS", otros_stats, False, persona, si)))
+        durations.append(ritmo["slide"])
+        transitions.append("slide_right")
+        si += 1
+
+        slides.append(("gadget", _slide_antes_despues(pal, "EL GADGET", gadget_stats, True, persona, si)))
+        durations.append(ritmo["slide"])
+        transitions.append("crossfade")
+        si += 1
+
+        if beneficio:
+            slides.append(("benefit", _slide_benefit(pal, beneficio, style=style, persona=persona, slide_index=si)))
+            durations.append(ritmo["slide"])
+            transitions.append("crossfade")
+            si += 1
+
+        slides.append(("cta", _slide_cta(pal, cta_text)))
+        durations.append(ritmo["cta"])
+        transitions.append("crossfade")
+
+    elif reel_type == "R09":
+        # Checklist: 7 slides, ~18s
+        if hook:
+            slides.append(("hook", _slide_hook(pal, hook, style, persona, si)))
+            durations.append(ritmo["hook"])
+            transitions.append("zoom")
+            si += 1
+
+        items = items_check or ["", "", "", "", ""]
+        for item_text in items[:5]:
+            slides.append(("check", _slide_check_item(pal, item_text, persona, si)))
+            durations.append(ritmo["slide"] * 0.7)
+            transitions.append("slide_right")
+            si += 1
+
+        slides.append(("cta", _slide_cta(pal, cta_text)))
+        durations.append(ritmo["cta"])
+        transitions.append("crossfade")
+
+    elif reel_type == "R10":
+        # Dato viral: 4 slides, ~10s (shortest)
+        slides.append(("dato", _slide_dato_gigante(pal, dato_grande, persona, si)))
+        durations.append(ritmo["hook"])
+        transitions.append("zoom")
+        si += 1
+
+        slides.append(("contexto", _slide_standard(pal, dato_contexto, 48, "elgadget.com.ar/referidos", style, persona, si)))
+        durations.append(ritmo["slide"])
+        transitions.append("crossfade")
+        si += 1
+
+        slides.append(("como", _slide_standard(pal, dato_como, 46, "elgadget.com.ar/referidos", style, persona, si)))
+        durations.append(ritmo["slide"])
+        transitions.append("slide_right")
+        si += 1
+
+        slides.append(("cta", _slide_cta(pal, cta_text)))
+        durations.append(ritmo["cta"])
+        transitions.append("crossfade")
+
+    else:
+        raise ValueError(f"Tipo de reel no soportado: {reel_type}")
+
+    # Build all frames (same pattern as compose_reel)
+    all_frames = []
+    bg_frame = np.full((H, W, 3), pal["bg"], dtype=np.uint8)
+
+    for idx, (slide_type, slide_arr) in enumerate(slides):
+        dur = durations[idx]
+        hold_n = int(dur * FPS)
+        trans_type = transitions[idx]
+
+        if slide_type == "proof":
+            for i in range(hold_n):
+                progress = i / hold_n
+                frame = _slide_proof_counting(pal, numero_grande, subtexto_proof, progress, style, persona, proof_si if proof_si is not None else 0)
+                all_frames.append(frame)
+        elif slide_type in ("hook", "dato") and trans_type == "zoom":
+            static_frames = [slide_arr] * hold_n
+            zoomed = _apply_zoom(static_frames, 1.0, 1.08)
+            all_frames.extend(zoomed)
+        else:
+            for _ in range(hold_n):
+                all_frames.append(slide_arr)
+
+        if idx < len(slides) - 1:
+            next_type, next_arr = slides[idx + 1]
+            current_arr = all_frames[-1] if all_frames else bg_frame
+            if next_arr is not None:
+                next_static = next_arr
+            else:
+                next_static = _slide_proof_counting(pal, numero_grande, subtexto_proof, 0.0, style, persona, proof_si if proof_si is not None else 0)
+
+            if trans_type == "slide_right":
+                tf = _slide_from_right(next_static, current_arr, trans_frames)
+            elif trans_type == "scale_in":
+                tf = _scale_in(next_static, current_arr, trans_frames)
+            else:
+                tf = _crossfade(current_arr, next_static, trans_frames)
+            all_frames.extend(tf)
+
+    total_duration = len(all_frames) / FPS
+
+    def make_frame(t):
+        idx = min(int(t * FPS), len(all_frames) - 1)
+        return all_frames[idx]
+
+    # Audio: generar voz primero para saber su duracion
+    vo_clip = None
+    music_clip = None
+
+    if voiceover_text:
+        vo_path = generate_voiceover(voiceover_text, persona)
+        if vo_path and Path(vo_path).exists():
+            try:
+                vo_clip = AudioFileClip(vo_path)
+                print(f"[REEL {reel_type}] Voz en off: {vo_path} ({vo_clip.duration:.1f}s)")
+            except Exception as e:
+                print(f"[REEL {reel_type}] Error loading voiceover: {e}")
+                vo_clip = None
+
+    # Si la voz es mas larga que el video, extender el ultimo slide
+    if vo_clip and vo_clip.duration > total_duration:
+        extra = vo_clip.duration - total_duration + 1.0
+        last_frame = all_frames[-1]
+        extra_frames = [last_frame] * int(extra * FPS)
+        all_frames.extend(extra_frames)
+        total_duration = len(all_frames) / FPS
+        print(f"[REEL {reel_type}] Video extendido a {total_duration:.1f}s para completar la voz")
+
+    clip = VideoClip(make_frame, duration=total_duration)
+
+    bg_music_path = _find_bg_music(persona)
+    if bg_music_path:
+        try:
+            music_clip = AudioFileClip(bg_music_path)
+            if music_clip.duration < total_duration:
+                loops_needed = int(total_duration / music_clip.duration) + 1
+                from moviepy import concatenate_audioclips
+                music_clip = concatenate_audioclips([music_clip] * loops_needed)
+            music_clip = music_clip.subclipped(0, total_duration)
+
+            if vo_clip:
+                music_clip = music_clip.with_volume_scaled(0.06)
+            else:
+                music_clip = music_clip.with_volume_scaled(0.25)
+            print(f"[REEL {reel_type}] Musica: {bg_music_path}")
+        except Exception as e:
+            print(f"[REEL {reel_type}] Error loading music: {e}")
+            music_clip = None
+
+    audio_parts = [c for c in [vo_clip, music_clip] if c is not None]
+
+    if audio_parts:
+        try:
+            if len(audio_parts) == 1:
+                clip = clip.with_audio(audio_parts[0])
+            else:
+                final_audio = CompositeAudioClip(audio_parts)
+                clip = clip.with_audio(final_audio)
+        except Exception as e:
+            print(f"[REEL {reel_type}] Error compositing audio: {e}")
+
+    output_path = str(OUTPUT_DIR / output_filename)
+    clip.write_videofile(
+        output_path, fps=FPS, codec="libx264",
+        audio_codec="aac" if audio_parts else None,
+        audio=bool(audio_parts),
+        preset="medium", threads=4, logger=None,
+    )
+    clip.close()
+
+    print(f"[REEL {reel_type}] {persona} | {len(slides)} slides | {total_duration:.1f}s | {output_path}")
+    return output_path
+
+
 if __name__ == "__main__":
     print("Generando Reel de prueba (Lucas - side hustle)...")
     path = compose_reel(
