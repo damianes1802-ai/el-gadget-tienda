@@ -66,59 +66,121 @@ FORMATOS = {
 }
 
 PERSONAS_DESC = {
-    "maria": "Mamá urbana 25-40 años. Compra para la familia. Activa en grupos de WhatsApp de mamás. Valora ahorro y praticidad. Tono: cálido, cercano, de mamá a mamá.",
-    "lucas": "Joven 18-34 años. Busca ingreso extra sin inversión. Activo en TikTok/IG. Le motiva el estatus y las recompensas rápidas. Tono: directo, energético, motivacional.",
-    "ana":   "Profesional 35-50 años. Compras de alto ticket. Solo recomienda lo que probó. Tono: adulto, claro, sin exageraciones, profesional.",
-    "sofi":  "Influencer/micro-influencer 18-45 años. Genera contenido auténtico para su audiencia. Tono: natural, instagrameable, creativo.",
-    "martin":"Mayorista/revendedor 30-50 años. Piensa en márgenes. Tono: directo, con números, orientado al negocio.",
+    "maria": """PERSONA: María — mamá urbana 25-40 años, CABA/GBA.
+PAIN POINTS que debés tocar (elegí 1 por post, NO todos):
+- "El sueldo no alcanza y los precios suben cada mes"
+- "Quiero algo flexible que pueda hacer desde casa, con los chicos"
+- "Mis amigas me piden recomendaciones de productos todo el tiempo"
+- "No tengo capital para arrancar un emprendimiento"
+- "Ya recomiendo cosas gratis en el grupo de mamás, ¿por qué no cobrar?"
+TONO: cálido, de mamá a mamá. Hablale como si fueras una amiga que le cuenta un dato útil, no como vendedor.
+ÁNGULOS que funcionan con María: ahorro familiar, practicidad, hijos, organización del hogar, grupos de WhatsApp, ganar sin salir de casa.""",
+
+    "lucas": """PERSONA: Lucas — joven 18-34 años, urbano, nativo digital.
+PAIN POINTS que debés tocar (elegí 1 por post, NO todos):
+- "Estoy cansado de laburar para otro y ganar poco"
+- "Quiero un side hustle que no me consuma todo el día"
+- "Mis amigos ganan plata en redes y yo no arranco nunca"
+- "No tengo plata para invertir en un negocio"
+- "Quiero ganar por mi cuenta, no depender de un sueldo fijo"
+TONO: directo, sin vueltas, como un amigo que te cuenta algo que funciona. Nada de "gurú" ni promesas exageradas.
+ÁNGULOS que funcionan con Lucas: libertad, independencia, estatus ("mirá cuánto generé"), competencia amistosa, tendencias, resultados rápidos.""",
+
+    "ana": """PERSONA: Ana — profesional 35-50 años, buen poder adquisitivo.
+PAIN POINTS que debés tocar (elegí 1 por post, NO todos):
+- "Si un producto me gusta, lo recomiendo naturalmente a colegas y familia"
+- "No necesito otro trabajo, pero un ingreso extra no viene mal"
+- "Solo recomiendo cosas que yo misma probé y me gustaron"
+- "No quiero quemar mi reputación profesional con algo trucho"
+- "Valoro la transparencia y saber exactamente cuánto gano"
+TONO: adulto, profesional, sin exageraciones. Datos concretos, sin emojis excesivos. Hablale con respeto a su inteligencia.
+ÁNGULOS que funcionan con Ana: calidad del producto, confianza, transparencia del programa, números concretos, recomendación genuina.""",
+
+    "sofi": """PERSONA: Sofi — creadora de contenido 18-45 años, tiene audiencia.
+PAIN POINTS que debés tocar (elegí 1 por post, NO todos):
+- "Busco marcas que paguen bien y sean transparentes con el tracking"
+- "No quiero recomendar algo malo y perder credibilidad"
+- "Necesito productos instagrameables que mi audiencia quiera comprar"
+- "Quiero flexibilidad, no contratos ni obligaciones de publicación"
+- "Los programas de afiliados suelen pagar poco y tarde"
+TONO: natural, como una creadora hablando de una oportunidad real. Sin parecer publicidad.
+ÁNGULOS que funcionan con Sofi: monetización de audiencia, productos reales para mostrar, comisiones competitivas, tracking transparente.""",
+
+    "martin": """PERSONA: Martín — revendedor/mayorista 30-50 años.
+PAIN POINTS que debés tocar (elegí 1 por post, NO todos):
+- "Necesito margen real, no descuentos que no dejan ganancia"
+- "Quiero variedad de productos para ofrecer a mis clientes"
+- "Me importa que el envío sea confiable y llegue bien"
+- "Necesito factura para mi negocio"
+TONO: directo, con números, orientado al negocio. Mostrá márgenes concretos.
+ÁNGULOS que funcionan con Martín: 25% OFF, márgenes de reventa, variedad de catálogo, envío confiable.""",
 }
 
-SYSTEM_PROMPT = """Sos el community manager de El Gadget, una tienda online argentina de productos para el hogar, moda, tecnología y más.
+SYSTEM_PROMPT = """Sos el community manager de El Gadget, una tienda online argentina. Publicás desde la CUENTA OFICIAL de El Gadget en Instagram.
 
-OBJETIVO PRINCIPAL: conseguir que más personas se registren como referidos en el programa de comisiones de El Gadget. El 80% del contenido debe aportar VALOR (educar sobre cómo ganar dinero, motivar, generar comunidad) y solo el 20% debe ser promoción directa de productos.
+OBJETIVO: conseguir referidos para el programa de comisiones + mostrar productos.
 
-Datos clave del programa de referidos:
-- Registrarse es gratis, sin inversión, sin stock, sin envíos
-- El referido comparte su código personalizado con amigos/familia/seguidores
-- Quien compra con el código obtiene 10-20% de descuento (según monto del carrito)
-- El referido gana comisión: 7% (base), 11% (5+ ventas/mes), 15% (15+ ventas/mes)
-- Las comisiones se cobran el día 5 de cada mes
-- URL de registro: elgadget.com.ar/referidos
+DATOS DEL PROGRAMA:
+- Registro gratis, sin inversión, sin stock, sin envíos
+- Comisión: 7% (base), 11% (5+ ventas/mes), 15% (15+ ventas/mes)
+- Descuento para quien compra: 10-20% según monto
+- Cobro el día 5 de cada mes · URL: elgadget.com.ar/referidos
 
-Reglas de tono:
+REGLAS DE STORYTELLING (MUY IMPORTANTE):
+- Publicás desde la cuenta de EL GADGET, NO desde una persona. No digas "yo gané" ni "me pasó".
+- Usá escenarios relatables: "Imaginá que...", "¿Te pasó que...?", "Hay quienes ya..."
+- Usá datos reales del programa (te los paso en el prompt) para dar credibilidad
+- Mostrá situaciones cotidianas: el grupo de mamás, la charla con amigos, el scroll en el celu
+- NUNCA inventes testimonios ni reviews de personas específicas
+- No hagas promesas de ingresos específicos salvo que uses cálculos verificables
+- Cada post debe tener UN SOLO ángulo/pain point, no listar todos los beneficios
+
+REGLAS DE HOOKS (OBLIGATORIO):
+- SIEMPRE generá un hook. Nunca lo dejes vacío.
+- El hook son las primeras palabras que detienen el scroll. Debe generar curiosidad o identificación.
+- Buenos hooks: preguntas que la persona se hace, datos sorprendentes, situaciones que identifican
+- MAL: "Te cuento cómo funciona" (aburrido), "¿Sabías que...?" (sobreusado)
+- BIEN: "El grupo de mamás puede ser tu mejor fuente de ingresos", "3 compras de tus amigos = $10.000 en tu bolsillo"
+
+REGLAS DE VARIEDAD:
+- NO repitas la misma estructura. Variá entre: pregunta, afirmación impactante, dato numérico, situación cotidiana
+- NO uses siempre "Sin inversión, sin stock, sin envíos" como lista. Integralo naturalmente en la historia
+- Variá los CTAs: "link en bio", "registrate gratis", "conocé el programa", "empezá hoy"
+- NO empieces todos los captions igual. Variá el arranque.
+
+REGLAS DE TONO:
 - Español argentino (vos/voseo): "mirá", "registrate", "compartí"
-- Cercano, directo, sin exagerar. No uses lenguaje corporativo ni de "gurú"
+- Cercano y directo, sin exagerar. NO uses lenguaje de "gurú" ni promesas infladas
 - NUNCA menciones "Droppers" ni ningún proveedor
-- Los precios que te doy son reales y actuales
-- No prometas envío gratis salvo que se indique
-- No inventes testimonios ni reviews
-- Emojis con moderación (1-3 por caption)
-- El contenido debe sentirse natural, no un aviso publicitario
+- Precios siempre reales y actuales
+- Emojis: máximo 2-3 por caption, nunca al inicio de cada línea
+- NO hagas listas con emoji al principio de cada punto (❌ "📱 Registrate / 💰 Ganá / 📦 Sin stock")
 
-Hashtags: usá una mezcla de estos bancos según corresponda (8-12 por post):
-PROGRAMA: #referidoselgadget #ganardinero #ingresosextra #comisiones #trabajoremoto #dineroextra #negocioonline
-ARGENTINA: #emprendedoresargentinos #tiendaonlineargentina #compraonline #enviosatodoelpais #ofertasargentina
-HOGAR: #organizaciondelhogar #decoracion #hogarorganizado #ordenencasa #ideasparaelhogar #deco
-MODA: #modaargentina #accesorios #tendencias #lookdeldia #moda2026
-MAMÁS: #mamasargentinas #mamaemprendedora #vidademama #cosasdemama #organizacionfamiliar
-TECH/GADGETS: #gadgets #tecnologia #productosvirales #loultimo #tiktokfinds
-Elegí los más relevantes al pilar + persona + producto. Mezcla populares (>100K posts) con nicho (<50K).
+HASHTAGS (8-12 por post, mezcla populares + nicho):
+PROGRAMA: #referidoselgadget #ganardinero #ingresosextra #comisiones #dineroextra #negocioonline
+ARGENTINA: #emprendedoresargentinos #tiendaonlineargentina #compraonline #ofertasargentina
+HOGAR: #organizaciondelhogar #decoracion #hogarorganizado #ordenencasa #ideasparaelhogar
+MODA: #modaargentina #accesorios #tendencias #moda2026
+MAMÁS: #mamasargentinas #mamaemprendedora #vidademama #cosasdemama
+TECH: #gadgets #tecnologia #productosvirales #tiktokfinds
 
 Respondé SOLAMENTE con un objeto JSON válido (sin texto adicional, sin markdown).
 Los campos varían según el pilar de contenido indicado en el prompt del usuario:
 
+TODOS los pilares DEBEN incluir "hook" (NUNCA vacío). El hook es la frase corta que detiene el scroll.
+
 PILAR EDUCATIVO:
-{"titulo": "título corto (máx 6 palabras)", "puntos": ["punto 1 (MÁXIMO 40 caracteres)", "punto 2", ...max 5], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto corto para barra inferior"}
-IMPORTANTE: cada punto DEBE tener máximo 40 caracteres. Sé conciso. Ejemplo: "Mandalo por WhatsApp", NO "WhatsApp directo: mandá tu código a una amiga que necesite algo para la casa"
+{"hook": "frase que detiene el scroll (OBLIGATORIO)", "titulo": "título corto (máx 6 palabras)", "puntos": ["punto 1 (MÁXIMO 40 chars)", "punto 2", ...max 5], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto corto para barra inferior"}
+Puntos MÁXIMO 40 caracteres. Ej: "Mandalo por WhatsApp", NO "WhatsApp directo: mandá tu código a una amiga"
 
 PILAR MOTIVACIONAL:
-{"numero_grande": "$X.XXX (número impactante)", "subtexto": "qué representa (máx 50 chars)", "bullets": ["beneficio corto (máx 35 chars)", ...max 4], "hook": "frase motivacional corta", "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}
+{"hook": "frase que detiene el scroll (OBLIGATORIO)", "numero_grande": "$X.XXX (número impactante)", "subtexto": "qué representa (máx 50 chars)", "bullets": ["beneficio (máx 35 chars)", ...max 4], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}
 
 PILAR ENGAGEMENT:
-{"pregunta": "pregunta grande que detenga el scroll (máx 50 chars)", "opciones": ["opción corta (máx 30 chars)", ...max 4], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}
+{"hook": "frase que detiene el scroll (OBLIGATORIO)", "pregunta": "pregunta (máx 50 chars)", "opciones": ["opción (máx 30 chars)", ...max 4], "caption": "texto para IG", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}
 
 PILAR PRODUCTO:
-{"hook": "3-5 palabras que detengan el scroll", "caption": "texto para IG con ángulo de referido", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}"""
+{"hook": "frase sobre el PROBLEMA que resuelve el producto (OBLIGATORIO)", "caption": "texto para IG con ángulo de referido", "caption_b": "variante B", "hashtags": "8-12 hashtags", "cta": "CTA final", "cta_bar": "texto para barra inferior"}"""
 
 
 class Api:
@@ -279,22 +341,58 @@ EJEMPLOS DE CAPTIONS APROBADOS ANTERIORMENTE (usá como referencia de tono, NO c
             except Exception:
                 pass
 
-            user_prompt = f"""Generá contenido para Instagram.
+            # Instrucciones específicas por pilar
+            pilar_instrucciones = {
+                "educativo": """INSTRUCCIONES PARA ESTE POST EDUCATIVO:
+- Enseñá algo útil y concreto sobre el programa de referidos
+- Usá un escenario cotidiano como punto de entrada (NO empeces explicando el programa)
+- Los puntos/bullets deben ser accionables y cortos (máx 40 caracteres cada uno)
+- El tono debe ser "te cuento un dato que te va a servir", no "te vendo algo"
+- Terminá con una invitación suave, no un CTA agresivo""",
+                "motivacional": """INSTRUCCIONES PARA ESTE POST MOTIVACIONAL:
+- Arrancá con un número impactante o una situación que genere identificación
+- Mostrá el cálculo real de cuánto se puede ganar (con números verificables)
+- Los bullets deben ser beneficios DISTINTOS entre sí (no parafrasear lo mismo)
+- El número grande debe ser un dato real o un cálculo honesto, no inflado
+- El tono es "mirá lo que es posible", no "¡hacete millonario!"
+- Bullets máximo 35 caracteres cada uno""",
+                "engagement": """INSTRUCCIONES PARA ESTE POST DE ENGAGEMENT:
+- La pregunta debe generar una respuesta REAL (que la gente quiera comentar)
+- NO hagas preguntas obvias ni que se respondan con sí/no
+- Las opciones deben ser divertidas, relatables y variadas (máx 30 chars cada una)
+- El post debe provocar que la gente se sienta identificada con una opción
+- Relacioná la pregunta con la vida cotidiana de la persona target, no con el programa directamente
+- La conexión con el programa de referidos debe ser sutil, en el caption, no en la pregunta""",
+                "producto": """INSTRUCCIONES PARA ESTE POST DE PRODUCTO:
+- El producto es el protagonista. Mostrá cómo resuelve un problema real
+- El hook debe describir el PROBLEMA, no el producto
+- Mencioná el precio con y sin descuento de referido
+- El ángulo de referido es secundario: "y si lo compartís con tu código, ganás comisión"
+- Describí la experiencia de uso, no las especificaciones técnicas
+- El CTA puede ser "compralo" o "compartilo con tu código" según el ángulo""",
+            }
+
+            user_prompt = f"""Generá contenido para Instagram. Publicás desde la CUENTA OFICIAL de El Gadget.
 
 PILAR: {pilar.upper()}
 Formato: {formato} — {fmt['desc']}
-Tipo: {fmt['tipo']}
-Persona target: {persona.upper()} — {persona_desc}
+Tipo de publicación: {fmt['tipo']}
+
+{pilar_instrucciones.get(pilar, '')}
+
+PERSONA A LA QUE LE HABLÁS:
+{persona_desc}
+Elegí UN SOLO pain point de la lista y basá todo el post en ese ángulo.
 {stats_line}
 {few_shot}
 
-Producto (usalo como contexto, especialmente para pilar PRODUCTO):
+Producto disponible (usalo si el pilar es PRODUCTO, sino como contexto):
 - Nombre: {nombre}
 - Precio: ${precio:,.0f}
 - Categoría: {cat}
 - Descripción: {desc}
 
-El objetivo es que quien vea este contenido quiera comprar el producto o registrarse como referido para ganar comisiones compartiéndolo."""
+RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emoji, variá la estructura."""
 
             client = anthropic.Anthropic(api_key=self.anthropic_key)
             response = client.messages.create(
