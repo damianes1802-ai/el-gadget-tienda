@@ -148,17 +148,19 @@ LAYOUTS_INFO = {
 }
 
 # ── Schemas JSON por layout (lo que Claude debe devolver) ──
+# cta_type: "guardar" | "compartir" | "comentar" | "link" (para analytics futuro)
+_CTA_FIELDS = '"cta":"CTA baja friccion (guardar/compartir/comentar REFERIDO)","cta_type":"guardar|compartir|comentar|link","cta_bar":"texto barra inferior max 50 chars"'
 LAYOUT_SCHEMAS = {
-    "L01": '{"hook":"frase corta OBLIGATORIO","titulo":"titulo max 6 palabras","puntos":["punto max 40 chars",...max 5],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
-    "L02": '{"hook":"frase corta OBLIGATORIO","antes_texto":"descripcion del antes max 60 chars","despues_texto":"descripcion del despues max 60 chars","caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
-    "L03": '{"hook":"frase corta OBLIGATORIO","numero_grande":"$X.XXX","subtexto":"que representa max 50 chars","bullets":["beneficio max 35 chars",...max 4],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
-    "L04": '{"hook":"frase corta OBLIGATORIO","historia_texto":"parrafo storytelling 2-3 oraciones max 200 chars","caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
-    "L05": '{"hook":"frase corta OBLIGATORIO","pregunta":"pregunta max 50 chars","opciones":["opcion max 30 chars",...max 4],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
-    "L06": '{"hook":"frase corta OBLIGATORIO","mitos":["mito max 40 chars",...max 3],"realidades":["realidad max 40 chars",...max 3],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
-    "L07": '{"hook":"frase sobre PROBLEMA que resuelve OBLIGATORIO","caption":"texto IG con angulo referido","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
-    "L08": '{"hook":"frase corta OBLIGATORIO","precio_competencia_label":"En MercadoLibre: $X.XXX","precio_propio_label":"En El Gadget: $X.XXX","caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
-    "L09": '{"hook":"frase corta OBLIGATORIO","pasos":["paso max 40 chars",...max 4],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
-    "L10": '{"hook":"frase corta OBLIGATORIO","items_check":["item max 40 chars",...max 6],"caption":"texto IG","caption_b":"variante B","hashtags":"8-12","cta":"CTA","cta_bar":"barra inferior"}',
+    "L01": '{"hook":"frase corta OBLIGATORIO","titulo":"max 6 palabras","puntos":["max 40 chars",...max 5],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
+    "L02": '{"hook":"OBLIGATORIO","antes_texto":"max 60 chars","despues_texto":"max 60 chars","caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
+    "L03": '{"hook":"OBLIGATORIO","numero_grande":"$X.XXX","subtexto":"max 50 chars","bullets":["max 35 chars",...max 4],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
+    "L04": '{"hook":"OBLIGATORIO","historia_texto":"2-3 oraciones max 200 chars","caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
+    "L05": '{"hook":"OBLIGATORIO","pregunta":"max 50 chars","opciones":["max 30 chars",...max 4],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
+    "L06": '{"hook":"OBLIGATORIO","mitos":["max 40 chars",...max 3],"realidades":["max 40 chars",...max 3],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
+    "L07": '{"hook":"problema que resuelve OBLIGATORIO","caption":"hook+valor+cta con angulo referido","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
+    "L08": '{"hook":"OBLIGATORIO","precio_competencia_label":"En MercadoLibre: $X.XXX","precio_propio_label":"En El Gadget: $X.XXX","caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
+    "L09": '{"hook":"OBLIGATORIO","pasos":["max 40 chars",...max 4],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
+    "L10": '{"hook":"OBLIGATORIO","items_check":["max 40 chars",...max 6],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
 }
 
 # ── Mapeo legacy para backward compat del modal individual ──
@@ -262,20 +264,38 @@ TONO: directo, con números, orientado al negocio. Mostrá márgenes concretos.
 
 SYSTEM_PROMPT_NEW = """Sos el community manager de El Gadget, tienda online argentina. Publicás desde la CUENTA OFICIAL en Instagram.
 
-OBJETIVO: conseguir referidos para el programa de comisiones + mostrar productos.
-Programa: registro gratis, comisión 7-15%, descuento comprador 10-20%, cobro día 5.
+OBJETIVO: que cada post genere REGISTROS de referidos, no solo likes. Todo el contenido debe empujar hacia la acción.
+Programa: registro gratis, comisión 7-15%, descuento comprador 10-20%, cobro día 5. URL: elgadget.com.ar/referidos
 
-REGLAS:
+PRINCIPIOS DE CONVERSIÓN (aplicá siempre):
+1. HOOK en <3 segundos: dolor específico, pregunta fuerte, o dato impactante. OBLIGATORIO.
+2. VALOR en el cuerpo: transformación real, cálculo concreto, prueba social, o storytelling breve.
+3. CTA de BAJA FRICCIÓN al final. Tipos de CTA (elegí uno por post):
+   - "Guardá este post para cuando lo necesites" (genera saves, señal #1 del algoritmo)
+   - "Mandáselo a alguien que necesita plata extra" (genera DM shares, señal #2)
+   - "Comentá REFERIDO y te mandamos el link" (genera comentarios + DMs)
+   - "Link en bio → elgadget.com.ar/referidos" (directo pero menor conversión)
+4. PRUEBA SOCIAL siempre que sea posible: números reales del programa, cálculos verificables.
+5. NO PAREZCAS VENDEDOR: enfocate en "compartir descuento" y "recomendar lo que funciona".
+
+REGLAS DE TONO:
 - Español argentino (vos/voseo). Cercano, directo, sin exagerar.
-- NUNCA menciones "Droppers". Precios reales. No inventes testimonios.
-- NUNCA nombres a la persona target por su nombre (no digas "María", "Lucas", "Martín"). Son perfiles internos, no personas reales.
-- Hook OBLIGATORIO (nunca vacío). Máximo 2 emojis. No empieces con emoji.
-- Storytelling desde cuenta oficial: escenarios relatables, datos reales, NO historias personales inventadas.
-- Cada post toca UN SOLO dolor/ángulo. No listes todos los beneficios.
-- Variá estructura y arranque entre posts.
-- El prompt del usuario indica el schema JSON exacto a devolver. Respondé SOLO con ese JSON, sin markdown.
+- NUNCA menciones "Droppers". Precios siempre reales.
+- NUNCA nombres a la persona target (no digas "María", "Lucas"). Son perfiles internos.
+- Máximo 2 emojis por caption. No empieces con emoji.
+- Storytelling desde cuenta oficial: escenarios relatables, datos reales, NO historias inventadas.
+- Cada post = UN SOLO dolor + UN SOLO ángulo. No listes todos los beneficios.
+- Variá estructura y arranque. No repitas patrones.
 
-Hashtags (8-12, mezcla populares + nicho):
+ESTRUCTURA DEL CAPTION (seguí este orden):
+1. Hook (primera línea, detiene el scroll)
+2. Desarrollo (2-4 oraciones con valor real)
+3. CTA (última línea, baja fricción)
+4. Hashtags al final (8-12, mezcla populares + nicho)
+
+El prompt del usuario indica el schema JSON exacto. Respondé SOLO con ese JSON, sin markdown.
+
+Hashtags disponibles (elegí los más relevantes):
 #referidoselgadget #ganardinero #ingresosextra #comisiones #dineroextra #negocioonline
 #emprendedoresargentinos #tiendaonlineargentina #compraonline #ofertasargentina
 #organizaciondelhogar #decoracion #hogarorganizado #ideasparaelhogar
@@ -443,13 +463,20 @@ class Api:
             angulos_disp = persona["angulos"]
         angulo = random.choice(angulos_disp)
 
-        # 4. Layout: de los compatibles del ángulo
+        # 4. Layout: de los compatibles del ángulo, priorizando alta conversión
+        HIGH_CONVERSION = {"L02", "L03", "L06", "L08"}
         layouts_posibles = angulo.get("layouts", [])
         if forzar_pilar and layouts_posibles:
             layouts_posibles = [lid for lid in layouts_posibles if forzar_pilar in LAYOUTS_INFO.get(lid, {}).get("pilares", [])]
         if not layouts_posibles:
             layouts_posibles = angulo.get("layouts", list(LAYOUTS_INFO.keys())[:3])
-        layout_id = random.choice(layouts_posibles)
+        # Dar 2x peso a layouts de alta conversión
+        pool_layouts = []
+        for lid in layouts_posibles:
+            pool_layouts.append(lid)
+            if lid in HIGH_CONVERSION:
+                pool_layouts.append(lid)
+        layout_id = random.choice(pool_layouts)
         layout_info = LAYOUTS_INFO.get(layout_id, {})
 
         # 5. Pilar y tipo derivados
@@ -622,6 +649,15 @@ PALABRAS PROHIBIDAS (NUNCA USES): {', '.join(persona_data.get('palabras_prohibid
 Producto (contexto, usalo especialmente si el layout es L07/L08):
 - {nombre} · ${precio:,.0f} · {cat}
 - Con referido 10% OFF: ${round(precio*0.90):,.0f} · 20% OFF: ${round(precio*0.80):,.0f}
+
+CHECKLIST (verificá internamente antes de responder):
+- Hook fuerte en <3 palabras? Si no, reescribilo.
+- Toca el dolor específico? No otro.
+- Tiene prueba social o cálculo real? Si no, agregalo.
+- CTA claro y de baja fricción? (guardar/compartir/comentar, NO "comprá ya")
+- Invita a guardar o compartir por DM? (señales #1 y #2 del algoritmo)
+- Usa palabras que conectan? Evita las prohibidas?
+- Caption sigue estructura Hook → Valor → CTA?
 
 RESPONDÉ SOLO con este JSON exacto (sin markdown):
 {schema}"""
