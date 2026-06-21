@@ -1179,6 +1179,16 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
         except Exception as e:
             return {"error": str(e)}
 
+    def marcar_publicado(self, contenido_id):
+        try:
+            conn = self._contenidos_db()
+            conn.execute("UPDATE contenidos SET estado = 'publicado', publicado_at = datetime('now') WHERE id = ?", (contenido_id,))
+            conn.commit()
+            conn.close()
+            return {"ok": True}
+        except Exception as e:
+            return {"error": str(e)}
+
     def editar_contenido(self, contenido_id, cambios):
         try:
             campos_ok = {'caption', 'caption_variante_b', 'hashtags', 'hook', 'cta', 'notas_owner'}

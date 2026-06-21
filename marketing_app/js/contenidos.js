@@ -80,11 +80,16 @@ function _renderCards() {
       publicado: '<span class="badge badge-purple">Publicado</span>',
     }[c.estado] || '<span class="badge badge-gray">' + escapeHtml(c.estado) + '</span>';
 
+    const btnPublicar = c.estado === 'aprobado' ? `
+      <button class="btn btn-sm" style="background:#8B5CF6;color:#fff" onclick="publicarManual(${c.id})">Publicar</button>
+    ` : '';
+
     const acciones = c.estado === 'borrador' ? `
       <button class="btn btn-sm" style="background:var(--green-ok);color:#fff" onclick="aprobarContenido(${c.id})">Aprobar</button>
       <button class="btn btn-outline btn-sm" onclick="abrirEdicion(${c.id})">Editar</button>
       <button class="btn btn-sm" style="background:var(--red);color:#fff" onclick="rechazarContenido(${c.id})">Rechazar</button>
     ` : c.estado === 'aprobado' ? `
+      ${btnPublicar}
       <button class="btn btn-outline btn-sm" onclick="abrirEdicion(${c.id})">Editar</button>
       <button class="btn btn-sm" style="background:var(--red-pale);color:var(--red)" onclick="rechazarContenido(${c.id})">Rechazar</button>
     ` : `
@@ -354,6 +359,94 @@ function abrirReelPreview(filePath) {
   if (video) {
     video.src = filePath;
     video.play();
+  }
+}
+
+// ── Publicar manual ──
+
+function publicarManual(id) {
+  const c = _contenidos.find(x => x.id === id);
+  if (!c) return;
+
+  const caption = (c.caption || '') + '\n\n' + (c.hashtags || '');
+  const mediaUrl = c.media_url || '';
+  const isReel = c._is_reel || false;
+
+  let modal = document.getElementById('publicar-modal');
+  if (modal) modal.remove();
+
+  modal = document.createElement('div');
+  modal.id = 'publicar-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.innerHTML = `
+    <div style="background:#fff;border-radius:20px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:28px" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <h2 style="margin:0;font-size:20px;color:var(--ink)">Publicar en Instagram</h2>
+        <button onclick="document.getElementById('publicar-modal').remove()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--gray-600)">✕</button>
+      </div>
+
+      <div style="background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="font-size:12px;font-weight:600;color:var(--gray-600);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">
+          ${isReel ? 'Paso 1: Descargá el video' : 'Paso 1: Descargá la imagen'}
+        </div>
+        <button onclick="descargarMedia(${id})" class="btn btn-accent" style="width:100%;font-size:14px">
+          ${isReel ? 'Descargar Reel (.mp4)' : 'Descargar imagen (.jpg)'}
+        </button>
+      </div>
+
+      <div style="background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="font-size:12px;font-weight:600;color:var(--gray-600);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">
+          Paso 2: Copiá el caption
+        </div>
+        <textarea id="publicar-caption" readonly style="width:100%;min-height:120px;border:1.5px solid #e5e7eb;border-radius:8px;padding:12px;font-size:13px;font-family:inherit;resize:vertical;box-sizing:border-box;color:var(--ink)">${caption.replace(/</g,'&lt;')}</textarea>
+        <button onclick="copiarCaption()" class="btn btn-outline" style="width:100%;margin-top:8px;font-size:14px">Copiar caption + hashtags</button>
+      </div>
+
+      <div style="background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="font-size:12px;font-weight:600;color:var(--gray-600);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">
+          Paso 3: Subilo a Instagram
+        </div>
+        <p style="font-size:13px;color:var(--gray-600);margin:0;line-height:1.6">
+          ${isReel ? 'Abrí Instagram → + → Reel → seleccioná el video → pegá el caption → Publicar' : 'Abrí Instagram → + → Post → seleccioná la imagen → pegá el caption → Publicar'}
+        </p>
+      </div>
+
+      <button onclick="marcarPublicado(${id})" class="btn" style="width:100%;background:#8B5CF6;color:#fff;font-size:14px;padding:12px">
+        Ya lo publiqué — marcar como publicado
+      </button>
+    </div>
+  `;
+  modal.onclick = function() { this.remove(); };
+  document.body.appendChild(modal);
+}
+
+function descargarMedia(id) {
+  const c = _contenidos.find(x => x.id === id);
+  if (!c || !c.media_url) return;
+
+  const a = document.createElement('a');
+  a.href = c.media_url;
+  a.download = c._is_reel ? `reel_${id}.mp4` : `post_${id}.jpg`;
+  a.click();
+  toast('Descarga iniciada', 'success');
+}
+
+function copiarCaption() {
+  const textarea = document.getElementById('publicar-caption');
+  if (!textarea) return;
+  navigator.clipboard.writeText(textarea.value).then(() => {
+    toast('Caption + hashtags copiados', 'success');
+  });
+}
+
+async function marcarPublicado(id) {
+  try {
+    await apiCall('marcar_publicado', id);
+    toast('Marcado como publicado', 'success');
+    document.getElementById('publicar-modal')?.remove();
+    _fetchContenidos();
+  } catch (e) {
+    toast('Error: ' + e.message, 'error');
   }
 }
 
