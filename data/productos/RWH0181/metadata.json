@@ -20,7 +20,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/juego-de-bloques-para-armar-2.html",
-  "fecha_scraping": "2026-06-20T09:56:13.190227",
+  "fecha_scraping": "2026-06-21T10:24:38.105683",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -30,7 +30,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-20T09:59:50.017096",
+  "fecha_mapeo_categorias": "2026-06-21T10:29:15.335864",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_002",
@@ -55,6 +55,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 48000.0,
-  "fecha_calculo_precio": "2026-06-20T10:01:11.792827",
+  "fecha_calculo_precio": "2026-06-21T10:30:07.723375",
   "fecha_reingreso": "2026-06-13T01:28:15.613689"
 }

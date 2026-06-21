@@ -116,7 +116,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/mochila-pvc-bolso-morral-transparente-mediana-para-hombre-o-mujer.html",
-  "fecha_scraping": "2026-06-20T09:55:47.477745",
+  "fecha_scraping": "2026-06-21T10:23:36.255814",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -126,7 +126,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-20T09:59:50.005201",
+  "fecha_mapeo_categorias": "2026-06-21T10:29:15.327746",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_002",
@@ -170,5 +170,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30500.0,
-  "fecha_calculo_precio": "2026-06-20T10:01:11.781409"
+  "fecha_calculo_precio": "2026-06-21T10:30:07.710562"
 }

@@ -14,7 +14,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/mochila-infantil-de-animalitos-personajes-japoneses.html",
-  "fecha_scraping": "2026-06-20T09:53:44.477028",
+  "fecha_scraping": "2026-06-21T10:22:27.034336",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -24,7 +24,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-20T09:59:50.018847",
+  "fecha_mapeo_categorias": "2026-06-21T10:29:15.344932",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_002",
@@ -43,5 +43,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 40500.0,
-  "fecha_calculo_precio": "2026-06-20T10:01:11.839987"
+  "fecha_calculo_precio": "2026-06-21T10:30:07.779355"
 }
