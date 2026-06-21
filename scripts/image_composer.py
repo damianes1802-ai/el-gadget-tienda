@@ -1,20 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-MARKETING EL GADGET — Compositor de imágenes branded con Pillow
+MARKETING EL GADGET — Compositor de imágenes branded para Instagram
 
-4 layouts diferenciados por pilar de contenido:
-- EDUCATIVO: texto-first, bullets, guía visual
-- MOTIVACIONAL: número grande, storytelling, aspiracional
-- ENGAGEMENT: pregunta grande, opciones, interactivo
-- PRODUCTO: foto producto centrada, precio, hook
+Formatos Instagram 2026:
+- Feed post/carrusel: 1080x1350 (4:5, máximo espacio en feed)
+- Story/Reel cover: 1080x1920 (9:16)
 
-Paletas por buyer persona (neuromarketing/psicología del color).
+4 layouts por pilar × 5 paletas por persona = contenido diferenciado.
 """
 
 import io
 import os
-import textwrap
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
@@ -23,42 +20,43 @@ FONTS_DIR = BASE_DIR / "marketing_app" / "assets" / "fonts"
 LOGO_PATH = BASE_DIR / "pages" / "assets" / "img" / "logo-cuadrado.png"
 OUTPUT_DIR = BASE_DIR / "marketing_app" / "data" / "generated_images"
 
-# ── Colores de marca ──
+W = 1080
+H_FEED = 1350    # 4:5 feed post / carrusel
+H_STORY = 1920   # 9:16 story / reel
+
 INK = (20, 21, 26)
 WHITE = (255, 255, 255)
-CREAM = (247, 246, 243)
 ACCENT = (255, 199, 0)
 ACCENT_DEEP = (224, 172, 0)
 GREEN = (46, 139, 87)
 
-# ── Paletas por persona ──
 PALETAS = {
     "maria": {
-        "bg": (253, 249, 240), "bg_alt": (255, 247, 221), "bar": (42, 36, 28),
+        "bg": (253, 249, 240), "bar": (42, 36, 28),
         "text": INK, "text2": (111, 106, 99), "accent": ACCENT,
         "badge_bg": GREEN, "badge_text": WHITE,
         "bullet_bg": (255, 243, 200), "bullet_icon": ACCENT_DEEP,
     },
     "lucas": {
-        "bg": INK, "bg_alt": (30, 30, 38), "bar": (5, 5, 8),
+        "bg": INK, "bar": (5, 5, 8),
         "text": WHITE, "text2": (180, 180, 190), "accent": ACCENT,
         "badge_bg": ACCENT, "badge_text": INK,
         "bullet_bg": (35, 35, 45), "bullet_icon": ACCENT,
     },
     "ana": {
-        "bg": WHITE, "bg_alt": (245, 245, 245), "bar": (35, 35, 40),
+        "bg": WHITE, "bar": (35, 35, 40),
         "text": INK, "text2": (120, 120, 125), "accent": (180, 160, 120),
         "badge_bg": INK, "badge_text": WHITE,
         "bullet_bg": (240, 238, 233), "bullet_icon": (180, 160, 120),
     },
     "sofi": {
-        "bg": (255, 245, 248), "bg_alt": (255, 237, 242), "bar": (40, 25, 35),
+        "bg": (255, 245, 248), "bar": (40, 25, 35),
         "text": INK, "text2": (140, 100, 120), "accent": (255, 150, 180),
         "badge_bg": (220, 120, 160), "badge_text": WHITE,
         "bullet_bg": (255, 230, 238), "bullet_icon": (220, 120, 160),
     },
     "martin": {
-        "bg": (20, 30, 50), "bg_alt": (25, 40, 65), "bar": (10, 15, 30),
+        "bg": (20, 30, 50), "bar": (10, 15, 30),
         "text": WHITE, "text2": (160, 175, 200), "accent": ACCENT,
         "badge_bg": GREEN, "badge_text": WHITE,
         "bullet_bg": (30, 45, 75), "bullet_icon": ACCENT,
@@ -66,7 +64,6 @@ PALETAS = {
 }
 
 FONT_CACHE = {}
-
 def _font(role, size):
     key = (role, size)
     if key in FONT_CACHE:
@@ -87,26 +84,21 @@ def _font(role, size):
     return ImageFont.load_default()
 
 
-def _logo(size=50):
+def _logo(size=48):
     if LOGO_PATH.exists():
-        img = Image.open(LOGO_PATH).convert("RGBA")
-        return img.resize((size, size), Image.LANCZOS)
+        return Image.open(LOGO_PATH).convert("RGBA").resize((size, size), Image.LANCZOS)
     return None
 
 
 def _download_img(url):
     import requests
     try:
-        resp = requests.get(url, timeout=10)
-        if resp.status_code == 200:
-            return Image.open(io.BytesIO(resp.content)).convert("RGBA")
+        r = requests.get(url, timeout=10)
+        if r.status_code == 200:
+            return Image.open(io.BytesIO(r.content)).convert("RGBA")
     except Exception:
         pass
     return None
-
-
-def _round_rect(draw, xy, fill, radius=20):
-    draw.rounded_rectangle(xy, radius=radius, fill=fill)
 
 
 def _wrap(text, font, max_w, draw):
@@ -123,197 +115,225 @@ def _wrap(text, font, max_w, draw):
     return lines
 
 
-def _draw_top_bar(img, draw, pal):
-    _round_rect(draw, [0, 0, 1080, 88], fill=pal["bar"], radius=0)
+def _text_with_emoji(draw, pos, text, font, fill, img=None):
+    """Render text, replacing emoji with text fallback."""
+    clean = ''.join(c if ord(c) < 0x10000 else '' for c in text).strip()
+    draw.text(pos, clean, fill=fill, font=font)
+
+
+def _top_bar(img, draw, pal, h):
+    draw.rounded_rectangle([0, 0, W, 88], radius=0, fill=pal["bar"])
     logo = _logo(48)
     if logo:
         img.paste(logo, (24, 20), logo)
     draw.text((82, 24), "El", fill=WHITE, font=_font("h", 26))
     draw.text((112, 24), " Gadget", fill=ACCENT, font=_font("h", 26))
-    draw.text((82, 54), "TIENDA ONLINE", fill=pal["text2"], font=_font("m", 11))
+    draw.text((82, 54), "TIENDA ONLINE", fill=(140, 140, 140), font=_font("m", 11))
 
 
-def _draw_bottom_bar(draw, text, pal):
-    _round_rect(draw, [0, 998, 1080, 1080], fill=pal["badge_bg"], radius=0)
-    tw = draw.textbbox((0, 0), text, font=_font("h", 22))[2]
-    draw.text(((1080 - tw) // 2, 1022), text, fill=pal["badge_text"], font=_font("h", 22))
+def _bottom_bar(draw, text, pal, h):
+    bar_h = 72
+    y = h - bar_h
+    draw.rounded_rectangle([0, y, W, h], radius=0, fill=pal["badge_bg"])
+    f = _font("h", 21)
+    tw = draw.textbbox((0, 0), text, font=f)[2]
+    draw.text(((W - tw) // 2, y + 22), text, fill=pal["badge_text"], font=f)
 
 
-def _draw_pilar_badge(draw, label, pal):
-    f = _font("m", 16)
-    tw = draw.textbbox((0, 0), label, font=f)[2] + 24
-    _round_rect(draw, [1080 - tw - 24, 100, 1080 - 24, 130], fill=pal["accent"], radius=14)
-    draw.text((1080 - tw - 12, 104), label, fill=INK, font=f)
+def _pilar_badge(draw, label, pal):
+    f = _font("m", 15)
+    tw = draw.textbbox((0, 0), label, font=f)[2] + 22
+    draw.rounded_rectangle([W - tw - 24, 100, W - 24, 128], radius=12, fill=pal["accent"])
+    draw.text((W - tw - 13, 103), label, fill=INK, font=f)
 
 
 # ============================================================================
-# LAYOUT 1: EDUCATIVO — texto-first, bullets
+# LAYOUT 1: EDUCATIVO
 # ============================================================================
+def _layout_educativo(img, draw, pal, data, h):
+    _top_bar(img, draw, pal, h)
+    _pilar_badge(draw, "EDUCATIVO", pal)
 
-def _layout_educativo(img, draw, pal, data):
-    _draw_top_bar(img, draw, pal)
-    _draw_pilar_badge(draw, "EDUCATIVO", pal)
-
-    # Emoji decorativo
-    emoji = data.get("emoji", "📋")
-    draw.text((60, 130), emoji, font=_font("b", 52), fill=pal["text"])
-
-    # Título grande
-    titulo = data.get("titulo", data.get("hook", ""))
-    y = 200
-    for line in _wrap(titulo, _font("h", 52), 960, draw)[:3]:
-        draw.text((60, y), line, fill=pal["text"], font=_font("h", 52))
-        y += 64
-
-    # Bullets/puntos
     puntos = data.get("puntos", [])
+    n_puntos = min(len(puntos), 6)
+
+    titulo_size = 52 if n_puntos <= 4 else 44
+    card_h = 90 if n_puntos <= 4 else 74
+    punto_font_size = 26 if n_puntos <= 4 else 22
+    gap = 20 if n_puntos <= 4 else 14
+
+    # Calcular altura total del contenido para centrar verticalmente
+    titulo_lines = len(_wrap(data.get("titulo", data.get("hook", "")), _font("h", titulo_size), 960, draw))
+    content_h = titulo_lines * (titulo_size + 14) + 30 + n_puntos * (card_h + gap) + 80
+    y_start = max(130, (h - 72 - content_h) // 2)
+
+    titulo = data.get("titulo", data.get("hook", ""))
+    y = y_start
+    for line in _wrap(titulo, _font("h", titulo_size), 960, draw)[:3]:
+        draw.text((60, y), line, fill=pal["text"], font=_font("h", titulo_size))
+        y += titulo_size + 14
     y += 30
-    for i, punto in enumerate(puntos[:5]):
-        box_y = y
-        _round_rect(draw, [50, box_y, 1030, box_y + 72], fill=pal["bullet_bg"], radius=14)
-        # Número circular
-        cx, cy = 90, box_y + 36
-        draw.ellipse([cx - 18, cy - 18, cx + 18, cy + 18], fill=pal["bullet_icon"])
+
+    for i, punto in enumerate(puntos[:6]):
+        by = y
+        draw.rounded_rectangle([50, by, W - 50, by + card_h], radius=16, fill=pal["bullet_bg"])
+        cx, cy = 96, by + card_h // 2
+        r = 22 if n_puntos <= 4 else 18
+        draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=pal["bullet_icon"])
         num = str(i + 1)
-        nw = draw.textbbox((0, 0), num, font=_font("h", 20))[2]
-        draw.text((cx - nw // 2, cy - 12), num, fill=WHITE if pal["bullet_icon"] != ACCENT else INK, font=_font("h", 20))
-        # Texto del punto
-        draw.text((124, box_y + 20), punto[:55], fill=pal["text"], font=_font("m", 24))
-        y += 86
+        nf = _font("h", 21 if n_puntos <= 4 else 17)
+        nw = draw.textbbox((0, 0), num, font=nf)[2]
+        icon_text_color = WHITE if pal["bullet_icon"] != ACCENT else INK
+        draw.text((cx - nw // 2, cy - 12), num, fill=icon_text_color, font=nf)
+        punto_clean = ''.join(c if ord(c) < 0x10000 else '' for c in punto)
+        draw.text((134, by + (card_h - punto_font_size) // 2 - 2), punto_clean[:65], fill=pal["text"], font=_font("m", punto_font_size))
+        y += card_h + gap
 
-    _draw_bottom_bar(draw, data.get("cta_bar", "Registrate gratis en elgadget.com.ar/referidos"), pal)
+    # URL visible debajo de los puntos
+    y += 20
+    url = "elgadget.com.ar/referidos"
+    uf = _font("h", 28)
+    uw = draw.textbbox((0, 0), url, font=uf)[2]
+    draw.text(((W - uw) // 2, y), url, fill=pal["accent"], font=uf)
+
+    _bottom_bar(draw, data.get("cta_bar", "Registrate gratis — sin inversion"), pal, h)
 
 
 # ============================================================================
-# LAYOUT 2: MOTIVACIONAL — número grande, aspiracional
+# LAYOUT 2: MOTIVACIONAL
 # ============================================================================
+def _layout_motivacional(img, draw, pal, data, h):
+    _top_bar(img, draw, pal, h)
+    _pilar_badge(draw, "MOTIVACIONAL", pal)
 
-def _layout_motivacional(img, draw, pal, data):
-    _draw_top_bar(img, draw, pal)
-    _draw_pilar_badge(draw, "MOTIVACIONAL", pal)
+    mid_y = h // 2 - 120
 
-    # Número ENORME centrado
     numero = data.get("numero_grande", "$45.600")
-    nf = _font("h", 96)
+    nf = _font("h", 92)
     nw = draw.textbbox((0, 0), numero, font=nf)[2]
-    draw.text(((1080 - nw) // 2, 200), numero, fill=pal["accent"], font=nf)
+    draw.text(((W - nw) // 2, mid_y - 60), numero, fill=pal["accent"], font=nf)
 
-    # Subtexto debajo del número
-    subtexto = data.get("subtexto", "ganaron nuestros referidos este mes")
-    sf = _font("m", 28)
-    sw = draw.textbbox((0, 0), subtexto, font=sf)[2]
-    draw.text(((1080 - sw) // 2, 320), subtexto, fill=pal["text2"], font=sf)
+    subtexto = data.get("subtexto", "")
+    if subtexto:
+        sf = _font("m", 26)
+        sw = draw.textbbox((0, 0), subtexto, font=sf)[2]
+        draw.text(((W - sw) // 2, mid_y + 50), subtexto, fill=pal["text2"], font=sf)
 
-    # Línea separadora
-    draw.line([(200, 400), (880, 400)], fill=pal["accent"], width=3)
+    draw.line([(180, mid_y + 110), (W - 180, mid_y + 110)], fill=pal["accent"], width=3)
 
-    # Bullets de valor
-    bullets = data.get("bullets", ["Sin inversión", "Sin stock", "Sin riesgo"])
-    y = 440
-    for b in bullets[:4]:
-        bf = _font("h", 32)
-        draw.text((100, y), "→", fill=pal["accent"], font=bf)
-        draw.text((150, y), b, fill=pal["text"], font=bf)
-        y += 56
+    bullets = data.get("bullets", [])
+    y = mid_y + 150
+    for b in bullets[:5]:
+        b_clean = ''.join(c if ord(c) < 0x10000 else '' for c in b)
+        draw.text((100, y), "→", fill=pal["accent"], font=_font("h", 30))
+        draw.text((145, y), b_clean, fill=pal["text"], font=_font("h", 30))
+        y += 50
 
-    # Hook/storytelling inferior
     hook = data.get("hook", "")
     if hook:
         y += 30
-        for line in _wrap(hook, _font("b", 24), 900, draw)[:3]:
-            draw.text((80, y), line, fill=pal["text2"], font=_font("b", 24))
-            y += 34
+        for line in _wrap(hook, _font("b", 22), 880, draw)[:3]:
+            draw.text((80, y), line, fill=pal["text2"], font=_font("b", 22))
+            y += 32
 
-    _draw_bottom_bar(draw, data.get("cta_bar", "Sumate al programa de referidos"), pal)
+    _bottom_bar(draw, data.get("cta_bar", "Sumate al programa de referidos"), pal, h)
 
 
 # ============================================================================
-# LAYOUT 3: ENGAGEMENT — pregunta grande, opciones
+# LAYOUT 3: ENGAGEMENT
 # ============================================================================
+def _layout_engagement(img, draw, pal, data, h):
+    _top_bar(img, draw, pal, h)
+    _pilar_badge(draw, "COMUNIDAD", pal)
 
-def _layout_engagement(img, draw, pal, data):
-    _draw_top_bar(img, draw, pal)
-    _draw_pilar_badge(draw, "COMUNIDAD", pal)
-
-    # Pregunta GRANDE
-    pregunta = data.get("pregunta", data.get("hook", "¿Qué opinás?"))
-    y = 160
-    for line in _wrap(pregunta, _font("h", 56), 960, draw)[:4]:
-        draw.text((60, y), line, fill=pal["text"], font=_font("h", 56))
-        y += 70
-
-    # Opciones como cards
+    pregunta = data.get("pregunta", data.get("hook", ""))
     opciones = data.get("opciones", [])
+    n_opc = min(len(opciones), 4)
+    card_h = 100
+    gap = 22
+
+    # Centrar verticalmente
+    preg_lines = len(_wrap(pregunta, _font("h", 54), 960, draw))
+    content_h = preg_lines * 68 + 40 + n_opc * (card_h + gap) + 80
+    y = max(140, (h - 72 - content_h) // 2)
+
+    for line in _wrap(pregunta, _font("h", 54), 960, draw)[:4]:
+        draw.text((60, y), line, fill=pal["text"], font=_font("h", 54))
+        y += 68
     y += 40
     for i, opc in enumerate(opciones[:4]):
-        box_y = y
-        _round_rect(draw, [50, box_y, 1030, box_y + 90], fill=pal["bullet_bg"], radius=16)
-        # Letra circular
-        cx, cy = 104, box_y + 45
-        draw.ellipse([cx - 24, cy - 24, cx + 24, cy + 24], fill=pal["accent"])
-        letter = chr(65 + i)  # A, B, C, D
-        lw = draw.textbbox((0, 0), letter, font=_font("h", 24))[2]
-        draw.text((cx - lw // 2, cy - 14), letter, fill=INK, font=_font("h", 24))
-        # Texto opción
-        draw.text((150, box_y + 26), opc[:50], fill=pal["text"], font=_font("m", 28))
-        y += 110
+        by = y
+        draw.rounded_rectangle([50, by, W - 50, by + card_h], radius=18, fill=pal["bullet_bg"])
+        cx, cy = 110, by + card_h // 2
+        draw.ellipse([cx - 28, cy - 28, cx + 28, cy + 28], fill=pal["accent"])
+        letter = chr(65 + i)
+        lw = draw.textbbox((0, 0), letter, font=_font("h", 26))[2]
+        draw.text((cx - lw // 2, cy - 15), letter, fill=INK, font=_font("h", 26))
+        opc_clean = ''.join(c if ord(c) < 0x10000 else '' for c in opc)
+        opc_text = opc_clean.lstrip('💰🏖️🛍️📱🎉❤️✈️🏠 ')
+        draw.text((160, by + 30), opc_text[:50], fill=pal["text"], font=_font("m", 30))
+        y += card_h + gap
 
-    _draw_bottom_bar(draw, data.get("cta_bar", "Contanos en los comentarios"), pal)
+    # Texto motivador debajo
+    y += 20
+    cta_text = "Respondé en los comentarios"
+    ctf = _font("m", 24)
+    ctw = draw.textbbox((0, 0), cta_text, font=ctf)[2]
+    draw.text(((W - ctw) // 2, y), cta_text, fill=pal["text2"], font=ctf)
+
+    _bottom_bar(draw, data.get("cta_bar", "Tu opinion nos importa"), pal, h)
 
 
 # ============================================================================
-# LAYOUT 4: PRODUCTO — foto centrada, precio, hook
+# LAYOUT 4: PRODUCTO
 # ============================================================================
+def _layout_producto(img, draw, pal, data, h):
+    _top_bar(img, draw, pal, h)
+    _pilar_badge(draw, "PRODUCTO", pal)
 
-def _layout_producto(img, draw, pal, data):
-    _draw_top_bar(img, draw, pal)
-    _draw_pilar_badge(draw, "PRODUCTO", pal)
-
-    # Producto imagen centrada
     prod_url = data.get("producto_imagen", "")
     prod_img = _download_img(prod_url) if prod_url else None
     if prod_img:
-        ps = 480
+        ps = 580
         prod_img = prod_img.resize((ps, ps), Image.LANCZOS)
-        # Sombra
-        shadow = Image.new("RGBA", (ps + 20, ps + 20), (0, 0, 0, 0))
-        sd = ImageDraw.Draw(shadow)
-        sd.rounded_rectangle([10, 10, ps + 10, ps + 10], radius=24, fill=(0, 0, 0, 40))
-        shadow = shadow.filter(ImageFilter.GaussianBlur(8))
-        img.paste(shadow, (1080 // 2 - ps // 2 - 10, 115), shadow)
-        # Bordes redondeados
         mask = Image.new("L", prod_img.size, 0)
-        ImageDraw.Draw(mask).rounded_rectangle([0, 0, ps, ps], radius=24, fill=255)
+        ImageDraw.Draw(mask).rounded_rectangle([0, 0, ps, ps], radius=28, fill=255)
         prod_img.putalpha(mask)
-        img.paste(prod_img, (1080 // 2 - ps // 2, 125), prod_img)
+        shadow = Image.new("RGBA", (ps + 24, ps + 24), (0, 0, 0, 0))
+        ImageDraw.Draw(shadow).rounded_rectangle([12, 12, ps + 12, ps + 12], radius=28, fill=(0, 0, 0, 35))
+        shadow = shadow.filter(ImageFilter.GaussianBlur(12))
+        img.paste(shadow, (W // 2 - ps // 2 - 12, 108), shadow)
+        img.paste(prod_img, (W // 2 - ps // 2, 120), prod_img)
 
-    # Hook
     hook = data.get("hook", "")
-    y = 650
+    y = 740
     for line in _wrap(hook, _font("h", 48), 960, draw)[:2]:
         draw.text((60, y), line, fill=pal["text"], font=_font("h", 48))
-        y += 58
+        y += 60
 
-    # Nombre producto
     nombre = data.get("producto_nombre", "")
     y += 8
-    for line in _wrap(nombre, _font("m", 26), 700, draw)[:2]:
+    for line in _wrap(nombre, _font("m", 26), 750, draw)[:2]:
         draw.text((60, y), line, fill=pal["text2"], font=_font("m", 26))
         y += 34
 
-    # Precio
     precio = data.get("producto_precio", 0)
-    y += 12
-    draw.text((60, y), f"${precio:,.0f}".replace(",", "."), fill=pal["accent"], font=_font("h", 56))
+    y += 16
+    precio_text = f"${precio:,.0f}".replace(",", ".")
+    draw.text((60, y), precio_text, fill=pal["accent"], font=_font("h", 58))
 
-    _draw_bottom_bar(draw, data.get("cta_bar", "Código referido = hasta 20% OFF"), pal)
+    # Precio tachado (público) + precio con descuento
+    y += 70
+    desc_text = "Con codigo referido: hasta 20% OFF"
+    draw.text((60, y), desc_text, fill=pal["text2"], font=_font("m", 22))
+
+    _bottom_bar(draw, data.get("cta_bar", "Compartilo con tu codigo y gana comision"), pal, h)
 
 
 # ============================================================================
-# FUNCIÓN PRINCIPAL
+# MAIN
 # ============================================================================
-
-LAYOUT_FN = {
+LAYOUTS = {
     "educativo": _layout_educativo,
     "motivacional": _layout_motivacional,
     "engagement": _layout_engagement,
@@ -321,31 +341,21 @@ LAYOUT_FN = {
 }
 
 def compose_image(
-    producto_nombre="",
-    producto_precio=0,
-    producto_imagen_url="",
-    persona="maria",
-    pilar="producto",
-    formato="PR-01",
-    hook="",
+    producto_nombre="", producto_precio=0, producto_imagen_url="",
+    persona="maria", pilar="producto", formato="PR-01", hook="",
     output_filename=None,
-    # Datos estructurados por pilar (opcionales)
-    titulo="",
-    puntos=None,
-    numero_grande="",
-    subtexto="",
-    bullets=None,
-    pregunta="",
-    opciones=None,
-    cta_bar="",
-    emoji="",
+    titulo="", puntos=None, numero_grande="", subtexto="",
+    bullets=None, pregunta="", opciones=None, cta_bar="", emoji="",
+    size_format="feed",
 ) -> str:
-    """Genera imagen branded 1080x1080 con layout específico por pilar."""
-
+    """Genera imagen branded para Instagram.
+    size_format: 'feed' (1080x1350) o 'story' (1080x1920)
+    """
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     pal = PALETAS.get(persona, PALETAS["maria"])
+    h = H_STORY if size_format == "story" else H_FEED
 
-    img = Image.new("RGBA", (1080, 1080), pal["bg"])
+    img = Image.new("RGBA", (W, h), pal["bg"])
     draw = ImageDraw.Draw(img)
 
     data = {
@@ -357,8 +367,8 @@ def compose_image(
         "producto_imagen": producto_imagen_url, "cta_bar": cta_bar, "emoji": emoji,
     }
 
-    layout_fn = LAYOUT_FN.get(pilar, _layout_producto)
-    layout_fn(img, draw, pal, data)
+    layout_fn = LAYOUTS.get(pilar, _layout_producto)
+    layout_fn(img, draw, pal, data, h)
 
     final = img.convert("RGB")
     if not output_filename:
@@ -370,35 +380,38 @@ def compose_image(
 
 
 if __name__ == "__main__":
-    # Test: un layout por pilar
     compose_image(
-        persona="maria", pilar="educativo", formato="ED-02",
-        titulo="5 formas de compartir tu código",
-        emoji="📋",
-        puntos=["Mandalo por WhatsApp", "Subilo a tus Stories", "Compartilo en grupos de mamás",
-                "Enviá el link directo", "Publicalo en Facebook"],
+        persona="maria", pilar="educativo",
+        titulo="5 formas de compartir tu codigo y ganar",
+        puntos=["Mandalo por WhatsApp a tus contactos", "Subilo a tus Instagram Stories",
+                "Compartilo en grupos de mamas", "Envia el link directo por mensaje",
+                "Publicalo en Facebook o TikTok"],
+        cta_bar="Registrate gratis en elgadget.com.ar/referidos",
         output_filename="test_educativo.jpg",
     )
     compose_image(
-        persona="lucas", pilar="motivacional", formato="MO-01",
-        numero_grande="$45.600",
-        subtexto="ganaron nuestros referidos este mes",
-        bullets=["Sin inversión", "Sin stock", "Sin envíos", "Cobrás el día 5"],
-        hook="Empezá a ganar hoy mismo compartiendo productos de El Gadget",
+        persona="lucas", pilar="motivacional",
+        numero_grande="$45.600", subtexto="ganaron nuestros referidos este mes",
+        bullets=["Sin inversion inicial", "Sin manejar stock ni envios",
+                 "Cobras el dia 5 de cada mes", "Comisiones de 7% a 15%"],
+        hook="Empeza a ganar hoy compartiendo productos de El Gadget",
+        cta_bar="Sumate gratis al programa de referidos",
         output_filename="test_motivacional.jpg",
     )
     compose_image(
-        persona="maria", pilar="engagement", formato="EN-01",
-        pregunta="¿Qué harías con $30.000 extra por mes?",
-        opciones=["💰 Pagar deudas", "🏖️ Vacaciones", "🛍️ Compras", "📱 Tecnología"],
+        persona="maria", pilar="engagement",
+        pregunta="Que harias con $30.000 extra por mes?",
+        opciones=["Pagar deudas", "Vacaciones", "Compras para la casa", "Tecnologia nueva"],
+        cta_bar="Contanos en los comentarios",
         output_filename="test_engagement.jpg",
     )
     compose_image(
-        persona="lucas", pilar="producto", formato="PR-01",
-        producto_nombre="Estantería Plegable Metal Negra 5 Niveles",
+        persona="lucas", pilar="producto",
+        producto_nombre="Estanteria Plegable Metal Negra 5 Niveles",
         producto_precio=106125,
         producto_imagen_url="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_001",
-        hook="¿Tu casa parece un caos?",
+        hook="Tu casa parece un caos?",
+        cta_bar="Codigo referido = hasta 20% OFF",
         output_filename="test_producto.jpg",
     )
-    print("4 layouts generados en marketing_app/data/generated_images/")
+    print("4 imagenes generadas (1080x1350 feed format)")
