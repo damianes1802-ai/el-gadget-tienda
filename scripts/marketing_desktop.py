@@ -167,7 +167,7 @@ LAYOUT_SCHEMAS = {
     "L08": '{"hook":"OBLIGATORIO","precio_competencia_label":"Titulo corto: $X.XXX (max 20 chars el precio)","precio_propio_label":"Titulo corto: $X.XXX (max 20 chars el precio)","caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
     "L09": '{"hook":"OBLIGATORIO","pasos":["max 40 chars",...max 4],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
     "L10": '{"hook":"OBLIGATORIO","items_check":["max 40 chars",...max 6],"caption":"hook+valor+cta","caption_b":"variante B","hashtags":"8-12",'+_CTA_FIELDS+'}',
-    "R01": '{"hook":"PREGUNTA DIRECTA de dolor con ¿? max 8 palabras. Ej: ¿Laburás 8 horas y seguís sin plata?","dolor":"1 frase que amplíe el dolor y genere identificación max 12 palabras. Ej: Tus amigos ya generan plata extra. Vos seguís scrolleando.","solucion":"1-2 frases claras de cómo funciona max 20 palabras. Ej: Compartí un link. Tu contacto compra con descuento. Vos cobrás comisión.","numero_grande":"NUMERO CON SIGNO $ y SIEMPRE con % si es porcentaje. Ej: $10.500 o 15%. NUNCA sin el signo.","subtexto_proof":"explicacion del numero max 10 palabras. Ej: ganás si 3 amigos compran este mes","beneficio":"frase emocional con puntos concretos max 10 palabras. Ej: Sin jefe. Sin horarios. Desde el celular.","dato_extra":"prueba social o urgencia max 10 palabras. Ej: El programa recién arranca. Los primeros ganan más.","cta_text":"CTA con ¿? max 6 palabras. Ej: ¿Querés empezar a ganar?","voiceover":"3-4 oraciones en tono conversacional argentino que COMPLEMENTEN el texto visual (NO repitan). Agregan contexto, emoción o datos que el texto no dice. Max 200 chars.","caption":"caption para publicar el reel en IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
+    "R01": '{"hook":"frase que frena el scroll max 8 palabras. VARIÁ tipo: pregunta O dato O afirmación O escenario","dolor":"1 frase identificación max 12 palabras","solucion":"cómo funciona max 20 palabras","numero_grande":"NUMERO con $ o %. Si hay producto usar la comisión EXACTA indicada","subtexto_proof":"contexto del numero max 10 palabras","beneficio":"frase emocional max 10 palabras","dato_extra":"prueba social o urgencia max 10 palabras","cta_text":"CTA max 6 palabras","voiceover":"3-4 oraciones complementarias en argentino. El numero que menciones DEBE ser IDÉNTICO al de numero_grande. Max 200 chars","caption":"caption para IG","hashtags":"5-8",'+_CTA_FIELDS+'}',
 }
 
 # ── Mapeo legacy para backward compat del modal individual ──
@@ -902,16 +902,23 @@ HASHTAGS PARA ESTA PERSONA (elegí 5-8, mezclá con 1-2 branded #ElGadget #Refer
 - Nombre: {nombre}
 - Precio: ${precio:,.0f}
 - Categoría: {cat}
-- Con referido 10%% OFF: ${round(precio*0.90):,.0f} · 20%% OFF: ${round(precio*0.80):,.0f}
-- Comisión 7%%: ${round(precio*0.07):,.0f} · 15%%: ${round(precio*0.15):,.0f}
-IMPORTANTE: Mencioná este producto por nombre en el slide de solución o prueba social.
-El numero_grande puede ser la comisión real de este producto o un cálculo con 3 ventas.""" if producto.get("_usar_producto") else """REEL GENÉRICO DEL PROGRAMA (sin producto específico):
+- Comisión por 1 venta al 7%%: ${round(precio*0.07):,.0f}
+- Comisión por 3 ventas al 7%%: ${round(precio*0.07*3):,.0f}
+IMPORTANTE: Mencioná este producto por nombre en la solución.
+El numero_grande DEBE ser exactamente "${f'${round(precio*0.07*3):,.0f}'.replace(',','.')}" (comisión de 3 ventas).
+El subtexto_proof DEBE decir "ganás si 3 personas compran {nombre[:30]}".
+El voiceover DEBE usar el MISMO número que numero_grande. NUNCA un número diferente.""" if producto.get("_usar_producto") else """REEL GENÉRICO DEL PROGRAMA (sin producto específico):
 Usá cálculos genéricos del programa de referidos.
 No menciones un producto específico, hablá del programa en general."""}
 
 REGLAS CRÍTICAS PARA EL REEL:
 - Cada slide se lee en 2-3 segundos. MÁXIMO 10 PALABRAS por slide.
-- El hook DEBE ser una pregunta con ¿? que duela. Máximo 8 palabras.
+- El hook debe frenar el scroll. VARIÁ entre estos tipos (no siempre pregunta):
+  * Pregunta con ¿?: "¿Laburás 8 horas y seguís sin plata?"
+  * Dato impactante: "$10.500 por mes recomendando productos"
+  * Afirmación directa: "Tus amigas ya cobran por recomendar"
+  * Escenario relatable: "Fin de mes. El sueldo no alcanza. Otra vez."
+  Máximo 8 palabras.
 - El dolor es UNA frase que genere identificación inmediata. Máximo 12 palabras.
 - La solución explica cómo funciona en lenguaje simple. Máximo 20 palabras.
 - El numero_grande SIEMPRE lleva $ si es plata o % si es porcentaje. NUNCA sin signo.
