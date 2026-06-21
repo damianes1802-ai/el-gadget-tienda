@@ -504,51 +504,53 @@ def _layout_antes_despues(img, draw, pal, data, h):
     antes = _clean(data.get("antes_texto", "Antes"))
     despues = _clean(data.get("despues_texto", "Después"))
 
-    # Hook centrado arriba
-    y = 130
-    y = _centered_text(draw, y, hook, _font("h", 48), pal["text"], 900)
-    y += 40
+    zone = h - 88 - 72
+    card_w = 480
+    card_h = min(620, zone - 340)
+    gap = 20
+    lx = (W - card_w * 2 - gap) // 2
+    rx = lx + card_w + gap
 
-    # Split: dos cards lado a lado
-    card_w = 460
-    card_h = 500
-    gap = 40
-    left_x = (W - card_w * 2 - gap) // 2
-    right_x = left_x + card_w + gap
+    total_h = 80 + 40 + card_h + 50 + 100 + 40
+    y = 88 + max(20, (zone - total_h) // 2)
 
-    # Card ANTES (rojo suave)
-    antes_bg = (255, 235, 235) if pal["bg"][0] > 100 else (60, 30, 30)
-    antes_text_color = (180, 50, 50) if pal["bg"][0] > 100 else (255, 120, 120)
-    draw.rounded_rectangle([left_x, y, left_x + card_w, y + card_h], radius=20, fill=antes_bg)
-    label = "ANTES"
-    lf = _font("h", 28)
-    lw = draw.textbbox((0, 0), label, font=lf)[2]
-    draw.text((left_x + (card_w - lw) // 2, y + 30), label, fill=antes_text_color, font=lf)
-    # Texto del antes centrado en la card
+    # Hook centrado
+    y = _centered_text(draw, y, hook, _font("h", 44), pal["text"], 900)
+    y += 30
+
+    antes_bg = (255, 230, 230) if pal["bg"][0] > 100 else (60, 25, 25)
+    antes_color = (200, 50, 50) if pal["bg"][0] > 100 else (255, 120, 120)
+    desp_bg = (225, 250, 230) if pal["bg"][0] > 100 else (20, 50, 28)
+    desp_color = (40, 150, 70) if pal["bg"][0] > 100 else (100, 220, 130)
+
+    # Card ANTES
+    draw.rounded_rectangle([lx, y, lx + card_w, y + card_h], radius=22, fill=antes_bg)
+    lf = _font("h", 30)
+    lw = draw.textbbox((0, 0), "ANTES", font=lf)[2]
+    draw.text((lx + (card_w - lw) // 2, y + 30), "ANTES", fill=antes_color, font=lf)
     af = _font("m", 26)
-    ay = y + 100
-    for line in _wrap(antes, af, card_w - 60, draw)[:6]:
+    a_lines = _wrap(antes, af, card_w - 60, draw)[:8]
+    ay = y + 80 + (card_h - 110 - len(a_lines) * 36) // 2
+    for line in a_lines:
         alw = draw.textbbox((0, 0), line, font=af)[2]
-        draw.text((left_x + (card_w - alw) // 2, ay), line, fill=pal["text"], font=af)
+        draw.text((lx + (card_w - alw) // 2, ay), line, fill=pal["text"], font=af)
         ay += 36
 
-    # Card DESPUÉS (verde suave)
-    desp_bg = (230, 250, 235) if pal["bg"][0] > 100 else (20, 50, 30)
-    desp_text_color = (40, 140, 70) if pal["bg"][0] > 100 else (100, 220, 130)
-    draw.rounded_rectangle([right_x, y, right_x + card_w, y + card_h], radius=20, fill=desp_bg)
-    label = "DESPUÉS"
-    lw = draw.textbbox((0, 0), label, font=lf)[2]
-    draw.text((right_x + (card_w - lw) // 2, y + 30), label, fill=desp_text_color, font=lf)
-    df = _font("m", 26)
-    dy = y + 100
-    for line in _wrap(despues, df, card_w - 60, draw)[:6]:
-        dlw = draw.textbbox((0, 0), line, font=df)[2]
-        draw.text((right_x + (card_w - dlw) // 2, dy), line, fill=pal["text"], font=df)
+    # Card DESPUÉS
+    draw.rounded_rectangle([rx, y, rx + card_w, y + card_h], radius=22, fill=desp_bg)
+    lw = draw.textbbox((0, 0), "DESPUÉS", font=lf)[2]
+    draw.text((rx + (card_w - lw) // 2, y + 30), "DESPUÉS", fill=desp_color, font=lf)
+    d_lines = _wrap(despues, af, card_w - 60, draw)[:8]
+    dy = y + 80 + (card_h - 110 - len(d_lines) * 36) // 2
+    for line in d_lines:
+        dlw = draw.textbbox((0, 0), line, font=af)[2]
+        draw.text((rx + (card_w - dlw) // 2, dy), line, fill=pal["text"], font=af)
         dy += 36
 
-    y += card_h + 50
+    y += card_h + 30
+    y = _programa_footer(draw, pal, y, h)
     y = _url_block(draw, pal, y)
-    _bottom_bar(draw, data.get("cta_bar", "elgadget.com.ar/referidos"), pal, h)
+    _bottom_bar(draw, data.get("cta_bar", "Guardalo y volve cuando lo necesites"), pal, h)
 
 
 # ============================================================================
@@ -560,31 +562,36 @@ def _layout_historia(img, draw, pal, data, h):
     hook = data.get("hook", "")
     historia = _clean(data.get("historia_texto", ""))
 
-    # Hook grande centrado
-    zone_top, zone_bot = 88, h - 72
-    hf = _font("h", 52)
-    h_lines = _wrap(hook, hf, 900, draw)[:3]
-    bf = _font("b", 26)
-    b_lines = _wrap(historia, bf, 860, draw)[:8] if historia else []
-    content_h = len(h_lines) * 66 + 50 + len(b_lines) * 38 + 120 + 100 + 40
-    y = zone_top + max(20, (zone_bot - zone_top - content_h) // 2)
+    zone = h - 88 - 72
+    hf = _font("h", 50)
+    bf = _font("m", 28)
+    h_lines = _wrap(hook, hf, 880, draw)[:3]
+    b_lines = _wrap(historia, bf, 840, draw)[:8] if historia else []
+
+    # Separador visual entre hook y historia
+    content_h = len(h_lines) * 64 + 30 + 3 + 30 + len(b_lines) * 40 + 50 + 100 + 40
+    y = 88 + max(20, (zone - content_h) // 2)
 
     for line in h_lines:
         lw = draw.textbbox((0, 0), line, font=hf)[2]
         draw.text(((W - lw) // 2, y), line, fill=pal["text"], font=hf)
-        y += 66
-    y += 50
+        y += 64
+    y += 30
 
-    # Historia como párrafo centrado
+    # Línea separadora
+    draw.line([(200, y), (W - 200, y)], fill=pal["accent"], width=3)
+    y += 30
+
+    # Historia centrada
     for line in b_lines:
         lw = draw.textbbox((0, 0), line, font=bf)[2]
         draw.text(((W - lw) // 2, y), line, fill=pal["text2"], font=bf)
-        y += 38
+        y += 40
     y += 40
 
     y = _programa_footer(draw, pal, y, h)
     y = _url_block(draw, pal, y)
-    _bottom_bar(draw, data.get("cta_bar", "elgadget.com.ar/referidos"), pal, h)
+    _bottom_bar(draw, data.get("cta_bar", "Guardalo y registrate cuando puedas"), pal, h)
 
 
 # ============================================================================
@@ -596,58 +603,61 @@ def _layout_mito_realidad(img, draw, pal, data, h):
     hook = data.get("hook", "")
     mitos = [_clean(m) for m in (data.get("mitos") or [])][:3]
     realidades = [_clean(r) for r in (data.get("realidades") or [])][:3]
-    n = max(len(mitos), len(realidades))
+    n = max(len(mitos), len(realidades), 1)
 
-    # Hook centrado
-    y = 130
-    y = _centered_text(draw, y, hook, _font("h", 46), pal["text"], 900)
-    y += 30
-
-    # Headers
-    col_w = 460
-    gap = 30
-    lx = (W - col_w * 2 - gap) // 2
-    rx = lx + col_w + gap
-
-    mito_hdr = "MITO"
-    real_hdr = "REALIDAD"
-    hf = _font("h", 24)
-    mhw = draw.textbbox((0, 0), mito_hdr, font=hf)[2]
-    rhw = draw.textbbox((0, 0), real_hdr, font=hf)[2]
     mito_color = (200, 60, 60) if pal["bg"][0] > 100 else (255, 100, 100)
     real_color = (40, 160, 70) if pal["bg"][0] > 100 else (100, 220, 130)
-    draw.text((lx + (col_w - mhw) // 2, y), mito_hdr, fill=mito_color, font=hf)
-    draw.text((rx + (col_w - rhw) // 2, y), real_hdr, fill=real_color, font=hf)
+
+    # Calcular tamaño para llenar el espacio
+    zone = h - 88 - 72
+    card_h = min(160, (zone - 200) // n - 24)
+    col_w = 475
+    gap = 20
+    lx = (W - col_w * 2 - gap) // 2
+    rx = lx + col_w + gap
+    total_h = 80 + 44 + n * (card_h + 24) + 60 + 40
+    y = 88 + max(20, (zone - total_h) // 2)
+
+    # Hook
+    y = _centered_text(draw, y, hook, _font("h", 44), pal["text"], 900)
+    y += 24
+
+    # Headers
+    hf = _font("h", 26)
+    mhw = draw.textbbox((0, 0), "MITO", font=hf)[2]
+    rhw = draw.textbbox((0, 0), "REALIDAD", font=hf)[2]
+    draw.text((lx + (col_w - mhw) // 2, y), "MITO", fill=mito_color, font=hf)
+    draw.text((rx + (col_w - rhw) // 2, y), "REALIDAD", fill=real_color, font=hf)
     y += 44
 
-    # Filas de cards
-    card_h = 120
-    card_gap = 18
     for i in range(n):
-        # Card mito (rojo suave)
         m_bg = (255, 240, 240) if pal["bg"][0] > 100 else (50, 25, 25)
-        draw.rounded_rectangle([lx, y, lx + col_w, y + card_h], radius=14, fill=m_bg)
-        # X icon
-        draw.text((lx + 16, y + 20), "✗", fill=mito_color, font=_font("h", 32))
-        if i < len(mitos):
-            mf = _font("m", 22)
-            for j, ml in enumerate(_wrap(mitos[i], mf, col_w - 70, draw)[:2]):
-                draw.text((lx + 56, y + 24 + j * 30), ml, fill=pal["text"], font=mf)
-
-        # Card realidad (verde suave)
         r_bg = (235, 250, 238) if pal["bg"][0] > 100 else (20, 45, 25)
-        draw.rounded_rectangle([rx, y, rx + col_w, y + card_h], radius=14, fill=r_bg)
-        draw.text((rx + 16, y + 20), "✓", fill=real_color, font=_font("h", 32))
+        draw.rounded_rectangle([lx, y, lx + col_w, y + card_h], radius=16, fill=m_bg)
+        draw.rounded_rectangle([rx, y, rx + col_w, y + card_h], radius=16, fill=r_bg)
+        # Icons
+        draw.text((lx + 18, y + card_h // 2 - 18), "✗", fill=mito_color, font=_font("h", 34))
+        draw.text((rx + 18, y + card_h // 2 - 18), "✓", fill=real_color, font=_font("h", 34))
+        # Texto centrado verticalmente
+        mf = _font("m", 24)
+        if i < len(mitos):
+            m_lines = _wrap(mitos[i], mf, col_w - 80, draw)[:3]
+            my = y + (card_h - len(m_lines) * 32) // 2
+            for ml in m_lines:
+                draw.text((lx + 60, my), ml, fill=pal["text"], font=mf)
+                my += 32
         if i < len(realidades):
-            rf = _font("m", 22)
-            for j, rl in enumerate(_wrap(realidades[i], rf, col_w - 70, draw)[:2]):
-                draw.text((rx + 56, y + 24 + j * 30), rl, fill=pal["text"], font=rf)
+            r_lines = _wrap(realidades[i], mf, col_w - 80, draw)[:3]
+            ry = y + (card_h - len(r_lines) * 32) // 2
+            for rl in r_lines:
+                draw.text((rx + 60, ry), rl, fill=pal["text"], font=mf)
+                ry += 32
+        y += card_h + 24
 
-        y += card_h + card_gap
-
-    y += 30
+    y += 20
+    y = _programa_footer(draw, pal, y, h)
     y = _url_block(draw, pal, y)
-    _bottom_bar(draw, data.get("cta_bar", "La realidad es mas simple de lo que pensas"), pal, h)
+    _bottom_bar(draw, data.get("cta_bar", "Guardalo y volve cuando lo necesites"), pal, h)
 
 
 # ============================================================================
@@ -660,60 +670,60 @@ def _layout_comparativa(img, draw, pal, data, h):
     comp_label = _clean(data.get("precio_competencia_label", "En otros lados: $150.000"))
     prop_label = _clean(data.get("precio_propio_label", "En El Gadget: $106.125"))
 
-    # Hook centrado
-    y = 130
-    y = _centered_text(draw, y, hook, _font("h", 46), pal["text"], 900)
-    y += 50
-
-    # Dos cards de precio
-    card_w = 440
-    card_h = 280
-    gap = 40
+    zone = h - 88 - 72
+    card_w = 460
+    card_h = min(380, (zone - 400) // 1)
+    gap = 30
     lx = (W - card_w * 2 - gap) // 2
     rx = lx + card_w + gap
 
-    # Card competencia (gris/rojo)
-    comp_bg = (245, 240, 240) if pal["bg"][0] > 100 else (45, 35, 35)
-    draw.rounded_rectangle([lx, y, lx + card_w, y + card_h], radius=20, fill=comp_bg)
+    total_h = 80 + 50 + card_h + 40 + 100 + 40
+    y = 88 + max(20, (zone - total_h) // 2)
+
+    y = _centered_text(draw, y, hook, _font("h", 44), pal["text"], 900)
+    y += 40
+
     comp_parts = comp_label.split(":")
-    comp_title = comp_parts[0].strip() if comp_parts else "Otros"
-    comp_price = comp_parts[1].strip() if len(comp_parts) > 1 else comp_label
-    ctf = _font("m", 22)
-    ctw = draw.textbbox((0, 0), comp_title, font=ctf)[2]
-    draw.text((lx + (card_w - ctw) // 2, y + 30), comp_title, fill=pal["text2"], font=ctf)
-    cpf = _font("h", 48)
-    cpw = draw.textbbox((0, 0), comp_price, font=cpf)[2]
-    draw.text((lx + (card_w - cpw) // 2, y + 100), comp_price, fill=pal["text2"], font=cpf)
-    # Tachado
-    line_y = y + 128
-    draw.line([(lx + (card_w - cpw) // 2 - 10, line_y), (lx + (card_w + cpw) // 2 + 10, line_y)], fill=(200, 60, 60), width=4)
-
-    # Card El Gadget (accent/verde)
-    prop_bg = pal["bullet_bg"]
-    draw.rounded_rectangle([rx, y, rx + card_w, y + card_h], radius=20, fill=prop_bg)
+    comp_title = (comp_parts[0].strip() if comp_parts else "Otros")
+    comp_price = (comp_parts[1].strip() if len(comp_parts) > 1 else comp_label)
     prop_parts = prop_label.split(":")
-    prop_title = prop_parts[0].strip() if prop_parts else "El Gadget"
-    prop_price = prop_parts[1].strip() if len(prop_parts) > 1 else prop_label
-    ptf = _font("m", 22)
-    ptw = draw.textbbox((0, 0), prop_title, font=ptf)[2]
-    draw.text((rx + (card_w - ptw) // 2, y + 30), prop_title, fill=pal["text"], font=ptf)
-    ppf = _font("h", 52)
+    prop_title = (prop_parts[0].strip() if prop_parts else "El Gadget")
+    prop_price = (prop_parts[1].strip() if len(prop_parts) > 1 else prop_label)
+
+    # Card competencia
+    comp_bg = (245, 238, 238) if pal["bg"][0] > 100 else (50, 35, 35)
+    draw.rounded_rectangle([lx, y, lx + card_w, y + card_h], radius=22, fill=comp_bg)
+    ctf = _font("m", 24)
+    ctw = draw.textbbox((0, 0), comp_title, font=ctf)[2]
+    draw.text((lx + (card_w - ctw) // 2, y + 40), comp_title, fill=pal["text2"], font=ctf)
+    cpf = _font("h", 56)
+    cpw = draw.textbbox((0, 0), comp_price, font=cpf)[2]
+    cp_y = y + card_h // 2 - 20
+    draw.text((lx + (card_w - cpw) // 2, cp_y), comp_price, fill=pal["text2"], font=cpf)
+    draw.line([(lx + (card_w - cpw) // 2 - 10, cp_y + 32), (lx + (card_w + cpw) // 2 + 10, cp_y + 32)], fill=(200, 60, 60), width=4)
+
+    # Card El Gadget
+    prop_bg = pal["bullet_bg"]
+    draw.rounded_rectangle([rx, y, rx + card_w, y + card_h], radius=22, fill=prop_bg)
+    ptw = draw.textbbox((0, 0), prop_title, font=ctf)[2]
+    draw.text((rx + (card_w - ptw) // 2, y + 40), prop_title, fill=pal["text"], font=ctf)
+    ppf = _font("h", 62)
     ppw = draw.textbbox((0, 0), prop_price, font=ppf)[2]
-    draw.text((rx + (card_w - ppw) // 2, y + 95), prop_price, fill=pal["accent"], font=ppf)
-    # Badge
-    badge = "Hasta 20% OFF extra"
+    draw.text((rx + (card_w - ppw) // 2, y + card_h // 2 - 25), prop_price, fill=pal["accent"], font=ppf)
+    badge = "Hasta 20% OFF extra con referido"
     bbf = _font("h", 18)
-    bbw = draw.textbbox((0, 0), badge, font=bbf)[2] + 24
+    bbw = draw.textbbox((0, 0), badge, font=bbf)[2] + 28
     bx = rx + (card_w - bbw) // 2
-    draw.rounded_rectangle([bx, y + 180, bx + bbw, y + 212], radius=16, fill=pal["accent"])
-    draw.text((bx + 12, y + 185), badge, fill=INK, font=bbf)
+    draw.rounded_rectangle([bx, y + card_h - 70, bx + bbw, y + card_h - 36], radius=16, fill=pal["accent"])
+    draw.text((bx + 14, y + card_h - 65), badge, fill=INK, font=bbf)
 
-    # VS entre las cards
-    vs_f = _font("h", 36)
+    # VS
+    vs_f = _font("h", 40)
     vs_w = draw.textbbox((0, 0), "VS", font=vs_f)[2]
-    draw.text(((W - vs_w) // 2, y + card_h // 2 - 20), "VS", fill=pal["text2"], font=vs_f)
+    draw.text(((W - vs_w) // 2, y + card_h // 2 - 22), "VS", fill=pal["text2"], font=vs_f)
 
-    y += card_h + 50
+    y += card_h + 30
+    y = _programa_footer(draw, pal, y, h)
     y = _url_block(draw, pal, y)
     _bottom_bar(draw, data.get("cta_bar", "Mejor precio + descuento referido"), pal, h)
 
