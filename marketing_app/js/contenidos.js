@@ -106,7 +106,7 @@ function _renderCards() {
         if (slides.length > 0) {
           const sliderId = `slider-${c.id}`;
           const slideImgs = slides.map((s, idx) =>
-            `<img src="${s}" alt="Slide ${idx + 1}" class="carousel-slide ${idx === 0 ? 'active' : ''}" data-idx="${idx}">`
+            `<img src="${s}" alt="Slide ${idx + 1}" class="carousel-slide ${idx === 0 ? 'active' : ''}" data-idx="${idx}" style="${idx === 0 ? '' : 'display:none'}">`
           ).join('');
           brandedPreview = `<div class="contenido-card-preview carousel-container" id="${sliderId}">
             ${slideImgs}
@@ -306,16 +306,21 @@ function carouselNav(sliderId, dir) {
   const dots = container.querySelectorAll('.carousel-dot');
   let current = [...slides].findIndex(s => s.classList.contains('active'));
   slides[current].classList.remove('active');
+  slides[current].style.display = 'none';
   if (dots[current]) dots[current].classList.remove('active');
   current = (current + dir + slides.length) % slides.length;
   slides[current].classList.add('active');
+  slides[current].style.display = 'block';
   if (dots[current]) dots[current].classList.add('active');
 }
 
 function carouselGo(sliderId, idx) {
   const container = document.getElementById(sliderId);
   if (!container) return;
-  container.querySelectorAll('.carousel-slide').forEach((s, i) => s.classList.toggle('active', i === idx));
+  container.querySelectorAll('.carousel-slide').forEach((s, i) => {
+    s.classList.toggle('active', i === idx);
+    s.style.display = i === idx ? 'block' : 'none';
+  });
   container.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
 }
 
