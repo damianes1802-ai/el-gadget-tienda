@@ -514,20 +514,21 @@ def _layout_antes_despues(img, draw, pal, data, h):
     total_h = 80 + 40 + card_h + 50 + 100 + 40
     y = 88 + max(20, (zone - total_h) // 2)
 
-    # Hook centrado
-    y = _centered_text(draw, y, hook, _font("h", 44), pal["text"], 900)
+    # Hook centrado — grande y bold
+    y = _centered_text(draw, y, hook, _font("h", 54), pal["text"], 900)
     y += 30
 
-    antes_bg = (255, 230, 230) if pal["bg"][0] > 100 else (60, 25, 25)
-    antes_color = (200, 50, 50) if pal["bg"][0] > 100 else (255, 120, 120)
-    desp_bg = (225, 250, 230) if pal["bg"][0] > 100 else (20, 50, 28)
-    desp_color = (40, 150, 70) if pal["bg"][0] > 100 else (100, 220, 130)
+    antes_bg = (255, 215, 215) if pal["bg"][0] > 100 else (70, 20, 20)
+    antes_color = (200, 40, 40) if pal["bg"][0] > 100 else (255, 100, 100)
+    desp_bg = (210, 250, 220) if pal["bg"][0] > 100 else (15, 55, 25)
+    desp_color = (30, 140, 60) if pal["bg"][0] > 100 else (90, 220, 120)
 
     # Card ANTES
     draw.rounded_rectangle([lx, y, lx + card_w, y + card_h], radius=22, fill=antes_bg)
     lf = _font("h", 30)
-    lw = draw.textbbox((0, 0), "ANTES", font=lf)[2]
-    draw.text((lx + (card_w - lw) // 2, y + 30), "ANTES", fill=antes_color, font=lf)
+    antes_label = "ANTES"
+    lw = draw.textbbox((0, 0), antes_label, font=lf)[2]
+    draw.text((lx + (card_w - lw) // 2, y + 30), antes_label, fill=antes_color, font=lf)
     af = _font("m", 26)
     a_lines = _wrap(antes, af, card_w - 60, draw)[:8]
     ay = y + 80 + (card_h - 110 - len(a_lines) * 36) // 2
@@ -1001,37 +1002,54 @@ def compose_carousel(
         img.convert("RGB").save(str(p), "JPEG", quality=92)
         paths.append(str(p))
 
-    # SLIDE FINAL: CTA
-    img = Image.new("RGBA", (W, h), pal["bg"])
+    # SLIDE FINAL: CTA con fondo dorado
+    img = Image.new("RGBA", (W, h), ACCENT)
     draw = ImageDraw.Draw(img)
-    _top_bar(img, draw, pal, h)
+    draw.rounded_rectangle([0, 0, W, 88], radius=0, fill=INK)
+    draw.line([(0, 88), (W, 88)], fill=ACCENT, width=3)
+    logo = _logo(44)
+    if logo:
+        img.paste(logo, (26, 22), logo)
+    draw.text((80, 22), "El", fill=WHITE, font=_font("h", 28))
+    draw.text((112, 22), " Gadget", fill=ACCENT, font=_font("h", 28))
+    draw.text((80, 54), "TIENDA ONLINE", fill=(160, 160, 160), font=_font("m", 12))
 
-    y = h // 2 - 100
-    cta_title = "Queres empezar a ganar?"
-    for line in _wrap(cta_title, _font("h", 52), 900, draw)[:2]:
-        tw = draw.textbbox((0, 0), line, font=_font("h", 52))[2]
-        draw.text(((W - tw) // 2, y), line, fill=pal["text"], font=_font("h", 52))
-        y += 66
+    y = h // 2 - 140
+    cta_title = "¿Querés empezar a ganar?"
+    for line in _wrap(cta_title, _font("h", 60), 900, draw)[:2]:
+        tw = draw.textbbox((0, 0), line, font=_font("h", 60))[2]
+        draw.text(((W - tw) // 2, y), line, fill=INK, font=_font("h", 60))
+        y += 76
+
+    y += 20
+    draw.line([(300, y), (W - 300, y)], fill=INK, width=3)
+    y += 30
+
+    beneficios = ["Registro gratis", "Comisiones del 7% al 15%", "Cobro mensual"]
+    for b in beneficios:
+        bf = _font("h", 28)
+        bw = draw.textbbox((0, 0), b, font=bf)[2]
+        draw.text(((W - bw) // 2, y), b, fill=INK, font=bf)
+        y += 44
 
     y += 30
     url = "elgadget.com.ar/referidos"
-    uf = _font("h", 36)
+    uf = _font("h", 40)
     uw = draw.textbbox((0, 0), url, font=uf)[2]
-    draw.text(((W - uw) // 2, y), url, fill=pal["accent"], font=uf)
-
-    y += 60
-    beneficios = ["Registro gratis", "Comisiones del 7% al 15%", "Cobro mensual"]
-    for b in beneficios:
-        bf = _font("m", 24)
-        bw = draw.textbbox((0, 0), b, font=bf)[2]
-        draw.text(((W - bw) // 2, y), b, fill=pal["text2"], font=bf)
-        y += 38
+    pill_pad = 20
+    draw.rounded_rectangle([(W - uw) // 2 - pill_pad, y - 8, (W + uw) // 2 + pill_pad, y + 50], radius=14, fill=INK)
+    draw.text(((W - uw) // 2, y), url, fill=ACCENT, font=uf)
 
     for d in range(total_dots):
-        color = pal["accent"] if d == total_dots - 1 else (*pal["text2"], 80)
+        color = INK if d == total_dots - 1 else (*INK, 40)
         draw.ellipse([dot_x + d * 24, dot_y, dot_x + d * 24 + 12, dot_y + 12], fill=color)
 
-    _bottom_bar(draw, cta_bar or "Link en bio", pal, h)
+    draw.rounded_rectangle([0, h - 72, W, h], radius=0, fill=INK)
+    draw.line([(0, h - 72), (W, h - 72)], fill=ACCENT, width=3)
+    cta_final = cta_bar or "Link en bio"
+    ctf = _font("h", 21)
+    ctw = draw.textbbox((0, 0), cta_final, font=ctf)[2]
+    draw.text(((W - ctw) // 2, h - 72 + 24), cta_final, fill=ACCENT, font=ctf)
     p = OUTPUT_DIR / f"{output_prefix}_{len(items) + 2:02d}_cta.jpg"
     img.convert("RGB").save(str(p), "JPEG", quality=92)
     paths.append(str(p))
