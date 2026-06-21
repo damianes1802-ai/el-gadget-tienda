@@ -24,7 +24,8 @@ function _renderStats() {
   const borradores = _contenidos.filter(c => c.estado === 'borrador').length;
   const aprobados = _contenidos.filter(c => c.estado === 'aprobado').length;
   const rechazados = _contenidos.filter(c => c.estado === 'rechazado').length;
-  const total = _contenidos.length;
+  const reels = _contenidos.filter(c => c._is_reel).length;
+  const posts = _contenidos.filter(c => !c._is_reel).length;
 
   const el = document.getElementById('contenidos-stats');
   if (!el) return;
@@ -38,12 +39,12 @@ function _renderStats() {
       <div class="stat-value" style="color:var(--green-ok)">${aprobados}</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Rechazados</div>
-      <div class="stat-value" style="color:var(--red)">${rechazados}</div>
+      <div class="stat-label">Posts</div>
+      <div class="stat-value">${posts}</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Total generados</div>
-      <div class="stat-value">${total}</div>
+      <div class="stat-label">Reels</div>
+      <div class="stat-value" style="color:#E84393">${reels}</div>
     </div>
   `;
 }
@@ -119,6 +120,22 @@ function _renderCards() {
           </div>`;
         }
       } catch (e) {}
+    } else if (c._is_reel && mediaUrl) {
+      if (mediaUrl.startsWith('data:video')) {
+        brandedPreview = `<div class="contenido-card-preview" style="background:#000;border-radius:12px;overflow:hidden;cursor:pointer" onclick="abrirReelPreview(this.querySelector('video').src)">
+          <video src="${mediaUrl}" style="width:100%;display:block;border-radius:12px" preload="metadata"></video>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+            <div style="width:56px;height:56px;border-radius:50%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff">▶</div>
+          </div>
+        </div>`;
+      } else {
+        brandedPreview = `<div class="contenido-card-preview" style="background:#000;display:flex;align-items:center;justify-content:center;min-height:200px;border-radius:12px">
+          <div style="text-align:center;color:#fff">
+            <div style="font-size:48px;margin-bottom:8px">🎬</div>
+            <div style="font-size:13px;opacity:0.7">Reel generado</div>
+          </div>
+        </div>`;
+      }
     } else if (mediaUrl) {
       brandedPreview = `<div class="contenido-card-preview"><img src="${escapeHtml(mediaUrl)}" alt="Preview" loading="lazy"></div>`;
     }
@@ -130,6 +147,7 @@ function _renderCards() {
           <img src="${escapeHtml(img)}" alt="" class="contenido-card-img" onerror="this.style.display='none'">
           <div class="contenido-card-meta">
             <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+              ${c._is_reel ? '<span class="badge" style="background:#E84393;color:#fff">REEL</span>' : ''}
               <span class="badge badge-accent">${fmt}</span>
               <span class="badge badge-ink">${tipo}</span>
               <span class="badge badge-blue">${persona}</span>
@@ -283,6 +301,60 @@ function abrirModalGenerar() {
     });
   }
   openModal('modal-generar-overlay');
+}
+
+// ── Reels ──
+
+async function generarLoteReels() {
+  const btn = document.getElementById('btn-generar-reels');
+  if (!btn) return;
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Generando Reels...';
+  btn.style.opacity = '0.6';
+  toast('Generando 3 Reels con IA + voz en off. Esto tarda ~2 minutos...', 'info');
+
+  try {
+    const result = await apiCall('generar_lote_reels', 3);
+    if (result && result.error) {
+      toast('Error: ' + result.error, 'error');
+    } else {
+      const n = result.generados || 0;
+      toast(`${n} Reel${n !== 1 ? 's' : ''} generado${n !== 1 ? 's' : ''} con voz + música`, 'success');
+      if (result.errores && result.errores.length > 0) {
+        toast('Errores: ' + result.errores.join(', '), 'error');
+      }
+      _fetchContenidos();
+    }
+  } catch (e) {
+    toast('Error generando Reels: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
+    btn.style.opacity = '1';
+  }
+}
+
+function abrirReelPreview(filePath) {
+  let modal = document.getElementById('reel-preview-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'reel-preview-modal';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer';
+    modal.onclick = function() { this.remove(); };
+    modal.innerHTML = `<div style="position:relative;max-height:90vh;max-width:90vw" onclick="event.stopPropagation()">
+      <video id="reel-video-player" controls autoplay style="max-height:85vh;max-width:100%;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.5)"></video>
+      <button onclick="this.closest('#reel-preview-modal').remove()" style="position:absolute;top:-12px;right:-12px;width:32px;height:32px;border-radius:50%;background:#fff;border:none;font-size:18px;cursor:pointer;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.3)">✕</button>
+    </div>`;
+    document.body.appendChild(modal);
+  } else {
+    modal.style.display = 'flex';
+  }
+  const video = document.getElementById('reel-video-player');
+  if (video) {
+    video.src = filePath;
+    video.play();
+  }
 }
 
 // ── Modal helpers ──

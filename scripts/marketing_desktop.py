@@ -1141,7 +1141,10 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
                     except Exception:
                         d["media_url"] = ""
                 elif media and media.endswith(".mp4"):
-                    # Reels: keep path as-is (too large for base64)
+                    p = Path(media)
+                    if p.exists() and p.stat().st_size < 5_000_000:
+                        b64 = base64.b64encode(p.read_bytes()).decode()
+                        d["media_url"] = f"data:video/mp4;base64,{b64}"
                     d["_is_reel"] = True
                 elif media and not media.startswith("http") and not media.startswith("data:"):
                     p = Path(media)
