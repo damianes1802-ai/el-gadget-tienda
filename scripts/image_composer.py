@@ -186,7 +186,8 @@ def _layout_educativo(img, draw, pal, data, h):
     y = zone_top + max(10, (zone_bot - zone_top - total_h) // 2)
 
     for line in t_lines:
-        draw.text((60, y), line, fill=pal["text"], font=_font("h", ts))
+        tw = draw.textbbox((0, 0), line, font=_font("h", ts))[2]
+        draw.text(((W - tw) // 2, y), line, fill=pal["text"], font=_font("h", ts))
         y += ts + 14
     y += 30
 
@@ -203,15 +204,16 @@ def _layout_educativo(img, draw, pal, data, h):
         draw.text((134, y + (ch - pfs) // 2 - 2), pt[:65], fill=pal["text"], font=_font("m", pfs))
         y += ch + gap
 
-    # Bloque inferior: beneficios resumidos
     y += 40
-    draw.line([(100, y), (W - 100, y)], fill=(*pal["accent"], 80), width=2)
+    draw.line([(150, y), (W - 150, y)], fill=(*pal["accent"], 80), width=2)
     y += 30
     beneficios = ["Comisiones del 7% al 15%", "Sin inversion inicial", "Cobras el dia 5 de cada mes"]
     for b in beneficios:
         bf = _font("m", 22)
-        draw.text((100, y), "→", fill=pal["accent"], font=bf)
-        draw.text((135, y), b, fill=pal["text2"], font=bf)
+        full = f"→  {b}"
+        bw = draw.textbbox((0, 0), full, font=bf)[2]
+        draw.text(((W - bw) // 2, y), "→", fill=pal["accent"], font=bf)
+        draw.text(((W - bw) // 2 + 35, y), b, fill=pal["text2"], font=bf)
         y += 36
 
     y += 20
@@ -253,14 +255,19 @@ def _layout_motivacional(img, draw, pal, data, h):
     y = mid_y + 230
     for b in bullets[:5]:
         b_clean = ''.join(c if ord(c) < 0x10000 else '' for c in b)
-        draw.text((100, y), "→", fill=pal["accent"], font=_font("h", 34))
-        draw.text((150, y), b_clean, fill=pal["text"], font=_font("h", 34))
+        full = f"→  {b_clean}"
+        bf = _font("h", 34)
+        bw = draw.textbbox((0, 0), full, font=bf)[2]
+        bx = (W - bw) // 2
+        draw.text((bx, y), "→", fill=pal["accent"], font=bf)
+        draw.text((bx + 50, y), b_clean, fill=pal["text"], font=bf)
         y += 60
 
     if hook:
         y += 40
         for line in _wrap(hook, _font("b", 24), 880, draw)[:3]:
-            draw.text((80, y), line, fill=pal["text2"], font=_font("b", 24))
+            lw = draw.textbbox((0, 0), line, font=_font("b", 24))[2]
+            draw.text(((W - lw) // 2, y), line, fill=pal["text2"], font=_font("b", 24))
             y += 36
 
     # Bloque inferior: 3 pasos
@@ -365,58 +372,62 @@ def _layout_producto(img, draw, pal, data, h):
         img.paste(shadow, (W // 2 - ps // 2 - 12, 100), shadow)
         img.paste(prod_img, (W // 2 - ps // 2, 112), prod_img)
 
-    # Hook grande
+    # Hook grande (centrado)
     hook = data.get("hook", "")
     y = 770
     for line in _wrap(hook, _font("h", 44), 960, draw)[:2]:
-        draw.text((60, y), line, fill=pal["text"], font=_font("h", 44))
+        lw = draw.textbbox((0, 0), line, font=_font("h", 44))[2]
+        draw.text(((W - lw) // 2, y), line, fill=pal["text"], font=_font("h", 44))
         y += 56
 
-    # Nombre producto
+    # Nombre producto (centrado)
     nombre = data.get("producto_nombre", "")
     y += 6
     for line in _wrap(nombre, _font("m", 24), 750, draw)[:2]:
-        draw.text((60, y), line, fill=pal["text2"], font=_font("m", 24))
+        lw = draw.textbbox((0, 0), line, font=_font("m", 24))[2]
+        draw.text(((W - lw) // 2, y), line, fill=pal["text2"], font=_font("m", 24))
         y += 32
 
-    # Precios: público tachado + con descuento
+    # Precios centrados: público tachado + con descuento
     precio = data.get("producto_precio", 0)
-    precio_desc = round(precio * 0.80)  # 20% OFF máximo
+    precio_desc = round(precio * 0.80)
     y += 18
 
-    # Precio público tachado
     precio_pub = f"${precio:,.0f}".replace(",", ".")
-    ppf = _font("m", 32)
-    ppw = draw.textbbox((0, 0), precio_pub, font=ppf)[2]
-    draw.text((60, y), precio_pub, fill=pal["text2"], font=ppf)
-    # Línea de tachado
-    pp_mid = y + 18
-    draw.line([(58, pp_mid), (62 + ppw, pp_mid)], fill=pal["text2"], width=3)
-
-    # Precio con descuento
     precio_off = f"${precio_desc:,.0f}".replace(",", ".")
-    draw.text((80 + ppw, y - 10), precio_off, fill=pal["accent"], font=_font("h", 48))
+    ppf = _font("m", 32)
+    pof = _font("h", 48)
+    ppw = draw.textbbox((0, 0), precio_pub, font=ppf)[2]
+    pow_ = draw.textbbox((0, 0), precio_off, font=pof)[2]
+    total_price_w = ppw + 20 + pow_
+    px = (W - total_price_w) // 2
 
-    # Badge de descuento
+    draw.text((px, y), precio_pub, fill=pal["text2"], font=ppf)
+    pp_mid = y + 18
+    draw.line([(px - 2, pp_mid), (px + ppw + 2, pp_mid)], fill=pal["text2"], width=3)
+    draw.text((px + ppw + 20, y - 10), precio_off, fill=pal["accent"], font=pof)
+
+    # Badge centrado
     y += 60
     badge_text = "Hasta 20% OFF con codigo referido"
     btf = _font("h", 20)
     btw = draw.textbbox((0, 0), badge_text, font=btf)[2] + 28
-    draw.rounded_rectangle([56, y, 56 + btw, y + 40], radius=20, fill=pal["accent"])
-    draw.text((70, y + 8), badge_text, fill=INK, font=btf)
+    bx = (W - btw) // 2
+    draw.rounded_rectangle([bx, y, bx + btw, y + 40], radius=20, fill=pal["accent"])
+    draw.text((bx + 14, y + 8), badge_text, fill=INK, font=btf)
 
-    # Info de confianza
+    # Trust badges centrados
     y += 56
     trust_items = [
-        ("Envio a todo el pais", "Pagos con MercadoPago"),
-        ("10 dias de devolucion", "6 meses de garantia"),
+        "Envio a todo el pais  ·  Pagos con MercadoPago",
+        "10 dias de devolucion  ·  6 meses de garantia",
     ]
-    for row in trust_items:
-        text_row = "  ·  ".join(row)
-        draw.text((60, y), text_row, fill=pal["text2"], font=_font("b", 19))
+    for text_row in trust_items:
+        trw = draw.textbbox((0, 0), text_row, font=_font("b", 19))[2]
+        draw.text(((W - trw) // 2, y), text_row, fill=pal["text2"], font=_font("b", 19))
         y += 30
 
-    # URL
+    # URL centrada
     y += 20
     url = "elgadget.com.ar"
     uf = _font("h", 28)
