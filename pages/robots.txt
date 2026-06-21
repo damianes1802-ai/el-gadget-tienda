@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Páginas que NO deben indexarse
+Disallow: /login
+Disallow: /mi_cuenta
+Disallow: /carrito
+Disallow: /checkout
+Disallow: /confirmacion
+Disallow: /producto_detalle
+
+Sitemap: https://elgadget.com.ar/sitemap.xml
