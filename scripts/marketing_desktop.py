@@ -92,6 +92,15 @@ Reglas de tono:
 - Emojis con moderación (1-3 por caption)
 - El contenido debe sentirse natural, no un aviso publicitario
 
+Hashtags: usá una mezcla de estos bancos según corresponda (8-12 por post):
+PROGRAMA: #referidoselgadget #ganardinero #ingresosextra #comisiones #trabajoremoto #dineroextra #negocioonline
+ARGENTINA: #emprendedoresargentinos #tiendaonlineargentina #compraonline #enviosatodoelpais #ofertasargentina
+HOGAR: #organizaciondelhogar #decoracion #hogarorganizado #ordenencasa #ideasparaelhogar #deco
+MODA: #modaargentina #accesorios #tendencias #lookdeldia #moda2026
+MAMÁS: #mamasargentinas #mamaemprendedora #vidademama #cosasdemama #organizacionfamiliar
+TECH/GADGETS: #gadgets #tecnologia #productosvirales #loultimo #tiktokfinds
+Elegí los más relevantes al pilar + persona + producto. Mezcla populares (>100K posts) con nicho (<50K).
+
 Respondé SOLAMENTE con un objeto JSON válido (sin texto adicional, sin markdown).
 Los campos varían según el pilar de contenido indicado en el prompt del usuario:
 
@@ -287,7 +296,7 @@ El objetivo es que quien vea este contenido quiera comprar el producto o registr
             response = client.messages.create(
                 model="claude-sonnet-4-6",
                 max_tokens=1024,
-                system=SYSTEM_PROMPT,
+                system=[{"type": "text", "text": SYSTEM_PROMPT, "cache_control": {"type": "ephemeral"}}],
                 messages=[{"role": "user", "content": user_prompt}]
             )
 

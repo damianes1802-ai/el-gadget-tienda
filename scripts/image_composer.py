@@ -214,7 +214,8 @@ def _layout_motivacional(img, draw, pal, data, h):
 
     bullets = data.get("bullets", [])
     hook = data.get("hook", "")
-    content_h = 92 + 30 + 26 + 30 + 3 + len(bullets) * 50 + (80 + len(_wrap(hook, _font("b", 22), 880, draw)) * 32 if hook else 0)
+    hook_h = (30 + len(_wrap(hook, _font("b", 22), 880, draw)) * 32) if hook else 0
+    content_h = 92 + 30 + 26 + 30 + 3 + len(bullets) * 50 + hook_h + 40 + 30 + 100 + 30 + 30
     usable = h - 88 - 72
     mid_y = 88 + max(20, (usable - content_h) // 2)
 
@@ -244,6 +245,26 @@ def _layout_motivacional(img, draw, pal, data, h):
             draw.text((80, y), line, fill=pal["text2"], font=_font("b", 22))
             y += 32
 
+    # Bloque inferior: 3 pasos
+    y += 40
+    draw.line([(180, y), (W - 180, y)], fill=pal["accent"], width=2)
+    y += 30
+    pasos = [("1", "Registrate gratis"), ("2", "Comparti tu codigo"), ("3", "Cobra comisiones")]
+    paso_w = (W - 120) // 3
+    for i, (num, txt) in enumerate(pasos):
+        cx = 60 + i * paso_w + paso_w // 2
+        draw.ellipse([cx - 22, y - 2, cx + 22, y + 42], fill=pal["accent"])
+        nw = draw.textbbox((0, 0), num, font=_font("h", 22))[2]
+        draw.text((cx - nw // 2, y + 6), num, fill=INK, font=_font("h", 22))
+        tw = draw.textbbox((0, 0), txt, font=_font("m", 18))[2]
+        draw.text((cx - tw // 2, y + 52), txt, fill=pal["text2"], font=_font("m", 18))
+
+    y += 100
+    url = "elgadget.com.ar/referidos"
+    uf = _font("h", 30)
+    uw = draw.textbbox((0, 0), url, font=uf)[2]
+    draw.text(((W - uw) // 2, y), url, fill=pal["accent"], font=uf)
+
     _bottom_bar(draw, data.get("cta_bar", "Sumate al programa de referidos"), pal, h)
 
 
@@ -261,7 +282,7 @@ def _layout_engagement(img, draw, pal, data, h):
     gap = 22
 
     p_lines = _wrap(pregunta, _font("h", 54), 960, draw)[:4]
-    total_h = len(p_lines) * 68 + 40 + n_opc * (card_h + gap) + 50 + 24
+    total_h = len(p_lines) * 68 + 40 + n_opc * (card_h + gap) + 30 + 25 + 40 + 35 + 28 + 30
     zone_top, zone_bot = 88, h - 72
     y = zone_top + max(10, (zone_bot - zone_top - total_h) // 2)
 
@@ -282,12 +303,25 @@ def _layout_engagement(img, draw, pal, data, h):
         draw.text((160, by + 30), opc_text[:50], fill=pal["text"], font=_font("m", 30))
         y += card_h + gap
 
-    # Texto motivador debajo
-    y += 20
-    cta_text = "Respondé en los comentarios"
-    ctf = _font("m", 24)
-    ctw = draw.textbbox((0, 0), cta_text, font=ctf)[2]
-    draw.text(((W - ctw) // 2, y), cta_text, fill=pal["text2"], font=ctf)
+    # Bloque inferior con contexto del programa
+    y += 30
+    draw.line([(100, y), (W - 100, y)], fill=(*pal["accent"], 80), width=2)
+    y += 25
+    ctx_text = "Gana plata recomendando productos de El Gadget"
+    ctf = _font("h", 24)
+    ctw = draw.textbbox((0, 0), ctx_text, font=ctf)[2]
+    draw.text(((W - ctw) // 2, y), ctx_text, fill=pal["text"], font=ctf)
+    y += 40
+    sub_items = ["Comisiones del 7% al 15%", "Sin inversion", "Cobro mensual"]
+    sub_text = "  ·  ".join(sub_items)
+    stf = _font("m", 19)
+    stw = draw.textbbox((0, 0), sub_text, font=stf)[2]
+    draw.text(((W - stw) // 2, y), sub_text, fill=pal["text2"], font=stf)
+    y += 35
+    url = "elgadget.com.ar/referidos"
+    uf = _font("h", 28)
+    uw = draw.textbbox((0, 0), url, font=uf)[2]
+    draw.text(((W - uw) // 2, y), url, fill=pal["accent"], font=uf)
 
     _bottom_bar(draw, data.get("cta_bar", "Tu opinion nos importa"), pal, h)
 
