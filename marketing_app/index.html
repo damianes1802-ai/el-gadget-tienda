@@ -42,6 +42,7 @@
       <button class="nav-item" data-section="productos">📦 Productos</button>
       <button class="nav-item" data-section="ventas">💰 Ventas</button>
       <button class="nav-item" data-section="campanias">📢 Campañas</button>
+      <button class="nav-item" data-section="contenidos">✍️ Contenido</button>
       <button class="nav-item" data-section="configuracion">⚙️ Configuración</button>
     </nav>
 
@@ -222,6 +223,23 @@
         </div>
       </section>
 
+      <!-- ═══ CONTENIDO ═══ -->
+      <section class="section" id="section-contenidos">
+        <div class="stats-grid" id="contenidos-stats"></div>
+        <div class="toolbar" style="margin-bottom:20px">
+          <button class="btn btn-accent" id="btn-generar-lote" onclick="generarLote()">Generar lote (5)</button>
+          <button class="btn btn-outline" onclick="abrirModalGenerar()">Generar para producto...</button>
+          <select id="contenidos-filtro" style="margin-left:auto">
+            <option value="todos">Todos</option>
+            <option value="borrador">Borradores</option>
+            <option value="aprobado">Aprobados</option>
+            <option value="rechazado">Rechazados</option>
+            <option value="publicado">Publicados</option>
+          </select>
+        </div>
+        <div class="contenidos-grid" id="contenidos-grid"></div>
+      </section>
+
       <!-- ═══ CONFIGURACIÓN ═══ -->
       <section class="section" id="section-configuracion">
         <div class="panel">
@@ -275,6 +293,88 @@
   </main>
 </div>
 
+<!-- MODAL: Editar contenido -->
+<div class="modal-overlay" id="modal-editar-contenido-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Editar contenido</h2>
+      <button class="modal-close" data-close="modal-editar-contenido-overlay">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="edit-contenido-id">
+      <div class="field">
+        <label>Caption A</label>
+        <textarea id="edit-caption" rows="4"></textarea>
+      </div>
+      <div class="field">
+        <label>Caption B (variante)</label>
+        <textarea id="edit-caption-b" rows="4"></textarea>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Hook</label><input type="text" id="edit-hook"></div>
+        <div class="field"><label>CTA</label><input type="text" id="edit-cta"></div>
+      </div>
+      <div class="field">
+        <label>Hashtags</label>
+        <input type="text" id="edit-hashtags">
+      </div>
+      <div class="field">
+        <label>Notas</label>
+        <textarea id="edit-notas" rows="2" placeholder="Notas internas..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" data-close="modal-editar-contenido-overlay">Cancelar</button>
+      <button class="btn btn-accent" onclick="guardarEdicion()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Generar para producto -->
+<div class="modal-overlay" id="modal-generar-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Generar contenido</h2>
+      <button class="modal-close" data-close="modal-generar-overlay">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Producto</label>
+        <select id="gen-producto-select"><option value="">Seleccionar producto...</option></select>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Formato</label>
+          <select id="gen-formato-select">
+            <option value="RS-01">RS-01: Problema→Solución</option>
+            <option value="RS-02">RS-02: Antes/Después</option>
+            <option value="RS-03">RS-03: Unboxing/Haul</option>
+            <option value="RS-04">RS-04: "Así gano plata"</option>
+            <option value="RS-05">RS-05: Producto viral</option>
+            <option value="RS-06">RS-06: Testimonio</option>
+            <option value="RS-07">RS-07: FAQ visual</option>
+            <option value="RS-08">RS-08: Selección curada</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Persona</label>
+          <select id="gen-persona-select">
+            <option value="maria">María (Mamá)</option>
+            <option value="lucas">Lucas (Gen Z)</option>
+            <option value="ana">Ana (Profesional)</option>
+            <option value="sofi">Sofi (Influencer)</option>
+            <option value="martin">Martín (Mayorista)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" data-close="modal-generar-overlay">Cancelar</button>
+      <button class="btn btn-accent" id="btn-generar-individual" onclick="generarIndividual()">Generar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="js/common.js"></script>
@@ -286,6 +386,7 @@
 <script src="js/productos.js"></script>
 <script src="js/ventas.js"></script>
 <script src="js/campanias.js"></script>
+<script src="js/contenidos.js"></script>
 <script src="js/configuracion.js"></script>
 </body>
 </html>

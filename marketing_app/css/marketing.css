@@ -273,6 +273,86 @@ code { background: var(--gray-100); padding: 2px 7px; border-radius: 4px; font-s
 .toast.error { background: var(--red); }
 .toast.warning { background: var(--accent-deep); color: var(--ink); }
 
+/* ── MODALES ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(20,21,26,0.5);
+  z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--paper); border-radius: var(--radius); width: 100%; max-width: 640px;
+  max-height: 88vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+.modal-header {
+  padding: 18px 22px; border-bottom: 1.5px solid var(--gray-200);
+  display: flex; justify-content: space-between; align-items: center;
+  position: sticky; top: 0; background: var(--paper); z-index: 1;
+}
+.modal-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; }
+.modal-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--gray-400); }
+.modal-close:hover { color: var(--ink); }
+.modal-body { padding: 20px 22px; }
+.modal-footer {
+  padding: 16px 22px; border-top: 1.5px solid var(--gray-200);
+  display: flex; gap: 10px; justify-content: flex-end;
+}
+
+/* ── FORMULARIOS ── */
+.field { margin-bottom: 14px; }
+.field label {
+  display: block; font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: var(--ink); margin-bottom: 6px;
+}
+.field input, .field select, .field textarea {
+  width: 100%; padding: 10px 13px; border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-200); font-size: 13.5px; font-family: 'Inter', sans-serif;
+  color: var(--ink); background: var(--paper); outline: none; resize: vertical;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+.field-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.field-row .field { flex: 1; min-width: 200px; }
+
+/* ── CONTENIDO CARDS ── */
+.contenidos-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 16px;
+}
+.contenido-card {
+  background: var(--paper); border: 1.5px solid var(--gray-200); border-radius: var(--radius);
+  overflow: hidden; transition: border-color 0.15s;
+}
+.contenido-card:hover { border-color: var(--accent); }
+.contenido-card-header {
+  display: flex; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--gray-100);
+  align-items: flex-start;
+}
+.contenido-card-img {
+  width: 60px; height: 60px; object-fit: cover; border-radius: var(--radius-sm);
+  flex-shrink: 0; background: var(--gray-100);
+}
+.contenido-card-meta { flex: 1; min-width: 0; }
+.contenido-card-producto {
+  font-size: 13px; font-weight: 600; color: var(--ink); margin-top: 6px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.contenido-card-precio { font-size: 12px; color: var(--gray-600); }
+.contenido-card-body { padding: 14px 18px; }
+.contenido-section { margin-bottom: 12px; }
+.contenido-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+  color: var(--gray-600); margin-bottom: 4px;
+}
+.contenido-text { font-size: 13px; color: var(--ink); line-height: 1.5; }
+.contenido-row { display: flex; gap: 16px; }
+.contenido-metricas {
+  font-size: 11px; color: var(--gray-400); padding-top: 8px;
+  border-top: 1px solid var(--gray-100); margin-top: 4px;
+}
+.contenido-card-footer {
+  padding: 12px 18px; border-top: 1px solid var(--gray-100);
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+
 /* ── LOADER ── */
 .loader-overlay {
   position: fixed; inset: 0; background: var(--cream); z-index: 2000;

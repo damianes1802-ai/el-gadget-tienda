@@ -8,6 +8,7 @@ const SECTION_TITLES = {
   productos: 'Productos',
   ventas: 'Ventas',
   campanias: 'Campañas',
+  contenidos: 'Contenido',
   configuracion: 'Configuración',
 };
 
@@ -61,6 +62,7 @@ function callSectionLoader(name) {
     productos: typeof loadProductos !== 'undefined' ? loadProductos : null,
     ventas: typeof loadVentas !== 'undefined' ? loadVentas : null,
     campanias: typeof loadCampanias !== 'undefined' ? loadCampanias : null,
+    contenidos: typeof loadContenidos !== 'undefined' ? loadContenidos : null,
     configuracion: typeof loadConfiguracion !== 'undefined' ? loadConfiguracion : null,
   };
   const fn = loaders[name];
