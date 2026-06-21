@@ -38,11 +38,11 @@ ACCENT = (255, 199, 0)
 GREEN = (46, 139, 87)
 
 PALETAS = {
-    "maria": {"bg": (253, 249, 240), "bar": (42, 36, 28), "text": INK, "text2": (90, 85, 78), "accent": ACCENT, "badge_bg": GREEN, "badge_text": WHITE},
-    "lucas": {"bg": INK, "bar": (5, 5, 8), "text": WHITE, "text2": (190, 190, 195), "accent": ACCENT, "badge_bg": ACCENT, "badge_text": INK},
-    "ana": {"bg": WHITE, "bar": (35, 35, 40), "text": INK, "text2": (90, 90, 95), "accent": (160, 140, 100), "badge_bg": INK, "badge_text": WHITE},
-    "sofi": {"bg": (255, 245, 248), "bar": (40, 25, 35), "text": INK, "text2": (110, 75, 95), "accent": (230, 100, 145), "badge_bg": (200, 90, 140), "badge_text": WHITE},
-    "martin": {"bg": (20, 30, 50), "bar": (10, 15, 30), "text": WHITE, "text2": (175, 185, 210), "accent": ACCENT, "badge_bg": GREEN, "badge_text": WHITE},
+    "maria": {"bg": (253, 249, 240), "bar": (42, 36, 28), "text": INK, "text2": (90, 85, 78), "accent": ACCENT, "badge_bg": GREEN, "badge_text": WHITE, "card_bg": (255, 243, 200)},
+    "lucas": {"bg": INK, "bar": (5, 5, 8), "text": WHITE, "text2": (190, 190, 195), "accent": ACCENT, "badge_bg": ACCENT, "badge_text": INK, "card_bg": (35, 35, 45)},
+    "ana": {"bg": WHITE, "bar": (35, 35, 40), "text": INK, "text2": (90, 90, 95), "accent": (160, 140, 100), "badge_bg": INK, "badge_text": WHITE, "card_bg": (240, 238, 233)},
+    "sofi": {"bg": (255, 245, 248), "bar": (40, 25, 35), "text": INK, "text2": (110, 75, 95), "accent": (230, 100, 145), "badge_bg": (200, 90, 140), "badge_text": WHITE, "card_bg": (255, 225, 235)},
+    "martin": {"bg": (20, 30, 50), "bar": (10, 15, 30), "text": WHITE, "text2": (175, 185, 210), "accent": ACCENT, "badge_bg": GREEN, "badge_text": WHITE, "card_bg": (30, 45, 75)},
 }
 
 RITMO = {
@@ -203,7 +203,7 @@ def _slide_standard(pal, text, font_size=48, bar_text="elgadget.com.ar/referidos
         pad = 50
         card_y1 = base_y - pad
         card_y2 = base_y + total_h + pad
-        card_bg = pal.get("bullet_bg", pal["bar"])
+        card_bg = pal["card_bg"]
         draw.rounded_rectangle([60, card_y1, W - 60, card_y2], radius=28, fill=card_bg)
         draw.line([(60, card_y1 + 28), (60, card_y2 - 28)], fill=pal["accent"], width=6)
         _centered_lines(draw, text, tf, pal["text"], 800, base_y, 14)
@@ -231,7 +231,7 @@ def _slide_hook(pal, hook, style="centered"):
         y = _highlight_lines(draw, hook, hf, INK, pal["accent"], 860, base_y, 20)
     elif style == "card":
         pad = 50
-        card_bg = pal.get("bullet_bg", pal["bar"])
+        card_bg = pal["card_bg"]
         draw.rounded_rectangle([50, base_y - pad, W - 50, base_y + total_h + pad + 20], radius=30, fill=card_bg)
         draw.line([(50, base_y + total_h + pad - 2), (W - 50, base_y + total_h + pad - 2)], fill=pal["accent"], width=5)
         y = _centered_lines(draw, hook, hf, pal["text"], 820, base_y, 20)
@@ -279,7 +279,7 @@ def _slide_proof_counting(pal, numero_text, subtexto, frame_progress, style="cen
         card_w, card_h = 740, 420
         cx = (W - card_w) // 2
         cy = H // 2 - card_h // 2 - 40
-        draw.rounded_rectangle([cx, cy, cx + card_w, cy + card_h], radius=28, fill=pal.get("bullet_bg", pal["bar"]))
+        draw.rounded_rectangle([cx, cy, cx + card_w, cy + card_h], radius=28, fill=pal["card_bg"])
         draw.line([(cx, cy + card_h - 6), (cx + card_w, cy + card_h - 6)], fill=pal["accent"], width=6)
         nf = _font("h", 100)
         nw = draw.textbbox((0, 0), display, font=nf)[2]
@@ -341,7 +341,7 @@ def _slide_benefit(pal, texto, badge_text="Sin inversion - Desde el celular", st
     if style == "card":
         base_y = (H - total_h) // 2 - 60
         pad = 50
-        card_bg = pal.get("bullet_bg", pal["bar"])
+        card_bg = pal["card_bg"]
         draw.rounded_rectangle([60, base_y - pad, W - 60, base_y + total_h + pad + 70], radius=28, fill=card_bg)
         y = _centered_lines(draw, texto, bf, pal["text"], 800, base_y, 14)
         bbw = draw.textbbox((0, 0), badge_text, font=bbf)[2] + 40
