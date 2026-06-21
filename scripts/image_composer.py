@@ -475,6 +475,125 @@ def compose_image(
     return str(path)
 
 
+def compose_carousel(
+    persona="maria", pilar="educativo", hook="", titulo="",
+    puntos=None, cta_bar="", output_prefix=None,
+    producto_nombre="", producto_precio=0, producto_imagen_url="",
+) -> list:
+    """Genera carrusel de N slides (1080x1350) y retorna lista de paths."""
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    pal = PALETAS.get(persona, PALETAS["maria"])
+    h = H_FEED
+    items = puntos or []
+    if not output_prefix:
+        import time as _t
+        output_prefix = f"carousel_{persona}_{int(_t.time())}"
+
+    paths = []
+
+    # SLIDE 1: Cover (hook/titulo grande)
+    img = Image.new("RGBA", (W, h), pal["bg"])
+    draw = ImageDraw.Draw(img)
+    _top_bar(img, draw, pal, h)
+    _pilar_badge(draw, "EDUCATIVO", pal)
+
+    cover_title = hook or titulo or "Tips"
+    y = h // 2 - 120
+    for line in _wrap(cover_title, _font("h", 58), 900, draw)[:4]:
+        draw.text((80, y), line, fill=pal["text"], font=_font("h", 58))
+        y += 72
+
+    y += 30
+    sub = f"{len(items)} tips que necesitas saber"
+    sf = _font("m", 26)
+    draw.text((80, y), sub, fill=pal["text2"], font=sf)
+
+    y += 50
+    draw.text((80, y), "Desliza para ver todos", fill=pal["accent"], font=_font("h", 28))
+    draw.text((430, y), "→", fill=pal["accent"], font=_font("h", 32))
+
+    # Indicador de slides (puntos)
+    dot_y = h - 120
+    total_dots = len(items) + 2
+    dot_w = total_dots * 24
+    dot_x = (W - dot_w) // 2
+    for d in range(total_dots):
+        color = pal["accent"] if d == 0 else (*pal["text2"], 80)
+        draw.ellipse([dot_x + d * 24, dot_y, dot_x + d * 24 + 12, dot_y + 12], fill=color)
+
+    _bottom_bar(draw, cta_bar or "Desliza para ver todos los tips", pal, h)
+    p = OUTPUT_DIR / f"{output_prefix}_01_cover.jpg"
+    img.convert("RGB").save(str(p), "JPEG", quality=92)
+    paths.append(str(p))
+
+    # SLIDES 2 a N: un punto por slide
+    for idx, punto in enumerate(items[:8]):
+        img = Image.new("RGBA", (W, h), pal["bg"])
+        draw = ImageDraw.Draw(img)
+        _top_bar(img, draw, pal, h)
+
+        # Número grande
+        num = str(idx + 1)
+        nf = _font("h", 140)
+        nw = draw.textbbox((0, 0), num, font=nf)[2]
+        draw.text(((W - nw) // 2, h // 2 - 220), num, fill=(*pal["accent"], 40), font=nf)
+
+        # Texto del punto centrado
+        punto_clean = ''.join(c if ord(c) < 0x10000 else '' for c in punto)
+        y = h // 2 - 30
+        for line in _wrap(punto_clean, _font("h", 40), 860, draw)[:4]:
+            tw = draw.textbbox((0, 0), line, font=_font("h", 40))[2]
+            draw.text(((W - tw) // 2, y), line, fill=pal["text"], font=_font("h", 40))
+            y += 52
+
+        # Indicador de slides
+        for d in range(total_dots):
+            color = pal["accent"] if d == idx + 1 else (*pal["text2"], 80)
+            draw.ellipse([dot_x + d * 24, dot_y, dot_x + d * 24 + 12, dot_y + 12], fill=color)
+
+        _bottom_bar(draw, f"{idx + 1}/{len(items)}", pal, h)
+        p = OUTPUT_DIR / f"{output_prefix}_{idx + 2:02d}.jpg"
+        img.convert("RGB").save(str(p), "JPEG", quality=92)
+        paths.append(str(p))
+
+    # SLIDE FINAL: CTA
+    img = Image.new("RGBA", (W, h), pal["bg"])
+    draw = ImageDraw.Draw(img)
+    _top_bar(img, draw, pal, h)
+
+    y = h // 2 - 100
+    cta_title = "Queres empezar a ganar?"
+    for line in _wrap(cta_title, _font("h", 52), 900, draw)[:2]:
+        tw = draw.textbbox((0, 0), line, font=_font("h", 52))[2]
+        draw.text(((W - tw) // 2, y), line, fill=pal["text"], font=_font("h", 52))
+        y += 66
+
+    y += 30
+    url = "elgadget.com.ar/referidos"
+    uf = _font("h", 36)
+    uw = draw.textbbox((0, 0), url, font=uf)[2]
+    draw.text(((W - uw) // 2, y), url, fill=pal["accent"], font=uf)
+
+    y += 60
+    beneficios = ["Registro gratis", "Comisiones del 7% al 15%", "Cobro mensual"]
+    for b in beneficios:
+        bf = _font("m", 24)
+        bw = draw.textbbox((0, 0), b, font=bf)[2]
+        draw.text(((W - bw) // 2, y), b, fill=pal["text2"], font=bf)
+        y += 38
+
+    for d in range(total_dots):
+        color = pal["accent"] if d == total_dots - 1 else (*pal["text2"], 80)
+        draw.ellipse([dot_x + d * 24, dot_y, dot_x + d * 24 + 12, dot_y + 12], fill=color)
+
+    _bottom_bar(draw, cta_bar or "Link en bio", pal, h)
+    p = OUTPUT_DIR / f"{output_prefix}_{len(items) + 2:02d}_cta.jpg"
+    img.convert("RGB").save(str(p), "JPEG", quality=92)
+    paths.append(str(p))
+
+    return paths
+
+
 if __name__ == "__main__":
     compose_image(
         persona="maria", pilar="educativo",

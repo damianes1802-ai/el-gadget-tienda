@@ -63,6 +63,7 @@ function _renderCards() {
     const persona = (c.persona || '').charAt(0).toUpperCase() + (c.persona || '').slice(1);
     const img = c.producto_imagen || '';
     const mediaUrl = c.media_url || '';
+    const isCarousel = c._is_carousel || (mediaUrl.startsWith('['));
     const nombre = escapeHtml(c.producto_nombre || '');
     const precio = formatPrice(c.producto_precio || 0);
     const captionA = escapeHtml(c.caption || '');
@@ -98,9 +99,29 @@ function _renderCards() {
       } catch (e) {}
     }
 
-    const brandedPreview = mediaUrl
-      ? `<div class="contenido-card-preview"><img src="${escapeHtml(mediaUrl)}" alt="Preview branded" loading="lazy"></div>`
-      : '';
+    let brandedPreview = '';
+    if (isCarousel && mediaUrl) {
+      try {
+        const slides = JSON.parse(mediaUrl);
+        if (slides.length > 0) {
+          const sliderId = `slider-${c.id}`;
+          const slideImgs = slides.map((s, idx) =>
+            `<img src="${s}" alt="Slide ${idx + 1}" class="carousel-slide ${idx === 0 ? 'active' : ''}" data-idx="${idx}">`
+          ).join('');
+          brandedPreview = `<div class="contenido-card-preview carousel-container" id="${sliderId}">
+            ${slideImgs}
+            <button class="carousel-arrow carousel-prev" onclick="carouselNav('${sliderId}', -1)">‹</button>
+            <button class="carousel-arrow carousel-next" onclick="carouselNav('${sliderId}', 1)">›</button>
+            <div class="carousel-dots">${slides.map((_, idx) =>
+              `<span class="carousel-dot ${idx === 0 ? 'active' : ''}" onclick="carouselGo('${sliderId}', ${idx})"></span>`
+            ).join('')}</div>
+            <div class="carousel-counter">${slides.length} slides</div>
+          </div>`;
+        }
+      } catch (e) {}
+    } else if (mediaUrl) {
+      brandedPreview = `<div class="contenido-card-preview"><img src="${escapeHtml(mediaUrl)}" alt="Preview" loading="lazy"></div>`;
+    }
 
     return `
       <div class="contenido-card">
@@ -277,6 +298,27 @@ document.addEventListener('click', (e) => {
 });
 
 // ── Filtro ──
+// ── Carousel navigation ──
+function carouselNav(sliderId, dir) {
+  const container = document.getElementById(sliderId);
+  if (!container) return;
+  const slides = container.querySelectorAll('.carousel-slide');
+  const dots = container.querySelectorAll('.carousel-dot');
+  let current = [...slides].findIndex(s => s.classList.contains('active'));
+  slides[current].classList.remove('active');
+  if (dots[current]) dots[current].classList.remove('active');
+  current = (current + dir + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  if (dots[current]) dots[current].classList.add('active');
+}
+
+function carouselGo(sliderId, idx) {
+  const container = document.getElementById(sliderId);
+  if (!container) return;
+  container.querySelectorAll('.carousel-slide').forEach((s, i) => s.classList.toggle('active', i === idx));
+  container.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+}
+
 document.getElementById('contenidos-filtro')?.addEventListener('change', (e) => {
   _filtroEstado = e.target.value;
   _fetchContenidos();

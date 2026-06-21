@@ -409,28 +409,40 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
             conn = self._contenidos_db()
             cursor = conn.cursor()
 
-            from image_composer import compose_image
+            from image_composer import compose_image, compose_carousel
             import time as _time
+            ts = int(_time.time())
             try:
-                branded_url = compose_image(
-                    producto_nombre=nombre,
-                    producto_precio=precio,
-                    producto_imagen_url=producto.get("imagen_principal", ""),
-                    persona=persona,
-                    pilar=pilar,
-                    formato=formato,
-                    hook=data.get("hook", ""),
-                    output_filename=f"{formato}_{producto.get('sku', '')}_{int(_time.time())}.jpg",
-                    titulo=data.get("titulo", ""),
-                    puntos=data.get("puntos"),
-                    numero_grande=data.get("numero_grande", ""),
-                    subtexto=data.get("subtexto", ""),
-                    bullets=data.get("bullets"),
-                    pregunta=data.get("pregunta", ""),
-                    opciones=data.get("opciones"),
-                    cta_bar=data.get("cta_bar", ""),
-                    emoji=data.get("emoji", ""),
-                )
+                if fmt["tipo"] == "carrusel" and data.get("puntos"):
+                    paths = compose_carousel(
+                        persona=persona, pilar=pilar,
+                        hook=data.get("hook", ""),
+                        titulo=data.get("titulo", ""),
+                        puntos=data.get("puntos"),
+                        cta_bar=data.get("cta_bar", ""),
+                        output_prefix=f"{formato}_{producto.get('sku', '')}_{ts}",
+                        producto_nombre=nombre, producto_precio=precio,
+                        producto_imagen_url=producto.get("imagen_principal", ""),
+                    )
+                    branded_url = json.dumps(paths)
+                else:
+                    branded_url = compose_image(
+                        producto_nombre=nombre,
+                        producto_precio=precio,
+                        producto_imagen_url=producto.get("imagen_principal", ""),
+                        persona=persona, pilar=pilar, formato=formato,
+                        hook=data.get("hook", ""),
+                        output_filename=f"{formato}_{producto.get('sku', '')}_{ts}.jpg",
+                        titulo=data.get("titulo", ""),
+                        puntos=data.get("puntos"),
+                        numero_grande=data.get("numero_grande", ""),
+                        subtexto=data.get("subtexto", ""),
+                        bullets=data.get("bullets"),
+                        pregunta=data.get("pregunta", ""),
+                        opciones=data.get("opciones"),
+                        cta_bar=data.get("cta_bar", ""),
+                        emoji=data.get("emoji", ""),
+                    )
             except Exception:
                 branded_url = producto.get("imagen_principal", "")
 
@@ -555,7 +567,19 @@ RECORDÁ: hook OBLIGATORIO (nunca vacío), máximo 2 emojis, no empieces con emo
             for r in rows:
                 d = dict(r)
                 media = d.get("media_url", "")
-                if media and not media.startswith("http") and not media.startswith("data:"):
+                if media and media.startswith("["):
+                    try:
+                        paths = json.loads(media)
+                        b64_list = []
+                        for mp in paths:
+                            p = Path(mp)
+                            if p.exists():
+                                b64_list.append(f"data:image/jpeg;base64,{base64.b64encode(p.read_bytes()).decode()}")
+                        d["media_url"] = json.dumps(b64_list)
+                        d["_is_carousel"] = True
+                    except Exception:
+                        d["media_url"] = ""
+                elif media and not media.startswith("http") and not media.startswith("data:"):
                     p = Path(media)
                     if p.exists():
                         b64 = base64.b64encode(p.read_bytes()).decode()
