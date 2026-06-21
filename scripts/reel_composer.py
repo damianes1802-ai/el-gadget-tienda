@@ -374,13 +374,13 @@ def generate_voiceover(text, persona="maria", output_path=None):
         client = ElevenLabs(api_key=api_key)
 
         voice_map = {
-            "maria": "Rachel",
-            "lucas": "Adam",
-            "ana": "Rachel",
-            "sofi": "Rachel",
-            "martin": "Adam",
+            "maria": "cgSgspJ2msm6clMCkdW9",
+            "lucas": "TX3LPaxmHKxFdv7VOQHJ",
+            "ana": "EXAVITQu4vr4xnSDxMaL",
+            "sofi": "FGY2WhTYpPnrIDTdsKH5",
+            "martin": "cjVigY5qzO86Huf0OWal",
         }
-        voice = voice_map.get(persona, "Rachel")
+        voice = voice_map.get(persona, "cgSgspJ2msm6clMCkdW9")
 
         audio_gen = client.text_to_speech.convert(
             text=text,
@@ -553,9 +553,7 @@ def compose_reel(
         idx = min(int(t * FPS), len(all_frames) - 1)
         return all_frames[idx]
 
-    clip = VideoClip(make_frame, duration=total_duration)
-
-    # Audio: voiceover + background music
+    # Audio: generar voz primero para saber su duración
     vo_clip = None
     music_clip = None
 
@@ -564,12 +562,21 @@ def compose_reel(
         if vo_path and Path(vo_path).exists():
             try:
                 vo_clip = AudioFileClip(vo_path)
-                if vo_clip.duration > total_duration:
-                    vo_clip = vo_clip.subclipped(0, total_duration)
                 print(f"[REEL] Voz en off: {vo_path} ({vo_clip.duration:.1f}s)")
             except Exception as e:
                 print(f"[REEL] Error loading voiceover: {e}")
                 vo_clip = None
+
+    # Si la voz es más larga que el video, extender el último slide
+    if vo_clip and vo_clip.duration > total_duration:
+        extra = vo_clip.duration - total_duration + 1.0
+        last_frame = all_frames[-1]
+        extra_frames = [last_frame] * int(extra * FPS)
+        all_frames.extend(extra_frames)
+        total_duration = len(all_frames) / FPS
+        print(f"[REEL] Video extendido a {total_duration:.1f}s para completar la voz")
+
+    clip = VideoClip(make_frame, duration=total_duration)
 
     bg_music_path = _find_bg_music(persona)
     if bg_music_path:
@@ -591,6 +598,7 @@ def compose_reel(
             music_clip = None
 
     audio_parts = [c for c in [vo_clip, music_clip] if c is not None]
+
     if audio_parts:
         try:
             if len(audio_parts) == 1:
@@ -604,8 +612,8 @@ def compose_reel(
     output_path = str(OUTPUT_DIR / output_filename)
     clip.write_videofile(
         output_path, fps=FPS, codec="libx264",
-        audio_codec="aac" if audio_clips else None,
-        audio=bool(audio_clips),
+        audio_codec="aac" if audio_parts else None,
+        audio=bool(audio_parts),
         preset="medium", threads=4, logger=None,
     )
     clip.close()
