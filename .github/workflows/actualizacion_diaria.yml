@@ -1,11 +1,12 @@
 name: Actualizacion diaria del catalogo
 
 on:
+  repository_dispatch:
+    types: [actualizacion_diaria]
   schedule:
-    # 06:07 UTC = 03:07 Argentina. Se programa en un minuto
-    # "no redondo" porque GitHub Actions retrasa los cron en horarios populares
-    # (ej. :00 en punto), y los retrasos observados llegaron a 3-6 horas.
-    - cron: '7 6 * * *'
+    # Backup: cron a 00:07 UTC (21:07 Argentina) por si el trigger externo falla.
+    # Con retraso de GitHub, ejecutaría máximo a las 03:00 Argentina.
+    - cron: '7 0 * * *'
   workflow_dispatch:
 
 permissions:
