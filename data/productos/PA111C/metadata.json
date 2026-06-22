@@ -36,7 +36,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/blusa-manga-larga-semi-oxford-mujer-estilo-chic-brigitte-2.html",
-  "fecha_scraping": "2026-06-22T12:44:19.988313",
+  "fecha_scraping": "2026-06-22T18:49:11.166227",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -46,7 +46,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T12:50:15.666657",
+  "fecha_mapeo_categorias": "2026-06-22T18:55:26.869881",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_002",
@@ -65,5 +65,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 46000.0,
-  "fecha_calculo_precio": "2026-06-22T12:52:21.463459"
+  "fecha_calculo_precio": "2026-06-22T18:56:38.268123"
 }

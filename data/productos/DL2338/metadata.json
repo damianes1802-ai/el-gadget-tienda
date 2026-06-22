@@ -4,22 +4,22 @@
   "precio": 5990,
   "descripcion": "Zócalo 3D Autoadhesivo - 23 metros x 8 cm\nZócalo decorativo 3D autoadhesivo de alta calidad, ideal para renovar y proteger las paredes de tu hogar de forma rápida y económica. Perfecto para darle un toque moderno y elegante a cualquier ambiente sin necesidad de obra.\nCaracterísticas principales:\n- Fácil instalación: autoadhesivo, solo despega y pega. No requiere herramientas ni pegamento.\n- Material resistente y flexible: se adapta perfectamente a las esquinas y superficies.\n- Diseño 3D con textura: efecto madera o moderno que aporta volumen y estilo.\n- Medidas: 2.3 metros de largo x 8 cm de ancho.\n- Resistente al agua y fácil de limpiar.\n- Versátil: ideal para living, dormitorio, cocina, baño y oficinas.\nTransforma tus paredes en minutos y dale un acabado profesional a tu hogar sin complicaciones.",
   "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_9_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_4_.png",
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_1_.png",
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_2_.png",
-    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_3_.png",
-    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_4_.png",
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_5_.png",
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_6_.png",
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_7_.png",
-    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_8_.png",
-    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_9_.png"
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2338_8_.png"
   ],
   "cantidad_imagenes": 9,
   "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/zocalo-3d-pvc-autoadhesivo-2-3m-8cm-vinilico-decorativo.html",
-  "fecha_scraping": "2026-06-22T12:46:01.238634",
+  "fecha_scraping": "2026-06-22T18:48:32.608001",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -29,7 +29,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T12:50:15.723770",
+  "fecha_mapeo_categorias": "2026-06-22T18:55:26.926957",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_002",
@@ -53,5 +53,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 10500.0,
-  "fecha_calculo_precio": "2026-06-22T12:52:21.433649"
+  "fecha_calculo_precio": "2026-06-22T18:56:38.229178"
 }
