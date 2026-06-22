@@ -22,8 +22,6 @@
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5929/",
   "fecha_scraping": "2026-06-17T11:28:27.508568",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
-  "categorias_pendientes": true,
-  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2366-M_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2366-M_002",
@@ -48,5 +46,17 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 7500.0,
-  "fecha_calculo_precio": "2026-06-22T18:56:38.238115"
+  "fecha_calculo_precio": "2026-06-22T19:53:07.429577",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-22T19:52:09.378443",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-22T19:52:09.378446"
 }

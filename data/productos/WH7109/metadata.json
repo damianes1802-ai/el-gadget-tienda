@@ -14,7 +14,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/peluche-brazalete.html",
-  "fecha_scraping": "2026-06-22T18:50:16.895432",
+  "fecha_scraping": "2026-06-22T19:46:06.818507",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -43,5 +43,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 14000.0,
-  "fecha_calculo_precio": "2026-06-22T18:56:38.310041"
+  "fecha_calculo_precio": "2026-06-22T19:53:07.492811"
 }

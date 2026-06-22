@@ -12,7 +12,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botella-infantil-osito-1000-ml-4.html",
-  "fecha_scraping": "2026-06-22T18:49:38.450601",
+  "fecha_scraping": "2026-06-22T19:48:21.073201",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -22,7 +22,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T18:55:26.903270",
+  "fecha_mapeo_categorias": "2026-06-22T19:52:09.261935",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-BL_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-BL_002"
@@ -39,5 +39,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 16500.0,
-  "fecha_calculo_precio": "2026-06-22T18:56:38.297195"
+  "fecha_calculo_precio": "2026-06-22T19:53:07.481382"
 }

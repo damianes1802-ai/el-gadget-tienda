@@ -11,10 +11,8 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/body-enterito-infantil-para-bebes-2.html",
-  "fecha_scraping": "2026-06-22T18:48:51.953772",
+  "fecha_scraping": "2026-06-22T19:48:27.838824",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
-  "categorias_pendientes": true,
-  "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CE-80_001"
   ],
@@ -30,5 +28,17 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 25500.0,
-  "fecha_calculo_precio": "2026-06-22T18:56:38.316753"
+  "fecha_calculo_precio": "2026-06-22T19:53:07.499535",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-22T19:52:09.402002",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-22T19:52:09.402006"
 }

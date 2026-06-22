@@ -12,7 +12,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/beanie-clasico-1.html",
-  "fecha_scraping": "2026-06-22T18:50:33.192827",
+  "fecha_scraping": "2026-06-22T19:47:43.113465",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -39,5 +39,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8000.0,
-  "fecha_calculo_precio": "2026-06-22T18:56:38.284868"
+  "fecha_calculo_precio": "2026-06-22T19:53:07.470726"
 }
