@@ -37,7 +37,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/blusa-bambula-manga-corta-hombros-caidos-acampanada-blanca.html",
-  "fecha_scraping": "2026-06-22T19:46:13.977142",
+  "fecha_scraping": "2026-06-22T20:44:55.374001",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -47,7 +47,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T19:52:09.217380",
+  "fecha_mapeo_categorias": "2026-06-22T20:50:26.267550",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_002",
@@ -67,5 +67,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 46000.0,
-  "fecha_calculo_precio": "2026-06-22T19:53:07.457969"
+  "fecha_calculo_precio": "2026-06-22T20:52:38.505587"
 }

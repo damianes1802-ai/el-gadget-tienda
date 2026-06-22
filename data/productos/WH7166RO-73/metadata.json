@@ -11,8 +11,17 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/body-enterito-infantil-para-bebes-7.html",
-  "fecha_scraping": "2026-06-22T19:45:40.260831",
+  "fecha_scraping": "2026-06-22T20:45:18.370832",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-22T19:52:09.383754",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-73_001"
   ],
@@ -28,17 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 25500.0,
-  "fecha_calculo_precio": "2026-06-22T19:53:07.501550",
-  "categoria_principal": "OFERTAS",
-  "categoria": "OFERTAS",
-  "categorias_secundarias": [],
-  "todas_las_categorias": [
-    "OFERTAS"
-  ],
-  "total_categorias": 1,
-  "fecha_actualizacion_categorias": "2026-06-22T19:52:09.383750",
-  "categoria_asignada_automaticamente": true,
-  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
-  "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T19:52:09.383754"
+  "fecha_calculo_precio": "2026-06-22T20:52:38.535311"
 }

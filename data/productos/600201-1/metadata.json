@@ -18,7 +18,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/kit-x8-dilatadores-nasales-antirronquidos-2.html",
-  "fecha_scraping": "2026-06-22T19:46:04.088453",
+  "fecha_scraping": "2026-06-22T20:46:59.258684",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Estética y Belleza"
@@ -28,7 +28,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T19:52:09.246844",
+  "fecha_mapeo_categorias": "2026-06-22T20:50:26.282417",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_002",
@@ -51,5 +51,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 5000.0,
-  "fecha_calculo_precio": "2026-06-22T19:53:07.328184"
+  "fecha_calculo_precio": "2026-06-22T20:52:38.414124"
 }

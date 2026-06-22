@@ -11,8 +11,17 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/body-infantil-para-bebes-de-animalitos-4.html",
-  "fecha_scraping": "2026-06-22T19:46:01.152374",
+  "fecha_scraping": "2026-06-22T20:44:13.481545",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-22T19:52:09.378936",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170OSO-73_001"
   ],
@@ -28,17 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 34500.0,
-  "fecha_calculo_precio": "2026-06-22T19:53:07.504765",
-  "categoria_principal": "OFERTAS",
-  "categoria": "OFERTAS",
-  "categorias_secundarias": [],
-  "todas_las_categorias": [
-    "OFERTAS"
-  ],
-  "total_categorias": 1,
-  "fecha_actualizacion_categorias": "2026-06-22T19:52:09.378933",
-  "categoria_asignada_automaticamente": true,
-  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
-  "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T19:52:09.378936"
+  "fecha_calculo_precio": "2026-06-22T20:52:38.537551"
 }
