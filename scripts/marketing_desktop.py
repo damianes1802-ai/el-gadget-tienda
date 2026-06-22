@@ -1049,6 +1049,36 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
                     output_filename=f"{layout_id}_{producto.get('sku', '')}_{ts}.mp4",
                 )
 
+            # Guardar guión .txt junto al reel
+            try:
+                guion_path = reel_path.replace('.mp4', '_guion.txt')
+                guion_lines = [
+                    f"REEL {layout_id} — {persona_data['nombre']}",
+                    f"Dolor: {dolor['texto']}",
+                    f"Angulo: {angulo['texto']}",
+                    "",
+                    f"HOOK: {data.get('hook', '')}",
+                    f"DOLOR: {data.get('dolor', data.get('antes_texto', ''))}",
+                    f"SOLUCION: {data.get('solucion', data.get('despues_texto', ''))}",
+                    f"NUMERO: {data.get('numero_grande', data.get('dato_grande', ''))}",
+                    f"SUBTEXTO: {data.get('subtexto_proof', data.get('dato_contexto', ''))}",
+                    f"BENEFICIO: {data.get('beneficio', '')}",
+                    f"DATO EXTRA: {data.get('dato_extra', data.get('dato_como', ''))}",
+                    f"CTA: {data.get('cta_text', data.get('cta', ''))}",
+                    "",
+                    "VOZ EN OFF:",
+                    data.get("voiceover", ""),
+                    "",
+                    "CAPTION:",
+                    data.get("caption", ""),
+                    "",
+                    "HASHTAGS:",
+                    data.get("hashtags", ""),
+                ]
+                Path(guion_path).write_text("\n".join(guion_lines), encoding="utf-8")
+            except Exception:
+                pass
+
             # Save to DB
             dolor_id = ctx["dolor"]["id"]
             angulo_id = ctx["angulo"]["id"]
@@ -1184,18 +1214,34 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
                 if len(prods_top) >= cantidad * 2:
                     break
 
-            # Selección inteligente — cada pieza usa _seleccionar_contexto
+            # Distribución fija: 2 carruseles + 2 genéricos + 1 producto
+            # slot_types: "carrusel", "post", "producto"
+            slot_types = ["carrusel", "carrusel", "post", "post", "producto"][:cantidad]
+
             historial = self._get_historial(20)
             resultados = []
             errores = []
             fingerprints_lote = set()
 
             for i in range(cantidad):
+                slot = slot_types[i] if i < len(slot_types) else "post"
                 prod = prods_top[i % len(prods_top)] if prods_top else {}
 
                 for intento in range(3):
                     try:
                         ctx = self._seleccionar_contexto(historial)
+
+                        # Forzar tipo según slot
+                        if slot == "carrusel":
+                            ctx["tipo"] = "carrusel"
+                            if ctx["layout_id"] not in ("L01", "L06", "L08", "L09", "L10"):
+                                ctx["layout_id"] = random.choice(["L01", "L06", "L09", "L10"])
+                                ctx["layout_info"] = LAYOUTS_INFO.get(ctx["layout_id"], {})
+                        elif slot == "producto":
+                            ctx["tipo"] = "post"
+                            if ctx["layout_id"] not in ("L07", "L08"):
+                                ctx["layout_id"] = random.choice(["L07", "L08"])
+                                ctx["layout_info"] = LAYOUTS_INFO.get(ctx["layout_id"], {})
 
                         # Evitar duplicados dentro del mismo lote
                         fp = f"{ctx.get('fingerprint', '')}|{prod.get('sku', '')}"
