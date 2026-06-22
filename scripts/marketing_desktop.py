@@ -1047,6 +1047,7 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
                     cta_text=data.get("cta_text", ""),
                     voiceover_text=data.get("voiceover", ""),
                     output_filename=f"R01_{producto.get('sku', '')}_{ts}.mp4",
+                    reel_type=layout_id,
                 )
             else:
                 from reel_composer import compose_reel_variant
@@ -1189,13 +1190,26 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
                     try:
                         ctx = self._seleccionar_contexto(historial)
 
-                        # Force a reel layout: pick from R* layouts of this angulo
+                        # Force a reel layout weighted by persona preference
+                        REEL_WEIGHTS = {
+                            "maria":  {"R02": 5, "R01": 3, "R04": 3, "R07": 2, "R06": 2, "R09": 1, "R10": 1},
+                            "lucas":  {"R03": 5, "R01": 3, "R08": 3, "R05": 2, "R04": 2, "R10": 1, "R02": 1},
+                            "ana":    {"R01": 4, "R06": 3, "R04": 3, "R09": 3, "R05": 2, "R03": 1},
+                            "sofi":   {"R02": 4, "R07": 4, "R04": 3, "R06": 2, "R08": 2, "R09": 1},
+                            "martin": {"R03": 5, "R08": 4, "R01": 3, "R07": 2, "R09": 2},
+                        }
                         angulo_layouts = ctx["angulo"].get("layouts", [])
                         reel_layouts = [lid for lid in angulo_layouts if lid.startswith("R")]
+                        persona_weights = REEL_WEIGHTS.get(ctx["persona_key"], {})
                         if reel_layouts:
-                            chosen = random.choice(reel_layouts)
+                            pool = []
+                            for lid in reel_layouts:
+                                weight = persona_weights.get(lid, 1)
+                                pool.extend([lid] * weight)
+                            chosen = random.choice(pool) if pool else random.choice(reel_layouts)
                         else:
-                            chosen = "R01"
+                            fallbacks = list(persona_weights.keys())[:3] if persona_weights else ["R01"]
+                            chosen = random.choice(fallbacks)
                         ctx["layout_id"] = chosen
                         ctx["layout_info"] = LAYOUTS_INFO.get(chosen, LAYOUTS_INFO["R01"])
 

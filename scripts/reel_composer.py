@@ -53,6 +53,21 @@ RITMO = {
     "martin":{"hook": 2.5, "slide": 2.5, "proof": 3.5, "cta": 4.0, "transition": 0.4},
 }
 
+# Multiplicador de duración por tipo de reel
+# < 1.0 = más corto, > 1.0 = más largo
+REEL_DURATION_SCALE = {
+    "R01": 1.0,   # Classic (20-25s)
+    "R02": 1.1,   # Antes/después (22-28s) — necesita tiempo para el contraste
+    "R03": 0.6,   # Número corto (12-15s) — viral, rápido
+    "R04": 1.3,   # Storytelling (26-32s) — necesita desarrollo
+    "R05": 1.0,   # Paso a paso (20-25s)
+    "R06": 1.0,   # Mito/realidad (20-25s)
+    "R07": 0.9,   # Producto (18-22s)
+    "R08": 1.0,   # Comparativa (20-25s)
+    "R09": 0.9,   # Checklist (18-22s)
+    "R10": 0.5,   # Dato viral (10-12s) — ultra corto, impacto
+}
+
 FONT_CACHE = {}
 def _font(role, size):
     key = (role, size)
@@ -666,6 +681,7 @@ def compose_reel(
     cta_text="",
     voiceover_text="",
     output_filename=None,
+    reel_type="R01",
 ) -> str:
     """
     Genera un Reel con 7 slides dinámicos, transiciones variadas y audio opcional.
@@ -689,7 +705,9 @@ def compose_reel(
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     pal = PALETAS.get(persona, PALETAS["lucas"])
-    ritmo = RITMO.get(persona, RITMO["lucas"])
+    base_ritmo = RITMO.get(persona, RITMO["lucas"])
+    scale = REEL_DURATION_SCALE.get(reel_type, 1.0)
+    ritmo = {k: round(v * scale, 1) if k != "transition" else v for k, v in base_ritmo.items()}
     if not output_filename:
         import time as _t
         output_filename = f"reel_{persona}_{int(_t.time())}.mp4"
@@ -1155,7 +1173,9 @@ def compose_reel_variant(
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     pal = PALETAS.get(persona, PALETAS["lucas"])
-    ritmo = RITMO.get(persona, RITMO["lucas"])
+    base_ritmo = RITMO.get(persona, RITMO["lucas"])
+    scale = REEL_DURATION_SCALE.get(reel_type, 1.0)
+    ritmo = {k: round(v * scale, 1) if k != "transition" else v for k, v in base_ritmo.items()}
     if not output_filename:
         import time as _t
         output_filename = f"reel_{reel_type}_{persona}_{int(_t.time())}.mp4"
