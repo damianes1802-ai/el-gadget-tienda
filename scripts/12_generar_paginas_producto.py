@@ -687,19 +687,30 @@ def generar():
 
     # 5. Generar sitemap.xml
     hoy = date.today().isoformat()
-    urls = [
-        f"{site_url}/",
-        f"{site_url}/carrito",
-        f"{site_url}/faq",
-        f"{site_url}/sobre_nosotros",
-        f"{site_url}/arrepentimiento",
-        f"{site_url}/seguimiento",
+    # Dominio canónico (forzado, no depende de SITE_URL del .env)
+    canonical_url = "https://elgadget.com.ar"
+    static_pages = [
+        (f"{canonical_url}/", "weekly"),
+        (f"{canonical_url}/faq", "monthly"),
+        (f"{canonical_url}/sobre_nosotros", "monthly"),
+        (f"{canonical_url}/arrepentimiento", "monthly"),
+        (f"{canonical_url}/seguimiento", "monthly"),
+        (f"{canonical_url}/privacidad", "monthly"),
+        (f"{canonical_url}/devoluciones", "monthly"),
+        (f"{canonical_url}/terminos", "monthly"),
+        (f"{canonical_url}/referidos", "weekly"),
+        (f"{canonical_url}/ganar/", "monthly"),
+        (f"{canonical_url}/ganar/desde-casa/", "monthly"),
+        (f"{canonical_url}/ganar/marketing-afiliados/", "monthly"),
+        (f"{canonical_url}/ganar/monetizar-redes/", "monthly"),
+        (f"{canonical_url}/ganar/vender-sin-stock/", "monthly"),
     ]
-    urls += [f"{site_url}/producto/{slug}/" for slug in sorted(slugs_generados)]
+    urls = [(f"{canonical_url}/producto/{slug}/", "weekly") for slug in sorted(slugs_generados)]
+    all_urls = static_pages + urls
 
     sitemap_items = '\n'.join(
-        f"  <url><loc>{html.escape(u)}</loc><lastmod>{hoy}</lastmod></url>"
-        for u in urls
+        f"  <url><loc>{html.escape(u)}</loc><lastmod>{hoy}</lastmod><changefreq>{freq}</changefreq></url>"
+        for u, freq in all_urls
     )
     sitemap_xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -708,7 +719,7 @@ def generar():
         '</urlset>\n'
     )
     SITEMAP_FILE.write_text(sitemap_xml, encoding='utf-8')
-    print(f"✅ Sitemap generado: {SITEMAP_FILE} ({len(urls)} URLs)")
+    print(f"✅ Sitemap generado: {SITEMAP_FILE} ({len(all_urls)} URLs, dominio: {canonical_url})")
 
     conn.close()
     print("\n" + "=" * 70 + "\n")
