@@ -315,6 +315,8 @@ REGLAS DE TONO:
 
 REGLAS DE IDIOMA Y REALISMO (OBLIGATORIAS):
 - TODO en español argentino. NUNCA uses palabras en inglés (dollars, money, business, side hustle en el texto visual o voiceover). Usá: pesos, plata, ingreso extra.
+- NUNCA uses abreviaciones. Escribí las palabras completas siempre. Prohibidas: ARS, USD, OFF, vs, etc, approx, min, max, seg, hs, c/u. Escribí: pesos, descuento, contra, etcétera, aproximadamente, minutos, máximo, segundos, horas, cada uno.
+- El voiceover se convierte a voz con IA. Escribilo como se habla, sin siglas ni abreviaciones que suenen raras al leerlas en voz alta.
 - Precios SIEMPRE en pesos argentinos con $. NUNCA dólares.
 - Ejemplos de productos deben ser REALES del catálogo de El Gadget (organizadores, gadgets, deco, accesorios). NUNCA inventes productos genéricos como "velas", "remeras" o "tazas".
 - Los cálculos de comisiones deben ser verificables: precio real × 7-15% = comisión real.
