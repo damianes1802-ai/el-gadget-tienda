@@ -984,6 +984,22 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
             import time as _time
             ts = int(_time.time())
 
+            voiceover_text = data.get("voiceover", "")
+
+            # Guardar guión como .txt
+            from pathlib import Path as _Path
+            reels_dir = _Path(__file__).parent.parent / "marketing_app" / "data" / "generated_reels"
+            reels_dir.mkdir(parents=True, exist_ok=True)
+            guion_path = str(reels_dir / f"{layout_id}_{producto.get('sku', '')}_{ts}_guion.txt")
+            guion_contenido = f"REEL {layout_id} — {persona_data['nombre']}\n"
+            guion_contenido += f"Hook: {data.get('hook', '')}\n\n"
+            guion_contenido += f"Voz en off:\n{voiceover_text}\n\n"
+            guion_contenido += f"Caption:\n{data.get('caption', '')}\n\n"
+            guion_contenido += f"Hashtags: {data.get('hashtags', '')}\n"
+            guion_contenido += f"CTA: {data.get('cta', '')}\n"
+            with open(guion_path, "w", encoding="utf-8") as gf:
+                gf.write(guion_contenido)
+
             if layout_id == "R01":
                 from reel_composer import compose_reel
                 reel_path = compose_reel(
@@ -1057,7 +1073,7 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
                 json.dumps({"reach_min": 1000, "reach_max": 5000, "eng_min": 4, "eng_max": 8}),
                 dolor_id, angulo_id, layout_id, ctx_fingerprint,
                 "reel",
-                None,  # voiceover_url — populated if TTS is added later
+                voiceover_text,
             ))
             conn.commit()
             contenido_id = cursor.lastrowid
