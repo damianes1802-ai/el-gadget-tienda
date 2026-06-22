@@ -230,7 +230,13 @@
           <button class="btn btn-accent" id="btn-generar-lote" onclick="generarLote()">Generar posts (5)</button>
           <button class="btn btn-accent" id="btn-generar-reels" onclick="generarLoteReels()" style="background:#E84393">Generar Reels (3)</button>
           <button class="btn btn-outline" onclick="abrirModalGenerar()">Generar para producto...</button>
-          <select id="contenidos-filtro" style="margin-left:auto">
+          <div id="elevenlabs-credits" style="margin-left:auto;margin-right:16px;font-size:12px;color:var(--gray-600);display:flex;align-items:center;gap:8px">
+            <span id="el-credits-text">Voz IA: cargando...</span>
+            <div style="width:80px;height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden">
+              <div id="el-credits-bar" style="width:0%;height:100%;background:var(--green-ok);border-radius:4px;transition:width 0.3s"></div>
+            </div>
+          </div>
+          <select id="contenidos-filtro">
             <option value="todos">Todos</option>
             <option value="borrador">Borradores</option>
             <option value="aprobado">Aprobados</option>

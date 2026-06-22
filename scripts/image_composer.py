@@ -914,14 +914,17 @@ def compose_carousel(
     puntos=None, cta_bar="", output_prefix=None,
     producto_nombre="", producto_precio=0, producto_imagen_url="",
 ) -> list:
-    """Genera carrusel de N slides (1080x1350) y retorna lista de paths."""
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    """Genera carrusel de N slides (1080x1350) en carpeta con fecha/hora. Retorna lista de paths."""
+    from datetime import datetime as _dt
     pal = PALETAS.get(persona, PALETAS["maria"])
     h = H_FEED
     items = puntos or []
     if not output_prefix:
         import time as _t
         output_prefix = f"carousel_{persona}_{int(_t.time())}"
+
+    carousel_dir = OUTPUT_DIR / f"carrusel_{_dt.now().strftime('%Y%m%d_%H%M%S')}_{persona}"
+    carousel_dir.mkdir(parents=True, exist_ok=True)
 
     paths = []
 
@@ -968,7 +971,7 @@ def compose_carousel(
         draw.ellipse([dot_x + d * 24, dot_y, dot_x + d * 24 + 12, dot_y + 12], fill=color)
 
     _bottom_bar(draw, cta_bar or "Desliza para ver todos los tips", pal, h)
-    p = OUTPUT_DIR / f"{output_prefix}_01_cover.jpg"
+    p = carousel_dir / "1.jpg"
     img.convert("RGB").save(str(p), "JPEG", quality=92)
     paths.append(str(p))
 
@@ -998,7 +1001,7 @@ def compose_carousel(
             draw.ellipse([dot_x + d * 24, dot_y, dot_x + d * 24 + 12, dot_y + 12], fill=color)
 
         _bottom_bar(draw, f"{idx + 1}/{len(items)}", pal, h)
-        p = OUTPUT_DIR / f"{output_prefix}_{idx + 2:02d}.jpg"
+        p = carousel_dir / f"{idx + 2}.jpg"
         img.convert("RGB").save(str(p), "JPEG", quality=92)
         paths.append(str(p))
 
@@ -1050,7 +1053,7 @@ def compose_carousel(
     ctf = _font("h", 21)
     ctw = draw.textbbox((0, 0), cta_final, font=ctf)[2]
     draw.text(((W - ctw) // 2, h - 72 + 24), cta_final, fill=ACCENT, font=ctf)
-    p = OUTPUT_DIR / f"{output_prefix}_{len(items) + 2:02d}_cta.jpg"
+    p = carousel_dir / f"{len(items) + 2}.jpg"
     img.convert("RGB").save(str(p), "JPEG", quality=92)
     paths.append(str(p))
 

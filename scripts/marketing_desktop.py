@@ -1233,9 +1233,11 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
             for r in rows:
                 d = dict(r)
                 media = d.get("media_url", "")
+                d["_original_path"] = media
                 if media and media.startswith("["):
                     try:
                         paths = json.loads(media)
+                        d["_original_path"] = str(Path(paths[0]).parent) if paths else media
                         b64_list = []
                         for mp in paths:
                             p = Path(mp)
@@ -1291,6 +1293,23 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
             conn.commit()
             conn.close()
             return {"ok": True}
+        except Exception as e:
+            return {"error": str(e)}
+
+    def get_elevenlabs_credits(self):
+        try:
+            env = Config.cargar_env()
+            api_key = env.get('ELEVENLABS_API_KEY', '')
+            if not api_key:
+                return {"error": "No configurada"}
+            r = requests.get('https://api.elevenlabs.io/v1/user/subscription',
+                           headers={'xi-api-key': api_key}, timeout=10)
+            if r.status_code == 401:
+                return {"error": "API key sin permiso user_read"}
+            data = r.json()
+            used = data.get("character_count", 0)
+            limit = data.get("character_limit", 0)
+            return {"used": used, "limit": limit, "remaining": limit - used, "tier": data.get("tier", "free")}
         except Exception as e:
             return {"error": str(e)}
 

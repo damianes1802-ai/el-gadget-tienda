@@ -7,6 +7,7 @@ let _filtroEstado = 'todos';
 
 async function loadContenidos() {
   await _fetchContenidos();
+  loadElevenLabsCredits();
 }
 
 async function _fetchContenidos() {
@@ -387,10 +388,10 @@ function publicarManual(id) {
 
       <div style="background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px">
         <div style="font-size:12px;font-weight:600;color:var(--gray-600);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">
-          ${isReel ? 'Paso 1: Descargá el video' : 'Paso 1: Descargá la imagen'}
+          Paso 1: Copiá la ubicación del archivo
         </div>
         <button onclick="descargarMedia(${id})" class="btn btn-accent" style="width:100%;font-size:14px">
-          ${isReel ? 'Descargar Reel (.mp4)' : 'Descargar imagen (.jpg)'}
+          Copiar directorio
         </button>
       </div>
 
@@ -422,13 +423,16 @@ function publicarManual(id) {
 
 function descargarMedia(id) {
   const c = _contenidos.find(x => x.id === id);
-  if (!c || !c.media_url) return;
+  if (!c) return;
 
-  const a = document.createElement('a');
-  a.href = c.media_url;
-  a.download = c._is_reel ? `reel_${id}.mp4` : `post_${id}.jpg`;
-  a.click();
-  toast('Descarga iniciada', 'success');
+  const path = c._original_path || c.media_url || '';
+  if (path) {
+    navigator.clipboard.writeText(path).then(() => {
+      toast('Directorio copiado al portapapeles', 'success');
+    }).catch(() => {
+      toast('Error copiando directorio', 'error');
+    });
+  }
 }
 
 function copiarCaption() {
@@ -447,6 +451,29 @@ async function marcarPublicado(id) {
     _fetchContenidos();
   } catch (e) {
     toast('Error: ' + e.message, 'error');
+  }
+}
+
+// ── ElevenLabs credits ──
+
+async function loadElevenLabsCredits() {
+  try {
+    const data = await apiCall('get_elevenlabs_credits');
+    const textEl = document.getElementById('el-credits-text');
+    const barEl = document.getElementById('el-credits-bar');
+    if (!textEl || !barEl) return;
+    if (data && data.error) {
+      textEl.textContent = 'Voz IA: ' + data.error;
+      barEl.style.width = '0%';
+    } else if (data && data.limit) {
+      const pct = Math.round((data.remaining / data.limit) * 100);
+      textEl.textContent = `Voz IA: ${data.remaining.toLocaleString()} / ${data.limit.toLocaleString()}`;
+      barEl.style.width = pct + '%';
+      barEl.style.background = pct < 15 ? 'var(--red)' : pct < 40 ? 'var(--accent)' : 'var(--green-ok)';
+    }
+  } catch (e) {
+    const textEl = document.getElementById('el-credits-text');
+    if (textEl) textEl.textContent = 'Voz IA: sin datos';
   }
 }
 
