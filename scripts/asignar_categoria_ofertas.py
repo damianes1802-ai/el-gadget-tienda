@@ -10,7 +10,7 @@ from pathlib import Path
 from datetime import datetime
 
 # Configuración
-PRODUCTOS_DIR = Path(r"C:\Users\damia\Desktop\ecommerce_automation\data\productos")
+PRODUCTOS_DIR = Path(__file__).parent.parent / "data" / "productos"
 
 def asignar_categoria_ofertas():
     """Asigna categoría OFERTAS SOLO a productos disponibles sin categoría"""
