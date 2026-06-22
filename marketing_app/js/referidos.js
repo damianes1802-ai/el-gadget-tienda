@@ -5,6 +5,31 @@
 let _refPeriod = 'all';
 let _refSort = 'revenue';
 
+function exportReferidosCSV() {
+  const data = _cache;
+  if (!data.referidos || !data.referidos.length) { toast('No hay datos para exportar', 'error'); return; }
+
+  const referidos = data.referidos || [];
+  const headers = ['nombre', 'email', 'codigo', 'estado', 'ventas', 'revenue', 'comision_total', 'comision_pendiente', 'tier', 'fecha_registro'];
+  const rows = referidos.map(r => {
+    const tier = calcReferidoTier(r);
+    return [
+      r.nombre || '',
+      r.email || '',
+      r.codigo || '',
+      r.activo ? 'activo' : 'inactivo',
+      r.cantidad_ventas || 0,
+      r.total_ventas || 0,
+      r.comision_total || 0,
+      r.comision_pendiente || 0,
+      tier,
+      csvFormatDate(r.creado_at || r.created_at || ''),
+    ];
+  });
+
+  downloadCSV(`elgadget_referidos_${csvDateNow()}.csv`, headers, rows);
+}
+
 async function loadReferidos() {
   const data = _cache;
   if (!data.referidos) return;

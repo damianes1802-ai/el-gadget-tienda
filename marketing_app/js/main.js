@@ -15,6 +15,46 @@ const SECTION_TITLES = {
 const loadedSections = new Set();
 let currentSection = 'dashboard';
 
+// ── Exportar CSV ──
+function downloadCSV(filename, headers, rows) {
+  const escapeCsvCell = (val) => {
+    if (val === null || val === undefined) return '';
+    const str = String(val);
+    if (str.includes('"') || str.includes(',') || str.includes('\n') || str.includes('\r')) {
+      return '"' + str.replace(/"/g, '""') + '"';
+    }
+    return str;
+  };
+  const csvLines = [
+    headers.map(escapeCsvCell).join(','),
+    ...rows.map(row => row.map(escapeCsvCell).join(','))
+  ];
+  const csvContent = csvLines.join('\r\n');
+  const BOM = '﻿';
+  const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('CSV exportado: ' + filename, 'success');
+}
+
+function csvDateNow() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function csvFormatDate(fecha) {
+  if (!fecha) return '';
+  const d = new Date(fecha.includes('T') || fecha.includes('Z') ? fecha : fecha.replace(' ', 'T'));
+  if (isNaN(d.getTime())) return fecha || '';
+  return d.toLocaleDateString('es-AR');
+}
+
 // ── Cache global de datos ──
 let _cache = {
   estadisticas: null,

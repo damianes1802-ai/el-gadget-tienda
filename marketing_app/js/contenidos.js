@@ -7,6 +7,40 @@ let _filtroEstado = 'todos';
 let _filtroPersona = 'todos';
 let _filtroTipo = 'todos';
 
+function exportContenidosCSV() {
+  if (!_contenidos.length) { toast('No hay datos para exportar', 'error'); return; }
+
+  const headers = ['id', 'tipo', 'formato', 'persona', 'layout_id', 'estado', 'hook', 'caption', 'hashtags', 'producto_sku', 'producto_nombre', 'media_type', 'creado_at', 'aprobado_at', 'publicado_at', 'views', 'saves', 'shares', 'reach'];
+  const rows = _contenidos.map(c => {
+    let mediaType = 'imagen';
+    if (c._is_reel) mediaType = 'reel';
+    else if (c._is_carousel || (c.media_url || '').startsWith('[')) mediaType = 'carrusel';
+    return [
+      c.id || '',
+      c.tipo || '',
+      c.formato || '',
+      c.persona || '',
+      c.layout_id || '',
+      c.estado || '',
+      c.hook || '',
+      c.caption || '',
+      c.hashtags || '',
+      c.producto_sku || c.sku || '',
+      c.producto_nombre || '',
+      mediaType,
+      csvFormatDate(c.created_at || c.creado_at || ''),
+      csvFormatDate(c.aprobado_at || ''),
+      csvFormatDate(c.publicado_at || ''),
+      c.views || 0,
+      c.saves || 0,
+      c.shares || 0,
+      c.reach || 0,
+    ];
+  });
+
+  downloadCSV(`elgadget_contenidos_${csvDateNow()}.csv`, headers, rows);
+}
+
 async function loadContenidos() {
   await _fetchContenidos();
   loadElevenLabsCredits();

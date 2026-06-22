@@ -2,6 +2,31 @@
    MARKETING EL GADGET — Dashboard
    ============================================================ */
 
+function exportDashboardCSV() {
+  const data = _cache;
+  if (!data.ordenes) { toast('No hay datos para exportar', 'error'); return; }
+
+  const ordenes = enrichOrdenes(data.ordenes, data.referidos, data.descuentos);
+  const byMonth = calcRevenueByMonth(ordenes, 120);
+
+  const headers = ['mes', 'total', 'cantidad_pedidos', 'referido', 'organico', 'promo', 'mayorista'];
+  const rows = byMonth.map(m => {
+    const monthOrdenes = ordenes.filter(o => o._mes === m.mes);
+    const countBySource = calcCountBySource(monthOrdenes);
+    return [
+      m.mes,
+      m.total || 0,
+      monthOrdenes.length,
+      m.referido || 0,
+      m.organico || 0,
+      m.promo || 0,
+      m.mayorista || 0,
+    ];
+  });
+
+  downloadCSV(`elgadget_dashboard_${csvDateNow()}.csv`, headers, rows);
+}
+
 async function loadDashboard() {
   const data = _cache;
   if (!data.ordenes) return;

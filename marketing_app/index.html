@@ -65,6 +65,9 @@
 
       <!-- ═══ DASHBOARD ═══ -->
       <section class="section active" id="section-dashboard">
+        <div class="toolbar" style="margin-bottom:16px">
+          <button class="btn btn-outline btn-sm" onclick="exportDashboardCSV()">Exportar CSV</button>
+        </div>
         <div class="stats-grid">
           <div class="stat-card" id="stat-revenue"></div>
           <div class="stat-card" id="stat-orders"></div>
@@ -102,6 +105,7 @@
           <div class="stat-card" id="ref-stat-pendientes"></div>
         </div>
         <div class="toolbar">
+          <button class="btn btn-outline btn-sm" onclick="exportReferidosCSV()">Exportar CSV</button>
           <select id="ref-sort">
             <option value="revenue">Ordenar: por revenue</option>
             <option value="comision">Ordenar: por comisión</option>
@@ -129,6 +133,9 @@
 
       <!-- ═══ PRODUCTOS ═══ -->
       <section class="section" id="section-productos">
+        <div class="toolbar" style="margin-bottom:16px">
+          <button class="btn btn-outline btn-sm" onclick="exportProductosCSV()">Exportar CSV</button>
+        </div>
         <div class="stats-grid">
           <div class="stat-card" id="prod-stat-stock"></div>
           <div class="stat-card" id="prod-stat-top"></div>
@@ -157,6 +164,9 @@
 
       <!-- ═══ VENTAS ═══ -->
       <section class="section" id="section-ventas">
+        <div class="toolbar" style="margin-bottom:16px">
+          <button class="btn btn-outline btn-sm" onclick="exportVentasCSV()">Exportar CSV</button>
+        </div>
         <div class="stats-grid">
           <div class="stat-card" id="ventas-stat-revenue"></div>
           <div class="stat-card" id="ventas-stat-aov"></div>
@@ -192,6 +202,9 @@
 
       <!-- ═══ CAMPAÑAS ═══ -->
       <section class="section" id="section-campanias">
+        <div class="toolbar" style="margin-bottom:16px">
+          <button class="btn btn-outline btn-sm" onclick="exportCampaniasCSV()">Exportar CSV</button>
+        </div>
         <div class="stats-grid">
           <div class="stat-card" id="camp-stat-activas"></div>
           <div class="stat-card" id="camp-stat-revenue"></div>
@@ -230,6 +243,7 @@
           <button class="btn btn-accent" id="btn-generar-lote" onclick="generarLote()">Generar posts (5)</button>
           <button class="btn btn-accent" id="btn-generar-reels" onclick="generarLoteReels()" style="background:#E84393">Generar Reels (3)</button>
           <button class="btn btn-outline" onclick="abrirModalGenerar()">Generar para producto...</button>
+          <button class="btn btn-outline btn-sm" onclick="exportContenidosCSV()">Exportar CSV</button>
           <div id="elevenlabs-credits" style="margin-left:auto;margin-right:16px;font-size:12px;color:var(--gray-600);display:flex;align-items:center;gap:8px">
             <span id="el-credits-text">Voz IA: cargando...</span>
             <div style="width:80px;height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden">

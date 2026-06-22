@@ -4,6 +4,27 @@
 
 let _ventasPeriod = 'all';
 
+function exportVentasCSV() {
+  const data = _cache;
+  if (!data.ordenes || !data.ordenes.length) { toast('No hay datos para exportar', 'error'); return; }
+
+  const ordenes = data.ordenes || [];
+  const headers = ['id', 'fecha', 'total', 'estado_pago', 'cliente_nombre', 'cliente_email', 'descuento_codigo', 'zona_envio', 'costo_envio'];
+  const rows = ordenes.map(o => [
+    o.id || '',
+    csvFormatDate(o.fecha || ''),
+    o.total || 0,
+    o.estado_pago || '',
+    o.cliente_nombre || '',
+    o.cliente_email || '',
+    o.descuento_codigo || '',
+    o.zona_envio || '',
+    o.costo_envio || 0,
+  ]);
+
+  downloadCSV(`elgadget_ventas_${csvDateNow()}.csv`, headers, rows);
+}
+
 async function loadVentas() {
   const data = _cache;
   if (!data.ordenes) return;

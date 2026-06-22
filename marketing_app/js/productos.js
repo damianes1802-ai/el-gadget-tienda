@@ -2,6 +2,32 @@
    MARKETING EL GADGET — Productos analytics
    ============================================================ */
 
+function exportProductosCSV() {
+  const data = _cache;
+  const productos = Array.isArray(data.productos) ? data.productos : [];
+  if (!productos.length) { toast('No hay datos para exportar', 'error'); return; }
+
+  const topProds = calcTopProductos(data.estadisticas, 9999);
+  const topMap = {};
+  topProds.forEach(p => { topMap[(p.sku || '').toUpperCase()] = p; });
+
+  const headers = ['sku', 'nombre', 'categoria', 'precio', 'stock', 'unidades_vendidas', 'revenue'];
+  const rows = productos.map(p => {
+    const stats = topMap[(p.sku || '').toUpperCase()] || {};
+    return [
+      p.sku || '',
+      p.nombre || '',
+      p.categoria || '',
+      p.precio_venta || p.precio || 0,
+      p.stock != null ? p.stock : '',
+      stats.cantidad_vendida || 0,
+      stats.total_vendido || 0,
+    ];
+  });
+
+  downloadCSV(`elgadget_productos_${csvDateNow()}.csv`, headers, rows);
+}
+
 async function loadProductos() {
   const data = _cache;
   if (!data.estadisticas) return;

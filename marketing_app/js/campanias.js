@@ -2,6 +2,31 @@
    MARKETING EL GADGET — Campañas (placeholder ads futuro)
    ============================================================ */
 
+function exportCampaniasCSV() {
+  const data = _cache;
+  const descuentos = data.descuentos || [];
+  if (!descuentos.length) { toast('No hay datos para exportar', 'error'); return; }
+
+  const ordenes = enrichOrdenes(data.ordenes, data.referidos, data.descuentos);
+  const headers = ['nombre', 'codigo', 'tipo', 'valor', 'usos_actuales', 'uso_maximo', 'revenue', 'activo'];
+  const rows = descuentos.map(d => {
+    const ordsCamp = ordenes.filter(o => (o.descuento_codigo || '').toUpperCase() === (d.codigo || '').toUpperCase());
+    const rev = calcRevenue(ordsCamp);
+    return [
+      d.nombre || '',
+      d.codigo || '',
+      d.tipo || '',
+      d.valor || 0,
+      d.usos_actuales || 0,
+      d.uso_maximo || '',
+      rev,
+      d.activo ? 'si' : 'no',
+    ];
+  });
+
+  downloadCSV(`elgadget_campanias_${csvDateNow()}.csv`, headers, rows);
+}
+
 async function loadCampanias() {
   const data = _cache;
   const descuentos = data.descuentos || [];
