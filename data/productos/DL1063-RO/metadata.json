@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/soporte-para-ejercicio-abdominal-2.html",
-  "fecha_scraping": "2026-06-21T10:25:13.116901",
+  "fecha_scraping": "2026-06-22T12:46:23.213958",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Fitness"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-21T10:29:15.345538",
+  "fecha_mapeo_categorias": "2026-06-22T12:50:15.689065",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1063-RO_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 15000.0,
-  "fecha_calculo_precio": "2026-06-21T10:30:07.606678"
+  "fecha_calculo_precio": "2026-06-22T12:52:21.371657"
 }

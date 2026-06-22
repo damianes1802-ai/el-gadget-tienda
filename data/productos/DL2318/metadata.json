@@ -21,7 +21,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cesto-canasto-ropa-sucia-plegable-impermeable-resistente.html",
-  "fecha_scraping": "2026-06-21T10:23:22.548820",
+  "fecha_scraping": "2026-06-22T12:46:06.414674",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -50,5 +50,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 31000.0,
-  "fecha_calculo_precio": "2026-06-21T10:30:07.674607"
+  "fecha_calculo_precio": "2026-06-22T12:52:21.427915"
 }
