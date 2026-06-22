@@ -1142,7 +1142,15 @@ def registrar_usuario(request: Request, registro: Registro):
 
         if email_habilitado():
             try:
-                enviar_email_bienvenida(registro.nombre, registro.email)
+                # Obtener 3 productos más vendidos para mostrar en el email
+                productos_top = []
+                try:
+                    conn_top = get_db()
+                    productos_top = _obtener_productos_top(conn_top.cursor(), 3)
+                    conn_top.close()
+                except Exception:
+                    pass
+                enviar_email_bienvenida(registro.nombre, registro.email, productos_top)
             except Exception as e:
                 print(f"⚠️ No se pudo enviar email de bienvenida: {e}")
 
@@ -2241,6 +2249,79 @@ def admin_procesar_pago(orden_id: int, x_admin_password: Optional[str] = Header(
     resultado = dict(cursor.fetchone())
     conn.close()
     return resultado
+
+
+@app.post("/api/admin/facturacion/retry")
+def admin_retry_facturacion(x_admin_password: Optional[str] = Header(None)):
+    """
+    Reintenta generar Factura C (AFIP) para todas las órdenes aprobadas que
+    fallaron previamente (factura_cae IS NULL AND factura_error IS NOT NULL).
+    Devuelve un resumen con la cantidad de reintentos, éxitos y errores.
+    """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    if not facturacion_habilitada():
+        return {"ok": False, "motivo": "Facturación AFIP no habilitada"}
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT o.id, o.total, o.factura_error,
+               c.nombre, c.email, c.cuit_dni
+        FROM ordenes o
+        JOIN clientes c ON o.cliente_id = c.id
+        WHERE o.estado_pago = 'approved'
+          AND o.factura_cae IS NULL
+          AND o.factura_error IS NOT NULL
+    """)
+    pendientes = [dict(r) for r in cursor.fetchall()]
+
+    resumen = {"reintentadas": 0, "exitosas": 0, "fallidas": 0, "detalle": []}
+
+    for orden in pendientes:
+        resumen["reintentadas"] += 1
+        try:
+            factura = generar_factura_c(orden['id'], orden, orden['total'])
+            if factura.get('error'):
+                cursor.execute(
+                    "UPDATE ordenes SET factura_error = ? WHERE id = ?",
+                    (factura['error'], orden['id'])
+                )
+                resumen["fallidas"] += 1
+                resumen["detalle"].append({
+                    "orden_id": orden['id'], "ok": False, "error": factura['error']
+                })
+            else:
+                cursor.execute("""
+                    UPDATE ordenes
+                    SET factura_tipo = ?, factura_punto_venta = ?, factura_numero = ?,
+                        factura_cae = ?, factura_cae_vencimiento = ?, factura_error = NULL
+                    WHERE id = ?
+                """, (
+                    factura['tipo'], factura['punto_venta'], factura['numero'],
+                    factura['cae'], factura['cae_vencimiento'], orden['id']
+                ))
+                resumen["exitosas"] += 1
+                resumen["detalle"].append({
+                    "orden_id": orden['id'], "ok": True, "cae": factura['cae']
+                })
+        except Exception as e:
+            cursor.execute(
+                "UPDATE ordenes SET factura_error = ? WHERE id = ?",
+                (str(e), orden['id'])
+            )
+            resumen["fallidas"] += 1
+            resumen["detalle"].append({
+                "orden_id": orden['id'], "ok": False, "error": str(e)
+            })
+
+    conn.commit()
+    conn.close()
+
+    resumen["ok"] = True
+    return resumen
 
 
 @app.patch("/api/orden/{orden_id}/tracking")

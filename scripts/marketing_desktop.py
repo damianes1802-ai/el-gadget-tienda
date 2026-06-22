@@ -467,6 +467,35 @@ class Api:
         conn.row_factory = sqlite3.Row
         return conn
 
+    def backup_contenidos_db(self):
+        """Copia contenidos.db a backups/contenidos_YYYYMMDD_HHMMSS.db.
+        Mantiene solo los últimos 10 backups."""
+        try:
+            import shutil
+            if not CONTENIDOS_DB.exists():
+                return {"ok": False, "error": "contenidos.db no existe"}
+
+            backup_dir = CONTENIDOS_DB.parent / "backups"
+            backup_dir.mkdir(parents=True, exist_ok=True)
+
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            dest = backup_dir / f"contenidos_{ts}.db"
+            shutil.copy2(str(CONTENIDOS_DB), str(dest))
+
+            size_kb = round(dest.stat().st_size / 1024, 1)
+
+            # Mantener solo los últimos 10 backups
+            backups = sorted(backup_dir.glob("contenidos_*.db"))
+            for viejo in backups[:-10]:
+                try:
+                    viejo.unlink()
+                except Exception:
+                    pass
+
+            return {"ok": True, "path": str(dest), "size_kb": size_kb}
+        except Exception as e:
+            return {"ok": False, "error": str(e)}
+
     def _get_historial(self, limit=15):
         """Obtiene historial reciente para evitar repeticiones."""
         try:
@@ -1125,6 +1154,7 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
     def generar_lote_reels(self, cantidad=3):
         """Genera un lote de Reels usando selección inteligente con layouts R01-R10."""
         try:
+            self.backup_contenidos_db()
             productos_raw = self.get_productos()
             if isinstance(productos_raw, dict) and "error" in productos_raw:
                 return {"error": productos_raw["error"]}
@@ -1197,6 +1227,7 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
 
     def generar_lote(self, cantidad=5):
         try:
+            self.backup_contenidos_db()
             productos_raw = self.get_productos()
             if isinstance(productos_raw, dict) and "error" in productos_raw:
                 return {"error": productos_raw["error"]}

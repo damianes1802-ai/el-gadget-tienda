@@ -238,10 +238,71 @@ def enviar_email_tracking(orden: dict, tracking_url: str) -> dict:
     return _enviar(orden['email'], f"Tu pedido #{orden['id']} fue despachado - {TIENDA_NOMBRE}", _layout(cuerpo))
 
 
-def enviar_email_bienvenida(nombre: str, email: str) -> dict:
-    """Envía email de bienvenida confirmando el registro y el 10% OFF automático."""
+def enviar_email_bienvenida(nombre: str, email: str, productos_top: list = None) -> dict:
+    """Envía email de bienvenida confirmando el registro y el 10% OFF automático.
+
+    Args:
+        nombre: nombre del usuario registrado
+        email: dirección de email del usuario
+        productos_top: lista opcional de dicts con nombre, precio_venta,
+            imagen_url (o imagen_principal), url_amigable. Si se pasan,
+            se muestran como recomendaciones debajo del descuento.
+    """
     nombre_s = _html.escape(nombre)
     email_s = _html.escape(email)
+
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    productos_html = ""
+    if productos_top:
+        cards = ""
+        for p in productos_top[:3]:
+            p_nombre = _html.escape(p.get('nombre', ''))
+            p_precio = p.get('precio_venta', 0)
+            p_img = _html.escape(p.get('imagen_url') or p.get('imagen_principal') or '')
+            p_slug = (p.get('url_amigable') or '').strip()
+            p_url = f"{site_url}/producto/{p_slug}/" if p_slug else site_url
+            cards += f"""
+            <td align="center" width="33%" style="padding:6px;vertical-align:top">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="border:1px solid {GRAY_200};border-radius:10px;overflow:hidden">
+                <tr>
+                  <td align="center" bgcolor="{CREAM}" style="padding:10px;background-color:{CREAM} !important">
+                    <a href="{p_url}" style="text-decoration:none">
+                      <img src="{p_img}" width="120" height="120" alt="{p_nombre}"
+                           style="display:block;margin:0 auto;border:0;border-radius:8px;
+                           object-fit:cover;max-width:120px;height:auto;background:{CREAM}">
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding:8px 6px 4px">
+                    <a href="{p_url}" style="color:{INK};text-decoration:none;font-size:12px;
+                       font-weight:600;line-height:1.3;display:block">{p_nombre}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding:0 6px 6px">
+                    <span style="color:{ACCENT_DEEP};font-weight:700;font-size:14px">${p_precio:,.0f}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding:0 6px 10px">
+                    <a href="{p_url}" style="display:inline-block;background:{ACCENT};color:{INK};
+                       padding:6px 14px;border-radius:8px;font-weight:700;font-size:11px;
+                       text-decoration:none">Ver producto</a>
+                  </td>
+                </tr>
+              </table>
+            </td>"""
+
+        productos_html = f"""
+      <p style="color:{INK};font-weight:700;font-size:15px;margin:28px 0 12px">Productos que te pueden interesar:</p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>{cards}</tr>
+      </table>"""
+
     cuerpo = f"""
       <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Bienvenido/a a {TIENDA_NOMBRE}, {nombre_s}!</h2>
       <p style="color:{GRAY_600};margin:0 0 4px">
@@ -258,6 +319,7 @@ def enviar_email_bienvenida(nombre: str, email: str) -> dict:
         No necesitás hacer nada más: el descuento se aplica <strong style="color:{INK}">automáticamente</strong>
         al finalizar tu primera compra, usando este mismo email (<strong style="color:{INK}">{email_s}</strong>).
       </p>
+      {productos_html}
     """
 
     return _enviar(email, f"¡Bienvenido/a a {TIENDA_NOMBRE}! Tu 10% OFF te espera", _layout(cuerpo))
