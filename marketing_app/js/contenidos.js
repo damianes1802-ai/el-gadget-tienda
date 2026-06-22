@@ -4,6 +4,8 @@
 
 let _contenidos = [];
 let _filtroEstado = 'todos';
+let _filtroPersona = 'todos';
+let _filtroTipo = 'todos';
 
 async function loadContenidos() {
   await _fetchContenidos();
@@ -21,45 +23,118 @@ async function _fetchContenidos() {
   _renderCards();
 }
 
+// ── Métricas de producción (Change 1) ──
+
 function _renderStats() {
+  const el = document.getElementById('contenidos-stats');
+  if (!el) return;
+
+  const total = _contenidos.length;
   const borradores = _contenidos.filter(c => c.estado === 'borrador').length;
   const aprobados = _contenidos.filter(c => c.estado === 'aprobado').length;
-  const rechazados = _contenidos.filter(c => c.estado === 'rechazado').length;
+  const publicados = _contenidos.filter(c => c.estado === 'publicado').length;
   const reels = _contenidos.filter(c => c._is_reel).length;
   const posts = _contenidos.filter(c => !c._is_reel).length;
 
-  const el = document.getElementById('contenidos-stats');
-  if (!el) return;
+  // This week's production: items created in the last 7 days
+  const now = new Date();
+  const weekAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+  const thisWeek = _contenidos.filter(c => {
+    if (!c.created_at) return false;
+    const d = new Date(c.created_at.includes('T') || c.created_at.includes('Z')
+      ? c.created_at : c.created_at.replace(' ', 'T'));
+    return d >= weekAgo;
+  }).length;
+
+  // Posts vs Reels breakdown bar
+  const totalForBar = posts + reels || 1;
+  const postsPct = Math.round((posts / totalForBar) * 100);
+  const reelsPct = 100 - postsPct;
+
+  el.className = 'produccion-dashboard';
   el.innerHTML = `
     <div class="stat-card">
-      <div class="stat-label">Borradores</div>
-      <div class="stat-value">${borradores}</div>
+      <div class="stat-label">Total generados</div>
+      <div class="stat-value">${total}</div>
+      <div class="stat-sub">todo el tiempo</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Aprobados</div>
+      <div class="stat-label">Borradores pendientes</div>
+      <div class="stat-value" style="color:var(--accent-deep)">${borradores}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Aprobados listos</div>
       <div class="stat-value" style="color:var(--green-ok)">${aprobados}</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Posts</div>
-      <div class="stat-value">${posts}</div>
+      <div class="stat-label">Publicados</div>
+      <div class="stat-value" style="color:var(--purple)">${publicados}</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Reels</div>
-      <div class="stat-value" style="color:#E84393">${reels}</div>
+      <div class="stat-label">Posts vs Reels</div>
+      <div class="produccion-breakdown">
+        <span class="produccion-bar-label">${posts}</span>
+        <div class="produccion-bar">
+          <div class="produccion-bar-posts" style="width:${postsPct}%"></div>
+          <div class="produccion-bar-reels" style="width:${reelsPct}%"></div>
+        </div>
+        <span class="produccion-bar-label">${reels}</span>
+      </div>
+      <div class="stat-sub" style="margin-top:4px">
+        <span style="color:var(--accent-deep)">Posts</span> /
+        <span style="color:#E84393">Reels</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Esta semana</div>
+      <div class="stat-value" style="color:var(--ink)">${thisWeek}</div>
+      <div class="stat-sub">generados (7 dias)</div>
     </div>
   `;
+}
+
+// ── Render cards con filtrado (Change 3: persona + tipo) ──
+
+function _getFilteredContenidos() {
+  return _contenidos.filter(c => {
+    // Persona filter
+    if (_filtroPersona !== 'todos') {
+      const persona = (c.persona || '').toLowerCase();
+      if (persona !== _filtroPersona) return false;
+    }
+    // Tipo filter
+    if (_filtroTipo !== 'todos') {
+      if (_filtroTipo === 'reel') {
+        if (!c._is_reel) return false;
+      } else if (_filtroTipo === 'carrusel') {
+        const mediaUrl = c.media_url || '';
+        const isCarousel = c._is_carousel || mediaUrl.startsWith('[');
+        if (!isCarousel || c._is_reel) return false;
+      } else if (_filtroTipo === 'post') {
+        const mediaUrl = c.media_url || '';
+        const isCarousel = c._is_carousel || mediaUrl.startsWith('[');
+        if (c._is_reel || isCarousel) return false;
+      }
+    }
+    return true;
+  });
 }
 
 function _renderCards() {
   const grid = document.getElementById('contenidos-grid');
   if (!grid) return;
 
-  if (!_contenidos.length) {
-    grid.innerHTML = '<div class="chart-empty" style="grid-column:1/-1">No hay contenido generado. Hacé click en "Generar lote" para empezar.</div>';
+  const filtered = _getFilteredContenidos();
+
+  if (!filtered.length) {
+    const msg = (_contenidos.length === 0)
+      ? 'No hay contenido generado. Hace click en "Generar lote" para empezar.'
+      : 'No hay contenido que coincida con los filtros seleccionados.';
+    grid.innerHTML = '<div class="chart-empty" style="grid-column:1/-1">' + msg + '</div>';
     return;
   }
 
-  grid.innerHTML = _contenidos.map(c => {
+  grid.innerHTML = filtered.map(c => {
     const fmt = c.formato || '';
     const tipo = (c.tipo || '').toUpperCase();
     const persona = (c.persona || '').charAt(0).toUpperCase() + (c.persona || '').slice(1);
@@ -106,6 +181,7 @@ function _renderCards() {
       } catch (e) {}
     }
 
+    // Preview area with click to open modal (Change 2)
     let brandedPreview = '';
     if (isCarousel && mediaUrl) {
       try {
@@ -115,12 +191,12 @@ function _renderCards() {
           const slideImgs = slides.map((s, idx) =>
             `<img src="${s}" alt="Slide ${idx + 1}" class="carousel-slide ${idx === 0 ? 'active' : ''}" data-idx="${idx}" style="${idx === 0 ? '' : 'display:none'}">`
           ).join('');
-          brandedPreview = `<div class="contenido-card-preview carousel-container" id="${sliderId}">
+          brandedPreview = `<div class="contenido-card-preview carousel-container" id="${sliderId}" onclick="abrirPreview(${c.id})" style="cursor:pointer">
             ${slideImgs}
-            <button class="carousel-arrow carousel-prev" onclick="carouselNav('${sliderId}', -1)">‹</button>
-            <button class="carousel-arrow carousel-next" onclick="carouselNav('${sliderId}', 1)">›</button>
+            <button class="carousel-arrow carousel-prev" onclick="event.stopPropagation();carouselNav('${sliderId}', -1)">&#8249;</button>
+            <button class="carousel-arrow carousel-next" onclick="event.stopPropagation();carouselNav('${sliderId}', 1)">&#8250;</button>
             <div class="carousel-dots">${slides.map((_, idx) =>
-              `<span class="carousel-dot ${idx === 0 ? 'active' : ''}" onclick="carouselGo('${sliderId}', ${idx})"></span>`
+              `<span class="carousel-dot ${idx === 0 ? 'active' : ''}" onclick="event.stopPropagation();carouselGo('${sliderId}', ${idx})"></span>`
             ).join('')}</div>
             <div class="carousel-counter">${slides.length} slides</div>
           </div>`;
@@ -128,22 +204,22 @@ function _renderCards() {
       } catch (e) {}
     } else if (c._is_reel && mediaUrl) {
       if (mediaUrl.startsWith('data:video')) {
-        brandedPreview = `<div class="contenido-card-preview" style="background:#000;border-radius:12px;overflow:hidden;cursor:pointer" onclick="abrirReelPreview(this.querySelector('video').src)">
+        brandedPreview = `<div class="contenido-card-preview" style="background:#000;border-radius:12px;overflow:hidden;cursor:pointer" onclick="abrirPreview(${c.id})">
           <video src="${mediaUrl}" style="width:100%;display:block;border-radius:12px" preload="metadata"></video>
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
-            <div style="width:56px;height:56px;border-radius:50%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff">▶</div>
+            <div style="width:56px;height:56px;border-radius:50%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff">&#9654;</div>
           </div>
         </div>`;
       } else {
-        brandedPreview = `<div class="contenido-card-preview" style="background:#000;display:flex;align-items:center;justify-content:center;min-height:200px;border-radius:12px">
+        brandedPreview = `<div class="contenido-card-preview" style="background:#000;display:flex;align-items:center;justify-content:center;min-height:200px;border-radius:12px;cursor:pointer" onclick="abrirPreview(${c.id})">
           <div style="text-align:center;color:#fff">
-            <div style="font-size:48px;margin-bottom:8px">🎬</div>
+            <div style="font-size:48px;margin-bottom:8px">&#127916;</div>
             <div style="font-size:13px;opacity:0.7">Reel generado</div>
           </div>
         </div>`;
       }
     } else if (mediaUrl) {
-      brandedPreview = `<div class="contenido-card-preview"><img src="${escapeHtml(mediaUrl)}" alt="Preview" loading="lazy"></div>`;
+      brandedPreview = `<div class="contenido-card-preview" onclick="abrirPreview(${c.id})" style="cursor:pointer"><img src="${escapeHtml(mediaUrl)}" alt="Preview" loading="lazy"></div>`;
     }
 
     return `
@@ -194,6 +270,142 @@ function _renderCards() {
   }).join('');
 }
 
+// ── Preview modal unificado (Change 2) ──
+
+function abrirPreview(id) {
+  const c = _contenidos.find(x => x.id === id);
+  if (!c) return;
+
+  const mediaUrl = c.media_url || '';
+  const isCarousel = c._is_carousel || mediaUrl.startsWith('[');
+  const persona = (c.persona || '').charAt(0).toUpperCase() + (c.persona || '').slice(1);
+  const formato = c.formato || '';
+  const tipo = (c.tipo || '').toUpperCase();
+
+  const estadoBadge = {
+    borrador: '<span class="badge badge-yellow">Borrador</span>',
+    aprobado: '<span class="badge badge-green">Aprobado</span>',
+    rechazado: '<span class="badge badge-red">Rechazado</span>',
+    publicado: '<span class="badge badge-purple">Publicado</span>',
+  }[c.estado] || '<span class="badge badge-gray">' + escapeHtml(c.estado) + '</span>';
+
+  // Build media section
+  let mediaHtml = '';
+  if (isCarousel && mediaUrl) {
+    try {
+      const slides = JSON.parse(mediaUrl);
+      if (slides.length > 0) {
+        const sliderId = 'preview-slider';
+        const slideImgs = slides.map((s, idx) =>
+          `<img src="${s}" alt="Slide ${idx + 1}" class="carousel-slide ${idx === 0 ? 'active' : ''}" data-idx="${idx}" style="${idx === 0 ? '' : 'display:none'}">`
+        ).join('');
+        mediaHtml = `<div class="preview-media-wrap preview-carousel-container" id="${sliderId}">
+          ${slideImgs}
+          <button class="carousel-arrow carousel-prev" onclick="carouselNav('${sliderId}', -1)">&#8249;</button>
+          <button class="carousel-arrow carousel-next" onclick="carouselNav('${sliderId}', 1)">&#8250;</button>
+          <div class="carousel-dots">${slides.map((_, idx) =>
+            `<span class="carousel-dot ${idx === 0 ? 'active' : ''}" onclick="carouselGo('${sliderId}', ${idx})"></span>`
+          ).join('')}</div>
+          <div class="carousel-counter">${slides.length} slides</div>
+        </div>`;
+      }
+    } catch (e) {}
+  } else if (c._is_reel && mediaUrl) {
+    if (mediaUrl.startsWith('data:video')) {
+      mediaHtml = `<div class="preview-media-wrap" style="background:#000">
+        <video src="${mediaUrl}" controls autoplay style="width:100%;display:block;max-height:65vh"></video>
+      </div>`;
+    } else {
+      mediaHtml = `<div class="preview-media-wrap" style="background:#000;display:flex;align-items:center;justify-content:center;min-height:200px">
+        <div style="text-align:center;color:#fff">
+          <div style="font-size:48px;margin-bottom:8px">&#127916;</div>
+          <div style="font-size:13px;opacity:0.7">Reel generado (sin archivo de video)</div>
+        </div>
+      </div>`;
+    }
+  } else if (mediaUrl) {
+    mediaHtml = `<div class="preview-media-wrap">
+      <img src="${escapeHtml(mediaUrl)}" alt="Preview">
+    </div>`;
+  }
+
+  // Build caption section with copy buttons
+  const captionA = c.caption || '';
+  const captionB = c.caption_variante_b || '';
+  const hook = c.hook || '';
+  const cta = c.cta || '';
+  const hashtags = c.hashtags || '';
+
+  const body = document.getElementById('preview-body');
+  if (!body) return;
+
+  body.innerHTML = `
+    ${mediaHtml}
+    <div class="preview-badges">
+      ${c._is_reel ? '<span class="badge" style="background:#E84393;color:#fff">REEL</span>' : ''}
+      ${isCarousel && !c._is_reel ? '<span class="badge" style="background:var(--ink);color:#fff">CARRUSEL</span>' : ''}
+      <span class="badge badge-accent">${escapeHtml(formato)}</span>
+      <span class="badge badge-ink">${escapeHtml(tipo)}</span>
+      <span class="badge badge-blue">${escapeHtml(persona)}</span>
+      ${estadoBadge}
+    </div>
+    <div class="preview-captions">
+      <div class="preview-caption-col">
+        <div class="preview-caption-header">
+          <div class="contenido-label">Caption A</div>
+          <button class="preview-caption-copy" onclick="copiarTextoPreview(this, 'caption-a')">Copiar</button>
+        </div>
+        <div class="preview-caption-text" id="preview-caption-a">${escapeHtml(captionA)}</div>
+      </div>
+      <div class="preview-caption-col">
+        <div class="preview-caption-header">
+          <div class="contenido-label">Caption B</div>
+          <button class="preview-caption-copy" onclick="copiarTextoPreview(this, 'caption-b')">Copiar</button>
+        </div>
+        <div class="preview-caption-text" id="preview-caption-b">${escapeHtml(captionB)}</div>
+      </div>
+    </div>
+    <div class="preview-details">
+      <div class="contenido-section">
+        <div class="contenido-label">Hook</div>
+        <div class="contenido-text">${escapeHtml(hook)}</div>
+      </div>
+      <div class="contenido-section">
+        <div class="contenido-label">CTA</div>
+        <div class="contenido-text">${escapeHtml(cta)}</div>
+      </div>
+      <div class="contenido-section">
+        <div class="contenido-label">Hashtags</div>
+        <div class="contenido-text" style="font-size:11.5px;color:var(--gray-600)">${escapeHtml(hashtags)}</div>
+      </div>
+    </div>
+  `;
+
+  // Set title
+  const titleEl = document.getElementById('preview-title');
+  if (titleEl) titleEl.textContent = c.producto_nombre || 'Vista previa';
+
+  openModal('modal-preview-overlay');
+}
+
+function copiarTextoPreview(btn, elId) {
+  const el = document.getElementById('preview-' + elId);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    const original = btn.textContent;
+    btn.textContent = 'Copiado';
+    btn.style.borderColor = 'var(--green-ok)';
+    btn.style.color = 'var(--green-ok)';
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    }, 1500);
+  }).catch(() => {
+    toast('Error copiando texto', 'error');
+  });
+}
+
 // ── Acciones ──
 
 async function generarLote() {
@@ -221,7 +433,7 @@ async function generarIndividual() {
   const sku = document.getElementById('gen-producto-select').value;
   const formato = document.getElementById('gen-formato-select').value;
   const persona = document.getElementById('gen-persona-select').value;
-  if (!sku) { toast('Seleccioná un producto', 'error'); return; }
+  if (!sku) { toast('Selecciona un producto', 'error'); return; }
 
   const productos = Array.isArray(_cache.productos) ? _cache.productos : [];
   const producto = productos.find(p => p.sku === sku);
@@ -326,7 +538,7 @@ async function generarLoteReels() {
       toast('Error: ' + result.error, 'error');
     } else {
       const n = result.generados || 0;
-      toast(`${n} Reel${n !== 1 ? 's' : ''} generado${n !== 1 ? 's' : ''} con voz + música`, 'success');
+      toast(`${n} Reel${n !== 1 ? 's' : ''} generado${n !== 1 ? 's' : ''} con voz + musica`, 'success');
       if (result.errores && result.errores.length > 0) {
         toast('Errores: ' + result.errores.join(', '), 'error');
       }
@@ -341,25 +553,33 @@ async function generarLoteReels() {
   }
 }
 
+// Legacy function — kept for backwards compatibility, now delegates to unified preview
 function abrirReelPreview(filePath) {
-  let modal = document.getElementById('reel-preview-modal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'reel-preview-modal';
-    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer';
-    modal.onclick = function() { this.remove(); };
-    modal.innerHTML = `<div style="position:relative;max-height:90vh;max-width:90vw" onclick="event.stopPropagation()">
-      <video id="reel-video-player" controls autoplay style="max-height:85vh;max-width:100%;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.5)"></video>
-      <button onclick="this.closest('#reel-preview-modal').remove()" style="position:absolute;top:-12px;right:-12px;width:32px;height:32px;border-radius:50%;background:#fff;border:none;font-size:18px;cursor:pointer;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.3)">✕</button>
-    </div>`;
-    document.body.appendChild(modal);
+  // Find reel by media_url matching
+  const c = _contenidos.find(x => x.media_url === filePath);
+  if (c) {
+    abrirPreview(c.id);
   } else {
-    modal.style.display = 'flex';
-  }
-  const video = document.getElementById('reel-video-player');
-  if (video) {
-    video.src = filePath;
-    video.play();
+    // Fallback: open a simple video modal for unknown sources
+    let modal = document.getElementById('reel-preview-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'reel-preview-modal';
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;cursor:pointer';
+      modal.onclick = function() { this.remove(); };
+      modal.innerHTML = `<div style="position:relative;max-height:90vh;max-width:90vw" onclick="event.stopPropagation()">
+        <video id="reel-video-player" controls autoplay style="max-height:85vh;max-width:100%;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.5)"></video>
+        <button onclick="this.closest('#reel-preview-modal').remove()" style="position:absolute;top:-12px;right:-12px;width:32px;height:32px;border-radius:50%;background:#fff;border:none;font-size:18px;cursor:pointer;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.3)">&times;</button>
+      </div>`;
+      document.body.appendChild(modal);
+    } else {
+      modal.style.display = 'flex';
+    }
+    const video = document.getElementById('reel-video-player');
+    if (video) {
+      video.src = filePath;
+      video.play();
+    }
   }
 }
 
@@ -383,12 +603,12 @@ function publicarManual(id) {
     <div style="background:#fff;border-radius:20px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:28px" onclick="event.stopPropagation()">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
         <h2 style="margin:0;font-size:20px;color:var(--ink)">Publicar en Instagram</h2>
-        <button onclick="document.getElementById('publicar-modal').remove()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--gray-600)">✕</button>
+        <button onclick="document.getElementById('publicar-modal').remove()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--gray-600)">&times;</button>
       </div>
 
       <div style="background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px">
         <div style="font-size:12px;font-weight:600;color:var(--gray-600);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">
-          Paso 1: Copiá la ubicación del archivo
+          Paso 1: Copia la ubicacion del archivo
         </div>
         <button onclick="descargarMedia(${id})" class="btn btn-accent" style="width:100%;font-size:14px">
           Copiar directorio
@@ -397,7 +617,7 @@ function publicarManual(id) {
 
       <div style="background:var(--cream);border-radius:12px;padding:16px;margin-bottom:16px">
         <div style="font-size:12px;font-weight:600;color:var(--gray-600);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">
-          Paso 2: Copiá el caption
+          Paso 2: Copia el caption
         </div>
         <textarea id="publicar-caption" readonly style="width:100%;min-height:120px;border:1.5px solid #e5e7eb;border-radius:8px;padding:12px;font-size:13px;font-family:inherit;resize:vertical;box-sizing:border-box;color:var(--ink)">${caption.replace(/</g,'&lt;')}</textarea>
         <button onclick="copiarCaption()" class="btn btn-outline" style="width:100%;margin-top:8px;font-size:14px">Copiar caption + hashtags</button>
@@ -408,12 +628,12 @@ function publicarManual(id) {
           Paso 3: Subilo a Instagram
         </div>
         <p style="font-size:13px;color:var(--gray-600);margin:0;line-height:1.6">
-          ${isReel ? 'Abrí Instagram → + → Reel → seleccioná el video → pegá el caption → Publicar' : 'Abrí Instagram → + → Post → seleccioná la imagen → pegá el caption → Publicar'}
+          ${isReel ? 'Abri Instagram &rarr; + &rarr; Reel &rarr; selecciona el video &rarr; pega el caption &rarr; Publicar' : 'Abri Instagram &rarr; + &rarr; Post &rarr; selecciona la imagen &rarr; pega el caption &rarr; Publicar'}
         </p>
       </div>
 
       <button onclick="marcarPublicado(${id})" class="btn" style="width:100%;background:#8B5CF6;color:#fff;font-size:14px;padding:12px">
-        Ya lo publiqué — marcar como publicado
+        Ya lo publique — marcar como publicado
       </button>
     </div>
   `;
@@ -489,7 +709,6 @@ document.addEventListener('click', (e) => {
   if (closeId) closeModal(closeId);
 });
 
-// ── Filtro ──
 // ── Carousel navigation ──
 function carouselNav(sliderId, dir) {
   const container = document.getElementById(sliderId);
@@ -516,7 +735,21 @@ function carouselGo(sliderId, idx) {
   container.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
 }
 
+// ── Filtros (Change 3: estado + persona + tipo) ──
+
 document.getElementById('contenidos-filtro')?.addEventListener('change', (e) => {
   _filtroEstado = e.target.value;
   _fetchContenidos();
+});
+
+document.getElementById('contenidos-filtro-persona')?.addEventListener('change', (e) => {
+  _filtroPersona = e.target.value;
+  _renderStats();
+  _renderCards();
+});
+
+document.getElementById('contenidos-filtro-tipo')?.addEventListener('change', (e) => {
+  _filtroTipo = e.target.value;
+  _renderStats();
+  _renderCards();
 });

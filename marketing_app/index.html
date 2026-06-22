@@ -237,11 +237,25 @@
             </div>
           </div>
           <select id="contenidos-filtro">
-            <option value="todos">Todos</option>
+            <option value="todos">Estado: Todos</option>
             <option value="borrador">Borradores</option>
             <option value="aprobado">Aprobados</option>
             <option value="rechazado">Rechazados</option>
             <option value="publicado">Publicados</option>
+          </select>
+          <select id="contenidos-filtro-persona">
+            <option value="todos">Persona: Todos</option>
+            <option value="maria">Maria</option>
+            <option value="lucas">Lucas</option>
+            <option value="ana">Ana</option>
+            <option value="sofi">Sofi</option>
+            <option value="martin">Martin</option>
+          </select>
+          <select id="contenidos-filtro-tipo">
+            <option value="todos">Tipo: Todos</option>
+            <option value="post">Post</option>
+            <option value="carrusel">Carrusel</option>
+            <option value="reel">Reel</option>
           </select>
         </div>
         <div class="contenidos-grid" id="contenidos-grid"></div>
@@ -395,6 +409,17 @@
       <button class="btn btn-outline" data-close="modal-generar-overlay">Cancelar</button>
       <button class="btn btn-accent" id="btn-generar-individual" onclick="generarIndividual()">Generar</button>
     </div>
+  </div>
+</div>
+
+<!-- MODAL: Preview contenido -->
+<div class="modal-overlay" id="modal-preview-overlay">
+  <div class="modal" style="max-width:860px">
+    <div class="modal-header">
+      <h2 id="preview-title">Vista previa</h2>
+      <button class="modal-close" data-close="modal-preview-overlay">&times;</button>
+    </div>
+    <div class="modal-body" id="preview-body" style="padding:0"></div>
   </div>
 </div>
 
