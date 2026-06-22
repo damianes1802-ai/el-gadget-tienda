@@ -9,6 +9,8 @@ data/*
 !data/catalogo.db
 marketing_app/data/contenidos.db
 marketing_app/data/generated_images/
+marketing_app/data/generated_reels/
+marketing_app/data/backups/
 
 # Checkpoint de alertas Droppers (necesario en CI para no reprocesar el historial)
 !data/droppers_alertas_estado.json
