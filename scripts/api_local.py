@@ -2159,9 +2159,9 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
     """
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT o.*, c.nombre, c.email, c.cuit_dni, c.telefono,
+        SELECT o.*, c.nombre, c.apellido, c.email, c.cuit_dni, c.telefono,
                c.calle, c.altura, c.piso, c.departamento,
-               c.provincia, c.codigo_postal
+               c.provincia, c.partido, c.ciudad, c.codigo_postal
         FROM ordenes o
         JOIN clientes c ON o.cliente_id = c.id
         WHERE o.id = ?

@@ -691,6 +691,8 @@ def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> 
     admin_email = env.get('ADMIN_EMAIL', 'damianes1802@gmail.com')
 
     nombre = _html.escape(orden.get('nombre', 'Cliente'))
+    apellido = _html.escape(orden.get('apellido', '') or '')
+    nombre_completo = f"{nombre} {apellido}".strip()
     email_cliente = _html.escape(orden.get('email', ''))
     telefono = _html.escape(orden.get('telefono', '') or '')
     cuit_dni = _html.escape(orden.get('cuit_dni', '') or '')
@@ -706,16 +708,18 @@ def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> 
     piso = _html.escape(orden.get('piso', '') or '')
     depto = _html.escape(orden.get('departamento', '') or '')
     provincia = _html.escape(orden.get('provincia', '') or '')
+    partido = _html.escape(orden.get('partido', '') or '')
+    ciudad = _html.escape(orden.get('ciudad', '') or '')
     cp = _html.escape(orden.get('codigo_postal', '') or '')
 
-    dir_parts = [f"{calle} {altura}".strip()]
-    if piso or depto:
-        dir_parts.append(f"Piso {piso} Dpto {depto}".strip())
-    if provincia:
-        dir_parts.append(provincia)
+    dir_line = f"{calle} {altura}".strip()
+    if piso:
+        dir_line += f", Piso {piso}"
+    if depto:
+        dir_line += f" Dpto {depto}"
+    localidad = ", ".join(p for p in [ciudad, partido, provincia] if p)
     if cp:
-        dir_parts.append(f"CP {cp}")
-    direccion = ", ".join(p for p in dir_parts if p)
+        localidad += f" (CP {cp})"
 
     filas = "".join(
         f"<tr>"
@@ -762,7 +766,7 @@ def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> 
         </tr>
         <tr>
           <td style="padding:6px 12px;color:{GRAY_600};font-size:13px;width:120px">Nombre</td>
-          <td style="padding:6px 12px;font-weight:600;font-size:14px">{nombre}</td>
+          <td style="padding:6px 12px;font-weight:600;font-size:14px">{nombre_completo}</td>
         </tr>
         <tr>
           <td style="padding:6px 12px;color:{GRAY_600};font-size:13px">Email</td>
@@ -781,10 +785,14 @@ def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> 
         </tr>
         <tr>
           <td style="padding:6px 12px;color:{GRAY_600};font-size:13px">Direccion</td>
-          <td style="padding:6px 12px;font-size:14px">{direccion}</td>
+          <td style="padding:6px 12px;font-size:14px">{dir_line}</td>
         </tr>
         <tr>
-          <td style="padding:6px 12px;color:{GRAY_600};font-size:13px">Zona</td>
+          <td style="padding:6px 12px;color:{GRAY_600};font-size:13px">Localidad</td>
+          <td style="padding:6px 12px;font-size:14px">{localidad}</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;color:{GRAY_600};font-size:13px">Zona envio</td>
           <td style="padding:6px 12px;font-size:14px">{zona}</td>
         </tr>
       </table>
