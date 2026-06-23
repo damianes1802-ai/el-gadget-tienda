@@ -686,17 +686,36 @@ def enviar_email_invitar_referido(nombre: str, email: str) -> dict:
 
 
 def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> dict:
-    """Notifica al admin de una nueva venta aprobada."""
+    """Notifica al admin de una nueva venta aprobada con TODOS los datos del checkout."""
     env = Config.cargar_env()
     admin_email = env.get('ADMIN_EMAIL', 'damianes1802@gmail.com')
 
     nombre = _html.escape(orden.get('nombre', 'Cliente'))
     email_cliente = _html.escape(orden.get('email', ''))
+    telefono = _html.escape(orden.get('telefono', '') or '')
+    cuit_dni = _html.escape(orden.get('cuit_dni', '') or '')
     orden_id = orden.get('id', '?')
     total = orden.get('total', 0)
     costo_envio = orden.get('costo_envio', 0)
     zona = _html.escape(orden.get('zona_envio', 'No especificada'))
     codigo_ref = _html.escape(orden.get('descuento_codigo', '') or '')
+
+    # Dirección completa
+    calle = _html.escape(orden.get('calle', '') or '')
+    altura = _html.escape(orden.get('altura', '') or '')
+    piso = _html.escape(orden.get('piso', '') or '')
+    depto = _html.escape(orden.get('departamento', '') or '')
+    provincia = _html.escape(orden.get('provincia', '') or '')
+    cp = _html.escape(orden.get('codigo_postal', '') or '')
+
+    dir_parts = [f"{calle} {altura}".strip()]
+    if piso or depto:
+        dir_parts.append(f"Piso {piso} Dpto {depto}".strip())
+    if provincia:
+        dir_parts.append(provincia)
+    if cp:
+        dir_parts.append(f"CP {cp}")
+    direccion = ", ".join(p for p in dir_parts if p)
 
     filas = "".join(
         f"<tr>"
@@ -714,8 +733,8 @@ def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> 
     referido_html = ""
     if codigo_ref:
         referido_html = (
-            f"<tr><td style='padding:8px 12px;color:{GRAY_600};font-size:13px'>Codigo referido</td>"
-            f"<td style='padding:8px 12px;text-align:right;font-weight:600;color:{GREEN_OK};font-size:13px'>{codigo_ref}</td></tr>"
+            f"<tr><td style='padding:6px 12px;color:{GRAY_600}'>Codigo referido</td>"
+            f"<td style='padding:6px 12px;text-align:right;font-weight:600;color:{GREEN_OK}'>{codigo_ref}</td></tr>"
         )
 
     factura_html = ""
@@ -723,7 +742,7 @@ def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> 
         factura_html = (
             f"<p style='margin:12px 0 0;padding:10px 14px;background:{GREEN_PALE};"
             f"color:{GREEN_OK};border-radius:8px;font-size:13px;font-weight:600'>"
-            f"Factura C N° {factura['punto_venta']:04d}-{factura['numero']:08d} "
+            f"Factura C N.° {factura['punto_venta']:04d}-{factura['numero']:08d} "
             f"— CAE {factura['cae']}</p>"
         )
     elif factura and factura.get('error'):
@@ -735,9 +754,40 @@ def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> 
 
     cuerpo = f"""
       <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Nueva venta #{orden_id}</h2>
-      <p style="color:{GRAY_600};margin:0 0 18px;font-size:14px">
-        {nombre} · {email_cliente}
-      </p>
+
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:10px;overflow:hidden;margin-bottom:16px">
+        <tr bgcolor="{ACCENT_PALE}" style="background-color:{ACCENT_PALE} !important">
+          <td colspan="2" style="padding:10px 12px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;color:{INK}">Datos del cliente</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;color:{GRAY_600};font-size:13px;width:120px">Nombre</td>
+          <td style="padding:6px 12px;font-weight:600;font-size:14px">{nombre}</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;color:{GRAY_600};font-size:13px">Email</td>
+          <td style="padding:6px 12px;font-size:14px">{email_cliente}</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;color:{GRAY_600};font-size:13px">Telefono</td>
+          <td style="padding:6px 12px;font-size:14px">{telefono}</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;color:{GRAY_600};font-size:13px">DNI/CUIT</td>
+          <td style="padding:6px 12px;font-size:14px">{cuit_dni}</td>
+        </tr>
+        <tr bgcolor="{ACCENT_PALE}" style="background-color:{ACCENT_PALE} !important">
+          <td colspan="2" style="padding:10px 12px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;color:{INK}">Direccion de envio</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;color:{GRAY_600};font-size:13px">Direccion</td>
+          <td style="padding:6px 12px;font-size:14px">{direccion}</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 12px;color:{GRAY_600};font-size:13px">Zona</td>
+          <td style="padding:6px 12px;font-size:14px">{zona}</td>
+        </tr>
+      </table>
 
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
              style="border:1px solid {GRAY_200};border-radius:10px;overflow:hidden;margin-bottom:8px">
