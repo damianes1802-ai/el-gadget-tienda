@@ -683,3 +683,87 @@ def enviar_email_invitar_referido(nombre: str, email: str) -> dict:
       </p>
     """
     return _enviar(email, f"¿Te gustó tu compra? Ganá plata recomendándonos - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
+
+
+def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> dict:
+    """Notifica al admin de una nueva venta aprobada."""
+    env = Config.cargar_env()
+    admin_email = env.get('ADMIN_EMAIL', 'damianes1802@gmail.com')
+
+    nombre = _html.escape(orden.get('nombre', 'Cliente'))
+    email_cliente = _html.escape(orden.get('email', ''))
+    orden_id = orden.get('id', '?')
+    total = orden.get('total', 0)
+    costo_envio = orden.get('costo_envio', 0)
+    zona = _html.escape(orden.get('zona_envio', 'No especificada'))
+    codigo_ref = _html.escape(orden.get('descuento_codigo', '') or '')
+
+    filas = "".join(
+        f"<tr>"
+        f"<td style='padding:8px 12px;border-bottom:1px solid {GRAY_200};font-size:14px'>"
+        f"{_html.escape(item.get('producto_nombre', ''))}"
+        f"<br><span style='color:{GRAY_600};font-size:12px'>x{item.get('cantidad', 1)}</span>"
+        f"</td>"
+        f"<td style='padding:8px 12px;border-bottom:1px solid {GRAY_200};text-align:right;font-weight:600;font-size:14px'>"
+        f"${item.get('subtotal', 0):,.2f}"
+        f"</td>"
+        f"</tr>"
+        for item in items
+    )
+
+    referido_html = ""
+    if codigo_ref:
+        referido_html = (
+            f"<tr><td style='padding:8px 12px;color:{GRAY_600};font-size:13px'>Codigo referido</td>"
+            f"<td style='padding:8px 12px;text-align:right;font-weight:600;color:{GREEN_OK};font-size:13px'>{codigo_ref}</td></tr>"
+        )
+
+    factura_html = ""
+    if factura and not factura.get('error'):
+        factura_html = (
+            f"<p style='margin:12px 0 0;padding:10px 14px;background:{GREEN_PALE};"
+            f"color:{GREEN_OK};border-radius:8px;font-size:13px;font-weight:600'>"
+            f"Factura C N° {factura['punto_venta']:04d}-{factura['numero']:08d} "
+            f"— CAE {factura['cae']}</p>"
+        )
+    elif factura and factura.get('error'):
+        factura_html = (
+            f"<p style='margin:12px 0 0;padding:10px 14px;background:#FFF0F0;"
+            f"color:#C0392B;border-radius:8px;font-size:13px;font-weight:600'>"
+            f"Error AFIP: {_html.escape(str(factura['error'])[:100])}</p>"
+        )
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Nueva venta #{orden_id}</h2>
+      <p style="color:{GRAY_600};margin:0 0 18px;font-size:14px">
+        {nombre} · {email_cliente}
+      </p>
+
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:10px;overflow:hidden;margin-bottom:8px">
+        <thead>
+          <tr bgcolor="{INK}" style="background-color:{INK} !important">
+            <th style="padding:8px 12px;text-align:left;font-size:11px;letter-spacing:0.5px;text-transform:uppercase;color:{WHITE} !important">Producto</th>
+            <th style="padding:8px 12px;text-align:right;font-size:11px;letter-spacing:0.5px;text-transform:uppercase;color:{WHITE} !important">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>{filas}</tbody>
+      </table>
+
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="font-size:14px;margin-bottom:12px">
+        <tr>
+          <td style="padding:6px 12px;color:{GRAY_600}">Envio ({zona})</td>
+          <td style="padding:6px 12px;text-align:right;font-weight:600">${costo_envio:,.2f}</td>
+        </tr>
+        {referido_html}
+        <tr style="border-top:2px solid {INK}">
+          <td style="padding:10px 12px;font-weight:700;font-size:18px;color:{INK}">Total</td>
+          <td style="padding:10px 12px;text-align:right;font-weight:700;font-size:18px;color:{INK}">${total:,.2f}</td>
+        </tr>
+      </table>
+
+      {factura_html}
+    """
+
+    return _enviar(admin_email, f"[VENTA] #{orden_id} · ${total:,.0f} · {nombre} - {TIENDA_NOMBRE}", _layout(cuerpo))

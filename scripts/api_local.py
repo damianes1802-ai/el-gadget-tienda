@@ -50,6 +50,7 @@ from utils.email_notificaciones import (
     enviar_email_bienvenida, enviar_email_referido_confirmacion, enviar_email_referido_admin,
     enviar_email_nurturing_d3, enviar_email_nurturing_d7, enviar_email_nurturing_d14,
     enviar_email_primera_venta, enviar_email_carrito_abandonado, enviar_email_invitar_referido,
+    enviar_email_venta_admin,
 )
 
 # Configuración
@@ -2198,6 +2199,16 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
                 (orden_id,)
             )
             conn.commit()
+
+    # Notificar al admin de la nueva venta
+    try:
+        if email_habilitado():
+            if not items:
+                cursor.execute("SELECT * FROM orden_items WHERE orden_id = ?", (orden_id,))
+                items = [dict(item) for item in cursor.fetchall()]
+            enviar_email_venta_admin(orden, items, factura)
+    except Exception as e:
+        print(f"Email notificación admin venta fallido: {e}")
 
     # Registrar comisión de referido si la orden usó un código de referido activo
     try:
