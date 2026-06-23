@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/microfono-para-celular.html",
-  "fecha_scraping": "2026-06-23T04:40:25.298648",
+  "fecha_scraping": "2026-06-23T06:29:59.811242",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Electrónica"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-23T04:45:28.427779",
+  "fecha_mapeo_categorias": "2026-06-23T06:37:30.751289",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_560470_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_560470_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 2000.0,
-  "fecha_calculo_precio": "2026-06-23T04:46:35.682919"
+  "fecha_calculo_precio": "2026-06-23T06:38:21.328456"
 }

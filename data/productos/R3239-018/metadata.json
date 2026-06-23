@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cuaderno-a5-160-hojas-lentejuelas-peluche-holografico-frases.html",
-  "fecha_scraping": "2026-06-23T04:41:05.247987",
+  "fecha_scraping": "2026-06-23T06:33:19.208772",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-23T04:45:28.413120",
+  "fecha_mapeo_categorias": "2026-06-23T06:37:30.725971",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R3239-018_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8500.0,
-  "fecha_calculo_precio": "2026-06-23T04:46:35.782904"
+  "fecha_calculo_precio": "2026-06-23T06:38:21.465229"
 }
