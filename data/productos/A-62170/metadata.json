@@ -13,7 +13,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/inflable-unicornio-glitter-grande-1-74m-x-0-84m.html",
-  "fecha_scraping": "2026-06-22T20:46:08.995532",
+  "fecha_scraping": "2026-06-23T04:38:12.116573",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -23,7 +23,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T20:50:26.299556",
+  "fecha_mapeo_categorias": "2026-06-23T04:45:28.432356",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_002",
@@ -41,5 +41,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 56500.0,
-  "fecha_calculo_precio": "2026-06-22T20:52:38.415393"
+  "fecha_calculo_precio": "2026-06-23T04:46:35.693333"
 }

@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/boligrafos-pompon-caja-x12-unidades.html",
-  "fecha_scraping": "2026-06-22T20:44:48.374184",
+  "fecha_scraping": "2026-06-23T04:39:27.200905",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles",
@@ -29,7 +29,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T20:50:26.277321",
+  "fecha_mapeo_categorias": "2026-06-23T04:45:28.415679",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L6138_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L6138_002",
@@ -50,5 +50,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 32500.0,
-  "fecha_calculo_precio": "2026-06-22T20:52:38.417929"
+  "fecha_calculo_precio": "2026-06-23T04:46:35.695882"
 }

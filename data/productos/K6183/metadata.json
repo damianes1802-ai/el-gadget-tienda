@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/set-de-esponjas-y-accesorios-cosmetica.html",
-  "fecha_scraping": "2026-06-22T20:45:48.827533",
+  "fecha_scraping": "2026-06-23T04:39:40.313143",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Estética y Belleza"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T20:50:26.282225",
+  "fecha_mapeo_categorias": "2026-06-23T04:45:28.417822",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_K6183_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8500.0,
-  "fecha_calculo_precio": "2026-06-22T20:52:38.490644"
+  "fecha_calculo_precio": "2026-06-23T04:46:35.769500"
 }
