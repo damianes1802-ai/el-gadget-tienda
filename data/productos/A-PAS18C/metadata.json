@@ -21,7 +21,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-con-nudos-vedetina-amarillo.html",
-  "fecha_scraping": "2026-06-23T06:30:54.385355",
+  "fecha_scraping": "2026-06-24T04:43:01.978292",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -31,7 +31,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-23T06:37:30.767760",
+  "fecha_mapeo_categorias": "2026-06-24T04:47:14.258155",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_002",
@@ -49,5 +49,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 28500.0,
-  "fecha_calculo_precio": "2026-06-23T06:38:21.353352"
+  "fecha_calculo_precio": "2026-06-24T04:48:47.051473"
 }

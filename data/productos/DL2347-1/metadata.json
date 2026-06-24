@@ -18,7 +18,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/organizador-de-juguetes-tubo-torre-para-mu-ecos-peluches.html",
-  "fecha_scraping": "2026-06-23T06:33:10.377764",
+  "fecha_scraping": "2026-06-24T04:41:58.628855",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -28,7 +28,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-23T06:37:30.772615",
+  "fecha_mapeo_categorias": "2026-06-24T04:47:14.266293",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2347-1_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2347-1_002",
@@ -51,5 +51,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 68000.0,
-  "fecha_calculo_precio": "2026-06-23T06:38:21.433184"
+  "fecha_calculo_precio": "2026-06-24T04:48:47.112222"
 }

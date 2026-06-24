@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bolso-raffia-bandolera-tejido-mujer-crochet-playa-verano.html",
-  "fecha_scraping": "2026-06-23T06:32:47.206715",
+  "fecha_scraping": "2026-06-24T04:42:10.140933",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-23T06:37:30.708839",
+  "fecha_mapeo_categorias": "2026-06-24T04:47:14.228074",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2062-002_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2062-002_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 41000.0,
-  "fecha_calculo_precio": "2026-06-23T06:38:21.453402"
+  "fecha_calculo_precio": "2026-06-24T04:48:47.131194"
 }
