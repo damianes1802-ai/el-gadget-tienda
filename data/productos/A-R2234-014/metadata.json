@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/tira-de-luz-mini-cocktails-deco-x1metro.html",
-  "fecha_scraping": "2026-06-24T04:41:48.882742",
+  "fecha_scraping": "2026-06-24T06:30:17.012232",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Deco"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-24T04:47:14.246694",
+  "fecha_mapeo_categorias": "2026-06-24T06:35:36.545449",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-014_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-014_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 10000.0,
-  "fecha_calculo_precio": "2026-06-24T04:48:47.054391"
+  "fecha_calculo_precio": "2026-06-24T06:36:36.736460"
 }
