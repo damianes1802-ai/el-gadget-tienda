@@ -3067,6 +3067,89 @@ def dashboard_referido(authorization: Optional[str] = Header(None)):
     }
 
 
+@app.get("/api/catalogo-comisiones")
+def catalogo_comisiones_publico(
+    search: Optional[str] = None,
+    categoria: Optional[str] = None,
+    page: int = 1,
+    limit: int = 30,
+):
+    """Catálogo público con comisiones por tier (sin autenticación)."""
+    conn = get_db()
+    cursor = conn.cursor()
+
+    categorias = [r[0] for r in cursor.execute(
+        "SELECT DISTINCT categoria FROM productos WHERE stock > 0 AND categoria IS NOT NULL ORDER BY categoria"
+    ).fetchall()]
+
+    where_clauses = ["stock > 0", "precio_venta > 0"]
+    params = []
+    if search:
+        where_clauses.append("(nombre LIKE ? OR sku LIKE ?)")
+        like = f"%{search}%"
+        params.extend([like, like])
+    if categoria:
+        where_clauses.append("categoria = ?")
+        params.append(categoria)
+
+    where_sql = " AND ".join(where_clauses)
+    total = cursor.execute(f"SELECT COUNT(*) FROM productos WHERE {where_sql}", params).fetchone()[0]
+    offset = (page - 1) * limit
+
+    rows = cursor.execute(
+        f"""SELECT sku, nombre, precio_venta, categoria, imagen_principal, url_amigable
+            FROM productos WHERE {where_sql}
+            ORDER BY precio_venta DESC
+            LIMIT ? OFFSET ?""",
+        params + [limit, offset]
+    ).fetchall()
+
+    tiers = [
+        {"nombre": "Base", "ventas": "0-4", "porcentaje": 7},
+        {"nombre": "Activo", "ventas": "5-14", "porcentaje": 11},
+        {"nombre": "Top", "ventas": "15+", "porcentaje": 15},
+    ]
+
+    productos = []
+    for r in rows:
+        sku, nombre, precio, cat, imagen, url_amigable = r
+        precio = float(precio)
+        calc_base = _comision_producto_referido(precio, 7)
+        calc_activo = _comision_producto_referido(precio, 11)
+        calc_top = _comision_producto_referido(precio, 15)
+
+        if not imagen or not imagen.strip():
+            imagen_url = f"https://res.cloudinary.com/deq2ofluf/image/upload/prod_{sku}_001"
+        else:
+            imagen_url = imagen
+
+        url_producto = f"https://elgadget.com.ar/producto/{url_amigable.strip()}/" if url_amigable and url_amigable.strip() else f"https://elgadget.com.ar/"
+
+        productos.append({
+            "sku": sku,
+            "nombre": nombre,
+            "precio": precio,
+            "categoria": cat,
+            "imagen_url": imagen_url,
+            "url_producto": url_producto,
+            "descuento_comprador_pct": calc_base["descuento_pct"],
+            "precio_con_descuento": calc_base["precio_con_descuento"],
+            "comision_base": calc_base["comision_ars"],
+            "comision_activo": calc_activo["comision_ars"],
+            "comision_top": calc_top["comision_ars"],
+        })
+
+    conn.close()
+    return {
+        "productos": productos,
+        "categorias": categorias,
+        "tiers": tiers,
+        "total": total,
+        "pages": (total + limit - 1) // limit,
+        "page": page,
+    }
+
+
 @app.get("/api/referidos/catalogo")
 def catalogo_referido(
     authorization: Optional[str] = Header(None),
