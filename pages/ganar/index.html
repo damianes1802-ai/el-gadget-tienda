@@ -231,6 +231,68 @@
   margin-right: auto;
   line-height: 1.6;
 }
+
+/* Inline form */
+.g-form-section { background: var(--ink); padding: 64px 24px; text-align: center; }
+.g-form-wrap {
+  background: var(--paper, #fff); border-radius: 20px; padding: 40px 32px;
+  max-width: 480px; margin: 0 auto; text-align: left;
+}
+.g-form-wrap h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px; font-weight: 700; color: var(--ink);
+  margin: 0 0 8px; text-align: center;
+}
+.g-form-wrap .form-sub { font-size: 13px; color: var(--gray-600); text-align: center; margin: 0 0 28px; }
+.g-form-field { margin-bottom: 16px; }
+.g-form-field label {
+  display: block; font-size: 12px; font-weight: 600; color: var(--ink);
+  letter-spacing: 0.3px; margin-bottom: 6px; text-transform: uppercase;
+}
+.g-form-field input[type="text"],
+.g-form-field input[type="email"],
+.g-form-field input[type="tel"] {
+  width: 100%; padding: 13px 14px; border: 1.5px solid var(--gray-200);
+  border-radius: 10px; font-size: 15px; color: var(--ink);
+  background: #fff; outline: none; transition: border-color 0.15s; box-sizing: border-box;
+}
+.g-form-field input:focus { border-color: var(--accent); }
+.g-form-field .hint { font-size: 11px; color: var(--gray-600); margin-top: 4px; }
+.g-form-error {
+  background: #fff0f0; border: 1px solid #ffbdbd; color: #c0392b;
+  border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 16px; display: none;
+}
+.g-form-trust {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  margin-top: 16px; font-size: 11px; color: var(--gray-600);
+}
+.g-form-trust span { display: flex; align-items: center; gap: 4px; }
+.g-form-success { display: none; text-align: center; padding: 20px 0; }
+.g-form-success .code-display {
+  background: var(--ink); color: var(--accent);
+  font-family: 'Space Grotesk', sans-serif; font-size: 32px;
+  font-weight: 700; letter-spacing: 4px; border-radius: 14px;
+  padding: 20px 32px; margin: 16px auto; display: inline-block;
+  cursor: pointer; user-select: all;
+}
+.g-form-success .code-hint { font-size: 13px; color: var(--gray-600); margin-bottom: 8px; }
+.g-form-success .temp-pass {
+  background: var(--cream); border-radius: 10px; padding: 12px 16px;
+  margin: 16px auto; max-width: 320px; font-size: 13px; color: var(--ink);
+}
+.g-form-success .temp-pass strong { font-family: 'Space Grotesk', sans-serif; font-size: 16px; letter-spacing: 1px; }
+.g-form-success .success-actions {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px;
+}
+.floating-cta {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--ink); padding: 12px 16px; text-align: center; z-index: 90;
+  transform: translateY(100%); transition: transform 0.3s ease;
+  box-shadow: 0 -2px 20px rgba(0,0,0,0.15);
+}
+.floating-cta.visible { transform: translateY(0); }
+.floating-cta .btn { width: 100%; max-width: 400px; }
+@media (min-width: 769px) { .floating-cta { display: none; } }
 </style>
 </head>
 <body>
@@ -274,7 +336,7 @@
   <h1>Si te gusta un producto,<br><span>¿por qué no cobrar por recomendarlo?</span></h1>
   <p>Ya recomendás cosas que te gustan. Con El Gadget, cada vez que alguien compra con tu código, vos cobrás <strong style="color:var(--accent)">entre 7% y 15% de comisión</strong> y quien compra obtiene <strong style="color:var(--accent)">10-20% de descuento</strong>. Sin inversión. Sin compromiso.</p>
   <div class="g-hero-btns">
-    <a href="/referidos#registro" class="btn btn-accent">Quiero mi código gratis</a>
+    <a href="#registro" class="btn btn-accent" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'});return false;">Quiero mi código gratis</a>
     <a href="#quienes" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.3)">¿Es para mí?</a>
   </div>
 </section>
@@ -380,7 +442,63 @@
         <p style="font-size:13px;color:rgba(255,255,255,0.65);margin:0;line-height:1.6">Liquidación el 5to día hábil de cada mes. Transferencia bancaria o MercadoPago. Sin mínimos para cobrar.</p>
       </div>
     </div>
-    <a href="/referidos#registro" class="btn btn-accent" style="font-size:14px;padding:12px 30px">Registrarme gratis</a>
+    <a href="#registro" class="btn btn-accent" style="font-size:14px;padding:12px 30px" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'});return false;">Registrarme gratis</a>
+  </div>
+</section>
+
+<!-- FORMULARIO INLINE -->
+<section class="g-form-section" id="registro">
+  <div class="g-form-wrap">
+    <h2>Obtené tu código en 30 segundos</h2>
+    <p class="form-sub">Gratis, sin compromiso, sin letra chica.</p>
+
+    <div class="g-form-error" id="hubFormError"></div>
+
+    <form id="hubForm" onsubmit="registrarHub(event)">
+      <div class="g-form-field">
+        <label>Nombre completo</label>
+        <input type="text" id="hubNombre" placeholder="Ej. Ana Pérez" required autocomplete="name">
+      </div>
+      <div class="g-form-field">
+        <label>Email</label>
+        <input type="email" id="hubEmail" placeholder="ana@email.com" required autocomplete="email">
+      </div>
+      <div class="g-form-field">
+        <label>WhatsApp (con código de área)</label>
+        <input type="tel" id="hubTelefono" placeholder="1122334455" required autocomplete="tel" inputmode="numeric">
+        <div class="hint">Para enviarte tu código y tips para maximizar comisiones</div>
+      </div>
+      <div class="g-form-field" style="margin-top:8px">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600);text-transform:none;letter-spacing:0">
+          <input type="checkbox" id="hubConsentimiento" style="margin-top:3px;flex-shrink:0;width:16px;height:16px" required>
+          <span>Acepto los <a href="/terminos#referidos" target="_blank" style="color:var(--ink);font-weight:600">Términos</a> y la <a href="/privacidad" target="_blank" style="color:var(--ink);font-weight:600">Privacidad</a> y quiero empezar a ganar</span>
+        </label>
+      </div>
+      <button type="submit" class="btn btn-accent" id="hubSubmitBtn" style="width:100%;margin-top:12px;padding:14px;font-size:15px">
+        Quiero mi código gratis
+      </button>
+      <p style="text-align:center;font-size:12px;color:var(--gray-600);margin:10px 0 0">Recibís tu código y contraseña al instante por email y WhatsApp<br>Podés empezar a compartirlo hoy mismo</p>
+    </form>
+
+    <div class="g-form-trust">
+      <span>🔒 Datos seguros</span>
+      <span>⚡ Código al instante</span>
+      <span>🚫 Sin compromiso</span>
+    </div>
+
+    <div class="g-form-success" id="hubSuccess">
+      <p style="font-size:16px;color:var(--ink);margin:0 0 4px;font-weight:600">Tu código de referido es:</p>
+      <div class="code-display" id="hubCodigoDisplay" onclick="copiarCodigo(this)" title="Clic para copiar"></div>
+      <div class="code-hint">Clic para copiar</div>
+      <div class="temp-pass">
+        Tu contraseña temporal: <strong id="hubTempPass"></strong><br>
+        <span style="font-size:11px;color:var(--gray-600)">Usala para acceder a tu panel. Podés cambiarla después.</span>
+      </div>
+      <div class="success-actions">
+        <a href="/mi_cuenta" class="btn btn-outline">Ver mi panel</a>
+        <button class="btn btn-accent" onclick="compartirCodigo()">Compartir mi código</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -388,7 +506,7 @@
 <section class="g-cta-strip">
   <h2>Lo que ya hacés gratis<br><span>ahora te genera comisiones</span></h2>
   <p>Registro gratuito, sin compromiso, sin letra chica. Si no funciona para vos, no perdés nada.</p>
-  <a href="/referidos#registro" class="btn btn-accent" style="font-size:16px;padding:14px 36px">Quiero mi código — es gratis</a>
+  <a href="#registro" class="btn btn-accent" style="font-size:16px;padding:14px 36px" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'});return false;">Quiero mi código — es gratis</a>
 </section>
 
 <!-- FOOTER -->
@@ -437,8 +555,119 @@
   <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
 </a>
 
+<!-- Floating CTA mobile -->
+<div class="floating-cta" id="floatingCta">
+  <a href="#registro" class="btn btn-accent" style="padding:13px;font-size:15px" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'});return false;">Quiero mi código gratis</a>
+</div>
+
 <div class="toast" id="toast"></div>
-<script src="../assets/js/cart.js">document.getElementById("yearGanar") && (document.getElementById("yearGanar").textContent = new Date().getFullYear());
+<script src="../assets/js/cart.js"></script>
+<script>
+var API_URL = 'https://el-gadget-tienda.onrender.com';
+
+function generatePassword(telefono) {
+  var digits = telefono.replace(/\D/g, '').slice(-4) || '0000';
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+  var rand = '';
+  for (var i = 0; i < 3; i++) rand += chars[Math.floor(Math.random() * chars.length)];
+  return 'Ref_' + digits + rand;
+}
+
+async function registrarHub(e) {
+  e.preventDefault();
+  var btn = document.getElementById('hubSubmitBtn');
+  var errDiv = document.getElementById('hubFormError');
+  errDiv.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Registrando...';
+
+  var telefono = document.getElementById('hubTelefono').value.trim().replace(/\D/g, '');
+  var tempPass = generatePassword(telefono);
+
+  var payload = {
+    nombre:   document.getElementById('hubNombre').value.trim(),
+    email:    document.getElementById('hubEmail').value.trim().toLowerCase(),
+    telefono: telefono,
+    password: tempPass,
+    source:   'hub_landing'
+  };
+
+  try {
+    var res = await fetch(API_URL + '/api/referidos/registro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    var data = await res.json();
+    if (!res.ok) {
+      errDiv.textContent = data.detail || 'Ocurrió un error. Intentá de nuevo.';
+      errDiv.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Quiero mi código gratis';
+      return;
+    }
+    if (data.token) {
+      localStorage.setItem('eg_token', data.token);
+      localStorage.setItem('eg_nombre', data.nombre);
+    }
+    document.getElementById('hubForm').style.display = 'none';
+    document.querySelector('.g-form-trust').style.display = 'none';
+    document.getElementById('hubCodigoDisplay').textContent = data.codigo;
+    document.getElementById('hubTempPass').textContent = tempPass;
+    document.getElementById('hubSuccess').style.display = 'block';
+  } catch (err) {
+    errDiv.textContent = 'Error de conexión. Verificá tu internet e intentá de nuevo.';
+    errDiv.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Quiero mi código gratis';
+  }
+}
+
+function copiarCodigo(el) {
+  navigator.clipboard.writeText(el.textContent.trim()).then(function() {
+    var orig = el.textContent;
+    el.textContent = '¡Copiado!';
+    setTimeout(function() { el.textContent = orig; }, 1500);
+  }).catch(function() {
+    var range = document.createRange();
+    range.selectNode(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+  });
+}
+
+function compartirCodigo() {
+  var codigo = document.getElementById('hubCodigoDisplay').textContent.trim();
+  var url = 'https://elgadget.com.ar/?ref=' + codigo + '&utm_source=share&utm_medium=referral&utm_campaign=hub_landing';
+  var text = 'Usá mi código ' + codigo + ' en El Gadget y conseguís hasta 20% de descuento en tu compra: ' + url;
+  if (navigator.share) {
+    navigator.share({ title: 'Mi código de descuento El Gadget', text: text });
+  } else {
+    navigator.clipboard.writeText(text).then(function() {
+      showToast('Mensaje copiado al portapapeles');
+    });
+  }
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2500);
+}
+
+document.getElementById("yearGanar") && (document.getElementById("yearGanar").textContent = new Date().getFullYear());
+
+(function() {
+  var cta = document.getElementById('floatingCta');
+  if (!cta) return;
+  window.addEventListener('scroll', function() {
+    var scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    cta.classList.toggle('visible', scrollPercent > 0.4);
+  });
+})();
 </script>
 </body>
 </html>
