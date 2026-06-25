@@ -250,8 +250,9 @@ class RegistroReferido(BaseModel):
     nombre: str
     email: str
     telefono: str
-    dni: str
+    dni: Optional[str] = None
     password: str
+    source: Optional[str] = None
 
 
 class MarcarPagadoReferido(BaseModel):
@@ -2911,10 +2912,11 @@ def registro_referido(datos: RegistroReferido):
     conn = get_db()
     cursor = conn.cursor()
 
-    # Verificar que el DNI no esté ya registrado
-    if cursor.execute("SELECT 1 FROM referidos WHERE dni = ?", (datos.dni,)).fetchone():
-        conn.close()
-        raise HTTPException(status_code=409, detail="Ese DNI ya está registrado en el programa de referidos")
+    # Verificar que el DNI no esté ya registrado (solo si se proporcionó)
+    if datos.dni:
+        if cursor.execute("SELECT 1 FROM referidos WHERE dni = ?", (datos.dni,)).fetchone():
+            conn.close()
+            raise HTTPException(status_code=409, detail="Ese DNI ya está registrado en el programa de referidos")
 
     # Verificar que el email no tenga ya un perfil de referido
     if cursor.execute("SELECT 1 FROM referidos WHERE email = ?", (datos.email.lower(),)).fetchone():
@@ -2938,10 +2940,11 @@ def registro_referido(datos: RegistroReferido):
             VALUES (?, ?, ?, ?, ?, ?)
         """, (datos.nombre, datos.email.lower(), datos.telefono, codigo_bienvenida, password_hash, password_salt))
         usuario_id = cursor.lastrowid
+        descuento_valor = 50 if datos.source and 'landing' in datos.source else 10
         cursor.execute("""
             INSERT OR IGNORE INTO descuentos (nombre, tipo, valor, alcance, codigo, email_asociado, activo, uso_maximo)
-            VALUES (?, 'porcentaje', 10, 'todos', ?, ?, 1, 1)
-        """, (f"Bienvenida: {datos.nombre}", codigo_bienvenida, datos.email.lower()))
+            VALUES (?, 'porcentaje', ?, 'todos', ?, ?, 1, 1)
+        """, (f"Bienvenida: {datos.nombre}", descuento_valor, codigo_bienvenida, datos.email.lower()))
         token = secrets.token_hex(32)
         cursor.execute("INSERT INTO sesiones_usuario (token, usuario_id) VALUES (?, ?)", (token, usuario_id))
     else:
@@ -2958,7 +2961,7 @@ def registro_referido(datos: RegistroReferido):
     cursor.execute("""
         INSERT INTO referidos (nombre, email, telefono, dni, codigo)
         VALUES (?, ?, ?, ?, ?)
-    """, (datos.nombre, datos.email.lower(), datos.telefono, datos.dni, codigo))
+    """, (datos.nombre, datos.email.lower(), datos.telefono, datos.dni or '', codigo))
 
     # Insertar el código en la tabla descuentos (15% off, ilimitado, para todos)
     cursor.execute("""
