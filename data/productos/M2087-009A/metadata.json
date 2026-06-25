@@ -17,7 +17,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/porta-cosmeticos-transparente-con-lentejuelas-de-corazones-rosa.html",
-  "fecha_scraping": "2026-06-25T04:40:25.899678",
+  "fecha_scraping": "2026-06-25T06:27:26.012157",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -27,7 +27,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-25T04:44:55.912416",
+  "fecha_mapeo_categorias": "2026-06-25T06:34:36.924422",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2087-009A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2087-009A_002",
@@ -49,5 +49,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 9500.0,
-  "fecha_calculo_precio": "2026-06-25T04:46:49.595019"
+  "fecha_calculo_precio": "2026-06-25T06:36:25.247004"
 }

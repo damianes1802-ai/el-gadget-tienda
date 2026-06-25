@@ -20,7 +20,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/orinal-para-ni-os-antiderrame-1.html",
-  "fecha_scraping": "2026-06-25T04:41:03.790219",
+  "fecha_scraping": "2026-06-25T06:30:12.815501",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -30,7 +30,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-25T04:44:55.919709",
+  "fecha_mapeo_categorias": "2026-06-25T06:34:36.945023",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0149-RO_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0149-RO_002",
@@ -55,5 +55,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 12000.0,
-  "fecha_calculo_precio": "2026-06-25T04:46:49.617295"
+  "fecha_calculo_precio": "2026-06-25T06:36:25.273499"
 }

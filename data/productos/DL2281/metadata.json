@@ -33,14 +33,14 @@
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-06-25T04:44:56.035980",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362754/prod_DL2281_001.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362755/prod_DL2281_002.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362756/prod_DL2281_003.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362757/prod_DL2281_004.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362758/prod_DL2281_005.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362759/prod_DL2281_006.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362760/prod_DL2281_007.png",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362761/prod_DL2281_008.png"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_008"
   ],
   "calculo_precio": {
     "precio_costo": 39990,
@@ -54,5 +54,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 68000.0,
-  "fecha_calculo_precio": "2026-06-25T04:46:49.565657"
+  "fecha_calculo_precio": "2026-06-25T06:36:25.213164"
 }

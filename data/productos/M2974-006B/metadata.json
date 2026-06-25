@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/ri-onera-mujer-fluo-textura-snake-cuero-ecologico-total-chic-rosa-snake-1.html",
-  "fecha_scraping": "2026-06-25T04:39:39.255846",
+  "fecha_scraping": "2026-06-25T06:30:03.628221",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-25T04:44:55.914641",
+  "fecha_mapeo_categorias": "2026-06-25T06:34:36.935250",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2974-006B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2974-006B_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30500.0,
-  "fecha_calculo_precio": "2026-06-25T04:46:49.596297"
+  "fecha_calculo_precio": "2026-06-25T06:36:25.248490"
 }
