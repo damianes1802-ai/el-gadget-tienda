@@ -1,0 +1,56 @@
+{
+  "sku": "DL2373",
+  "titulo": "Funda X5 Trajes Porta traje Camperas Sacos Blusas Pantalones",
+  "precio": 14290,
+  "descripcion": "SET X5 FUNDAS PORTATRAJE COLGANTE PARA ROPA CON CIERRE 60X80\nEste set de fundas protectoras colgantes es la solución definitiva para mantener tu vestuario impecable, organizado y completamente protegido. Diseñadas para optimizar el espacio en tu placar, son perfectas para resguardar prendas de uso diario o de estación, evitando el deterioro y asegurando que tus conjuntos estén siempre listos para usar.\nDISEÑO Y DETALLES DEL PRODUCTO\nLas fundas presentan una estructura colgante totalmente traslúcida que permite identificar el contenido de manera inmediata sin necesidad de abrirlas. Cuentan con una apertura superior reforzada para introducir el gancho de la percha de forma simple y un sistema de cierre de cremallera frontal resistente que corre de manera suave, garantizando un sellado efectivo. Su uso regular brinda una protección integral contra el polvo, la humedad, las polillas y los olores externos. Además, al mantener la ropa estirada y alineada en el perchero, evitan las arrugas y optimizan notablemente el espacio de colgado. Son completamente reutilizables y aptas para lavarse a mano si es necesario.\nPRENDAS SUGERIDAS\nSu diseño es sumamente versátil y resulta ideal para proteger trajes, camperas, sacos, blusas, camisas, pantalones, sweaters y camperas de cuero.\nMATERIAL PRINCIPAL\nPEVA (Polietileno Vinil Acetato) de alta calidad. Un material ecológico, libre de olor, impermeable, semi-transpirable y altamente resistente al desgaste continuo.\nCONTENIDO DEL PAQUETE\n4 unidades de fundas protectoras\nMEDIDAS DE LA PRENDA\nAncho: 60 cm\nAlto: 80 cm\nLargo máximo sugerido para las prendas: hasta 70 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2373_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2373_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2373_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2373_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2373_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2373_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2373_7_.png"
+  ],
+  "cantidad_imagenes": 7,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5938/",
+  "fecha_scraping": "2026-06-25T04:32:43.183602",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-25T04:44:56.026342",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-25T04:44:56.026347",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362772/prod_DL2373_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362773/prod_DL2373_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362774/prod_DL2373_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362775/prod_DL2373_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362777/prod_DL2373_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362778/prod_DL2373_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782362779/prod_DL2373_007.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 14290,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 14290,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 24293.0,
+    "precio_final": 24500.0,
+    "ganancia_neta": 10210.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 24500.0,
+  "fecha_calculo_precio": "2026-06-25T04:46:49.581942"
+}

@@ -17,7 +17,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/dispenser-agua-y-comida-para-mascotas-350ml-7.html",
-  "fecha_scraping": "2026-06-24T06:28:36.167049",
+  "fecha_scraping": "2026-06-25T04:39:15.793573",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios para Mascotas"
@@ -27,7 +27,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-24T06:35:36.561675",
+  "fecha_mapeo_categorias": "2026-06-25T04:44:55.945490",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_002",
@@ -49,5 +49,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 25500.0,
-  "fecha_calculo_precio": "2026-06-24T06:36:36.800262"
+  "fecha_calculo_precio": "2026-06-25T04:46:49.560301"
 }
