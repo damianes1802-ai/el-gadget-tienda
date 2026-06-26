@@ -708,6 +708,9 @@ def generar():
         (f"{canonical_url}/ganar/monetizar-youtube/", "monthly"),
         (f"{canonical_url}/ganar/monetizar-facebook/", "monthly"),
         (f"{canonical_url}/ganar/productos-comisiones/", "weekly"),
+        (f"{canonical_url}/ganar/dropshipping/", "monthly"),
+        (f"{canonical_url}/ganar/monetizar-tiktok/", "monthly"),
+        (f"{canonical_url}/ganar/dinero-por-internet/", "monthly"),
     ]
     urls = [(f"{canonical_url}/producto/{slug}/", "weekly") for slug in sorted(slugs_generados)]
     all_urls = static_pages + urls
