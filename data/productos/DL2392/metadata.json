@@ -1,0 +1,58 @@
+{
+  "sku": "DL2392",
+  "titulo": "Espejo Retrovisor 360 Grados Para Bicicleta Pack X2",
+  "precio": 5685,
+  "descripcion": "SET X2 ESPEJOS RETROVISORES 360 GRADOS PARA BICICLETA Y SCOOTER\nEste set de dos espejos retrovisores circulares es el accesorio de seguridad ideal para tus traslados diarios en la ciudad. Diseñados con un sistema de sujeción adaptable y un mecanismo giratorio completo, te permiten mantener una visión clara de tu entorno, mejorando significativamente la visibilidad y la prevención en la vía pública.\nDISEÑO Y DETALLES DEL PRODUCTO\nLos retrovisores cuentan con un espejo de alta definición que ofrece una imagen nítida, clara y resistente a los impactos urbanos comunes. Su estructura principal está fabricada en plástico de alta resistencia, combinada con componentes de PVC y una abrazadera de goma flexible que absorbe las vibraciones del camino. Como se observa en la imagen 61pWdUVoSGL.AC_SL1500.jpg, la correa de sujeción posee un diseño ajustable con múltiples posiciones para adaptarse de forma óptima a la fisionomía de tu vehículo. Gracias a su articulación giratoria de 360 grados, es posible regular la inclinación y el ángulo visual de manera exacta según la posición de manejo. Su instalación es sumamente práctica y rápida, ya que se realiza manualmente a presión sin necesidad de utilizar herramientas adicionales. Según se detalla en las especificaciones gráficas de la imagen 61UGlScW22L.AC_SX466.jpg, el producto ofrece resistencia a la intemperie frente al agua y protección ante la exposición a la radiación UV.\nCOMPATIBILIDAD\nDe acuerdo con lo ilustrado en la imagen 61r6J-AYn1L.AC_SX466.jpg, este set es apto para una amplia variedad de rodados, resultando ideal para bicicletas de paseo o montaña, monopatines eléctricos, scooters y motos de baja cilindrada.\nMATERIALES\nPlástico ABS de alto impacto, PVC y goma elástica regulable.\nCONTENIDO DEL PAQUETE\n2 espejos retrovisores articulados de color negro\nMEDIDAS DEL PRODUCTO\nDiámetro del espejo: 8 cm\nRango de ajuste para el diámetro del manubrio: de 1.5 cm a 3 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2392_8_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2392_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2392_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2392_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2392_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2392_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2392_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2392_6_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5942/",
+  "fecha_scraping": "2026-06-26T04:49:42.199165",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-26T05:05:53.430868",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-26T05:05:53.430873",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450475/prod_DL2392_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450476/prod_DL2392_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450477/prod_DL2392_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450478/prod_DL2392_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450478/prod_DL2392_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450479/prod_DL2392_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450480/prod_DL2392_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450481/prod_DL2392_008.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 5685,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 5685,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 9664.5,
+    "precio_final": 10000.0,
+    "ganancia_neta": 4315.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 10000.0,
+  "fecha_calculo_precio": "2026-06-26T05:08:42.110823"
+}

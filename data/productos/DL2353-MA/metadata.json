@@ -1,0 +1,54 @@
+{
+  "sku": "DL2353-MA",
+  "titulo": "Maleta Transportadora De Viaje Rígida Para Mascotas Marrón",
+  "precio": 21450,
+  "descripcion": "TRANSPORTADORA CANIL RIGIDO PREMIUM PARA MASCOTAS - APTO VIAJES Y TRASLADOS\nOptimizá los viajes y traslados de tu mascota con este canil transportador rígido de calidad premium, diseñado específicamente para brindar máxima seguridad, durabilidad y confort a perros pequeños y gatos. Su estructura robusta de alta densidad ofrece una protección superior ante impactos, convirtiéndolo en la solución ideal tanto para visitas de rutina al veterinario como para viajes prolongados en auto, micro o avión.\nCARACTERISTICAS PRINCIPALES Y BENEFICIOS\nEstructura de Alta Resistencia: Fabricada con polímeros rígidos de primer nivel que no se deforman con el uso, garantizando un habitáculo firme y seguro que protege la integridad física de tu mascota en todo momento.\nSistema de Ventilación Perimetral: Equipada con múltiples ranuras laterales distribuidas estratégicamente para asegurar una circulación de aire continua y eficiente. Esto evita el sofocamiento, regula la temperatura interna y reduce notablemente el estrés del animal durante el encierro.\nBandeja Plástica Anti fluidos Removible: Incluye una rejilla sanitaria protectora que aísla por completo la superficie de apoyo. En caso de micción o derrames accidentales, los líquidos se depositan en el fondo, manteniendo a tu mascota completamente seca, limpia y alejada de la humedad durante todo el trayecto.\nPuerta Metálica con Cierre de Seguridad: Cuenta con una rejilla frontal de metal reforzado que resiste mordeduras y rasguños. Su sistema de cerrojo integrado previene aperturas accidentales desde el interior, brindando absoluta tranquilidad al conductor o transportista.\nDiseño Ergonómico y Fácil Mantenimiento: Incorpora una manija superior integrada y anatómica para un agarre firme y cómodo, distribuyendo el peso de manera uniforme. Además, el sistema de ensamble por encastre y tornillos permite desarmar la estructura en pocos minutos para realizar una limpieza profunda o guardarla optimizando espacio.\nEstética Profesional: Su acabado texturizado y la combinación de tonos oscuros no solo le otorgan una visual sobria y elegante, sino que también disimulan el desgaste propio del uso diario y los traslados.\nMEDIDAS DEL PRODUCTO\nLargo: 48 cm\nAncho: 32 cm\nAlto: 30 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2353_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2353_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2353_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2353_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2353_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2353_7_.png"
+  ],
+  "cantidad_imagenes": 6,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5939/",
+  "fecha_scraping": "2026-06-26T04:49:46.418930",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-26T05:05:53.431829",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-26T05:05:53.431834",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450440/prod_DL2353-MA_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450441/prod_DL2353-MA_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450442/prod_DL2353-MA_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450443/prod_DL2353-MA_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450444/prod_DL2353-MA_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450445/prod_DL2353-MA_006.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 21450,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 21450,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 36465.0,
+    "precio_final": 36500.0,
+    "ganancia_neta": 15050.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 36500.0,
+  "fecha_calculo_precio": "2026-06-26T05:08:42.101369"
+}

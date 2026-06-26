@@ -1,0 +1,54 @@
+{
+  "sku": "DL2371",
+  "titulo": "Funda X5 Porta Traje Camperas 120cm",
+  "precio": 16290,
+  "descripcion": "SET X5 FUNDAS PORTATRAJE COLGANTE PARA ROPA CON CIERRE 60 X 120CM\nEste set de fundas protectoras colgantes es la solución definitiva para mantener tu vestuario impecable, organizado y completamente protegido. Diseñadas para optimizar el espacio en tu placard, son perfectas para resguardar prendas de uso diario o de estación, evitando el deterioro y asegurando que tus conjuntos estén siempre listos para usar.\nDISEÑO Y DETALLES DEL PRODUCTO\nLas fundas presentan una estructura colgante totalmente traslúcida que permite identificar el contenido de manera inmediata sin necesidad de abrirlas. Cuentan con una apertura superior reforzada para introducir el gancho de la percha de forma simple y un sistema de cierre de cremallera frontal resistente que corre de manera suave, garantizando un sellado efectivo. Su uso regular brinda una protección integral contra el polvo, la humedad, las polillas y los olores externos. Además, al mantener la ropa estirada y alineada en el perchero, evitan las arrugas y optimizan notablemente el espacio de colgado. Son completamente reutilizables y aptas para lavarse a mano si es necesario.\nPRENDAS SUGERIDAS\nSu diseño es sumamente versátil y resulta ideal para proteger trajes, camperas, sacos, blusas, camisas, pantalones, sweaters y camperas de cuero.\nMATERIAL PRINCIPAL\nPEVA (Polietileno Vinil Acetato) de alta calidad. Un material ecológico, libre de olor, impermeable, semi-transpirable y altamente resistente al desgaste continuo.\nCONTENIDO DEL PAQUETE\n5 unidades de fundas protectoras\nMEDIDAS DE LA PRENDA\nAncho: 60 cm\nAlto: 120 cm\nLargo máximo sugerido para las prendas: hasta 110 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2372_2__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2372_1__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2372_3__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2372_4__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2372_5__1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2372_6__1.png"
+  ],
+  "cantidad_imagenes": 6,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5946/",
+  "fecha_scraping": "2026-06-26T04:49:36.561697",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-26T05:05:53.441368",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-26T05:05:53.441371",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450454/prod_DL2371_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450455/prod_DL2371_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450456/prod_DL2371_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450457/prod_DL2371_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450458/prod_DL2371_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450459/prod_DL2371_006.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 16290,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 16290,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 27693.0,
+    "precio_final": 28000.0,
+    "ganancia_neta": 11710.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 28000.0,
+  "fecha_calculo_precio": "2026-06-26T05:08:42.107729"
+}

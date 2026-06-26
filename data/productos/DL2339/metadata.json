@@ -1,0 +1,58 @@
+{
+  "sku": "DL2339",
+  "titulo": "Organizador Infantil Juguetes 7 Espacios Con Cajones Osito",
+  "precio": 96990,
+  "descripcion": "Organizador Infantil Osito 7 Espacios con Cajones\nOrganizador infantil con diseño de osito adorable y 7 espacios de almacenamiento. Perfecto para ordenar juguetes, ropa, pañales y accesorios de bebé en la habitación de los más pequeños.\nCaracterísticas principales:\n- Diseño divertido con temática de osito que encanta a los niños.\n- 7 espacios amplios: combina estantes abiertos y cajones para mayor versatilidad.\n- Estructura resistente y estable, ideal para uso diario.\n- Fácil de armar y limpiar.\n- Material seguro y duradero para ambiente infantil.\n- Ayuda a fomentar el orden desde pequeños.\n¡El aliado perfecto para mantener la habitación de tu bebé organizada y con estilo!",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2339_9_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2339_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2339_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2339_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2339_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2339_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2339_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2339_8_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5947/",
+  "fecha_scraping": "2026-06-26T04:49:35.135814",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-26T05:05:53.449961",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-26T05:05:53.449965",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450429/prod_DL2339_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450431/prod_DL2339_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450432/prod_DL2339_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450433/prod_DL2339_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450435/prod_DL2339_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450435/prod_DL2339_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450437/prod_DL2339_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450438/prod_DL2339_008.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 96990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 96990,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 164883.0,
+    "precio_final": 165000.0,
+    "ganancia_neta": 68010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 165000.0,
+  "fecha_calculo_precio": "2026-06-26T05:08:42.097775"
+}

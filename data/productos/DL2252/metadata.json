@@ -1,0 +1,60 @@
+{
+  "sku": "DL2252",
+  "titulo": "Bolso Organizador Plegable Para Baúl Auto Camioneta Vehículo",
+  "precio": 6690,
+  "descripcion": "Organizador de Baúl para Auto Plegable - Gris\nOrganizador de fieltro resistente ideal para mantener el baúl de tu auto ordenado y aprovechar al máximo el espacio. Perfecto para viajes, compras o uso diario en el hogar.\nCaracterísticas principales:\n- Material de fieltro de alta calidad: resistente, duradero y fácil de limpiar.\n- Diseño plegable: se guarda plano cuando no lo usás, ahorra espacio.\n- Tapa con cierre de velcro: mantiene todo seguro y protegido del polvo.\n- Asa reforzada: fácil de transportar y mover.\n- Gran capacidad: ideal para herramientas, ropa, juguetes, compras, picnic y más.\n- Versátil: se usa en baúl de auto, asiento trasero, placar o living.\nMedidas aproximadas: 50 cm largo x 17 cm ancho x 24 cm alto.\n¡La solución práctica para organizar tu auto y tu hogar con estilo!",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2252_9_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2252_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2252_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2252_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2252_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2252_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2252_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2252_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2252_8_.png"
+  ],
+  "cantidad_imagenes": 9,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5944/",
+  "fecha_scraping": "2026-06-26T04:49:39.470603",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-26T05:05:53.453320",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-26T05:05:53.453324",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450414/prod_DL2252_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450415/prod_DL2252_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450416/prod_DL2252_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450417/prod_DL2252_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450418/prod_DL2252_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450419/prod_DL2252_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450420/prod_DL2252_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450421/prod_DL2252_008.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450422/prod_DL2252_009.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 6690,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 6690,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 11373.0,
+    "precio_final": 11500.0,
+    "ganancia_neta": 4810.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 11500.0,
+  "fecha_calculo_precio": "2026-06-26T05:08:42.085100"
+}

@@ -1,0 +1,58 @@
+{
+  "sku": "DL2393",
+  "titulo": "Zapatero Abatible 3 Puertas Organizador Zapatos Espacio",
+  "precio": 112790,
+  "descripcion": "Zapatero Abatible 3 Puertas - Blanco 50x17x115 cm\nZapatero moderno y funcional con sistema abatible de 3 puertas. Ideal para organizar zapatos en pasillos, entradas o dormitorios sin ocupar mucho espacio.\nCaracterísticas principales:\n- Diseño abatible: las puertas se abren hacia abajo para acceder fácilmente a los zapatos.\n- 3 niveles de almacenamiento: gran capacidad en poco espacio.\n- Bajo fondo: perfecto para ambientes reducidos.\n- Material de tableros artificiales resistente.\n- Color blanco: se integra fácilmente a cualquier decoración.\n- Fácil de armar y estable.\nMedidas: 50 cm ancho x 17 cm fondo x 115 cm alto.\n¡Orden y practicidad en tu hogar con este elegante zapatero!",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2393_4_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2393_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2393_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2393_3_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2393_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2393_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2393_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2393_8_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5940/",
+  "fecha_scraping": "2026-06-26T04:49:45.033821",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-26T05:05:53.440828",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-26T05:05:53.440832",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450482/prod_DL2393_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450483/prod_DL2393_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450484/prod_DL2393_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450485/prod_DL2393_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450486/prod_DL2393_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450487/prod_DL2393_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450488/prod_DL2393_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450489/prod_DL2393_008.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 112790,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 112790,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 191743.0,
+    "precio_final": 192000.0,
+    "ganancia_neta": 79210.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 192000.0,
+  "fecha_calculo_precio": "2026-06-26T05:08:42.111258"
+}

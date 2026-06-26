@@ -1,0 +1,58 @@
+{
+  "sku": "DL2374",
+  "titulo": "Set X 3 Organizadores Cajas Almacenamiento Ropa Plegables",
+  "precio": 7490,
+  "descripcion": "Set x 3 Organizadores Cajas de Almacenamiento Plegables**\nSet de 3 cajas organizadoras plegables ideales para ordenar y almacenar ropa, juguetes, accesorios, libros y más en cualquier espacio del hogar. Prácticas, livianas y fáciles de guardar.\nCaracterísticas principales:\n- Diseño plegable: se guardan planas cuando no las usás, ahorrando espacio.\n- Material resistente y durable: ideal para uso diario.\n- Tapa protectora: mantiene el contenido limpio y ordenado.\n- Fácil de armar y transportar.\n- Versátiles: perfectas para placares, estanterías, baúl del auto o debajo de la cama.\n¡Organizá tu hogar de forma práctica y ordenada con este set económico y funcional!",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2374_4_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2374_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2374_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2374_6_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2374_1_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2374_5_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2374_7_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2374_8_.png"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5941/",
+  "fecha_scraping": "2026-06-26T04:49:43.705573",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-06-26T05:05:53.446655",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-06-26T05:05:53.446659",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450467/prod_DL2374_001.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450468/prod_DL2374_002.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450469/prod_DL2374_003.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450470/prod_DL2374_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450471/prod_DL2374_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450471/prod_DL2374_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450472/prod_DL2374_007.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1782450473/prod_DL2374_008.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 7490,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 7490,
+    "margen_porcentaje": 70,
+    "precio_con_margen": 12733.0,
+    "precio_final": 13000.0,
+    "ganancia_neta": 5510.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 13000.0,
+  "fecha_calculo_precio": "2026-06-26T05:08:42.109054"
+}

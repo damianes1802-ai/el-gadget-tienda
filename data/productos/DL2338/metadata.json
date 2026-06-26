@@ -16,8 +16,8 @@
   ],
   "cantidad_imagenes": 9,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/zocalo-3d-pvc-autoadhesivo-2-3m-8cm-vinilico-decorativo.html",
   "fecha_scraping": "2026-06-25T06:29:45.897347",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -30,17 +30,7 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-06-25T06:34:36.979875",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_007",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_008",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2338_009"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 5990,
     "cargos_fijos": 0,
@@ -53,5 +43,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 10500.0,
-  "fecha_calculo_precio": "2026-06-25T06:36:25.223260"
+  "fecha_calculo_precio": "2026-06-26T05:08:42.097289",
+  "fecha_agotado": "2026-06-26T04:49:30.911405"
 }

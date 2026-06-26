@@ -20,7 +20,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/4513/s/escurridor-de-platos-tipo-rack/category/13/",
-  "fecha_scraping": "2026-06-25T06:29:04.110820",
+  "fecha_scraping": "2026-06-26T04:57:57.877912",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -30,7 +30,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-25T06:34:36.961453",
+  "fecha_mapeo_categorias": "2026-06-26T05:05:53.299791",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600081_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600081_002",
@@ -55,5 +55,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 83500.0,
-  "fecha_calculo_precio": "2026-06-25T06:36:25.120884"
+  "fecha_calculo_precio": "2026-06-26T05:08:41.991434"
 }

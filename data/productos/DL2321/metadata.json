@@ -14,8 +14,8 @@
   ],
   "cantidad_imagenes": 7,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/estanteria-plegable-metal-negra-5-niveles-ruedas-organizador.html",
   "fecha_scraping": "2026-06-25T06:28:25.567276",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -28,15 +28,7 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-06-22T19:52:09.411873",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2321_007"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 82990,
     "cargos_fijos": 0,
@@ -49,5 +41,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 141500.0,
-  "fecha_calculo_precio": "2026-06-25T06:36:25.218444"
+  "fecha_calculo_precio": "2026-06-26T05:08:42.092207",
+  "fecha_agotado": "2026-06-26T04:49:26.567684"
 }
