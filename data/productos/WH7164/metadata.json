@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/babero-para-bebes-de-algodon-puro.html",
-  "fecha_scraping": "2026-06-26T06:30:33.102306",
+  "fecha_scraping": "2026-06-27T04:32:01.125862",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 3500.0,
-  "fecha_calculo_precio": "2026-06-26T06:36:05.956867"
+  "fecha_calculo_precio": "2026-06-27T04:39:22.933937"
 }

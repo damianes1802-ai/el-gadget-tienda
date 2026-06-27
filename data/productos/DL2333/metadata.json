@@ -16,8 +16,8 @@
   ],
   "cantidad_imagenes": 9,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/cubre-colchon-protector-impermeable-140x190-acolchonado.html",
   "fecha_scraping": "2026-06-26T06:30:31.545781",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -30,17 +30,7 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-06-22T19:52:09.395749",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2333_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2333_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2333_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2333_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2333_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2333_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2333_007",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2333_008",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2333_009"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 24990,
     "cargos_fijos": 0,
@@ -53,5 +43,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 42500.0,
-  "fecha_calculo_precio": "2026-06-26T06:36:05.875402"
+  "fecha_calculo_precio": "2026-06-27T04:39:22.869475",
+  "fecha_agotado": "2026-06-27T04:24:32.310387"
 }

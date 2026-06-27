@@ -8,8 +8,8 @@
   ],
   "cantidad_imagenes": 1,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/rampa-cordonera-multiuso-altura-10-cm-1.html",
   "fecha_scraping": "2026-06-26T06:29:03.043735",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -22,9 +22,7 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-06-16T11:57:51.796886",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2168_001"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 17500,
     "cargos_fijos": 0,
@@ -37,6 +35,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30000.0,
-  "fecha_calculo_precio": "2026-06-26T06:36:05.860027",
-  "fecha_agotado": "2026-06-26T06:21:56.566777"
+  "fecha_calculo_precio": "2026-06-27T04:39:22.858104",
+  "fecha_agotado": "2026-06-27T04:26:04.389201"
 }
