@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/mochila-escolar-para-ni-os-1.html",
-  "fecha_scraping": "2026-06-27T04:34:31.788564",
+  "fecha_scraping": "2026-06-27T06:28:39.308954",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-27T04:38:08.614474",
+  "fecha_mapeo_categorias": "2026-06-27T06:33:47.738104",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 29500.0,
-  "fecha_calculo_precio": "2026-06-27T04:39:22.915272"
+  "fecha_calculo_precio": "2026-06-27T06:35:00.208815"
 }

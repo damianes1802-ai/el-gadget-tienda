@@ -14,7 +14,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/rodillo-cepillo-quita-saca-pelos-pelusa-mascotas-lavable-1.html",
-  "fecha_scraping": "2026-06-27T04:32:00.497247",
+  "fecha_scraping": "2026-06-27T06:28:43.041823",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Baño y Limpieza",
@@ -27,7 +27,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-27T04:38:08.633023",
+  "fecha_mapeo_categorias": "2026-06-27T06:33:47.774574",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_002",
@@ -46,5 +46,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 11500.0,
-  "fecha_calculo_precio": "2026-06-27T04:39:22.856267"
+  "fecha_calculo_precio": "2026-06-27T06:35:00.129907"
 }

@@ -14,7 +14,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/piluso-gorro-charol-invierno-impermeable-importado-premium-2.html",
-  "fecha_scraping": "2026-06-27T04:34:22.242981",
+  "fecha_scraping": "2026-06-27T06:30:12.200066",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -24,7 +24,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-27T04:38:08.604748",
+  "fecha_mapeo_categorias": "2026-06-27T06:33:47.727281",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_002",
@@ -43,5 +43,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 19000.0,
-  "fecha_calculo_precio": "2026-06-27T04:39:22.908904"
+  "fecha_calculo_precio": "2026-06-27T06:35:00.201389"
 }
