@@ -264,6 +264,18 @@
   color: var(--gray-600, #6F6A63);
   margin-bottom: 24px;
 }
+.msg-nota{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border:1.5px solid #bbf7d0;border-radius:10px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;font-size:12.5px;color:var(--ink);line-height:1.45;text-align:left}
+.msg-nota-icon{font-size:16px;flex-shrink:0;line-height:1}
+.msg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:700px;margin:0 auto}
+@media(max-width:600px){.msg-grid{grid-template-columns:1fr}}
+.msg-card{background:#fff;border:1.5px solid #e5e7eb;border-radius:12px;padding:16px;position:relative;display:flex;flex-direction:column;text-align:left}
+.msg-card-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-600);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.msg-card-label-icon{font-size:14px}
+.msg-card-text{font-size:12.5px;color:var(--ink);line-height:1.55;white-space:pre-line;flex:1;margin-bottom:12px;word-break:break-word}
+.msg-card-actions{display:flex;gap:8px}
+.msg-btn-copy{font-size:11.5px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600;transition:background .15s,color .15s}
+.msg-btn-copy:hover{background:var(--ink);color:var(--paper)}
+.msg-btn-send{font-size:11.5px;padding:6px 14px;border-radius:8px;border:none;background:#25D366;color:#fff;cursor:pointer;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
 </style>
 </head>
 <body>
@@ -458,12 +470,23 @@
     </form>
 
     <div id="refSuccess">
-      <p style="font-size:15px;color:var(--ink);margin:0 0 4px;font-weight:600">Tu código de referido es:</p>
+      <p style="font-size:15px;color:var(--ink);margin:0 0 4px;font-weight:600">¡Listo! Tu código de referido es:</p>
       <div class="code-display" id="codigoDisplay" onclick="copiarCodigo(this)" title="Clic para copiar"></div>
       <div class="code-hint">Clic para copiar &bull; Compartilo con quien quieras</div>
-      <a href="/mi_cuenta" class="btn btn-outline" style="display:inline-block;margin-bottom:12px">Ver mi panel de comisiones</a>
-      <br>
-      <button class="btn" style="background:var(--ink);color:#fff" onclick="compartirCodigo()">Compartir mi código</button>
+
+      <div style="margin:20px auto 24px;max-width:700px">
+        <h3 style="font-size:15px;font-weight:700;color:var(--ink);margin:0 0 8px">Empezá a ganar: compartí un mensaje</h3>
+        <div class="msg-nota">
+          <span class="msg-nota-icon">🔗</span>
+          <span>El link de cada mensaje ya contiene tu código — quien compre desde ese link te genera comisión automáticamente, sin importar cuántas veces lo use.</span>
+        </div>
+        <div class="msg-grid" id="refMsgGrid"></div>
+      </div>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="/mi_cuenta" class="btn btn-outline">Ver mi panel de comisiones</a>
+        <button class="btn" style="background:var(--ink);color:#fff" onclick="compartirCodigo()">Compartir mi código</button>
+      </div>
     </div>
   </div>
 </section>
@@ -552,10 +575,11 @@ async function registrarReferido(e) {
       localStorage.setItem('eg_token', data.token);
       localStorage.setItem('eg_nombre', data.nombre);
     }
-    // Mostrar código
+    // Mostrar código + mensajes listos
     document.getElementById('formReferido').style.display = 'none';
     document.getElementById('codigoDisplay').textContent = data.codigo;
     document.getElementById('refSuccess').style.display = 'block';
+    generarMensajesRegistro(data.codigo);
   } catch (err) {
     errDiv.textContent = 'Error de conexión. Verificá tu internet e intentá de nuevo.';
     errDiv.style.display = 'block';
@@ -581,14 +605,63 @@ function copiarCodigo(el) {
 function compartirCodigo() {
   const codigo = document.getElementById('codigoDisplay').textContent.trim();
   const url = `https://elgadget.com.ar/?ref=${codigo}&utm_source=share&utm_medium=referral&utm_campaign=codigo_share`;
-  const text = `Usá mi código ${codigo} en El Gadget y conseguís hasta 20% de descuento en tu compra: ${url}`;
+  const text = `Che, te paso un descuento de hasta 20% en El Gadget. Tienen cosas muy buenas para casa, tech, cocina y más.\n\nEntrá por este link y el descuento se aplica solo:\n${url}`;
   if (navigator.share) {
-    navigator.share({ title: 'Mi código de descuento El Gadget', text });
+    navigator.share({ title: 'Descuento El Gadget', text });
   } else {
     navigator.clipboard.writeText(text).then(() => {
-      alert('Mensaje copiado al portapapeles.');
+      showToast('¡Mensaje copiado!');
     });
   }
+}
+
+function generarMensajesRegistro(codigo) {
+  const grid = document.getElementById('refMsgGrid');
+  if (!grid) return;
+  const base = 'https://elgadget.com.ar/?ref=' + encodeURIComponent(codigo);
+  const msgs = [
+    { id:'wa', icon:'📱', label:'WhatsApp directo',
+      texto:'Che, te paso un descuento de hasta 20% en El Gadget. Tienen cosas muy buenas para casa, tech, cocina y más.\n\nEntrá por este link y el descuento se aplica solo:\n' + base + '&utm_source=whatsapp&utm_medium=referral&utm_campaign=mensaje_directo', wa:true },
+    { id:'grupo', icon:'👥', label:'Grupo de WhatsApp',
+      texto:'Les dejo un descuento de hasta 20% en El Gadget para quien necesite. Tienen organizadores, tech, cocina y mucho más.\n\nEntren por acá y ya se aplica:\n' + base + '&utm_source=whatsapp&utm_medium=referral&utm_campaign=grupo', wa:true },
+    { id:'ig', icon:'📸', label:'Instagram / Redes',
+      texto:'Encontré una tienda online con cosas muy buenas y precios increíbles. Con mi link tenés hasta 20% OFF 👇\n\n' + base + '&utm_source=instagram&utm_medium=referral&utm_campaign=post\n\n#ElGadget #DescuentoOnline #ComprasOnline', wa:false },
+    { id:'fb', icon:'📘', label:'Facebook',
+      texto:'Si están buscando cosas para el hogar, tecnología o regalos, les recomiendo El Gadget. Con este link tienen hasta 20% de descuento:\n\n' + base + '&utm_source=facebook&utm_medium=referral&utm_campaign=post', wa:false },
+  ];
+  window._refMsgs = {};
+  grid.innerHTML = msgs.map(function(m) {
+    window._refMsgs[m.id] = m.texto;
+    var esc = m.texto.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    var waHref = m.wa ? 'https://wa.me/?text=' + encodeURIComponent(m.texto) : '';
+    return '<div class="msg-card">'
+      + '<div class="msg-card-label"><span class="msg-card-label-icon">' + m.icon + '</span> ' + m.label + '</div>'
+      + '<div class="msg-card-text">' + esc + '</div>'
+      + '<div class="msg-card-actions">'
+      + '<button class="msg-btn-copy" onclick="copiarMsgRef(this,\'' + m.id + '\')">Copiar</button>'
+      + (m.wa ? '<a class="msg-btn-send" href="' + waHref + '" target="_blank" rel="noopener">Enviar ↗</a>' : '')
+      + '</div></div>';
+  }).join('');
+}
+
+function copiarMsgRef(btn, id) {
+  var texto = (window._refMsgs || {})[id];
+  if (!texto) return;
+  navigator.clipboard.writeText(texto).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = '¡Copiado!';
+    btn.style.background = 'var(--ink)';
+    btn.style.color = '#fff';
+    setTimeout(function() { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 1800);
+  }).catch(function() {});
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2500);
 }
 
 function toggleRefFaq(btn) {

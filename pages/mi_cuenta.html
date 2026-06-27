@@ -41,6 +41,53 @@
 .share-ig::before{content:"📸 "}
 .share-link::before{content:"🔗 "}
 .share-foto::before{content:"📷 "}
+
+.cobro-wrap{background:var(--cream);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+.cobro-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.cobro-header-title{font-size:13px;font-weight:700;color:var(--ink)}
+.cobro-header-days{font-size:12.5px;color:var(--gray-600);font-weight:500}
+.cobro-bar-track{background:#e5e7eb;border-radius:6px;height:8px;overflow:hidden}
+.cobro-bar-fill{height:100%;border-radius:6px;transition:width .5s ease;background:linear-gradient(90deg,var(--accent),#f59e0b)}
+.cobro-bar-fill.complete{background:linear-gradient(90deg,#10b981,#059669)}
+.cobro-ready{text-align:center;margin-top:14px}
+.cobro-ready-emoji{font-size:28px;line-height:1;margin-bottom:6px}
+.cobro-ready-text{font-size:13px;color:#16a34a;font-weight:700;margin-bottom:12px}
+.btn-cobro{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;border:none;background:linear-gradient(135deg,#FFC700,#f59e0b);color:var(--ink);font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(255,199,0,.35);transition:transform .15s,box-shadow .15s}
+.btn-cobro:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,199,0,.45)}
+.btn-cobro:active{transform:translateY(0)}
+.cobro-done{font-size:13px;color:var(--gray-600);font-weight:500;text-align:center;margin-top:14px}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;opacity:0;transition:opacity .2s}
+.modal-overlay.visible{opacity:1}
+.modal-box{background:#fff;border-radius:16px;padding:28px 24px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2);transform:translateY(20px);transition:transform .2s}
+.modal-overlay.visible .modal-box{transform:translateY(0)}
+.modal-title{font-size:17px;font-weight:700;color:var(--ink);margin:0 0 4px}
+.modal-desc{font-size:13px;color:var(--gray-600);margin:0 0 18px;line-height:1.45}
+.modal-field{margin-bottom:14px}
+.modal-label{display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:5px}
+.modal-input{width:100%;padding:10px 14px;border:1.5px solid #e5e7eb;border-radius:9px;font-size:14px;background:var(--cream);box-sizing:border-box;transition:border-color .15s}
+.modal-input:focus{outline:none;border-color:var(--accent)}
+.modal-error{font-size:12px;color:#ef4444;margin-top:4px}
+.modal-actions{display:flex;gap:10px;margin-top:20px}
+.modal-actions .btn{flex:1;padding:11px 16px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;border:none;text-align:center}
+.modal-btn-primary{background:var(--ink);color:var(--paper)}
+.modal-btn-secondary{background:transparent;border:1.5px solid #e5e7eb !important;color:var(--gray-600)}
+
+.msg-section{margin-bottom:24px}
+.msg-section-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.msg-nota{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border:1.5px solid #bbf7d0;border-radius:10px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;font-size:12.5px;color:var(--ink);line-height:1.45}
+.msg-nota-icon{font-size:16px;flex-shrink:0;line-height:1}
+.msg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.msg-grid{grid-template-columns:1fr}}
+.msg-card{background:#fff;border:1.5px solid #e5e7eb;border-radius:12px;padding:16px;position:relative;display:flex;flex-direction:column}
+.msg-card-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-600);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.msg-card-label-icon{font-size:14px}
+.msg-card-text{font-size:12.5px;color:var(--ink);line-height:1.55;white-space:pre-line;flex:1;margin-bottom:12px;word-break:break-word}
+.msg-card-actions{display:flex;gap:8px}
+.msg-btn-copy{font-size:11.5px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600;transition:background .15s,color .15s}
+.msg-btn-copy:hover{background:var(--ink);color:var(--paper)}
+.msg-btn-send{font-size:11.5px;padding:6px 14px;border-radius:8px;border:none;background:#25D366;color:#fff;cursor:pointer;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.msg-cta-zero{background:linear-gradient(135deg,#fffbeb,var(--cream));border:1.5px dashed var(--accent);border-radius:12px;padding:16px 20px;margin-bottom:16px;text-align:center}
 </style>
 </head>
 <body>
@@ -168,6 +215,28 @@
 <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
   <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
 </a>
+
+<!-- MODAL COMPLETAR DATOS -->
+<div class="modal-overlay" id="modalDatos" onclick="if(event.target===this)cerrarModalDatos()">
+  <div class="modal-box">
+    <h3 class="modal-title">Completá tus datos para cobrar</h3>
+    <p class="modal-desc">Necesitamos tu DNI para procesar el pago. También podés actualizar tu contraseña si querés.</p>
+    <div class="modal-field">
+      <label class="modal-label" for="inputDNI">DNI *</label>
+      <input class="modal-input" id="inputDNI" type="text" inputmode="numeric" placeholder="Ej: 35123456" maxlength="10" autocomplete="off">
+      <div class="modal-error" id="errorDNI"></div>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label" for="inputNewPass">Nueva contraseña (opcional)</label>
+      <input class="modal-input" id="inputNewPass" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+      <div class="modal-error" id="errorPass"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn modal-btn-secondary" onclick="cerrarModalDatos()">Cancelar</button>
+      <button class="btn modal-btn-primary" id="btnGuardarDatos" onclick="guardarDatosReferido()">Guardar y solicitar cobro</button>
+    </div>
+  </div>
+</div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -344,6 +413,273 @@ async function cerrarSesion() {
   window.location.href = '/';
 }
 
+// ── Barra de cobro: cálculo del 5to día hábil ──────────────────────────────
+function quintoHabilDelMes(anio, mes) {
+  let count = 0;
+  let dia = 1;
+  while (count < 5) {
+    const d = new Date(anio, mes - 1, dia);
+    const dow = d.getDay();
+    if (dow !== 0 && dow !== 6) count++;
+    if (count < 5) dia++;
+  }
+  return new Date(anio, mes - 1, dia);
+}
+
+function calcularBarraCobro() {
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+  const anioActual = hoy.getFullYear();
+  const mesActual = hoy.getMonth() + 1;
+
+  const mesCobro = mesActual === 12 ? 1 : mesActual + 1;
+  const anioCobro = mesActual === 12 ? anioActual + 1 : anioActual;
+  const quintoHabil = quintoHabilDelMes(anioCobro, mesCobro);
+
+  const finMes = new Date(anioActual, mesActual, 0);
+  finMes.setHours(0, 0, 0, 0);
+
+  const totalDias = Math.max(1, Math.round((quintoHabil - finMes) / 86400000));
+  const diasPasados = Math.round((hoy - finMes) / 86400000);
+  const progreso = Math.max(0, Math.min(100, Math.round((diasPasados / totalDias) * 100)));
+  const disponible = hoy >= quintoHabil;
+  const diasRestantes = Math.max(0, Math.ceil((quintoHabil - hoy) / 86400000));
+
+  return { progreso, disponible, diasRestantes, quintoHabil };
+}
+
+function generarBarraCobroHtml(data) {
+  const barra = calcularBarraCobro();
+  const periodos = data.resumen_por_periodo || [];
+  const hoy = new Date();
+  const mesActualKey = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}`;
+
+  const montoCobrable = periodos
+    .filter(p => !p.pagado && p.periodo !== mesActualKey)
+    .reduce((sum, p) => sum + (p.comision_total || 0), 0);
+
+  const cicloKey = `eg_cobro_solicitado_${mesActualKey}`;
+  const yaSolicito = localStorage.getItem(cicloKey) === '1';
+
+  window._cobroDni = data.dni || '';
+  window._cobroNombre = data.nombre || '';
+  window._cobroCodigo = data.codigo || '';
+  window._cobroMonto = montoCobrable;
+  window._cobroCicloKey = cicloKey;
+
+  let contenidoBarra = '';
+  if (barra.disponible || yaSolicito || (montoCobrable > 0 && barra.progreso >= 100)) {
+    if (yaSolicito) {
+      contenidoBarra = `
+        <div class="cobro-ready">
+          <div class="cobro-ready-emoji">💰</div>
+          <div class="cobro-done">Cobro solicitado ✓</div>
+        </div>`;
+    } else if (montoCobrable > 0) {
+      contenidoBarra = `
+        <div class="cobro-ready">
+          <div class="cobro-ready-emoji">💰</div>
+          <div class="cobro-ready-text">¡Tu cobro está disponible!</div>
+          <button class="btn-cobro" onclick="solicitarCobro()">Solicitar cobro 💰</button>
+        </div>`;
+    } else {
+      contenidoBarra = `
+        <div class="cobro-ready">
+          <div class="cobro-ready-text">¡Período de cobro abierto!</div>
+          <p style="font-size:12px;color:var(--gray-600);margin:4px 0 0">No tenés comisiones pendientes de cobro.</p>
+        </div>`;
+    }
+  } else {
+    contenidoBarra = `
+      <div style="margin-top:4px">
+        <p style="font-size:12px;color:var(--gray-600);margin:0;text-align:center">
+          ${barra.diasRestantes === 1 ? 'Falta 1 día para tu próximo cobro' : `Faltan ${barra.diasRestantes} días para tu próximo cobro`}
+        </p>
+      </div>`;
+  }
+
+  return `
+    <div class="cobro-wrap">
+      <div class="cobro-header">
+        <span class="cobro-header-title">Cuenta regresiva al cobro</span>
+        <span class="cobro-header-days">${barra.disponible ? '¡Disponible!' : barra.diasRestantes + ' día' + (barra.diasRestantes !== 1 ? 's' : '')}</span>
+      </div>
+      <div class="cobro-bar-track">
+        <div class="cobro-bar-fill${barra.disponible ? ' complete' : ''}" style="width:${barra.progreso}%"></div>
+      </div>
+      ${contenidoBarra}
+    </div>`;
+}
+
+function solicitarCobro() {
+  if (!window._cobroDni) {
+    abrirModalDatos();
+    return;
+  }
+  enviarWhatsAppCobro();
+}
+
+function enviarWhatsAppCobro() {
+  const nombre = window._cobroNombre || '';
+  const codigo = window._cobroCodigo || '';
+  const monto = formatPrice(window._cobroMonto || 0);
+  const msg = encodeURIComponent(`Hola, soy ${nombre} (código ${codigo}). ¡Quiero solicitar mi cobro de ${monto}! Muchas gracias.`);
+  window.open(`https://wa.me/5491126228481?text=${msg}`, '_blank');
+
+  localStorage.setItem(window._cobroCicloKey, '1');
+
+  const readyDiv = document.querySelector('.cobro-ready');
+  if (readyDiv) {
+    readyDiv.innerHTML = '<div class="cobro-done">Cobro solicitado ✓</div>';
+  }
+}
+
+function abrirModalDatos() {
+  const modal = document.getElementById('modalDatos');
+  modal.style.display = 'flex';
+  requestAnimationFrame(() => modal.classList.add('visible'));
+  document.getElementById('inputDNI').value = '';
+  document.getElementById('inputNewPass').value = '';
+  document.getElementById('errorDNI').textContent = '';
+  document.getElementById('errorPass').textContent = '';
+}
+
+function cerrarModalDatos() {
+  const modal = document.getElementById('modalDatos');
+  modal.classList.remove('visible');
+  setTimeout(() => modal.style.display = 'none', 200);
+}
+
+async function guardarDatosReferido() {
+  const dniInput = document.getElementById('inputDNI');
+  const passInput = document.getElementById('inputNewPass');
+  const errorDNI = document.getElementById('errorDNI');
+  const errorPass = document.getElementById('errorPass');
+  const btn = document.getElementById('btnGuardarDatos');
+
+  errorDNI.textContent = '';
+  errorPass.textContent = '';
+
+  const dni = dniInput.value.replace(/\D/g, '');
+  if (!dni || dni.length < 7 || dni.length > 8) {
+    errorDNI.textContent = 'Ingresá un DNI válido (7-8 dígitos)';
+    dniInput.focus();
+    return;
+  }
+
+  const pass = passInput.value;
+  if (pass && pass.length < 6) {
+    errorPass.textContent = 'La contraseña debe tener al menos 6 caracteres';
+    passInput.focus();
+    return;
+  }
+
+  btn.textContent = 'Guardando...';
+  btn.disabled = true;
+
+  try {
+    const body = { dni };
+    if (pass) body.password = pass;
+
+    const res = await fetch(`${API}/api/referidos/datos`, {
+      method: 'PATCH',
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'Error al guardar');
+
+    window._cobroDni = data.dni;
+    cerrarModalDatos();
+    showToast('¡Datos guardados!');
+    enviarWhatsAppCobro();
+  } catch (e) {
+    errorDNI.textContent = e.message;
+    btn.textContent = 'Guardar y solicitar cobro';
+    btn.disabled = false;
+  }
+}
+
+// ── Mensajes listos para compartir ──────────────────────────────────────────
+function generarMensajesListosHtml(codigo) {
+  const baseUrl = `https://elgadget.com.ar/?ref=${encodeURIComponent(codigo)}`;
+  const waUrl = `${baseUrl}&utm_source=whatsapp&utm_medium=referral&utm_campaign=mensaje_directo`;
+  const grupoUrl = `${baseUrl}&utm_source=whatsapp&utm_medium=referral&utm_campaign=grupo`;
+  const igUrl = `${baseUrl}&utm_source=instagram&utm_medium=referral&utm_campaign=post`;
+  const fbUrl = `${baseUrl}&utm_source=facebook&utm_medium=referral&utm_campaign=post`;
+
+  const mensajes = [
+    {
+      id: 'wa-directo',
+      label: 'WhatsApp directo',
+      icon: '📱',
+      texto: `Che, te paso un descuento de hasta 20% en El Gadget. Tienen cosas muy buenas para casa, tech, cocina y más.\n\nEntrá por este link y el descuento se aplica solo:\n${waUrl}`,
+      waBtn: true,
+    },
+    {
+      id: 'wa-grupo',
+      label: 'Grupo de WhatsApp',
+      icon: '👥',
+      texto: `Les dejo un descuento de hasta 20% en El Gadget para quien necesite. Tienen organizadores, tech, cocina y mucho más.\n\nEntren por acá y ya se aplica:\n${grupoUrl}`,
+      waBtn: true,
+    },
+    {
+      id: 'ig',
+      label: 'Instagram / Redes',
+      icon: '📸',
+      texto: `Encontré una tienda online con cosas muy buenas y precios increíbles. Con mi link tenés hasta 20% OFF 👇\n\n${igUrl}\n\n#ElGadget #DescuentoOnline #ComprasOnline`,
+      waBtn: false,
+    },
+    {
+      id: 'fb',
+      label: 'Facebook',
+      icon: '📘',
+      texto: `Si están buscando cosas para el hogar, tecnología o regalos, les recomiendo El Gadget. Con este link tienen hasta 20% de descuento:\n\n${fbUrl}`,
+      waBtn: false,
+    },
+  ];
+
+  const cards = mensajes.map(m => {
+    const textoEsc = escapeHtmlBasico(m.texto);
+    const waHref = m.waBtn ? `https://wa.me/?text=${encodeURIComponent(m.texto)}` : '';
+    return `<div class="msg-card">
+      <div class="msg-card-label"><span class="msg-card-label-icon">${m.icon}</span> ${m.label}</div>
+      <div class="msg-card-text">${textoEsc}</div>
+      <div class="msg-card-actions">
+        <button class="msg-btn-copy" onclick="copiarMensaje(this, '${m.id}')">Copiar</button>
+        ${m.waBtn ? `<a class="msg-btn-send" href="${waHref}" target="_blank" rel="noopener">Enviar ↗</a>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  window._mensajesRef = {};
+  mensajes.forEach(m => { window._mensajesRef[m.id] = m.texto; });
+
+  return `
+    <div class="msg-section">
+      <div class="msg-section-header">
+        <h3 style="margin:0;font-size:15px">Mensajes listos para compartir</h3>
+      </div>
+      <div class="msg-nota">
+        <span class="msg-nota-icon">🔗</span>
+        <span>El link de cada mensaje ya contiene tu código <strong>${escapeHtmlBasico(codigo)}</strong> — quien compre desde ese link te genera comisión automáticamente, sin importar cuántas veces lo use.</span>
+      </div>
+      <div class="msg-grid">${cards}</div>
+    </div>`;
+}
+
+function copiarMensaje(btn, id) {
+  const texto = (window._mensajesRef || {})[id];
+  if (!texto) return;
+  navigator.clipboard.writeText(texto).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '¡Copiado!';
+    btn.style.background = 'var(--ink)';
+    btn.style.color = 'var(--paper)';
+    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 1800);
+  }).catch(() => {});
+}
+
 // ── Estado del catálogo ──────────────────────────────────────────────────────
 const _cat = { page: 1, search: '', categoria: '', precio_min: '', precio_max: '', sort: 'comision', order: 'desc', tierPct: 7 };
 let _todosProductos = [];  // cache para exportar CSV
@@ -443,6 +779,9 @@ async function cargarReferidos() {
         </table></div>`;
 
     wrap.innerHTML = `
+      <!-- BARRA DE COBRO -->
+      ${generarBarraCobroHtml(data)}
+
       <!-- TIER WIDGET -->
       <div style="background:var(--cream);border-radius:14px;padding:18px 22px;margin-bottom:16px;text-align:center">
         ${tierTimelineHtml}
@@ -470,6 +809,19 @@ async function cargarReferidos() {
             <button onclick="compartirCodigoRef('${escapeHtmlBasico(data.codigo || '')}')" style="font-size:12px;padding:6px 16px;border-radius:8px;border:none;background:var(--accent);color:var(--ink);cursor:pointer;font-weight:700">Compartir →</button>
           </div>
         </div>
+      </div>
+
+      <!-- CTA $0 comisiones → scroll a mensajes -->
+      ${totalPendiente === 0 && totalComision === 0 ? `
+      <div class="msg-cta-zero" id="ctaZeroComisiones">
+        <p style="font-size:13.5px;font-weight:700;color:var(--ink);margin:0 0 4px">Empezá a ganar: compartí un mensaje</p>
+        <p style="font-size:12px;color:var(--gray-600);margin:0 0 10px">Copiá uno de los mensajes de abajo y envialo. Cada compra desde tu link te genera comisión.</p>
+        <button onclick="document.getElementById('mensajesListos').scrollIntoView({behavior:'smooth'})" style="font-size:12px;padding:6px 16px;border-radius:8px;border:none;background:var(--accent);color:var(--ink);cursor:pointer;font-weight:700">Ver mensajes listos ↓</button>
+      </div>` : ''}
+
+      <!-- MENSAJES LISTOS PARA COMPARTIR -->
+      <div id="mensajesListos">
+        ${generarMensajesListosHtml(data.codigo || '')}
       </div>
 
       <!-- CTA MAYORISTA (oculto si el usuario ya es mayorista) -->
