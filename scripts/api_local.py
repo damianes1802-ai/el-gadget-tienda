@@ -259,6 +259,11 @@ class MarcarPagadoReferido(BaseModel):
     periodo: str  # "2026-06"
 
 
+class ActualizarDatosReferido(BaseModel):
+    dni: str
+    password: Optional[str] = None
+
+
 def _generar_codigo_referido(nombre: str, telefono: str, conn: sqlite3.Connection) -> str:
     """Genera NOMBRE+2dígitos del teléfono, con sufijo -2/-3/... si hay colisión."""
     base = re.sub(r'[^A-Z0-9]', '', f"{nombre.upper().split()[0]}{telefono[-2:]}")
@@ -3056,6 +3061,7 @@ def dashboard_referido(authorization: Optional[str] = Header(None)):
     conn.close()
     return {
         "nombre": ref['nombre'], "email": ref['email'],
+        "dni": ref.get('dni', ''),
         "codigo": ref['codigo'], "activo": bool(ref['activo']),
         "creado_at": ref['creado_at'],
         "tier": tier,
@@ -3065,6 +3071,65 @@ def dashboard_referido(authorization: Optional[str] = Header(None)):
         "total_comision": round(sum(c['comision'] for c in comisiones), 2),
         "total_pendiente": round(sum(c['comision'] for c in comisiones if not c['pagado']), 2),
     }
+
+
+@app.patch("/api/referidos/datos")
+def actualizar_datos_referido(datos: ActualizarDatosReferido, authorization: Optional[str] = Header(None)):
+    """Permite al referido completar su DNI y opcionalmente cambiar su contraseña."""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Token requerido")
+    token = authorization.split(" ", 1)[1]
+
+    dni_limpio = re.sub(r'[^0-9]', '', datos.dni)
+    if not dni_limpio or len(dni_limpio) < 7 or len(dni_limpio) > 8:
+        raise HTTPException(status_code=400, detail="DNI inválido (debe tener 7-8 dígitos)")
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    sesion = cursor.execute(
+        "SELECT usuario_id FROM sesiones_usuario WHERE token = ?", (token,)
+    ).fetchone()
+    if not sesion:
+        conn.close()
+        raise HTTPException(status_code=401, detail="Sesión inválida o expirada")
+
+    usuario = cursor.execute(
+        "SELECT email FROM usuarios_registrados WHERE id = ?", (sesion[0],)
+    ).fetchone()
+    if not usuario:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+    ref = cursor.execute(
+        "SELECT id, dni FROM referidos WHERE email = ?", (usuario[0],)
+    ).fetchone()
+    if not ref:
+        conn.close()
+        raise HTTPException(status_code=404, detail="No estás registrado en el programa de referidos")
+
+    existente = cursor.execute(
+        "SELECT 1 FROM referidos WHERE dni = ? AND id != ?", (dni_limpio, ref[0])
+    ).fetchone()
+    if existente:
+        conn.close()
+        raise HTTPException(status_code=409, detail="Ese DNI ya está registrado por otro referido")
+
+    cursor.execute("UPDATE referidos SET dni = ? WHERE id = ?", (dni_limpio, ref[0]))
+
+    if datos.password and len(datos.password) >= 6:
+        password_salt = secrets.token_hex(32)
+        password_hash = hashlib.pbkdf2_hmac(
+            'sha256', datos.password.encode(), password_salt.encode(), 260000
+        ).hex()
+        cursor.execute(
+            "UPDATE usuarios_registrados SET password_hash = ?, password_salt = ? WHERE id = ?",
+            (password_hash, password_salt, sesion[0])
+        )
+
+    conn.commit()
+    conn.close()
+    return {"ok": True, "dni": dni_limpio}
 
 
 @app.get("/api/catalogo-comisiones")
