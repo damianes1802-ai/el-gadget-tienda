@@ -1109,65 +1109,6 @@ Entrá por acá y se aplica solo: elgadget.com.ar/?ref=[TU_CODIGO]</div>
     <span class="vp-time" id="vpTime">0:00 / 0:00</span>
   </div>
 </div>
-
-<!-- ════════════════════════════════════════════════════
-     FORMULARIO INLINE
-     ════════════════════════════════════════════════════ -->
-<section class="g-form-section" id="registro">
-  <div class="g-form-wrap">
-    <h2>Obtené tu código en 30 segundos</h2>
-    <p class="form-sub">Gratis, sin compromiso. Empezá a compartir hoy.</p>
-
-    <div class="g-form-error" id="fbFormError"></div>
-
-    <form id="fbForm" onsubmit="registrarFB(event)">
-      <div class="g-form-field">
-        <label>Nombre completo</label>
-        <input type="text" id="fbNombre" placeholder="Ej. Ana García" required autocomplete="name">
-      </div>
-      <div class="g-form-field">
-        <label>Email</label>
-        <input type="email" id="fbEmail" placeholder="ana@email.com" required autocomplete="email">
-      </div>
-      <div class="g-form-field">
-        <label>WhatsApp (con código de área)</label>
-        <input type="tel" id="fbTelefono" placeholder="1122334455" required autocomplete="tel" inputmode="numeric">
-        <div class="hint">Para enviarte tu código y tips para maximizar comisiones</div>
-      </div>
-      <div class="g-form-field" style="margin-top:8px">
-        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600);text-transform:none;letter-spacing:0">
-          <input type="checkbox" id="fbConsentimiento" style="margin-top:3px;flex-shrink:0;width:16px;height:16px" required>
-          <span>Acepto los <a href="/terminos#referidos" target="_blank" style="color:var(--ink);font-weight:600">Términos</a> y la <a href="/privacidad" target="_blank" style="color:var(--ink);font-weight:600">Privacidad</a> y quiero empezar a ganar</span>
-        </label>
-      </div>
-      <button type="submit" class="btn btn-accent" id="fbSubmitBtn" style="width:100%;margin-top:12px;padding:14px;font-size:15px">
-        Quiero mi código gratis
-      </button>
-      <p style="text-align:center;font-size:12px;color:var(--gray-600);margin:10px 0 0">⚡ Recibirás tu código y contraseña al instante por email y WhatsApp<br>Podés empezar a usarlo hoy mismo</p>
-    </form>
-
-    <div class="g-form-trust">
-      <span>🔒 Datos seguros</span>
-      <span>⚡ Código al instante</span>
-      <span>🚫 Sin compromiso</span>
-    </div>
-
-    <div class="g-form-success" id="fbSuccess">
-      <p style="font-size:16px;color:var(--ink);margin:0 0 4px;font-weight:600">Tu código de referido es:</p>
-      <div class="code-display" id="fbCodigoDisplay" onclick="copiarCodigoFB(this)" title="Clic para copiar"></div>
-      <div class="code-hint">Clic para copiar</div>
-      <div class="temp-pass">
-        Tu contraseña temporal: <strong id="fbTempPass"></strong><br>
-        <span style="font-size:11px;color:var(--gray-600)">Usala para acceder a tu panel. Podés cambiarla después.</span>
-      </div>
-      <div class="success-actions">
-        <a href="/mi_cuenta" class="btn btn-outline">Ver mi panel</a>
-        <button class="btn btn-accent" onclick="compartirCodigoFB()">Compartir mi código</button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ════════════════════════════════════════════════════
      50% OFF PRIMERA COMPRA
      ════════════════════════════════════════════════════ -->
@@ -1215,6 +1156,8 @@ Entrá por acá y se aplica solo: elgadget.com.ar/?ref=[TU_CODIGO]</div>
 <section class="g-section" style="background:#fff">
   <div class="g-section-title">Preguntas frecuentes sobre cómo monetizar Facebook en Argentina</div>
   <div class="ref-faq-wrap">
+    <div class="ref-faq-item"><button class="ref-faq-q" onclick="toggleFaq(this)">¿Esto es real o es una estafa?<span class="icon">+</span></button><div class="ref-faq-a">El Gadget es una tienda online real que opera en Argentina. Vendemos productos físicos con envío a todo el país. El programa de referidos es una extensión de nuestro modelo de negocio: en vez de gastar en publicidad, preferimos pagarle a personas reales que recomienden nuestros productos. Cada comisión se ve reflejada en tu panel en tiempo real.</div></div>
+    <div class="ref-faq-item"><button class="ref-faq-q" onclick="toggleFaq(this)">¿Y si nadie compra?<span class="icon">+</span></button><div class="ref-faq-a">No perdés nada. El registro es gratis, no hay compromiso, no hay cuota mensual. Si nadie compra con tu código, simplemente no ganás comisión pero tampoco gastaste un peso.</div></div>
     <div class="ref-faq-item">
       <button class="ref-faq-q" onclick="toggleFaqFB(this)">
         ¿Cuáles son los requisitos para monetizar Facebook en Argentina?
@@ -1291,6 +1234,64 @@ Entrá por acá y se aplica solo: elgadget.com.ar/?ref=[TU_CODIGO]</div>
 </section>
 
 <!-- ════════════════════════════════════════════════════
+     FORMULARIO INLINE
+     ════════════════════════════════════════════════════ -->
+<section class="g-form-section" id="registro">
+  <div class="g-form-wrap">
+    <h2>Obtené tu código en 30 segundos</h2>
+    <p class="form-sub">Gratis, sin compromiso. Empezá a compartir hoy.</p>
+
+    <div class="g-form-error" id="fbFormError"></div>
+
+    <form id="fbForm" onsubmit="registrarFB(event)">
+      <div class="g-form-field">
+        <label>Nombre completo</label>
+        <input type="text" id="fbNombre" placeholder="Ej. Ana García" required autocomplete="name">
+      </div>
+      <div class="g-form-field">
+        <label>Email</label>
+        <input type="email" id="fbEmail" placeholder="ana@email.com" required autocomplete="email">
+      </div>
+      <div class="g-form-field">
+        <label>WhatsApp (con código de área)</label>
+        <input type="tel" id="fbTelefono" placeholder="1122334455" required autocomplete="tel" inputmode="numeric">
+        <div class="hint">Para enviarte tu código y tips para maximizar comisiones</div>
+      </div>
+      <div class="g-form-field" style="margin-top:8px">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600);text-transform:none;letter-spacing:0">
+          <input type="checkbox" id="fbConsentimiento" style="margin-top:3px;flex-shrink:0;width:16px;height:16px" required>
+          <span>Acepto los <a href="/terminos#referidos" target="_blank" style="color:var(--ink);font-weight:600">Términos</a> y la <a href="/privacidad" target="_blank" style="color:var(--ink);font-weight:600">Privacidad</a> y quiero empezar a ganar</span>
+        </label>
+      </div>
+      <button type="submit" class="btn btn-accent" id="fbSubmitBtn" style="width:100%;margin-top:12px;padding:14px;font-size:15px">
+        Quiero mi código gratis
+      </button>
+      <p style="text-align:center;font-size:12px;color:var(--gray-600);margin:10px 0 0">⚡ Recibirás tu código y contraseña al instante por email y WhatsApp<br>Podés empezar a usarlo hoy mismo</p>
+    </form>
+
+    <div class="g-form-trust">
+      <span>🔒 Datos seguros</span>
+      <span>⚡ Código al instante</span>
+      <span>🚫 Sin compromiso</span>
+    </div>
+
+    <div class="g-form-success" id="fbSuccess">
+      <p style="font-size:16px;color:var(--ink);margin:0 0 4px;font-weight:600">Tu código de referido es:</p>
+      <div class="code-display" id="fbCodigoDisplay" onclick="copiarCodigoFB(this)" title="Clic para copiar"></div>
+      <div class="code-hint">Clic para copiar</div>
+      <div class="temp-pass">
+        Tu contraseña temporal: <strong id="fbTempPass"></strong><br>
+        <span style="font-size:11px;color:var(--gray-600)">Usala para acceder a tu panel. Podés cambiarla después.</span>
+      </div>
+      <div class="success-actions">
+        <a href="/mi_cuenta" class="btn btn-outline">Ver mi panel</a>
+        <button class="btn btn-accent" onclick="compartirCodigoFB()">Compartir mi código</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
      INTERNAL LINKING (topic cluster)
      ════════════════════════════════════════════════════ -->
 <section class="g-related">
@@ -1322,7 +1323,6 @@ Entrá por acá y se aplica solo: elgadget.com.ar/?ref=[TU_CODIGO]</div>
   <p>Registrate gratis, recibí tu código y empezá a cobrar comisiones hoy. Sin jefe, sin horarios, sin verso.</p>
   <a href="#registro" class="btn btn-accent" style="font-size:16px;padding:14px 36px" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'});return false;">Obtener mi código gratis</a>
 </section>
-
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
@@ -1359,6 +1359,19 @@ Entrá por acá y se aplica solo: elgadget.com.ar/?ref=[TU_CODIGO]</div>
       <a href="/referidos">Programa de referidos</a>
       <a href="/privacidad">Política de privacidad</a>
       <a href="/arrepentimiento">Botón de arrepentimiento</a>
+    </div>
+    <div class="footer-links">
+      <h4>Guías</h4>
+      <a href="/ganar/desde-casa/">Ganar dinero desde casa</a>
+      <a href="/ganar/monetizar-redes/">Monetizar redes sociales</a>
+      <a href="/ganar/monetizar-instagram/">Monetizar Instagram</a>
+      <a href="/ganar/monetizar-youtube/">Monetizar YouTube</a>
+      <a href="/ganar/monetizar-tiktok/">Monetizar TikTok</a>
+      <a href="/ganar/monetizar-facebook/">Monetizar Facebook</a>
+      <a href="/ganar/marketing-afiliados/">Marketing de afiliados</a>
+      <a href="/ganar/vender-sin-stock/">Vender sin stock</a>
+      <a href="/ganar/dropshipping/">Dropshipping Argentina</a>
+      <a href="/ganar/dinero-por-internet/">Ganar dinero por internet</a>
     </div>
   </div>
   <div class="footer-bottom">
