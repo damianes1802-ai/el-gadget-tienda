@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bandolera-tejida-mujer-forma-de-sandia-para-playa-1.html",
-  "fecha_scraping": "2026-06-27T06:27:09.628306",
+  "fecha_scraping": "2026-06-28T05:07:29.998305",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -26,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-27T06:33:47.728260",
+  "fecha_mapeo_categorias": "2026-06-28T05:17:17.120775",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3103-001B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3103-001B_002",
@@ -47,5 +47,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30500.0,
-  "fecha_calculo_precio": "2026-06-27T06:35:00.186259"
+  "fecha_calculo_precio": "2026-06-28T05:19:00.142812"
 }
