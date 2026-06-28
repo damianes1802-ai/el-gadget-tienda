@@ -20,7 +20,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bandolera-tejida-mujer-bolso-crochet-para-playa-1.html",
-  "fecha_scraping": "2026-06-28T05:08:13.085801",
+  "fecha_scraping": "2026-06-28T06:29:14.730997",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -30,7 +30,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-28T05:17:17.123684",
+  "fecha_mapeo_categorias": "2026-06-28T06:34:07.182343",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_002",
@@ -55,5 +55,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 39000.0,
-  "fecha_calculo_precio": "2026-06-28T05:19:00.140565"
+  "fecha_calculo_precio": "2026-06-28T06:35:29.614690"
 }

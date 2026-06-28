@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/inflable-pileta-tucan-200cm-x-105cm.html",
-  "fecha_scraping": "2026-06-28T05:08:05.073915",
+  "fecha_scraping": "2026-06-28T06:30:22.900327",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-28T05:17:17.174922",
+  "fecha_mapeo_categorias": "2026-06-28T06:34:07.233951",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 48500.0,
-  "fecha_calculo_precio": "2026-06-28T05:19:00.010134"
+  "fecha_calculo_precio": "2026-06-28T06:35:29.487173"
 }
