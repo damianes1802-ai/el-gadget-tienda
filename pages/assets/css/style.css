@@ -586,6 +586,29 @@ a { color: inherit; }
 }
 .footer-bottom a { color: rgba(255,255,255,0.45); text-decoration: underline; }
 
+/* ── FOOTER GUÍAS (sección separada 2 columnas) ── */
+.footer-guias {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.footer-guias h4 {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: #fff; margin: 0 0 16px; text-align: center;
+}
+.footer-guias-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px 40px; max-width: 600px; margin: 0 auto;
+}
+.footer-guias-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-guias a {
+  color: rgba(255,255,255,0.6); text-decoration: none;
+  font-size: 13px; transition: color 0.15s;
+}
+.footer-guias a:hover { color: var(--accent); }
+@media (max-width: 600px) { .footer-guias-grid { grid-template-columns: 1fr; } }
+
 /* ── WHATSAPP FLOTANTE ── */
 .whatsapp-float {
   position: fixed; bottom: 100px; right: 18px; width: 54px; height: 54px;
