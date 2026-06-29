@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/mochila-escolar-para-ni-os.html",
-  "fecha_scraping": "2026-06-28T06:27:34.181990",
+  "fecha_scraping": "2026-06-29T05:16:53.280214",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-28T06:34:07.203734",
+  "fecha_mapeo_categorias": "2026-06-29T05:23:48.593513",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-AZ_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-AZ_002",
@@ -38,12 +38,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 17103,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 29075.1,
-    "precio_final": 29500.0,
-    "ganancia_neta": 12397.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 30785.4,
+    "precio_final": 31000.0,
+    "ganancia_neta": 13897.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 29500.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.638333"
+  "precio_venta": 31000.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.783468"
 }

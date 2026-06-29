@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botella-deportiva-750-ml.html",
-  "fecha_scraping": "2026-06-28T06:29:57.247659",
+  "fecha_scraping": "2026-06-29T05:16:29.947928",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-28T06:34:07.221591",
+  "fecha_mapeo_categorias": "2026-06-29T05:23:48.616680",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7194-1_001"
   ],
@@ -30,12 +30,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 8677,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 14750.9,
-    "precio_final": 15000.0,
-    "ganancia_neta": 6323.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 15618.6,
+    "precio_final": 16000.0,
+    "ganancia_neta": 7323.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 15000.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.672383"
+  "precio_venta": 16000.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.819021"
 }

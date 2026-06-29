@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/pinza-destapa-ca-erias-90cm-packx20-3.html",
-  "fecha_scraping": "2026-06-28T06:30:19.429951",
+  "fecha_scraping": "2026-06-29T05:15:47.214294",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Baño y Limpieza"
@@ -26,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-28T06:34:07.226157",
+  "fecha_mapeo_categorias": "2026-06-29T05:23:48.619548",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_002",
@@ -40,12 +40,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 1475,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 2507.5,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 2655.0,
     "precio_final": 3000.0,
     "ganancia_neta": 1525.0,
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 3000.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.543323"
+  "fecha_calculo_precio": "2026-06-29T05:25:02.686552"
 }

@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/undefined-tricolor.html",
-  "fecha_scraping": "2026-06-28T06:29:20.395636",
+  "fecha_scraping": "2026-06-29T05:17:23.978543",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -30,12 +30,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 1151,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 1956.7,
-    "precio_final": 2000.0,
-    "ganancia_neta": 849.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 2071.8,
+    "precio_final": 2500.0,
+    "ganancia_neta": 1349.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 2000.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.467480"
+  "precio_venta": 2500.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.610109"
 }

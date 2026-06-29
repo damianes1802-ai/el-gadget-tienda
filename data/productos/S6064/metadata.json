@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/beanie-trenzado.html",
-  "fecha_scraping": "2026-06-28T06:28:16.963791",
+  "fecha_scraping": "2026-06-29T05:16:57.439421",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -30,12 +30,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 4522,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 7687.4,
-    "precio_final": 8000.0,
-    "ganancia_neta": 3478.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 8139.6,
+    "precio_final": 8500.0,
+    "ganancia_neta": 3978.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 8000.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.632336"
+  "precio_venta": 8500.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.777006"
 }

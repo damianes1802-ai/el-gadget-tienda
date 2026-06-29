@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/ropero-organizador-armable-grande-2-cierres-5.html",
-  "fecha_scraping": "2026-06-28T06:27:52.274607",
+  "fecha_scraping": "2026-06-29T05:15:29.768476",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -30,12 +30,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 31900,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 54230.0,
-    "precio_final": 54500.0,
-    "ganancia_neta": 22600.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 57420.0,
+    "precio_final": 57500.0,
+    "ganancia_neta": 25600.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 54500.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.557387"
+  "precio_venta": 57500.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.701989"
 }

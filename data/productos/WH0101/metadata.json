@@ -25,7 +25,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cepillo-con-vapor-para-pelos-de-mascotas-1.html",
-  "fecha_scraping": "2026-06-28T06:28:02.252969",
+  "fecha_scraping": "2026-06-29T05:15:06.845307",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios para Mascotas"
@@ -35,7 +35,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-28T06:34:07.227642",
+  "fecha_mapeo_categorias": "2026-06-29T05:23:48.624796",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_002",
@@ -58,12 +58,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 5720,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 9724.0,
-    "precio_final": 10000.0,
-    "ganancia_neta": 4280.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 10296.0,
+    "precio_final": 10500.0,
+    "ganancia_neta": 4780.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 10000.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.650726"
+  "precio_venta": 10500.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.796915"
 }

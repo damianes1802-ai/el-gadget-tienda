@@ -15,14 +15,14 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 16500,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 28050.0,
-    "precio_final": 28500.0,
-    "ganancia_neta": 12000.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 29700.0,
+    "precio_final": 30000.0,
+    "ganancia_neta": 13500.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 28500.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.533796",
+  "precio_venta": 30000.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.676488",
   "categoria_principal": "Nuevos Ingresos",
   "categoria": "Nuevos Ingresos",
   "categorias_secundarias": [
@@ -35,6 +35,6 @@
   "total_categorias": 2,
   "fecha_actualizacion_categorias": "2026-03-02T16:18:50.332727",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-28T06:21:47.435431",
+  "fecha_agotado": "2026-06-29T05:09:31.372848",
   "availability": "out of stock"
 }

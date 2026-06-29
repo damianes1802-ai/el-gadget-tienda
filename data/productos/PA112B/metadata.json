@@ -29,7 +29,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/blusa-manga-larga-saten-elastico-boton-estilo-chic-lisa.html",
-  "fecha_scraping": "2026-06-28T06:30:38.604457",
+  "fecha_scraping": "2026-06-29T05:16:32.307791",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -39,7 +39,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-28T06:34:07.188461",
+  "fecha_mapeo_categorias": "2026-06-29T05:23:48.583501",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_002",
@@ -51,12 +51,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 22254,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 37831.799999999996,
-    "precio_final": 38000.0,
-    "ganancia_neta": 15746.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 40057.200000000004,
+    "precio_final": 40500.0,
+    "ganancia_neta": 18246.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 38000.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.620321"
+  "precio_venta": 40500.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.764175"
 }

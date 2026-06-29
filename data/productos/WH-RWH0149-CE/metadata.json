@@ -17,7 +17,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/orinal-para-ni-os-antiderrame.html",
-  "fecha_scraping": "2026-06-28T06:28:51.756842",
+  "fecha_scraping": "2026-06-29T05:14:48.616154",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -27,7 +27,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-28T06:34:07.191491",
+  "fecha_mapeo_categorias": "2026-06-29T05:23:48.590844",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0149-CE_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0149-CE_002",
@@ -40,12 +40,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 6859,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 11660.3,
-    "precio_final": 12000.0,
-    "ganancia_neta": 5141.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 12346.2,
+    "precio_final": 12500.0,
+    "ganancia_neta": 5641.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 12000.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.640389"
+  "precio_venta": 12500.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.785724"
 }

@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/organizador-zapatos-6-niveles-calzado-plegable-blanco.html",
-  "fecha_scraping": "2026-06-28T06:27:07.961101",
+  "fecha_scraping": "2026-06-29T05:17:41.027624",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -26,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-28T06:34:07.239461",
+  "fecha_mapeo_categorias": "2026-06-29T05:23:48.636090",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2325-BL_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2325-BL_002",
@@ -40,12 +40,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 48900,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 83130.0,
-    "precio_final": 83500.0,
-    "ganancia_neta": 34600.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 88020.0,
+    "precio_final": 88500.0,
+    "ganancia_neta": 39600.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 83500.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.576109"
+  "precio_venta": 88500.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.720239"
 }

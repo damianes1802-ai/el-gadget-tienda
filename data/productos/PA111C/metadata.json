@@ -36,7 +36,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/blusa-manga-larga-semi-oxford-mujer-estilo-chic-brigitte-2.html",
-  "fecha_scraping": "2026-06-28T06:28:29.076551",
+  "fecha_scraping": "2026-06-29T05:17:31.621377",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -46,7 +46,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-28T06:34:07.175197",
+  "fecha_mapeo_categorias": "2026-06-29T05:23:48.587161",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_002",
@@ -58,12 +58,12 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 27028,
-    "margen_porcentaje": 70,
-    "precio_con_margen": 45947.6,
-    "precio_final": 46000.0,
-    "ganancia_neta": 18972.0,
+    "margen_porcentaje": 80,
+    "precio_con_margen": 48650.4,
+    "precio_final": 49000.0,
+    "ganancia_neta": 21972.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 46000.0,
-  "fecha_calculo_precio": "2026-06-28T06:35:29.619437"
+  "precio_venta": 49000.0,
+  "fecha_calculo_precio": "2026-06-29T05:25:02.763282"
 }
