@@ -51,6 +51,11 @@ from utils.email_notificaciones import (
     enviar_email_nurturing_d3, enviar_email_nurturing_d7, enviar_email_nurturing_d14,
     enviar_email_primera_venta, enviar_email_carrito_abandonado, enviar_email_invitar_referido,
     enviar_email_venta_admin,
+    enviar_email_activacion_d1, enviar_email_notificacion_venta,
+    enviar_email_ascenso_tier, enviar_email_postcompra_50,
+    enviar_email_ultimo_recordatorio_d30,
+    enviar_email_carrito_abandonado_2, enviar_email_carrito_abandonado_3,
+    enviar_email_review_request, enviar_email_repeat_purchase, enviar_email_winback,
 )
 
 # Configuración
@@ -384,6 +389,7 @@ def migrar_db():
         ("pais", "TEXT DEFAULT 'Argentina'"),
         ("cuit_dni", "TEXT DEFAULT ''"),
         ("partido", "TEXT DEFAULT ''"),
+        ("email_winback_enviado", "INTEGER DEFAULT 0"),
     ]
     cursor.execute("PRAGMA table_info(clientes)")
     columnas_existentes = {row[1] for row in cursor.fetchall()}
@@ -406,6 +412,10 @@ def migrar_db():
         ("descuento_monto", "REAL DEFAULT 0"),
         ("email_carrito_abandonado", "INTEGER DEFAULT 0"),
         ("email_invitar_referido", "INTEGER DEFAULT 0"),
+        ("email_carrito_abandonado_2", "INTEGER DEFAULT 0"),
+        ("email_carrito_abandonado_3", "INTEGER DEFAULT 0"),
+        ("email_review_enviado", "INTEGER DEFAULT 0"),
+        ("email_repeat_enviado", "INTEGER DEFAULT 0"),
     ]
     cursor.execute("PRAGMA table_info(ordenes)")
     columnas_ordenes_existentes = {row[1] for row in cursor.fetchall()}
@@ -555,6 +565,11 @@ def migrar_db():
         ("nurturing_d7_enviado", "INTEGER DEFAULT 0"),
         ("nurturing_d14_enviado", "INTEGER DEFAULT 0"),
         ("nurturing_primera_venta_enviado", "INTEGER DEFAULT 0"),
+        ("nurturing_d1_enviado", "INTEGER DEFAULT 0"),
+        ("nurturing_d30_enviado", "INTEGER DEFAULT 0"),
+        ("notificacion_tier_base_enviado", "INTEGER DEFAULT 0"),
+        ("notificacion_tier_activo_enviado", "INTEGER DEFAULT 0"),
+        ("notificacion_tier_top_enviado", "INTEGER DEFAULT 0"),
     ]
     cursor.execute("PRAGMA table_info(referidos)")
     cols_ref = {row[1] for row in cursor.fetchall()}
@@ -2223,20 +2238,111 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
         codigo_usado = orden.get('descuento_codigo')
         if codigo_usado:
             ref = cursor.execute(
-                "SELECT id FROM referidos WHERE codigo = ? AND activo = 1",
+                "SELECT id, nombre, email, codigo, nurturing_primera_venta_enviado, "
+                "notificacion_tier_base_enviado, notificacion_tier_activo_enviado, notificacion_tier_top_enviado "
+                "FROM referidos WHERE codigo = ? AND activo = 1",
                 (codigo_usado,)
             ).fetchone()
             if ref:
+                ref = dict(ref)
+                # Obtener tier ANTES de registrar esta venta (para detectar cruce)
+                tier_antes = _get_tier_comision(ref['id'], conn)
+
                 monto_base = max(0.0, float(orden.get('total') or 0) - float(orden.get('costo_envio') or 0))
-                tier = _get_tier_comision(ref[0], conn)
-                comision = round(monto_base * (tier['porcentaje'] / 100), 2)
+                comision = round(monto_base * (tier_antes['porcentaje'] / 100), 2)
                 periodo = datetime.now().strftime('%Y-%m')
                 cursor.execute("""
                     INSERT OR IGNORE INTO comisiones_referidos
                         (referido_id, orden_id, comprador_email, monto_base, comision, periodo)
                     VALUES (?, ?, ?, ?, ?, ?)
-                """, (ref[0], orden_id, orden.get('email', ''), monto_base, comision, periodo))
+                """, (ref['id'], orden_id, orden.get('email', ''), monto_base, comision, periodo))
                 conn.commit()
+
+                # Recalcular tier DESPUÉS de registrar la venta
+                tier_despues = _get_tier_comision(ref['id'], conn)
+                ventas_despues = tier_despues['ventas_mes']
+
+                # Calcular total del mes para el email
+                total_mes = cursor.execute(
+                    "SELECT COALESCE(SUM(comision), 0) FROM comisiones_referidos WHERE referido_id=? AND periodo=?",
+                    (ref['id'], periodo)
+                ).fetchone()[0]
+
+                if email_habilitado():
+                    # Primera venta EN LA VIDA del referido → email especial de celebración
+                    # (no usar ventas_mes: resetea cada mes y confundiría la venta #1 de un mes
+                    # nuevo con la primera venta real, dejando sin email las ventas #2+ de meses
+                    # posteriores al primero)
+                    if not ref.get('nurturing_primera_venta_enviado'):
+                        try:
+                            res = enviar_email_primera_venta(ref['nombre'], ref['email'], ref['codigo'], comision)
+                            if not res.get('error'):
+                                cursor.execute("UPDATE referidos SET nurturing_primera_venta_enviado = 1 WHERE id = ?", (ref['id'],))
+                                conn.commit()
+                        except Exception as e:
+                            print(f"Email primera venta fallido: {e}")
+
+                    # Ventas #2+ en la vida del referido → N1 notificación de comisión
+                    else:
+                        try:
+                            enviar_email_notificacion_venta(
+                                nombre=ref['nombre'], email=ref['email'], codigo=ref['codigo'],
+                                comision=comision, total_mes=total_mes,
+                                tier=tier_despues['tier'], n_ventas=ventas_despues,
+                                siguiente_tier=tier_despues.get('next_tier_en') and (
+                                    'activo' if tier_despues['tier'] == 'base' else 'top'
+                                ) or '',
+                                faltan=tier_despues.get('next_tier_en') or 0,
+                            )
+                        except Exception as e:
+                            print(f"Email notificación venta fallido: {e}")
+
+                    # N2 — Ascenso de tier (solo si cruzó umbral en esta venta)
+                    if tier_antes['tier'] != tier_despues['tier']:
+                        tier_col = f"notificacion_tier_{tier_despues['tier']}_enviado"
+                        if not ref.get(tier_col):
+                            try:
+                                res = enviar_email_ascenso_tier(
+                                    nombre=ref['nombre'], email=ref['email'], codigo=ref['codigo'],
+                                    tier_anterior=tier_antes['tier'], tier_nuevo=tier_despues['tier'],
+                                    pct_anterior=tier_antes['porcentaje'], pct_nuevo=tier_despues['porcentaje'],
+                                )
+                                if not res.get('error'):
+                                    cursor.execute(f"UPDATE referidos SET {tier_col} = 1 WHERE id = ?", (ref['id'],))
+                                    conn.commit()
+                            except Exception as e:
+                                print(f"Email ascenso tier fallido: {e}")
+
+            # N3 — Post-compra 50% OFF (comprador es referido que usó su PROPIO código de
+            # bienvenida del 50%; ese código nunca matchea contra referidos.codigo, por eso
+            # este bloque va fuera del `if ref:` de arriba — si no, nunca se ejecutaría)
+            if email_habilitado():
+                try:
+                    comprador_email = orden.get('email', '')
+                    comprador_ref = cursor.execute(
+                        "SELECT id, nombre, codigo FROM referidos WHERE email = ? AND activo = 1",
+                        (comprador_email,)
+                    ).fetchone()
+                    if comprador_ref:
+                        comprador_ref = dict(comprador_ref)
+                        # Verificar si usó su descuento de bienvenida 50%
+                        descuento_row = cursor.execute("""
+                            SELECT d.valor FROM descuentos d
+                            WHERE d.codigo = ? AND d.email_asociado = ? AND d.valor = 50
+                        """, (codigo_usado, comprador_email)).fetchone()
+                        if descuento_row:
+                            # Obtener el nombre del primer producto
+                            prod_row = cursor.execute(
+                                "SELECT producto_nombre FROM orden_items WHERE orden_id = ? LIMIT 1",
+                                (orden_id,)
+                            ).fetchone()
+                            prod_nombre = prod_row[0] if prod_row else 'producto'
+                            enviar_email_postcompra_50(
+                                comprador_ref['nombre'], comprador_ref['email'] if comprador_ref['email'] else comprador_email,
+                                comprador_ref['codigo'], prod_nombre,
+                            )
+                except Exception as e:
+                    print(f"Email postcompra 50% fallido: {e}")
     except Exception:
         pass  # best-effort: no interrumpir el flujo por error en comisiones
 
@@ -3472,30 +3578,18 @@ def _obtener_productos_top(cursor, limit=5):
     return [dict(r) for r in cursor.fetchall()]
 
 
-def _obtener_stats_referidos(cursor):
-    periodo = datetime.now().strftime('%Y-%m')
-    total_activos = cursor.execute(
-        "SELECT COUNT(DISTINCT referido_id) FROM comisiones_referidos WHERE periodo = ?", (periodo,)
-    ).fetchone()[0] or 0
-    comisiones_mes = cursor.execute(
-        "SELECT COALESCE(SUM(comision), 0) FROM comisiones_referidos WHERE periodo = ?", (periodo,)
-    ).fetchone()[0] or 0
-    return {
-        'total_referidos_activos': max(total_activos, 1),
-        'comisiones_pagadas_mes': round(comisiones_mes, 2),
-    }
-
-
 @app.post("/api/admin/nurturing/procesar")
 def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
     """
     Procesa todos los emails automáticos de marketing:
-    - Nurturing de referidos (D+3, D+7, D+14)
-    - Celebración primera venta
-    - Carrito abandonado (>24hs sin pagar)
+    - Nurturing de referidos (D+1, D+3, D+7, D+14, D+30)
+    - Carrito abandonado (#1 +2h, #2 +24h, #3 +72h)
     - Post-compra invitación a referir
+    - Review request (D+7 post-entrega o D+10 post-compra)
+    - Repeat purchase (D+30 post-compra, sin 2da compra)
+    - Win-back (D+60 sin actividad)
 
-    Diseñado para ejecutarse cada 6-12hs vía cron. Idempotente.
+    Diseñado para ejecutarse cada 2hs vía cron. Idempotente.
     """
     if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
@@ -3504,17 +3598,21 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
 
     conn = get_db()
     cursor = conn.cursor()
-    resultado = {"nurturing": {}, "primera_venta": 0, "carrito_abandonado": 0, "invitar_referido": 0, "errores": []}
+    resultado = {
+        "nurturing": {}, "primera_venta": 0,
+        "carrito_abandonado": 0, "carrito_abandonado_2": 0, "carrito_abandonado_3": 0,
+        "invitar_referido": 0, "review_request": 0, "repeat_purchase": 0, "winback": 0,
+        "errores": [],
+    }
     now = datetime.now()
 
-    # ── Bloque 1: Nurturing referidos D+3, D+7, D+14 ──
+    # ── Bloque 1: Nurturing referidos D+1, D+3, D+7, D+14, D+30 ──
     try:
         cursor.execute("SELECT * FROM referidos WHERE activo = 1")
         referidos = [dict(r) for r in cursor.fetchall()]
         productos_top_3 = _obtener_productos_top(cursor, 3)
         productos_top_5 = _obtener_productos_top(cursor, 5)
-        stats = _obtener_stats_referidos(cursor)
-        d3 = d7 = d14 = 0
+        d1 = d3 = d7 = d14 = d30 = 0
 
         for ref in referidos:
             try:
@@ -3523,29 +3621,72 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
                 continue
             dias = (now - creado).days
 
-            if dias >= 3 and not ref.get('nurturing_d3_enviado') and productos_top_3:
+            # N4 — D+1 Activación
+            if dias >= 1 and not ref.get('nurturing_d1_enviado'):
+                res = enviar_email_activacion_d1(ref['nombre'], ref['email'], ref['codigo'])
+                if 'error' not in res:
+                    cursor.execute("UPDATE referidos SET nurturing_d1_enviado = 1 WHERE id = ?", (ref['id'],))
+                    d1 += 1
+
+            if dias >= 3 and not ref.get('nurturing_d3_enviado'):
                 res = enviar_email_nurturing_d3(ref['nombre'], ref['email'], ref['codigo'], productos_top_3)
                 if 'error' not in res:
                     cursor.execute("UPDATE referidos SET nurturing_d3_enviado = 1 WHERE id = ?", (ref['id'],))
                     d3 += 1
 
             if dias >= 7 and not ref.get('nurturing_d7_enviado'):
-                res = enviar_email_nurturing_d7(ref['nombre'], ref['email'], ref['codigo'], stats)
+                # Obtener stats individuales para el referido
+                tier_ref = _get_tier_comision(ref['id'], conn)
+                ref_stats = {
+                    'tier': tier_ref['tier'],
+                    'porcentaje': tier_ref['porcentaje'],
+                    'ventas_mes': tier_ref['ventas_mes'],
+                    'next_tier': 'activo' if tier_ref['tier'] == 'base' else ('top' if tier_ref['tier'] == 'activo' else None),
+                    'next_tier_en': tier_ref.get('next_tier_en', 0),
+                }
+                res = enviar_email_nurturing_d7(ref['nombre'], ref['email'], ref['codigo'], ref_stats)
                 if 'error' not in res:
                     cursor.execute("UPDATE referidos SET nurturing_d7_enviado = 1 WHERE id = ?", (ref['id'],))
                     d7 += 1
 
-            if dias >= 14 and not ref.get('nurturing_d14_enviado') and productos_top_5:
-                res = enviar_email_nurturing_d14(ref['nombre'], ref['email'], ref['codigo'], productos_top_5)
+            if dias >= 14 and not ref.get('nurturing_d14_enviado'):
+                # Obtener stats individuales del referido para email condicional
+                tier_ref = _get_tier_comision(ref['id'], conn)
+                periodo = now.strftime('%Y-%m')
+                total_comisiones = cursor.execute(
+                    "SELECT COALESCE(SUM(comision), 0) FROM comisiones_referidos WHERE referido_id=? AND periodo=?",
+                    (ref['id'], periodo)
+                ).fetchone()[0]
+                ref_stats = {
+                    'tier': tier_ref['tier'],
+                    'porcentaje': tier_ref['porcentaje'],
+                    'ventas_mes': tier_ref['ventas_mes'],
+                    'total_comisiones': total_comisiones,
+                    'next_tier': 'activo' if tier_ref['tier'] == 'base' else ('top' if tier_ref['tier'] == 'activo' else None),
+                    'next_tier_en': tier_ref.get('next_tier_en', 0),
+                    'next_porcentaje': tier_ref.get('next_porcentaje', 11),
+                }
+                res = enviar_email_nurturing_d14(ref['nombre'], ref['email'], ref['codigo'], productos_top_5, stats=ref_stats)
                 if 'error' not in res:
                     cursor.execute("UPDATE referidos SET nurturing_d14_enviado = 1 WHERE id = ?", (ref['id'],))
                     d14 += 1
 
-        resultado['nurturing'] = {"d3": d3, "d7": d7, "d14": d14}
+            # N5 — D+30 último recordatorio (solo si 0 ventas)
+            if dias >= 30 and not ref.get('nurturing_d30_enviado'):
+                ventas_total = cursor.execute(
+                    "SELECT COUNT(*) FROM comisiones_referidos WHERE referido_id = ?", (ref['id'],)
+                ).fetchone()[0]
+                if ventas_total == 0:
+                    res = enviar_email_ultimo_recordatorio_d30(ref['nombre'], ref['email'], ref['codigo'])
+                    if 'error' not in res:
+                        cursor.execute("UPDATE referidos SET nurturing_d30_enviado = 1 WHERE id = ?", (ref['id'],))
+                        d30 += 1
+
+        resultado['nurturing'] = {"d1": d1, "d3": d3, "d7": d7, "d14": d14, "d30": d30}
     except Exception as e:
         resultado['errores'].append(f"nurturing: {e}")
 
-    # ── Bloque 2: Celebración primera venta ──
+    # ── Bloque 2: Celebración primera venta (fallback por si no se envió desde transaccional) ──
     try:
         cursor.execute("""
             SELECT r.id, r.nombre, r.email, r.codigo, c.comision
@@ -3563,15 +3704,16 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
     except Exception as e:
         resultado['errores'].append(f"primera_venta: {e}")
 
-    # ── Bloque 3: Carrito abandonado ──
+    # ── Bloque 3: Carrito abandonado #1 (+2 horas) ──
     try:
         cursor.execute("""
-            SELECT o.id, o.total, o.fecha, c.nombre, c.email
+            SELECT o.id, o.total, o.fecha, o.descuento_codigo, o.descuento_monto,
+                   c.nombre, c.email
             FROM ordenes o
             JOIN clientes c ON o.cliente_id = c.id
             WHERE (o.estado_pago = 'pending' OR o.estado_pago IS NULL)
               AND o.email_carrito_abandonado = 0
-              AND datetime(o.fecha, '+24 hours') < datetime('now')
+              AND datetime(o.fecha, '+2 hours') < datetime('now')
               AND datetime(o.fecha, '+7 days') > datetime('now')
         """)
         for row in cursor.fetchall():
@@ -3587,6 +3729,61 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
                     resultado['carrito_abandonado'] += 1
     except Exception as e:
         resultado['errores'].append(f"carrito_abandonado: {e}")
+
+    # ── Bloque 3b: Carrito abandonado #2 (+24 horas, después de #1) ──
+    try:
+        cursor.execute("""
+            SELECT o.id, o.total, o.fecha, o.descuento_codigo, o.descuento_monto,
+                   c.nombre, c.email
+            FROM ordenes o
+            JOIN clientes c ON o.cliente_id = c.id
+            WHERE (o.estado_pago = 'pending' OR o.estado_pago IS NULL)
+              AND o.email_carrito_abandonado = 1
+              AND o.email_carrito_abandonado_2 = 0
+              AND datetime(o.fecha, '+24 hours') < datetime('now')
+              AND datetime(o.fecha, '+7 days') > datetime('now')
+        """)
+        for row in cursor.fetchall():
+            o = dict(row)
+            items_rows = cursor.execute(
+                "SELECT producto_nombre, cantidad, subtotal FROM orden_items WHERE orden_id = ?", (o['id'],)
+            ).fetchall()
+            items = [dict(i) for i in items_rows]
+            if items:
+                res = enviar_email_carrito_abandonado_2(o, items)
+                if 'error' not in res:
+                    cursor.execute("UPDATE ordenes SET email_carrito_abandonado_2 = 1 WHERE id = ?", (o['id'],))
+                    resultado['carrito_abandonado_2'] += 1
+    except Exception as e:
+        resultado['errores'].append(f"carrito_abandonado_2: {e}")
+
+    # ── Bloque 3c: Carrito abandonado #3 (+72 horas, después de #1 y #2) ──
+    try:
+        cursor.execute("""
+            SELECT o.id, o.total, o.fecha, o.descuento_codigo, o.descuento_monto,
+                   c.nombre, c.email
+            FROM ordenes o
+            JOIN clientes c ON o.cliente_id = c.id
+            WHERE (o.estado_pago = 'pending' OR o.estado_pago IS NULL)
+              AND o.email_carrito_abandonado = 1
+              AND o.email_carrito_abandonado_2 = 1
+              AND o.email_carrito_abandonado_3 = 0
+              AND datetime(o.fecha, '+72 hours') < datetime('now')
+              AND datetime(o.fecha, '+7 days') > datetime('now')
+        """)
+        for row in cursor.fetchall():
+            o = dict(row)
+            items_rows = cursor.execute(
+                "SELECT producto_nombre, cantidad, subtotal FROM orden_items WHERE orden_id = ?", (o['id'],)
+            ).fetchall()
+            items = [dict(i) for i in items_rows]
+            if items:
+                res = enviar_email_carrito_abandonado_3(o, items)
+                if 'error' not in res:
+                    cursor.execute("UPDATE ordenes SET email_carrito_abandonado_3 = 1 WHERE id = ?", (o['id'],))
+                    resultado['carrito_abandonado_3'] += 1
+    except Exception as e:
+        resultado['errores'].append(f"carrito_abandonado_3: {e}")
 
     # ── Bloque 4: Post-compra invitar a referir ──
     try:
@@ -3610,6 +3807,98 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
                 resultado['invitar_referido'] += 1
     except Exception as e:
         resultado['errores'].append(f"invitar_referido: {e}")
+
+    # ── Bloque 5: N8 — Review request (D+7 post-entrega o D+10 post-compra) ──
+    try:
+        cursor.execute("""
+            SELECT o.id, o.fecha, o.enviado_at, c.nombre, c.email
+            FROM ordenes o
+            JOIN clientes c ON o.cliente_id = c.id
+            WHERE o.estado_pago = 'approved'
+              AND o.email_review_enviado = 0
+              AND (
+                (o.estado = 'entregado' AND datetime(o.enviado_at, '+7 days') < datetime('now'))
+                OR datetime(o.fecha, '+10 days') < datetime('now')
+              )
+        """)
+        for row in cursor.fetchall():
+            o = dict(row)
+            prod_row = cursor.execute(
+                "SELECT producto_nombre FROM orden_items WHERE orden_id = ? LIMIT 1", (o['id'],)
+            ).fetchone()
+            prod_nombre = prod_row[0] if prod_row else 'producto'
+            res = enviar_email_review_request(o['nombre'], o['email'], prod_nombre)
+            if 'error' not in res:
+                cursor.execute("UPDATE ordenes SET email_review_enviado = 1 WHERE id = ?", (o['id'],))
+                resultado['review_request'] += 1
+    except Exception as e:
+        resultado['errores'].append(f"review_request: {e}")
+
+    # ── Bloque 6: N9 — Repeat purchase (D+30 post-compra, sin 2da compra) ──
+    try:
+        productos_top_repeat = _obtener_productos_top(cursor, 3)
+        cursor.execute("""
+            SELECT o.id, o.fecha, c.nombre, c.email, c.id as cliente_id
+            FROM ordenes o
+            JOIN clientes c ON o.cliente_id = c.id
+            WHERE o.estado_pago = 'approved'
+              AND o.email_repeat_enviado = 0
+              AND datetime(o.fecha, '+30 days') < datetime('now')
+              AND NOT EXISTS (
+                SELECT 1 FROM ordenes o2
+                WHERE o2.cliente_id = o.cliente_id AND o2.id != o.id
+                AND o2.estado_pago = 'approved' AND o2.fecha > o.fecha
+              )
+              AND NOT EXISTS (
+                SELECT 1 FROM ordenes o3
+                WHERE o3.cliente_id = o.cliente_id
+                AND o3.email_invitar_referido = 1
+                AND datetime(o3.fecha, '+14 days') > datetime('now')
+              )
+        """)
+        for row in cursor.fetchall():
+            o = dict(row)
+            ref_row = cursor.execute(
+                "SELECT codigo FROM referidos WHERE email = ? AND activo = 1", (o['email'],)
+            ).fetchone()
+            res = enviar_email_repeat_purchase(
+                o['nombre'], o['email'], productos_top_repeat,
+                codigo=ref_row[0] if ref_row else None,
+            )
+            if 'error' not in res:
+                cursor.execute("UPDATE ordenes SET email_repeat_enviado = 1 WHERE id = ?", (o['id'],))
+                resultado['repeat_purchase'] += 1
+    except Exception as e:
+        resultado['errores'].append(f"repeat_purchase: {e}")
+
+    # ── Bloque 7: N10 — Win-back (D+60 sin actividad) ──
+    try:
+        cursor.execute("""
+            SELECT c.id, c.nombre, c.email, c.email_winback_enviado,
+                   MAX(o.fecha) as ultima_compra
+            FROM clientes c
+            JOIN ordenes o ON o.cliente_id = c.id
+            WHERE o.estado_pago = 'approved'
+              AND c.email_winback_enviado = 0
+            GROUP BY c.id
+            HAVING datetime(MAX(o.fecha), '+60 days') < datetime('now')
+        """)
+        for row in cursor.fetchall():
+            cl = dict(row)
+            ultima = datetime.strptime(cl['ultima_compra'], '%Y-%m-%d %H:%M:%S')
+            dias_inactivo = (now - ultima).days
+            # Verificar si es referido
+            ref_row = cursor.execute(
+                "SELECT codigo FROM referidos WHERE email = ? AND activo = 1", (cl['email'],)
+            ).fetchone()
+            es_referido = bool(ref_row)
+            codigo_ref = ref_row[0] if ref_row else None
+            res = enviar_email_winback(cl['nombre'], cl['email'], dias_inactivo, es_referido, codigo_ref)
+            if 'error' not in res:
+                cursor.execute("UPDATE clientes SET email_winback_enviado = 1 WHERE id = ?", (cl['id'],))
+                resultado['winback'] += 1
+    except Exception as e:
+        resultado['errores'].append(f"winback: {e}")
 
     conn.commit()
     conn.close()

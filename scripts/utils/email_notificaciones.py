@@ -193,6 +193,21 @@ def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None) ->
             f"— CAE {factura['cae']}</p>"
         )
 
+    # Bloque de ahorro con código de referido (si aplica)
+    codigo_ref = orden.get('descuento_codigo', '') or ''
+    descuento_monto = orden.get('descuento_monto', 0) or 0
+    referido_ahorro_html = ""
+    if codigo_ref and descuento_monto > 0:
+        codigo_ref_s = _html.escape(codigo_ref)
+        referido_ahorro_html = (
+            f"<div style='margin:18px 0 0;padding:14px 18px;background:{ACCENT_PALE};"
+            f"border-radius:10px;border:1px solid {GRAY_200};text-align:center'>"
+            f"<span style='color:{INK};font-size:14px'>Usaste el código "
+            f"<strong>{codigo_ref_s}</strong> y te ahorraste "
+            f"<strong style=\"color:{GREEN_OK}\">${descuento_monto:,.0f}</strong> en esta compra.</span>"
+            f"</div>"
+        )
+
     cuerpo = f"""
       <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Gracias por tu compra, {orden['nombre']}!</h2>
       <p style="color:{GRAY_600};margin:0 0 22px">
@@ -212,6 +227,7 @@ def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None) ->
       <p style="text-align:right;font-weight:700;font-size:18px;margin:16px 4px 0;color:{INK}">
         Total: ${orden['total']:,.2f}
       </p>
+      {referido_ahorro_html}
       {factura_html}
       <p style="color:{GRAY_600};margin-top:24px">
         Te avisaremos por email cuando tu pedido sea despachado, junto con el link de seguimiento.
@@ -466,108 +482,201 @@ def _tabla_productos(productos: list, codigo: str, site_url: str) -> str:
 
 
 def enviar_email_nurturing_d3(nombre: str, email: str, codigo: str, productos_top: list) -> dict:
-    """D+3: Tips para compartir + 3 productos top con botón WA."""
+    """D+3: Social proof — resultados de otros referidos."""
     nombre_s = _html.escape(nombre)
     codigo_s = _html.escape(codigo)
     env = Config.cargar_env()
     site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
-    prods_html = _tabla_productos(productos_top[:3], codigo, site_url)
     cuerpo = f"""
-      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">3 tips para empezar a ganar, {nombre_s}</h2>
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Referidos como vos ya están cobrando comisiones</h2>
       <p style="color:{GRAY_600};margin:0 0 22px">
-        Ya tenés tu código <strong style="color:{INK}">{codigo_s}</strong>. Ahora compartilo y empezá a cobrar comisiones.
+        ¡Hola {nombre_s}! Mirá lo que están ganando otros referidos:
+      </p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:20px">
+        <tr>
+          <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200};background:{GREEN_PALE} !important">
+            <strong style="color:{GREEN_OK}">Carolina M. (CABA)</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:4px">$9.800/mes compartiendo por WhatsApp</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200}">
+            <strong style="color:{INK}">Nico G. (4.100 seguidores)</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:4px">$14.200 en su primer mes</div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:14px 18px">
+            <strong style="color:{INK}">Julieta S. (Rosario)</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:4px">$8.900 vendiendo por catálogo de WhatsApp</div>
+          </td>
+        </tr>
+      </table>
+      <p style="color:{INK};font-weight:700;font-size:15px;margin:0 0 8px">¿Ya compartiste tu código?</p>
+      <p style="color:{GRAY_600};margin:0 0 4px">
+        Tu código: <strong style="color:{INK};font-size:16px">{codigo_s}</strong>
+      </p>
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Solo necesitás 1 venta para ver tu primera comisión.
+        Pasale tu código a 3 personas hoy y fijate qué pasa.
+      </p>
+      {_boton('Ver mi panel', f"{site_url}/mi_cuenta")}
+    """
+    return _enviar(email, f"Referidos como vos ya están cobrando comisiones - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
+
+
+def enviar_email_nurturing_d7(nombre: str, email: str, codigo: str, stats: dict) -> dict:
+    """D+7: Tips para maximizar comisiones + progreso de tier."""
+    nombre_s = _html.escape(nombre)
+    codigo_s = _html.escape(codigo)
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+    tier = stats.get('tier', 'base')
+    porcentaje = stats.get('porcentaje', 7)
+    ventas_mes = stats.get('ventas_mes', 0)
+    siguiente_tier = stats.get('next_tier', 'Activo')
+    faltan = stats.get('next_tier_en', 5)
+    tier_label = {'base': 'Base', 'activo': 'Activo', 'top': 'Top'}.get(tier, 'Base')
+    sig_label = {'activo': 'Activo', 'top': 'Top'}.get(siguiente_tier, 'Activo')
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">3 tips para maximizar tus comisiones</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        ¡Hola {nombre_s}! 3 cosas que hacen los referidos que más ganan:
       </p>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
              style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:20px">
         <tr>
           <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200};background:{ACCENT_PALE} !important">
-            <strong style="color:{INK}">1. Mandalo por WhatsApp</strong>
-            <div style="color:{GRAY_600};font-size:13px;margin-top:4px">Un mensaje directo a un amigo convierte mejor que cualquier publicidad.</div>
+            <strong style="color:{INK}">1. Comparten su código en el estado de WhatsApp</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:4px">Se ve sin ser invasivo, dura 24hs y lo renuevan cada semana.</div>
           </td>
         </tr>
         <tr>
           <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200}">
-            <strong style="color:{INK}">2. Compartí un producto específico</strong>
-            <div style="color:{GRAY_600};font-size:13px;margin-top:4px">Un link a un producto concreto convierte 3x más que el código solo.</div>
+            <strong style="color:{INK}">2. Recomiendan productos que ya probaron</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:4px">Recordá: tenés 50% OFF en tu primera compra para probar.</div>
           </td>
         </tr>
         <tr>
           <td style="padding:14px 18px">
-            <strong style="color:{INK}">3. Subilo a tus Stories</strong>
-            <div style="color:{GRAY_600};font-size:13px;margin-top:4px">Una foto del producto + tu código en texto. Simple y efectivo.</div>
+            <strong style="color:{INK}">3. Mencionan el descuento, no el programa</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:4px">"Te paso un código con 20% OFF" funciona mejor que "me anoté en un programa de referidos".</div>
           </td>
         </tr>
       </table>
-      <p style="color:{INK};font-weight:700;font-size:15px;margin:0 0 4px">Estos productos se venden solos:</p>
-      <p style="color:{GRAY_600};font-size:13px;margin:0 0 4px">Tocá "Compartir" para enviar por WhatsApp con tu código incluido.</p>
-      {prods_html}
-      {_boton('Ver más productos para compartir', f"{site_url}/mi_cuenta")}
-    """
-    return _enviar(email, f"{nombre_s}, 3 tips para empezar a ganar con tu código - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
-
-
-def enviar_email_nurturing_d7(nombre: str, email: str, codigo: str, stats: dict) -> dict:
-    """D+7: Social proof + tabla de tiers."""
-    nombre_s = _html.escape(nombre)
-    codigo_s = _html.escape(codigo)
-    env = Config.cargar_env()
-    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
-    total_activos = stats.get('total_referidos_activos', 1)
-    comisiones_mes = stats.get('comisiones_pagadas_mes', 0)
-    cuerpo = f"""
-      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Otros ya están ganando, {nombre_s}</h2>
-      <p style="color:{GRAY_600};margin:0 0 22px">
-        Este mes, <strong style="color:{INK}">{total_activos} referidos</strong> ya generaron ventas y acumularon comisiones.
-      </p>
-      <div style="text-align:center;background:{GREEN_PALE};border-radius:12px;padding:20px;margin:0 0 24px">
-        <span style="font-size:28px;font-weight:700;color:{GREEN_OK}">${comisiones_mes:,.0f}</span>
-        <div style="color:{GREEN_OK};font-size:13px;font-weight:600;margin-top:4px">comisiones generadas este mes</div>
-      </div>
-      <p style="color:{INK};font-weight:700;font-size:15px;margin:0 0 12px">Mientras más vendés, más ganás:</p>
+      <p style="color:{INK};font-weight:700;font-size:15px;margin:0 0 12px">Tu progreso actual:</p>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
              style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:24px">
-        <tr style="background:{CREAM} !important">
-          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-size:12px;font-weight:700;color:{GRAY_600}">VENTAS/MES</td>
-          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-size:12px;font-weight:700;color:{GRAY_600}">TU COMISIÓN</td>
+        <tr>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Nivel</td>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-weight:700;color:{INK}">{tier_label} ({porcentaje}%)</td>
         </tr>
         <tr>
-          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200}">Menos de 5</td>
-          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-weight:700;color:{INK}">7%</td>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Ventas este mes</td>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-weight:700;color:{INK}">{ventas_mes}</td>
         </tr>
         <tr>
-          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200}">5 a 14</td>
-          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-weight:700;color:{INK}">11%</td>
-        </tr>
-        <tr>
-          <td style="padding:10px 16px">15 o más</td>
-          <td style="padding:10px 16px;font-weight:700;color:{ACCENT_DEEP}">15%</td>
+          <td style="padding:10px 16px;color:{GRAY_600}">Para subir a {sig_label}</td>
+          <td style="padding:10px 16px;font-weight:700;color:{ACCENT_DEEP}">{faltan} ventas más</td>
         </tr>
       </table>
-      <p style="color:{GRAY_600};font-size:13px;margin:0 0 8px">
-        Tu código: <strong style="color:{INK}">{codigo_s}</strong>. Cuanto antes empieces a compartir en el mes, más ventas acumulás.
-      </p>
-      {_boton('Compartir mi código ahora', f"{site_url}/mi_cuenta")}
+      {_boton('Ver productos para recomendar', f"{site_url}/mi_cuenta")}
     """
-    return _enviar(email, f"Ya hay {total_activos} referidos ganando este mes - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
+    return _enviar(email, f"3 tips para maximizar tus comisiones - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
 
 
-def enviar_email_nurturing_d14(nombre: str, email: str, codigo: str, productos_top: list) -> dict:
-    """D+14: Los 5 productos que más se venden."""
+def enviar_email_nurturing_d14(nombre: str, email: str, codigo: str, productos_top: list, stats: dict = None) -> dict:
+    """D+14: Re-engagement condicional según ventas (0 ventas vs 1+)."""
     nombre_s = _html.escape(nombre)
     codigo_s = _html.escape(codigo)
     env = Config.cargar_env()
     site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
-    prods_html = _tabla_productos(productos_top[:5], codigo, site_url)
-    cuerpo = f"""
-      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Los 5 productos que más se venden, {nombre_s}</h2>
-      <p style="color:{GRAY_600};margin:0 0 8px">
-        Estos son los productos que más ventas generan cuando los compartís.
-        Tocá "Compartir" para enviar por WhatsApp con tu código <strong style="color:{INK}">{codigo_s}</strong>.
-      </p>
-      {prods_html}
-      {_boton('Ver todo el catálogo', f"{site_url}/mi_cuenta")}
-    """
-    return _enviar(email, f"Los 5 productos que más se venden este mes - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
+
+    ventas = 0
+    tier_label = 'Base'
+    porcentaje = 7
+    total_comisiones = 0
+    faltan = 5
+    sig_label = 'Activo'
+    sig_pct = 11
+    if stats:
+        ventas = stats.get('ventas_mes', 0)
+        tier_label = {'base': 'Base', 'activo': 'Activo', 'top': 'Top'}.get(stats.get('tier', 'base'), 'Base')
+        porcentaje = stats.get('porcentaje', 7)
+        total_comisiones = stats.get('total_comisiones', 0)
+        faltan = stats.get('next_tier_en', 5)
+        sig_label = {'activo': 'Activo', 'top': 'Top'}.get(stats.get('next_tier', 'activo'), 'Activo')
+        sig_pct = stats.get('next_porcentaje', 11)
+
+    if ventas == 0:
+        # 0 ventas: re-engagement con social proof + textos listos
+        cuerpo = f"""
+          <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¿Necesitás una mano para arrancar?</h2>
+          <p style="color:{GRAY_600};margin:0 0 22px">
+            Hola {nombre_s}, sabemos que arrancar puede parecer difícil.
+            Pero la mayoría de los referidos activos empezaron igual:
+            compartiendo su código con 3-5 personas cercanas.
+          </p>
+          <div style="background:{GREEN_PALE};border-radius:12px;padding:16px 18px;margin:0 0 22px">
+            <strong style="color:{GREEN_OK}">Carolina M.</strong>
+            <span style="color:{GRAY_600};font-size:13px"> empezó pasándole el código a 3 amigas del jardín.</span>
+            <div style="color:{GREEN_OK};font-size:13px;font-weight:600;margin-top:4px">En su primer mes cobró $6.200. Hoy lleva $9.800/mes.</div>
+          </div>
+          <p style="color:{INK};font-weight:700;font-size:15px;margin:0 0 8px">
+            Tu código: <span style="font-size:18px">{codigo_s}</span>
+          </p>
+          <p style="color:{GRAY_600};margin:0 0 8px;font-size:13px">Texto listo para compartir:</p>
+          <div style="background:{CREAM};border-radius:10px;padding:14px 16px;margin:0 0 22px;font-size:13px;color:{GRAY_600};border:1px solid {GRAY_200}">
+            Les dejo mi código de descuento en El Gadget: <strong style="color:{INK}">{codigo_s}</strong><br>
+            Hasta 20% OFF en auriculares, luces, gadgets y más.<br>
+            elgadget.com.ar
+          </div>
+          <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+            No tenés que venderle nada a nadie.
+            Solo pasarles un código de descuento genuino.
+          </p>
+          {_boton('Ver productos más vendidos', site_url)}
+        """
+        subject = f"¿Necesitás una mano para arrancar? - {TIENDA_NOMBRE}"
+    else:
+        # 1+ ventas: celebración + progreso
+        cerca_html = ""
+        if faltan and faltan <= 5:
+            cerca_html = f"""
+          <p style="color:{ACCENT_DEEP};font-weight:600;font-size:14px;margin:0 0 22px">
+            Dato: te faltan solo {faltan} ventas para subir a {sig_label}
+            y empezar a ganar {sig_pct}% por venta.
+          </p>"""
+        cuerpo = f"""
+          <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Vas bien, {nombre_s}! Mirá tu progreso</h2>
+          <p style="color:{GRAY_600};margin:0 0 22px">
+            En tus primeras 2 semanas como referido:
+          </p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                 style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:20px">
+            <tr>
+              <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Ventas generadas</td>
+              <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-weight:700;color:{INK}">{ventas}</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Comisiones acumuladas</td>
+              <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-weight:700;color:{GREEN_OK}">${total_comisiones:,.0f}</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 16px;color:{GRAY_600}">Nivel actual</td>
+              <td style="padding:10px 16px;font-weight:700;color:{INK}">{tier_label} ({porcentaje}%)</td>
+            </tr>
+          </table>
+          {cerca_html}
+          <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+            Seguí así. Cada código que compartís es una posible comisión.
+          </p>
+          {_boton('Ver mi panel', f"{site_url}/mi_cuenta")}
+        """
+        subject = f"¡Vas bien, {nombre_s}! Mirá tu progreso - {TIENDA_NOMBRE}"
+
+    return _enviar(email, subject, _layout(cuerpo, marketing=True), is_marketing=True)
 
 
 def enviar_email_primera_venta(nombre: str, email: str, codigo: str, monto_comision: float) -> dict:
@@ -683,6 +792,497 @@ def enviar_email_invitar_referido(nombre: str, email: str) -> dict:
       </p>
     """
     return _enviar(email, f"¿Te gustó tu compra? Ganá plata recomendándonos - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
+
+
+def enviar_email_activacion_d1(nombre: str, email: str, codigo: str, source: str = None) -> dict:
+    """N4 — D+1: Activación del referido — código destacado + textos listos para compartir."""
+    nombre_s = _html.escape(nombre)
+    codigo_s = _html.escape(codigo)
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Hola {nombre_s}!</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Tu código de referido es:
+      </p>
+      <div style="text-align:center;margin:28px 0">
+        <span style="display:inline-block;background:{INK};color:{ACCENT};padding:20px 40px;
+           border-radius:14px;font-weight:700;font-size:28px;letter-spacing:2px">
+          {codigo_s}
+        </span>
+      </div>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Cuanto antes lo compartas, antes cobrás tu primera comisión.
+      </p>
+      <p style="color:{INK};font-weight:700;font-size:15px;margin:0 0 12px">Acá tenés 3 textos listos para copiar y pegar:</p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:20px">
+        <tr>
+          <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200};background:{ACCENT_PALE} !important">
+            <strong style="color:{INK}">Para tu Story o estado de WhatsApp</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:6px;background:{CREAM};padding:10px 12px;border-radius:8px">
+              Les dejo mi código de descuento en El Gadget: <strong>{codigo_s}</strong><br>
+              Hasta 20% OFF en auriculares, luces, gadgets y más.<br>
+              elgadget.com.ar
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200}">
+            <strong style="color:{INK}">Para mandarle a un amigo/a</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:6px;background:{CREAM};padding:10px 12px;border-radius:8px">
+              Che, encontré esta tienda El Gadget que tiene cosas re buenas.
+              Si querés comprar algo, usá mi código <strong>{codigo_s}</strong> y te hacen
+              hasta 20% de descuento: elgadget.com.ar
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:14px 18px">
+            <strong style="color:{INK}">Para un grupo de WhatsApp</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:6px;background:{CREAM};padding:10px 12px;border-radius:8px">
+              Les dejo un código de descuento de hasta 20% en El Gadget
+              (tienen auriculares, luces, gadgets y más).
+              Código: <strong>{codigo_s}</strong> en elgadget.com.ar
+            </div>
+          </td>
+        </tr>
+      </table>
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Y no te olvides: tenés <strong style="color:{INK}">50% OFF</strong> en tu primera compra como referido.
+        Probá un producto, usalo, y después recomendalo con conocimiento real.
+      </p>
+      {_boton('Comprar con 50% OFF', site_url)}
+      {_boton('Ver mi panel', f"{site_url}/mi_cuenta")}
+    """
+    return _enviar(email, f"Tu código {codigo_s} está listo — compartilo ahora", _layout(cuerpo, marketing=True), is_marketing=True)
+
+
+def enviar_email_notificacion_venta(nombre: str, email: str, codigo: str, comision: float,
+                                    total_mes: float, tier: str, n_ventas: int,
+                                    siguiente_tier: str, faltan: int) -> dict:
+    """N1 — Notificación por cada venta generada (ventas #2+). Transaccional."""
+    nombre_s = _html.escape(nombre)
+    codigo_s = _html.escape(codigo)
+    tier_label = {'base': 'Base', 'activo': 'Activo', 'top': 'Top'}.get(tier, 'Base')
+    tier_pct = {'base': '7', 'activo': '11', 'top': '15'}.get(tier, '7')
+    sig_label = _html.escape(siguiente_tier) if siguiente_tier else ''
+    sig_pct = {'activo': '11', 'top': '15'}.get(siguiente_tier, '')
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    faltan_html = ""
+    if siguiente_tier and faltan and faltan > 0:
+        faltan_html = f"""
+        <tr>
+          <td style="padding:10px 16px;color:{GRAY_600}">Para subir a {sig_label} ({sig_pct}%)</td>
+          <td style="padding:10px 16px;font-weight:700;color:{ACCENT_DEEP}">Te faltan {faltan} ventas</td>
+        </tr>"""
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Nueva venta con tu código!</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        ¡{nombre_s}! Alguien compró con tu código <strong style="color:{INK}">{codigo_s}</strong>.
+      </p>
+      <div style="text-align:center;margin:28px 0">
+        <span style="display:inline-block;background:{ACCENT};color:{INK};padding:20px 40px;
+           border-radius:14px;font-weight:700;font-size:34px;letter-spacing:-1px">
+          +${comision:,.0f}
+        </span>
+        <div style="color:{GRAY_600};font-size:13px;margin-top:6px">Tu comisión por esta venta</div>
+      </div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:24px">
+        <tr>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Total acumulado este mes</td>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-weight:700;color:{GREEN_OK}">${total_mes:,.0f}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Nivel actual</td>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-weight:700;color:{INK}">{tier_label} ({tier_pct}%)</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 16px;{'border-bottom:1px solid ' + GRAY_200 + ';' if faltan_html else ''}color:{GRAY_600}">Ventas este mes</td>
+          <td style="padding:10px 16px;{'border-bottom:1px solid ' + GRAY_200 + ';' if faltan_html else ''}font-weight:700;color:{INK}">{n_ventas}</td>
+        </tr>
+        {faltan_html}
+      </table>
+      {_boton('Ver mi panel', f"{site_url}/mi_cuenta")}
+    """
+    return _enviar(email, f"¡Nueva venta con tu código! Ganaste ${comision:,.0f}", _layout(cuerpo))
+
+
+def enviar_email_ascenso_tier(nombre: str, email: str, codigo: str,
+                              tier_anterior: str, tier_nuevo: str,
+                              pct_anterior: float, pct_nuevo: float) -> dict:
+    """N2 — Ascenso de tier. Transaccional."""
+    nombre_s = _html.escape(nombre)
+    tier_ant_label = {'base': 'Base', 'activo': 'Activo', 'top': 'Top'}.get(tier_anterior, tier_anterior)
+    tier_new_label = {'base': 'Base', 'activo': 'Activo', 'top': 'Top'}.get(tier_nuevo, tier_nuevo)
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    antes_15k = round(15000 * (pct_anterior / 100))
+    ahora_15k = round(15000 * (pct_nuevo / 100))
+    antes_25k = round(25000 * (pct_anterior / 100))
+    ahora_25k = round(25000 * (pct_nuevo / 100))
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Felicitaciones {nombre_s}!</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Subiste de nivel en el programa de referidos:
+      </p>
+      <div style="text-align:center;margin:28px 0">
+        <span style="display:inline-block;background:{CREAM};color:{GRAY_600};padding:12px 20px;
+           border-radius:10px;font-weight:600;font-size:16px;text-decoration:line-through">
+          {tier_ant_label} {pct_anterior:.0f}%
+        </span>
+        <span style="display:inline-block;padding:0 10px;color:{GRAY_600};font-size:20px">→</span>
+        <span style="display:inline-block;background:{ACCENT};color:{INK};padding:12px 20px;
+           border-radius:10px;font-weight:700;font-size:16px">
+          {tier_new_label} {pct_nuevo:.0f}%
+        </span>
+      </div>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        A partir de ahora, cada venta te deja más comisión.
+      </p>
+      <p style="color:{INK};font-weight:700;font-size:15px;margin:0 0 12px">Ejemplo:</p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:20px">
+        <tr>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};color:{GRAY_600}">Venta de $15.000</td>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};color:{GRAY_600};text-decoration:line-through">${antes_15k:,}</td>
+          <td style="padding:10px 16px;border-bottom:1px solid {GRAY_200};font-weight:700;color:{GREEN_OK}">${ahora_15k:,}</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 16px;color:{GRAY_600}">Venta de $25.000</td>
+          <td style="padding:10px 16px;color:{GRAY_600};text-decoration:line-through">${antes_25k:,}</td>
+          <td style="padding:10px 16px;font-weight:700;color:{GREEN_OK}">${ahora_25k:,}</td>
+        </tr>
+      </table>
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Y recordá: este nivel no se resetea. Es tuyo para siempre.
+      </p>
+      {_boton('Ver mi panel', f"{site_url}/mi_cuenta")}
+    """
+    return _enviar(email, f"¡Subiste a {tier_new_label}! Tu comisión ahora es {pct_nuevo:.0f}%", _layout(cuerpo))
+
+
+def enviar_email_postcompra_50(nombre: str, email: str, codigo: str, producto_nombre: str) -> dict:
+    """N3 — Post-compra 50% OFF: activar al referido como recomendador. Transaccional."""
+    nombre_s = _html.escape(nombre)
+    codigo_s = _html.escape(codigo)
+    prod_s = _html.escape(producto_nombre)
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Ya tenés tu {prod_s} — ahora recomendalo con experiencia real</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        ¡{nombre_s}! Tu {prod_s} ya está en camino.
+      </p>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Ahora que lo vas a probar, podés recomendarlo con experiencia propia.
+        Tus seguidores/amigos notan cuando recomendás algo que realmente usás.
+      </p>
+      <p style="color:{INK};font-weight:700;font-size:15px;margin:0 0 12px">Textos listos para compartir:</p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:20px">
+        <tr>
+          <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200};background:{ACCENT_PALE} !important">
+            <strong style="color:{INK}">Para Story/WhatsApp</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:6px;background:{CREAM};padding:10px 12px;border-radius:8px">
+              Compré {prod_s} en El Gadget y está buenísimo.
+              Si querés uno con descuento, usá mi código <strong>{codigo_s}</strong>:
+              elgadget.com.ar
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:14px 18px">
+            <strong style="color:{INK}">Para DM/mensaje directo</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:6px;background:{CREAM};padding:10px 12px;border-radius:8px">
+              Che, te recomiendo esto que compré en El Gadget: {prod_s}.
+              Con mi código <strong>{codigo_s}</strong> te hacen hasta 20% OFF: elgadget.com.ar
+            </div>
+          </td>
+        </tr>
+      </table>
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Cada persona que compre con tu código te genera entre 7% y 15% de comisión.
+      </p>
+      {_boton('Ver todos los productos', site_url)}
+    """
+    return _enviar(email, f"Ya tenés tu {prod_s} — ahora recomendalo con experiencia real", _layout(cuerpo))
+
+
+def enviar_email_ultimo_recordatorio_d30(nombre: str, email: str, codigo: str) -> dict:
+    """N5 — Último recordatorio D+30 (0 ventas). Nurturing/marketing."""
+    nombre_s = _html.escape(nombre)
+    codigo_s = _html.escape(codigo)
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Tu código {codigo_s} sigue activo</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Hola {nombre_s}, tu código de referido <strong style="color:{INK}">{codigo_s}</strong> sigue listo para usar.
+        No tiene vencimiento — podés compartirlo cuando quieras.
+      </p>
+      <p style="color:{GRAY_600};margin:0 0 8px;font-size:13px">
+        Si en algún momento querés ganar comisiones recomendando
+        productos de El Gadget, acá te dejamos un texto listo:
+      </p>
+      <div style="background:{CREAM};border-radius:10px;padding:14px 16px;margin:0 0 22px;font-size:13px;color:{GRAY_600};border:1px solid {GRAY_200}">
+        Les dejo mi código de descuento en El Gadget: <strong style="color:{INK}">{codigo_s}</strong><br>
+        Hasta 20% OFF en auriculares, luces, gadgets y más.<br>
+        elgadget.com.ar
+      </div>
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Sin presión. Cuando quieras, estamos.
+      </p>
+      {_boton('Ver productos', site_url)}
+    """
+    return _enviar(email, f"Tu código {codigo_s} sigue activo", _layout(cuerpo, marketing=True), is_marketing=True)
+
+
+def enviar_email_carrito_abandonado_2(orden: dict, items: list) -> dict:
+    """N6 — Carrito abandonado #2 (+24h). Nurturing/marketing."""
+    nombre_s = _html.escape(orden.get('nombre', ''))
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+    filas_items = "".join(
+        f"<tr>"
+        f"<td style='padding:10px 12px;border-bottom:1px solid {GRAY_200};text-align:left'>"
+        f"{_html.escape(item.get('producto_nombre', ''))}"
+        f"<br><span style='color:{GRAY_600};font-size:12px'>Cantidad: {item.get('cantidad', 1)}</span>"
+        f"</td>"
+        f"<td style='padding:10px 12px;border-bottom:1px solid {GRAY_200};text-align:right;font-weight:600;white-space:nowrap;vertical-align:top'>"
+        f"${item.get('subtotal', 0):,.2f}"
+        f"</td>"
+        f"</tr>"
+        for item in items
+    )
+
+    codigo_ref = orden.get('descuento_codigo', '') or ''
+    descuento_monto = orden.get('descuento_monto', 0) or 0
+    ahorro_html = ""
+    if codigo_ref and descuento_monto > 0:
+        codigo_ref_s = _html.escape(codigo_ref)
+        ahorro_html = (
+            f"<p style='text-align:center;color:{GREEN_OK};font-weight:600;font-size:14px;margin:0 0 16px'>"
+            f"Con el código {codigo_ref_s} aplicado, te estás ahorrando ${descuento_monto:,.0f}.</p>"
+        )
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Tu carrito en El Gadget te está esperando</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Hola {nombre_s}, dejaste estos productos en tu carrito:
+      </p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:10px;overflow:hidden;margin-bottom:16px">
+        <thead>
+          <tr bgcolor="{INK}" style="background-color:{INK} !important">
+            <th style="padding:10px 12px;text-align:left;font-size:11px;letter-spacing:0.5px;text-transform:uppercase;color:{WHITE} !important">Producto</th>
+            <th style="padding:10px 12px;text-align:right;font-size:11px;letter-spacing:0.5px;text-transform:uppercase;color:{WHITE} !important">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>{filas_items}</tbody>
+      </table>
+      <p style="text-align:right;font-weight:700;font-size:18px;margin:0 0 16px;color:{INK}">
+        Total: ${orden.get('total', 0):,.2f}
+      </p>
+      {ahorro_html}
+      {_boton('Completar mi compra', site_url)}
+      <p style="color:{GRAY_600};font-size:12px;margin:16px 0 0;text-align:center">
+        ¿Tenés alguna duda? Respondé este email o escribinos por WhatsApp.
+      </p>
+    """
+    return _enviar(orden['email'], f"Tu carrito en El Gadget te está esperando", _layout(cuerpo, marketing=True), is_marketing=True)
+
+
+def enviar_email_carrito_abandonado_3(orden: dict, items: list) -> dict:
+    """N7 — Carrito abandonado #3 (+72h). Último recordatorio. Nurturing/marketing."""
+    nombre_s = _html.escape(orden.get('nombre', ''))
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+    filas_items = "".join(
+        f"<tr>"
+        f"<td style='padding:10px 12px;border-bottom:1px solid {GRAY_200};text-align:left'>"
+        f"{_html.escape(item.get('producto_nombre', ''))}"
+        f"<br><span style='color:{GRAY_600};font-size:12px'>Cantidad: {item.get('cantidad', 1)}</span>"
+        f"</td>"
+        f"<td style='padding:10px 12px;border-bottom:1px solid {GRAY_200};text-align:right;font-weight:600;white-space:nowrap;vertical-align:top'>"
+        f"${item.get('subtotal', 0):,.2f}"
+        f"</td>"
+        f"</tr>"
+        for item in items
+    )
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Último recordatorio — tu carrito se vacía pronto</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        {nombre_s}, tus productos siguen esperándote:
+      </p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:10px;overflow:hidden;margin-bottom:16px">
+        <thead>
+          <tr bgcolor="{INK}" style="background-color:{INK} !important">
+            <th style="padding:10px 12px;text-align:left;font-size:11px;letter-spacing:0.5px;text-transform:uppercase;color:{WHITE} !important">Producto</th>
+            <th style="padding:10px 12px;text-align:right;font-size:11px;letter-spacing:0.5px;text-transform:uppercase;color:{WHITE} !important">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>{filas_items}</tbody>
+      </table>
+      <p style="text-align:right;font-weight:700;font-size:18px;margin:0 0 16px;color:{INK}">
+        Total: ${orden.get('total', 0):,.2f}
+      </p>
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Los precios y el stock pueden cambiar. Si te interesaban,
+        este es un buen momento para completar la compra.
+      </p>
+      {_boton('Ir a mi carrito', site_url)}
+      <p style="color:{GRAY_600};font-size:11px;margin:12px 0 0;text-align:center">
+        Si ya completaste el pago, ignorá este email.
+      </p>
+    """
+    return _enviar(orden['email'], f"Último recordatorio — tu carrito se vacía pronto", _layout(cuerpo, marketing=True), is_marketing=True)
+
+
+def enviar_email_review_request(nombre: str, email: str, producto_nombre: str) -> dict:
+    """N8 — Review request post-entrega. Nurturing/marketing."""
+    nombre_s = _html.escape(nombre)
+    prod_s = _html.escape(producto_nombre)
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¿Qué te pareció tu {prod_s}?</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        ¡Hola {nombre_s}! Ya pasaron unos días desde que recibiste tu {prod_s}.
+        ¿Qué te pareció?
+      </p>
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Tu opinión nos ayuda a mejorar y le sirve a otros compradores.
+      </p>
+      {_boton('Contanos tu experiencia', f"mailto:tienda@elgadget.com.ar?subject=Mi+experiencia+con+{prod_s}")}
+      <p style="color:{GRAY_600};font-size:13px;margin:0;text-align:center">
+        ¡Gracias por confiar en El Gadget!
+      </p>
+    """
+    return _enviar(email, f"¿Qué te pareció tu {prod_s}?", _layout(cuerpo, marketing=True), is_marketing=True)
+
+
+def enviar_email_repeat_purchase(nombre: str, email: str, productos_top: list, codigo: str = None) -> dict:
+    """N9 — Repeat purchase D+30 post-compra. Nurturing/marketing."""
+    nombre_s = _html.escape(nombre)
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    codigo_html = ""
+    if codigo:
+        codigo_s = _html.escape(codigo)
+        codigo_html = f"""
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Recordá que con tu código <strong style="color:{INK}">{codigo_s}</strong> tenés hasta 20% OFF.
+      </p>"""
+
+    cards = ""
+    for p in (productos_top or [])[:3]:
+        p_nombre = _html.escape(p.get('nombre', ''))
+        p_precio = p.get('precio_venta', 0)
+        p_img = _html.escape(p.get('imagen_principal') or '')
+        p_slug = (p.get('url_amigable') or '').strip()
+        p_url = f"{site_url}/producto/{p_slug}/" if p_slug else site_url
+        cards += f"""
+        <tr>
+          <td style="padding:12px;border-bottom:1px solid {GRAY_200};width:60px;vertical-align:top">
+            <img src="{p_img}" width="56" height="56" style="border-radius:8px;object-fit:cover;display:block;background:{CREAM}" alt="">
+          </td>
+          <td style="padding:12px;border-bottom:1px solid {GRAY_200};vertical-align:top">
+            <a href="{p_url}" style="color:{INK};text-decoration:none;font-weight:600;font-size:13.5px">{p_nombre}</a><br>
+            <span style="color:{ACCENT_DEEP};font-weight:700;font-size:14px">${p_precio:,.0f}</span>
+          </td>
+        </tr>"""
+
+    prods_html = ""
+    if cards:
+        prods_html = f"""
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin:20px 0">
+        {cards}
+      </table>"""
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Novedades en El Gadget que te pueden gustar</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        ¡Hola {nombre_s}! Desde tu última compra agregamos productos nuevos que te pueden interesar:
+      </p>
+      {prods_html}
+      {codigo_html}
+      {_boton('Ver novedades', site_url)}
+    """
+    return _enviar(email, f"Novedades en El Gadget que te pueden gustar", _layout(cuerpo, marketing=True), is_marketing=True)
+
+
+def enviar_email_winback(nombre: str, email: str, dias_inactivo: int, es_referido: bool,
+                         codigo: str = None) -> dict:
+    """N10 — Win-back D+60 sin actividad. Nurturing/marketing."""
+    nombre_s = _html.escape(nombre)
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    if es_referido and codigo:
+        codigo_s = _html.escape(codigo)
+        referido_html = f"""
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Tu código <strong style="color:{INK}">{codigo_s}</strong> sigue activo. Compartilo cuando quieras.
+      </p>
+      {_boton('Ver novedades', site_url)}"""
+    else:
+        referido_html = f"""
+      <div style="background:{ACCENT_PALE};border-radius:12px;padding:16px 18px;margin:0 0 22px;border:1px solid {GRAY_200}">
+        <strong style="color:{INK}">¿Sabías que podés ganar plata recomendando productos?</strong>
+        <p style="color:{GRAY_600};font-size:13px;margin:8px 0 0">
+          Con nuestro programa de referidos ganás entre 7% y 15%
+          de comisión por cada venta. Sin inversión.
+        </p>
+      </div>
+      {_boton('Conocer el programa', f"{site_url}/referidos")}"""
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Hace rato que no te vemos, {nombre_s}</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        ¡Hola {nombre_s}! Pasaron {dias_inactivo} días desde tu última compra en El Gadget.
+        Queríamos contarte que tenemos novedades:
+      </p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:20px">
+        <tr>
+          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200}">
+            <span style="color:{INK};font-weight:600">Envío en 48hs a CABA/GBA</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:12px 18px;border-bottom:1px solid {GRAY_200}">
+            <span style="color:{INK};font-weight:600">10 días de devolución, 6 meses de garantía</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:12px 18px">
+            <span style="color:{INK};font-weight:600">Productos nuevos en el catálogo</span>
+          </td>
+        </tr>
+      </table>
+      {referido_html}
+      <div style="text-align:center;background:{ACCENT_PALE};border-radius:12px;padding:16px;margin:20px 0">
+        <span style="font-size:13px;color:{GRAY_600}">Te dejamos un cupón especial:</span><br>
+        <span style="font-weight:700;font-size:20px;color:{INK}">VUELVO10</span><br>
+        <span style="font-size:13px;color:{GRAY_600}">10% de descuento en tu próxima compra (válido por 7 días)</span>
+      </div>
+    """
+    return _enviar(email, f"Hace rato que no te vemos, {nombre_s}", _layout(cuerpo, marketing=True), is_marketing=True)
 
 
 def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> dict:
