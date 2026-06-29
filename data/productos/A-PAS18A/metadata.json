@@ -21,7 +21,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-con-nudos-vedetina-rosa.html",
-  "fecha_scraping": "2026-06-29T05:17:44.881664",
+  "fecha_scraping": "2026-06-29T06:28:35.219480",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -31,7 +31,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-29T05:23:48.633935",
+  "fecha_mapeo_categorias": "2026-06-29T06:35:12.902178",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18A_002",
@@ -49,6 +49,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30000.0,
-  "fecha_calculo_precio": "2026-06-29T05:25:02.636058",
+  "fecha_calculo_precio": "2026-06-29T06:37:34.178748",
   "fecha_agotado": "2026-06-13T08:19:05.712324"
 }
