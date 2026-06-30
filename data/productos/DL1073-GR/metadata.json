@@ -29,7 +29,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 322500.0,
-  "fecha_calculo_precio": "2026-06-30T04:48:30.970240",
+  "fecha_calculo_precio": "2026-06-30T06:35:31.572704",
   "categoria_principal": "Bazar y Cocina",
   "categoria": "Bazar y Cocina",
   "categorias_secundarias": [
@@ -42,7 +42,7 @@
   "total_categorias": 2,
   "fecha_actualizacion_categorias": "2026-02-23T20:46:45.629083",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-06-30T04:35:14.621767",
+  "fecha_agotado": "2026-06-30T06:21:45.519612",
   "availability": "out of stock",
   "imagenes_cloudinary": []
 }
