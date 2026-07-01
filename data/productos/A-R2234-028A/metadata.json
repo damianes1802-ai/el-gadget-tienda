@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/lampara-led-anana-efecto-infinito-blanco-espejado.html",
-  "fecha_scraping": "2026-06-30T06:29:27.766499",
+  "fecha_scraping": "2026-07-01T05:10:59.478879",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Deco"
@@ -26,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-30T06:34:16.856064",
+  "fecha_mapeo_categorias": "2026-07-01T05:21:22.440747",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028A_002",
@@ -47,5 +47,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 21500.0,
-  "fecha_calculo_precio": "2026-06-30T06:35:31.562671"
+  "fecha_calculo_precio": "2026-07-01T05:22:29.201298"
 }

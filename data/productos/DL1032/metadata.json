@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/strips-depilacion-facial.html",
-  "fecha_scraping": "2026-06-30T06:28:17.287691",
+  "fecha_scraping": "2026-07-01T05:13:05.583165",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Estética y Belleza"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-30T06:34:16.850868",
+  "fecha_mapeo_categorias": "2026-07-01T05:21:22.435820",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1032_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 11000.0,
-  "fecha_calculo_precio": "2026-06-30T06:35:31.569674"
+  "fecha_calculo_precio": "2026-07-01T05:22:29.207038"
 }
