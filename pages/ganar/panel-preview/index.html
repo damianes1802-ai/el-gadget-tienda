@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel de referido — El Gadget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<style>
+/* ── Barra de cobro ───────────────────────────────────────── */
+.cobro-badge{display:flex;align-items:center;gap:10px;background:#fffbeb;border:1.5px solid var(--accent);border-radius:10px;padding:12px 18px;margin-bottom:18px;font-size:14px;font-weight:700;color:var(--ink)}
+
+/* ── Cards horizontales ──────────────────────────────────── */
+.cards-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.card-cobrar{flex:1;min-width:130px;background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border:1.5px solid #86efac;border-radius:12px;padding:16px 20px;text-align:center}
+.card-total{flex:1;min-width:130px;background:var(--cream);border-radius:12px;padding:16px 20px;text-align:center}
+.card-codigo{flex:1.5;min-width:170px;background:var(--ink);border-radius:12px;padding:16px 20px;text-align:center}
+.card-label{font-size:10.5px;color:var(--gray-600);margin:0 0 3px;text-transform:uppercase;letter-spacing:.5px}
+.card-label-dark{font-size:10.5px;color:rgba(255,255,255,.65);margin:0 0 3px;text-transform:uppercase;letter-spacing:.5px}
+.card-monto-green{font-size:24px;font-weight:700;color:#16a34a;margin:0 0 3px;font-family:'Space Grotesk',sans-serif}
+.card-monto-accent{font-size:24px;font-weight:700;color:var(--accent);margin:0 0 3px;font-family:'Space Grotesk',sans-serif}
+.card-sub{font-size:10.5px;margin:0;color:#16a34a}
+.card-sub-gray{font-size:10.5px;margin:0;color:var(--gray-600)}
+.card-codigo-num{font-size:24px;font-weight:700;letter-spacing:3px;color:#fff;margin:0 0 10px;font-family:'Space Grotesk',sans-serif}
+.card-codigo-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.btn-copiar{font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:#fff;cursor:pointer;font-weight:600}
+.btn-compartir{font-size:12px;padding:6px 16px;border-radius:8px;border:none;background:var(--accent);color:var(--ink);cursor:pointer;font-weight:700}
+.card-codigo-hint{font-size:10.5px;color:rgba(255,255,255,.6);margin:0;line-height:1.4}
+
+/* ── Progreso al siguiente tier ──────────────────────────── */
+.tier-wrap{background:var(--cream);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+.tier-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:6px}
+.tier-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--gray-600)}
+.tier-labels{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--ink)}
+.tier-arrow{color:var(--gray-600);font-weight:400}
+.tier-bar-track{background:#e5e7eb;border-radius:6px;height:12px;overflow:hidden;margin-bottom:10px}
+.tier-bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),#f59e0b);width:50%}
+.tier-pct{font-size:11.5px;color:var(--gray-600);margin:0 0 10px;text-align:right}
+.tier-detail{font-size:13px;color:var(--ink);margin:0 0 4px;font-weight:600}
+.tier-detail span{color:#16a34a}
+.tier-sub{font-size:12px;color:var(--gray-600);margin:0;border-top:1px solid #e5e7eb;padding-top:10px;margin-top:10px}
+.tier-sub strong{color:var(--ink)}
+
+/* ── Historial ───────────────────────────────────────────── */
+.section-title{font-size:15px;font-weight:700;color:var(--ink);margin:0 0 12px}
+
+/* ── Mensaje listo ───────────────────────────────────────── */
+.msg-nota{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border:1.5px solid #bbf7d0;border-radius:10px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;font-size:12.5px;color:var(--ink);line-height:1.45}
+.msg-nota-icon{font-size:16px;flex-shrink:0;line-height:1}
+.msg-card{background:#fff;border:1.5px solid #e5e7eb;border-radius:12px;padding:16px;display:flex;flex-direction:column}
+.msg-card-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gray-600);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.msg-card-text{font-size:12.5px;color:var(--ink);line-height:1.55;white-space:pre-line;flex:1;margin-bottom:12px;word-break:break-word}
+.msg-card-actions{display:flex;gap:8px}
+.msg-btn-copy{font-size:11.5px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600}
+.msg-btn-send{font-size:11.5px;padding:6px 14px;border-radius:8px;border:none;background:#25D366;color:#fff;cursor:pointer;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+</style>
+</head>
+<body>
+
+<!-- HEADER MÍNIMO -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-badge">
+        <img src="../../assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
+    </a>
+  </div>
+</header>
+
+<!-- CONTENIDO -->
+<div class="page-wrap" style="max-width:620px">
+  <h1 class="page-title" style="margin-bottom:6px">Panel de referido</h1>
+  <p style="font-size:13px;color:var(--gray-600);margin:0 0 20px">Hola, <strong>Damián</strong> 👋</p>
+
+  <!-- BADGE PRÓXIMO COBRO -->
+  <div class="cobro-badge">
+    <span style="font-size:18px">⏰</span>
+    <span>Tu cobro se acredita en <strong>4 días</strong> — 5 de julio de 2026</span>
+  </div>
+
+  <!-- CARDS: Por cobrar / Total ganado / Código -->
+  <div class="cards-row">
+    <div class="card-cobrar">
+      <p class="card-label" style="color:#16a34a">Por cobrar</p>
+      <p class="card-monto-green">$12.300</p>
+      <p class="card-sub">Se acredita el 5 de julio</p>
+    </div>
+    <div class="card-total">
+      <p class="card-label">Total ganado</p>
+      <p class="card-monto-accent">$26.200</p>
+      <p class="card-sub-gray">desde que te uniste</p>
+    </div>
+    <div class="card-codigo">
+      <p class="card-label-dark">Tu código</p>
+      <p class="card-codigo-num">DAMI45</p>
+      <div class="card-codigo-btns">
+        <button class="btn-copiar" onclick="navigator.clipboard.writeText('DAMI45')">Copiar</button>
+        <button class="btn-compartir">Compartir →</button>
+      </div>
+      <p class="card-codigo-hint">Quien compre con este código ahorra hasta 20% · Vos cobrás entre 7% y 15%</p>
+    </div>
+  </div>
+
+  <!-- PROGRESO AL SIGUIENTE TIER -->
+  <div class="tier-wrap">
+    <div class="tier-header">
+      <span class="tier-title">Tu progreso al siguiente nivel</span>
+      <span class="tier-labels">Base 7% <span class="tier-arrow">──→</span> Activo 11%</span>
+    </div>
+    <div class="tier-bar-track">
+      <div class="tier-bar-fill"></div>
+    </div>
+    <p class="tier-pct">50% del camino a Activo</p>
+    <p class="tier-detail">4 ventas este mes · Te falta <span>1 venta</span> para ganar +4% más en cada venta — para siempre</p>
+    <p class="tier-sub">Próximo cobro: <strong>5 de julio de 2026</strong> · Comisión pendiente: <strong>$12.300</strong></p>
+  </div>
+
+  <!-- HISTORIAL DE COMISIONES -->
+  <h3 class="section-title">Historial de comisiones</h3>
+  <div style="overflow-x:auto;margin-bottom:24px">
+    <table class="order-table" style="width:100%">
+      <thead>
+        <tr>
+          <th style="text-align:left">Período</th>
+          <th style="text-align:center">Ventas</th>
+          <th style="text-align:right">Monto vendido</th>
+          <th style="text-align:right">Tu comisión</th>
+          <th style="text-align:center">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-transform:capitalize;text-align:left">Junio 2026</td>
+          <td style="text-align:center;font-weight:400;color:var(--gray-600)">4</td>
+          <td style="text-align:right;font-weight:400;color:var(--gray-600)">$175.714</td>
+          <td style="text-align:right;font-weight:700;color:var(--accent-deep)">$12.300</td>
+          <td style="text-align:center"><span class="status-badge pend">⏳ Pendiente</span></td>
+        </tr>
+        <tr>
+          <td style="text-transform:capitalize;text-align:left">Mayo 2026</td>
+          <td style="text-align:center;font-weight:400;color:var(--gray-600)">3</td>
+          <td style="text-align:right;font-weight:400;color:var(--gray-600)">$124.285</td>
+          <td style="text-align:right;font-weight:700;color:var(--accent-deep)">$8.700</td>
+          <td style="text-align:center"><span class="status-badge ok">✅ Pagado</span></td>
+        </tr>
+        <tr>
+          <td style="text-transform:capitalize;text-align:left">Abril 2026</td>
+          <td style="text-align:center;font-weight:400;color:var(--gray-600)">2</td>
+          <td style="text-align:right;font-weight:400;color:var(--gray-600)">$74.285</td>
+          <td style="text-align:right;font-weight:700;color:var(--accent-deep)">$5.200</td>
+          <td style="text-align:center"><span class="status-badge ok">✅ Pagado</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MENSAJE LISTO DE EJEMPLO -->
+  <h3 class="section-title">Mensajes listos para compartir</h3>
+  <div class="msg-nota">
+    <span class="msg-nota-icon">🔗</span>
+    <span>El link de cada mensaje ya contiene tu código <strong>DAMI45</strong> — quien compre desde ese link te genera comisión automáticamente.</span>
+  </div>
+  <div class="msg-card">
+    <div class="msg-card-label"><span>📱</span> WhatsApp directo</div>
+    <div class="msg-card-text">Che, te paso un descuento de hasta 20% en El Gadget. Tienen cosas muy buenas para casa, tech, cocina y más.
+
+Entrá por este link y el descuento se aplica solo:
+elgadget.com.ar/?ref=DAMI45&utm_source=whatsapp&utm_medium=referral&utm_campaign=mensaje_directo</div>
+    <div class="msg-card-actions">
+      <button class="msg-btn-copy" onclick="navigator.clipboard.writeText('Che, te paso un descuento de hasta 20% en El Gadget. Tienen cosas muy buenas para casa, tech, cocina y más.\n\nEntrá por este link y el descuento se aplica solo:\nelgadget.com.ar/?ref=DAMI45&utm_source=whatsapp&utm_medium=referral&utm_campaign=mensaje_directo')">Copiar</button>
+      <a class="msg-btn-send" href="https://wa.me/?text=Che%2C%20te%20paso%20un%20descuento%20de%20hasta%2020%25%20en%20El%20Gadget.%20Tienen%20cosas%20muy%20buenas%20para%20casa%2C%20tech%2C%20cocina%20y%20m%C3%A1s.%0A%0AEntr%C3%A1%20por%20este%20link%20y%20el%20descuento%20se%20aplica%20solo%3A%0Aelgadget.com.ar%2F%3Fref%3DDAMI45%26utm_source%3Dwhatsapp%26utm_medium%3Dreferral%26utm_campaign%3Dmensaje_directo" target="_blank" rel="noopener">Enviar ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.msg-btn-copy').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var orig = btn.textContent;
+    btn.textContent = '¡Copiado!';
+    btn.style.background = 'var(--ink)';
+    btn.style.color = '#fff';
+    setTimeout(function() {
+      btn.textContent = orig;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 1800);
+  });
+});
+
+document.querySelector('.btn-copiar').addEventListener('click', function() {
+  navigator.clipboard.writeText('DAMI45').then(function() {
+    var btn = document.querySelector('.btn-copiar');
+    btn.textContent = '¡Copiado!';
+    setTimeout(function() { btn.textContent = 'Copiar'; }, 1500);
+  });
+});
+</script>
+</body>
+</html>

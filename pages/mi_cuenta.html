@@ -517,7 +517,15 @@ function generarBarraCobroHtml(data) {
       </div>`;
   }
 
+  // Badge urgente si faltan ≤7 días (Mejora 2)
+  const badgeUrgente = (!barra.disponible && barra.diasRestantes <= 7 && barra.diasRestantes > 0) ? `
+    <div style="background:#fffbeb;border:1.5px solid var(--accent);border-radius:10px;padding:10px 16px;margin-bottom:14px;font-size:13px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px">
+      <span>⏰</span>
+      <span>Tu cobro se acredita en ${barra.diasRestantes} día${barra.diasRestantes !== 1 ? 's' : ''} — ${barra.quintoHabil.toLocaleDateString('es-AR', {day:'numeric', month:'long'})}</span>
+    </div>` : '';
+
   return `
+    ${badgeUrgente}
     <div class="cobro-wrap">
       <div class="cobro-header">
         <span class="cobro-header-title">Cuenta regresiva al cobro</span>
@@ -745,7 +753,7 @@ async function cargarReferidos() {
       return `${line}<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:11px;height:11px;border-radius:50%;background:${dot}"></div><span style="font-size:10px;font-weight:${fw};color:${tc};white-space:nowrap">${s.l} ${s.p}%</span></div>`;
     }).join('')}</div>`;
 
-    // Barra de progreso con impacto en $
+    // Barra de progreso con impacto en $ — componente prominente (Mejora 1)
     let progressHtml = '';
     if (tier.next_tier_en !== null) {
       const tiers = { base: [0, 5], activo: [5, 15] };
@@ -753,18 +761,33 @@ async function cargarReferidos() {
       const pct = Math.min(100, Math.round(((tier.ventas_mes - start) / (end - start)) * 100));
       const diffPct = (tier.next_porcentaje || 11) - tier.porcentaje;
       const extraPor15k = formatPrice(Math.round(15000 * diffPct / 100));
+      const tierActualLabel = tier.tier === 'base' ? 'Base 7%' : 'Activo 11%';
+      const tierNextLabel = tier.tier === 'base' ? 'Activo 11%' : 'Top 15%';
       progressHtml = `
-        <div style="margin-top:8px">
-          <div style="background:#e5e7eb;border-radius:6px;height:6px;overflow:hidden">
-            <div style="background:${tierColor};height:100%;width:${pct}%;border-radius:6px;transition:width .4s"></div>
+        <div style="background:var(--cream);border-radius:14px;padding:18px 20px;margin-top:12px;text-align:left">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+            <span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink)">Tu progreso</span>
+            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--gray-600)">
+              <span>${tierActualLabel}</span>
+              <span style="color:#d1d5db">──→</span>
+              <span style="color:${tierColor}">${tierNextLabel}</span>
+            </div>
           </div>
-          <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-top:6px;flex-wrap:wrap">
-            <span style="font-size:11.5px;color:var(--ink);font-weight:600">${tier.next_tier_en} venta${tier.next_tier_en !== 1 ? 's' : ''} más → ${tier.next_porcentaje}% de comisión</span>
-            <span style="font-size:11px;color:#16a34a;font-weight:700">(+${extraPor15k} por venta de $15.000)</span>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="flex:1;background:#e5e7eb;border-radius:6px;height:12px;overflow:hidden">
+              <div style="background:${tierColor};height:100%;width:${pct}%;border-radius:6px;transition:width .5s ease"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:${tierColor};white-space:nowrap">${pct}%</span>
           </div>
+          <p style="font-size:12px;color:var(--ink);margin:10px 0 0;line-height:1.45">
+            Te ${tier.next_tier_en === 1 ? 'falta <strong>1 venta</strong>' : `faltan <strong>${tier.next_tier_en} ventas</strong>`} para ganar <strong>+${extraPor15k} por venta de $15.000</strong> — para siempre.
+          </p>
         </div>`;
     } else {
-      progressHtml = `<p style="font-size:12px;color:${tierColor};margin:6px 0 0;text-align:center;font-weight:700">¡Máximo nivel — cobrás el 15% de cada venta!</p>`;
+      progressHtml = `
+        <div style="background:var(--cream);border-radius:14px;padding:16px 20px;margin-top:12px;text-align:center">
+          <p style="font-size:13px;color:${tierColor};margin:0;font-weight:700">🏆 Nivel máximo — 15% en cada venta, para siempre</p>
+        </div>`;
     }
 
     const periodos = data.resumen_por_periodo || [];
@@ -827,15 +850,29 @@ async function cargarReferidos() {
             <button onclick="copiarCodigoRef()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--paper);cursor:pointer;font-weight:600">Copiar</button>
             <button onclick="compartirCodigoRef('${escapeHtmlBasico(data.codigo || '')}')" style="font-size:12px;padding:6px 16px;border-radius:8px;border:none;background:var(--accent);color:var(--ink);cursor:pointer;font-weight:700">Compartir →</button>
           </div>
+          <p style="font-size:10.5px;color:rgba(255,255,255,.65);margin:10px 0 0;line-height:1.4">Quien compre con este código ahorra hasta 20% · Vos cobrás entre 7% y 15%</p>
         </div>
       </div>
 
-      <!-- CTA $0 comisiones → scroll a mensajes -->
+      <!-- Estado onboarding para referidos nuevos (Mejora 4) -->
       ${totalPendiente === 0 && totalComision === 0 ? `
-      <div class="msg-cta-zero" id="ctaZeroComisiones">
-        <p style="font-size:13.5px;font-weight:700;color:var(--ink);margin:0 0 4px">Empezá a ganar: compartí un mensaje</p>
-        <p style="font-size:12px;color:var(--gray-600);margin:0 0 10px">Copiá uno de los mensajes de abajo y envialo. Cada compra desde tu link te genera comisión.</p>
-        <button onclick="document.getElementById('mensajesListos').scrollIntoView({behavior:'smooth'})" style="font-size:12px;padding:6px 16px;border-radius:8px;border:none;background:var(--accent);color:var(--ink);cursor:pointer;font-weight:700">Ver mensajes listos ↓</button>
+      <div style="background:linear-gradient(135deg,#fffbeb 0%,var(--cream) 100%);border:1.5px solid var(--accent);border-radius:14px;padding:22px 24px;margin-bottom:16px" id="ctaZeroComisiones">
+        <p style="font-size:15px;font-weight:700;color:var(--ink);margin:0 0 16px">🚀 Tu código está listo. Empezá a ganar.</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="background:var(--ink);color:var(--accent);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">1</span>
+            <span style="font-size:13px;color:var(--ink)">Copiá tu código <strong>${escapeHtmlBasico(data.codigo || '')}</strong> (botón de arriba)</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="background:var(--ink);color:var(--accent);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">2</span>
+            <span style="font-size:13px;color:var(--ink)">Mandalo a 3 personas por WhatsApp</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="background:var(--ink);color:var(--accent);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">3</span>
+            <span style="font-size:13px;color:var(--ink)">Cuando alguien compre, cobrás. Cada venta te genera entre <strong>$1.050 y $2.250</strong>.</span>
+          </div>
+        </div>
+        <button onclick="document.getElementById('mensajesListos').scrollIntoView({behavior:'smooth'})" style="font-size:12.5px;padding:8px 20px;border-radius:9px;border:none;background:var(--ink);color:var(--accent);cursor:pointer;font-weight:700">Ver mensajes listos para enviar ↓</button>
       </div>` : ''}
 
       <!-- MENSAJES LISTOS PARA COMPARTIR -->
