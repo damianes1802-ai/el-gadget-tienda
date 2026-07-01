@@ -451,15 +451,28 @@ function calcularBarraCobro() {
   const anioActual = hoy.getFullYear();
   const mesActual = hoy.getMonth() + 1;
 
-  const mesCobro = mesActual === 12 ? 1 : mesActual + 1;
-  const anioCobro = mesActual === 12 ? anioActual + 1 : anioActual;
-  const quintoHabil = quintoHabilDelMes(anioCobro, mesCobro);
+  // Si el 5to hábil del mes actual todavía no pasó, ese es el próximo cobro.
+  // Si ya pasó, el próximo cobro es el 5to hábil del mes siguiente.
+  const quintoHabilMesActual = quintoHabilDelMes(anioActual, mesActual);
+  let quintoHabil, mesCobro, anioCobro;
+  if (quintoHabilMesActual >= hoy) {
+    quintoHabil = quintoHabilMesActual;
+    mesCobro = mesActual;
+    anioCobro = anioActual;
+  } else {
+    mesCobro = mesActual === 12 ? 1 : mesActual + 1;
+    anioCobro = mesActual === 12 ? anioActual + 1 : anioActual;
+    quintoHabil = quintoHabilDelMes(anioCobro, mesCobro);
+  }
 
-  const finMes = new Date(anioActual, mesActual, 0);
-  finMes.setHours(0, 0, 0, 0);
+  // La barra de progreso va desde el fin del mes de cobro anterior hasta el quintoHabil
+  const mesAnterior = mesCobro === 1 ? 12 : mesCobro - 1;
+  const anioAnterior = mesCobro === 1 ? anioCobro - 1 : anioCobro;
+  const finMesAnterior = new Date(anioAnterior, mesAnterior, 0);
+  finMesAnterior.setHours(0, 0, 0, 0);
 
-  const totalDias = Math.max(1, Math.round((quintoHabil - finMes) / 86400000));
-  const diasPasados = Math.round((hoy - finMes) / 86400000);
+  const totalDias = Math.max(1, Math.round((quintoHabil - finMesAnterior) / 86400000));
+  const diasPasados = Math.round((hoy - finMesAnterior) / 86400000);
   const progreso = Math.max(0, Math.min(100, Math.round((diasPasados / totalDias) * 100)));
   const disponible = hoy >= quintoHabil;
   const diasRestantes = Math.max(0, Math.ceil((quintoHabil - hoy) / 86400000));
