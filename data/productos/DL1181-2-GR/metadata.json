@@ -22,7 +22,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30000.0,
-  "fecha_calculo_precio": "2026-07-01T05:22:29.233987",
+  "fecha_calculo_precio": "2026-07-01T06:37:29.626326",
   "categoria_principal": "Nuevos Ingresos",
   "categoria": "Nuevos Ingresos",
   "categorias_secundarias": [
@@ -35,6 +35,6 @@
   "total_categorias": 2,
   "fecha_actualizacion_categorias": "2026-03-02T16:18:50.332727",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-07-01T05:04:25.799905",
+  "fecha_agotado": "2026-07-01T06:23:25.143471",
   "availability": "out of stock"
 }

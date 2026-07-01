@@ -12,7 +12,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/guantes-divertidos.html",
-  "fecha_scraping": "2026-07-01T05:10:17.103454",
+  "fecha_scraping": "2026-07-01T06:31:43.797706",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -39,5 +39,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 12500.0,
-  "fecha_calculo_precio": "2026-07-01T05:22:29.295873"
+  "fecha_calculo_precio": "2026-07-01T06:37:29.689919"
 }

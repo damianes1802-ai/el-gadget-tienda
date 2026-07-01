@@ -12,7 +12,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botella-infantil-personajes-japoneses-500-ml-1.html",
-  "fecha_scraping": "2026-07-01T05:12:56.341458",
+  "fecha_scraping": "2026-07-01T06:31:33.180358",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles",
@@ -25,7 +25,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-01T05:21:22.424861",
+  "fecha_mapeo_categorias": "2026-07-01T06:36:29.787864",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0068-BL_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0068-BL_002"
@@ -42,5 +42,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30500.0,
-  "fecha_calculo_precio": "2026-07-01T05:22:29.338179"
+  "fecha_calculo_precio": "2026-07-01T06:37:29.738238"
 }
