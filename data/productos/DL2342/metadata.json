@@ -18,7 +18,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cajonera-infantil-organizador-3-niveles-con-ruedas.html",
-  "fecha_scraping": "2026-07-01T06:31:54.809352",
+  "fecha_scraping": "2026-07-02T04:36:28.512228",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -28,7 +28,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-01T06:36:29.828096",
+  "fecha_mapeo_categorias": "2026-07-02T04:43:25.660502",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_002",
@@ -51,5 +51,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 92000.0,
-  "fecha_calculo_precio": "2026-07-01T06:37:29.672946"
+  "fecha_calculo_precio": "2026-07-02T04:44:23.378246"
 }

@@ -13,7 +13,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/sacapuntas-dinosaurios.html",
-  "fecha_scraping": "2026-07-01T06:30:17.814489",
+  "fecha_scraping": "2026-07-02T04:36:21.083304",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -23,7 +23,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-01T06:36:29.785269",
+  "fecha_mapeo_categorias": "2026-07-02T04:43:25.620621",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6170_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6170_002",
@@ -41,5 +41,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 103000.0,
-  "fecha_calculo_precio": "2026-07-01T06:37:29.695222"
+  "fecha_calculo_precio": "2026-07-02T04:44:23.400299"
 }
