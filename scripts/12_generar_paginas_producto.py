@@ -45,6 +45,7 @@ SITEMAP_FILE = PAGES_DIR / 'sitemap.xml'
 BRAND = "El Gadget"
 WHATSAPP_NUM = "5491126228481"
 RELACIONADOS_LIMIT = 4
+CANONICAL_DOMAIN = "https://elgadget.com.ar"  # dominio canónico fijo, no depende de SITE_URL del .env
 
 LOGO_SVG = '<img src="../../assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">'
 
@@ -192,7 +193,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
     imagenes = parsear_imagenes(producto)
     imagen_principal = imagenes[0] if imagenes else ''
 
-    canonical = f"{site_url}/producto/{slug}/"
+    canonical = f"{CANONICAL_DOMAIN}/producto/{slug}/"
     titulo_pagina = f"{nombre} | {BRAND}"
 
     breadcrumb_producto = nombre if len(nombre) <= 40 else nombre[:40] + '…'
@@ -687,8 +688,7 @@ def generar():
 
     # 5. Generar sitemap.xml
     hoy = date.today().isoformat()
-    # Dominio canónico (forzado, no depende de SITE_URL del .env)
-    canonical_url = "https://elgadget.com.ar"
+    canonical_url = CANONICAL_DOMAIN
     static_pages = [
         (f"{canonical_url}/", "weekly"),
         (f"{canonical_url}/faq", "monthly"),
