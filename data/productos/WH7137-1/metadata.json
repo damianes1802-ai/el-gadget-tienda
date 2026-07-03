@@ -13,7 +13,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/mochila-bandolera-de-personajes-japoneses-para-ni-os.html",
-  "fecha_scraping": "2026-07-03T04:21:37.946840",
+  "fecha_scraping": "2026-07-03T06:29:29.266294",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -41,5 +41,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 20000.0,
-  "fecha_calculo_precio": "2026-07-03T04:29:47.112099"
+  "fecha_calculo_precio": "2026-07-03T06:34:53.045205"
 }

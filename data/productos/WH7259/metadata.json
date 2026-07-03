@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/mochila-infantil-capibara-carpincho.html",
-  "fecha_scraping": "2026-07-03T04:21:17.687847",
+  "fecha_scraping": "2026-07-03T06:29:57.648473",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-03T04:28:08.117893",
+  "fecha_mapeo_categorias": "2026-07-03T06:33:39.668296",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7259_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 24000.0,
-  "fecha_calculo_precio": "2026-07-03T04:29:47.135950"
+  "fecha_calculo_precio": "2026-07-03T06:34:53.060144"
 }

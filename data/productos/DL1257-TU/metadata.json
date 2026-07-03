@@ -21,7 +21,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/fular-portabebe-correa-ergonomica-transpirable-y-ajustable-2.html",
-  "fecha_scraping": "2026-07-03T04:22:02.641517",
+  "fecha_scraping": "2026-07-03T06:26:39.028847",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles",
@@ -34,7 +34,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-03T04:28:08.120643",
+  "fecha_mapeo_categorias": "2026-07-03T06:33:39.673516",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-TU_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-TU_002",
@@ -60,5 +60,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 16000.0,
-  "fecha_calculo_precio": "2026-07-03T04:29:47.002631"
+  "fecha_calculo_precio": "2026-07-03T06:34:52.965569"
 }
