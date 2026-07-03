@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/luz-led-bajo-alacena-placar-bajo-cama-recargable-con-sensor-20cm.html",
-  "fecha_scraping": "2026-07-02T06:30:28.775804",
+  "fecha_scraping": "2026-07-03T04:23:13.576854",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Home",
@@ -28,7 +28,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-02T06:35:13.843732",
+  "fecha_mapeo_categorias": "2026-07-03T04:28:08.128122",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_002",
@@ -48,5 +48,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 7000.0,
-  "fecha_calculo_precio": "2026-07-02T06:36:04.840884"
+  "fecha_calculo_precio": "2026-07-03T04:29:47.020574"
 }
