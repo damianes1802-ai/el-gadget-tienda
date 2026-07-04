@@ -1,5 +1,6 @@
 # Secretos / credenciales
 config/.env
+config/elevenlabs_backup_code.txt
 config/credentials.json
 config/token.pickle
 config/sheets_id.txt

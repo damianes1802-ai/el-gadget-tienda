@@ -72,6 +72,14 @@
         "@type": "Answer",
         "text": "Con dropshipping de proveedores chinos, después de descontar envío, impuestos, ads y devoluciones, el margen real suele quedar entre 5% y 15% sobre la venta. Con el programa de referidos de El Gadget cobrás 7% a 15% de comisión neta sin haber invertido un peso. Y si escalás al precio mayorista (25% OFF), definís vos el margen de reventa."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "¿El dropshipping es legal en Argentina?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, el dropshipping es legal en Argentina. Necesitás estar inscripto en AFIP (como monotributista o responsable inscripto) y declarar los ingresos. El programa de referidos de El Gadget funciona de forma similar —recomendás productos que ya tenemos en stock— sin que tengas que gestionar envíos, devoluciones ni atención al cliente."
+      }
     }
   ]
 }
@@ -389,6 +397,13 @@
 .diff-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: var(--ink); margin: 0 0 8px; }
 .diff-card p { font-size: 13px; color: var(--gray-600); line-height: 1.6; margin: 0; }
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Inicio","item":"https://elgadget.com.ar/"},
+{"@type":"ListItem","position":2,"name":"Ganar con El Gadget","item":"https://elgadget.com.ar/ganar/"},
+{"@type":"ListItem","position":3,"name":"Vender sin stock en Argentina","item":"https://elgadget.com.ar/ganar/vender-sin-stock/"}
+]}
+</script>
 </head>
 <body>
 
@@ -713,7 +728,7 @@ elgadget.com.ar/?ref=[TU_CODIGO]</div>
 <section class="g-section" style="background:#fff">
   <div class="g-section-title">Referidos que venden sin stock y sin riesgo</div>
   <div class="g-section-sub">Sin invertir en mercadería, sin manejar envíos. Resultados reales.</div>
-  <p style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--accent-deep);margin:-32px auto 32px;text-align:center">+280 referidos activos este mes</p>
+  <p style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--accent-deep);margin:-32px auto 32px;text-align:center">+280 personas ya se sumaron al programa</p>
   <div class="proof-grid">
     <div class="proof-card">
       <div class="proof-header">
@@ -866,6 +881,10 @@ elgadget.com.ar/?ref=[TU_CODIGO]</div>
       <button class="ref-faq-q" onclick="toggleFaq(this)">¿Puedo escalar de referido a mayorista?<span class="icon">+</span></button>
       <div class="ref-faq-a">Sí. Empezás ganando 7-15% sin inversión. Cuando acumulás capital, accedés al precio mayorista con 25% OFF y revendés con tu propio margen.</div>
     </div>
+    <div class="ref-faq-item">
+      <button class="ref-faq-q" onclick="toggleFaq(this)">¿El dropshipping es legal en Argentina?<span class="icon">+</span></button>
+      <div class="ref-faq-a">Sí, el dropshipping es legal en Argentina. Necesitás estar inscripto en AFIP (como monotributista o responsable inscripto) y declarar los ingresos. El programa de referidos de El Gadget funciona de forma similar al dropshipping —recomendás productos que ya tenemos en stock— sin que tengas que gestionar envíos, devoluciones ni atención al cliente.</div>
+    </div>
   </div>
 </section>
 
@@ -1005,6 +1024,7 @@ elgadget.com.ar/?ref=[TU_CODIGO]</div>
   </div>
   <div class="footer-bottom">
     <p>&copy; <span id="yearGanar"></span> El Gadget. Todos los derechos reservados. · <a href="/privacidad" style="color:inherit;opacity:.8;text-decoration:none">Privacidad</a> · <a href="/arrepentimiento" style="color:inherit;opacity:.8;text-decoration:none">Arrepentimiento</a></p>
+    <p style="font-size:12px;color:var(--gray-500);margin-top:8px;">El Gadget · CUIT 20-42396477-5 · Monotributista<!-- TODO Damian: pegar QR Data Fiscal de ARCA aquí --></p>
   </div>
 </footer>
 
