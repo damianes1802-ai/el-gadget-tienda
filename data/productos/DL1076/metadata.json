@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/filtro-de-bacha-metalico-x10.html",
-  "fecha_scraping": "2026-07-04T04:15:39.063898",
+  "fecha_scraping": "2026-07-04T06:25:47.018756",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-04T04:23:11.190494",
+  "fecha_mapeo_categorias": "2026-07-04T06:32:27.618824",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1076_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 16500.0,
-  "fecha_calculo_precio": "2026-07-04T04:24:09.895277"
+  "fecha_calculo_precio": "2026-07-04T06:33:39.830991"
 }
