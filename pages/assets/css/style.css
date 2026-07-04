@@ -1054,3 +1054,6 @@ a { color: inherit; }
   font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
   color: var(--gray-600); margin-bottom: 12px;
 }
+/* panel-preview video not yet available — hide until asset is ready */
+.panel-preview { display: none; }
+.vp-overlay { display: none !important; }
