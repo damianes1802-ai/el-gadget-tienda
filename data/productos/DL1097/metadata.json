@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/escobilla-con-cabezal-giratorio.html",
-  "fecha_scraping": "2026-07-03T06:26:59.704282",
+  "fecha_scraping": "2026-07-04T04:14:59.062881",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Baño y Limpieza"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-03T06:33:39.784292",
+  "fecha_mapeo_categorias": "2026-07-04T04:23:11.197568",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 13000.0,
-  "fecha_calculo_precio": "2026-07-03T06:34:52.942402"
+  "fecha_calculo_precio": "2026-07-04T04:24:09.899730"
 }
