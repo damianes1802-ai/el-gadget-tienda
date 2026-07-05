@@ -2368,6 +2368,49 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
         pass  # best-effort: no interrumpir el flujo por error en comisiones
 
 
+@app.get("/api/admin/afip/verificar")
+def admin_verificar_afip(x_admin_password: Optional[str] = Header(None)):
+    """
+    Verificación read-only de la facturación AFIP/ARCA (solo admin).
+    Valida certificado, autorización wsfe y punto de venta consultando el
+    último comprobante autorizado — NO emite ninguna factura.
+    """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    from utils.facturacion_afip import (
+        _get_afip_client, entorno_afip, facturacion_habilitada, CBTE_TIPO_FACTURA_C
+    )
+
+    env = Config.cargar_env()
+    resultado = {
+        "entorno": entorno_afip(),
+        "cuit": env.get('AFIP_CUIT', ''),
+        "punto_venta": int(env.get('AFIP_PUNTO_VENTA', '1')),
+        "habilitada": facturacion_habilitada(),
+    }
+    if not resultado["habilitada"]:
+        resultado["error"] = "Facturación no configurada"
+        return resultado
+
+    afip = _get_afip_client()
+    try:
+        resultado["servidor"] = afip.ElectronicBilling.getServerStatus()
+    except Exception as e:
+        resultado["servidor_error"] = str(e)
+
+    try:
+        resultado["ultima_factura_c"] = afip.ElectronicBilling.getLastVoucher(
+            resultado["punto_venta"], CBTE_TIPO_FACTURA_C
+        )
+        resultado["ok"] = True
+    except Exception as e:
+        resultado["ultima_factura_error"] = str(e)
+        resultado["ok"] = False
+
+    return resultado
+
+
 @app.post("/api/admin/orden/{orden_id}/procesar-pago")
 def admin_procesar_pago(orden_id: int, x_admin_password: Optional[str] = Header(None)):
     """
