@@ -18,7 +18,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/corrector-faja-postura-endereza-espalda-soporte-lumbar.html",
-  "fecha_scraping": "2026-07-04T06:28:55.914820",
+  "fecha_scraping": "2026-07-05T04:38:23.005729",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -28,7 +28,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-04T06:32:27.633884",
+  "fecha_mapeo_categorias": "2026-07-05T04:41:33.488684",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-L_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-L_002",
@@ -51,5 +51,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 22000.0,
-  "fecha_calculo_precio": "2026-07-04T06:33:39.886622"
+  "fecha_calculo_precio": "2026-07-05T04:42:56.885979"
 }
