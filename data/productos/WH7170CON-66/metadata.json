@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/body-infantil-para-bebes-de-animalitos.html",
-  "fecha_scraping": "2026-07-05T04:35:29.764034",
+  "fecha_scraping": "2026-07-05T06:31:42.499296",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-05T04:41:33.445194",
+  "fecha_mapeo_categorias": "2026-07-05T06:35:38.063383",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170CON-66_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 36500.0,
-  "fecha_calculo_precio": "2026-07-05T04:42:56.961385"
+  "fecha_calculo_precio": "2026-07-05T06:36:48.448519"
 }
