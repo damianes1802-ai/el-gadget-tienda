@@ -563,7 +563,7 @@ a { color: inherit; }
 /* ── FOOTER ── */
 .footer { background: var(--ink); color: rgba(255,255,255,0.6); margin-top: 1rem; }
 .footer-inner {
-  max-width: 1240px; margin: 0 auto; padding: 2.4rem 1.25rem; display: grid; gap: 1.6rem;
+  max-width: 1240px; margin: 0 auto; padding: 2.4rem 1.25rem 1.6rem; display: grid; gap: 1.6rem;
 }
 @media (min-width: 640px) { .footer-inner { grid-template-columns: 1.4fr 1fr 1fr; } }
 .footer-brand .logo-name, .footer-brand .logo-name span { color: white; }
@@ -590,7 +590,7 @@ a { color: inherit; }
 .footer-guias {
   max-width: 900px;
   margin: 0 auto;
-  padding: 24px 24px 0;
+  padding: 24px;
   border-top: 1px solid rgba(255,255,255,0.08);
 }
 .footer-guias h4 {
