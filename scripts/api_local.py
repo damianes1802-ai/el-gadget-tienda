@@ -2192,6 +2192,9 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
         return
     orden = dict(orden)
 
+    cursor.execute("SELECT * FROM orden_items WHERE orden_id = ?", (orden_id,))
+    items = [dict(item) for item in cursor.fetchall()]
+
     factura = None
     if facturacion_habilitada() and not orden.get('factura_cae'):
         factura = generar_factura_c(orden_id, orden, orden['total'])
@@ -2211,11 +2214,32 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
                 factura['cae'], factura['cae_vencimiento'], orden_id
             ))
         conn.commit()
+    elif orden.get('factura_cae'):
+        # La factura ya existía (ej: reintento de email) — reconstruirla para
+        # que el email y el PDF igual la incluyan.
+        factura = {
+            'tipo': orden.get('factura_tipo') or 11,
+            'punto_venta': orden['factura_punto_venta'],
+            'numero': orden['factura_numero'],
+            'cae': orden['factura_cae'],
+            'cae_vencimiento': orden.get('factura_cae_vencimiento'),
+        }
+
+    # PDF de la factura con QR (best-effort: si falla, el email sale sin adjunto)
+    pdf_factura = None
+    if factura and not factura.get('error'):
+        try:
+            from utils.factura_pdf import generar_pdf_factura, nombre_archivo_factura
+            pdf_factura = generar_pdf_factura(orden, items, factura)
+            if _persistent_dir:
+                facturas_dir = Path(_persistent_dir) / 'facturas'
+                facturas_dir.mkdir(parents=True, exist_ok=True)
+                (facturas_dir / nombre_archivo_factura(factura)).write_bytes(pdf_factura)
+        except Exception as e:
+            print(f"PDF de factura fallido para orden {orden_id}: {e}")
 
     if email_habilitado() and not orden.get('email_confirmacion_enviado'):
-        cursor.execute("SELECT * FROM orden_items WHERE orden_id = ?", (orden_id,))
-        items = [dict(item) for item in cursor.fetchall()]
-        resultado = enviar_email_confirmacion(orden, items, factura)
+        resultado = enviar_email_confirmacion(orden, items, factura, pdf_factura=pdf_factura)
         if not resultado.get('error'):
             cursor.execute(
                 "UPDATE ordenes SET email_confirmacion_enviado = 1 WHERE id = ?",
@@ -2226,10 +2250,7 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
     # Notificar al admin de la nueva venta
     try:
         if email_habilitado():
-            if not items:
-                cursor.execute("SELECT * FROM orden_items WHERE orden_id = ?", (orden_id,))
-                items = [dict(item) for item in cursor.fetchall()]
-            enviar_email_venta_admin(orden, items, factura)
+            enviar_email_venta_admin(orden, items, factura, pdf_factura=pdf_factura)
     except Exception as e:
         print(f"Email notificación admin venta fallido: {e}")
 

@@ -66,7 +66,19 @@ def _get_afip_client():
     if access_token:
         config['access_token'] = access_token
 
+    # Sin este flag la librería usa el entorno de homologación aunque el
+    # certificado sea de producción: las facturas no tienen validez fiscal.
+    if env.get('AFIP_PRODUCTION', '').strip().lower() in ('1', 'true', 'si'):
+        config['production'] = True
+
     return Afip(config)
+
+
+def entorno_afip() -> str:
+    """'produccion' o 'homologacion' según AFIP_PRODUCTION en config/.env."""
+    env = Config.cargar_env()
+    prod = env.get('AFIP_PRODUCTION', '').strip().lower() in ('1', 'true', 'si')
+    return 'produccion' if prod else 'homologacion'
 
 
 def _doc_tipo_y_nro(cuit_dni: str):
@@ -126,7 +138,7 @@ def generar_factura_c(orden_id: int, cliente: dict, total: float) -> dict:
         resultado = afip.ElectronicBilling.createNextVoucher(data)
 
         logger.info(
-            f"Factura C generada para orden {orden_id}: "
+            f"Factura C generada para orden {orden_id} ({entorno_afip()}): "
             f"{punto_venta:04d}-{resultado['voucherNumber']:08d} CAE {resultado['CAE']}"
         )
 
@@ -136,6 +148,9 @@ def generar_factura_c(orden_id: int, cliente: dict, total: float) -> dict:
             'numero': resultado['voucherNumber'],
             'cae': resultado['CAE'],
             'cae_vencimiento': resultado['CAEFchVto'],
+            'fecha': datetime.now().strftime('%Y-%m-%d'),
+            'doc_tipo': doc_tipo,
+            'doc_nro': doc_nro,
         }
     except Exception as e:
         logger.error(f"Error generando factura AFIP para orden {orden_id}: {e}")

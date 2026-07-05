@@ -8,6 +8,7 @@ de Resend (https://resend.com). Mientras no haya un dominio propio verificado,
 se puede usar la dirección sandbox onboarding@resend.dev.
 """
 
+import base64
 import html as _html
 import sys
 from pathlib import Path
@@ -121,7 +122,9 @@ def _boton(texto: str, url: str) -> str:
     """
 
 
-def _enviar(to_email: str, subject: str, html: str, is_marketing: bool = False) -> dict:
+def _enviar(to_email: str, subject: str, html: str, is_marketing: bool = False,
+            attachments: list = None) -> dict:
+    """attachments: lista de dicts {'filename': str, 'content': bytes}."""
     env = Config.cargar_env()
     if not email_habilitado():
         return {'error': 'Email no configurado (falta RESEND_API_KEY)'}
@@ -135,6 +138,15 @@ def _enviar(to_email: str, subject: str, html: str, is_marketing: bool = False) 
         "subject": subject,
         "html": html,
     }
+
+    if attachments:
+        payload["attachments"] = [
+            {
+                "filename": adj['filename'],
+                "content": base64.b64encode(adj['content']).decode(),
+            }
+            for adj in attachments if adj.get('content')
+        ]
 
     if is_marketing:
         unsub_url = f"{site_url}/mi_cuenta"
@@ -162,7 +174,8 @@ def _enviar(to_email: str, subject: str, html: str, is_marketing: bool = False) 
         return {'error': str(e)}
 
 
-def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None) -> dict:
+def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None,
+                              pdf_factura: bytes = None) -> dict:
     """
     Envía email de confirmación de pago aprobado.
 
@@ -170,6 +183,7 @@ def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None) ->
         orden: dict con datos de la orden + cliente (id, nombre, email, total)
         items: lista de dicts con producto_nombre, cantidad, subtotal
         factura: dict con punto_venta/numero/cae (opcional, si AFIP está habilitado)
+        pdf_factura: bytes del PDF de la factura para adjuntar (opcional)
     """
     filas_items = "".join(
         f"<tr>"
@@ -186,11 +200,12 @@ def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None) ->
 
     factura_html = ""
     if factura and not factura.get('error'):
+        adjunto_txt = " La factura está adjunta a este email en PDF." if pdf_factura else ""
         factura_html = (
             f"<p style='margin:18px 0 0;padding:12px 16px;background:{GREEN_PALE};"
             f"color:{GREEN_OK};border-radius:10px;font-size:13px;font-weight:600'>"
             f"Factura C N° {factura['punto_venta']:04d}-{factura['numero']:08d} "
-            f"— CAE {factura['cae']}</p>"
+            f"— CAE {factura['cae']}.{adjunto_txt}</p>"
         )
 
     # Bloque de ahorro con código de referido (si aplica)
@@ -234,7 +249,13 @@ def enviar_email_confirmacion(orden: dict, items: list, factura: dict = None) ->
       </p>
     """
 
-    return _enviar(orden['email'], f"Confirmación de tu pedido #{orden['id']} - {TIENDA_NOMBRE}", _layout(cuerpo))
+    adjuntos = None
+    if pdf_factura and factura and not factura.get('error'):
+        from utils.factura_pdf import nombre_archivo_factura
+        adjuntos = [{'filename': nombre_archivo_factura(factura), 'content': pdf_factura}]
+
+    return _enviar(orden['email'], f"Confirmación de tu pedido #{orden['id']} - {TIENDA_NOMBRE}",
+                   _layout(cuerpo), attachments=adjuntos)
 
 
 def enviar_email_tracking(orden: dict, tracking_url: str) -> dict:
@@ -1285,7 +1306,8 @@ def enviar_email_winback(nombre: str, email: str, dias_inactivo: int, es_referid
     return _enviar(email, f"Hace rato que no te vemos, {nombre_s}", _layout(cuerpo, marketing=True), is_marketing=True)
 
 
-def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> dict:
+def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None,
+                             pdf_factura: bytes = None) -> dict:
     """Notifica al admin de una nueva venta aprobada con TODOS los datos del checkout."""
     env = Config.cargar_env()
     admin_email = env.get('ADMIN_EMAIL', 'damianes1802@gmail.com')
@@ -1424,4 +1446,10 @@ def enviar_email_venta_admin(orden: dict, items: list, factura: dict = None) -> 
       {factura_html}
     """
 
-    return _enviar(admin_email, f"[VENTA] #{orden_id} · ${total:,.0f} · {nombre} - {TIENDA_NOMBRE}", _layout(cuerpo))
+    adjuntos = None
+    if pdf_factura and factura and not factura.get('error'):
+        from utils.factura_pdf import nombre_archivo_factura
+        adjuntos = [{'filename': nombre_archivo_factura(factura), 'content': pdf_factura}]
+
+    return _enviar(admin_email, f"[VENTA] #{orden_id} · ${total:,.0f} · {nombre} - {TIENDA_NOMBRE}",
+                   _layout(cuerpo), attachments=adjuntos)
