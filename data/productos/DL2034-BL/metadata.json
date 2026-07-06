@@ -15,14 +15,14 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 15200,
-    "margen_porcentaje": 80,
-    "precio_con_margen": 27360.0,
-    "precio_final": 27500.0,
-    "ganancia_neta": 12300.0,
+    "margen_porcentaje": 160,
+    "precio_con_margen": 39520.0,
+    "precio_final": 40000.0,
+    "ganancia_neta": 24800.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 27500.0,
-  "fecha_calculo_precio": "2026-07-06T06:34:35.239012",
+  "precio_venta": 40000.0,
+  "fecha_calculo_precio": "2026-07-06T15:49:50.806745",
   "categoria_principal": "Home",
   "categoria": "Home",
   "categorias_secundarias": [
@@ -35,6 +35,6 @@
   "total_categorias": 2,
   "fecha_actualizacion_categorias": "2026-03-07T13:43:05.384139",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-07-06T06:21:09.777877",
+  "fecha_agotado": "2026-07-06T15:49:50.392767",
   "availability": "out of stock"
 }

@@ -44,13 +44,13 @@
     "cargos_fijos": 0,
     "desglose_cargos": [],
     "subtotal": 12572,
-    "margen_porcentaje": 80,
-    "precio_con_margen": 22629.600000000002,
-    "precio_final": 23000.0,
-    "ganancia_neta": 10428.0,
+    "margen_porcentaje": 160,
+    "precio_con_margen": 32687.2,
+    "precio_final": 33000.0,
+    "ganancia_neta": 20428.0,
     "perfil_aplicado": "Estándar"
   },
-  "precio_venta": 23000.0,
-  "fecha_calculo_precio": "2026-07-06T06:34:35.322478",
+  "precio_venta": 33000.0,
+  "fecha_calculo_precio": "2026-07-06T15:49:51.044483",
   "fecha_agotado": "2026-07-06T04:35:09.472282"
 }
