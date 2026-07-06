@@ -865,10 +865,9 @@ def listar_productos(
         params.append(categoria)
     
     if search:
-        query += " AND (nombre LIKE ? OR descripcion LIKE ?)"
+        query += " AND (nombre LIKE ? OR descripcion LIKE ? OR sku LIKE ? OR marca LIKE ?)"
         search_term = f"%{search}%"
-        params.append(search_term)
-        params.append(search_term)
+        params.extend([search_term] * 4)
     
     query += " ORDER BY nombre LIMIT ? OFFSET ?"
     params.extend([limit, offset])
