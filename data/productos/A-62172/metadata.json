@@ -14,7 +14,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/inflable-glitter-flamingo-1-3m-x-1-23m.html",
-  "fecha_scraping": "2026-07-05T06:28:31.848258",
+  "fecha_scraping": "2026-07-06T04:41:55.487782",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -24,7 +24,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-05T06:35:38.109343",
+  "fecha_mapeo_categorias": "2026-07-06T04:47:12.504034",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62172_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62172_002",
@@ -43,5 +43,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 65000.0,
-  "fecha_calculo_precio": "2026-07-05T06:36:48.263570"
+  "fecha_calculo_precio": "2026-07-06T04:48:12.442214"
 }
