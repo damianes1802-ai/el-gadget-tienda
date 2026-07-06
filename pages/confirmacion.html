@@ -140,7 +140,12 @@ let zonasEnvioData = null;
 async function iniciar() {
   if (!idFinal) { mostrarSinOrden(); return; }
   try {
-    const res = await fetch(`${API_URL}/api/orden/${idFinal}`);
+    // El detalle de orden requiere el email del comprador (guardado en el
+    // checkout) salvo que seas admin. Sin email válido el backend da 404.
+    const emailComprador = localStorage.getItem('eg_last_order_email') || '';
+    const urlOrden = `${API_URL}/api/orden/${idFinal}` +
+      (emailComprador ? `?email=${encodeURIComponent(emailComprador)}` : '');
+    const res = await fetch(urlOrden);
     if (!res.ok) throw new Error();
     try {
       const zonasRes = await fetch(`${API_URL}/api/envio/zonas`);

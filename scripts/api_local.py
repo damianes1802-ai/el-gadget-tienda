@@ -114,11 +114,18 @@ limiter = Limiter(key_func=_get_real_ip)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
-# Configurar CORS para permitir requests desde frontend
+# Configurar CORS para permitir requests desde frontend.
+# La autenticación es por header (X-Admin-Password / Bearer token), no por
+# cookies, así que no se necesitan credentials. Combinar allow_origins=["*"]
+# con allow_credentials=True es inválido por spec y los navegadores lo rechazan.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # En producción: especificar dominios permitidos
-    allow_credentials=True,
+    allow_origins=[
+        "https://elgadget.com.ar",
+        "https://www.elgadget.com.ar",
+        "https://damianes1802-ai.github.io",
+    ],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -2085,14 +2092,17 @@ def crear_orden(request: Request, orden: CrearOrden):
 @app.get("/api/ordenes")
 def listar_ordenes(
     estado: Optional[str] = None,
-    limit: int = Query(50, le=200)
+    limit: int = Query(50, le=200),
+    x_admin_password: Optional[str] = Header(None),
 ):
     """
-    Lista órdenes con filtros opcionales
-    
+    Lista órdenes con filtros opcionales (solo admin — expone datos de clientes).
+
     - **estado**: Filtrar por estado (pendiente_procesar, procesando, enviado, entregado)
     - **limit**: Cantidad máxima de resultados
     """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
     conn = get_db()
     cursor = conn.cursor()
     
@@ -2118,11 +2128,19 @@ def listar_ordenes(
 
 
 @app.get("/api/orden/{orden_id}")
-def detalle_orden(orden_id: int):
-    """Obtiene el detalle completo de una orden"""
+def detalle_orden(orden_id: int, email: Optional[str] = Query(None),
+                  x_admin_password: Optional[str] = Header(None)):
+    """Detalle completo de una orden.
+
+    Expone datos personales del cliente, por lo que requiere autorización:
+    - admin (header X-Admin-Password), o
+    - el email usado en la compra (query ?email=), que debe coincidir.
+    Sin ninguno de los dos, responde 404 para no filtrar por enumeración de IDs.
+    """
+    es_admin = _es_admin(x_admin_password)
     conn = get_db()
     cursor = conn.cursor()
-    
+
     # Datos de la orden
     cursor.execute("""
         SELECT o.*, c.nombre, c.apellido, c.email, c.telefono, c.razon_social,
@@ -2133,10 +2151,16 @@ def detalle_orden(orden_id: int):
         WHERE o.id = ?
     """, (orden_id,))
     orden = cursor.fetchone()
-    
+
     if not orden:
         conn.close()
         raise HTTPException(status_code=404, detail="Orden no encontrada")
+
+    if not es_admin:
+        email_orden = (orden['email'] or '').strip().lower()
+        if not email or email.strip().lower() != email_orden:
+            conn.close()
+            raise HTTPException(status_code=404, detail="Orden no encontrada")
     
     # Items de la orden
     cursor.execute("""
@@ -2599,12 +2623,15 @@ def actualizar_tracking(orden_id: int, datos: ActualizarTracking, x_admin_passwo
 
 
 @app.patch("/api/orden/{orden_id}/estado")
-def actualizar_estado_orden(orden_id: int, estado: str):
+def actualizar_estado_orden(orden_id: int, estado: str, x_admin_password: Optional[str] = Header(None)):
     """
-    Actualiza el estado de una orden
-    
+    Actualiza el estado de una orden (solo admin)
+
     Estados válidos: pendiente_procesar, procesando, enviado, entregado
     """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+
     estados_validos = ['pendiente_procesar', 'procesando', 'enviado', 'entregado']
     
     if estado not in estados_validos:

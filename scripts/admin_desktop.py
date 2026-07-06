@@ -81,16 +81,16 @@ class Api:
         params = {"limit": 200}
         if estado:
             params["estado"] = estado
-        return self._get("/api/ordenes", params=params)
+        return self._get("/api/ordenes", params=params, admin=True)
 
     def get_orden(self, orden_id):
-        return self._get(f"/api/orden/{orden_id}")
+        return self._get(f"/api/orden/{orden_id}", admin=True)
 
     def actualizar_tracking(self, orden_id, tracking_url):
         return self._patch(f"/api/orden/{orden_id}/tracking", json_body={"tracking_url": tracking_url})
 
     def cambiar_estado_orden(self, orden_id, estado):
-        return self._patch(f"/api/orden/{orden_id}/estado", params={"estado": estado}, admin=False)
+        return self._patch(f"/api/orden/{orden_id}/estado", params={"estado": estado}, admin=True)
 
     def eliminar_orden(self, orden_id):
         return self._delete(f"/api/orden/{orden_id}")

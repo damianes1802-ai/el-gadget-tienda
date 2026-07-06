@@ -606,6 +606,10 @@ async function procesarPago() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || 'Error al crear la orden');
 
+    // Guardar el email para que la confirmación pueda validar la propiedad
+    // del pedido (el detalle de orden está protegido por email/admin).
+    try { localStorage.setItem('eg_last_order_email', c('email')); } catch (e) {}
+
     guardarCarrito([]);
 
     if (descuentoAplicado && descuentoAplicado.esBienvenida || descuentoBienvenidaExtra) {
