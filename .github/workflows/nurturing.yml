@@ -1,0 +1,33 @@
+name: Nurturing emails
+
+# Dispara los emails automáticos de marketing/activación:
+# - Nurturing de referidos (D+1, D+3, D+7, D+14, D+30)
+# - Carrito abandonado (#1 +2h, #2 +24h, #3 +72h)
+# - Post-compra: invitar a referir, review request, repeat purchase, win-back
+# El endpoint es idempotente (cada email se marca como enviado) y respeta el
+# consentimiento de marketing (acepta_marketing) para los emails puramente
+# promocionales. Corre cada 2 horas.
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'   # cada 2 horas, en punto
+  workflow_dispatch:        # permite dispararlo a mano desde la pestaña Actions
+
+jobs:
+  nurturing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruir config/.env desde el secret
+        run: printf '%s' "${{ secrets.ENV_FILE }}" > config/.env
+
+      - name: Disparar procesamiento de nurturing
+        run: |
+          API_URL=$(grep '^API_URL=' config/.env | cut -d= -f2-)
+          ADMIN_PWD=$(grep '^ADMIN_PASSWORD=' config/.env | cut -d= -f2-)
+          echo "Llamando a $API_URL/api/admin/nurturing/procesar ..."
+          curl -sf -X POST "$API_URL/api/admin/nurturing/procesar" \
+            -H "X-Admin-Password: $ADMIN_PWD" \
+            -H "Content-Type: application/json" \
+            || echo "Nurturing no disponible (Render en cold start?)"

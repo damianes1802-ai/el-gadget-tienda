@@ -230,7 +230,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         f'<img id="mainImage" class="main-image" src="{html.escape(imagen_principal)}" '
         f'alt="{html.escape(nombre)}" onclick="zoomImage()">'
         if imagen_principal else
-        '<img id="mainImage" class="main-image" src="" alt="">'
+        f'<img id="mainImage" class="main-image" src="" alt="{html.escape(nombre)}">'
     ) + (
         '<button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" '
         'aria-label="Imagen anterior" type="button">‹</button>'

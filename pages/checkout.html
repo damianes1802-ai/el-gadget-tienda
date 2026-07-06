@@ -589,7 +589,8 @@ async function procesarPago() {
       provincia: c('provincia'),
       partido: c('partido'),
       ciudad: c('ciudad'),
-      codigo_postal: c('codigo_postal')
+      codigo_postal: c('codigo_postal'),
+      acepta_marketing: document.getElementById('marketingOptIn').checked
     },
     items: carrito.map(item => ({ sku: item.sku, cantidad: item.cantidad })),
     notas: c('notas'),

@@ -102,3 +102,23 @@ jobs:
       - name: Desplegar a GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # Aviso por email si algún paso del job falló (vía Resend, mismo proveedor
+      # que los emails transaccionales). Requiere RESEND_API_KEY en config/.env.
+      - name: Avisar si la corrida falló
+        if: failure()
+        run: |
+          RESEND_KEY=$(grep '^RESEND_API_KEY=' config/.env | cut -d= -f2-)
+          FROM=$(grep '^RESEND_FROM_EMAIL=' config/.env | cut -d= -f2-)
+          ADMIN=$(grep '^ADMIN_EMAIL=' config/.env | cut -d= -f2-)
+          ADMIN=${ADMIN:-damianes1802@gmail.com}
+          RUN_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          if [ -n "$RESEND_KEY" ]; then
+            curl -s -X POST "https://api.resend.com/emails" \
+              -H "Authorization: Bearer $RESEND_KEY" \
+              -H "Content-Type: application/json" \
+              -d "{\"from\":\"El Gadget <${FROM}>\",\"to\":[\"${ADMIN}\"],\"subject\":\"⚠️ Falló la actualización diaria del catálogo\",\"html\":\"<p>La corrida automática del catálogo falló. Revisá el detalle acá:</p><p><a href='${RUN_URL}'>${RUN_URL}</a></p>\"}" \
+              && echo "Aviso de fallo enviado a $ADMIN"
+          else
+            echo "Sin RESEND_API_KEY, no se pudo avisar por email"
+          fi

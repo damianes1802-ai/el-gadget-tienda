@@ -176,6 +176,7 @@ class Cliente(BaseModel):
     ciudad: str
     codigo_postal: str
     cuit_dni: Optional[str] = ""
+    acepta_marketing: Optional[bool] = False
 
 
 class ItemCarrito(BaseModel):
@@ -290,10 +291,12 @@ def _generar_codigo_referido(nombre: str, telefono: str, conn: sqlite3.Connectio
 
 
 def _descuento_referido_escalonado(subtotal: float) -> float:
-    """Descuento escalonado según total del carrito: <$4k→10%, $4k-$20k→15%, >$20k→20%."""
-    if subtotal < 4000:
+    """Descuento escalonado según total del carrito. Umbrales recalibrados a los
+    precios 2026 (margen 160%): <$25k→10%, $25k-$60k→15%, >$60k→20%. Con margen
+    160% el peor caso (20%) deja +108% sobre costo, siempre rentable."""
+    if subtotal < 25000:
         return 10.0
-    elif subtotal <= 20000:
+    elif subtotal <= 60000:
         return 15.0
     else:
         return 20.0
@@ -398,6 +401,7 @@ def migrar_db():
         ("cuit_dni", "TEXT DEFAULT ''"),
         ("partido", "TEXT DEFAULT ''"),
         ("email_winback_enviado", "INTEGER DEFAULT 0"),
+        ("acepta_marketing", "INTEGER DEFAULT 0"),
     ]
     cursor.execute("PRAGMA table_info(clientes)")
     columnas_existentes = {row[1] for row in cursor.fetchall()}
@@ -641,7 +645,7 @@ def _usuario_desde_token(token: Optional[str], cursor) -> Optional[dict]:
     cursor.execute("""
         SELECT u.* FROM sesiones_usuario s
         JOIN usuarios_registrados u ON u.id = s.usuario_id
-        WHERE s.token = ?
+        WHERE s.token = ? AND s.creado_at > datetime('now', '-30 days')
     """, (token,))
     row = cursor.fetchone()
     return dict(row) if row else None
@@ -1802,12 +1806,16 @@ def crear_orden(request: Request, orden: CrearOrden):
         if cliente:
             cliente_id = cliente['id']
             # Actualizar datos del cliente
+            # El consentimiento de marketing solo se ELEVA (si ahora aceptó), nunca
+            # se baja silenciosamente: si en una compra previa aceptó, se respeta.
+            marketing_val = 1 if orden.cliente.acepta_marketing else 0
             cursor.execute("""
                 UPDATE clientes
                 SET nombre = ?, apellido = ?, razon_social = ?, telefono = ?,
                     calle = ?, altura = ?, piso = ?, departamento = ?,
                     direccion = ?, pais = ?, provincia = ?, partido = ?, ciudad = ?,
-                    codigo_postal = ?, cuit_dni = ?
+                    codigo_postal = ?, cuit_dni = ?,
+                    acepta_marketing = MAX(COALESCE(acepta_marketing, 0), ?)
                 WHERE id = ?
             """, (
                 orden.cliente.nombre,
@@ -1825,6 +1833,7 @@ def crear_orden(request: Request, orden: CrearOrden):
                 orden.cliente.ciudad,
                 orden.cliente.codigo_postal,
                 orden.cliente.cuit_dni or "",
+                marketing_val,
                 cliente_id
             ))
         else:
@@ -1832,8 +1841,8 @@ def crear_orden(request: Request, orden: CrearOrden):
             cursor.execute("""
                 INSERT INTO clientes (nombre, apellido, razon_social, email, telefono,
                     calle, altura, piso, departamento, direccion, pais, provincia, partido, ciudad,
-                    codigo_postal, cuit_dni)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    codigo_postal, cuit_dni, acepta_marketing)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 orden.cliente.nombre,
                 orden.cliente.apellido or "",
@@ -1850,7 +1859,8 @@ def crear_orden(request: Request, orden: CrearOrden):
                 orden.cliente.partido or "",
                 orden.cliente.ciudad,
                 orden.cliente.codigo_postal,
-                orden.cliente.cuit_dni or ""
+                orden.cliente.cuit_dni or "",
+                1 if orden.cliente.acepta_marketing else 0
             ))
             cliente_id = cursor.lastrowid
         
@@ -3260,7 +3270,7 @@ def dashboard_referido(authorization: Optional[str] = Header(None)):
     cursor = conn.cursor()
 
     sesion = cursor.execute(
-        "SELECT usuario_id FROM sesiones_usuario WHERE token = ?", (token,)
+        "SELECT usuario_id FROM sesiones_usuario WHERE token = ? AND creado_at > datetime('now', '-30 days')", (token,)
     ).fetchone()
     if not sesion:
         conn.close()
@@ -3345,7 +3355,7 @@ def actualizar_datos_referido(datos: ActualizarDatosReferido, authorization: Opt
     cursor = conn.cursor()
 
     sesion = cursor.execute(
-        "SELECT usuario_id FROM sesiones_usuario WHERE token = ?", (token,)
+        "SELECT usuario_id FROM sesiones_usuario WHERE token = ? AND creado_at > datetime('now', '-30 days')", (token,)
     ).fetchone()
     if not sesion:
         conn.close()
@@ -3493,7 +3503,7 @@ def catalogo_referido(
     cursor = conn.cursor()
 
     sesion = cursor.execute(
-        "SELECT usuario_id FROM sesiones_usuario WHERE token = ?", (token,)
+        "SELECT usuario_id FROM sesiones_usuario WHERE token = ? AND creado_at > datetime('now', '-30 days')", (token,)
     ).fetchone()
     if not sesion:
         conn.close()
@@ -3966,6 +3976,7 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
             FROM ordenes o
             JOIN clientes c ON o.cliente_id = c.id
             WHERE o.estado_pago = 'approved'
+              AND c.acepta_marketing = 1
               AND o.email_review_enviado = 0
               AND (
                 (o.estado = 'entregado' AND datetime(o.enviado_at, '+7 days') < datetime('now'))
@@ -3993,6 +4004,7 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
             FROM ordenes o
             JOIN clientes c ON o.cliente_id = c.id
             WHERE o.estado_pago = 'approved'
+              AND c.acepta_marketing = 1
               AND o.email_repeat_enviado = 0
               AND datetime(o.fecha, '+30 days') < datetime('now')
               AND NOT EXISTS (
@@ -4030,6 +4042,7 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
             FROM clientes c
             JOIN ordenes o ON o.cliente_id = c.id
             WHERE o.estado_pago = 'approved'
+              AND c.acepta_marketing = 1
               AND c.email_winback_enviado = 0
             GROUP BY c.id
             HAVING datetime(MAX(o.fecha), '+60 days') < datetime('now')
