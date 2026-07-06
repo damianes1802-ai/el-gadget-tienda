@@ -69,7 +69,7 @@
 
       <!-- Banner descuento bienvenida -->
       <div id="bannerBienvenida" style="display:none;background:#FFFBE6;border:1.5px solid #FFC700;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:14px;color:#14151A;line-height:1.5">
-        🎉 <strong>Tenés un 10% OFF de bienvenida</strong> — se aplica automáticamente al confirmar tu email.
+        🎉 <strong>Tenés un descuento de bienvenida</strong> — se aplica automáticamente al confirmar tu email.
       </div>
       <!-- Banner código referido -->
       <div id="bannerReferido" style="display:none;background:#E9F5EE;border:1.5px solid #2E8B57;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:14px;color:#14151A;line-height:1.5">
@@ -360,6 +360,7 @@ function volverStep1() {
 async function aplicarDescuentoBienvenida() {
   if (!descuentoBienvenidaPendiente || !codigoBienvenida) return;
   if (descuentoAplicado && !descuentoAplicado.esBienvenida && descuentoBienvenidaExtra) return;
+  if (descuentoAplicado && descuentoAplicado.codigo && descuentoAplicado.codigo.toUpperCase() === codigoBienvenida.toUpperCase()) return;
 
   const email = document.getElementById('email').value.trim() || localStorage.getItem('eg_email_registrado') || '';
   if (!email) return;
@@ -377,14 +378,24 @@ async function aplicarDescuentoBienvenida() {
     });
     const data = await res.json();
     if (data.valido) {
+      const pct = data.porcentaje || 10;
+      const banner = document.getElementById('bannerBienvenida');
       if (descuentoAplicado && !descuentoAplicado.esBienvenida) {
-        descuentoBienvenidaExtra = { codigo: codigoBienvenida, monto_descuento: data.monto_descuento };
-        const banner = document.getElementById('bannerBienvenida');
-        if (banner) banner.innerHTML = '✅ <strong>¡10% OFF de bienvenida sumado a tu descuento de referido!</strong>';
+        if (pct <= 10) {
+          // Bienvenida chica: se suma al código de referido (regla del servidor)
+          descuentoBienvenidaExtra = { codigo: codigoBienvenida, monto_descuento: data.monto_descuento, porcentaje: pct };
+          if (banner) banner.innerHTML = '✅ <strong>¡Tu ' + pct + '% OFF de bienvenida se sumó a tu descuento!</strong>';
+        } else if (data.monto_descuento > descuentoAplicado.monto_descuento) {
+          // Bienvenida grande (no apilable): reemplaza al otro código por ser mayor
+          descuentoAplicado = { codigo: codigoBienvenida, monto_descuento: data.monto_descuento, descripcion: data.descripcion, esBienvenida: true, porcentaje: pct };
+          descuentoBienvenidaExtra = null;
+          if (banner) banner.innerHTML = '✅ <strong>¡Aplicamos tu ' + pct + '% OFF de bienvenida</strong> (mayor que el otro código)!';
+        } else {
+          if (banner) banner.style.display = 'none';
+        }
       } else {
-        descuentoAplicado = { codigo: codigoBienvenida, monto_descuento: data.monto_descuento, descripcion: data.descripcion, esBienvenida: true };
-        const banner = document.getElementById('bannerBienvenida');
-        if (banner) banner.innerHTML = '✅ <strong>¡Tu 10% OFF de bienvenida está aplicado!</strong> Ya lo ves en el resumen.';
+        descuentoAplicado = { codigo: codigoBienvenida, monto_descuento: data.monto_descuento, descripcion: data.descripcion, esBienvenida: true, porcentaje: pct };
+        if (banner) banner.innerHTML = '✅ <strong>¡Tu ' + pct + '% OFF de bienvenida está aplicado!</strong> Ya lo ves en el resumen.';
       }
       renderResumen();
     }
@@ -467,12 +478,12 @@ function renderResumen() {
   let descuentoHtml = '';
   if (descuentoAplicado) {
     total -= descuentoAplicado.monto_descuento;
-    const etiqueta = descuentoAplicado.esBienvenida ? '🎉 Descuento de bienvenida (10%)' : `🏷️ Descuento referido (${descuentoAplicado.codigo})`;
+    const etiqueta = descuentoAplicado.esBienvenida ? `🎉 Descuento de bienvenida (${descuentoAplicado.porcentaje || 10}%)` : `🏷️ Descuento referido (${descuentoAplicado.codigo})`;
     descuentoHtml = `<div class="summary-line"><span>${etiqueta}</span><span>-${formatPrice(descuentoAplicado.monto_descuento)}</span></div>`;
   }
   if (descuentoBienvenidaExtra) {
     total -= descuentoBienvenidaExtra.monto_descuento;
-    descuentoHtml += `<div class="summary-line"><span>🎉 Descuento de bienvenida (10%)</span><span>-${formatPrice(descuentoBienvenidaExtra.monto_descuento)}</span></div>`;
+    descuentoHtml += `<div class="summary-line"><span>🎉 Descuento de bienvenida (${descuentoBienvenidaExtra.porcentaje || 10}%)</span><span>-${formatPrice(descuentoBienvenidaExtra.monto_descuento)}</span></div>`;
   }
 
   totalesEl.innerHTML = `
@@ -516,8 +527,10 @@ async function aplicarCodigoDescuento() {
       errorEl.style.display = 'block';
     } else {
       descuentoAplicado = { codigo, monto_descuento: data.monto_descuento, descripcion: data.descripcion };
+      descuentoBienvenidaExtra = null;
       okEl.textContent = `✓ ${data.descripcion || 'Descuento aplicado'}: -${formatPrice(data.monto_descuento)}`;
       okEl.style.display = 'block';
+      if (descuentoBienvenidaPendiente && codigoBienvenida) aplicarDescuentoBienvenida();
     }
   } catch (e) {
     descuentoAplicado = null;

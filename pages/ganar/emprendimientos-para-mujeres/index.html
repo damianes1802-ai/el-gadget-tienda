@@ -701,6 +701,11 @@ async function registrarEPM(e) {
     if (data.token) {
       localStorage.setItem('eg_token', data.token);
       localStorage.setItem('eg_nombre', data.nombre);
+      if (data.codigo_bienvenida && !data.descuento_bienvenida_usado) {
+        localStorage.setItem('eg_descuento_codigo', data.codigo_bienvenida);
+        localStorage.setItem('eg_descuento_pendiente', '1');
+        localStorage.setItem('eg_email_registrado', payload.email);
+      }
     }
     document.getElementById('epmForm').style.display = 'none';
     document.getElementById('epmSuccess').style.display = 'block';

@@ -362,12 +362,30 @@ def enviar_email_bienvenida(nombre: str, email: str, productos_top: list = None)
     return _enviar(email, f"¡Bienvenido/a a {TIENDA_NOMBRE}! Tu 10% OFF te espera", _layout(cuerpo))
 
 
-def enviar_email_referido_confirmacion(nombre: str, email: str, codigo: str) -> dict:
-    """Confirma al nuevo referente su alta en el programa: código, cómo usarlo y comisión."""
+def enviar_email_referido_confirmacion(nombre: str, email: str, codigo: str,
+                                       codigo_bienvenida: str = None,
+                                       descuento_bienvenida: float = None) -> dict:
+    """Confirma al nuevo referente su alta en el programa: código, cómo usarlo y comisión.
+    Si tiene un descuento de bienvenida sin usar, también se lo comunica."""
     nombre_s = _html.escape(nombre)
     codigo_s = _html.escape(codigo)
     env = Config.cargar_env()
     site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    bienvenida_html = ""
+    if codigo_bienvenida and descuento_bienvenida:
+        pct = int(descuento_bienvenida)
+        bienvenida_html = (
+            f"<div style='margin:24px 0;padding:18px 20px;background:{ACCENT_PALE};"
+            f"border:1px solid {GRAY_200};border-radius:12px;text-align:center'>"
+            f"<p style='margin:0 0 6px;font-size:16px;color:{INK}'>"
+            f"🎁 <strong>Regalo de bienvenida: {pct}% OFF en tu primera compra</strong></p>"
+            f"<p style='margin:0;font-size:13px;color:{GRAY_600}'>"
+            f"Se aplica automáticamente en el checkout usando este mismo email. "
+            f"Si no aparece, ingresá el código <strong style='color:{INK}'>{_html.escape(codigo_bienvenida)}</strong> "
+            f"en el campo de descuento.</p></div>"
+        )
+
     cuerpo = f"""
       <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Ya sos parte del programa de referidos, {nombre_s}!</h2>
       <p style="color:{GRAY_600};margin:0 0 22px">
@@ -405,6 +423,7 @@ def enviar_email_referido_confirmacion(nombre: str, email: str, codigo: str) -> 
           </td>
         </tr>
       </table>
+      {bienvenida_html}
       <p style="color:{GRAY_600};font-size:13px;margin:0 0 8px">
         Podés ver tus comisiones y estadísticas en cualquier momento desde tu cuenta:
       </p>

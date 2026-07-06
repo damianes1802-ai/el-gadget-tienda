@@ -183,6 +183,7 @@ class CrearOrden(BaseModel):
     items: List[ItemCarrito]
     notas: Optional[str] = ""
     codigo_descuento: Optional[str] = None
+    codigo_bienvenida: Optional[str] = None
 
 
 class ActualizarTracking(BaseModel):
@@ -782,6 +783,7 @@ def _validar_descuento_row(d: Optional[dict], email: Optional[str], subtotal: fl
     return {
         "valido": True,
         "monto_descuento": monto,
+        "porcentaje": d.get("valor") if d.get("tipo") == "porcentaje" else None,
         "descripcion": d.get("nombre", ""),
         "id": d.get("id"),
     }
@@ -1906,6 +1908,43 @@ def crear_orden(request: Request, orden: CrearOrden):
             descuento_monto = resultado["monto_descuento"]
             total -= descuento_monto
 
+        # 2.3 Código de bienvenida adicional (stacking). Reglas:
+        # - Bienvenida del 10% se SUMA a un código de referido.
+        # - Bienvenida mayor (ej. 50% de landing) NO se apila: se aplica el
+        #   descuento que más le convenga al cliente entre los dos.
+        bienvenida_fila = None
+        bienvenida_monto = 0
+        if orden.codigo_bienvenida and orden.codigo_bienvenida.upper() != (descuento_codigo or "").upper():
+            cursor.execute("SELECT * FROM descuentos WHERE UPPER(codigo) = UPPER(?)", (orden.codigo_bienvenida,))
+            fila_b = cursor.fetchone()
+            res_b = _validar_descuento_row(
+                dict(fila_b) if fila_b else None, orden.cliente.email, subtotal_productos,
+                [item.sku for item in orden.items]
+            )
+            if res_b.get("valido"):
+                fila_b = dict(fila_b)
+                es_porcentaje_chico = fila_b.get("tipo") == "porcentaje" and (fila_b.get("valor") or 0) <= 10
+                if descuento_fila is None:
+                    # No había otro código: la bienvenida es el descuento principal
+                    descuento_fila = fila_b
+                    descuento_codigo = fila_b["codigo"]
+                    descuento_monto = res_b["monto_descuento"]
+                    total -= descuento_monto
+                elif es_porcentaje_chico:
+                    # Stacking permitido: 10% de bienvenida + código de referido
+                    bienvenida_fila = fila_b
+                    bienvenida_monto = res_b["monto_descuento"]
+                    total -= bienvenida_monto
+                elif res_b["monto_descuento"] > descuento_monto:
+                    # No apilable: la bienvenida supera al otro código, la usamos sola
+                    total += descuento_monto
+                    descuento_fila = fila_b
+                    descuento_codigo = fila_b["codigo"]
+                    descuento_monto = res_b["monto_descuento"]
+                    total -= descuento_monto
+
+        descuento_monto_total = descuento_monto + bienvenida_monto
+
         # 2.1 Calcular costo de envío según zona del cliente
         envio = calcular_envio(orden.cliente.provincia or "", orden.cliente.partido or "")
         total += envio["costo"]
@@ -1914,21 +1953,22 @@ def crear_orden(request: Request, orden: CrearOrden):
         cursor.execute("""
             INSERT INTO ordenes (cliente_id, total, estado, notas, costo_envio, zona_envio, descuento_codigo, descuento_monto)
             VALUES (?, ?, 'pendiente_procesar', ?, ?, ?, ?, ?)
-        """, (cliente_id, total, orden.notas or "", envio["costo"], envio["zona"], descuento_codigo, descuento_monto))
+        """, (cliente_id, total, orden.notas or "", envio["costo"], envio["zona"], descuento_codigo, descuento_monto_total))
 
         orden_id = cursor.lastrowid
 
-        # 3.1 Registrar el uso del código de descuento
-        if descuento_fila:
-            cursor.execute(
-                "UPDATE descuentos SET usos_actuales = usos_actuales + 1 WHERE id = ?",
-                (descuento_fila["id"],)
-            )
-            if descuento_fila.get("email_asociado"):
+        # 3.1 Registrar el uso de los códigos de descuento aplicados
+        for fila_usada in (descuento_fila, bienvenida_fila):
+            if fila_usada:
                 cursor.execute(
-                    "UPDATE usuarios_registrados SET descuento_usado = 1 WHERE email = ?",
-                    (descuento_fila["email_asociado"],)
+                    "UPDATE descuentos SET usos_actuales = usos_actuales + 1 WHERE id = ?",
+                    (fila_usada["id"],)
                 )
+                if fila_usada.get("email_asociado"):
+                    cursor.execute(
+                        "UPDATE usuarios_registrados SET descuento_usado = 1 WHERE email = ?",
+                        (fila_usada["email_asociado"],)
+                    )
         
         # 4. Agregar items
         for item in items_con_precio:
@@ -3122,6 +3162,7 @@ def registro_referido(datos: RegistroReferido):
         """, (f"Bienvenida: {datos.nombre}", descuento_valor, codigo_bienvenida, datos.email.lower()))
         token = secrets.token_hex(32)
         cursor.execute("INSERT INTO sesiones_usuario (token, usuario_id) VALUES (?, ?)", (token, usuario_id))
+        bienvenida_usado = False
     else:
         usuario_id = usuario[0]
         token_row = cursor.execute(
@@ -3129,6 +3170,19 @@ def registro_referido(datos: RegistroReferido):
             (secrets.token_hex(32), usuario_id)
         ).fetchone()
         token = token_row[0] if token_row else secrets.token_hex(32)
+        # Usuario existente: recuperar su código de bienvenida y estado de uso
+        fila_u = cursor.execute(
+            "SELECT codigo_descuento, descuento_usado FROM usuarios_registrados WHERE id = ?",
+            (usuario_id,)
+        ).fetchone()
+        codigo_bienvenida = fila_u[0] if fila_u else None
+        bienvenida_usado = bool(fila_u[1]) if fila_u else True
+        descuento_valor = None
+        if codigo_bienvenida:
+            fila_d = cursor.execute(
+                "SELECT valor FROM descuentos WHERE codigo = ?", (codigo_bienvenida,)
+            ).fetchone()
+            descuento_valor = fila_d[0] if fila_d else 10
 
     # Generar código único de referido
     codigo = _generar_codigo_referido(datos.nombre, datos.telefono, conn)
@@ -3148,7 +3202,11 @@ def registro_referido(datos: RegistroReferido):
     conn.close()
 
     try:
-        enviar_email_referido_confirmacion(datos.nombre, datos.email, codigo)
+        enviar_email_referido_confirmacion(
+            datos.nombre, datos.email, codigo,
+            codigo_bienvenida=codigo_bienvenida if not bienvenida_usado else None,
+            descuento_bienvenida=descuento_valor if not bienvenida_usado else None,
+        )
     except Exception as e:
         print(f"Email confirmación referido fallido: {e}")
 
@@ -3159,6 +3217,9 @@ def registro_referido(datos: RegistroReferido):
         print(f"Email notificación admin referido fallido: {e}")
 
     return {"codigo": codigo, "token": token, "nombre": datos.nombre,
+            "codigo_bienvenida": codigo_bienvenida,
+            "descuento_bienvenida": descuento_valor,
+            "descuento_bienvenida_usado": bienvenida_usado,
             "mensaje": f"¡Bienvenido al programa de referidos! Tu código es {codigo}"}
 
 
