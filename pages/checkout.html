@@ -83,28 +83,29 @@
         <div class="field-row">
           <div class="field">
             <label for="nombre">Nombre *</label>
-            <input type="text" id="nombre" placeholder="Ej: Juan">
+            <input type="text" id="nombre" placeholder="Ej: Juan" autocomplete="given-name">
           </div>
           <div class="field">
             <label for="apellido">Apellido *</label>
-            <input type="text" id="apellido" placeholder="Ej: García">
+            <input type="text" id="apellido" placeholder="Ej: García" autocomplete="family-name">
           </div>
         </div>
 
         <div class="field-row">
           <div class="field">
             <label for="email">Email *</label>
-            <input type="email" id="email" placeholder="correo@ejemplo.com">
+            <input type="email" id="email" placeholder="correo@ejemplo.com" autocomplete="email">
           </div>
           <div class="field">
             <label for="telefono">Teléfono / Celular *</label>
-            <input type="tel" id="telefono" placeholder="Ej: 1123456789">
+            <input type="tel" id="telefono" placeholder="Ej: 1123456789" autocomplete="tel" inputmode="numeric">
           </div>
         </div>
 
         <div class="field">
           <label for="cuit_dni">DNI o CUIT *</label>
-          <input type="text" id="cuit_dni" placeholder="Ej: 12345678 (DNI) o 20-12345678-9 (CUIT)">
+          <input type="text" id="cuit_dni" placeholder="Ej: 12345678 (DNI) o 20-12345678-9 (CUIT)" inputmode="numeric">
+          <div class="field-hint">Lo usamos únicamente para emitir tu factura.</div>
         </div>
 
         <div class="field" style="margin-top:16px">
@@ -135,7 +136,7 @@
         <div class="field-row">
           <div class="field" style="flex:2">
             <label for="calle">Calle *</label>
-            <input type="text" id="calle" placeholder="Ej: Av. Corrientes">
+            <input type="text" id="calle" placeholder="Ej: Av. Corrientes" autocomplete="address-line1">
           </div>
           <div class="field">
             <label for="altura">Altura *</label>
@@ -154,13 +155,13 @@
         <div class="field-row">
           <div class="field">
             <label for="pais">País</label>
-            <select id="pais">
+            <select id="pais" autocomplete="country-name">
               <option value="Argentina" selected>Argentina</option>
             </select>
           </div>
           <div class="field">
             <label for="provincia">Provincia *</label>
-            <select id="provincia">
+            <select id="provincia" autocomplete="address-level1">
               <option value="">Seleccione una provincia...</option>
               <option>CABA / Capital Federal</option>
               <option>Provincia de Buenos Aires</option>
@@ -202,11 +203,11 @@
         <div class="field-row">
           <div class="field">
             <label for="ciudad">Ciudad *</label>
-            <input type="text" id="ciudad" placeholder="Ej: Buenos Aires">
+            <input type="text" id="ciudad" placeholder="Ej: Buenos Aires" autocomplete="address-level2">
           </div>
           <div class="field">
             <label for="codigo_postal">Código postal *</label>
-            <input type="text" id="codigo_postal" placeholder="Ej: 1043" maxlength="8">
+            <input type="text" id="codigo_postal" placeholder="Ej: 1043" maxlength="8" autocomplete="postal-code" inputmode="numeric">
           </div>
         </div>
 
@@ -227,14 +228,14 @@
       <div class="field" id="descuentoField" style="margin-top:14px">
         <label for="codigoDescuento">Código de descuento</label>
         <div style="display:flex; gap:8px">
-          <input type="text" id="codigoDescuento" placeholder="Ej: BIENVENIDO-XXXXXX" style="flex:1; text-transform:uppercase">
+          <input type="text" id="codigoDescuento" placeholder="¿Tenés un código? Ingresalo acá" style="flex:1; text-transform:uppercase">
           <button class="btn btn-outline btn-sm" id="btnAplicarDescuento" type="button" onclick="aplicarCodigoDescuento()">Aplicar</button>
         </div>
         <div class="field-error" id="descuentoError" style="display:none"></div>
         <div class="field-hint" id="descuentoOk" style="display:none; color:var(--green-ok)"></div>
       </div>
       <button class="btn btn-accent btn-block" id="btnPagar" onclick="procesarPago()" disabled style="margin-top:16px">Continuar con la dirección →</button>
-      <div class="security-note">🔒 Pago seguro vía Mercado Pago</div>
+      <div class="security-note">🔒 Pago seguro vía Mercado Pago · 📦 Envío con seguimiento · ↩️ 10 días para arrepentirte</div>
     </div>
   </div>
 </div>
