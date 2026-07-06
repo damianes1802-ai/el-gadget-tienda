@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/lampara-led-colgante-cactus-verde-26cm.html",
-  "fecha_scraping": "2026-07-06T04:42:33.589827",
+  "fecha_scraping": "2026-07-06T06:27:34.503703",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Deco"
@@ -26,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-06T04:47:12.488270",
+  "fecha_mapeo_categorias": "2026-07-06T06:33:42.823076",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-023_002",
@@ -47,5 +47,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 18000.0,
-  "fecha_calculo_precio": "2026-07-06T04:48:12.455249"
+  "fecha_calculo_precio": "2026-07-06T06:34:35.178837"
 }
