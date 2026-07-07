@@ -4,9 +4,11 @@ on:
   repository_dispatch:
     types: [actualizacion_diaria]
   schedule:
-    # Backup: cron a 00:07 UTC (21:07 Argentina) por si el trigger externo falla.
-    # Con retraso de GitHub, ejecutaría máximo a las 03:00 Argentina.
-    - cron: '7 0 * * *'
+    # RESPALDO por si el trigger externo (03:06 ART) falla. Corre a las
+    # 08:15 UTC (05:15 ART) — franja con poco retraso de GitHub — y el job
+    # "chequear" lo saltea si ya hubo una actualización en las últimas 20 h,
+    # así no se duplica la corrida diaria.
+    - cron: '15 8 * * *'
   workflow_dispatch:
 
 permissions:
@@ -19,7 +21,39 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Evita la corrida duplicada: el cron de respaldo solo sigue si NO hubo
+  # una actualización automática reciente (el trigger externo y el manual
+  # siempre corren).
+  chequear:
+    runs-on: ubuntu-latest
+    outputs:
+      correr: ${{ steps.check.outputs.correr }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 80
+      - id: check
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "correr=si" >> "$GITHUB_OUTPUT"
+            echo "Trigger ${{ github.event_name }}: corre siempre."
+            exit 0
+          fi
+          ULTIMO=$(git log --grep='del catálogo - 20' -1 --format=%ct || true)
+          ULTIMO=${ULTIMO:-0}
+          AHORA=$(date +%s)
+          EDAD_H=$(( (AHORA - ULTIMO) / 3600 ))
+          if [ "$ULTIMO" != "0" ] && [ "$EDAD_H" -lt 20 ]; then
+            echo "correr=no" >> "$GITHUB_OUTPUT"
+            echo "Ya hubo una actualización hace ${EDAD_H} h — el respaldo no corre."
+          else
+            echo "correr=si" >> "$GITHUB_OUTPUT"
+            echo "Sin actualización en las últimas 20 h (última hace ${EDAD_H} h) — corre el respaldo."
+          fi
+
   actualizar:
+    needs: chequear
+    if: needs.chequear.outputs.correr == 'si'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     environment:
