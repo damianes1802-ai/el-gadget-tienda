@@ -861,6 +861,7 @@ async function cargarReferidos() {
           <p style="font-size:22px;font-weight:700;letter-spacing:3px;color:var(--paper);margin:0 0 10px">${escapeHtmlBasico(data.codigo || '')}</p>
           <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
             <button onclick="copiarCodigoRef()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--paper);cursor:pointer;font-weight:600">Copiar</button>
+            <button onclick="descargarPlacaRef('${escapeHtmlBasico(data.codigo || '')}')" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--paper);cursor:pointer;font-weight:600">📷 Placa</button>
             <button onclick="compartirCodigoRef('${escapeHtmlBasico(data.codigo || '')}')" style="font-size:12px;padding:6px 16px;border-radius:8px;border:none;background:var(--accent);color:var(--ink);cursor:pointer;font-weight:700">Compartir →</button>
           </div>
           <p style="font-size:10.5px;color:rgba(255,255,255,.65);margin:10px 0 0;line-height:1.4">Quien compre con este código ahorra hasta 20% · Vos cobrás entre 7% y 15%</p>
@@ -1085,6 +1086,36 @@ function compartirCodigoRef(codigo) {
     navigator.share({ title: 'Mi código El Gadget', text: texto });
   } else {
     navigator.clipboard.writeText(texto).then(() => showToast('¡Texto copiado!')).catch(() => {});
+  }
+}
+
+async function descargarPlacaRef(codigo) {
+  if (!codigo) return;
+  showToast('Generando tu placa...');
+  try {
+    const res = await fetch(`${API}/api/referidos/placa?codigo=${encodeURIComponent(codigo)}`);
+    if (!res.ok) throw new Error();
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    // En móvil, si se puede compartir el archivo directo, mejor experiencia
+    const file = new File([blob], `mi-codigo-${codigo}.png`, { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: 'Mi código El Gadget' });
+        URL.revokeObjectURL(url);
+        return;
+      } catch (e) { /* si cancela, cae a la descarga */ }
+    }
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `mi-codigo-${codigo}.png`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    showToast('¡Placa descargada! Compartila en tus redes.');
+  } catch (e) {
+    showToast('No pudimos generar la placa, probá de nuevo.');
   }
 }
 

@@ -3541,6 +3541,34 @@ def registro_referido(datos: RegistroReferido):
             "mensaje": f"¡Bienvenido al programa de referidos! Tu código es {codigo}"}
 
 
+@app.get("/api/referidos/placa")
+def placa_referido(codigo: str = Query(...)):
+    """Devuelve una imagen (PNG, formato story) lista para compartir con el
+    código de referido bien grande. El código es público (se comparte), así que
+    no requiere auth; solo validamos que exista y esté activo."""
+    codigo = (codigo or "").strip()
+    conn = get_db()
+    ref = conn.execute(
+        "SELECT nombre FROM referidos WHERE UPPER(codigo) = UPPER(?) AND activo = 1",
+        (codigo,)
+    ).fetchone()
+    conn.close()
+    if not ref:
+        raise HTTPException(status_code=404, detail="Código de referido no encontrado")
+
+    try:
+        from utils.placa_referido import generar_placa_referido
+        png = generar_placa_referido(codigo, ref["nombre"] or "")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"No se pudo generar la placa: {e}")
+
+    return Response(
+        content=png,
+        media_type="image/png",
+        headers={"Content-Disposition": f'inline; filename="mi-codigo-{codigo}.png"'},
+    )
+
+
 @app.get("/api/referidos/dashboard")
 def dashboard_referido(authorization: Optional[str] = Header(None)):
     """Dashboard del referido autenticado: su código, comisiones por periodo y totales."""
