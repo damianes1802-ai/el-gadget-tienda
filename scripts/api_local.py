@@ -251,6 +251,7 @@ class Descuento(BaseModel):
     mostrar_banner: bool = False
     banner_titulo: Optional[str] = ""
     banner_texto: Optional[str] = ""
+    recurrente_anual: bool = False
 
 
 class ValidarDescuento(BaseModel):
@@ -516,6 +517,9 @@ def migrar_db():
     columnas_descuentos_existentes = {row[1] for row in cursor.fetchall()}
     if 'monto_minimo' not in columnas_descuentos_existentes:
         cursor.execute("ALTER TABLE descuentos ADD COLUMN monto_minimo REAL")
+    # Campaña que se repite todos los años (compara solo mes-día, ignora el año)
+    if 'recurrente_anual' not in columnas_descuentos_existentes:
+        cursor.execute("ALTER TABLE descuentos ADD COLUMN recurrente_anual INTEGER DEFAULT 0")
 
     # Sesiones activas de "Mi cuenta" (login con email + contraseña)
     cursor.execute("""
@@ -713,17 +717,53 @@ def calcular_envio(provincia: str, partido: str = "") -> dict:
     }
 
 
+def _mmdd(fecha: str) -> str:
+    """Extrae 'MM-DD' de una fecha 'YYYY-MM-DD'. '' si no aplica."""
+    if not fecha or len(fecha) < 10:
+        return ""
+    return fecha[5:10]
+
+
+def _fecha_campana_vigente(d: dict, hoy: str) -> bool:
+    """True si la campaña está dentro de su ventana de fechas HOY.
+
+    - No recurrente: compara la fecha completa YYYY-MM-DD (una sola vez).
+    - Recurrente anual: compara solo mes-día, así aplica todos los años.
+      Soporta ventanas que cruzan el año (ej. 26/12 → 06/01).
+    hoy es 'YYYY-MM-DD'.
+    """
+    ini, fin = d.get("fecha_inicio"), d.get("fecha_fin")
+
+    if not d.get("recurrente_anual"):
+        if ini and hoy < ini:
+            return False
+        if fin and hoy > fin:
+            return False
+        return True
+
+    # Recurrente: comparar por mes-día
+    hoy_md = hoy[5:10]
+    ini_md, fin_md = _mmdd(ini), _mmdd(fin)
+    if ini_md and fin_md:
+        if ini_md <= fin_md:
+            # ventana normal dentro del mismo año calendario
+            return ini_md <= hoy_md <= fin_md
+        # ventana que cruza el fin de año (ej. 26-12 → 06-01)
+        return hoy_md >= ini_md or hoy_md <= fin_md
+    if ini_md:
+        return hoy_md >= ini_md
+    if fin_md:
+        return hoy_md <= fin_md
+    return True
+
+
 def obtener_descuentos_programados(cursor) -> list:
     """Devuelve las campañas de descuento automáticas (sin código) vigentes,
-    es decir las que reflejan un precio_oferta directamente en el catálogo."""
+    es decir las que reflejan un precio_oferta directamente en el catálogo.
+    Filtra las fechas en Python para soportar campañas recurrentes anuales."""
     ahora = datetime.now().strftime("%Y-%m-%d")
-    cursor.execute("""
-        SELECT * FROM descuentos
-        WHERE codigo IS NULL AND activo = 1
-        AND (fecha_inicio IS NULL OR fecha_inicio = '' OR fecha_inicio <= ?)
-        AND (fecha_fin IS NULL OR fecha_fin = '' OR fecha_fin >= ?)
-    """, (ahora, ahora))
-    return [dict(r) for r in cursor.fetchall()]
+    cursor.execute("SELECT * FROM descuentos WHERE codigo IS NULL AND activo = 1")
+    return [dict(r) for r in cursor.fetchall() if _fecha_campana_vigente(dict(r), ahora)]
 
 
 def calcular_precio_oferta(producto: dict, descuentos_programados: list) -> Optional[float]:
@@ -778,10 +818,14 @@ def _validar_descuento_row(d: Optional[dict], email: Optional[str], subtotal: fl
         return {"valido": False, "motivo": "Este código ya no está activo", "permanente": True}
 
     ahora = datetime.now().strftime("%Y-%m-%d")
-    if d.get("fecha_inicio") and ahora < d["fecha_inicio"]:
-        return {"valido": False, "motivo": "Este código todavía no está vigente", "permanente": False}
-    if d.get("fecha_fin") and ahora > d["fecha_fin"]:
-        return {"valido": False, "motivo": "Este código expiró", "permanente": True}
+    if not _fecha_campana_vigente(d, ahora):
+        # Campaña recurrente fuera de ventana: no es permanente (vuelve el año
+        # que viene / cuando entre en su rango). Una campaña no recurrente ya
+        # vencida sí es permanente.
+        recurrente = bool(d.get("recurrente_anual"))
+        vencida = (not recurrente and d.get("fecha_fin") and ahora > d["fecha_fin"])
+        motivo = "Este código expiró" if vencida else "Este código no está vigente en esta fecha"
+        return {"valido": False, "motivo": motivo, "permanente": vencida}
 
     if d.get("uso_maximo") is not None and (d.get("usos_actuales") or 0) >= d["uso_maximo"]:
         return {"valido": False, "motivo": "Este código alcanzó el límite de usos", "permanente": True}
@@ -1756,14 +1800,16 @@ def crear_descuento(datos: Descuento, x_admin_password: Optional[str] = Header(N
     cursor.execute("""
         INSERT INTO descuentos (
             nombre, tipo, valor, alcance, categoria, skus, codigo, email_asociado,
-            fecha_inicio, fecha_fin, activo, uso_maximo, mostrar_banner, banner_titulo, banner_texto
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            fecha_inicio, fecha_fin, activo, uso_maximo, mostrar_banner, banner_titulo,
+            banner_texto, recurrente_anual
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         datos.nombre, datos.tipo, datos.valor, datos.alcance, datos.categoria or "",
         json.dumps(datos.skus or []), (datos.codigo or None), (datos.email_asociado or None),
         (datos.fecha_inicio or None), (datos.fecha_fin or None), 1 if datos.activo else 0,
         datos.uso_maximo, 1 if datos.mostrar_banner else 0,
         datos.banner_titulo or "", datos.banner_texto or "",
+        1 if datos.recurrente_anual else 0,
     ))
     conn.commit()
     descuento_id = cursor.lastrowid
@@ -1789,7 +1835,8 @@ def editar_descuento(descuento_id: int, datos: Descuento, x_admin_password: Opti
         UPDATE descuentos SET
             nombre = ?, tipo = ?, valor = ?, alcance = ?, categoria = ?, skus = ?,
             codigo = ?, email_asociado = ?, fecha_inicio = ?, fecha_fin = ?,
-            activo = ?, uso_maximo = ?, mostrar_banner = ?, banner_titulo = ?, banner_texto = ?
+            activo = ?, uso_maximo = ?, mostrar_banner = ?, banner_titulo = ?, banner_texto = ?,
+            recurrente_anual = ?
         WHERE id = ?
     """, (
         datos.nombre, datos.tipo, datos.valor, datos.alcance, datos.categoria or "",
@@ -1797,6 +1844,7 @@ def editar_descuento(descuento_id: int, datos: Descuento, x_admin_password: Opti
         (datos.fecha_inicio or None), (datos.fecha_fin or None), 1 if datos.activo else 0,
         datos.uso_maximo, 1 if datos.mostrar_banner else 0,
         datos.banner_titulo or "", datos.banner_texto or "",
+        1 if datos.recurrente_anual else 0,
         descuento_id,
     ))
     conn.commit()

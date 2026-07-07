@@ -23,7 +23,20 @@ function formatFechaSimple(f) {
   return `${partes[2]}/${partes[1]}/${partes[0]}`;
 }
 
+function formatMesDia(f) {
+  if (!f) return null;
+  const partes = f.split('-');
+  if (partes.length !== 3) return f;
+  return `${partes[2]}/${partes[1]}`;
+}
+
 function describirVigencia(d) {
+  if (d.recurrente_anual) {
+    const desde = formatMesDia(d.fecha_inicio);
+    const hasta = formatMesDia(d.fecha_fin);
+    const rango = (desde && hasta) ? `${desde} - ${hasta}` : (desde ? `Desde ${desde}` : (hasta ? `Hasta ${hasta}` : 'Todo el año'));
+    return `🔁 ${rango} <span class="cell-muted" style="font-size:11px">(todos los años)</span>`;
+  }
   const desde = formatFechaSimple(d.fecha_inicio);
   const hasta = formatFechaSimple(d.fecha_fin);
   if (desde && hasta) return `${desde} - ${hasta}`;
@@ -97,6 +110,7 @@ function resetModalDescuento() {
   document.getElementById('modal-descuento-banner').checked = false;
   document.getElementById('modal-descuento-banner-titulo').value = '';
   document.getElementById('modal-descuento-banner-texto').value = '';
+  document.getElementById('modal-descuento-recurrente').checked = false;
   toggleAlcanceFields();
   toggleBannerFields();
 }
@@ -127,6 +141,7 @@ function abrirEditarDescuento(id) {
   document.getElementById('modal-descuento-banner').checked = !!d.mostrar_banner;
   document.getElementById('modal-descuento-banner-titulo').value = d.banner_titulo || '';
   document.getElementById('modal-descuento-banner-texto').value = d.banner_texto || '';
+  document.getElementById('modal-descuento-recurrente').checked = !!d.recurrente_anual;
   toggleAlcanceFields();
   toggleBannerFields();
 
@@ -164,6 +179,7 @@ document.getElementById('btn-guardar-descuento').addEventListener('click', async
     mostrar_banner: document.getElementById('modal-descuento-banner').checked,
     banner_titulo: document.getElementById('modal-descuento-banner-titulo').value.trim(),
     banner_texto: document.getElementById('modal-descuento-banner-texto').value.trim(),
+    recurrente_anual: document.getElementById('modal-descuento-recurrente').checked,
   };
 
   const id = e.target.dataset.id;
