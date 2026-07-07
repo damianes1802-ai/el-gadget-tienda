@@ -83,7 +83,101 @@ function toggleAlcanceFields() {
   const alcance = document.getElementById('modal-descuento-alcance').value;
   document.getElementById('modal-descuento-categoria-wrap').style.display = alcance === 'categoria' ? '' : 'none';
   document.getElementById('modal-descuento-skus-wrap').style.display = alcance === 'skus' ? '' : 'none';
+  if (alcance === 'categoria') cargarCategoriasDescuento();
 }
+
+/* ── Categorías: select poblado desde el API (evita errores de tipeo) ── */
+let _categoriasDescCargadas = false;
+async function cargarCategoriasDescuento(valorActual) {
+  const sel = document.getElementById('modal-descuento-categoria');
+  if (!_categoriasDescCargadas) {
+    try {
+      const cats = await apiCall('get_categorias');
+      (cats || []).forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.categoria;
+        opt.textContent = `${c.categoria} (${c.total})`;
+        sel.appendChild(opt);
+      });
+      _categoriasDescCargadas = true;
+    } catch (e) { /* si falla, el select queda con la opción vacía */ }
+  }
+  if (valorActual) {
+    // Si la categoría guardada no está en la lista (vieja/renombrada), agregarla
+    if (![...sel.options].some(o => o.value === valorActual)) {
+      const opt = document.createElement('option');
+      opt.value = valorActual;
+      opt.textContent = `${valorActual} (no encontrada en el catálogo actual)`;
+      sel.appendChild(opt);
+    }
+    sel.value = valorActual;
+  }
+}
+
+/* ── SKUs: buscador con resultados clickeables + chips ──
+   El textarea oculto modal-descuento-skus sigue siendo la fuente de datos
+   (separados por coma), así guardar/editar no cambian. */
+const _skuNombres = {};  // sku -> nombre (para mostrar chips lindos)
+
+function _skusActuales() {
+  return document.getElementById('modal-descuento-skus').value
+    .split(',').map(s => s.trim()).filter(Boolean);
+}
+
+function _setSkus(lista) {
+  document.getElementById('modal-descuento-skus').value = lista.join(', ');
+  renderSkuChips();
+}
+
+function renderSkuChips() {
+  const wrap = document.getElementById('modal-descuento-sku-chips');
+  const skus = _skusActuales();
+  if (!skus.length) { wrap.innerHTML = '<span class="cell-muted" style="font-size:12px">Ningún producto seleccionado</span>'; return; }
+  wrap.innerHTML = skus.map(sku => `
+    <span style="display:inline-flex;align-items:center;gap:6px;background:var(--cream,#F7F6F3);border:1px solid var(--gray-200,#e5e7eb);border-radius:16px;padding:3px 10px;font-size:12px">
+      <strong>${escapeHtml(sku)}</strong>${_skuNombres[sku] ? ` <span class="cell-muted">${escapeHtml(String(_skuNombres[sku]).slice(0, 34))}</span>` : ''}
+      <button type="button" onclick="quitarSkuDescuento('${escapeHtml(sku)}')" style="border:none;background:none;cursor:pointer;font-weight:700;color:var(--gray-600,#6b7280);padding:0">✕</button>
+    </span>`).join('');
+}
+
+function agregarSkuDescuento(sku, nombre) {
+  _skuNombres[sku] = nombre || _skuNombres[sku] || '';
+  const skus = _skusActuales();
+  if (!skus.includes(sku)) skus.push(sku);
+  _setSkus(skus);
+  document.getElementById('modal-descuento-sku-buscar').value = '';
+  document.getElementById('modal-descuento-sku-resultados').style.display = 'none';
+}
+
+function quitarSkuDescuento(sku) {
+  _setSkus(_skusActuales().filter(s => s !== sku));
+}
+
+let _skuBuscarTimer = null;
+document.getElementById('modal-descuento-sku-buscar').addEventListener('input', (e) => {
+  const term = e.target.value.trim();
+  clearTimeout(_skuBuscarTimer);
+  const resDiv = document.getElementById('modal-descuento-sku-resultados');
+  if (term.length < 2) { resDiv.style.display = 'none'; return; }
+  _skuBuscarTimer = setTimeout(async () => {
+    try {
+      const productos = await apiCall('get_productos', null, term, true);
+      const lista = (productos || []).slice(0, 8);
+      if (!lista.length) {
+        resDiv.innerHTML = '<div style="padding:10px 12px;font-size:12.5px" class="cell-muted">Sin resultados</div>';
+      } else {
+        resDiv.innerHTML = lista.map(p => `
+          <div onclick="agregarSkuDescuento('${escapeHtml(p.sku)}', '${escapeHtml((p.nombre || '').replace(/'/g, ''))}')"
+               style="padding:8px 12px;font-size:12.5px;cursor:pointer;border-bottom:1px solid var(--gray-100,#f3f4f6)"
+               onmouseover="this.style.background='var(--cream,#F7F6F3)'" onmouseout="this.style.background=''">
+            <strong>${escapeHtml(p.sku)}</strong> — ${escapeHtml(p.nombre || '')}
+            <span class="cell-muted">(${formatPrice(p.precio_venta)}${(p.stock || 0) <= 0 ? ' · sin stock' : ''})</span>
+          </div>`).join('');
+      }
+      resDiv.style.display = '';
+    } catch (err) { resDiv.style.display = 'none'; }
+  }, 300);
+});
 
 function toggleBannerFields() {
   const activo = document.getElementById('modal-descuento-banner').checked;
@@ -102,6 +196,9 @@ function resetModalDescuento() {
   document.getElementById('modal-descuento-alcance').value = 'todos';
   document.getElementById('modal-descuento-categoria').value = '';
   document.getElementById('modal-descuento-skus').value = '';
+  document.getElementById('modal-descuento-sku-buscar').value = '';
+  document.getElementById('modal-descuento-sku-resultados').style.display = 'none';
+  renderSkuChips();
   document.getElementById('modal-descuento-codigo').value = '';
   document.getElementById('modal-descuento-fecha-inicio').value = '';
   document.getElementById('modal-descuento-fecha-fin').value = '';
@@ -131,11 +228,14 @@ function abrirEditarDescuento(id) {
   document.getElementById('modal-descuento-tipo').value = d.tipo || 'porcentaje';
   document.getElementById('modal-descuento-valor').value = d.valor ?? '';
   document.getElementById('modal-descuento-alcance').value = d.alcance || 'todos';
-  document.getElementById('modal-descuento-categoria').value = d.categoria || '';
+  cargarCategoriasDescuento(d.categoria || '');
   document.getElementById('modal-descuento-skus').value = (d.skus || []).join(', ');
+  renderSkuChips();
   document.getElementById('modal-descuento-codigo').value = d.codigo || '';
-  document.getElementById('modal-descuento-fecha-inicio').value = d.fecha_inicio || '';
-  document.getElementById('modal-descuento-fecha-fin').value = d.fecha_fin || '';
+  // Los inputs type="date" solo aceptan exactamente 'YYYY-MM-DD': recortar
+  // cualquier resto (hora, espacios) para que la fecha guardada siempre aparezca.
+  document.getElementById('modal-descuento-fecha-inicio').value = (d.fecha_inicio || '').slice(0, 10);
+  document.getElementById('modal-descuento-fecha-fin').value = (d.fecha_fin || '').slice(0, 10);
   document.getElementById('modal-descuento-uso-maximo').value = d.uso_maximo ?? '';
   document.getElementById('modal-descuento-activo').checked = !!d.activo;
   document.getElementById('modal-descuento-banner').checked = !!d.mostrar_banner;
@@ -158,6 +258,17 @@ document.getElementById('btn-guardar-descuento').addEventListener('click', async
   }
   if (isNaN(valor) || valor <= 0) {
     toast('Ingresá un valor de descuento válido', 'error');
+    return;
+  }
+
+  // Una campaña recurrente sin fechas completas quedaría activa TODO el año.
+  // El input type="date" devuelve '' si la fecha está incompleta (ej: sin año),
+  // así que exigimos ambas fechas completas — con cualquier año, se ignora.
+  const recurrenteChk = document.getElementById('modal-descuento-recurrente').checked;
+  const fIni = document.getElementById('modal-descuento-fecha-inicio').value;
+  const fFin = document.getElementById('modal-descuento-fecha-fin').value;
+  if (recurrenteChk && (!fIni || !fFin)) {
+    toast('Las campañas recurrentes necesitan fecha de inicio y fin COMPLETAS (poné cualquier año: se ignora, solo cuentan día y mes)', 'error');
     return;
   }
 

@@ -235,10 +235,12 @@ function agregarAlCarrito(sku) {
   const producto = todosLosProductos.find(p => p.sku === sku);
   if (!producto) return;
 
+  const enOferta = producto.precio_oferta != null && producto.precio_oferta < producto.precio_venta;
   addCartItem({
     sku: producto.sku,
     nombre: producto.nombre,
-    precio: producto.precio_venta,
+    precio: enOferta ? producto.precio_oferta : producto.precio_venta,
+    precio_lista: producto.precio_venta,
     imagen: producto.imagen_principal || '',
     cantidad: 1
   });

@@ -1789,11 +1789,24 @@ def listar_descuentos(x_admin_password: Optional[str] = Header(None)):
     return resultado
 
 
+def _validar_datos_descuento(datos: "Descuento"):
+    """Reglas comunes de crear/editar. Una campaña recurrente sin fechas
+    completas quedaría 'siempre vigente' (bug real: se activó Primavera en
+    julio), así que las exigimos acá aunque el panel también las valide."""
+    if datos.recurrente_anual and (not datos.fecha_inicio or not datos.fecha_fin):
+        raise HTTPException(
+            status_code=400,
+            detail="Una campaña recurrente necesita fecha de inicio y fin completas "
+                   "(con cualquier año — el año se ignora, solo cuenta el día y el mes)."
+        )
+
+
 @app.post("/api/admin/descuentos")
 def crear_descuento(datos: Descuento, x_admin_password: Optional[str] = Header(None)):
     """Crea una nueva campaña de descuento (código, programado o banner) (solo admin)"""
     if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
+    _validar_datos_descuento(datos)
 
     conn = get_db()
     cursor = conn.cursor()
@@ -1823,6 +1836,7 @@ def editar_descuento(descuento_id: int, datos: Descuento, x_admin_password: Opti
     """Edita una campaña de descuento existente (solo admin)"""
     if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
+    _validar_datos_descuento(datos)
 
     conn = get_db()
     cursor = conn.cursor()
@@ -1958,23 +1972,31 @@ def crear_orden(request: Request, orden: CrearOrden):
             ))
             cliente_id = cursor.lastrowid
         
-        # 2. Calcular total y preparar items
-        total = 0
+        # 2. Calcular total y preparar items.
+        # Cada ítem tiene dos precios posibles: el de lista (precio_venta) y el
+        # efectivo con oferta de temporada (precio_oferta, si hay campaña activa).
+        # Regla de negocio: los CÓDIGOS de descuento se calculan sobre el precio
+        # de LISTA y NO se combinan con las ofertas de temporada — al final se
+        # cobra el camino que más le convenga al cliente (nunca ambos), lo que
+        # además garantiza que ningún combo caiga por debajo del margen.
+        descuentos_programados = obtener_descuentos_programados(cursor)
+        total = 0            # subtotal a precio de lista
+        total_oferta = 0     # subtotal con precios de oferta (si aplican)
         items_con_precio = []
-        
+
         for item in orden.items:
             cursor.execute(
-                "SELECT sku, nombre, precio_venta, stock FROM productos WHERE sku = ?",
+                "SELECT sku, nombre, precio_venta, stock, categoria FROM productos WHERE sku = ?",
                 (item.sku,)
             )
             producto = cursor.fetchone()
-            
+
             if not producto:
                 raise HTTPException(
                     status_code=404,
                     detail=f"Producto {item.sku} no encontrado"
                 )
-            
+
             if item.cantidad > 15:
                 raise HTTPException(
                     status_code=400,
@@ -1986,17 +2008,25 @@ def crear_orden(request: Request, orden: CrearOrden):
                     status_code=400,
                     detail=f"Stock insuficiente para {producto['nombre']} (disponible: {producto['stock']})"
                 )
-            
-            subtotal = producto['precio_venta'] * item.cantidad
+
+            precio_lista = producto['precio_venta']
+            precio_efectivo = calcular_precio_oferta(dict(producto), descuentos_programados) or precio_lista
+
+            subtotal = precio_lista * item.cantidad
             total += subtotal
-            
+            total_oferta += precio_efectivo * item.cantidad
+
             items_con_precio.append({
                 'sku': item.sku,
                 'nombre': producto['nombre'],
                 'cantidad': item.cantidad,
-                'precio_unitario': producto['precio_venta'],
+                'precio_unitario': precio_lista,
+                'precio_oferta': precio_efectivo,
                 'subtotal': subtotal
             })
+
+        total_oferta = round(total_oferta, 2)
+        hay_oferta_temporada = total_oferta < total
         
         # 2.2 Validar y aplicar código de descuento (sobre el subtotal de productos)
         subtotal_productos = total
@@ -2055,6 +2085,31 @@ def crear_orden(request: Request, orden: CrearOrden):
 
         descuento_monto_total = descuento_monto + bienvenida_monto
 
+        # 2.4 Regla: códigos y ofertas de temporada NO se combinan. Se cobra el
+        # camino que más le convenga al cliente:
+        #   - camino código:  subtotal de lista − descuento de código(s)
+        #   - camino oferta:  subtotal con precios de oferta, sin códigos
+        # Con margen 160% cada camino por separado es rentable; apilados podrían
+        # no serlo (ej: 50% de bienvenida sobre un 30% de CyberMonday).
+        if hay_oferta_temporada and total_oferta <= total:
+            # Gana la oferta de temporada: los códigos NO se consumen (siguen
+            # disponibles para otra compra) y no generan comisión de referido.
+            total = total_oferta
+            descuento_fila = None
+            bienvenida_fila = None
+            descuento_codigo = None
+            descuento_monto = 0
+            bienvenida_monto = 0
+            descuento_monto_total = 0
+            # El subtotal de referencia pasa a ser el de oferta (los items ya
+            # llevan ese precio), para que el prorrateo de MP no descuente nada.
+            subtotal_productos = total_oferta
+            for it in items_con_precio:
+                it['precio_unitario'] = it['precio_oferta']
+                it['subtotal'] = round(it['precio_oferta'] * it['cantidad'], 2)
+        for it in items_con_precio:
+            it.pop('precio_oferta', None)
+
         # 2.1 Calcular costo de envío según zona del cliente
         envio = calcular_envio(orden.cliente.provincia or "", orden.cliente.partido or "")
         total += envio["costo"]
@@ -2107,10 +2162,12 @@ def crear_orden(request: Request, orden: CrearOrden):
         try:
             # Si hay descuento, se prorratea entre los items para que el total
             # cobrado por MP coincida con el total de la orden (MP no admite
-            # ítems con precio negativo)
+            # ítems con precio negativo). Usa el descuento TOTAL (código +
+            # bienvenida apilada); si ganó la oferta de temporada es 0 porque
+            # los items ya llevan el precio de oferta.
             factor_descuento = (
-                (subtotal_productos - descuento_monto) / subtotal_productos
-                if descuento_monto and subtotal_productos > 0 else 1
+                (subtotal_productos - descuento_monto_total) / subtotal_productos
+                if descuento_monto_total and subtotal_productos > 0 else 1
             )
             mp_items = [
                 {

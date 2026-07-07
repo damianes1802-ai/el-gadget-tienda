@@ -495,11 +495,17 @@
       </div>
       <div class="field" id="modal-descuento-categoria-wrap" style="display:none">
         <label>Categoría</label>
-        <input type="text" id="modal-descuento-categoria" placeholder="Ej: Tecnología">
+        <select id="modal-descuento-categoria">
+          <option value="">Elegí una categoría…</option>
+        </select>
       </div>
       <div class="field" id="modal-descuento-skus-wrap" style="display:none">
-        <label>SKUs (separados por coma)</label>
-        <textarea id="modal-descuento-skus" rows="2" placeholder="SKU1, SKU2, SKU3"></textarea>
+        <label>Productos incluidos (buscá y hacé clic para agregar)</label>
+        <input type="text" id="modal-descuento-sku-buscar" placeholder="Buscar por nombre o SKU…" autocomplete="off">
+        <div id="modal-descuento-sku-resultados" style="display:none;border:1px solid var(--gray-200,#e5e7eb);border-radius:8px;margin-top:4px;max-height:180px;overflow-y:auto;background:#fff"></div>
+        <div id="modal-descuento-sku-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"></div>
+        <textarea id="modal-descuento-skus" rows="2" style="display:none"></textarea>
+        <p class="field-hint">Los seleccionados quedan como etiquetas — clic en la ✕ para sacarlos.</p>
       </div>
       <div class="field">
         <label>Código de descuento (opcional)</label>
@@ -523,9 +529,9 @@
           🔁 Repetir todos los años (usa solo el día y el mes de la vigencia)
         </label>
         <p class="field-hint">Si lo activás, la campaña se aplica cada año en esas fechas automáticamente
-          — cargala una vez. El año de "Vigencia desde/hasta" se ignora (poné cualquiera). Sirve para
-          fechas fijas como Navidad, Día del Amigo, etc.; para fechas móviles (Día de la Madre/Padre/Niño)
-          ajustá el día cada año.</p>
+          — cargala una vez. ⚠️ <b>Completá las fechas ENTERAS, incluido un año cualquiera</b> (el año
+          se ignora, solo cuentan día y mes; si dejás el año vacío el campo se borra). Sirve para fechas
+          fijas como Navidad o Día del Amigo; para fechas móviles (Madre/Padre/Niño) ajustá el día cada año.</p>
       </div>
       <div class="field">
         <label>Límite de usos (opcional, sólo para códigos)</label>

@@ -54,6 +54,12 @@ function cartTotal(carrito) {
   return carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
 }
 
+/* Subtotal a precio de LISTA (sin ofertas de temporada). Los códigos de
+   descuento se calculan sobre este valor y no se combinan con ofertas. */
+function cartTotalLista(carrito) {
+  return carrito.reduce((s, i) => s + (i.precio_lista || i.precio) * i.cantidad, 0);
+}
+
 function formatPrice(val) {
   const n = parseFloat(val) || 0;
   return '$' + n.toLocaleString('es-AR', { maximumFractionDigits: 0 });
@@ -107,6 +113,7 @@ function addCartItem(item) {
       sku: item.sku,
       nombre: item.nombre,
       precio: item.precio,
+      precio_lista: item.precio_lista || item.precio,
       imagen: item.imagen || '',
       color: item.color || '',
       talle: item.talle || '',

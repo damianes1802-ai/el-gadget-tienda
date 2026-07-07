@@ -373,7 +373,7 @@ async function aplicarDescuentoBienvenida() {
       body: JSON.stringify({
         codigo: codigoBienvenida,
         email,
-        subtotal: cartTotal(carrito),
+        subtotal: cartTotalLista(carrito),
         skus: carrito.map(item => item.sku)
       })
     });
@@ -461,9 +461,21 @@ function renderResumen() {
     return;
   }
 
+  // Regla (espejo del servidor): los códigos se calculan sobre el precio de
+  // LISTA y NO se combinan con ofertas de temporada — se aplica el camino más
+  // conveniente para el cliente.
+  const subtotalOferta = cartTotal(carrito);        // precios con oferta
+  const subtotalLista = cartTotalLista(carrito);    // precios de lista
+  const descCodigos = (descuentoAplicado ? descuentoAplicado.monto_descuento : 0)
+    + (descuentoBienvenidaExtra ? descuentoBienvenidaExtra.monto_descuento : 0);
+  const hayOferta = subtotalOferta < subtotalLista;
+  const hayCodigo = descCodigos > 0;
+  const ganaOferta = hayOferta && subtotalOferta <= (subtotalLista - descCodigos);
+
   let subtotal = 0;
   itemsEl.innerHTML = carrito.map(item => {
-    const sub = item.precio * item.cantidad;
+    const unit = ganaOferta ? item.precio : (item.precio_lista || item.precio);
+    const sub = unit * item.cantidad;
     subtotal += sub;
     return `
       <div class="summary-item">
@@ -491,14 +503,26 @@ function renderResumen() {
   }
 
   let descuentoHtml = '';
-  if (descuentoAplicado) {
-    total -= descuentoAplicado.monto_descuento;
-    const etiqueta = descuentoAplicado.esBienvenida ? `🎉 Descuento de bienvenida (${descuentoAplicado.porcentaje || 10}%)` : `🏷️ Descuento referido (${descuentoAplicado.codigo})`;
-    descuentoHtml = `<div class="summary-line"><span>${etiqueta}</span><span>-${formatPrice(descuentoAplicado.monto_descuento)}</span></div>`;
-  }
-  if (descuentoBienvenidaExtra) {
-    total -= descuentoBienvenidaExtra.monto_descuento;
-    descuentoHtml += `<div class="summary-line"><span>🎉 Descuento de bienvenida (${descuentoBienvenidaExtra.porcentaje || 10}%)</span><span>-${formatPrice(descuentoBienvenidaExtra.monto_descuento)}</span></div>`;
+  if (ganaOferta) {
+    if (hayOferta) {
+      descuentoHtml += `<div class="summary-line"><span>🔥 Precios de oferta aplicados</span><span>-${formatPrice(subtotalLista - subtotalOferta)}</span></div>`;
+    }
+    if (hayCodigo) {
+      descuentoHtml += `<div class="summary-line"><span class="shipping-info">🏷️ Tu código no se sumó: la oferta vigente ya te conviene más (no se combinan)</span><span></span></div>`;
+    }
+  } else {
+    if (descuentoAplicado) {
+      total -= descuentoAplicado.monto_descuento;
+      const etiqueta = descuentoAplicado.esBienvenida ? `🎉 Descuento de bienvenida (${descuentoAplicado.porcentaje || 10}%)` : `🏷️ Descuento referido (${descuentoAplicado.codigo})`;
+      descuentoHtml = `<div class="summary-line"><span>${etiqueta}</span><span>-${formatPrice(descuentoAplicado.monto_descuento)}</span></div>`;
+    }
+    if (descuentoBienvenidaExtra) {
+      total -= descuentoBienvenidaExtra.monto_descuento;
+      descuentoHtml += `<div class="summary-line"><span>🎉 Descuento de bienvenida (${descuentoBienvenidaExtra.porcentaje || 10}%)</span><span>-${formatPrice(descuentoBienvenidaExtra.monto_descuento)}</span></div>`;
+    }
+    if (hayCodigo && hayOferta) {
+      descuentoHtml += `<div class="summary-line"><span class="shipping-info">Los códigos se calculan sobre el precio de lista (no se combinan con ofertas)</span><span></span></div>`;
+    }
   }
 
   totalesEl.innerHTML = `
@@ -530,7 +554,7 @@ async function aplicarCodigoDescuento() {
       body: JSON.stringify({
         codigo,
         email: document.getElementById('email').value.trim(),
-        subtotal: cartTotal(carrito),
+        subtotal: cartTotalLista(carrito),
         skus: carrito.map(item => item.sku)
       })
     });
