@@ -399,8 +399,22 @@ async function aplicarDescuentoBienvenida() {
         if (banner) banner.innerHTML = '✅ <strong>¡Tu ' + pct + '% OFF de bienvenida está aplicado!</strong> Ya lo ves en el resumen.';
       }
       renderResumen();
+    } else if (data.permanente) {
+      // El código de bienvenida ya no existe / expiró / se agotó: limpiar el
+      // recordatorio para que no quede un banner fantasma en las próximas visitas.
+      limpiarBienvenidaLocal();
+      const banner = document.getElementById('bannerBienvenida');
+      if (banner) banner.style.display = 'none';
     }
   } catch (e) {}
+}
+
+function limpiarBienvenidaLocal() {
+  localStorage.removeItem('eg_descuento_codigo');
+  localStorage.removeItem('eg_descuento_pendiente');
+  localStorage.removeItem('eg_email_registrado');
+  const wb = document.getElementById('egWelcomeBanner');
+  if (wb) wb.remove();
 }
 
 async function cargarZonasEnvio() {

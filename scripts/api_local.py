@@ -767,28 +767,32 @@ def calcular_precio_oferta(producto: dict, descuentos_programados: list) -> Opti
 def _validar_descuento_row(d: Optional[dict], email: Optional[str], subtotal: float, skus: Optional[List[str]] = None) -> dict:
     """Valida una campaña de descuento con código contra el email y el
     subtotal del carrito, y calcula el monto a descontar."""
+    # 'permanente' indica que el código nunca va a volver a funcionar (muerto):
+    # no existe, se desactivó, expiró o agotó sus usos. El frontend usa esto
+    # para limpiar el recordatorio de bienvenida del localStorage. Los fallos
+    # condicionales (falta mínimo, otro email, aún no vigente) NO son permanentes.
     if not d:
-        return {"valido": False, "motivo": "Código de descuento inválido"}
+        return {"valido": False, "motivo": "Código de descuento inválido", "permanente": True}
 
     if not d.get("activo"):
-        return {"valido": False, "motivo": "Este código ya no está activo"}
+        return {"valido": False, "motivo": "Este código ya no está activo", "permanente": True}
 
     ahora = datetime.now().strftime("%Y-%m-%d")
     if d.get("fecha_inicio") and ahora < d["fecha_inicio"]:
-        return {"valido": False, "motivo": "Este código todavía no está vigente"}
+        return {"valido": False, "motivo": "Este código todavía no está vigente", "permanente": False}
     if d.get("fecha_fin") and ahora > d["fecha_fin"]:
-        return {"valido": False, "motivo": "Este código expiró"}
+        return {"valido": False, "motivo": "Este código expiró", "permanente": True}
 
     if d.get("uso_maximo") is not None and (d.get("usos_actuales") or 0) >= d["uso_maximo"]:
-        return {"valido": False, "motivo": "Este código alcanzó el límite de usos"}
+        return {"valido": False, "motivo": "Este código alcanzó el límite de usos", "permanente": True}
 
     if d.get("email_asociado"):
         if not email or email.strip().lower() != d["email_asociado"].strip().lower():
-            return {"valido": False, "motivo": "Este código no corresponde a tu cuenta"}
+            return {"valido": False, "motivo": "Este código no corresponde a tu cuenta", "permanente": False}
 
     if d.get("monto_minimo") is not None and subtotal < d["monto_minimo"]:
         minimo_fmt = f"${d['monto_minimo']:,.0f}".replace(",", ".")
-        return {"valido": False, "motivo": f"Este código requiere un mínimo de {minimo_fmt} en el carrito"}
+        return {"valido": False, "motivo": f"Este código requiere un mínimo de {minimo_fmt} en el carrito", "permanente": False}
 
     # Verificar si el código pertenece a un referido
     if d.get("codigo"):
@@ -1400,17 +1404,27 @@ def eliminar_usuario_registrado(usuario_id: int, x_admin_password: Optional[str]
     conn = get_db()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT id FROM usuarios_registrados WHERE id = ?", (usuario_id,))
-    if not cursor.fetchone():
+    cursor.execute("SELECT id, email FROM usuarios_registrados WHERE id = ?", (usuario_id,))
+    fila = cursor.fetchone()
+    if not fila:
         conn.close()
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    email_usuario = fila["email"] if "email" in fila.keys() else fila[1]
 
     cursor.execute("DELETE FROM sesiones_usuario WHERE usuario_id = ?", (usuario_id,))
     cursor.execute("DELETE FROM usuarios_registrados WHERE id = ?", (usuario_id,))
+    # Eliminar también los códigos personales del usuario (bienvenida, mayorista):
+    # si no, quedan huérfanos en la tabla de descuentos y su código de
+    # bienvenida seguiría siendo válido pese a estar el usuario eliminado.
+    codigos_borrados = 0
+    if email_usuario:
+        cursor.execute("DELETE FROM descuentos WHERE email_asociado = ?", (email_usuario.lower(),))
+        codigos_borrados = cursor.rowcount
     conn.commit()
     conn.close()
 
-    return {"mensaje": "Usuario eliminado", "usuario_id": usuario_id}
+    return {"mensaje": "Usuario eliminado", "usuario_id": usuario_id,
+            "codigos_eliminados": codigos_borrados}
 
 
 @app.post("/api/admin/usuarios/{usuario_id}/mayorista")
