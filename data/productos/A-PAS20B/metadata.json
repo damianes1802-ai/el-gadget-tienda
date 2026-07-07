@@ -36,7 +36,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-enteriza-combinada-margaritas.html",
-  "fecha_scraping": "2026-07-06T06:30:04.815298",
+  "fecha_scraping": "2026-07-07T04:32:07.507985",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -46,7 +46,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-06T06:33:42.842866",
+  "fecha_mapeo_categorias": "2026-07-07T04:38:51.621816",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20B_002",
@@ -65,5 +65,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 43500.0,
-  "fecha_calculo_precio": "2026-07-06T15:49:50.654217"
+  "fecha_calculo_precio": "2026-07-07T04:39:53.336451"
 }

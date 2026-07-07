@@ -14,7 +14,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/inflable-cisne-para-pileta-1-52m-x-0-89m.html",
-  "fecha_scraping": "2026-07-06T06:28:37.940377",
+  "fecha_scraping": "2026-07-07T04:32:45.405446",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -24,7 +24,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-06T06:33:42.843499",
+  "fecha_mapeo_categorias": "2026-07-07T04:38:51.620552",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-004_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-004_002",
@@ -43,5 +43,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 66000.0,
-  "fecha_calculo_precio": "2026-07-06T15:49:50.635044"
+  "fecha_calculo_precio": "2026-07-07T04:39:53.329454"
 }

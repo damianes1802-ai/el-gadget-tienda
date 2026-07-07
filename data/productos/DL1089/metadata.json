@@ -14,7 +14,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/tapa-enchufes-de-seguridad-x24.html",
-  "fecha_scraping": "2026-07-06T06:27:16.897690",
+  "fecha_scraping": "2026-07-07T04:33:22.351816",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Home",
@@ -27,7 +27,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-06T06:33:42.817031",
+  "fecha_mapeo_categorias": "2026-07-07T04:38:51.596429",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1089_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1089_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8000.0,
-  "fecha_calculo_precio": "2026-07-06T15:49:50.704254"
+  "fecha_calculo_precio": "2026-07-07T04:39:53.354485"
 }

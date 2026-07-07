@@ -16,7 +16,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cartera-sobre-mujer-transparente-con-lentejuelas-pvc-1.html",
-  "fecha_scraping": "2026-07-06T06:29:33.851808",
+  "fecha_scraping": "2026-07-07T04:32:47.727616",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -26,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-06T06:33:42.794101",
+  "fecha_mapeo_categorias": "2026-07-07T04:38:51.567336",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_002",
@@ -47,5 +47,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 23500.0,
-  "fecha_calculo_precio": "2026-07-06T15:49:50.972640"
+  "fecha_calculo_precio": "2026-07-07T04:39:53.447158"
 }

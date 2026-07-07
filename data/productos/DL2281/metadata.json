@@ -32,16 +32,7 @@
   "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-06-25T04:44:56.035980",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_007",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2281_008"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 39990,
     "cargos_fijos": 0,
@@ -54,6 +45,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 104000.0,
-  "fecha_calculo_precio": "2026-07-06T15:49:50.852099",
+  "fecha_calculo_precio": "2026-07-07T04:39:53.409210",
   "fecha_agotado": "2026-07-06T15:46:53.569347"
 }
