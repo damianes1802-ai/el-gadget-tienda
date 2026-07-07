@@ -7,6 +7,17 @@ let _desactivarRefId = null;
 let _eliminarRefId = null;
 let _detalleReferidoData = null;
 
+async function exportarComisiones() {
+  try {
+    const r = await apiCall('exportar_comisiones_csv', null);
+    if (r && r.ok) toast('CSV de comisiones guardado en: ' + r.ruta, 'success');
+    else if (r && r.cancelado) { /* usuario canceló */ }
+    else toast('Error al exportar: ' + (r && r.error || 'desconocido'), 'error');
+  } catch (e) {
+    toast('Error al exportar comisiones: ' + e.message, 'error');
+  }
+}
+
 async function loadReferidos() {
   const tbody = document.getElementById('referidos-tbody');
   tbody.innerHTML = '<tr class="loading-row"><td colspan="10">Cargando…</td></tr>';

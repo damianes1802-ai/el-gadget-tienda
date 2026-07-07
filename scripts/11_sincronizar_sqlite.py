@@ -206,6 +206,8 @@ class SincronizadorSQLiteOptimizado:
             cursor.execute("ALTER TABLE productos ADD COLUMN overrides_manuales TEXT")
         if 'stock_manual' not in columnas:
             cursor.execute("ALTER TABLE productos ADD COLUMN stock_manual INTEGER NOT NULL DEFAULT 0")
+        if 'nombre_original' not in columnas:
+            cursor.execute("ALTER TABLE productos ADD COLUMN nombre_original TEXT DEFAULT ''")
 
         # ÍNDICES para optimizar búsquedas
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_productos_categoria ON productos(categoria)")
@@ -320,6 +322,7 @@ class SincronizadorSQLiteOptimizado:
                 
                 # Extraer datos del metadata
                 nombre = metadata.get('titulo', '')
+                nombre_original = metadata.get('titulo', '')  # nombre del proveedor, sin reescritura SEO
                 descripcion = metadata.get('descripcion', '')
 
                 # Preservar copy optimizado con IA (no pisar con el scrape del proveedor)
@@ -415,7 +418,8 @@ class SincronizadorSQLiteOptimizado:
                     url_amigable,
                     variantes_internas,
                     seo_optimizado_at,
-                    overrides_manuales
+                    overrides_manuales,
+                    nombre_original
                 ))
                 
                 # Historial de precio
@@ -497,8 +501,8 @@ class SincronizadorSQLiteOptimizado:
                     imagen_principal, imagenes_adicionales,
                     item_group_id, color, talle, material, peso,
                     link_producto, url_amigable, variantes_internas, seo_optimizado_at,
-                    overrides_manuales, actualizado_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+                    overrides_manuales, nombre_original, actualizado_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
             """, productos_data)
             
             # BULK INSERT historial

@@ -20,6 +20,7 @@ from utils.config import Config
 logger = get_logger('facturacion_afip')
 
 CBTE_TIPO_FACTURA_C = 11
+CBTE_TIPO_NOTA_CREDITO_C = 13
 CONCEPTO_PRODUCTOS = 1
 DOC_TIPO_CUIT = 80
 DOC_TIPO_DNI = 96
@@ -154,4 +155,83 @@ def generar_factura_c(orden_id: int, cliente: dict, total: float) -> dict:
         }
     except Exception as e:
         logger.error(f"Error generando factura AFIP para orden {orden_id}: {e}")
+        return {'error': str(e)}
+
+
+def generar_nota_credito_c(orden_id: int, cliente: dict, total: float,
+                           factura_original: dict) -> dict:
+    """
+    Genera una Nota de Crédito C que anula (total o parcialmente) una Factura C
+    ya emitida. Se usa al reembolsar una venta: fiscalmente la factura original
+    no se "borra", se compensa con esta nota.
+
+    Args:
+        orden_id: ID interno de la orden (para logging)
+        cliente: dict con datos del cliente (al menos 'cuit_dni')
+        total: importe a acreditar (normalmente el total de la factura original)
+        factura_original: dict con 'tipo', 'punto_venta', 'numero' de la factura
+            que se está anulando (para el comprobante asociado obligatorio)
+
+    Returns:
+        dict con datos de la nota de crédito, o dict con 'error' si falló.
+    """
+    if not facturacion_habilitada():
+        return {'error': 'Facturación AFIP no configurada (falta AFIP_ACCESS_TOKEN)'}
+
+    if not factura_original or not factura_original.get('numero'):
+        return {'error': 'Falta la factura original a anular'}
+
+    try:
+        afip = _get_afip_client()
+        env = Config.cargar_env()
+        punto_venta = int(env.get('AFIP_PUNTO_VENTA', '1'))
+
+        doc_tipo, doc_nro = _doc_tipo_y_nro(cliente.get('cuit_dni', ''))
+        total_redondeado = round(float(total), 2)
+
+        data = {
+            'CantReg': 1,
+            'PtoVta': punto_venta,
+            'CbteTipo': CBTE_TIPO_NOTA_CREDITO_C,
+            'Concepto': CONCEPTO_PRODUCTOS,
+            'DocTipo': doc_tipo,
+            'DocNro': doc_nro,
+            'CbteFch': int(datetime.now().strftime('%Y%m%d')),
+            'ImpTotal': total_redondeado,
+            'ImpTotConc': 0,
+            'ImpNeto': total_redondeado,
+            'ImpOpEx': 0,
+            'ImpIVA': 0,
+            'ImpTrib': 0,
+            'MonId': 'PES',
+            'MonCotiz': 1,
+            'CondicionIVAReceptorId': CONDICION_IVA_CONSUMIDOR_FINAL,
+            # Comprobante asociado obligatorio: la factura que se anula.
+            'CbtesAsoc': [{
+                'Tipo': int(factura_original.get('tipo', CBTE_TIPO_FACTURA_C)),
+                'PtoVta': int(factura_original['punto_venta']),
+                'Nro': int(factura_original['numero']),
+            }],
+        }
+
+        resultado = afip.ElectronicBilling.createNextVoucher(data)
+
+        logger.info(
+            f"Nota de Crédito C generada para orden {orden_id} ({entorno_afip()}): "
+            f"{punto_venta:04d}-{resultado['voucherNumber']:08d} CAE {resultado['CAE']} "
+            f"(anula {factura_original['punto_venta']:04d}-{factura_original['numero']:08d})"
+        )
+
+        return {
+            'tipo': CBTE_TIPO_NOTA_CREDITO_C,
+            'punto_venta': punto_venta,
+            'numero': resultado['voucherNumber'],
+            'cae': resultado['CAE'],
+            'cae_vencimiento': resultado['CAEFchVto'],
+            'fecha': datetime.now().strftime('%Y-%m-%d'),
+            'doc_tipo': doc_tipo,
+            'doc_nro': doc_nro,
+        }
+    except Exception as e:
+        logger.error(f"Error generando nota de crédito AFIP para orden {orden_id}: {e}")
         return {'error': str(e)}

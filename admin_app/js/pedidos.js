@@ -121,7 +121,13 @@ async function verPedido(id) {
 
     let facturaHtml;
     if (o.factura_cae) {
-      facturaHtml = `<span class="badge badge-green">Factura C ${String(o.factura_punto_venta).padStart(4,'0')}-${String(o.factura_numero).padStart(8,'0')} · CAE ${o.factura_cae}</span>`;
+      facturaHtml = `<span class="badge badge-green">Factura C ${String(o.factura_punto_venta).padStart(4,'0')}-${String(o.factura_numero).padStart(8,'0')} · CAE ${o.factura_cae}</span>`
+        + ` <button class="btn btn-dark btn-sm" style="margin-left:6px" onclick="descargarFactura(${o.id})">Descargar PDF</button>`;
+      if (o.nc_cae) {
+        facturaHtml += ` <span class="badge badge-gray" style="margin-left:6px">NC ${String(o.nc_punto_venta).padStart(4,'0')}-${String(o.nc_numero).padStart(8,'0')} (anulada)</span>`;
+      } else {
+        facturaHtml += ` <button class="btn btn-sm" style="margin-left:6px;background:var(--red,#c0392b);color:#fff" onclick="emitirNotaCredito(${o.id})">Nota de crédito</button>`;
+      }
     } else if (o.factura_error) {
       facturaHtml = `<span class="badge badge-red">Error: ${escapeHtml(o.factura_error)}</span>`;
     } else {
@@ -265,6 +271,31 @@ async function reprocesarPago(id) {
     loadPedidos();
   } catch (e) {
     toast('Error al reprocesar: ' + e.message, 'error');
+  }
+}
+
+async function descargarFactura(id) {
+  try {
+    const r = await apiCall('descargar_factura_pdf', id);
+    if (r && r.ok) toast('Factura guardada en: ' + r.ruta, 'success');
+    else if (r && r.cancelado) { /* usuario canceló */ }
+    else toast('Error al descargar: ' + (r && r.error || 'desconocido'), 'error');
+  } catch (e) {
+    toast('Error al descargar la factura: ' + e.message, 'error');
+  }
+}
+
+async function emitirNotaCredito(id) {
+  if (!confirm('¿Emitir una Nota de Crédito C que anule esta factura ante ARCA? Usalo solo si reembolsaste la venta. Esta acción no se puede deshacer.')) return;
+  try {
+    const r = await apiCall('emitir_nota_credito', id);
+    if (r && r.error) { toast('ARCA rechazó la nota: ' + r.error, 'error'); return; }
+    toast('Nota de crédito emitida: ' + (r.nota_credito || ''), 'success');
+    if (pedidoActual && pedidoActual.id === id) {
+      pedidoActual.nc_cae = r.cae; await verPedido(id);
+    }
+  } catch (e) {
+    toast('Error al emitir la nota de crédito: ' + e.message, 'error');
   }
 }
 

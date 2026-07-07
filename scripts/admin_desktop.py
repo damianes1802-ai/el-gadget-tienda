@@ -287,6 +287,56 @@ class Api:
     def eliminar_usuario(self, usuario_id):
         return self._delete(f"/api/admin/usuarios/{usuario_id}")
 
+    # ── Facturación: descargar PDF y emitir nota de crédito ──
+    def descargar_factura_pdf(self, orden_id):
+        try:
+            resp = requests.get(
+                f"{API_URL}/api/admin/orden/{orden_id}/factura.pdf",
+                headers=self._headers(admin=True), timeout=30,
+            )
+            resp.raise_for_status()
+        except Exception as e:
+            return {"error": str(e)}
+        ruta = webview.windows[0].create_file_dialog(
+            webview.SAVE_DIALOG, save_filename=f'factura_orden_{orden_id}.pdf'
+        )
+        if not ruta:
+            return {"cancelado": True}
+        destino = ruta[0] if isinstance(ruta, (list, tuple)) else ruta
+        try:
+            with open(destino, 'wb') as f:
+                f.write(resp.content)
+            return {"ok": True, "ruta": destino}
+        except Exception as e:
+            return {"error": str(e)}
+
+    def emitir_nota_credito(self, orden_id):
+        return self._post(f"/api/admin/orden/{orden_id}/nota-credito")
+
+    def exportar_comisiones_csv(self, periodo=None):
+        try:
+            params = {"periodo": periodo} if periodo else None
+            resp = requests.get(
+                f"{API_URL}/api/admin/comisiones/pendientes.csv",
+                headers=self._headers(admin=True), params=params, timeout=20,
+            )
+            resp.raise_for_status()
+        except Exception as e:
+            return {"error": str(e)}
+        nombre = f'comisiones_{periodo or "pendientes"}.csv'
+        ruta = webview.windows[0].create_file_dialog(
+            webview.SAVE_DIALOG, save_filename=nombre
+        )
+        if not ruta:
+            return {"cancelado": True}
+        destino = ruta[0] if isinstance(ruta, (list, tuple)) else ruta
+        try:
+            with open(destino, 'wb') as f:
+                f.write(resp.content)
+            return {"ok": True, "ruta": destino}
+        except Exception as e:
+            return {"error": str(e)}
+
     # ── Historial de actualizaciones diarias (redeploys) ──
     def get_historial(self):
         return self._get("/api/admin/historial", admin=True)

@@ -21,7 +21,7 @@ http://localhost:8000 (API)
 
 from fastapi import FastAPI, HTTPException, Query, Header, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response, StreamingResponse
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
@@ -417,6 +417,11 @@ def migrar_db():
         ("factura_cae", "TEXT"),
         ("factura_cae_vencimiento", "TEXT"),
         ("factura_error", "TEXT"),
+        ("nc_punto_venta", "INTEGER"),
+        ("nc_numero", "INTEGER"),
+        ("nc_cae", "TEXT"),
+        ("nc_fecha", "TEXT"),
+        ("stock_descontado", "INTEGER DEFAULT 0"),
         ("email_confirmacion_enviado", "INTEGER DEFAULT 0"),
         ("costo_envio", "REAL DEFAULT 0"),
         ("zona_envio", "TEXT DEFAULT ''"),
@@ -440,6 +445,8 @@ def migrar_db():
     columnas_productos_existentes = {row[1] for row in cursor.fetchall()}
     if 'stock_manual' not in columnas_productos_existentes:
         cursor.execute("ALTER TABLE productos ADD COLUMN stock_manual INTEGER NOT NULL DEFAULT 0")
+    if 'nombre_original' not in columnas_productos_existentes:
+        cursor.execute("ALTER TABLE productos ADD COLUMN nombre_original TEXT DEFAULT ''")
 
     # Tabla de solicitudes de derecho de arrepentimiento (Ley 24.240 / Disposición 954/2025)
     cursor.execute("""
@@ -876,9 +883,10 @@ def listar_productos(
         params.append(categoria)
     
     if search:
-        query += " AND (nombre LIKE ? OR descripcion LIKE ? OR sku LIKE ? OR marca LIKE ?)"
+        query += (" AND (nombre LIKE ? OR descripcion LIKE ? OR sku LIKE ? "
+                  "OR marca LIKE ? OR nombre_original LIKE ?)")
         search_term = f"%{search}%"
-        params.extend([search_term] * 4)
+        params.extend([search_term] * 5)
     
     query += " ORDER BY nombre LIMIT ? OFFSET ?"
     params.extend([limit, offset])
@@ -1986,11 +1994,13 @@ def crear_orden(request: Request, orden: CrearOrden):
                         (fila_usada["email_asociado"],)
                     )
         
-        # 4. Agregar items
+        # 4. Agregar items (el stock se descuenta recién cuando el pago se
+        # aprueba, en procesar_pago_aprobado, para no bloquear stock en pagos
+        # que el cliente abandona en MercadoPago).
         for item in items_con_precio:
             cursor.execute("""
                 INSERT INTO orden_items (
-                    orden_id, producto_sku, producto_nombre, 
+                    orden_id, producto_sku, producto_nombre,
                     cantidad, precio_unitario, subtotal
                 )
                 VALUES (?, ?, ?, ?, ?, ?)
@@ -2002,7 +2012,7 @@ def crear_orden(request: Request, orden: CrearOrden):
                 item['precio_unitario'],
                 item['subtotal']
             ))
-        
+
         conn.commit()
         conn.close()
 
@@ -2268,6 +2278,18 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
     cursor.execute("SELECT * FROM orden_items WHERE orden_id = ?", (orden_id,))
     items = [dict(item) for item in cursor.fetchall()]
 
+    # Descontar stock (una sola vez, aunque el webhook llegue dos veces).
+    # La sync diaria de Droppers vuelve a fijar el stock real; esto es la
+    # protección intra-día contra sobreventa del último ítem.
+    if not orden.get('stock_descontado'):
+        for it in items:
+            cursor.execute(
+                "UPDATE productos SET stock = MAX(0, stock - ?) WHERE sku = ?",
+                (it['cantidad'], it['producto_sku'])
+            )
+        cursor.execute("UPDATE ordenes SET stock_descontado = 1 WHERE id = ?", (orden_id,))
+        conn.commit()
+
     factura = None
     if facturacion_habilitada() and not orden.get('factura_cae'):
         factura = generar_factura_c(orden_id, orden, orden['total'])
@@ -2482,6 +2504,168 @@ def admin_verificar_afip(x_admin_password: Optional[str] = Header(None)):
         resultado["ok"] = False
 
     return resultado
+
+
+@app.get("/api/admin/orden/{orden_id}/factura.pdf")
+def admin_descargar_factura(orden_id: int, x_admin_password: Optional[str] = Header(None)):
+    """Devuelve el PDF de la Factura C de una orden (solo admin).
+
+    Si el PDF fue guardado en el disco persistente lo sirve; si no (órdenes
+    viejas), lo regenera al vuelo desde los datos de la factura en la DB.
+    """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT o.*, c.nombre, c.apellido, c.email, c.cuit_dni,
+               c.calle, c.altura, c.ciudad, c.provincia
+        FROM ordenes o JOIN clientes c ON o.cliente_id = c.id
+        WHERE o.id = ?
+    """, (orden_id,))
+    orden = cursor.fetchone()
+    if not orden:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Orden no encontrada")
+    orden = dict(orden)
+    if not orden.get('factura_cae'):
+        conn.close()
+        raise HTTPException(status_code=404, detail="Esta orden no tiene factura emitida")
+
+    factura = {
+        'tipo': orden.get('factura_tipo') or 11,
+        'punto_venta': orden['factura_punto_venta'],
+        'numero': orden['factura_numero'],
+        'cae': orden['factura_cae'],
+        'cae_vencimiento': orden.get('factura_cae_vencimiento'),
+    }
+
+    from utils.factura_pdf import nombre_archivo_factura, generar_pdf_factura
+    nombre_pdf = nombre_archivo_factura(factura)
+
+    pdf_bytes = None
+    if _persistent_dir:
+        ruta = Path(_persistent_dir) / 'facturas' / nombre_pdf
+        if ruta.exists():
+            pdf_bytes = ruta.read_bytes()
+
+    if pdf_bytes is None:
+        cursor.execute("SELECT * FROM orden_items WHERE orden_id = ?", (orden_id,))
+        items = [dict(i) for i in cursor.fetchall()]
+        try:
+            pdf_bytes = generar_pdf_factura(orden, items, factura)
+        except Exception as e:
+            conn.close()
+            raise HTTPException(status_code=500, detail=f"No se pudo generar el PDF: {e}")
+    conn.close()
+
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'inline; filename="{nombre_pdf}"'},
+    )
+
+
+@app.get("/api/admin/comisiones/pendientes.csv")
+def admin_comisiones_csv(periodo: Optional[str] = None,
+                         x_admin_password: Optional[str] = Header(None)):
+    """CSV de comisiones a pagar, agrupadas por referidor (solo admin).
+
+    - **periodo**: 'YYYY-MM' para filtrar un mes; sin él, todas las pendientes.
+    Incluye datos de contacto/cobro (nombre, email, teléfono, DNI) para liquidar.
+    """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    where = "cm.pagado = 0"
+    params = []
+    if periodo:
+        where += " AND cm.periodo = ?"
+        params.append(periodo)
+    cursor.execute(f"""
+        SELECT r.nombre, r.email, r.telefono, r.dni, r.codigo,
+               cm.periodo, COUNT(*) AS ventas, SUM(cm.comision) AS total
+        FROM comisiones_referidos cm
+        JOIN referidos r ON r.id = cm.referido_id
+        WHERE {where}
+        GROUP BY cm.referido_id, cm.periodo
+        ORDER BY cm.periodo DESC, total DESC
+    """, params)
+    filas = cursor.fetchall()
+    conn.close()
+
+    buffer = io.StringIO()
+    writer = csv.writer(buffer)
+    writer.writerow(["Referidor", "Email", "Telefono", "DNI", "Codigo",
+                     "Periodo", "Ventas", "Comision a pagar (ARS)"])
+    for f in filas:
+        f = dict(f)
+        writer.writerow([f["nombre"], f["email"], f["telefono"], f["dni"], f["codigo"],
+                         f["periodo"], f["ventas"], f"{f['total']:.2f}"])
+    buffer.seek(0)
+
+    fname = f"comisiones_{periodo or 'pendientes'}.csv"
+    return StreamingResponse(
+        iter([buffer.getvalue()]),
+        media_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="{fname}"'},
+    )
+
+
+@app.post("/api/admin/orden/{orden_id}/nota-credito")
+def admin_nota_credito(orden_id: int, x_admin_password: Optional[str] = Header(None)):
+    """Emite una Nota de Crédito C que anula la factura de una orden (solo admin).
+
+    Se usa al reembolsar una venta: la factura original queda compensada ante
+    ARCA. Idempotente: si ya se emitió una NC para la orden, no emite otra.
+    """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    from utils.facturacion_afip import generar_nota_credito_c
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT o.*, c.cuit_dni FROM ordenes o
+        JOIN clientes c ON o.cliente_id = c.id WHERE o.id = ?
+    """, (orden_id,))
+    orden = cursor.fetchone()
+    if not orden:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Orden no encontrada")
+    orden = dict(orden)
+
+    if not orden.get('factura_cae'):
+        conn.close()
+        raise HTTPException(status_code=400, detail="La orden no tiene factura para anular")
+    if orden.get('nc_cae'):
+        conn.close()
+        return {"ok": True, "ya_emitida": True,
+                "nota_credito": f"{orden['nc_punto_venta']:04d}-{orden['nc_numero']:08d}",
+                "cae": orden['nc_cae']}
+
+    factura_original = {
+        'tipo': orden.get('factura_tipo') or 11,
+        'punto_venta': orden['factura_punto_venta'],
+        'numero': orden['factura_numero'],
+    }
+    nc = generar_nota_credito_c(orden_id, orden, orden['total'], factura_original)
+    if nc.get('error'):
+        conn.close()
+        raise HTTPException(status_code=502, detail=f"ARCA rechazó la nota de crédito: {nc['error']}")
+
+    cursor.execute("""
+        UPDATE ordenes SET nc_punto_venta = ?, nc_numero = ?, nc_cae = ?, nc_fecha = ?
+        WHERE id = ?
+    """, (nc['punto_venta'], nc['numero'], nc['cae'], nc['fecha'], orden_id))
+    conn.commit()
+    conn.close()
+    return {"ok": True, "nota_credito": f"{nc['punto_venta']:04d}-{nc['numero']:08d}",
+            "cae": nc['cae'], "fecha": nc['fecha']}
 
 
 @app.post("/api/admin/orden/{orden_id}/procesar-pago")
