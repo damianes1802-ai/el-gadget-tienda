@@ -997,15 +997,36 @@ a { color: inherit; }
 .promo-banner.show { display: block; }
 .promo-banner-inner {
   margin-top: 14px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
-  border-radius: var(--radius); padding: 14px 20px; display: flex; align-items: center; gap: 12px;
-  flex-wrap: wrap; justify-content: space-between;
+  border-radius: var(--radius); padding: 18px 48px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  text-align: center; position: relative; overflow: hidden;
 }
-.promo-banner-text { font-size: 13.5px; font-weight: 600; color: var(--ink); }
-.promo-banner-text strong { font-family: 'Space Grotesk', sans-serif; font-size: 16px; display: block; margin-bottom: 2px; }
+/* Resplandor central: guía la vista hacia el mensaje */
+.promo-banner-inner::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 60% 100% at 50% 50%, rgba(255,255,255,0.35), transparent 70%);
+}
+.promo-banner-text { font-size: 13.5px; font-weight: 600; color: var(--ink); position: relative; max-width: 62ch; }
+.promo-banner-text strong { font-family: 'Space Grotesk', sans-serif; font-size: clamp(17px, 2.6vw, 21px); display: block; margin-bottom: 3px; letter-spacing: -0.01em; }
 .promo-banner-code {
-  background: rgba(20,21,26,0.1); border-radius: 20px; padding: 6px 14px; font-weight: 700;
-  font-size: 12.5px; color: var(--ink); letter-spacing: 0.5px;
+  background: var(--ink); border-radius: 20px; padding: 6px 16px; font-weight: 700;
+  font-size: 12.5px; color: var(--accent); letter-spacing: 1px; position: relative;
 }
+/* Destellos de esquina: negro sobre amarillo = máximo contraste (capta la vista) */
+.pb-deco {
+  position: absolute; color: var(--ink); pointer-events: none; line-height: 1;
+  animation: pbTwinkle 2.6s ease-in-out infinite;
+}
+.pb-deco.tl { top: 8px;    left: 12px;  font-size: 22px; transform: rotate(-12deg); }
+.pb-deco.tr { top: 10px;   right: 16px; font-size: 15px; transform: rotate(18deg);  animation-delay: .7s; }
+.pb-deco.bl { bottom: 9px; left: 20px;  font-size: 14px; transform: rotate(9deg);   animation-delay: 1.3s; }
+.pb-deco.br { bottom: 7px; right: 12px; font-size: 21px; transform: rotate(-15deg); animation-delay: 1.9s; }
+@keyframes pbTwinkle {
+  0%, 100% { opacity: .85; }
+  50% { opacity: .3; }
+}
+@media (prefers-reduced-motion: reduce) { .pb-deco { animation: none; } }
+@media (max-width: 560px) { .promo-banner-inner { padding: 16px 34px; } .pb-deco.tr, .pb-deco.bl { display: none; } }
 
 /* ── PRECIOS DE OFERTA (catálogo) ── */
 .card-price-row { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }

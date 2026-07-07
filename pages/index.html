@@ -266,6 +266,10 @@ async function cargarBannerPromo() {
       const el = document.getElementById('promoBanner');
       el.innerHTML = `
         <div class="promo-banner-inner">
+          <span class="pb-deco tl">✦</span>
+          <span class="pb-deco tr">✦</span>
+          <span class="pb-deco bl">✦</span>
+          <span class="pb-deco br">✦</span>
           <div class="promo-banner-text">
             <strong>${data.banner.titulo || ''}</strong>
             ${data.banner.texto || ''}
