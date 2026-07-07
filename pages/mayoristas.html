@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comprá al por mayor | El Gadget</title>
+<meta name="description" content="Sumate como mayorista de El Gadget: precios especiales por volumen para revendedores. Dejanos tus datos y te contactamos para coordinar tu alta.">
+<meta name="theme-color" content="#14151A">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-badge">
+        <img src="assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
+    </a>
+    <div class="search-desktop">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){window.location.href='/?buscar='+encodeURIComponent(this.value)}">
+      </div>
+    </div>
+    <a href="carrito" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="label">Mi pedido</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Inicio</a>
+  <span class="sep">/</span>
+  <span class="current">Mayoristas</span>
+</div>
+
+<!-- CONTENIDO -->
+<div class="page-wrap" style="max-width:760px">
+  <h1 class="page-title">Comprá al por mayor</h1>
+
+  <div class="content-section">
+    <h2>Precios especiales para revendedores</h2>
+    <p>
+      Si comprás en cantidad para revender —tengas un local, vendas por redes o armes tu
+      catálogo de WhatsApp— podés acceder a <strong>precios mayoristas</strong> de El Gadget.
+      Trabajás con la misma logística de siempre: nosotros nos encargamos del stock y el envío,
+      vos te quedás con un margen más grande.
+    </p>
+    <h2>¿Cómo funciona?</h2>
+    <ul>
+      <li>Completá el formulario con tus datos y contanos brevemente qué vendés.</li>
+      <li>Te contactamos por WhatsApp o email para conocer tu caso y coordinar el alta.</li>
+      <li>Una vez aprobado, tu cuenta queda habilitada con el <strong>descuento mayorista</strong>
+        aplicable a pedidos por volumen.</li>
+    </ul>
+    <p style="font-size:12.5px;color:var(--gray-600);margin:12px 0 0">
+      El alta es gratuita y sin permanencia. Nos reservamos la evaluación de cada solicitud.
+    </p>
+  </div>
+
+  <div class="form-panel" style="max-width:520px;margin:0 auto 32px">
+    <h2>Quiero ser mayorista</h2>
+
+    <div class="field">
+      <label>Nombre y apellido *</label>
+      <input type="text" id="nombre" placeholder="Ej: Juan Pérez" autocomplete="name">
+    </div>
+
+    <div class="field">
+      <label>Email *</label>
+      <input type="email" id="email" placeholder="tu@email.com" autocomplete="email">
+    </div>
+
+    <div class="field">
+      <label>WhatsApp *</label>
+      <input type="tel" id="telefono" placeholder="Ej: 1122334455" autocomplete="tel" inputmode="numeric">
+    </div>
+
+    <div class="field">
+      <label>¿Qué vendés / tipo de negocio? <span class="optional">(opcional)</span></label>
+      <input type="text" id="tipoNegocio" placeholder="Ej: local de regalería, reventa por Instagram...">
+    </div>
+
+    <div class="field">
+      <label>Mensaje <span class="optional">(opcional)</span></label>
+      <textarea id="mensaje" placeholder="Contanos volumen estimado, zona, o cualquier detalle que ayude."></textarea>
+    </div>
+
+    <button class="btn btn-accent btn-block" id="btnEnviar" onclick="enviarSolicitud()">Enviar solicitud</button>
+    <p style="text-align:center;font-size:12px;color:var(--gray-600);margin:10px 0 0">Te respondemos dentro de las 48 hs hábiles.</p>
+  </div>
+
+  <div class="info-card" id="resultadoCard" style="display:none;max-width:520px;margin:0 auto 32px"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-badge">
+        <img src="assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+      </div>
+        <div class="logo-text">
+          <div class="logo-name">El<span> Gadget</span></div>
+          <div class="logo-tagline">Tienda online</div>
+        </div>
+      </div>
+      <p>Productos para el hogar, moda, tecnología y mucho más. Elegí tus productos, pagá online de forma segura y te lo enviamos a tu casa.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <a href="carrito">Mi pedido</a>
+      <a href="seguimiento">Seguimiento de pedido</a>
+      <a href="faq">Preguntas frecuentes</a>
+      <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Información</h4>
+      <a href="sobre_nosotros">Sobre nosotros</a>
+      <a href="privacidad">Política de privacidad</a>
+      <a href="devoluciones">Devoluciones y garantías</a>
+      <a href="arrepentimiento">Botón de arrepentimiento</a>
+      <a href="terminos">Términos y condiciones</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados · <a href="privacidad" style="color:inherit;opacity:.8;text-decoration:none">Privacidad</a> · <a href="arrepentimiento" style="color:inherit;opacity:.8;text-decoration:none">Arrepentimiento</a> · <a href="terminos" style="color:inherit;opacity:.8;text-decoration:none">Términos</a></div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/5491126228481?text=Hola!%20Quiero%20info%20para%20comprar%20al%20por%20mayor" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+</a>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/cart.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const API = 'https://el-gadget-tienda.onrender.com';
+
+async function enviarSolicitud() {
+  const nombre = document.getElementById('nombre').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const telefono = document.getElementById('telefono').value.trim();
+  const tipoNegocio = document.getElementById('tipoNegocio').value.trim();
+  const mensaje = document.getElementById('mensaje').value.trim();
+  const btn = document.getElementById('btnEnviar');
+  const card = document.getElementById('resultadoCard');
+
+  if (!nombre || !email || !telefono) {
+    showToast('Completá nombre, email y WhatsApp');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  try {
+    const res = await fetch(`${API}/api/mayorista/solicitud`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, email, telefono, tipo_negocio: tipoNegocio, mensaje })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.detail || 'No se pudo registrar la solicitud');
+
+    card.style.display = 'block';
+    card.innerHTML = `
+      <h2>✅ ¡Solicitud recibida!</h2>
+      <p style="font-size:13.5px;color:var(--gray-600);line-height:1.7;margin:0">
+        ${data.mensaje}<br><br>
+        Número de solicitud: <strong>#${data.solicitud_id}</strong>
+      </p>
+    `;
+    document.getElementById('nombre').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('telefono').value = '';
+    document.getElementById('tipoNegocio').value = '';
+    document.getElementById('mensaje').value = '';
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  } catch (e) {
+    card.style.display = 'block';
+    card.innerHTML = `
+      <h2>❌ No pudimos procesar tu solicitud</h2>
+      <p style="font-size:13.5px;color:var(--gray-600);line-height:1.7;margin:0">${e.message}</p>
+    `;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Enviar solicitud';
+  }
+}
+</script>
+</body>
+</html>

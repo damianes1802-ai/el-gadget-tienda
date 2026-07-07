@@ -48,6 +48,7 @@ from utils.facturacion_afip import facturacion_habilitada, generar_factura_c
 from utils.email_notificaciones import (
     email_habilitado, enviar_email_confirmacion, enviar_email_tracking,
     enviar_email_bienvenida, enviar_email_referido_confirmacion, enviar_email_referido_admin,
+    enviar_email_solicitud_mayorista,
     enviar_email_nurturing_d3, enviar_email_nurturing_d7, enviar_email_nurturing_d14,
     enviar_email_primera_venta, enviar_email_carrito_abandonado, enviar_email_invitar_referido,
     enviar_email_venta_admin,
@@ -269,6 +270,14 @@ class RegistroReferido(BaseModel):
     source: Optional[str] = None
 
 
+class SolicitudMayorista(BaseModel):
+    nombre: str
+    email: str
+    telefono: Optional[str] = ""
+    tipo_negocio: Optional[str] = ""
+    mensaje: Optional[str] = ""
+
+
 class MarcarPagadoReferido(BaseModel):
     periodo: str  # "2026-06"
 
@@ -459,6 +468,21 @@ def migrar_db():
             fecha TEXT DEFAULT (datetime('now')),
             respuesta_admin TEXT DEFAULT '',
             FOREIGN KEY (orden_id) REFERENCES ordenes(id)
+        )
+    """)
+
+    # Solicitudes para sumarse como mayorista (revendedores). Se aprueban a mano
+    # desde el panel (marca usuarios_registrados.mayorista = 1 y activa el código).
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS solicitudes_mayorista (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            email TEXT NOT NULL,
+            telefono TEXT DEFAULT '',
+            tipo_negocio TEXT DEFAULT '',
+            mensaje TEXT DEFAULT '',
+            estado TEXT DEFAULT 'pendiente',
+            fecha TEXT DEFAULT (datetime('now'))
         )
     """)
 
@@ -3187,6 +3211,80 @@ def actualizar_estado_arrepentimiento(
     conn.close()
 
     return {"mensaje": "Estado actualizado", "solicitud_id": solicitud_id, "nuevo_estado": estado}
+
+
+# ============================================================================
+# ENDPOINTS - CANAL MAYORISTA (solicitudes de revendedores)
+# ============================================================================
+
+@app.post("/api/mayorista/solicitud")
+@limiter.limit("5/minute")
+def solicitar_mayorista(request: Request, datos: SolicitudMayorista):
+    """Registra una solicitud para sumarse como mayorista y avisa al admin.
+
+    No otorga nada automáticamente: el admin la revisa y, si aprueba, activa
+    el perfil mayorista del usuario desde el panel.
+    """
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO solicitudes_mayorista (nombre, email, telefono, tipo_negocio, mensaje)
+        VALUES (?, ?, ?, ?, ?)
+    """, (datos.nombre.strip(), datos.email.strip().lower(),
+          (datos.telefono or "").strip(), (datos.tipo_negocio or "").strip(),
+          (datos.mensaje or "").strip()))
+    conn.commit()
+    solicitud_id = cursor.lastrowid
+    conn.close()
+
+    try:
+        admin_email = _env.get('ADMIN_EMAIL', 'damianes1802@gmail.com')
+        enviar_email_solicitud_mayorista(
+            datos.nombre, datos.email, datos.telefono or "",
+            datos.tipo_negocio or "", datos.mensaje or "", admin_email
+        )
+    except Exception as e:
+        print(f"Email solicitud mayorista fallido: {e}")
+
+    return {"ok": True, "solicitud_id": solicitud_id,
+            "mensaje": "¡Recibimos tu solicitud! Te vamos a contactar para coordinar tu alta como mayorista."}
+
+
+@app.get("/api/admin/mayorista/solicitudes")
+def listar_solicitudes_mayorista(x_admin_password: Optional[str] = Header(None)):
+    """Lista las solicitudes de mayorista (solo admin)."""
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM solicitudes_mayorista ORDER BY fecha DESC")
+    filas = cursor.fetchall()
+    conn.close()
+    return [dict(f) for f in filas]
+
+
+@app.patch("/api/admin/mayorista/solicitud/{solicitud_id}/estado")
+def actualizar_estado_solicitud_mayorista(
+    solicitud_id: int, estado: str, x_admin_password: Optional[str] = Header(None)
+):
+    """Marca una solicitud de mayorista como pendiente/aprobada/rechazada (solo admin).
+
+    La aprobación acá es solo para llevar registro; para activar los precios
+    mayoristas del usuario, usá el toggle 'mayorista' en la sección Usuarios.
+    """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+    if estado not in ('pendiente', 'aprobado', 'rechazado'):
+        raise HTTPException(status_code=400, detail="Estado inválido")
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE solicitudes_mayorista SET estado = ? WHERE id = ?", (estado, solicitud_id))
+    if cursor.rowcount == 0:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Solicitud no encontrada")
+    conn.commit()
+    conn.close()
+    return {"ok": True, "solicitud_id": solicitud_id, "nuevo_estado": estado}
 
 
 # ============================================================================

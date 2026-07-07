@@ -337,6 +337,14 @@ class Api:
         except Exception as e:
             return {"error": str(e)}
 
+    # ── Solicitudes de mayorista ──
+    def get_solicitudes_mayorista(self):
+        return self._get("/api/admin/mayorista/solicitudes", admin=True)
+
+    def cambiar_estado_solicitud_mayorista(self, solicitud_id, estado):
+        return self._patch(f"/api/admin/mayorista/solicitud/{solicitud_id}/estado",
+                           params={"estado": estado}, admin=True)
+
     # ── Historial de actualizaciones diarias (redeploys) ──
     def get_historial(self):
         return self._get("/api/admin/historial", admin=True)

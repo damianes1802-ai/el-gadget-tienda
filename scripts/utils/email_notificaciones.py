@@ -476,6 +476,41 @@ def enviar_email_referido_admin(nombre: str, email: str, codigo: str, admin_emai
     return _enviar(admin_email, f"Nuevo referido: {nombre_s} ({codigo_s})", _layout(cuerpo))
 
 
+def enviar_email_solicitud_mayorista(nombre: str, email: str, telefono: str,
+                                     tipo_negocio: str, mensaje: str, admin_email: str) -> dict:
+    """Notifica al admin que alguien solicitó sumarse como mayorista."""
+    nombre_s = _html.escape(nombre)
+    email_s = _html.escape(email)
+    tel_s = _html.escape(telefono or "-")
+    tipo_s = _html.escape(tipo_negocio or "-")
+    msg_s = _html.escape(mensaje or "-")
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    def _fila(k, v, last=False):
+        borde = '' if last else f'border-bottom:1px solid {GRAY_200};'
+        return (f'<tr><td style="padding:12px 18px;{borde}color:{GRAY_600}">{k}</td>'
+                f'<td style="padding:12px 18px;{borde}font-weight:600;color:{INK}">{v}</td></tr>')
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">Nueva solicitud de mayorista</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Alguien quiere sumarse como mayorista/revendedor. Revisá los datos y, si
+        aprobás, activá su perfil mayorista desde la sección Usuarios del panel.
+      </p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:24px">
+        {_fila('Nombre', nombre_s)}
+        {_fila('Email', email_s)}
+        {_fila('Teléfono', tel_s)}
+        {_fila('Tipo de negocio', tipo_s)}
+        {_fila('Mensaje', msg_s, last=True)}
+      </table>
+      {_boton('Ir al panel', site_url)}
+    """
+    return _enviar(admin_email, f"Solicitud mayorista: {nombre_s}", _layout(cuerpo))
+
+
 # ============================================================================
 # NURTURING — emails automáticos para activar referidos, rescatar carritos
 # y convertir compradores en referidos.

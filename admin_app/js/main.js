@@ -22,6 +22,7 @@ const SECTION_LOADERS = {
   precios: loadPrecios,
   clientes: loadClientes,
   arrepentimientos: loadArrepentimientos,
+  mayoristas: loadMayoristas,
   usuarios: loadUsuarios,
   descuentos: loadDescuentos,
   historial: loadHistorial,
