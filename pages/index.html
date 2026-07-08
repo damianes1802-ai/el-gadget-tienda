@@ -289,10 +289,26 @@ async function cargarProductos() {
     document.getElementById('gridCount').textContent = '';
     renderSkeletons();
 
-    const res = await fetch(`${API_URL}/api/productos?limit=500`);
-    if (!res.ok) throw new Error('No se pudo conectar con el servidor');
+    // 1ra fuente: catálogo estático servido por el CDN (gratis e instantáneo;
+    // se regenera con la sync diaria y con el redeploy de precios del panel,
+    // con los precios de oferta del día ya calculados). Fallback: la API.
+    let productos = null;
+    try {
+      const hoy = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      const resEstatico = await fetch(`/productos.json?v=${hoy}`);
+      if (resEstatico.ok) {
+        const data = await resEstatico.json();
+        if (Array.isArray(data) && data.length) productos = data;
+      }
+    } catch (e) { /* sin catálogo estático: caemos a la API */ }
 
-    todosLosProductos = await res.json();
+    if (!productos) {
+      const res = await fetch(`${API_URL}/api/productos?limit=500`);
+      if (!res.ok) throw new Error('No se pudo conectar con el servidor');
+      productos = await res.json();
+    }
+
+    todosLosProductos = productos;
 
     if (!todosLosProductos.length) {
       document.getElementById('gridWrap').style.display = 'none';

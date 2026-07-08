@@ -35,6 +35,7 @@ import io
 import hashlib
 import hmac
 import secrets
+import time
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr
 from pathlib import Path
@@ -70,6 +71,33 @@ def _es_admin(pwd: Optional[str]) -> bool:
     if not pwd:
         return False
     return hmac.compare_digest(pwd, ADMIN_PASSWORD)
+
+
+# ── Caché en memoria con TTL para las lecturas calientes del catálogo ──
+# El catálogo cambia una vez por día (sync) y las campañas por edición del
+# panel (que invalida). 60s de TTL absorbe el grueso del tráfico de lectura.
+_CACHE_TTL_SEG = 60
+_cache_lecturas: dict = {}
+_cache_version = 0
+
+
+def _cache_get(clave):
+    item = _cache_lecturas.get(clave)
+    if item and item[0] > time.time() and item[1] == _cache_version:
+        return item[2]
+    return None
+
+
+def _cache_set(clave, valor):
+    if len(_cache_lecturas) > 256:  # tope defensivo de memoria
+        _cache_lecturas.clear()
+    _cache_lecturas[clave] = (time.time() + _CACHE_TTL_SEG, _cache_version, valor)
+
+
+def _cache_invalidar():
+    """Llamar tras mutar descuentos/productos para refrescar al instante."""
+    global _cache_version
+    _cache_version += 1
 
 # Catálogo versionado en git (productos/historial_precios, se actualiza a
 # diario vía el pipeline y se sobreescribe en cada deploy).
@@ -719,91 +747,20 @@ def calcular_envio(provincia: str, partido: str = "") -> dict:
     }
 
 
-def _mmdd(fecha: str) -> str:
-    """Extrae 'MM-DD' de una fecha 'YYYY-MM-DD'. '' si no aplica."""
-    if not fecha or len(fecha) < 10:
-        return ""
-    return fecha[5:10]
-
-
-def _fecha_campana_vigente(d: dict, hoy: str) -> bool:
-    """True si la campaña está dentro de su ventana de fechas HOY.
-
-    - No recurrente: compara la fecha completa YYYY-MM-DD (una sola vez).
-    - Recurrente anual: compara solo mes-día, así aplica todos los años.
-      Soporta ventanas que cruzan el año (ej. 26/12 → 06/01).
-    hoy es 'YYYY-MM-DD'.
-    """
-    ini, fin = d.get("fecha_inicio"), d.get("fecha_fin")
-
-    if not d.get("recurrente_anual"):
-        if ini and hoy < ini:
-            return False
-        if fin and hoy > fin:
-            return False
-        return True
-
-    # Recurrente: comparar por mes-día
-    hoy_md = hoy[5:10]
-    ini_md, fin_md = _mmdd(ini), _mmdd(fin)
-    if ini_md and fin_md:
-        if ini_md <= fin_md:
-            # ventana normal dentro del mismo año calendario
-            return ini_md <= hoy_md <= fin_md
-        # ventana que cruza el fin de año (ej. 26-12 → 06-01)
-        return hoy_md >= ini_md or hoy_md <= fin_md
-    if ini_md:
-        return hoy_md >= ini_md
-    if fin_md:
-        return hoy_md <= fin_md
-    return True
+# Lógica de vigencia de campañas y precio de oferta: compartida con el
+# generador de páginas/catálogo estático (scripts/utils/campanas.py) para que
+# la API y el catálogo generado calculen exactamente lo mismo.
+from utils.campanas import (
+    mmdd as _mmdd,
+    fecha_campana_vigente as _fecha_campana_vigente,
+    calcular_precio_oferta,
+    campanas_programadas_vigentes,
+)
 
 
 def obtener_descuentos_programados(cursor) -> list:
-    """Devuelve las campañas de descuento automáticas (sin código) vigentes,
-    es decir las que reflejan un precio_oferta directamente en el catálogo.
-    Filtra las fechas en Python para soportar campañas recurrentes anuales."""
-    ahora = datetime.now().strftime("%Y-%m-%d")
-    cursor.execute("SELECT * FROM descuentos WHERE codigo IS NULL AND activo = 1")
-    return [dict(r) for r in cursor.fetchall() if _fecha_campana_vigente(dict(r), ahora)]
-
-
-def calcular_precio_oferta(producto: dict, descuentos_programados: list) -> Optional[float]:
-    """Calcula el precio de oferta de un producto según las campañas vigentes
-    que lo alcancen (por SKU, categoría o todos los productos)."""
-    precio_venta = producto.get("precio_venta") or 0
-    mejor_precio = None
-
-    for d in descuentos_programados:
-        alcance = d.get("alcance")
-        aplica = False
-
-        if alcance == "todos":
-            aplica = True
-        elif alcance == "categoria" and d.get("categoria") and d.get("categoria") == producto.get("categoria"):
-            aplica = True
-        elif alcance == "skus":
-            try:
-                skus = json.loads(d.get("skus") or "[]")
-            except (TypeError, ValueError):
-                skus = []
-            aplica = producto.get("sku") in skus
-
-        if not aplica:
-            continue
-
-        if d.get("tipo") == "porcentaje":
-            precio = precio_venta * (1 - (d.get("valor") or 0) / 100)
-        else:
-            precio = precio_venta - (d.get("valor") or 0)
-        precio = max(precio, 0)
-
-        if mejor_precio is None or precio < mejor_precio:
-            mejor_precio = precio
-
-    if mejor_precio is not None and mejor_precio < precio_venta:
-        return round(mejor_precio, 2)
-    return None
+    """Campañas automáticas (sin código) vigentes hoy (delegado en utils.campanas)."""
+    return campanas_programadas_vigentes(cursor)
 
 
 def _validar_descuento_row(d: Optional[dict], email: Optional[str], subtotal: float, skus: Optional[List[str]] = None) -> dict:
@@ -943,6 +900,11 @@ def listar_productos(
     - **offset**: Desplazamiento para paginación
     - **incluir_agotados**: Si es true, incluye productos sin stock (default: false)
     """
+    clave_cache = ("productos", categoria, search, limit, offset, incluir_agotados)
+    cacheado = _cache_get(clave_cache)
+    if cacheado is not None:
+        return cacheado
+
     conn = get_db()
     cursor = conn.cursor()
 
@@ -975,6 +937,7 @@ def listar_productos(
     for p in productos_dict:
         p["precio_oferta"] = calcular_precio_oferta(p, descuentos_programados)
 
+    _cache_set(clave_cache, productos_dict)
     return productos_dict
 
 
@@ -1725,6 +1688,10 @@ def descuentos_activos():
     conn = get_db()
     cursor = conn.cursor()
 
+    cacheado = _cache_get(("banner",))
+    if cacheado is not None:
+        return cacheado
+
     # Filtrado de vigencia en Python (no SQL) para que las campañas
     # RECURRENTES anuales también muestren su banner: comparten la misma
     # lógica de fechas que el cobro (_fecha_campana_vigente), así el banner
@@ -1738,14 +1705,17 @@ def descuentos_activos():
 
     banner_dict = next((f for f in filas if _fecha_campana_vigente(f, ahora)), None)
     if not banner_dict:
+        _cache_set(("banner",), {"banner": None})
         return {"banner": None}
-    return {
+    respuesta = {
         "banner": {
             "titulo": banner_dict.get("banner_titulo") or "",
             "texto": banner_dict.get("banner_texto") or "",
             "codigo": banner_dict.get("codigo"),
         }
     }
+    _cache_set(("banner",), respuesta)
+    return respuesta
 
 
 @app.post("/api/descuentos/validar")
@@ -1829,6 +1799,7 @@ def crear_descuento(datos: Descuento, x_admin_password: Optional[str] = Header(N
     conn.commit()
     descuento_id = cursor.lastrowid
     conn.close()
+    _cache_invalidar()
 
     return {"id": descuento_id, "mensaje": "Descuento creado"}
 
@@ -1866,6 +1837,7 @@ def editar_descuento(descuento_id: int, datos: Descuento, x_admin_password: Opti
     conn.commit()
     conn.close()
 
+    _cache_invalidar()
     return {"mensaje": "Descuento actualizado"}
 
 
@@ -1886,6 +1858,7 @@ def eliminar_descuento(descuento_id: int, x_admin_password: Optional[str] = Head
     conn.commit()
     conn.close()
 
+    _cache_invalidar()
     return {"mensaje": "Descuento eliminado"}
 
 
@@ -2717,6 +2690,65 @@ def admin_descargar_factura(orden_id: int, x_admin_password: Optional[str] = Hea
     )
 
 
+@app.get("/api/admin/ordenes/pendientes-droppers.csv")
+def admin_pedidos_droppers_csv(x_admin_password: Optional[str] = Header(None)):
+    """CSV de pedidos pagados pendientes de cargar en Droppers (solo admin).
+
+    Una fila por ítem, con los datos de envío completos del destinatario:
+    es el insumo para cargar los pedidos al proveedor en lote (y la base de
+    una futura automatización de esa carga).
+    """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT o.id AS orden_id, o.fecha, o.notas,
+               i.producto_sku, i.producto_nombre, i.cantidad,
+               c.nombre, c.apellido, c.telefono,
+               c.calle, c.altura, c.piso, c.departamento,
+               c.ciudad, c.partido, c.provincia, c.codigo_postal
+        FROM ordenes o
+        JOIN clientes c ON o.cliente_id = c.id
+        JOIN orden_items i ON i.orden_id = o.id
+        WHERE o.estado = 'pendiente_procesar' AND o.estado_pago = 'approved'
+        ORDER BY o.fecha ASC, o.id ASC
+    """)
+    filas = cursor.fetchall()
+    conn.close()
+
+    buffer = io.StringIO()
+    buffer.write('﻿')  # BOM UTF-8 para Excel
+    writer = csv.writer(buffer)
+    writer.writerow(["Orden", "Fecha", "SKU", "Producto", "Cantidad",
+                     "Destinatario", "Telefono", "Direccion", "Ciudad",
+                     "Partido", "Provincia", "CP", "Notas"])
+    for f in filas:
+        f = dict(f)
+        direccion = " ".join(str(x) for x in [f.get("calle"), f.get("altura")] if x)
+        extra = " ".join(str(x) for x in [
+            f.get("piso") and f"Piso {f['piso']}", f.get("departamento") and f"Dto {f['departamento']}"
+        ] if x)
+        if extra:
+            direccion = f"{direccion} ({extra})"
+        writer.writerow([
+            f["orden_id"], str(f.get("fecha") or "")[:16], f["producto_sku"],
+            f["producto_nombre"], f["cantidad"],
+            f"{f.get('nombre') or ''} {f.get('apellido') or ''}".strip(),
+            f.get("telefono") or "", direccion, f.get("ciudad") or "",
+            f.get("partido") or "", f.get("provincia") or "",
+            f.get("codigo_postal") or "", f.get("notas") or "",
+        ])
+    buffer.seek(0)
+
+    return StreamingResponse(
+        iter([buffer.getvalue()]),
+        media_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="pedidos_droppers.csv"'},
+    )
+
+
 @app.get("/api/admin/comisiones/pendientes.csv")
 def admin_comisiones_csv(periodo: Optional[str] = None,
                          x_admin_password: Optional[str] = Header(None)):
@@ -3194,6 +3226,7 @@ def actualizar_producto(sku: str, datos: ActualizarProducto, x_admin_password: O
     producto = dict(cursor.fetchone())
     conn.close()
 
+    _cache_invalidar()
     return producto
 
 

@@ -274,6 +274,17 @@ async function reprocesarPago(id) {
   }
 }
 
+async function exportarPedidosDroppers() {
+  try {
+    const r = await apiCall('exportar_pedidos_droppers');
+    if (r && r.ok) toast('CSV guardado en: ' + r.ruta, 'success');
+    else if (r && r.cancelado) { /* usuario canceló */ }
+    else toast('Error al exportar: ' + (r && r.error || 'desconocido'), 'error');
+  } catch (e) {
+    toast('Error al exportar pedidos: ' + e.message, 'error');
+  }
+}
+
 async function descargarFactura(id) {
   try {
     const r = await apiCall('descargar_factura_pdf', id);

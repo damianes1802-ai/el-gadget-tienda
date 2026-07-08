@@ -313,6 +313,28 @@ class Api:
     def emitir_nota_credito(self, orden_id):
         return self._post(f"/api/admin/orden/{orden_id}/nota-credito")
 
+    def exportar_pedidos_droppers(self):
+        try:
+            resp = requests.get(
+                f"{API_URL}/api/admin/ordenes/pendientes-droppers.csv",
+                headers=self._headers(admin=True), timeout=20,
+            )
+            resp.raise_for_status()
+        except Exception as e:
+            return {"error": str(e)}
+        ruta = webview.windows[0].create_file_dialog(
+            webview.SAVE_DIALOG, save_filename='pedidos_droppers.csv'
+        )
+        if not ruta:
+            return {"cancelado": True}
+        destino = ruta[0] if isinstance(ruta, (list, tuple)) else ruta
+        try:
+            with open(destino, 'wb') as f:
+                f.write(resp.content)
+            return {"ok": True, "ruta": destino}
+        except Exception as e:
+            return {"error": str(e)}
+
     def exportar_comisiones_csv(self, periodo=None):
         try:
             params = {"periodo": periodo} if periodo else None

@@ -730,6 +730,26 @@ def generar():
     SITEMAP_FILE.write_text(sitemap_xml, encoding='utf-8')
     print(f"✅ Sitemap generado: {SITEMAP_FILE} ({len(all_urls)} URLs, dominio: {canonical_url})")
 
+    # 6. Catálogo estático (pages/productos.json): mismo shape que GET
+    # /api/productos, servido gratis por el CDN de GitHub Pages. El frontend lo
+    # usa como primera fuente y solo cae a la API si falla. Como este script
+    # corre en la sync diaria (03-04 AM) y también al redeploy manual de
+    # precios, los precios de oferta del día ya vienen calculados acá con la
+    # MISMA lógica compartida que usa la API (utils/campanas.py).
+    from utils.campanas import campanas_programadas_vigentes, calcular_precio_oferta
+    cur_json = conn.cursor()
+    cur_json.execute("SELECT * FROM productos WHERE stock > 0 ORDER BY nombre")
+    filas_catalogo = [dict(r) for r in cur_json.fetchall()]
+    campanas = campanas_programadas_vigentes(cur_json)
+    for p in filas_catalogo:
+        p["precio_oferta"] = calcular_precio_oferta(p, campanas)
+    catalogo_file = PAGES_DIR / 'productos.json'
+    catalogo_file.write_text(
+        json.dumps(filas_catalogo, ensure_ascii=False, separators=(',', ':')),
+        encoding='utf-8'
+    )
+    print(f"✅ Catálogo estático: {catalogo_file} ({len(filas_catalogo)} productos)")
+
     conn.close()
     print("\n" + "=" * 70 + "\n")
     logger.info(f"Páginas de producto generadas: {len(slugs_generados)}, eliminadas: {eliminadas}")
