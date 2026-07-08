@@ -321,7 +321,9 @@ function agregarAlCarrito() {
   addCartItem({
     sku: varianteActiva.sku,
     nombre: varianteActiva.nombre,
-    precio: varianteActiva.precio_venta,
+    precio: (varianteActiva.precio_oferta != null && varianteActiva.precio_oferta < varianteActiva.precio_venta)
+      ? varianteActiva.precio_oferta : varianteActiva.precio_venta,
+    precio_lista: varianteActiva.precio_venta,
     imagen: (varianteActiva.imagenes && varianteActiva.imagenes[0]) || '',
     color: varianteActiva.color || '',
     talle: varianteActiva.talle || '',
