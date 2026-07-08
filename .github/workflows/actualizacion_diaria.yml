@@ -64,14 +64,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configurar Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Instalar dependencias
-        run: pip install -r requirements.txt
-
+      # Se restaura ANTES de instalar dependencias para que el paso de aviso
+      # de fallo (que lee RESEND_API_KEY del .env) funcione aunque falle
+      # cualquier paso posterior, incluido pip install.
       - name: Restaurar configuracion y credenciales
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
@@ -85,6 +80,14 @@ jobs:
           printf '%s' "$GOOGLE_CREDENTIALS_JSON" > config/credentials.json
           printf '%s' "$GOOGLE_TOKEN_PICKLE_B64" | base64 -d > config/token.pickle
           printf '%s\n' "$GOOGLE_SHEETS_ID" > config/sheets_id.txt
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
 
       - name: Configurar git
         run: |

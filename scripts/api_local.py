@@ -125,6 +125,8 @@ app.add_middleware(
         "https://elgadget.com.ar",
         "https://www.elgadget.com.ar",
         "https://damianes1802-ai.github.io",
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
     ],
     allow_credentials=False,
     allow_methods=["*"],
@@ -1423,6 +1425,7 @@ def exportar_usuarios_csv(x_admin_password: Optional[str] = Header(None)):
     conn.close()
 
     buffer = io.StringIO()
+    buffer.write('﻿')  # BOM UTF-8: Excel en Windows abre los acentos bien
     writer = csv.writer(buffer)
     writer.writerow(["id", "nombre", "email", "telefono", "codigo_descuento", "descuento_usado", "creado_at"])
     for u in usuarios:
@@ -2488,9 +2491,10 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
             )
             conn.commit()
 
-    # Notificar al admin de la nueva venta
+    # Notificar al admin de la nueva venta (solo la primera vez que se procesa
+    # la orden: si el webhook llega duplicado o se reprocesa, no repetir el aviso)
     try:
-        if email_habilitado():
+        if email_habilitado() and not orden.get('email_confirmacion_enviado'):
             enviar_email_venta_admin(orden, items, factura, pdf_factura=pdf_factura)
     except Exception as e:
         print(f"Email notificación admin venta fallido: {e}")
@@ -2744,6 +2748,7 @@ def admin_comisiones_csv(periodo: Optional[str] = None,
     conn.close()
 
     buffer = io.StringIO()
+    buffer.write('﻿')  # BOM UTF-8: Excel en Windows abre los acentos bien
     writer = csv.writer(buffer)
     writer.writerow(["Referidor", "Email", "Telefono", "DNI", "Codigo",
                      "Periodo", "Ventas", "Comision a pagar (ARS)"])
