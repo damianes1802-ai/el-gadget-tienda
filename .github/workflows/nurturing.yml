@@ -27,7 +27,7 @@ jobs:
           API_URL=$(grep '^API_URL=' config/.env | cut -d= -f2-)
           ADMIN_PWD=$(grep '^ADMIN_PASSWORD=' config/.env | cut -d= -f2-)
           echo "Llamando a $API_URL/api/admin/nurturing/procesar ..."
-          curl -sf -X POST "$API_URL/api/admin/nurturing/procesar" \
+          curl -sf --max-time 120 -X POST "$API_URL/api/admin/nurturing/procesar" \
             -H "X-Admin-Password: $ADMIN_PWD" \
             -H "Content-Type: application/json" \
             || echo "Nurturing no disponible (Render en cold start?)"

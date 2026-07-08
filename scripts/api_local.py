@@ -1722,21 +1722,20 @@ def descuentos_activos():
     conn = get_db()
     cursor = conn.cursor()
 
+    # Filtrado de vigencia en Python (no SQL) para que las campañas
+    # RECURRENTES anuales también muestren su banner: comparten la misma
+    # lógica de fechas que el cobro (_fecha_campana_vigente), así el banner
+    # y el descuento aplicado nunca quedan des-sincronizados.
     ahora = datetime.now().strftime("%Y-%m-%d")
-    cursor.execute("""
-        SELECT * FROM descuentos
-        WHERE mostrar_banner = 1 AND activo = 1
-        AND (fecha_inicio IS NULL OR fecha_inicio = '' OR fecha_inicio <= ?)
-        AND (fecha_fin IS NULL OR fecha_fin = '' OR fecha_fin >= ?)
-        ORDER BY id DESC LIMIT 1
-    """, (ahora, ahora))
-    banner = cursor.fetchone()
+    cursor.execute(
+        "SELECT * FROM descuentos WHERE mostrar_banner = 1 AND activo = 1 ORDER BY id DESC"
+    )
+    filas = [dict(r) for r in cursor.fetchall()]
     conn.close()
 
-    if not banner:
+    banner_dict = next((f for f in filas if _fecha_campana_vigente(f, ahora)), None)
+    if not banner_dict:
         return {"banner": None}
-
-    banner_dict = dict(banner)
     return {
         "banner": {
             "titulo": banner_dict.get("banner_titulo") or "",
@@ -2424,7 +2423,11 @@ def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):
     # Descontar stock (una sola vez, aunque el webhook llegue dos veces).
     # La sync diaria de Droppers vuelve a fijar el stock real; esto es la
     # protección intra-día contra sobreventa del último ítem.
-    if not orden.get('stock_descontado'):
+    # El gate por fecha evita descontar stock al REPROCESAR órdenes anteriores
+    # a la feature (tienen stock_descontado=0 pero su venta ya fue despachada).
+    FEATURE_STOCK_DESDE = '2026-07-07'
+    fecha_orden = str(orden.get('fecha') or '')[:10]
+    if not orden.get('stock_descontado') and fecha_orden >= FEATURE_STOCK_DESDE:
         for it in items:
             cursor.execute(
                 "UPDATE productos SET stock = MAX(0, stock - ?) WHERE sku = ?",
@@ -3661,7 +3664,8 @@ def registro_referido(datos: RegistroReferido):
 
 
 @app.get("/api/referidos/placa")
-def placa_referido(codigo: str = Query(...)):
+@limiter.limit("10/minute")
+def placa_referido(request: Request, codigo: str = Query(...)):
     """Devuelve una imagen (PNG, formato story) lista para compartir con el
     código de referido bien grande. El código es público (se comparte), así que
     no requiere auth; solo validamos que exista y esté activo."""
