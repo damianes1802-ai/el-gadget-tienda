@@ -17,7 +17,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/rejilla-desague-tapon-click-pelos-insectos-olores-acero-inox.html",
-  "fecha_scraping": "2026-07-08T06:28:38.521508",
+  "fecha_scraping": "2026-07-09T06:29:36.128064",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -27,7 +27,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-08T06:33:30.683296",
+  "fecha_mapeo_categorias": "2026-07-09T06:33:15.564540",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_002",
@@ -49,5 +49,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 9000.0,
-  "fecha_calculo_precio": "2026-07-08T06:35:12.821378"
+  "fecha_calculo_precio": "2026-07-09T06:35:06.825439"
 }

@@ -14,7 +14,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botiquin-medicamentos-mediana-1.html",
-  "fecha_scraping": "2026-07-08T06:28:59.684612",
+  "fecha_scraping": "2026-07-09T06:27:24.699285",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Estética y Belleza",
@@ -27,7 +27,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-08T06:33:30.661057",
+  "fecha_mapeo_categorias": "2026-07-09T06:33:15.525460",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_002",
@@ -46,5 +46,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 39500.0,
-  "fecha_calculo_precio": "2026-07-08T06:35:12.806204"
+  "fecha_calculo_precio": "2026-07-09T06:35:06.799772"
 }
