@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_001" alt="Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_001" class="thumbnail active" alt="Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_002" class="thumbnail" alt="Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_003" class="thumbnail" alt="Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_004" class="thumbnail" alt="Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-PAS18B_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-PAS18B_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-PAS18B_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-PAS18B_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -85,7 +85,7 @@
       </div>
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -190,12 +190,34 @@ Este bikini es la elección perfecta para renovar tu look de verano con una pren
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Bikini Traje de Baño con Nudos Vedetina Ne…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$43.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "A-PAS18B", "nombre": "Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano", "precio_venta": 43500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Preparate para lucir espléndida este verano con nuestro Bikini Traje de Baño con Nudos Vedetina Negro. Un diseño clásico y versátil que te garantiza comodidad y estilo en cada momento.\n- El detalle de nudos laterales no solo añade un toque chic y moderno a esta malla, sino que te permite personalizar el ajuste para una silueta perfecta.\n- Con su corte vedetina, este traje de baño para mujer ofrece la cobertura justa que buscás, sin resignar sensualidad ni libertad de movimiento.\n- El clásico color negro lo convierte en un fondo de armario infalible, ideal para combinar con cualquier accesorio de playa o pareo que tengas.\n- Pensado para que disfrutes de la pileta, la playa o tus vacaciones con total confianza y un look que siempre está de moda.\nEste bikini es la elección perfecta para renovar tu look de verano con una prenda atemporal y a la moda. No esperes más para tener tu malla ideal. ¡Sumala ahora a tu carrito y preparate para brillar bajo el sol!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS18B-S", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;

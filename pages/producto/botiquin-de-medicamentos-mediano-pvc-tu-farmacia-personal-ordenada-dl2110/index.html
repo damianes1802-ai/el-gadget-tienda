@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_001" alt="Botiquín de medicamentos mediano PVC, tu farmacia personal ordenada" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_001" class="thumbnail active" alt="Botiquín de medicamentos mediano PVC, tu farmacia personal ordenada" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_002" class="thumbnail" alt="Botiquín de medicamentos mediano PVC, tu farmacia personal ordenada" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_003" class="thumbnail" alt="Botiquín de medicamentos mediano PVC, tu farmacia personal ordenada" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_004" class="thumbnail" alt="Botiquín de medicamentos mediano PVC, tu farmacia personal ordenada" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2110_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Botiquín de medicamentos mediano PVC, tu farmacia personal ordenada" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2110_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Botiquín de medicamentos mediano PVC, tu farmacia personal ordenada" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2110_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Botiquín de medicamentos mediano PVC, tu farmacia personal ordenada" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2110_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Botiquín de medicamentos mediano PVC, tu farmacia personal ordenada" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ No esperes más para transformar el caos en orden. Este organizador de medicamen
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Botiquín de medicamentos mediano PVC, tu f…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$23.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2110", "nombre": "Botiquín de medicamentos mediano PVC, tu farmacia personal ordenada", "precio_venta": 23500.0, "stock": 9, "color": "", "talle": "", "descripcion": "Cansado de buscar entre tus remedios? El Botiquín de medicamentos mediano PVC es la solución ideal para tener tu farmacia en casa siempre organizada y a mano. Este práctico organizador te ayudará a mantener cada pastilla y vendaje en su lugar, optimizando tu tiempo y brindando tranquilidad. Pensado para el hogar argentino moderno, combina diseño y funcionalidad para tu día a día.\n- Olvidate del desorden: su diseño con nivel compartimentado y espacio libre te permite separar distintos tipos de medicamentos y accesorios, encontrando todo al instante y sin estrés.\n- Tamaño perfecto: con 23x16x14 cm, es compacto para guardar en cualquier lado y a la vez espacioso para lo esencial de tu hogar o para llevar de viaje sin ocupar demasiado lugar.\n- Duradero y fácil de limpiar: fabricado en PVC resistente, garantiza una larga vida útil y una higiene impecable con solo un paño húmedo, ideal para el cuidado de la salud.\nNo esperes más para transformar el caos en orden. Este organizador de medicamentos es indispensable para la seguridad y practicidad de tu hogar o tus salidas. Sumalo a tu carrito hoy y sentí la tranquilidad de tener todo bajo control.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2110_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

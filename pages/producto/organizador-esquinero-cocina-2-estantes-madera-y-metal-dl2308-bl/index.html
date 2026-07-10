@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_001" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_001" class="thumbnail active" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_002" class="thumbnail" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_003" class="thumbnail" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_004" class="thumbnail" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_005" class="thumbnail" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_006" class="thumbnail" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_006', 5)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2308-BL_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2308-BL_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2308-BL_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2308-BL_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2308-BL_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2308-BL_006" class="thumbnail" width="72" height="72" loading="lazy" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_006', 5)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Dale a tu cocina, baño o escritorio ese toque de orden y estilo que siempre bus
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Organizador Esquinero Cocina 2 Estantes Ma…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$97.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2308-BL", "nombre": "Organizador Esquinero Cocina 2 Estantes Madera y Metal", "precio_venta": 97000.0, "stock": 11, "color": "", "talle": "", "descripcion": "Transformá los rincones de tu cocina en un espacio funcional y siempre ordenado con este estante organizador esquinero. Es ideal para tener tus especias y frascos favoritos siempre a mano y a la vista, eliminando el desorden de forma práctica.\n- Fabricado con materiales premium: Disfrutá de la combinación de madera ecológica y metal resistente que asegura una larga vida útil y suma un toque moderno y cálido a tu ambiente.\n- Estabilidad garantizada: Su diseño triangular se adapta a la perfección a cualquier esquina, ofreciendo una firmeza superior para que guardes tus frascos y botellas sin preocupaciones.\n- Versatilidad que se adapta a vos: Si bien es ideal para organizar especias en la cocina, su diseño te permite usarlo también para cosméticos en el baño o sumar orden en tu escritorio.\n- Armado express: Olvidate de complicaciones. Lo ensamblás en pocos minutos, sin necesidad de herramientas especiales, listo para usar al instante.\nDale a tu cocina, baño o escritorio ese toque de orden y estilo que siempre buscaste. ¡Sumá este organizador esquinero a tu carrito y disfrutá de un ambiente impecable hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

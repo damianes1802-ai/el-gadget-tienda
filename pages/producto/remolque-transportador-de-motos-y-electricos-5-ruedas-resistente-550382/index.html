@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_001" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_001" class="thumbnail active" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_002" class="thumbnail" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_003" class="thumbnail" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_004" class="thumbnail" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_005" class="thumbnail" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_006" class="thumbnail" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_006', 5)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_550382_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_550382_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_550382_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_550382_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_550382_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_550382_006" class="thumbnail" width="72" height="72" loading="lazy" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_006', 5)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Este remolque es perfecto para talleres, servicios de auxilio en ruta o para ten
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Remolque transportador de motos y eléctric…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$16.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "550382", "nombre": "Remolque transportador de motos y eléctricos 5 ruedas resistente", "precio_venta": 16000.0, "stock": 11, "color": "", "talle": "", "descripcion": "¿Necesitás mover tu moto o vehículo eléctrico sin esfuerzo? Este remolque transportador es la solución ideal para traslados y rescates de emergencia en Argentina. Olvidate de las complicaciones al transportar vehículos de dos o tres ruedas con este dispositivo robusto y fácil de usar, una verdadera oferta en movilidad. \n- Versatilidad total: No importa si tenés una moto, un vehículo eléctrico o un triciclo, este remolque de auxilio es tu aliado para cualquier imprevisto o traslado, adaptándose a múltiples rodados. \n- Maniobrabilidad sin igual: Su diseño con asistencia de cinco ruedas te brinda un control absoluto y un giro flexible, haciendo que mover cargas pesadas sea una tarea simple y segura, incluso en espacios reducidos. \n- Construcción para durar: Fabricado con una placa de acero gruesa y doble cojinete auxiliar, este carro para moto es sinónimo de resistencia, con ruedas fuertes y duraderas que garantizan años de uso confiable y seguro. \nEste remolque es perfecto para talleres, servicios de auxilio en ruta o para tener siempre a mano en tu casa. No dejes pasar esta oportunidad para asegurar tus traslados con un equipo de primera calidad. Sumalo a tu carrito hoy y llevate tranquilidad en cada viaje.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_001" alt="Botella infantil 760ml personajes japoneses kawaii para niños" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_001" class="thumbnail active" alt="Botella infantil 760ml personajes japoneses kawaii para niños" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_002" class="thumbnail" alt="Botella infantil 760ml personajes japoneses kawaii para niños" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_003" class="thumbnail" alt="Botella infantil 760ml personajes japoneses kawaii para niños" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_003', 2)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7265_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Botella infantil 760ml personajes japoneses kawaii para niños" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7265_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Botella infantil 760ml personajes japoneses kawaii para niños" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7265_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Botella infantil 760ml personajes japoneses kawaii para niños" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_003', 2)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Perfecta para el colegio, la colonia de vacaciones o cualquier aventura al aire 
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Botella infantil 760ml personajes japonese…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$42.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7265", "nombre": "Botella infantil 760ml personajes japoneses kawaii para niños", "precio_venta": 42500.0, "stock": 7, "color": "", "talle": "", "descripcion": "La botella de agua perfecta para que los más chicos se mantengan hidratados con estilo. Esta botella infantil con diseños de personajes japoneses hará que beber agua sea pura diversión y una experiencia única en su día a día.Ideal para el colegio, excursiones o simplemente tener en casa. Un accesorio infaltable de bazar y cocina para los peques.\n- Diseños exclusivos de personajes japoneses que encantarán a los niños, haciendo que lleven su bebida con alegría y muestren su estilo favorito a todos sus amigos.\n- Gran capacidad de 760 ml, ideal para que tengan agua o jugo suficiente durante toda la jornada escolar, paseos o actividades, sin necesidad de recargas constantes.\n- Sorprendete con uno de los dos colores disponibles que se envían surtidos, ¡cada botella es una pequeña aventura por descubrir y personalizar su momento de hidratación!\nPerfecta para el colegio, la colonia de vacaciones o cualquier aventura al aire libre. Fomentá hábitos saludables de una forma divertida y original. ¡Sumala ya al carrito y dale a tu pequeño su botella favorita hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_003"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

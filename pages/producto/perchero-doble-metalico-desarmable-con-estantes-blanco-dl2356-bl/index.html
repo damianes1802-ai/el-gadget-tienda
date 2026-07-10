@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_001" alt="Perchero doble metálico desarmable con estantes blanco" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_001" class="thumbnail active" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_002" class="thumbnail" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_003" class="thumbnail" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_004" class="thumbnail" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_005" class="thumbnail" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_006" class="thumbnail" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_006', 5)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2356-BL_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2356-BL_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2356-BL_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2356-BL_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2356-BL_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2356-BL_006" class="thumbnail" width="72" height="72" loading="lazy" alt="Perchero doble metálico desarmable con estantes blanco" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_006', 5)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Perchero doble metálico desarmable con est…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$70.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2356-BL", "nombre": "Perchero doble metálico desarmable con estantes blanco", "precio_venta": 70500.0, "stock": 12, "color": "", "talle": "", "descripcion": "Optimizar tu espacio y mantener todo organizado nunca fue tan fácil. Este perchero metálico doble con tres estantes es la solución ideal para tu ropa y accesorios, tanto en casa como en tu negocio. - Duplicá tu espacio: Sus dos barras de colgado te permiten organizar una gran cantidad de prendas, separando abrigos de camisas o vestidos con facilidad. - Todo en su lugar: Tres estantes inferiores son perfectos para zapatos, carteras, cajas o ropa doblada, simplificando tu rutina. - Máxima flexibilidad: Equipado con ruedas giratorias para moverlo sin esfuerzo, ideal para reorganizar el ambiente o limpiar. - Durabilidad asegurada: Fabricado con estructura metálica reforzada, soporta el uso diario y mantiene tu ropa siempre a mano. - Fácil de armar y guardar: Su diseño desarmable permite un montaje rápido y un guardado compacto cuando no lo usás o lo trasladás. Ideal para renovar tu vestidor, optimizar el dormitorio o exhibir tus prendas en un local. Un perchero doble resistente y práctico que se adapta a tu ritmo. ¡Hacelo tuyo y transformá tu espacio hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

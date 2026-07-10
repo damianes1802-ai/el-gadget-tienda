@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7164_001" alt="Babero para bebés de algodón puro, suavidad ideal para su piel" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7164_001" class="thumbnail active" alt="Babero para bebés de algodón puro, suavidad ideal para su piel" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7164_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7164_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Babero para bebés de algodón puro, suavidad ideal para su piel" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7164_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ No busques más: este babero no solo cuida la ropita, sino que aporta confort a 
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Babero para bebés de algodón puro, suavida…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$5.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7164", "nombre": "Babero para bebés de algodón puro, suavidad ideal para su piel", "precio_venta": 5500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Protegé la ropita de tu bebé con nuestro babero de algodón puro, diseñado para ofrecer la máxima suavidad y cuidado a su piel delicada. Un accesorio esencial que combina funcionalidad y confort para el día a día.\n- Confeccionado en algodón puro 100%, súper suave y amable con la piel sensible de tu bebé, evitando irritaciones y garantizando su bienestar.\n- Sus medidas de 22 x 24 cm son ideales para cubrir una zona amplia sin estorbar, capturando derrames y babitas con eficacia, manteniendo a tu pequeño limpio y seco.\n- Es práctico y fácil de lavar, lo que lo convierte en el compañero perfecto para las comidas diarias y esos momentos de babitas constantes, facilitando tu rutina.\n- Un esencial indispensable para la higiene y comodidad de los más chiquitos, disponible ahora en nuestra sección de OFERTAS con una excelente relación calidad-precio.\nNo busques más: este babero no solo cuida la ropita, sino que aporta confort a tu bebé en cada momento. Sumalo hoy a tus accesorios para bebés indispensables o pensalo como un regalo práctico y de calidad para un recién nacido.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7164_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

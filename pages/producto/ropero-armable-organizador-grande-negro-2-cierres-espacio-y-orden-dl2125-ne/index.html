@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-NE_001" alt="Ropero Armable Organizador Grande Negro 2 Cierres: espacio y orden" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-NE_001" class="thumbnail active" alt="Ropero Armable Organizador Grande Negro 2 Cierres: espacio y orden" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-NE_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2125-NE_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Ropero Armable Organizador Grande Negro 2 Cierres: espacio y orden" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-NE_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Ropero Armable Organizador Grande Negro 2 …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$83.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2125-NE", "nombre": "Ropero Armable Organizador Grande Negro 2 Cierres: espacio y orden", "precio_venta": 83000.0, "stock": 12, "color": "", "talle": "", "descripcion": "¿Necesitás más espacio para tu ropa pero no querés un mueble fijo? Este ropero organizador armable negro es la solución perfecta para mantener todo en su lugar, de forma fácil y rápida. Ideal para renovar tu habitación o sumar un área de guardado eficiente para tus prendas de indumentaria. - Sus amplias medidas de 1.6 metros de alto, 1.3 metros de ancho y 45 cm de profundidad te garantizan espacio de sobra para organizar toda tu ropa, ¡sin que te falte lugar! - Mantené tu indumentaria impecable y a la vista con el sector para colgar, y guardá doblado en los estantes, optimizando cada rincón de tu armario. - Protegé tus prendas del polvo y mantené la privacidad gracias a sus 2 cierres tipo cortina, dándole un toque prolijo y discreto a tu ambiente. - Es armable y versátil: una solución práctica y rápida para cualquier habitación, ideal para quienes necesitan flexibilidad o espacio extra sin complicaciones. Ya sea para organizar tu dormitorio, un cuarto de invitados o para ese guardado adicional que siempre hace falta, este ropero armable negro es la opción más inteligente. Aprovechá esta oferta única y sumalo a tu carrito hoy mismo para transformar tu organización.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-NE_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

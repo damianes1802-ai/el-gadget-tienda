@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_001" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_001" class="thumbnail active" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_002" class="thumbnail" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_003" class="thumbnail" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_004" class="thumbnail" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_005" class="thumbnail" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_006" class="thumbnail" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_006', 5)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2371_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2371_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2371_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2371_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2371_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2371_006" class="thumbnail" width="72" height="72" loading="lazy" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_006', 5)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Set x5 fundas colgantes ropa 60x120cm - pr…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$42.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2371", "nombre": "Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas", "precio_venta": 42500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Cansado de ver tu ropa arrugada o llena de polvo? Este set de 5 fundas protectoras colgantes es la solución definitiva para mantener tu vestuario impecable, organizado y completamente protegido. Son perfectas para resguardar prendas de uso diario o de estación, evitando el deterioro y asegurando que tus conjuntos estén siempre listos para usar. - Encontrá al instante lo que buscás: su diseño traslúcido te permite ver el contenido sin necesidad de abrir, optimizando tu tiempo y el orden del placard. - Máxima protección y durabilidad: el material PEVA de alta calidad es ecológico, impermeable y semi-transpirable, cuidando tus prendas del polvo, humedad, polillas y olores. - Cierre seguro y resistente: con una cremallera frontal suave y reforzada, guardar tus trajes, camperas o abrigos es simple y efectivo, garantizando un sellado perfecto. - Adiós a las arrugas: al mantener la ropa estirada y alineada en el perchero, evitan las arrugas y optimizan el espacio de colgado. Ideales para cualquier prenda de hasta 110 cm de largo. Estas fundas son ideales para proteger tus prendas más valiosas, desde trajes elegantes hasta camperas de cuero, sacos y blusas, asegurando que siempre estén impecables. Transformá la organización de tu placard, olvidate de las polillas y el polvo. ¡Sumalas a tu carrito y disfrutá de un guardarropa siempre listo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

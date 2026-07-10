@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7275_001" alt="Pack Stickers Personajes Japoneses 2 - 96 hojas para coleccionar" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7275_001" class="thumbnail active" alt="Pack Stickers Personajes Japoneses 2 - 96 hojas para coleccionar" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7275_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7275_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Pack Stickers Personajes Japoneses 2 - 96 hojas para coleccionar" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7275_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Ideal para hacer un regalo original a un fanático del anime o simplemente para 
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Pack Stickers Personajes Japoneses 2 - 96 …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$10.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7275", "nombre": "Pack Stickers Personajes Japoneses 2 - 96 hojas para coleccionar", "precio_venta": 10500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Sumate a la fiebre de los personajes japoneses con esta increíble caja de stickers. Es ideal para darle un toque único y divertido a tus objetos favoritos, agendas, cuadernos o lo que quieras personalizar con estilo.\n- ¡Variedad infinita! Cada caja trae 96 hojas repletas de stickers para que tengas material de sobra para decorar, compartir o coleccionar sin límites.\n- Diseños adorables y a la moda con tus personajes japoneses favoritos. Son perfectos para los amantes del estilo kawaii y la cultura oriental.\n- Su formato compacto de 16,5 x 16,5 x 2 cm hace que sea fácil de transportar y guardar, ¡llevá la diversión a donde vayas!\n- La emoción de la sorpresa: recibís una de las 4 variantes exclusivas, haciendo de cada apertura una experiencia única y coleccionable para tu pack de stickers.\nIdeal para hacer un regalo original a un fanático del anime o simplemente para consentirte y darle un upgrade a tus pertenencias. No te quedes sin tu pack de stickers de personajes japoneses y hacelo tuyo hoy.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7275_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

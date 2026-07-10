@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001" class="thumbnail active" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_002" class="thumbnail" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_003" class="thumbnail" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_004" class="thumbnail" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_005" class="thumbnail" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_G-RINOANTROBOGR_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_G-RINOANTROBOGR_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_G-RINOANTROBOGR_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_G-RINOANTROBOGR_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_G-RINOANTROBOGR_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -187,12 +187,34 @@ Este morral bandolera no es solo un accesorio; es tu compañero ideal para el tr
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Morral Antirrobo Oxford Gris y Bronce con …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$31.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "G-RINOANTROBOGR", "nombre": "Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana", "precio_venta": 31500.0, "stock": 11, "color": "", "talle": "", "descripcion": "Llevá tus esenciales con total tranquilidad. Este morral antirrobo Oxford gris y bronce te ofrece la máxima seguridad y comodidad para tu día a día en la ciudad o tus escapadas.\n- Bloqueo antirrobo de tres dígitos y bolsillo oculto: tus objetos de valor siempre a salvo de curiosos y protegidos con contraseña.\n- Espacio inteligente y organizado: compartimento principal amplio y bolsillos multifunción para todo, desde tu celular hasta tus llaves, manteniendo tus pertenencias en orden.\n- Puerto de carga USB integrado: cargá tu teléfono en movimiento, conectando tu power bank sin abrir la mochila (¡el power bank no está incluido!).\n- Material premium Oxford: resistente al agua y a los desgarros para acompañarte en cualquier aventura, urbana o al aire libre, sin preocuparte por el clima.\n- Diseño reflectante: mayor visibilidad y seguridad en tus desplazamientos nocturnos.\nEste morral bandolera no es solo un accesorio; es tu compañero ideal para el trabajo, la facultad o ese viaje de fin de semana, garantizando que todo esté seguro y a mano. No esperes más para tener la combinación perfecta de seguridad, estilo y funcionalidad. Sumalo hoy a tu carrito de El Gadget.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

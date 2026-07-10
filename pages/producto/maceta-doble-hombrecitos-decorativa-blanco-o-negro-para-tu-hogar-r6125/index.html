@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_R6125_001" alt="Maceta Doble Hombrecitos Decorativa, Blanco o Negro, para tu Hogar" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_R6125_001" class="thumbnail active" alt="Maceta Doble Hombrecitos Decorativa, Blanco o Negro, para tu Hogar" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_R6125_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_R6125_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Maceta Doble Hombrecitos Decorativa, Blanco o Negro, para tu Hogar" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_R6125_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Ideal para regalar a amantes de la decoración o para darte ese gusto que tu cas
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Maceta Doble Hombrecitos Decorativa, Blanc…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$28.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "R6125", "nombre": "Maceta Doble Hombrecitos Decorativa, Blanco o Negro, para tu Hogar", "precio_venta": 28500.0, "stock": 14, "color": "", "talle": "", "descripcion": "Dale un toque de alegría y estilo a tus espacios con esta maceta doble decorativa de hombrecitos. La pieza perfecta para quienes buscan originalidad en la decoración de su hogar u oficina.\n- Su diseño único con hombrecitos no solo decora, sino que añade un punto de conversación y personalidad a cualquier ambiente, ideal para macetas de plantas pequeñas o suculentas.\n- Con sus medidas compactas (20cm de alto y 8cm de ancho), se adapta a cualquier rincón: desde tu escritorio hasta estantes, mesas de luz o la cocina, optimizando el espacio con estilo.\n- Disponible en elegantes tonos blanco o negro, te llevas una pieza que, además de ser una sorpresa encantadora, combina a la perfección con cualquier paleta de colores de tu deco actual.\nIdeal para regalar a amantes de la decoración o para darte ese gusto que tu casa pide a gritos. Transformá tus espacios con un objeto funcional y lleno de onda. No te quedes sin esta maceta de diseño, ¡sumala hoy a tu carrito y dale vida a tus plantas con un toque divertido!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_R6125_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

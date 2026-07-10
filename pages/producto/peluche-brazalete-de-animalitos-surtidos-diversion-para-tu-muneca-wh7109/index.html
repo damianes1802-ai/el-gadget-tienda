@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_001" alt="Peluche brazalete de animalitos surtidos | Diversión para tu muñeca" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_001" class="thumbnail active" alt="Peluche brazalete de animalitos surtidos | Diversión para tu muñeca" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_002" class="thumbnail" alt="Peluche brazalete de animalitos surtidos | Diversión para tu muñeca" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_003" class="thumbnail" alt="Peluche brazalete de animalitos surtidos | Diversión para tu muñeca" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_004" class="thumbnail" alt="Peluche brazalete de animalitos surtidos | Diversión para tu muñeca" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7109_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Peluche brazalete de animalitos surtidos | Diversión para tu muñeca" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7109_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Peluche brazalete de animalitos surtidos | Diversión para tu muñeca" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7109_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Peluche brazalete de animalitos surtidos | Diversión para tu muñeca" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7109_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Peluche brazalete de animalitos surtidos | Diversión para tu muñeca" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Peluche brazalete de animalitos surtidos |…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$21.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7109", "nombre": "Peluche brazalete de animalitos surtidos | Diversión para tu muñeca", "precio_venta": 21000.0, "stock": 12, "color": "", "talle": "", "descripcion": "Dale un toque divertido y original a tu día con un peluche brazalete de animalitos. Este accesorio único es perfecto para llevar la alegría siempre con vos o para sorprender con un regalo especial. Sumá un amigo suave a tu muñeca: Nuestros peluches brazalete son súper cómodos y tiernos, ideales para acompañarte a todos lados. Diseños irresistibles de animalitos: Cada uno tiene su encanto, desde los más clásicos hasta los más originales. ¡La emoción de la sorpresa! Recibí un modelo surtido y descubrí qué simpático animalito te alegrará el día. Aprovechá la OFERTA: Conseguí este divertido accesorio a un precio increíble, perfecto para un detalle o para darte un gusto. Ideal para chicos y grandes, como un regalito original o para sumar un toque de color a tu outfit. No dejes pasar esta oportunidad de divertirte, ¡sumalo a tu carrito hoy mismo y preparate para la sorpresa!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

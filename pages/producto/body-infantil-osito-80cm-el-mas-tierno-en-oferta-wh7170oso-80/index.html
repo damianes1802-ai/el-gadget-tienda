@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170OSO-80_001" alt="Body infantil Osito 80cm – El más tierno en oferta" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170OSO-80_001" class="thumbnail active" alt="Body infantil Osito 80cm – El más tierno en oferta" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170OSO-80_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7170OSO-80_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Body infantil Osito 80cm – El más tierno en oferta" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170OSO-80_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Este body de osito es ideal tanto para el uso diario como para sorprender con un
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Body infantil Osito 80cm – El más tierno e…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$53.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7170OSO-80", "nombre": "Body infantil Osito 80cm – El más tierno en oferta", "precio_venta": 53000.0, "stock": 14, "color": "", "talle": "", "descripcion": "Vestí a tu bebé con el body infantil de osito más tierno y cómodo. Ideal para que luzca adorable en cualquier ocasión, un básico indispensable para su ropero. Este enterito es perfecto para agregar un toque de dulzura a la ropa de tu bebé, combinando estilo y practicidad en una sola prenda.\n- El diseño de osito lo convierte en una prenda irresistible que hará que tu bebé se vea aún más adorable en fotos y el día a día.\n- Con un talle de 80cm, es ideal para los pequeños que están en pleno crecimiento, garantizando comodidad y un ajuste perfecto para sus movimientos.\n- Aprovechá esta oportunidad única: encontrá este body para bebés en nuestra sección de OFERTAS, sumando calidad y ternura a un precio especial.\nEste body de osito es ideal tanto para el uso diario como para sorprender con un regalo encantador y práctico. No te pierdas esta oferta para sumar ternura al guardarropa de tu bebé. Hacelo tuyo hoy y disfrutá de cada momento con tu pequeño luciendo este adorable body.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170OSO-80_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_001" alt="Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_001" class="thumbnail active" alt="Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_002" class="thumbnail" alt="Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_003" class="thumbnail" alt="Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_004" class="thumbnail" alt="Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_S6058C_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_S6058C_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_S6058C_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_S6058C_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Gorro Piluso Charol Brillante Impermeable …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$29.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "S6058C", "nombre": "Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer", "precio_venta": 29000.0, "stock": 11, "color": "", "talle": "", "descripcion": "Transformá tus outfits de invierno con este piluso de charol: estilo urbano, sofisticado e impermeable. Este gorro de moda es el accesorio clave para mujeres que buscan destacar y protegerse del frío y la lluvia con elegancia. Un toque premium que se siente y se ve en tus días. - Su diseño de charol con acabado brillante te da un look moderno y atrevido, ideal para romper la monotonía de tus outfits de invierno.- Olvidate de la lluvia o la humedad: su material impermeable te mantiene protegida sin perder el estilo, ¡perfecto para esos días grises!- Confort y tendencia en uno: este gorro piluso es el accesorio de moda ideal para mujeres que buscan comodidad y un toque urbano chic en su día a día.- Pensado para el Otoño/Invierno, te brinda abrigo y un estilo versátil que combina con todo, desde un jean hasta un look más producido.Es el complemento perfecto para tu guardarropa, sumándole personalidad a tus días de frío y humedad. No esperes más para tener este must-have de la temporada. ¡Hacelo tuyo hoy y lucí un estilo único!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

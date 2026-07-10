@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-003_001" alt="Guantes tejidos infantiles beige y rosa para manos abrigadas" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-003_001" class="thumbnail active" alt="Guantes tejidos infantiles beige y rosa para manos abrigadas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-003_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_G1396-003_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Guantes tejidos infantiles beige y rosa para manos abrigadas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-003_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Estos guantes para niños son el complemento esencial para el invierno de los ch
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Guantes tejidos infantiles beige y rosa pa…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$12.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "G1396-003", "nombre": "Guantes tejidos infantiles beige y rosa para manos abrigadas", "precio_venta": 12500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Protegé las manos de los más chicos del frío con estos guantes tejidos infantiles, ideales para mantenerlos calentitos y cómodos en cualquier actividad. Pensados para el día a día, son el accesorio perfecto para el invierno.\n- Tejido suave y confortable: Diseñados para cuidar la delicada piel de los niños, brindando calidez sin picazón ni molestias.\n- Talle perfecto para manitos pequeñas: Asegura un ajuste cómodo y seguro para que jueguen y se muevan con total libertad, sin que se les salgan.\n- Colores beige y rosa: Recibí una opción surtida entre estos tonos clásicos y fáciles de combinar, ¡una sorpresa ideal para cada día!\n- Abrigo garantizado: Ideales para los días más frescos, protegiendo las manos de tus hijos del frío mientras disfrutan al aire libre.\nEstos guantes para niños son el complemento esencial para el invierno de los chicos, ya sea para ir al cole, jugar en la plaza o simplemente mantener las manos calentitas en casa. ¡No dejes pasar esta oferta y sumalos a su guardarropa hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-003_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

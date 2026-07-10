@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_001" alt="Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_001" class="thumbnail active" alt="Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_002" class="thumbnail" alt="Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_003" class="thumbnail" alt="Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_004" class="thumbnail" alt="Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA114B_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA114B_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA114B_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA114B_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -85,7 +85,7 @@
       </div>
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -191,12 +191,34 @@ No sacrifiques estilo por comodidad. Esta blusa es la prenda esencial para armar
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Blusa Bambula Bordada Negra Manga Larga - …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$70.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "PA114B", "nombre": "Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil", "precio_venta": 70000.0, "stock": 13, "color": "", "talle": "", "descripcion": "Sumá a tu guardarropa la blusa que combina elegancia y máximo confort para cualquier ocasión. Esta blusa de viscosa bambula bordada es tu aliada ideal para lucir impecable y sentirte liviana durante todo el día. Es la prenda perfecta para la mujer moderna en Argentina que busca estilo sin renunciar a la comodidad de la ropa.\n- Sentí una suavidad increíble en tu piel con su tela de viscosa bambula, fresca y liviana para usar todo el año.\n- Sus mangas largas le dan un toque sofisticado, perfecto para looks casuales o más formales.\n- Destacate con los delicados bordados artesanales que le suman un toque único y lleno de personalidad a tu outfit.\n- Disfrutá de un calce suelto y favorecedor que estiliza tu figura con total libertad de movimiento.\n- Es súper fácil de combinar con jeans, faldas o pantalones, creando looks distintos y siempre a la moda.\nNo sacrifiques estilo por comodidad. Esta blusa es la prenda esencial para armar outfits femeninos y frescos, desde el día a día hasta esa ocasión especial. Hacela tuya hoy y viví la diferencia.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "PA114BS", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "PA114BM", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "L", "sku_interno": "PA114BL", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;

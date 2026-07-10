@@ -174,26 +174,10 @@ function initPopupRegistro() {
       <div id="egPopupContenido">
         <div class="eg-popup-emoji">🎁</div>
         <h2>10% OFF en tu primera compra</h2>
-        <p>Creá tu cuenta y obtené un 10% de descuento automático en tu primera compra.</p>
-        <div class="field">
-          <label>Nombre</label>
-          <input type="text" id="egPopupNombre" placeholder="Tu nombre">
-        </div>
+        <p>Dejanos tu email y el descuento se aplica solo en tu primera compra. Sin vueltas.</p>
         <div class="field">
           <label>Email</label>
-          <input type="email" id="egPopupEmail" placeholder="tu@email.com">
-        </div>
-        <div class="field">
-          <label>Teléfono</label>
-          <input type="tel" id="egPopupTelefono" placeholder="11 1234 5678">
-        </div>
-        <div class="field">
-          <label>Contraseña</label>
-          <input type="password" id="egPopupPassword" placeholder="Mínimo 6 caracteres">
-        </div>
-        <div class="field">
-          <label>Confirmar contraseña</label>
-          <input type="password" id="egPopupPassword2" placeholder="Repetí tu contraseña">
+          <input type="email" id="egPopupEmail" placeholder="tu@email.com" autocomplete="email" inputmode="email">
         </div>
         <div class="eg-popup-error" id="egPopupError"></div>
         <button class="btn btn-accent btn-block" id="egPopupSubmit">Quiero mi 10% OFF</button>
@@ -215,32 +199,24 @@ function initPopupRegistro() {
     localStorage.setItem('eg_popup_dismissed', '1');
   });
 
+  const egPopupEmailInput = document.getElementById('egPopupEmail');
+  egPopupEmailInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('egPopupSubmit').click();
+  });
+
   document.getElementById('egPopupSubmit').addEventListener('click', async () => {
-    const nombre = document.getElementById('egPopupNombre').value.trim();
     const email = document.getElementById('egPopupEmail').value.trim();
-    const telefono = document.getElementById('egPopupTelefono').value.trim();
-    const password = document.getElementById('egPopupPassword').value;
-    const password2 = document.getElementById('egPopupPassword2').value;
     const errorEl = document.getElementById('egPopupError');
     errorEl.innerHTML = '';
     errorEl.style.display = 'none';
 
-    if (!nombre || !email || !email.includes('@') || !telefono) {
-      errorEl.textContent = 'Completá tu nombre, email y teléfono.';
-      errorEl.style.display = 'block';
-      return;
-    }
-    if (password.length < 6) {
-      errorEl.textContent = 'La contraseña debe tener al menos 6 caracteres.';
-      errorEl.style.display = 'block';
-      return;
-    }
-    if (password !== password2) {
-      errorEl.textContent = 'Las contraseñas no coinciden.';
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      errorEl.textContent = 'Ingresá un email válido.';
       errorEl.style.display = 'block';
       return;
     }
 
+    const nombre = '';
     const btn = document.getElementById('egPopupSubmit');
     btn.disabled = true;
     btn.textContent = 'Enviando...';
@@ -249,7 +225,7 @@ function initPopupRegistro() {
       const res = await fetch(`${EG_API_URL}/api/registro`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, email, telefono, password })
+        body: JSON.stringify({ email })
       });
       const data = await res.json();
       if (!res.ok) {
@@ -276,11 +252,11 @@ function initPopupRegistro() {
 
       document.getElementById('egPopupContenido').innerHTML = `
         <div class="eg-popup-emoji">🎉</div>
-        <h2>¡Listo, ${escapeHtmlBasico(nombre)}!</h2>
+        <h2>¡Listo! Tu 10% OFF te espera</h2>
         <p>${yaUsado
           ? 'Ya usaste tu 10% OFF de bienvenida en una compra anterior. ¡Gracias por volver!'
-          : 'Tu 10% OFF se va a aplicar automáticamente en tu primera compra. Te enviamos un email de confirmación.'}</p>
-        <button class="btn btn-accent btn-block" id="egPopupCerrar">Entendido</button>
+          : 'Se aplica automáticamente en tu primera compra. Ya podés seguir eligiendo tus productos.'}</p>
+        <button class="btn btn-accent btn-block" id="egPopupCerrar">Ver productos</button>
       `;
       document.getElementById('egPopupCerrar').addEventListener('click', () => {
         overlay.classList.remove('show');
@@ -295,7 +271,30 @@ function initPopupRegistro() {
     }
   });
 
-  setTimeout(() => overlay.classList.add('show'), 1500);
+  // Disparo diferido (Fogg: mostrar el prompt cuando ya hay algo de motivación,
+  // no en el primer paint). Se muestra al primero que ocurra: 30s, scroll >45%,
+  // o intención de salida. Una sola vez por sesión.
+  let mostrado = false;
+  const mostrar = () => {
+    if (mostrado || localStorage.getItem('eg_popup_dismissed')) return;
+    mostrado = true;
+    overlay.classList.add('show');
+    limpiarTriggers();
+  };
+  const onScroll = () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop + window.innerHeight) / h.scrollHeight;
+    if (pct > 0.45) mostrar();
+  };
+  const onExit = (e) => { if (e.clientY <= 0) mostrar(); };
+  const timer = setTimeout(mostrar, 30000);
+  function limpiarTriggers() {
+    clearTimeout(timer);
+    window.removeEventListener('scroll', onScroll, { passive: true });
+    document.removeEventListener('mouseout', onExit);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('mouseout', onExit);
 }
 
 /**
@@ -322,6 +321,9 @@ function initOfertaYStockProducto() {
               <span class="discount-pill">-${pct}%</span>
             </div>`;
         }
+        // Reflejar la oferta en la barra sticky de compra (mobile)
+        const stickyPrice = document.getElementById('pdpStickyPrice');
+        if (stickyPrice) stickyPrice.textContent = formatPrice(data.precio_oferta);
       }
 
       const stockBadge = document.getElementById('stockBadge');
@@ -497,11 +499,13 @@ function showCookieBanner() {
   if (localStorage.getItem('eg_cookies_decided')) return;
   const banner = document.createElement('div');
   banner.id = 'eg-cookie-banner';
-  banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#14151A;color:#fff;padding:16px 24px;z-index:9999;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;line-height:1.5;box-shadow:0 -2px 12px rgba(0,0,0,0.3)';
+  // Compacto (una línea): recupera viewport en el funnel y no colisiona con
+  // los CTAs de compra. Consentimiento válido igual (LIFT: menos distracción).
+  banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#14151A;color:#fff;padding:9px 14px;z-index:9999;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:nowrap;font-size:12px;line-height:1.35;box-shadow:0 -2px 12px rgba(0,0,0,0.3)';
   banner.innerHTML = `
-    <span style="flex:1;min-width:200px">Usamos cookies técnicas (necesarias) y de analítica/publicidad (opcionales). <a href="/privacidad#cookies" style="color:#FFC700;text-decoration:underline">Más info</a></span>
-    <button onclick="acceptCookies()" style="background:#FFC700;color:#14151A;border:none;padding:8px 20px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap">Aceptar todas</button>
-    <button onclick="rejectOptionalCookies()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3);padding:8px 20px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap">Solo necesarias</button>
+    <span style="flex:1;min-width:0">🍪 Usamos cookies para mejorar tu experiencia. <a href="/privacidad#cookies" style="color:#FFC700;text-decoration:underline">Más info</a></span>
+    <button onclick="acceptCookies()" style="background:#FFC700;color:#14151A;border:none;padding:6px 14px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Aceptar</button>
+    <button onclick="rejectOptionalCookies()" aria-label="Solo cookies necesarias" style="background:transparent;color:rgba(255,255,255,0.7);border:none;padding:6px 6px;font-size:12px;cursor:pointer;white-space:nowrap;text-decoration:underline">Solo necesarias</button>
   `;
   document.body.appendChild(banner);
 }

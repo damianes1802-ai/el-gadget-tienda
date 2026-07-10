@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-MA_001" alt="Placard Ropero Organizador Armable Marrón Grande con Cierre" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-MA_001" class="thumbnail active" alt="Placard Ropero Organizador Armable Marrón Grande con Cierre" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-MA_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2125-MA_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Placard Ropero Organizador Armable Marrón Grande con Cierre" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-MA_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Transformá cualquier rincón de tu casa, habitación o ese monoambiente en un e
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Placard Ropero Organizador Armable Marrón …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$83.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2125-MA", "nombre": "Placard Ropero Organizador Armable Marrón Grande con Cierre", "precio_venta": 83000.0, "stock": 9, "color": "", "talle": "", "descripcion": "¿Necesitás más espacio para tu ropa y accesorios sin complicarte la vida? Este placard ropero organizador armable en color marrón es la solución práctica y económica que buscabas para mantener todo en su lugar, ideal para dormitorios, vestidores provisorios o cualquier ambiente. Olvidate del desorden y tené siempre tus prendas a mano. \n- Gran capacidad: Con sus 1,6 metros de alto, 1,3 metros de ancho y 45 cm de profundidad, este armario organizador ofrece muchísimo espacio para guardar toda tu ropa, calzado y accesorios sin ocupar de más. \n- Diseño inteligente: Cuenta con un sector especial para colgar tus prendas favoritas y varios estantes, permitiéndote organizar todo de forma práctica y accesible según tus necesidades. \n- Ropa protegida: Sus dos cierres tipo cortina resguardan tus prendas del polvo y mantienen la estética de tu ambiente, para que tu espacio siempre se vea prolijo. \n- Armado rápido y sencillo: Ideal para quienes buscan una solución ágil y fácil de transportar, este ropero armable se monta sin complicaciones y se adapta a cualquier rincón, perfecto para quienes se mudan o necesitan flexibilidad. \nTransformá cualquier rincón de tu casa, habitación o ese monoambiente en un espacio funcional al instante con este práctico organizador de ropa. Aprovechá esta oferta y sumá hoy mismo este armario armable a tu hogar.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2125-MA_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_001" alt="Unicornio Inflable Glitter Gigante 1.74m para tu verano mágico" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_001" class="thumbnail active" alt="Unicornio Inflable Glitter Gigante 1.74m para tu verano mágico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_002" class="thumbnail" alt="Unicornio Inflable Glitter Gigante 1.74m para tu verano mágico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_003" class="thumbnail" alt="Unicornio Inflable Glitter Gigante 1.74m para tu verano mágico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_003', 2)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-62170_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Unicornio Inflable Glitter Gigante 1.74m para tu verano mágico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-62170_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Unicornio Inflable Glitter Gigante 1.74m para tu verano mágico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-62170_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Unicornio Inflable Glitter Gigante 1.74m para tu verano mágico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_003', 2)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Transformá cualquier momento en algo especial y sacá las fotos más instagrame
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Unicornio Inflable Glitter Gigante 1.74m p…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$86.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "A-62170", "nombre": "Unicornio Inflable Glitter Gigante 1.74m para tu verano mágico", "precio_venta": 86500.0, "stock": 13, "color": "", "talle": "", "descripcion": "¡Dale un toque de magia y brillo a tu verano con el Inflable Unicornio Glitter Gigante de El Gadget! Este espectacular inflable es el compañero ideal para tus días de pileta, lago o playa en Argentina. Imaginate relajándote sobre este unicornio increíble que no solo es gigante, sino que está lleno de glitter, capturando la luz del sol y creando un efecto deslumbrante.\n\nCon sus generosas dimensiones de aproximadamente 1.74 metros de largo por 0.84 metros de ancho, tenés espacio de sobra para disfrutar de un merecido descanso. Es perfecto para grandes y chicos (¡siempre con supervisión!), garantizando horas de diversión y relax. Ya sea que estés planeando unas vacaciones épicas o simplemente quieras disfrutar del jardín de casa, este unicornio inflable es el accesorio de verano que no puede faltarte.\n\nTransformá cualquier momento en algo especial y sacá las fotos más instagrameables del verano. Su diseño llamativo lo convierte en el centro de atención. ¡Preparate para chapuzones de pura fantasía y estilo con El Gadget!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_003"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

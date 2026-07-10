@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_001" alt="Mochila infantil animalitos personajes japoneses, ideal jardín" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_001" class="thumbnail active" alt="Mochila infantil animalitos personajes japoneses, ideal jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_002" class="thumbnail" alt="Mochila infantil animalitos personajes japoneses, ideal jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_003" class="thumbnail" alt="Mochila infantil animalitos personajes japoneses, ideal jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_004" class="thumbnail" alt="Mochila infantil animalitos personajes japoneses, ideal jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7261_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Mochila infantil animalitos personajes japoneses, ideal jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7261_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila infantil animalitos personajes japoneses, ideal jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7261_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila infantil animalitos personajes japoneses, ideal jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7261_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila infantil animalitos personajes japoneses, ideal jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Esta mochila es el regalo ideal para sorprender a los peques, asegurando que emp
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Mochila infantil animalitos personajes jap…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$62.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7261", "nombre": "Mochila infantil animalitos personajes japoneses, ideal jardín", "precio_venta": 62000.0, "stock": 14, "color": "", "talle": "", "descripcion": "Prepará a los más chicos para sus aventuras diarias con esta mochila infantil de animalitos y personajes japoneses. Es el accesorio perfecto para llevar todo lo necesario al jardín o a las salidas, combinando diversión y funcionalidad. \n- Diseño encantador: con divertidos animalitos y personajes japoneses que harán de cada día una aventura, ideal para que los chicos adoren llevar sus cosas. \n- Tamaño perfecto para los más chicos: sus medidas de 30 x 12 x 35 cm son ideales para el jardín de infantes o la guardería, ofreciendo espacio justo para meriendas y juguetes sin ser pesada. \n- Comodidad garantizada: pensada para que puedan transportar sus objetos favoritos con total facilidad y autonomía. \nEsta mochila es el regalo ideal para sorprender a los peques, asegurando que empiecen el día con una sonrisa. Dale un toque de magia y practicidad a sus jornadas. No esperes más y sumala al carrito para que sus días estén llenos de alegría y estilo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

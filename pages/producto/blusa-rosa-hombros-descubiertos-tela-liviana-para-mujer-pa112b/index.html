@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_001" alt="Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_001" class="thumbnail active" alt="Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_002" class="thumbnail" alt="Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_003" class="thumbnail" alt="Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_004" class="thumbnail" alt="Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA112B_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA112B_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA112B_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA112B_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -85,7 +85,7 @@
       </div>
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -190,12 +190,34 @@ Ya sea para una salida casual, una reunión informal o simplemente tu día a dí
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Blusa Rosa Hombros Descubiertos Tela Livia…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$58.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "PA112B", "nombre": "Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer", "precio_venta": 58000.0, "stock": 11, "color": "", "talle": "", "descripcion": "Descubrí la blusa rosa ideal para lucir un look moderno y femenino sin sacrificar la comodidad. Perfecta para cualquier ocasión, esta prenda de \"Accesorios de Moda\" es un must-have en tu guardarropa.\n- Dale un toque chic y delicado a tu estilo con el diseño de hombros descubiertos, ideal para destacar con elegancia en tu blusa de moda.\n- Sentite fresca y cómoda todo el día gracias a su tela suave y ligera, perfecta para el clima argentino y para un uso casual o semi-formal.\n- Realza tu figura sin apretar, sus mangas largas con puño elástico y cintura elastizada se adaptan a vos, brindando un calce impecable y natural.\n- El cuello redondo fruncido le da una caída natural y un aire sofisticado, sumando detalles únicos a tu outfit.\nYa sea para una salida casual, una reunión informal o simplemente tu día a día, esta blusa femenina te garantiza versatilidad y estilo. Combinala fácilmente con jeans, shorts o faldas y sentite espectacular. ¡Hacela tuya hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_004"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "PA112BS", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "PA112BM", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;

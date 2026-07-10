@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_001" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_001" class="thumbnail active" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_002" class="thumbnail" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_003" class="thumbnail" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_004" class="thumbnail" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_005" class="thumbnail" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_006" class="thumbnail" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_006', 5)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1254-1X1_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1254-1X1_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1254-1X1_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1254-1X1_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1254-1X1_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1254-1X1_006" class="thumbnail" width="72" height="72" loading="lazy" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_006', 5)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ No dejes que un desagüe tapado arruine tu día. Con esta pinza destapa caños, 
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Pinza Destapa Cañerías Flexible 90cm - Cha…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$4.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL1254-1X1", "nombre": "Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados", "precio_venta": 4000.0, "stock": 9, "color": "", "talle": "", "descripcion": "Cansado de los desagües tapados? La Pinza Destapa Cañerías Flexible de 90cm es la solución definitiva para esos molestos bloqueos en tu hogar, permitiéndote resolverlos sin esfuerzo y en minutos.\n- Destapa cañerías de 90cm: Su longitud extra-larga te permite llegar a los bloqueos más profundos en cualquier desagüe de tu casa.\n- Pinza flexible integrada: Atrapa y remueve eficazmente cabellos, restos de comida y objetos que causan obstrucciones sin necesidad de químicos agresivos.\n- Solución rápida y sencilla: Diseñada para un uso práctico y sin complicaciones, te ahorra tiempo y el costo de llamar a un plomero.\nNo dejes que un desagüe tapado arruine tu día. Con esta pinza destapa caños, vas a tener la tranquilidad de una limpieza efectiva y duradera en tu hogar. Sumala hoy a tu carrito y olvidate de los problemas de Baño y Limpieza!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

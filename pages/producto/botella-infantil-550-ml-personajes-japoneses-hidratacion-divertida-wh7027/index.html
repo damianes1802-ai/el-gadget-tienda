@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_001" alt="Botella infantil 550 ml personajes japoneses, hidratación divertida" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_001" class="thumbnail active" alt="Botella infantil 550 ml personajes japoneses, hidratación divertida" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_002" class="thumbnail" alt="Botella infantil 550 ml personajes japoneses, hidratación divertida" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_003" class="thumbnail" alt="Botella infantil 550 ml personajes japoneses, hidratación divertida" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_004" class="thumbnail" alt="Botella infantil 550 ml personajes japoneses, hidratación divertida" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7027_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Botella infantil 550 ml personajes japoneses, hidratación divertida" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7027_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Botella infantil 550 ml personajes japoneses, hidratación divertida" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7027_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Botella infantil 550 ml personajes japoneses, hidratación divertida" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7027_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Botella infantil 550 ml personajes japoneses, hidratación divertida" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Perfecta para la mochila del colegio, la vianda o el paseo, esta botella de agua
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Botella infantil 550 ml personajes japones…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$30.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7027", "nombre": "Botella infantil 550 ml personajes japoneses, hidratación divertida", "precio_venta": 30000.0, "stock": 11, "color": "", "talle": "", "descripcion": "Dale a tus chicos la botella de agua ideal para el colegio o las salidas: con personajes japoneses que les van a encantar, para que se mantengan hidratados de forma divertida. Es el accesorio perfecto para su día a día, combinando funcionalidad con el estilo que tanto les gusta para llevar a todos lados.\n- Diseño exclusivo con tus personajes japoneses favoritos, ¡ideal para que la hora de tomar agua sea un momento divertido y con onda!\n- Capacidad de 550 ML, el tamaño justo para que los chicos tengan agua fresca a mano durante toda la jornada escolar o en sus actividades, sin necesidad de recargar seguido.\n- Pensada para los más chicos, su formato es fácil de usar y llevar en la mochila, acompañándolos en cada aventura y fomentando buenos hábitos.\n- Coleccioná los dos modelos disponibles: cada botella es una sorpresa que suma alegría a su día a día. Se envían surtidos para que descubran su favorita.\nPerfecta para la mochila del colegio, la vianda o el paseo, esta botella de agua es el complemento ideal para el bazar infantil de tu casa. No dejes que se queden sin la suya: elegí la tuya hoy y que la hidratación sea siempre una aventura.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7027_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

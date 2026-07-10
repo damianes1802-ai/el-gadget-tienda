@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_001" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_001" class="thumbnail active" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_002" class="thumbnail" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_003" class="thumbnail" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_004" class="thumbnail" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_005" class="thumbnail" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_600167_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_600167_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_600167_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_600167_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_600167_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Vaso Térmico El Gadget de Vidrio Doble Par…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$5.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "600167", "nombre": "Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml", "precio_venta": 5000.0, "stock": 7, "color": "", "talle": "", "descripcion": "¿Querés disfrutar de tu café, un té o tu bebida preferida con un toque de estilo único? Este vaso térmico de El Gadget es justo lo que buscás. Con un diseño moderno y súper atractivo, es ideal para quienes aprecian la buena onda y el buen gusto en cada detalle de su hogar. Fabricado con vidrio de doble pared, este vasito no solo es un lujo para la vista, sino también un campeón de la resistencia. Aguanta tanto el calor intenso como el frío extremo, manteniendo tus bebidas a la temperatura perfecta por muchísimo más tiempo. Olvidate de que tu café se enfríe rápido o que tu trago pierda el toque. Su versatilidad te va a encantar: es perfecto para un espresso intenso, un latte macchiato, un cappuccino cremoso, un té helado refrescante, o incluso para servir una cervecita o unos cócteles con mucho estilo. ¡Las posibilidades son infinitas! Además, pensamos en tu comodidad: es apto para alimentos y lo podés meter tranquilamente en el lavavajillas. Así que, después de disfrutar, la limpieza es un toque. Especificaciones: Capacidad: 80 ml, ideal para tu café cortado o espresso. Altura: 7,5 cm. Diámetro: 6 cm. Dale un toque de diseño y funcionalidad a tu cocina con este vaso de El Gadget. ¡Un verdadero imperdible para los amantes del buen vivir!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

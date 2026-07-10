@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_001" alt="Botiquín Grande PVC para medicamentos organizado y práctico" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_001" class="thumbnail active" alt="Botiquín Grande PVC para medicamentos organizado y práctico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_002" class="thumbnail" alt="Botiquín Grande PVC para medicamentos organizado y práctico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_003" class="thumbnail" alt="Botiquín Grande PVC para medicamentos organizado y práctico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_004" class="thumbnail" alt="Botiquín Grande PVC para medicamentos organizado y práctico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2111_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Botiquín Grande PVC para medicamentos organizado y práctico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2111_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Botiquín Grande PVC para medicamentos organizado y práctico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2111_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Botiquín Grande PVC para medicamentos organizado y práctico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2111_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Botiquín Grande PVC para medicamentos organizado y práctico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ No dejes que la falta de organización te encuentre desprevenido. Dale un lugar 
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Botiquín Grande PVC para medicamentos orga…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$39.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2111", "nombre": "Botiquín Grande PVC para medicamentos organizado y práctico", "precio_venta": 39500.0, "stock": 9, "color": "", "talle": "", "descripcion": "Cansado de buscar entre mil cajas cada vez que necesitás un remedio? Este botiquín grande es la solución ideal para tener todos tus medicamentos organizados y al alcance en tu casa.\n- Olvidate del caos: su diseño compartimentado te permite separar pastillas, jarabes y vendas, con espacio libre para artículos de uso frecuente.\n- Con sus amplias medidas (36x26x21 cm), vas a guardar el stock de medicamentos de toda la familia, sin que nada quede afuera.\n- Fabricado en PVC resistente, es súper fácil de limpiar y mantener, protegiendo tus medicinas en un ambiente higiénico.\n- Ideal como botiquín de primeros auxilios completo o para el guardado diario, siempre sabrás dónde está cada cosa.\nNo dejes que la falta de organización te encuentre desprevenido. Dale un lugar a cada medicamento y ganá tranquilidad en tu día a día. Hacelo tuyo hoy y transformá la manera de cuidar tu salud y la de los tuyos.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2111_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

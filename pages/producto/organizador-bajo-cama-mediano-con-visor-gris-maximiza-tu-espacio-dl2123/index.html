@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2123_001" alt="Organizador bajo cama Mediano con visor gris | Maximizá tu espacio" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2123_001" class="thumbnail active" alt="Organizador bajo cama Mediano con visor gris | Maximizá tu espacio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2123_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2123_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Organizador bajo cama Mediano con visor gris | Maximizá tu espacio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2123_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Este organizador textil es el aliado perfecto para mantener tu casa impecable y 
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Organizador bajo cama Mediano con visor gr…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$13.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2123", "nombre": "Organizador bajo cama Mediano con visor gris | Maximizá tu espacio", "precio_venta": 13500.0, "stock": 7, "color": "", "talle": "", "descripcion": "¿Cansado de la ropa y objetos desordenados? Este Organizador bajo cama Mediano es la solución ideal para aprovechar cada rincón de tu hogar y mantener todo impecable. Decile adiós al caos y convertí ese espacio inutilizado en un área de guardado inteligente para tus pertenencias. Olvidate de buscar sin éxito, acá tenés la practicidad al alcance de tu mano. \n- Guarda de todo sin que estorbe: sus medidas de 65x45x15cm son perfectas para ropa de temporada, calzado, sábanas o juguetes, liberando espacio en tus placares y mesas de luz sin que se vea.\n- Encontrá lo que buscás al instante: gracias a su práctico visor transparente, podés identificar el contenido sin necesidad de abrirlo, ahorrándote tiempo y esfuerzo en tu rutina diaria.\n- Protección y flexibilidad: fabricado en material textil resistente color gris, cuida tus pertenencias del polvo y la humedad, y se adapta fácilmente bajo la cama o dentro de armarios, incluso cuando no está lleno. \nEste organizador textil es el aliado perfecto para mantener tu casa impecable y todo a mano, sin sacrificar estilo. Transformá tu habitación en un oasis de orden y tranquilidad. ¡No esperes más para ganar espacio y sumalo a tu carrito hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2123_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

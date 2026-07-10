@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_003" alt="Organizador Colgante Porta Tazas de Metal Negro para Alacena - Ahorrá espacio" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_003" class="thumbnail active" alt="Organizador Colgante Porta Tazas de Metal Negro para Alacena - Ahorrá espacio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_003', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_001" class="thumbnail" alt="Organizador Colgante Porta Tazas de Metal Negro para Alacena - Ahorrá espacio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_001', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_002" class="thumbnail" alt="Organizador Colgante Porta Tazas de Metal Negro para Alacena - Ahorrá espacio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_002', 2)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2024-NE_003" class="thumbnail active" width="72" height="72" loading="lazy" alt="Organizador Colgante Porta Tazas de Metal Negro para Alacena - Ahorrá espacio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_003', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2024-NE_001" class="thumbnail" width="72" height="72" loading="lazy" alt="Organizador Colgante Porta Tazas de Metal Negro para Alacena - Ahorrá espacio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_001', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2024-NE_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Organizador Colgante Porta Tazas de Metal Negro para Alacena - Ahorrá espacio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_002', 2)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Organizador Colgante Porta Tazas de Metal …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$4.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2024-NE", "nombre": "Organizador Colgante Porta Tazas de Metal Negro para Alacena - Ahorrá espacio", "precio_venta": 4500.0, "stock": 14, "color": "", "talle": "", "descripcion": "¿Querés liberar espacio en tu mesada o alacena? Este organizador colgante es la solución perfecta para tener tus tazas siempre a mano y ordenadas, transformando rincones olvidados en áreas útiles de tu cocina. Decile adiós al desorden y ganá practicidad al instante. Este accesorio de bazar es un infaltable para optimizar cada rincón de tu hogar. - Máximo Aprovechamiento: Su diseño colgante te permite duplicar el espacio de guardado en tus estantes, ideal para cocinas chicas o para los amantes del orden y la funcionalidad. - Capacidad Inteligente: Guarda hasta 6 tazas de forma segura y accesible, manteniendo tu vajilla organizada sin ocupar lugar valioso en tus estantes o mesada. - Instalación Súper Fácil: Simplemente encajalo en estantes de hasta 2,5cm de espesor y listo, sin perforaciones, herramientas ni complicaciones. - Durabilidad y Estilo: Fabricado en hierro pintado de color negro, no solo es resistente y soporta el uso diario, sino que además suma un toque moderno y discreto a tu cocina. No dejes que tus tazas te roben espacio. Este práctico organizador de cocina es ideal para el uso diario y una forma sencilla de mantener todo en su lugar. ¡Sumalo a tu carrito y transformá tu cocina hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2024-NE_002"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

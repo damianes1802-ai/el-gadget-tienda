@@ -250,11 +250,15 @@ class SolicitudArrepentimiento(BaseModel):
 
 
 class Registro(BaseModel):
-    """Modelo para el registro de usuarios (popup de bienvenida + creación de cuenta)"""
-    nombre: str
+    """Registro de usuarios (popup de bienvenida / creación de cuenta).
+
+    Perfilado progresivo: el popup mobile pide solo el email para bajar la
+    fricción (Fogg/MECLABS); nombre, teléfono y contraseña son opcionales y se
+    completan después (en el checkout o al configurar la cuenta)."""
+    nombre: Optional[str] = ""
     email: EmailStr
-    telefono: str
-    password: str
+    telefono: Optional[str] = ""
+    password: Optional[str] = None
 
 
 class Login(BaseModel):
@@ -307,6 +311,15 @@ class SolicitudMayorista(BaseModel):
     telefono: Optional[str] = ""
     tipo_negocio: Optional[str] = ""
     mensaje: Optional[str] = ""
+
+
+class NuevaResena(BaseModel):
+    """Reseña enviada por un comprador. Se valida contra una orden real."""
+    producto_sku: str
+    orden_id: int
+    email: str
+    rating: int
+    comentario: Optional[str] = ""
 
 
 class MarcarPagadoReferido(BaseModel):
@@ -514,6 +527,24 @@ def migrar_db():
             mensaje TEXT DEFAULT '',
             estado TEXT DEFAULT 'pendiente',
             fecha TEXT DEFAULT (datetime('now'))
+        )
+    """)
+
+    # Reseñas de productos. Solo se cargan desde una compra real (validada por
+    # orden + email) y quedan 'pendiente' hasta que el admin las apruebe: así
+    # nunca se muestra contenido inventado ni spam. El display en la ficha de
+    # producto se activa cuando existan reseñas aprobadas.
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS resenas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            producto_sku TEXT NOT NULL,
+            orden_id INTEGER,
+            nombre TEXT DEFAULT '',
+            rating INTEGER NOT NULL,
+            comentario TEXT DEFAULT '',
+            estado TEXT DEFAULT 'pendiente',
+            fecha TEXT DEFAULT (datetime('now')),
+            UNIQUE(producto_sku, orden_id)
         )
     """)
 
@@ -1163,8 +1194,11 @@ def registrar_usuario(request: Request, registro: Registro):
     primera compra. Si el email ya tiene una cuenta con contraseña, devuelve
     409 para que el usuario inicie sesión en su lugar.
     """
-    if len(registro.password) < 6:
+    tiene_password = bool(registro.password)
+    if tiene_password and len(registro.password) < 6:
         raise HTTPException(status_code=400, detail="La contraseña debe tener al menos 6 caracteres")
+    nombre = (registro.nombre or "").strip()
+    telefono = (registro.telefono or "").strip()
 
     conn = get_db()
     cursor = conn.cursor()
@@ -1176,37 +1210,48 @@ def registrar_usuario(request: Request, registro: Registro):
         if existente:
             existente_dict = dict(existente)
 
-            if existente_dict.get("password_hash"):
+            if existente_dict.get("password_hash") and tiene_password:
                 conn.close()
                 raise HTTPException(
                     status_code=409,
                     detail="Ya existe una cuenta con ese email. Iniciá sesión.",
                 )
 
-            # Cuenta creada antes de que existieran contraseñas: la completamos ahora
-            password_hash, password_salt = _hash_password(registro.password)
-            cursor.execute(
-                "UPDATE usuarios_registrados SET nombre = ?, telefono = ?, password_hash = ?, password_salt = ? WHERE email = ?",
-                (registro.nombre, registro.telefono, password_hash, password_salt, registro.email)
-            )
+            # Cuenta ya existente (posible cuenta "lite" solo-email): completar
+            # los campos que ahora sí vengan, sin pisar los que ya estaban.
+            sets, vals = [], []
+            if nombre:
+                sets.append("nombre = ?"); vals.append(nombre)
+            if telefono:
+                sets.append("telefono = ?"); vals.append(telefono)
+            if tiene_password and not existente_dict.get("password_hash"):
+                password_hash, password_salt = _hash_password(registro.password)
+                sets.append("password_hash = ?"); vals.append(password_hash)
+                sets.append("password_salt = ?"); vals.append(password_salt)
+            if sets:
+                vals.append(registro.email)
+                cursor.execute(f"UPDATE usuarios_registrados SET {', '.join(sets)} WHERE email = ?", vals)
             token = _crear_sesion(existente_dict["id"], cursor)
             conn.commit()
             conn.close()
             return {
-                "mensaje": "Cuenta completada",
+                "mensaje": "Cuenta actualizada",
                 "codigo_descuento": existente_dict.get("codigo_descuento"),
                 "descuento_usado": existente_dict.get("descuento_usado", 0),
                 "nuevo": False,
                 "token": token,
-                "nombre": registro.nombre,
+                "nombre": nombre or existente_dict.get("nombre") or "",
             }
 
         codigo = f"BIENVENIDO-{uuid.uuid4().hex[:6].upper()}"
-        password_hash, password_salt = _hash_password(registro.password)
+        if tiene_password:
+            password_hash, password_salt = _hash_password(registro.password)
+        else:
+            password_hash, password_salt = None, None
 
         cursor.execute(
             "INSERT INTO usuarios_registrados (nombre, email, telefono, codigo_descuento, password_hash, password_salt) VALUES (?, ?, ?, ?, ?, ?)",
-            (registro.nombre, registro.email, registro.telefono, codigo, password_hash, password_salt)
+            (nombre, registro.email, telefono, codigo, password_hash, password_salt)
         )
         usuario_id = cursor.lastrowid
 
@@ -1229,7 +1274,7 @@ def registrar_usuario(request: Request, registro: Registro):
                     conn_top.close()
                 except Exception:
                     pass
-                enviar_email_bienvenida(registro.nombre, registro.email, productos_top)
+                enviar_email_bienvenida(nombre or "", registro.email, productos_top)
             except Exception as e:
                 print(f"⚠️ No se pudo enviar email de bienvenida: {e}")
 
@@ -1239,7 +1284,7 @@ def registrar_usuario(request: Request, registro: Registro):
             "descuento_usado": 0,
             "nuevo": True,
             "token": token,
-            "nombre": registro.nombre,
+            "nombre": nombre,
         }
 
     except HTTPException:
@@ -3408,6 +3453,97 @@ def solicitar_mayorista(request: Request, datos: SolicitudMayorista):
 
     return {"ok": True, "solicitud_id": solicitud_id,
             "mensaje": "¡Recibimos tu solicitud! Te vamos a contactar para coordinar tu alta como mayorista."}
+
+
+@app.get("/api/producto/{sku}/resenas")
+def resenas_producto(sku: str):
+    """Reseñas APROBADAS de un producto + promedio (públicas). Vacío si aún no hay."""
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT nombre, rating, comentario, fecha FROM resenas "
+        "WHERE producto_sku = ? AND estado = 'aprobada' ORDER BY fecha DESC",
+        (sku,)
+    )
+    filas = [dict(r) for r in cursor.fetchall()]
+    conn.close()
+    promedio = round(sum(r["rating"] for r in filas) / len(filas), 1) if filas else None
+    return {"total": len(filas), "promedio": promedio, "resenas": filas}
+
+
+@app.post("/api/resena")
+@limiter.limit("5/minute")
+def crear_resena(request: Request, datos: NuevaResena):
+    """Registra una reseña — SOLO desde una compra real (orden + email deben
+    coincidir y la orden tener el producto). Queda 'pendiente' hasta que el
+    admin la apruebe: no se publica contenido sin moderar."""
+    if not (1 <= datos.rating <= 5):
+        raise HTTPException(status_code=400, detail="El puntaje debe ser de 1 a 5 estrellas")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    # Validar propiedad: la orden es del email y contiene el producto
+    cursor.execute("""
+        SELECT 1 FROM ordenes o
+        JOIN clientes c ON o.cliente_id = c.id
+        JOIN orden_items i ON i.orden_id = o.id
+        WHERE o.id = ? AND LOWER(c.email) = LOWER(?) AND i.producto_sku = ?
+        LIMIT 1
+    """, (datos.orden_id, datos.email.strip(), datos.producto_sku))
+    if not cursor.fetchone():
+        conn.close()
+        raise HTTPException(status_code=403, detail="No encontramos una compra tuya de este producto con esos datos")
+
+    try:
+        cursor.execute("""
+            INSERT INTO resenas (producto_sku, orden_id, nombre, rating, comentario)
+            VALUES (?, ?, ?, ?, ?)
+        """, (datos.producto_sku, datos.orden_id, "", datos.rating,
+              (datos.comentario or "").strip()[:600]))
+        conn.commit()
+    except sqlite3.IntegrityError:
+        conn.close()
+        raise HTTPException(status_code=409, detail="Ya cargaste una reseña para este producto en esta orden")
+    conn.close()
+    return {"ok": True, "mensaje": "¡Gracias! Tu reseña quedó pendiente de aprobación."}
+
+
+@app.get("/api/admin/resenas")
+def listar_resenas_admin(estado: Optional[str] = None, x_admin_password: Optional[str] = Header(None)):
+    """Lista reseñas para moderar (solo admin). Filtro opcional por estado."""
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+    conn = get_db()
+    cursor = conn.cursor()
+    if estado:
+        cursor.execute("SELECT * FROM resenas WHERE estado = ? ORDER BY fecha DESC", (estado,))
+    else:
+        cursor.execute("SELECT * FROM resenas ORDER BY fecha DESC")
+    filas = [dict(r) for r in cursor.fetchall()]
+    conn.close()
+    return filas
+
+
+@app.patch("/api/admin/resena/{resena_id}")
+def moderar_resena(resena_id: int, estado: str, nombre: Optional[str] = None,
+                   x_admin_password: Optional[str] = Header(None)):
+    """Aprueba/rechaza una reseña; opcionalmente fija el nombre a mostrar (solo admin)."""
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+    if estado not in ("aprobada", "rechazada", "pendiente"):
+        raise HTTPException(status_code=400, detail="Estado inválido")
+    conn = get_db()
+    cursor = conn.cursor()
+    if nombre is not None:
+        cursor.execute("UPDATE resenas SET estado = ?, nombre = ? WHERE id = ?", (estado, nombre.strip()[:40], resena_id))
+    else:
+        cursor.execute("UPDATE resenas SET estado = ? WHERE id = ?", (estado, resena_id))
+    if cursor.rowcount == 0:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Reseña no encontrada")
+    conn.commit()
+    conn.close()
+    return {"ok": True, "id": resena_id, "estado": estado}
 
 
 @app.get("/api/admin/mayorista/solicitudes")

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7194-1_001" alt="Botella deportiva 750ml para entrenar, hidratate con estilo" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7194-1_001" class="thumbnail active" alt="Botella deportiva 750ml para entrenar, hidratate con estilo" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7194-1_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7194-1_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Botella deportiva 750ml para entrenar, hidratate con estilo" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7194-1_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ No más excusas para la deshidratación. Esta botella de agua reutilizable combi
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Botella deportiva 750ml para entrenar, hid…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$23.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7194-1", "nombre": "Botella deportiva 750ml para entrenar, hidratate con estilo", "precio_venta": 23000.0, "stock": 11, "color": "", "talle": "", "descripcion": "La hidratación es clave para tu rendimiento, por eso esta botella deportiva de 750ml es tu aliada perfecta para el gimnasio, el running o tus actividades diarias. Un esencial en tu bazar y cocina, para tener siempre a mano tu bebida favorita.\n- Su generosa capacidad de 750ml te asegura la cantidad de agua que necesitás para tus rutinas, evitando recargas constantes.\n- Confeccionada para la vida activa, su diseño es ideal para llevar a tus entrenamientos o a la oficina con total comodidad.\n- Agregale un toque de color a tus días. Viene en turquesa, rosa o negro, y se envía un color surtido moderno para vos.\nNo más excusas para la deshidratación. Esta botella de agua reutilizable combina practicidad y estilo, siendo un complemento perfecto para tu rutina. Hacela tuya hoy y mantenete vital en cada momento.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7194-1_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

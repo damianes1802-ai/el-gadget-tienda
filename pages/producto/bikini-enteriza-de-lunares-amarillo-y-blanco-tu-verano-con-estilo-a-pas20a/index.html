@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_001" alt="Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_001" class="thumbnail active" alt="Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_002" class="thumbnail" alt="Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_003" class="thumbnail" alt="Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_003', 2)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-PAS20A_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-PAS20A_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-PAS20A_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_003', 2)"></div></div>
     </div>
 
     <!-- Información -->
@@ -85,7 +85,7 @@
       </div>
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -187,12 +187,34 @@ Pensada para el disfrute de tus días libres, esta enteriza te ofrece un calce c
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Bikini Enteriza de Lunares Amarillo y Blan…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$43.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "A-PAS20A", "nombre": "Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!", "precio_venta": 43500.0, "stock": 14, "color": "", "talle": "", "descripcion": "¡Preparate para deslumbrar este verano con nuestra enteriza de lunares de El Gadget! Si buscás un traje de baño que combine estilo, comodidad y un toque retro súper chic, esta es tu opción ideal para la temporada. Te vas a sentir cómoda y a la moda en cada chapuzón.\nEsta bikini enteriza es la vedette de la temporada en Argentina. Su diseño combinada con lunares, en los vibrantes tonos amarillo y blanco, la convierte en la elección perfecta para quienes quieren destacar en la pileta o la playa. Es un clásico renovado que nunca pasa de moda, y que te asegura un look fresco y alegre bajo el sol.\nPensada para el disfrute de tus días libres, esta enteriza te ofrece un calce confortable y seguro, permitiéndote moverte con total libertad. ¡Sentite cómoda y radiante con este traje de baño que El Gadget trae para vos! Viví un verano inolvidable con estilo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS20A_003"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS20A-S", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;

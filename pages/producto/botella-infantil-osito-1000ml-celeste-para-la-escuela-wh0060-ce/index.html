@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_001" alt="Botella infantil osito 1000ml celeste para la escuela" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_001" class="thumbnail active" alt="Botella infantil osito 1000ml celeste para la escuela" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_002" class="thumbnail" alt="Botella infantil osito 1000ml celeste para la escuela" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_002', 1)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH0060-CE_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Botella infantil osito 1000ml celeste para la escuela" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH0060-CE_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Botella infantil osito 1000ml celeste para la escuela" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_002', 1)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Esta botella no es solo un recipiente, es la aliada perfecta para que tus hijos 
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Botella infantil osito 1000ml celeste para…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$25.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH0060-CE", "nombre": "Botella infantil osito 1000ml celeste para la escuela", "precio_venta": 25000.0, "stock": 8, "color": "", "talle": "", "descripcion": "¡Que la hidratación de los más chicos sea una aventura divertida! Con esta botella infantil osito de 1000 ML, tus hijos tendrán su bebida favorita siempre a mano, ideal para la escuela o cualquier actividad.\n- Capacidad Generosa de 1000 ML (1 Litro): Olvidate de rellenar a cada rato. Suficiente agua para todo el día de colegio, paseos o actividades, garantizando una hidratación constante y saludable para tus peques.\n- Diseño Adorable de Osito: Su forma simpática y atractiva en un vibrante color celeste hará que los niños quieran llevarla a todos lados. ¡Animalos a tomar más agua de una forma original y divertida!\n- Compañera Ideal para el Día a Día: Perfecta para llevar en la mochila al jardín, la primaria o el club. Un accesorio de bazar y cocina esencial que combina funcionalidad con un toque lúdico para el cuidado de los niños.\nEsta botella no es solo un recipiente, es la aliada perfecta para que tus hijos se mantengan activos y saludables con estilo. Sumala hoy a su mochila y asegurate que nunca les falte su bebida favorita.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_002"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_001" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_001" class="thumbnail active" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_002" class="thumbnail" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_003" class="thumbnail" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_004" class="thumbnail" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_005" class="thumbnail" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_006" class="thumbnail" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_006', 5)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0210-VE_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0210-VE_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0210-VE_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0210-VE_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0210-VE_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0210-VE_006" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_006', 5)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Perfecta para la vuelta al jardín, un paseo al parque o como ese regalo especia
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Mochila Infantil Koala Neopreno Ergonómica…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$33.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH-MWH0210-VE", "nombre": "Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín", "precio_venta": 33000.0, "stock": 7, "color": "", "talle": "", "descripcion": "Descubrí la mochila infantil Koala ideal para los peques, diseñada para el jardín o sus primeras aventuras. Cómoda, segura y con un diseño irresistible que los va a encantar, protegiendo todo lo que lleven. Es la compañera perfecta para la rutina de los chicos, combinando practicidad y mucha diversión.\n- Fabricada en neopreno impermeable, tus hijos podrán llevar sus cosas protegidas de la lluvia o derrames, y es súper fácil de limpiar.\n- Su diseño ergonómico y tirantes acolchados y ajustables aseguran la comodidad total del niño, cuidando su espalda mientras crece.\n- Un práctico compartimiento interior permite organizar sus útiles o juguetes, manteniendo todo ordenado y al alcance.\n- Con un adorable y divertido diseño de koala que les encantará, y la seguridad de ser un producto libre de BPA.\nPerfecta para la vuelta al jardín, un paseo al parque o como ese regalo especial que sorprende. Dale a tu pequeño una mochila duradera, segura y llena de estilo. Sumala al carrito hoy mismo y que empiece la aventura!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

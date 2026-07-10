@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_001" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_001" class="thumbnail active" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_002" class="thumbnail" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_003" class="thumbnail" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_004" class="thumbnail" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_005" class="thumbnail" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1973-003_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1973-003_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1973-003_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1973-003_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1973-003_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Inflable Flamenco para Pileta 1.52m - ¡Ver…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$66.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "A-L1973-003", "nombre": "Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!", "precio_venta": 66000.0, "stock": 11, "color": "", "talle": "", "descripcion": "¡Preparate para un verano lleno de estilo y diversión con el inflable de flamenco más trendy! Ideal para relajarte flotando bajo el sol, darle un toque original a tus fotos o simplemente disfrutar de un chapuzón refrescante en la pileta. Este hermoso flamenco rosa se convertirá en el protagonista de tus días de calor. Con sus medidas aproximadas de 152cm x 89cm, tenés espacio de sobra para un descanso placentero. Es el flotador perfecto para grandes y chicos (siempre con supervisión), pensado para que tus jornadas en la pileta sean inolvidables. Llévalo a la pileta del club, a la casa de campo o disfrutalo en tu propio jardín. ¡Hacete de este inflable súper cool de El Gadget y que empiece la temporada!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

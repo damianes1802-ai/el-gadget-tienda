@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_001" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_001" class="thumbnail active" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_002" class="thumbnail" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_003" class="thumbnail" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_004" class="thumbnail" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_005" class="thumbnail" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1669-012_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1669-012_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1669-012_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1669-012_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1669-012_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Flotador Inflable Cisne Bebés 80cm: ¡Diver…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$32.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "A-L1669-012", "nombre": "Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!", "precio_venta": 32500.0, "stock": 8, "color": "", "talle": "", "descripcion": "¡Preparate para un verano inolvidable con el Inflable de Cisne para bebés de El Gadget!\\n\\nEste adorable flotador está diseñado especialmente para los más chiquitos, garantizando horas de diversión y seguridad en la pileta o en la playa. Su simpático diseño de cisne blanco captura la imaginación, convirtiendo cada chapuzón en una aventura acuática.\\n\\nPensando en la tranquilidad de los papis, incorpora cómodos orificios para las piernas del bebé, lo que permite que se sienta seguro y contenido mientras juega en el agua. Es perfecto para esos primeros contactos con la pileta, ofreciendo estabilidad y soporte.\\n\\nCon unas medidas aproximadas de 80cm de diámetro y 43cm de alto, es el tamaño ideal para que tu bebé disfrute con total confort. Fabricado con materiales resistentes, este inflable es un compañero duradero para todas las temporadas de calor. ¡No te quedes sin el tuyo y llená el verano de risas con este flotador cisne! Ideal para regalar y disfrutar.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

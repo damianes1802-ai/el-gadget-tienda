@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7165_001" alt="Almohadón cambiador para bebés de algodón, suave y práctico" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7165_001" class="thumbnail active" alt="Almohadón cambiador para bebés de algodón, suave y práctico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7165_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7165_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Almohadón cambiador para bebés de algodón, suave y práctico" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7165_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Simplificá tu rutina y asegurá el bienestar de tu bebé en cada cambio. ¡Agre
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Almohadón cambiador para bebés de algodón,…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$16.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7165", "nombre": "Almohadón cambiador para bebés de algodón, suave y práctico", "precio_venta": 16500.0, "stock": 14, "color": "", "talle": "", "descripcion": "Facilitá el momento del cambio de pañales con nuestro almohadón cambiador de algodón, diseñado para la comodidad de tu bebé y tu practicidad diaria. Un accesorio indispensable en tus artículos infantiles que combina funcionalidad y confort.\n- Confeccionado en suave algodón, cuida la delicada piel de tu bebé ofreciendo una superficie confortable y segura en cada cambio.\n- Sus medidas de 25 x 40 cm lo hacen el tamaño justo para usar cómodamente en casa o llevarlo en el bolso a donde vayas, ideal para padres activos.\n- Pensado para la rutina diaria, facilita el momento del cambio de pañales, brindando higiene y un espacio acogedor a tu pequeño en todo momento.\nSimplificá tu rutina y asegurá el bienestar de tu bebé en cada cambio. ¡Agregá este esencial almohadón cambiador a tus artículos infantiles y hacelo tuyo hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7165_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-66BL_001" alt="Body Bebé Algodón Blanco 66cm - Comodidad Pura para Niños" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-66BL_001" class="thumbnail active" alt="Body Bebé Algodón Blanco 66cm - Comodidad Pura para Niños" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-66BL_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7167-66BL_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Body Bebé Algodón Blanco 66cm - Comodidad Pura para Niños" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-66BL_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Este body de algodón es un básico indispensable en el guardarropa de tu bebé,
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Body Bebé Algodón Blanco 66cm - Comodidad …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$52.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7167-66BL", "nombre": "Body Bebé Algodón Blanco 66cm - Comodidad Pura para Niños", "precio_venta": 52500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Descubrí el body infantil de algodón puro ideal para la piel delicada de tu bebé. Una prenda esencial que combina suavidad, confort y practicidad para el día a día de los más pequeños. Este body para niños es un básico indispensable para el guardarropa de tu bebé.\n- Fabricado con algodón puro para el máximo confort: Suave al tacto y respirable, cuida la piel sensible de tu bebé, evitando irritaciones.\n- Diseño en color blanco clásico: Versátil y combinable con cualquier prenda, ideal para el uso diario o para ocasiones especiales.\n- Talle 66 cm: Pensado para asegurar un ajuste perfecto, ofreciendo libertad de movimiento y comodidad en cada etapa de crecimiento.\nEste body de algodón es un básico indispensable en el guardarropa de tu bebé, perfecto para el uso diario o como un práctico regalo. Brindale la suavidad y el confort que se merece. ¡Sumalo hoy a tu carrito de compras y garantizale la máxima comodidad!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-66BL_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

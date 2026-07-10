@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_001" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_001" class="thumbnail active" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_002" class="thumbnail" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_003" class="thumbnail" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_004" class="thumbnail" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_005" class="thumbnail" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_006" class="thumbnail" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_006', 5)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2144_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2144_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2144_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2144_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2144_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2144_006" class="thumbnail" width="72" height="72" loading="lazy" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_006', 5)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Actualizá tu espacio con un detalle que marca la diferencia. Este soporte para 
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Porta Rollo Papel Higiénico Acero Inoxidab…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$8.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2144", "nombre": "Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno", "precio_venta": 8000.0, "stock": 6, "color": "", "talle": "", "descripcion": "Dale un toque de elegancia y funcionalidad a tu baño con este porta rollo de papel higiénico de acero inoxidable. Es la solución ideal para mantener todo ordenado y al alcance, combinando durabilidad con un diseño impecable en tu espacio de Baño y Limpieza.\n- Fabricado en acero inoxidable: olvidate del óxido y disfrutá de un accesorio que resiste la humedad del baño, manteniendo su brillo como el primer día y garantizando una larga vida útil.\n- Diseño robusto y práctico: pensado para la vida diaria, asegura que tu rollo de papel esté siempre fijo y listo para usar, sin preocupaciones ni movimientos indeseados.\n- Higiene y fácil limpieza: el material de acero inoxidable facilita su mantenimiento, contribuyendo a un ambiente siempre impecable y saludable con solo un paño húmedo.\nActualizá tu espacio con un detalle que marca la diferencia. Este soporte para papel higiénico no solo cumple su función esencial, sino que eleva la estética de tu ambiente con su calidad superior y acabado moderno. Sumalo a tu carrito hoy y disfrutá de un baño más organizado y con estilo.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

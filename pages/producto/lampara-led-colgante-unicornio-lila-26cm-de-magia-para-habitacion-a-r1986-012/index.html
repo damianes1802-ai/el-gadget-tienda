@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_001" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_001" class="thumbnail active" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_002" class="thumbnail" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_003" class="thumbnail" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_004" class="thumbnail" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_005" class="thumbnail" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-R1986-012_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-R1986-012_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-R1986-012_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-R1986-012_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-R1986-012_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Es el regalo perfecto para cumpleaños, fiestas o simplemente para sorprender a 
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Lámpara Led Colgante Unicornio Lila | 26cm…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$26.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "A-R1986-012", "nombre": "Lámpara Led Colgante Unicornio Lila | 26cm de Magia para Habitación", "precio_venta": 26000.0, "stock": 8, "color": "", "talle": "", "descripcion": "Transformá la habitación de tu pequeña en un lugar mágico con esta hermosa lámpara Led colgante de unicornio lila, el toque de fantasía que todo espacio infantil necesita. Dale vida a la decoración de su cuarto con un adorno luminoso único y lleno de encanto.\n- Iluminación decorativa que crea un ambiente soñado, ideal para dormitorios infantiles o espacios de juego, gracias a su forma de unicornio.\n- Libertad total: funciona a pilas (3xAA, no incluidas), para que la cuelgues donde quieras sin preocuparte por los enchufes y cables.\n- Tamaño perfecto: con sus 26cm aproximados, es el adorno ideal para destacar en cualquier rincón sin abrumar el espacio, aportando una luz suave.\nEs el regalo perfecto para cumpleaños, fiestas o simplemente para sorprender a quien ama la magia de los unicornios. No esperes más para llenar de encanto y luz cada momento. ¡Sumala hoy a tu carrito y dejate llevar por la fantasía!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

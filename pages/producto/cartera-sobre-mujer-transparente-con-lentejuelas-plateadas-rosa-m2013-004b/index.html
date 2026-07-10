@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_001" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_001" class="thumbnail active" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_002" class="thumbnail" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_003" class="thumbnail" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_004" class="thumbnail" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_005" class="thumbnail" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_006" class="thumbnail" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_006', 5)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M2013-004B_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M2013-004B_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M2013-004B_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M2013-004B_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M2013-004B_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M2013-004B_006" class="thumbnail" width="72" height="72" loading="lazy" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_006', 5)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Cartera Sobre Mujer Transparente con Lente…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$23.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "M2013-004B", "nombre": "Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa", "precio_venta": 23500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Dale un toque de brillo y originalidad a tus looks con esta cartera sobre transparente, el accesorio de moda ideal para llevar lo esencial con estilo y personalidad. Fabricada en PVC de alta resistencia y detalles en PU, esta cartera te asegura durabilidad y un estilo súper moderno que resiste el ritmo de tu día a día. Las lentejuelas móviles en su interior le dan un toque de brillo único, haciendo que tu sobre no pase desapercibido y capturando todas las miradas. Su cierre con cremallera reforzada en color rosa no solo es seguro para tus pertenencias, sino que además complementa el diseño con un toque chic. Llevala cómoda en la mano gracias a su correa desmontable de PU rosa, que te permite tener tus imprescindibles siempre a mano y con total libertad. Perfecta para realzar tus looks de noche o para sumar un toque divertido en cualquier salida. ¡No te quedes sin la tuya y sumala a tu colección de accesorios hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_006"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

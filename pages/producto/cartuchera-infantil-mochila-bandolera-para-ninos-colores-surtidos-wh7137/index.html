@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137_001" alt="Cartuchera infantil mochila bandolera para niños colores surtidos" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137_001" class="thumbnail active" alt="Cartuchera infantil mochila bandolera para niños colores surtidos" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137_002" class="thumbnail" alt="Cartuchera infantil mochila bandolera para niños colores surtidos" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137_002', 1)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7137_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Cartuchera infantil mochila bandolera para niños colores surtidos" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7137_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Cartuchera infantil mochila bandolera para niños colores surtidos" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137_002', 1)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Esta cartuchera es la compañera perfecta para la rutina escolar, una tarde de j
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Cartuchera infantil mochila bandolera para…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$26.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7137", "nombre": "Cartuchera infantil mochila bandolera para niños colores surtidos", "precio_venta": 26000.0, "stock": 7, "color": "", "talle": "", "descripcion": "¡Olvidate del desorden con la cartuchera infantil que se convierte en una canchera mochila bandolera! Es el accesorio ideal para que los chicos lleven sus útiles escolares, juguetes o sus tesoros más preciados de forma cómoda y con mucho estilo, ya sea a la escuela o de paseo.\n- Diseño versátil de mochila bandolera: pensada para la comodidad de los más chicos, permite llevarla cruzada o al hombro, dejando sus manos libres para jugar y explorar.\n- Medidas compactas (22 x 10 cm): el tamaño perfecto para guardar lápices, marcadores, gomas, un librito o sus pequeños muñecos favoritos, sin ocupar mucho espacio.\n- Colores divertidos: se envía en celeste o rosa (surtidos), añadiendo una linda sorpresa y un toque de alegría. ¡Un accesorio con onda para cada niño!\nEsta cartuchera es la compañera perfecta para la rutina escolar, una tarde de juegos o el regalo ideal. Aprovechá esta oportunidad en OFERTAS de El Gadget. ¡Hacé tu compra ahora y asegurate un accesorio práctico y super divertido para los más peques!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137_002"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

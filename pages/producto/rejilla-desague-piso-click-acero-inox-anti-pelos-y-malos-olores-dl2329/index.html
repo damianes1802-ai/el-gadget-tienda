@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_001" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_001" class="thumbnail active" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_002" class="thumbnail" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_003" class="thumbnail" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_004" class="thumbnail" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_005" class="thumbnail" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_006" class="thumbnail" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_006', 5)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_007" class="thumbnail" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_007', 6)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2329_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2329_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2329_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2329_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2329_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2329_006" class="thumbnail" width="72" height="72" loading="lazy" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_006', 5)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2329_007" class="thumbnail" width="72" height="72" loading="lazy" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_007', 6)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Perfecta para tu ducha, baño, cocina o lavadero, esta rejilla de piso se adapta
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Rejilla desagüe piso click acero inox: ant…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$9.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2329", "nombre": "Rejilla desagüe piso click acero inox: anti-pelos y malos olores", "precio_venta": 9000.0, "stock": 8, "color": "", "talle": "", "descripcion": "Renová tu baño o cocina y decile chau a los malos olores e insectos con nuestra rejilla de desagüe inteligente. Un accesorio clave que combina diseño moderno con máxima funcionalidad para tu hogar, transformando tu rutina diaria en una experiencia más placentera y sin preocupaciones. Es ideal para modernizar cualquier ambiente de forma sencilla y efectiva. \n- Activá el desagüe con un simple click de pie, sin agacharte ni tocar: máxima higiene y confort para tu día a día.\n- Bloqueo hermético 360°: protegé tu casa de malos olores, cucarachas e insectos, manteniendo tus espacios siempre frescos y sanos.\n- Olvidate de las cañerías tapadas: su filtro interno atrapa pelos y residuos, se limpia en segundos y previene futuros bloqueos en tu desagüe de piso.\n- Fabricada en acero inoxidable 304 premium, te asegura durabilidad, resistencia a la corrosión y un acabado cromado brillante que embellece cualquier ambiente.\nPerfecta para tu ducha, baño, cocina o lavadero, esta rejilla de piso se adapta a cualquier ambiente y es fácil de instalar. No esperes más, sumala a tu carrito y transformá tus espacios.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_005", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_006", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_007"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

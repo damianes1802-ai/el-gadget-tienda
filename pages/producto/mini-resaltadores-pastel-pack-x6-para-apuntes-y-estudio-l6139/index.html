@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_001" alt="Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_001" class="thumbnail active" alt="Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_002" class="thumbnail" alt="Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_003" class="thumbnail" alt="Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_004" class="thumbnail" alt="Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_L6139_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_L6139_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_L6139_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_L6139_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Mini Resaltadores Pastel Pack x6 para Apun…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$29.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "L6139", "nombre": "Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio", "precio_venta": 29500.0, "stock": 13, "color": "", "talle": "", "descripcion": "Dale un toque divertido y organizado a tus apuntes, estudios o trabajo con este pack de mini resaltadores pastel. Son perfectos para destacar lo importante con estilo y alegría. Este set incluye 6 resaltadores para que tengas una variedad de colores vibrantes y así organizar tus ideas o darle un toque único a cada proyecto. Sus tonos pastel transforman tus textos en algo prolijo y estético, sin saturar la vista, ideales para usar en la universidad, la oficina o para tu bullet journal. Gracias a su tamaño mini, son súper prácticos y portátiles. Llévalos siempre con vos, caben en cualquier cartuchera o bolsillo. Añadí diversión y un estilo único a tus tareas diarias, haciendo que el estudio y la organización sean mucho más amigables y creativos. No te pierdas esta oferta para transformar tu forma de estudiar o trabajar. Sumá estos resaltadores pastel a tu carrito hoy y dale un toque de color y eficiencia a tus días. Son un gadget ideal para estudiantes, profesionales o para regalar a cualquier amante de la papelería original.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

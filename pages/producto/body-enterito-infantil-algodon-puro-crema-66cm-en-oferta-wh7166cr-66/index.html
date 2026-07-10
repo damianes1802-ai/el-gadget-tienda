@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-66_001" alt="Body enterito infantil algodón puro crema 66cm en oferta" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-66_001" class="thumbnail active" alt="Body enterito infantil algodón puro crema 66cm en oferta" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-66_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7166CR-66_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Body enterito infantil algodón puro crema 66cm en oferta" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-66_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Body enterito infantil algodón puro crema …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$39.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7166CR-66", "nombre": "Body enterito infantil algodón puro crema 66cm en oferta", "precio_venta": 39000.0, "stock": 9, "color": "", "talle": "", "descripcion": "Dale la bienvenida a la suavidad y el confort para tu bebé con este body enterito de algodón puro, perfecto para su delicada piel. Un básico esencial que no puede faltar en su ropero. - Confeccionado en algodón puro, garantiza la máxima suavidad y cuidado para la piel sensible de tu pequeño, ideal para uso diario y dormir placenteramente. - Su diseño enterito color crema es versátil y atemporal, combinando fácilmente con cualquier accesorio y brindando un look tierno y clásico. - Talle 66 cm, pensado para ofrecer un ajuste cómodo y seguro, acompañando a tu bebé en sus primeros meses con total libertad de movimiento. Aprovechá esta oferta especial para sumar calidad y confort al guardarropa de tu bebé. ¡No te pierdas la oportunidad de tener este body enterito esencial en color crema y sumalo al carrito hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-66_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

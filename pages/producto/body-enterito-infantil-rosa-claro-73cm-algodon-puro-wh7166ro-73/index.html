@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-73_001" alt="Body enterito infantil Rosa Claro 73cm, algodón puro" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-73_001" class="thumbnail active" alt="Body enterito infantil Rosa Claro 73cm, algodón puro" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-73_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7166RO-73_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Body enterito infantil Rosa Claro 73cm, algodón puro" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-73_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Un clásico indispensable en el ropero de tu bebé, perfecto para cualquier mome
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Body enterito infantil Rosa Claro 73cm, al…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$39.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7166RO-73", "nombre": "Body enterito infantil Rosa Claro 73cm, algodón puro", "precio_venta": 39000.0, "stock": 13, "color": "", "talle": "", "descripcion": "Este body enterito de algodón puro es perfecto para la delicada piel de tu bebé, ofreciéndole máxima comodidad y ternura en su día a día. Ideal para los más chiquitos de la casa que buscan confort.\n- Confeccionado en algodón puro, garantiza la suavidad y respirabilidad que la piel sensible de tu bebé necesita, evitando irritaciones en cada movimiento.\n- Su tierno color Rosa Claro lo hace ideal para combinar con otras prendas y crear looks adorables para tu pequeña, resaltando su inocencia.\n- El talle 73cm asegura un ajuste cómodo y preciso, permitiendo total libertad de movimiento para jugar y explorar sin restricciones.\n- Este enterito infantil es práctico y fácil de poner y sacar, manteniendo a tu bebé siempre abrigado y prolijo en cualquier momento del día.\nUn clásico indispensable en el ropero de tu bebé, perfecto para cualquier momento del día. No dejes pasar esta oferta especial y asegurate la máxima comodidad con este enterito de algodón. ¡Sumalo a tu carrito ahora!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-73_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

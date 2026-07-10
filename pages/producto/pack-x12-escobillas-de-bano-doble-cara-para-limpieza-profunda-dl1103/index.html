@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_001" alt="Pack x12 escobillas de baño doble cara para limpieza profunda" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_001" class="thumbnail active" alt="Pack x12 escobillas de baño doble cara para limpieza profunda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_002" class="thumbnail" alt="Pack x12 escobillas de baño doble cara para limpieza profunda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_003" class="thumbnail" alt="Pack x12 escobillas de baño doble cara para limpieza profunda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_004" class="thumbnail" alt="Pack x12 escobillas de baño doble cara para limpieza profunda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1103_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Pack x12 escobillas de baño doble cara para limpieza profunda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1103_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Pack x12 escobillas de baño doble cara para limpieza profunda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1103_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Pack x12 escobillas de baño doble cara para limpieza profunda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1103_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Pack x12 escobillas de baño doble cara para limpieza profunda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Pack x12 escobillas de baño doble cara par…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$29.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL1103", "nombre": "Pack x12 escobillas de baño doble cara para limpieza profunda", "precio_venta": 29000.0, "stock": 8, "color": "", "talle": "", "descripcion": "Renová la limpieza de tu baño con este pack de escobillas doble cara, diseñado para una higiene profunda y duradera. Este kit es la solución perfecta para mantener cada inodoro impecable con la máxima eficiencia. Disfrutá de una limpieza superior gracias a su diseño de doble cara, que te permite llegar sin esfuerzo a cada rincón, incluso los más difíciles. Con este práctico pack de 12 unidades, tenés asegurado el stock por mucho tiempo. Es ideal para equipar varios baños en tu hogar, oficina o propiedades en alquiler, ofreciendo una solución económica y conveniente. Añadí un toque de estilo a tus espacios: el pack incluye una selección de colores surtidos como beige, celeste y rosa, que se adaptan armoniosamente a diferentes decoraciones de baño. Ideal para hogares grandes, alquileres o espacios que requieren una gestión eficiente de los artículos de limpieza. Olvidate de la preocupación por semanas y mantené tus sanitarios impecables sin esfuerzo. ¡Aprovechá este ahorro inteligente en elementos esenciales para la limpieza y sumá tu pack de escobillas de baño hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

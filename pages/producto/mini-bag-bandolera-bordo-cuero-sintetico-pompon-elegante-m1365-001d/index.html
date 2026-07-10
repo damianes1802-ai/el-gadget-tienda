@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_001" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_001" class="thumbnail active" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_002" class="thumbnail" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_003" class="thumbnail" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_004" class="thumbnail" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_005" class="thumbnail" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M1365-001D_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M1365-001D_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M1365-001D_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M1365-001D_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M1365-001D_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Esta cartera bandolera es la compañera perfecta para la mujer argentina que bus
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Mini Bag Bandolera Bordó Cuero Sintético P…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$44.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "M1365-001D", "nombre": "Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante", "precio_venta": 44000.0, "stock": 8, "color": "", "talle": "", "descripcion": "Descubrí la Mini Bag Cartera Bandolera Bordó, el accesorio ideal para realzar tu estilo. Su diseño moderno y compacto combina funcionalidad con un toque de sofisticación, perfecto para el día a día o una salida especial.\n- Confeccionada en cuero sintético de textura suave y acabado mate, es súper resistente al uso diario y mantiene su forma impecable gracias a su cuerpo rígido.\n- Llevá lo esencial protegido: su forrería interna completa cuida tu celular, llaves o billetera, dándote tranquilidad en cada salida.\n- Personalizá tu look: la correa larga es regulable con hebilla metálica y desmontable con ganchos mosquetón, adaptándose a cada ocasión y a tu altura.\n- Destacate con estilo: el pompón de piel sintética le suma un detalle femenino y distintivo que no pasa desapercibido.\nEsta cartera bandolera es la compañera perfecta para la mujer argentina que busca practicidad y elegancia sin esfuerzo. Sumala a tu colección y realzá cada outfit con un toque único.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

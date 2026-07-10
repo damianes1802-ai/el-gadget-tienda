@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2256_001" alt="Organizador Acrílico Circular con Ruedas Móvil para tu Hogar" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2256_001" class="thumbnail active" alt="Organizador Acrílico Circular con Ruedas Móvil para tu Hogar" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2256_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2256_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Organizador Acrílico Circular con Ruedas Móvil para tu Hogar" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2256_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Ideal como carrito auxiliar para el baño, mesa de luz o porta objetos en el liv
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Organizador Acrílico Circular con Ruedas M…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$70.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2256", "nombre": "Organizador Acrílico Circular con Ruedas Móvil para tu Hogar", "precio_venta": 70500.0, "stock": 11, "color": "", "talle": "", "descripcion": "Dale un toque de diseño y funcionalidad a cada rincón de tu casa con nuestro organizador acrílico circular. Es la solución perfecta para mantener todo en su lugar, con estilo y a tu alcance. Pensado para quienes buscan optimizar el espacio y la practicidad en su hogar, este mueble organizador te va a encantar.\n- Aprovechá sus 3 estantes para organizar desde elementos de baño hasta pequeños accesorios de cocina o papelería, manteniendo tus espacios siempre impecables.\n- Gracias a sus 4 ruedas multidireccionales, movelo sin esfuerzo a donde lo necesites: del living al baño, de la cocina al escritorio, ¡la practicidad en tus manos!\n- Su diseño compacto (67cm de alto x 30cm de diámetro) es ideal para departamentos o espacios reducidos, ofreciendo gran capacidad sin ocupar de más.\n- Fabricado en acrílico y metal de alta calidad, garantiza durabilidad y un estilo moderno que se integra a cualquier decoración, además de ser súper fácil de limpiar.\nIdeal como carrito auxiliar para el baño, mesa de luz o porta objetos en el living. Olvidate del desorden y sumale estilo a tu vida. ¡Hacelo tuyo hoy y transformá tus ambientes!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2256_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_001" alt="Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_001" class="thumbnail active" alt="Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_002" class="thumbnail" alt="Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_003" class="thumbnail" alt="Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_004" class="thumbnail" alt="Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_004', 3)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2140_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2140_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2140_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2140_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_004', 3)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Transformá la forma de limpiar y mantené tu hogar impecable sin complicaciones
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Rodillo lavable saca pelusas y pelos kit 2…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$17.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2140", "nombre": "Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje", "precio_venta": 17000.0, "stock": 7, "color": "", "talle": "", "descripcion": "Cansado de la ropa llena de pelusas y los pelos de tu mascota por toda la casa? Descubrí el Rodillo Saca Pelusas Lavable, la solución definitiva para mantener tus espacios impecables de forma fácil y ecológica.\n- Adiós a los repuestos: Este kit saca pelusas es totalmente lavable y reutilizable. Olvidate de gastar en repuestos, solo enjuagalo con agua y listo para usar de nuevo, siempre manteniendo su adherencia original.\n- Doble acción para tu día a día: Incluye un rodillo grande para limpiar sillones, alfombras y ropa en casa, y un mini rodillo portátil ideal para llevar en tu bolso o mochila y estar siempre impecable.\n- Ideal para mascotas: Su diseño especial también funciona como cepillo para tu mejor amigo, retirando el pelo suelto sin molestarlos, manteniendo tu casa libre de pelos y a tu mascota feliz.\n- Limpieza sin esfuerzo: Súper efectivo sobre cualquier superficie, desde ropa y tapizados hasta el interior del auto. Atrapa pelos, pelusas, migas y polvo en una sola pasada.\nTransformá la forma de limpiar y mantené tu hogar impecable sin complicaciones. Este kit de limpieza es la solución inteligente que estabas buscando para el cuidado de tu ropa y tus mascotas. ¡Agregalo ahora a tu carrito y disfrutá de la practicidad!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_004"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

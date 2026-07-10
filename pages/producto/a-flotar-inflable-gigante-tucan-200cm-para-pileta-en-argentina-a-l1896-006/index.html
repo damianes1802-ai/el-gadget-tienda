@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_001" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_001" class="thumbnail active" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_002" class="thumbnail" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_003" class="thumbnail" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_004" class="thumbnail" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_005" class="thumbnail" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1896-006_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1896-006_002" class="thumbnail" width="72" height="72" loading="lazy" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1896-006_003" class="thumbnail" width="72" height="72" loading="lazy" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1896-006_004" class="thumbnail" width="72" height="72" loading="lazy" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-L1896-006_005" class="thumbnail" width="72" height="72" loading="lazy" alt="¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -187,12 +187,34 @@ No te quedes sin tu flotador gigante. ¡Compralo ahora en El Gadget y que empiec
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">¡A flotar! Inflable Gigante Tucán 200cm pa…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$74.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "A-L1896-006", "nombre": "¡A flotar! Inflable Gigante Tucán 200cm para Pileta en Argentina", "precio_venta": 74000.0, "stock": 9, "color": "", "talle": "", "descripcion": "¡Preparate para vivir un verano increíble con este Inflable Gigante Tucán de El Gadget! Si buscás el compañero perfecto para tus días de pileta, ¡acá lo tenés! Este flotador te invita a disfrutar al máximo.\n\nEste inflable con forma de tucán es el rey de la diversión y el relax. Con sus generosas medidas aproximadas de 200cm x 105cm, vas a poder flotar cómodamente, tomar sol y disfrutar de cada momento en el agua. Es ideal para chicos y grandes que quieren un toque tropical en sus vacaciones o un día de descanso en casa.\n\nImaginá esas tardes de calor argentino, flotando sin preocupaciones. Este tucán no solo es súper canchero y llamativo, sino que también te ofrece un espacio amplio para relajarte. ¡Es el accesorio indispensable para esta temporada de verano en Argentina!\n\nNo te quedes sin tu flotador gigante. ¡Compralo ahora en El Gadget y que empiece la diversión!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1896-006_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

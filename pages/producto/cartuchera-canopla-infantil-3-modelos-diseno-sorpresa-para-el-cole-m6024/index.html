@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M6024_001" alt="Cartuchera canopla infantil 3 modelos: diseño sorpresa para el cole" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M6024_001" class="thumbnail active" alt="Cartuchera canopla infantil 3 modelos: diseño sorpresa para el cole" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M6024_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_M6024_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Cartuchera canopla infantil 3 modelos: diseño sorpresa para el cole" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_M6024_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Perfecta para el uso diario en el colegio o como un regalo original y útil, est
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Cartuchera canopla infantil 3 modelos: dis…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$17.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "M6024", "nombre": "Cartuchera canopla infantil 3 modelos: diseño sorpresa para el cole", "precio_venta": 17500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Prepará a los más chicos para el colegio con esta cartuchera canopla infantil, el toque divertido y práctico para sus útiles diarios. Cada una es una sorpresa especial que les encantará descubrir.\n- Espaciosa y práctica: La canopla ideal para que organicen todos sus lápices, lapiceras y marcadores, manteniendo el orden en la mochila sin esfuerzo.\n- Colección única: Disponibles en 3 modelos diferentes, cada cartuchera promete un diseño original y llamativo que les encantará.\n- ¡Sorpresa asegurada!: Dejate llevar por la emoción de recibir un modelo surtido. Un toque de aventura que hace cada compra especial y diferente.\n- Calidad al mejor precio: Aprovechá esta oferta exclusiva para equipar a los chicos con un accesorio funcional y divertido, sin que afecte tu bolsillo.\nPerfecta para el uso diario en el colegio o como un regalo original y útil, esta cartuchera canopla es la elección ideal. ¡No te quedes sin la tuya y sumá una dosis de diversión a la mochila!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_M6024_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

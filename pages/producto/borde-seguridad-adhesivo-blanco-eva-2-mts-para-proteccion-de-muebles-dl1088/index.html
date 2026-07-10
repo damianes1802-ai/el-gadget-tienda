@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1088_001" alt="Borde seguridad adhesivo blanco EVA 2 mts para protección de muebles" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1088_001" class="thumbnail active" alt="Borde seguridad adhesivo blanco EVA 2 mts para protección de muebles" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1088_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1088_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Borde seguridad adhesivo blanco EVA 2 mts para protección de muebles" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1088_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ No esperes a que ocurra un accidente. Dale a tu casa la protección que necesita
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Borde seguridad adhesivo blanco EVA 2 mts …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$8.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL1088", "nombre": "Borde seguridad adhesivo blanco EVA 2 mts para protección de muebles", "precio_venta": 8500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Protegé a tus chicos y evitá golpes con nuestro borde adhesivo de seguridad Bumper. Diseñado para ofrecer la máxima protección en tu hogar y asegurar la tranquilidad de tu familia.\n- Instalá fácilmente sin herramientas gracias a su diseño adhesivo, perfecto para proteger esquinas y bordes de mesas o muebles en tu casa.\n- Con 2 metros de largo, tenés suficiente para cubrir una superficie amplia o varios puntos críticos, adaptándose a tus necesidades de seguridad.\n- Disfrutá de una protección superior con el material EVA, que amortigua eficazmente los golpes y es seguro para el contacto, ideal para bebés y niños pequeños.\n- Integralo discretamente en cualquier ambiente de tu hogar. Su color blanco combina con la mayoría de los estilos de decoración, manteniendo la armonía visual.\nNo esperes a que ocurra un accidente. Dale a tu casa la protección que necesita y convertí cada rincón en un espacio seguro para todos. Agregá este borde de seguridad a tu carrito y disfrutá de la tranquilidad que merecés.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1088_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

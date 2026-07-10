@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_001" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_001" class="thumbnail active" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_002" class="thumbnail" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_003" class="thumbnail" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_004" class="thumbnail" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_005" class="thumbnail" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2203_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2203_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2203_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2203_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2203_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Luz Led Recargable con Sensor 20cm para Alacena Placar Cama" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -188,12 +188,34 @@ Perfecta para quienes buscan practicidad y eficiencia en la organización de sus
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Luz Led Recargable con Sensor 20cm para Al…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$10.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2203", "nombre": "Luz Led Recargable con Sensor 20cm para Alacena Placar Cama", "precio_venta": 10500.0, "stock": 8, "color": "", "talle": "", "descripcion": "Iluminá tus espacios oscuros sin complicaciones con nuestra luz LED recargable con sensor. Disfrutá de una solución práctica y eficiente para alacenas, placares o bajo la cama, dándole un toque moderno a tu hogar. Olvidate de buscar interruptores y disfrutá de la luz justo cuando la necesitás.\n- Olvidate de las pilas y el gasto constante. Esta luz LED se recarga fácilmente con el cable USB incluido, siempre lista para usar cuando la necesites en tu cocina o dormitorio.\n- Activa la luz automáticamente con tu movimiento. Ideal para encontrar lo que buscás en tu placard o bajo mesada sin buscar interruptores en la oscuridad, ahorrando energía.\n- Su tamaño compacto de 20cm y versatilidad te permite instalarla donde más lo necesites: en tu cocina, vestidor o para una suave luz nocturna bajo la cama.\n- Disfrutá de una iluminación cálida que crea ambientes acogedores y no molesta a la vista, perfecta para cualquier rincón de tu hogar.\n- Instalación en segundos y sin herramientas. Sus autoadhesivos imantados la fijan firmemente, y podés retirarla para cargarla o moverla con total facilidad.\n\nPerfecta para quienes buscan practicidad y eficiencia en la organización de sus espacios con una iluminación funcional. Su colocación es tan sencilla que la tendrás funcionando en minutos. ¡Sumala a tu carrito y disfrutá de la luz perfecta hoy mismo!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2203_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_001" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_001" class="thumbnail active" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_002" class="thumbnail" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_003" class="thumbnail" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_004" class="thumbnail" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_005" class="thumbnail" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0211-BE_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0211-BE_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0211-BE_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0211-BE_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH-MWH0211-BE_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Mochila Escolar Rana infantil protección columna cómoda" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Esta mochila no solo es práctica para el colegio sino también un regalo ideal 
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Mochila Escolar Rana infantil protección c…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$44.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH-MWH0211-BE", "nombre": "Mochila Escolar Rana infantil protección columna cómoda", "precio_venta": 44500.0, "stock": 13, "color": "", "talle": "", "descripcion": "Prepará a tu hijo para la escuela o jardín con la Mochila Escolar Rana, diseñada para cuidar su espalda mientras lleva todo lo necesario con la máxima comodidad. Es la compañera ideal para las aventuras diarias de los más chicos y chicas en Argentina. Esta mochila infantil combina funcionalidad con un diseño encantador.\n- Diseño divertido y neutro: la ranita es adorable y su estilo unisex es perfecto para cualquier niño o niña, sin importar su género.\n- Comodidad garantizada: es ultraliviana, transpirable y está diseñada para una carga reducida, ideal para el día a día en el colegio o jardín.\n- Protección para su espalda: incorpora una función específica para cuidar la columna vertebral de tu hijo, brindando tranquilidad a los padres.\n- Material resistente: confeccionada en tela Oxford, un material duradero que aguanta el ritmo de los chicos y asegura una larga vida útil.\nEsta mochila no solo es práctica para el colegio sino también un regalo ideal que une diversión y bienestar. Dale a tu hijo la comodidad y seguridad que necesita con un toque de alegría. ¡Sumala ahora al carrito!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-66_001" alt="Body enterito bebé Rosa Claro 66cm - Algodón Puro" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-66_001" class="thumbnail active" alt="Body enterito bebé Rosa Claro 66cm - Algodón Puro" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-66_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7166RO-66_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Body enterito bebé Rosa Claro 66cm - Algodón Puro" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-66_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -181,12 +181,34 @@
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Body enterito bebé Rosa Claro 66cm - Algod…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$39.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7166RO-66", "nombre": "Body enterito bebé Rosa Claro 66cm - Algodón Puro", "precio_venta": 39000.0, "stock": 9, "color": "", "talle": "", "descripcion": "Descubrí la comodidad ideal para tu bebé con este body enterito de algodón puro, perfecto para sus días más activos y dulces sueños. Un enterito suave y práctico, pensado para el confort de los más chiquitos. Confeccionado en algodón puro para un tacto extra suave, ideal para la piel sensible de tu bebé y para mantenerlo cómodo todo el día. Su encantador color Rosa Claro lo hace perfecto para combinar con todo, añadiendo un toque tierno y delicado al guardarropa infantil. Talle de 66 cm, diseñado para un ajuste cómodo y práctico que acompaña el crecimiento de tu pequeño, facilitando el cambio de pañales. Una excelente opción dentro de nuestras ofertas especiales, que combina calidad y un precio irresistible para la ropa de bebé. Este enterito es la prenda fundamental que todo bebé necesita para estar abrigado y libre al moverse. Aprovechá esta oferta para asegurarle la mayor suavidad y confort. Sumá este body enterito a su ropita hoy y disfrutá de cada momento con tu chiquito.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-66_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

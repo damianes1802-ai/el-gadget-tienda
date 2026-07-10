@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170PAN-73_001" alt="Body infantil de bebé Oso Panda 73cm para la ternura de tu pequeño" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170PAN-73_001" class="thumbnail active" alt="Body infantil de bebé Oso Panda 73cm para la ternura de tu pequeño" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170PAN-73_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7170PAN-73_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Body infantil de bebé Oso Panda 73cm para la ternura de tu pequeño" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170PAN-73_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Este body es ideal para el uso diario o como un regalo original que seguro encan
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Body infantil de bebé Oso Panda 73cm para …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$53.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7170PAN-73", "nombre": "Body infantil de bebé Oso Panda 73cm para la ternura de tu pequeño", "precio_venta": 53000.0, "stock": 8, "color": "", "talle": "", "descripcion": "Vestí a tu pequeño con este adorable body infantil de Oso Panda, perfecto para que esté cómodo y luzca super tierno en cualquier momento. Un indispensable en la ropa de bebé para el día a día o una ocasión especial. Este enterito se convertirá en la prenda favorita de tu bebé, combinando estilo y confort.\n- Diseñado pensando en la delicadeza de la piel de tu bebé, ofreciendo suavidad y libertad de movimiento para sus juegos y descansos.\n- El estampado de Oso Panda agrega un toque de diversión y ternura, ideal para las fotos y momentos especiales del día.\n- Disponible en talle 73cm, asegurando el calce perfecto para que tu pequeño esté siempre cómodo y protegido con esta prenda de calidad.\n- Una excelente oportunidad de nuestra sección de ofertas para vestir a tu bebé con estilo y al mejor precio.\nEste body es ideal para el uso diario o como un regalo original que seguro encantará a los nuevos papás. No dejes pasar la chance de mimar a tu bebé con esta prenda tan especial y funcional. ¡Sumalo al carrito hoy!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170PAN-73_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

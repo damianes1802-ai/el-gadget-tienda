@@ -196,6 +196,14 @@ a { color: inherit; }
 .breadcrumb a:hover { color: var(--accent-deep); }
 .breadcrumb .sep { color: var(--gray-400); }
 .breadcrumb .current { color: var(--gray-600); }
+/* En mobile el breadcrumb se colapsa a una sola línea (no envuelve ni empuja
+   el hero fuera de la vista): scroll horizontal si hace falta (LIFT). */
+@media (max-width: 640px) {
+  .breadcrumb { flex-wrap: nowrap; overflow-x: auto; padding-top: 10px; padding-bottom: 4px;
+    font-size: 11.5px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .breadcrumb::-webkit-scrollbar { display: none; }
+  .breadcrumb a, .breadcrumb .current, .breadcrumb .sep { white-space: nowrap; }
+}
 
 /* ── PAGE HERO (páginas informativas) ── */
 .page-hero {
@@ -618,6 +626,24 @@ a { color: inherit; }
   transition: transform 0.2s ease;
 }
 .whatsapp-float:hover { transform: scale(1.08); }
+/* En el checkout el float compite con el CTA de pago: se oculta para no
+   ofrecer una vía de escape justo en el paso de mayor valor (LIFT). */
+body.pagina-checkout .whatsapp-float { display: none; }
+
+/* ── BARRA STICKY DE COMPRA (PDP, solo mobile) ── */
+.pdp-sticky-buy {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+  background: #fff; border-top: 1px solid var(--gray-200);
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.10);
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  transform: translateY(110%); transition: transform .25s ease;
+}
+.pdp-sticky-buy.show { transform: translateY(0); }
+.pdp-sticky-info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.pdp-sticky-name { font-size: 12px; color: var(--gray-600); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pdp-sticky-price { font-size: 18px; font-weight: 800; color: var(--ink); font-family: 'Space Grotesk', sans-serif; }
+.pdp-sticky-buy .btn { flex-shrink: 0; padding: 12px 22px; }
+@media (min-width: 768px) { .pdp-sticky-buy { display: none !important; } }
 
 /* ── TOAST ── */
 .toast {
@@ -788,6 +814,18 @@ a { color: inherit; }
 .checkout-layout { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
 @media (min-width: 900px) { .checkout-layout { grid-template-columns: 1fr 380px; } }
 .checkout-layout .form-panel, .checkout-layout .summary { min-width: 0; }
+
+/* Mini-resumen sticky: solo en mobile (en desktop el resumen ya está fijo al lado) */
+.mini-resumen { position: sticky; top: 0; z-index: 90; background: var(--ink); color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18); }
+@media (min-width: 900px) { .mini-resumen { display: none !important; } }
+.mini-resumen-head { width: 100%; border: none; background: none; color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 12px 18px; font-size: 14px; font-family: inherit; }
+.mini-resumen-head strong { color: var(--accent); font-size: 16px; }
+.mini-resumen-chevron { font-size: 12px; color: rgba(255,255,255,0.7); white-space: nowrap; }
+.mini-resumen-detalle { padding: 0 18px 12px; font-size: 13px; color: rgba(255,255,255,0.85); }
+.mini-resumen-detalle .mr-line { display: flex; justify-content: space-between; padding: 3px 0; }
 
 /* ── LOGIN / CREAR CUENTA ── */
 .auth-layout { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }

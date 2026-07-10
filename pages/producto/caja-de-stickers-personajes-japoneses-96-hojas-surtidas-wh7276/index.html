@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7276_001" alt="Caja de stickers personajes japoneses 96 hojas surtidas" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7276_001" class="thumbnail active" alt="Caja de stickers personajes japoneses 96 hojas surtidas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7276_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7276_002" class="thumbnail" alt="Caja de stickers personajes japoneses 96 hojas surtidas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7276_002', 1)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7276_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Caja de stickers personajes japoneses 96 hojas surtidas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7276_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7276_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Caja de stickers personajes japoneses 96 hojas surtidas" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7276_002', 1)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ Ya sea para vos o para hacer un regalo original que sorprenda, estos stickers so
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Caja de stickers personajes japoneses 96 h…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$10.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7276", "nombre": "Caja de stickers personajes japoneses 96 hojas surtidas", "precio_venta": 10500.0, "stock": 13, "color": "", "talle": "", "descripcion": "Descubrí la magia de Japón en cada rincón con nuestra caja de stickers de personajes japoneses. Perfecta para dar un toque único y divertido a tus objetos y expresar tu estilo.\n- Vas a tener 96 hojas llenas de stickers para que la creatividad nunca pare: personalizá tus objetos, decorá tus cuadernos o armá tus propios collages.\n- Sumergite en el mundo kawaii con diseños exclusivos de personajes japoneses que le darán un toque original y divertido a todo lo que quieras decorar.\n- Cada caja es una sorpresa: con 4 variantes distintas que se envían surtidas, tenés garantizada una colección variada para intercambiar o descubrir nuevos favoritos.\n- Su formato compacto de 16,5 x 16,5 x 2 cm la hace fácil de guardar o llevar con vos, manteniendo todos tus stickers organizados y listos para usar.\nYa sea para vos o para hacer un regalo original que sorprenda, estos stickers son ideales para cualquier fan de la cultura pop japonesa o para quienes buscan un accesorio divertido. Sumá esta explosión de creatividad a tu vida y transformá tus objetos con un estilo único. ¡No esperes más para tener tu caja de stickers coleccionables!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7276_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7276_002"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

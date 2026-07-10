@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-73_001" alt="Body enterito bebe algodon puro crema 73cm para su comodidad" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-73_001" class="thumbnail active" alt="Body enterito bebe algodon puro crema 73cm para su comodidad" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-73_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_WH7166CR-73_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Body enterito bebe algodon puro crema 73cm para su comodidad" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-73_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -187,12 +187,34 @@ Este body de algodón es la elección perfecta para la ropa de tu bebé, brindá
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Body enterito bebe algodon puro crema 73cm…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$39.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "WH7166CR-73", "nombre": "Body enterito bebe algodon puro crema 73cm para su comodidad", "precio_venta": 39000.0, "stock": 14, "color": "", "talle": "", "descripcion": "El body enterito infantil ideal para tu bebé, confeccionado en algodón puro para garantizar la máxima suavidad y cuidado en su delicada piel. Un básico indispensable que combina confort y practicidad para el día a día de tu chiquito.\n- Confeccionado en algodón puro, este body enterito ofrece una suavidad excepcional y es ideal para la piel sensible de tu pequeño, manteniéndolo cómodo todo el día.\n- Su clásico color crema es versátil y fácil de combinar con cualquier otra prenda o accesorio, aportando un toque tierno y elegante al guardarropa de tu bebé.\n- Disponible en talle 73cm, pensado para asegurar un calce perfecto y acompañar a tu bebé en su etapa de crecimiento con total libertad de movimiento.\n- Un enterito práctico y fácil de poner, que mantiene a tu bebé abrigado y protegido, ideal para el uso diario o para esas salidas especiales.\n- Aprovechá esta oferta exclusiva para adquirir un body de excelente calidad al mejor precio.\nEste body de algodón es la elección perfecta para la ropa de tu bebé, brindándole confort y estilo en cada momento. Sumalo al carrito hoy y disfrutá de la calidad que merecen.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-73_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

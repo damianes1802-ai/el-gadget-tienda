@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_001" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_001" class="thumbnail active" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_002" class="thumbnail" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_003" class="thumbnail" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_004" class="thumbnail" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_005" class="thumbnail" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2146-RO_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2146-RO_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2146-RO_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2146-RO_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2146-RO_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Dispenser portatil agua y comida mascotas 550ml rosa" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ No dejes que la sed o el hambre sorprendan a tu compañero de aventuras. Este be
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Dispenser portatil agua y comida mascotas …</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$39.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL2146-RO", "nombre": "Dispenser portatil agua y comida mascotas 550ml rosa", "precio_venta": 39000.0, "stock": 12, "color": "", "talle": "", "descripcion": "Llevá la comodidad de casa a todos lados con el dispenser de agua y comida para mascotas, el compañero ideal para que tu perro o gato nunca pase sed ni hambre en sus aventuras, sea en el parque o en la ruta. Un accesorio para mascotas indispensable.\n- Solución 2 en 1: Este práctico dispenser te permite llevar agua y alimento en un solo recipiente, garantizando que tu mascota esté siempre bien atendida en paseos o viajes, con la tranquilidad que solo un comedero portátil puede dar.\n- Capacidad perfecta para la calle: Con sus 350ml de capacidad, tu perro o gato tendrá suficiente agua fresca y su ración de comida para cualquier salida, sin ocupar espacio extra en tu mochila.\n- Diseño adaptable y funcional: Aunque se envía surtido en atractivos colores como blanco, rosa o turquesa, cada dispenser ofrece la misma practicidad y un toque de estilo para vos y tu compañero peludo.\nNo dejes que la sed o el hambre sorprendan a tu compañero de aventuras. Este bebedero y comedero portátil es un indispensable para cada paseo, ideal para dueños activos. ¡Sumalo hoy a tu carrito y disfrutá de la tranquilidad de tener todo resuelto!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_005"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

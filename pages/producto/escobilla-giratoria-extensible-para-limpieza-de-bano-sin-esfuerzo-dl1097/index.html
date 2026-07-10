@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001" alt="Escobilla giratoria extensible para limpieza de baño sin esfuerzo" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001" class="thumbnail active" alt="Escobilla giratoria extensible para limpieza de baño sin esfuerzo" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001', 0)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL1097_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Escobilla giratoria extensible para limpieza de baño sin esfuerzo" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001', 0)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -185,12 +185,34 @@ Transformá la rutina de limpieza en algo práctico y rápido. Es el gadget perf
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Escobilla giratoria extensible para limpie…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$18.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "DL1097", "nombre": "Escobilla giratoria extensible para limpieza de baño sin esfuerzo", "precio_venta": 18500.0, "stock": 11, "color": "", "talle": "", "descripcion": "Olvidate de las posturas incómodas y los rincones difíciles al limpiar tu baño. Esta escobilla con cabezal giratorio y mango extensible es tu aliada para una limpieza profunda y sin esfuerzo en todo tu hogar.\n- Su cabezal giratorio te permite limpiar en cualquier ángulo, alcanzando esos rincones complicados y suciedad acumulada sin que tengas que retorcerte.\n- El mango extensible se ajusta a tus necesidades, ideal para llegar cómodamente a las paredes más altas o al fondo de la ducha y bañera sin agacharte.\n- Con su amplio cabezal de 50 cm, cubrís una mayor superficie en cada pasada, haciendo la limpieza del baño mucho más eficiente y rápida.\nTransformá la rutina de limpieza en algo práctico y rápido. Es el gadget perfecto para mantener tu baño impecable día a día, ahorrando tiempo y energía. Hacelo tuyo hoy y disfrutá de la comodidad que te merecés.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_001" alt="Malla Bikini Amarillo Vedetina Con Nudos Para Mujer - Estilo y Confort" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_001" class="thumbnail active" alt="Malla Bikini Amarillo Vedetina Con Nudos Para Mujer - Estilo y Confort" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_002" class="thumbnail" alt="Malla Bikini Amarillo Vedetina Con Nudos Para Mujer - Estilo y Confort" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_003" class="thumbnail" alt="Malla Bikini Amarillo Vedetina Con Nudos Para Mujer - Estilo y Confort" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_003', 2)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-PAS18C_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Malla Bikini Amarillo Vedetina Con Nudos Para Mujer - Estilo y Confort" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-PAS18C_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Malla Bikini Amarillo Vedetina Con Nudos Para Mujer - Estilo y Confort" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_A-PAS18C_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Malla Bikini Amarillo Vedetina Con Nudos Para Mujer - Estilo y Confort" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_003', 2)"></div></div>
     </div>
 
     <!-- Información -->
@@ -85,7 +85,7 @@
       </div>
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -189,12 +189,34 @@ Esta malla es la elección perfecta para renovar tu look de verano y vivir momen
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Malla Bikini Amarillo Vedetina Con Nudos P…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$43.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "A-PAS18C", "nombre": "Malla Bikini Amarillo Vedetina Con Nudos Para Mujer - Estilo y Confort", "precio_venta": 43500.0, "stock": 7, "color": "", "talle": "", "descripcion": "Preparate para brillar este verano con nuestro bikini vedetina amarillo. Un diseño moderno de traje de baño que resalta tu figura y te llena de energía para disfrutar de cada momento.\n- Amarillo vibrante: Dale un toque de sol a tus días y destacate con un color lleno de energía en la playa o pileta.\n- Diseño vedetina: Un clásico que estiliza tu figura y te brinda comodidad para disfrutar sin preocupaciones.\n- Detalle con nudos: Aporta un toque chic y distintivo que realza el diseño, mostrando tu personalidad. \nEsta malla es la elección perfecta para renovar tu look de verano y vivir momentos inolvidables con confianza. No te quedes sin tu bikini favorito, ¡sumalo a tu carrito ahora!", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18C_003"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "A-PAS18C-S", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;

@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-002_001" alt="Guantes Divertidos – 3 colores surtidos para sorprender" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-002_001" class="thumbnail active" alt="Guantes Divertidos – 3 colores surtidos para sorprender" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-002_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-002_002" class="thumbnail" alt="Guantes Divertidos – 3 colores surtidos para sorprender" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-002_002', 1)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_G1396-002_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Guantes Divertidos – 3 colores surtidos para sorprender" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-002_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_G1396-002_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Guantes Divertidos – 3 colores surtidos para sorprender" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-002_002', 1)"></div></div>
     </div>
 
     <!-- Información -->
@@ -81,7 +81,7 @@
       
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -186,12 +186,34 @@ No dejes pasar la oportunidad de tener unos guantes que te saquen una sonrisa ca
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Guantes Divertidos – 3 colores surtidos pa…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$17.500</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "G1396-002", "nombre": "Guantes Divertidos – 3 colores surtidos para sorprender", "precio_venta": 17500.0, "stock": 9, "color": "", "talle": "", "descripcion": "Dale un toque único y alegre a tus días de frío con estos Guantes Divertidos. Ideales para quienes buscan salir de lo común y agregar personalidad a su estilo, o para ese regalo original que querés hacer sin fallar.\n- Expresá tu onda: Su diseño original y divertido realza cualquier look, dándole un toque único a tus manos.\n- Sorpresa garantizada: Recibí uno de los tres colores disponibles. ¡Ideal para quienes aman las sorpresas o para regalar sin preocuparse por elegir el tono exacto!\n- Variedad en tu armario: Con la opción de diferentes tonos, siempre tendrás un par que combine con tu estado de ánimo o atuendo.\n- Precio imperdible: Aprovechá esta oferta especial para sumar un accesorio funcional y lleno de personalidad a tu colección.\nNo dejes pasar la oportunidad de tener unos guantes que te saquen una sonrisa cada día. Perfectos para vos o para alegrarle el día a alguien más. Sumalos a tu carrito y preparate para recibir una dosis de color y originalidad.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-002_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-002_002"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;

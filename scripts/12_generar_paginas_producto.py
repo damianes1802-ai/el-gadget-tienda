@@ -102,13 +102,25 @@ def parsear_imagenes(producto: dict) -> list:
     return imagenes
 
 
+def cloudinary_thumb(url: str, size: int = 150) -> str:
+    """Inserta transformaciones de Cloudinary para servir una miniatura liviana
+    (w×h, recorte, formato y calidad automáticos). Si no es una URL de
+    Cloudinary sin transformar, la devuelve igual."""
+    marcador = '/image/upload/'
+    if 'res.cloudinary.com' in url and marcador in url and '/upload/w_' not in url and '/upload/c_' not in url:
+        t = f'w_{size},h_{size},c_fill,f_auto,q_auto'
+        return url.replace(marcador, f'{marcador}{t}/', 1)
+    return url
+
+
 def render_thumbnails(imagenes: list, nombre: str) -> str:
     items = []
     for i, img in enumerate(imagenes):
         activa = ' active' if i == 0 else ''
+        thumb = cloudinary_thumb(img, 150)
         items.append(
-            f'<img src="{html.escape(img)}" class="thumbnail{activa}" '
-            f'alt="{html.escape(nombre)}" onclick="cambiarImagen(\'{img}\', {i})">'
+            f'<img src="{html.escape(thumb)}" class="thumbnail{activa}" width="72" height="72" '
+            f'loading="lazy" alt="{html.escape(nombre)}" onclick="cambiarImagen(\'{img}\', {i})">'
         )
     return '<div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails">' + ''.join(items) + '</div></div>'
 
@@ -282,6 +294,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         '__GALLERY_CLASS__': gallery_class,
         '__CATEGORY_BADGE__': html.escape(categoria),
         '__PRODUCT_TITLE__': html.escape(nombre),
+        '__PRODUCT_NAME_SHORT__': html.escape((nombre[:42] + '…') if len(nombre) > 43 else nombre),
         '__PRODUCT_PRICE__': formatear_precio(precio),
         '__PRODUCT_SKU__': html.escape(sku),
         '__STOCK_BADGE__': stock_badge,
@@ -382,7 +395,7 @@ TEMPLATE = """<!DOCTYPE html>
       __VARIANTS__
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -444,12 +457,34 @@ __RELATED__
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">__PRODUCT_NAME_SHORT__</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">__PRODUCT_PRICE__</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = __PRODUCTO_JSON__;
 let varianteActiva = PRODUCTO;

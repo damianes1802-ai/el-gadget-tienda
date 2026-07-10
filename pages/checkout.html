@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="pagina-checkout">
 
 <!-- HEADER -->
 <header class="header">
@@ -44,6 +44,16 @@
   <a href="carrito">Mi pedido</a>
   <span class="sep">/</span>
   <span class="current">Finalizar compra</span>
+</div>
+
+<!-- MINI-RESUMEN STICKY (solo mobile): mantiene el total a la vista mientras
+     se completan los datos, para no cargar a ciegas (MECLABS: baja ansiedad) -->
+<div id="miniResumen" class="mini-resumen" style="display:none">
+  <button type="button" id="miniResumenToggle" class="mini-resumen-head" aria-expanded="false">
+    <span><span id="miniResumenItems">0 productos</span> · <strong id="miniResumenTotal">$0</strong></span>
+    <span class="mini-resumen-chevron">▾ Ver detalle</span>
+  </button>
+  <div id="miniResumenDetalle" class="mini-resumen-detalle" style="display:none"></div>
 </div>
 
 <!-- CONTENIDO -->
@@ -109,15 +119,15 @@
         </div>
 
         <div class="field" style="margin-top:16px">
-          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600)">
-            <input type="checkbox" id="consentimientoCheckout" style="margin-top:2px;flex-shrink:0;width:16px;height:16px">
-            <span>Acepto la <a href="privacidad" target="_blank" style="color:var(--ink);font-weight:600">Política de Privacidad</a> y los <a href="terminos" target="_blank" style="color:var(--ink);font-weight:600">Términos y Condiciones</a>. Mis datos serán usados para gestionar mi pedido y envío.</span>
+          <label style="display:flex;align-items:flex-start;gap:11px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600);text-transform:none;letter-spacing:0;line-height:1.5">
+            <input type="checkbox" id="consentimientoCheckout" style="margin-top:1px;flex-shrink:0;width:22px;height:22px;accent-color:var(--accent)">
+            <span>Acepto la <a href="privacidad" target="_blank" style="color:var(--ink);font-weight:600">Política de Privacidad</a> y los <a href="terminos" target="_blank" style="color:var(--ink);font-weight:600">Términos y Condiciones</a>.</span>
           </label>
         </div>
         <div class="field" style="margin-top:8px">
-          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600)">
-            <input type="checkbox" id="marketingOptIn" style="margin-top:2px;flex-shrink:0;width:16px;height:16px">
-            <span>Quiero recibir tips, ofertas y recomendaciones de productos por email (podés desuscribirte en cualquier momento).</span>
+          <label style="display:flex;align-items:flex-start;gap:11px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600);text-transform:none;letter-spacing:0;line-height:1.5">
+            <input type="checkbox" id="marketingOptIn" style="margin-top:1px;flex-shrink:0;width:22px;height:22px;accent-color:var(--accent)">
+            <span>Quiero recibir ofertas y novedades por email (opcional).</span>
           </label>
         </div>
         <button type="button" class="btn btn-accent btn-block" style="margin-top:16px" onclick="avanzarStep2()">
@@ -532,6 +542,18 @@ function renderResumen() {
     <div class="summary-line total"><span>Total</span><span>${formatPrice(Math.max(total, 0))}</span></div>
   `;
   btnPagar.disabled = false;
+
+  // Mini-resumen sticky (mobile): total siempre a la vista
+  const mini = document.getElementById('miniResumen');
+  if (mini) {
+    const n = carrito.reduce((s, i) => s + i.cantidad, 0);
+    mini.style.display = carrito.length ? 'block' : 'none';
+    document.getElementById('miniResumenItems').textContent = n + (n === 1 ? ' producto' : ' productos');
+    document.getElementById('miniResumenTotal').textContent = formatPrice(Math.max(total, 0));
+    document.getElementById('miniResumenDetalle').innerHTML =
+      carrito.map(i => `<div class="mr-line"><span>${i.nombre} ×${i.cantidad}</span><span>${formatPrice((ganaOferta ? i.precio : (i.precio_lista || i.precio)) * i.cantidad)}</span></div>`).join('')
+      + `<div class="mr-line" style="border-top:1px solid rgba(255,255,255,0.15);margin-top:5px;padding-top:6px"><span>Envío</span><span>${envio ? formatPrice(envio.costo) : 'a calcular'}</span></div>`;
+  }
 }
 
 async function aplicarCodigoDescuento() {
@@ -689,6 +711,15 @@ if (descuentoBienvenidaPendiente) {
   emailField.addEventListener('blur', aplicarDescuentoBienvenida);
   aplicarDescuentoBienvenida();
 }
+
+const _mrToggle = document.getElementById('miniResumenToggle');
+if (_mrToggle) _mrToggle.addEventListener('click', () => {
+  const det = document.getElementById('miniResumenDetalle');
+  const abierto = det.style.display !== 'none';
+  det.style.display = abierto ? 'none' : 'block';
+  _mrToggle.setAttribute('aria-expanded', String(!abierto));
+  _mrToggle.querySelector('.mini-resumen-chevron').textContent = abierto ? '▾ Ver detalle' : '▴ Ocultar';
+});
 
 cargarZonasEnvio();
 

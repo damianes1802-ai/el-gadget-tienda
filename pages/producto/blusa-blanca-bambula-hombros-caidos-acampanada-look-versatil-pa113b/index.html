@@ -66,7 +66,7 @@
       <div class="main-image-wrap">
         <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_001" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
-      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_001" class="thumbnail active" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_002" class="thumbnail" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_003" class="thumbnail" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_004" class="thumbnail" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_005" class="thumbnail" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_005', 4)"></div></div>
+      <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA113B_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA113B_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA113B_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA113B_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_PA113B_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_005', 4)"></div></div>
     </div>
 
     <!-- Información -->
@@ -85,7 +85,7 @@
       </div>
 
       <!-- Acciones -->
-      <div class="actions">
+      <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
       </div>
@@ -190,12 +190,34 @@ Esta blusa de moda es una prenda esencial para la mujer argentina que busca comb
   <a class="cart-bar-btn" href="../../carrito">Ver pedido</a>
 </div>
 
+<!-- BARRA STICKY DE COMPRA (mobile): aparece al scrollear más allá del CTA
+     principal, para tener siempre el precio y "Agregar" a mano (Fogg: prompt
+     disponible en el pico de motivación) -->
+<div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
+  <div class="pdp-sticky-info">
+    <span class="pdp-sticky-name">Blusa Blanca Bambula Hombros Caídos Acampa…</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">$70.000</span>
+  </div>
+  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script src="../../assets/js/cart.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mostrar la barra sticky de compra cuando el CTA principal sale de la vista
+(function () {
+  var main = document.getElementById('mainActions');
+  var bar = document.getElementById('pdpStickyBuy');
+  if (!main || !bar || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    bar.classList.toggle('show', !entries[0].isIntersecting);
+  }, { rootMargin: '0px 0px -40px 0px' });
+  io.observe(main);
+})();
 
 const PRODUCTO = {"sku": "PA113B", "nombre": "Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil", "precio_venta": 70000.0, "stock": 9, "color": "", "talle": "", "descripcion": "Renová tu look con la Blusa Blanca Bambula Hombros Caídos Acampanada, tu aliada perfecta para un estilo fresco y moderno en Argentina. Su diseño versátil te permite estar cómoda y canchera en cualquier ocasión.\n- Confeccionada en bambula blanca, una tela liviana y suave que te asegura máxima comodidad y frescura para tu día a día o esas salidas especiales.\n- Su calce suelto y el diseño acampanado ofrecen una libertad de movimiento inigualable, creando una silueta moderna y favorecedora para todo tipo de cuerpo.\n- El escote amplio tipo barco y los hombros caídos le dan un toque chic y relajado, ideal para combinar con tus jeans favoritos, shorts o pantalones de vestir.\n- Perfecta para armar outfits casuales con estilo o darle un aire más sofisticado a tus encuentros, siempre con ese toque femenino que buscás.\nEsta blusa de moda es una prenda esencial para la mujer argentina que busca combinar estilo y confort sin esfuerzo. No te quedes sin sumar esta blusa blanca de hombros caídos a tu colección y elevá tus outfits en El Gadget.", "imagenes": ["https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_001", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_002", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_003", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_004", "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_005"], "variantes_internas": [{"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "S", "sku_interno": "PA113BS", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "M", "sku_interno": "PA113BM", "imagenes": []}, {"atributo": "talle", "etiqueta_atributo": "Talle", "valor": "L", "sku_interno": "PA113BL", "imagenes": []}], "variantes": []};
 let varianteActiva = PRODUCTO;
