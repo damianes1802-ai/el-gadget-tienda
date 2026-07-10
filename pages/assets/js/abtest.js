@@ -13,8 +13,8 @@
   const VARIANTS_B = {
     '/ganar/desde-casa': {
       badge: 'Para mamás que ya recomiendan',
-      h1: '3 amigas compran = <span>$3.675 para vos</span>',
-      p: 'Cada vez que una amiga compra con tu código, vos cobrás comisión. Automático. Sin stock. Sin horarios. El grupo de mamás puede ser tu mejor fuente de ingreso extra.',
+      h1: '3 conocidos compran = <span>$5.215 para vos</span>',
+      p: 'Cada vez que alguien compra con tu código, vos cobrás comisión. Automático. Sin stock. Sin horarios. El grupo de mamás puede ser tu mejor fuente de ingreso extra.',
       cta: 'Quiero mi código ahora',
     },
     '/ganar/monetizar-redes': {
@@ -32,7 +32,7 @@
     '/ganar/vender-sin-stock': {
       badge: 'Margen real sin riesgo',
       h1: '25% de descuento mayorista.<br><span>Sin comprar stock.</span>',
-      p: 'Empezás como referido cobrando comisiones. Cuando acumulás capital, accedés a precio mayorista con factura. Más de 300 productos en 10 categorías con envío seguro a todo el país.',
+      p: 'Empezás como referido cobrando comisiones. Cuando acumulás capital, accedés a precio mayorista con factura. Casi 300 productos en 10 categorías con envío seguro a todo el país.',
       cta: 'Empezar sin inversión',
     },
   };
@@ -73,7 +73,19 @@
     if (badge && v.badge) badge.textContent = v.badge;
     if (h1 && v.h1) h1.innerHTML = v.h1;
     if (p && v.p) p.innerHTML = v.p;
-    if (cta && v.cta) cta.textContent = v.cta;
+    if (cta && v.cta) {
+      cta.textContent = v.cta;
+      // El copy de la variante B promete el código: el CTA tiene que llevar
+      // al registro, no al ancla informativa de la variante A.
+      var reg = document.getElementById('registro');
+      if (reg) {
+        cta.setAttribute('href', '#registro');
+        cta.onclick = function(ev) {
+          ev.preventDefault();
+          reg.scrollIntoView({ behavior: 'smooth' });
+        };
+      }
+    }
 
     tagLinks('b');
   }

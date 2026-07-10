@@ -299,7 +299,7 @@ class ValidarDescuento(BaseModel):
 class RegistroReferido(BaseModel):
     nombre: str
     email: str
-    telefono: str
+    telefono: Optional[str] = ""  # opcional: el código llega igual por email/pantalla
     dni: Optional[str] = None
     password: str
     source: Optional[str] = None

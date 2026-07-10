@@ -164,6 +164,9 @@ function initPopupRegistro() {
   if (localStorage.getItem('eg_popup_dismissed')) return;
   if (location.pathname.endsWith('checkout') || location.pathname.endsWith('checkout.html')) return;
   if (location.pathname.endsWith('login') || location.pathname.endsWith('mi_cuenta') || location.pathname.endsWith('mi_cuenta.html')) return;
+  // Landings de referidos: la visita viene a GANAR plata, no a comprar.
+  // La oferta de comprador acá es ruido justo en el momento de conversión.
+  if (location.pathname.startsWith('/ganar')) return;
 
   const overlay = document.createElement('div');
   overlay.className = 'eg-popup-overlay';

@@ -722,6 +722,7 @@
   <div class="g-hero-btns">
     <a href="#guia-oficial" class="btn btn-accent" onclick="document.getElementById('guia-oficial').scrollIntoView({behavior:'smooth'});return false;">Leer la guía completa</a>
     <a href="#ref-faq-wrap" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.3)" onclick="document.querySelectorAll('.ref-faq-q')[1].scrollIntoView({behavior:'smooth'});return false;">¿Se puede sin 10K followers?</a>
+      <div style="margin-top:16px"><a href="#registro" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'});return false;" style="color:var(--accent);font-weight:700;font-size:14.5px;text-decoration:underline;text-underline-offset:3px">Saltear la teoría → quiero mi código gratis</a></div>
   </div>
 </section>
 
@@ -827,7 +828,7 @@
       <div class="story-body">
         <div class="story-product">
           <strong>Les dejo descuento</strong>
-          Auriculares bluetooth en El Gadget — con mi código hasta 20% OFF
+          Lámpara LED en El Gadget — con mi código hasta 20% OFF
         </div>
         <div class="story-code">SOFI23</div>
         <div class="story-cta">elgadget.com.ar</div>
@@ -872,7 +873,7 @@
       <div class="caption-label">Story casual</div>
       <div class="caption-text">Les dejo mi código de descuento en El Gadget: [TU_CODIGO]
 
-Hasta 20% OFF en auriculares, luces, gadgets y más.
+Hasta 20% OFF en luces LED, deco, cocina y más.
 
 elgadget.com.ar/?ref=[TU_CODIGO]</div>
       <button class="caption-copy" onclick="copiarCaption(this)">Copiar texto</button>
@@ -897,44 +898,52 @@ Entrá por acá y se aplica solo: elgadget.com.ar/?ref=[TU_CODIGO]</div>
   </div>
 </section>
 
+<!-- CTA intermedio: atajo al registro para quien ya se convenció (no hace falta leer todo) -->
+<section style="background:#14151A;padding:44px 24px;text-align:center">
+  <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,4vw,30px);font-weight:700;color:#fff;margin:0 0 8px">¿Ya te convenció? <span style="color:#FFC700">No hace falta leer todo</span></h2>
+  <p style="color:rgba(255,255,255,0.75);font-size:15px;margin:0 auto 24px;max-width:460px;line-height:1.6">Registrate gratis, recibí tu código al instante y seguí leyendo con el código en la mano.</p>
+  <a href="#registro" class="btn btn-accent" style="display:inline-block" onclick="document.getElementById('registro').scrollIntoView({behavior:'smooth'});return false;">Quiero mi código gratis</a>
+</section>
+
+
 <!-- ════════════════════════════════════════════════════
      SOCIAL PROOF
      ════════════════════════════════════════════════════ -->
 <section class="g-section" style="background:#fff">
-  <div class="g-section-title">Resultados de creadores argentinos</div>
-  <div class="g-section-sub">Cuentas reales, comisiones reales. No necesitás ser influencer.</div>
+  <div class="g-section-title">Tres formas típicas de generar tu primera comisión</div>
+  <div class="g-section-sub">El programa es nuevo y preferimos mostrarte cómo funciona antes que inflar testimonios: cada comisión se ve en tu panel en tiempo real y se paga el 5° día hábil del mes.</div>
   <p style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--accent-deep);margin:-32px auto 32px;text-align:center">+280 personas ya se sumaron al programa</p>
   <!-- TODO Damian: si conseguís testimonios reales verificables con montos, se pueden restituir -->
       <div class="proof-grid">
     <div class="proof-card">
       <div class="proof-header">
-        <div class="proof-avatar">S</div>
+        <div class="proof-avatar" style="background:linear-gradient(135deg,#f093fb,#f5576c)">📱</div>
         <div>
-          <div class="proof-name">Sofía M.</div>
-          <div class="proof-handle"><span class="nicho">Deco y hogar</span> · <span class="seguidores">2.800 followers</span></div>
+          <div class="proof-name">En tus grupos de WhatsApp</div>
+          <div class="proof-handle">El canal que ya usás todos los días</div>
         </div>
       </div>
-      <div class="proof-text">"Compartí mi código en 3 Stories mostrando productos de El Gadget. El primer mes ya tenía comisiones acreditadas."</div>
+      <div class="proof-text">Pasás tu código en los grupos donde ya hablás — familia, amigos, laburo. Cada compra que hagan con él te deja entre 7% y 15% de comisión, y ellos compran con descuento.</div>
     </div>
     <div class="proof-card">
       <div class="proof-header">
-        <div class="proof-avatar">M</div>
+        <div class="proof-avatar" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)">📢</div>
         <div>
-          <div class="proof-name">Matías R.</div>
-          <div class="proof-handle"><span class="nicho">Tech y gadgets</span> · <span class="seguidores">5.200 followers</span></div>
+          <div class="proof-name">En tus historias o estados</div>
+          <div class="proof-handle">Sin mínimo de seguidores</div>
         </div>
       </div>
-      <div class="proof-text">"Puse mi código en la bio y lo mencioné en un Reel de unboxing. Ya tengo un ingreso mensual fijo por comisiones."</div>
+      <div class="proof-text">Subís una foto de un producto que te guste con tu código. No necesitás ser influencer: alcanza con que te vean las personas que ya te conocen y confían en vos.</div>
     </div>
     <div class="proof-card">
       <div class="proof-header">
-        <div class="proof-avatar">V</div>
+        <div class="proof-avatar" style="background:linear-gradient(135deg,#ffecd2,#fcb69f)">🗣️</div>
         <div>
-          <div class="proof-name">Valentina L.</div>
-          <div class="proof-handle"><span class="nicho">Moda y belleza</span> · <span class="seguidores">1.100 followers</span></div>
+          <div class="proof-name">Boca a boca</div>
+          <div class="proof-handle">Cuando te preguntan "¿dónde lo compraste?"</div>
         </div>
       </div>
-      <div class="proof-text">"Lo pasé a amigas por DM. En 2 semanas ya cobré mis primeras comisiones. Súper fácil."</div>
+      <div class="proof-text">Alguien ve algo que compraste y te pregunta dónde conseguirlo. Respondés con tu código: descuento para esa persona, comisión para vos. Eso que ya hacías gratis, ahora paga.</div>
     </div>
   </div>
 
@@ -1124,7 +1133,7 @@ Entrá por acá y se aplica solo: elgadget.com.ar/?ref=[TU_CODIGO]</div>
     <form id="igForm" onsubmit="registrarIG(event)">
       <div class="g-form-field"><label>Nombre completo</label><input type="text" id="igNombre" placeholder="Ej. Sofía García" required autocomplete="name"></div>
       <div class="g-form-field"><label>Email</label><input type="email" id="igEmail" placeholder="sofia@email.com" required autocomplete="email"></div>
-      <div class="g-form-field"><label>WhatsApp (con código de área)</label><input type="tel" id="igTelefono" placeholder="1122334455" required autocomplete="tel" inputmode="numeric"><div class="hint">Para enviarte tu código y tips para maximizar comisiones</div></div>
+      <div class="g-form-field"><label>WhatsApp <span style="text-transform:none;letter-spacing:0;font-weight:400">(opcional)</span></label><input type="tel" id="igTelefono" placeholder="1122334455" autocomplete="tel" inputmode="numeric"><div class="hint">Opcional: si lo dejás, te mandamos el código también por WhatsApp</div></div>
       <div class="g-form-field" style="margin-top:8px"><label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600);text-transform:none;letter-spacing:0"><input type="checkbox" id="igConsentimiento" style="margin-top:3px;flex-shrink:0;width:16px;height:16px" required><span>Acepto los <a href="/terminos#referidos" target="_blank" style="color:var(--ink);font-weight:600">Términos</a> y la <a href="/privacidad" target="_blank" style="color:var(--ink);font-weight:600">Privacidad</a> y quiero empezar a ganar</span></label></div>
       <button type="submit" class="btn btn-accent" id="igSubmitBtn" style="width:100%;margin-top:12px;padding:14px;font-size:15px">Quiero mi código gratis</button>
       <p style="text-align:center;font-size:12px;color:var(--gray-600);margin:10px 0 0">Recibís tu código y contraseña al instante por email y WhatsApp<br>Podés empezar a usarlo hoy mismo</p>
