@@ -85,6 +85,11 @@
           reg.scrollIntoView({ behavior: 'smooth' });
         };
       }
+      // Con el CTA principal ya convirtiendo, el link "Saltear la teoría"
+      // (pensado para la variante A, de botones informativos) queda
+      // redundante: dos prompts iguales lado a lado.
+      var skip = hero.querySelector('.hero-skip-link');
+      if (skip) skip.style.display = 'none';
     }
 
     tagLinks('b');
