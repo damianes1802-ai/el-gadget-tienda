@@ -21,3 +21,6 @@ api_local.email_habilitado = lambda: False   # Resend (emails cliente/admin)
 api_local.MP_ACCESS_TOKEN = ''               # MercadoPago (preferencias)
 # AFIP queda naturalmente apagado en local (sin AFIP_ACCESS_TOKEN el intento
 # de factura falla de forma controlada y best-effort).
+# El rate limiter comparte la IP ficticia "testclient" entre TODOS los tests,
+# así que los límites por minuto se agotan enseguida: apagado en tests.
+api_local.limiter.enabled = False

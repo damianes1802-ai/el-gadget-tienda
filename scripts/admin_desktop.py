@@ -359,6 +359,17 @@ class Api:
         except Exception as e:
             return {"error": str(e)}
 
+    # ── Reseñas de productos ──
+    def get_resenas(self, estado=None):
+        params = {"estado": estado} if estado else None
+        return self._get("/api/admin/resenas", params=params, admin=True)
+
+    def moderar_resena(self, resena_id, estado, nombre=None):
+        params = {"estado": estado}
+        if nombre is not None:
+            params["nombre"] = nombre
+        return self._patch(f"/api/admin/resena/{resena_id}", params=params, admin=True)
+
     # ── Solicitudes de mayorista ──
     def get_solicitudes_mayorista(self):
         return self._get("/api/admin/mayorista/solicitudes", admin=True)

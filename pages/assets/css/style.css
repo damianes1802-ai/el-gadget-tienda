@@ -645,6 +645,20 @@ body.pagina-checkout .whatsapp-float { display: none; }
 .pdp-sticky-buy .btn { flex-shrink: 0; padding: 12px 22px; }
 @media (min-width: 768px) { .pdp-sticky-buy { display: none !important; } }
 
+/* ── RESEÑAS DE COMPRADORES (PDP) ── */
+/* order 2: la columna de info es flex y la descripción usa order 1;
+   las reseñas van visualmente después de ella. */
+.product-resenas { order: 2; margin-top: 4px; padding-top: 22px; border-top: 1px solid var(--gray-200); }
+.product-resenas h3 { font-size: 16px; margin: 0 0 10px; }
+.resenas-promedio { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--gray-600); margin-bottom: 4px; }
+.resena-stars { color: var(--accent-deep, #c79a00); letter-spacing: 2px; font-size: 15px; }
+.resena-item { padding: 12px 0; border-top: 1px solid var(--gray-200); }
+.resena-item:first-of-type { border-top: none; }
+.resena-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.resena-nombre { font-weight: 600; font-size: 13px; color: var(--ink); }
+.resena-fecha { font-size: 12px; color: var(--gray-400); }
+.resena-texto { font-size: 13.5px; color: var(--gray-600); line-height: 1.6; margin: 6px 0 0; }
+
 /* ── TOAST ── */
 .toast {
   position: fixed; bottom: 110px; left: 50%;

@@ -405,6 +405,9 @@ TEMPLATE = """<!DOCTYPE html>
         <h3>Descripción</h3>
         <div class="description" id="productDescription">__DESCRIPTION__</div>
       </div>
+
+      <!-- Reseñas de compradores reales (cart.js lo puebla solo si hay aprobadas) -->
+      <div class="product-resenas" id="resenasProducto" style="display:none"></div>
     </div>
   </div>
 __RELATED__

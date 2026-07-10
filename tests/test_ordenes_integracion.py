@@ -44,6 +44,7 @@ def entorno():
     cur.execute("""DELETE FROM ordenes WHERE cliente_id IN (SELECT id FROM clientes WHERE email='pytest@of.com')""")
     cur.execute("DELETE FROM clientes WHERE email='pytest@of.com'")
     cur.execute("DELETE FROM descuentos WHERE nombre LIKE 'Pytest %'")
+    cur.execute("DELETE FROM resenas WHERE producto_sku='PYTESTSKU'")
     cur.execute("DELETE FROM productos WHERE sku='PYTESTSKU'")
     conn.commit()
     conn.close()
@@ -88,3 +89,41 @@ def test_recurrente_sin_fechas_rechazada(entorno):
                json={'nombre': 'Pytest Mal', 'valor': 10, 'recurrente_anual': True},
                headers={'X-Admin-Password': api_local.ADMIN_PASSWORD})
     assert r.status_code == 400
+
+
+def test_resena_flujo_completo(entorno):
+    """Comprador real deja reseña → pendiente (no pública) → aprobada → pública."""
+    oid, _ = _crear(entorno)
+    c = TestClient(api_local.app)
+
+    # Solo un comprador real puede reseñar
+    r = c.post('/api/resena', json={'producto_sku': 'PYTESTSKU', 'orden_id': oid,
+                                    'email': 'otro@mail.com', 'rating': 5})
+    assert r.status_code == 403
+
+    # Rating fuera de rango
+    r = c.post('/api/resena', json={'producto_sku': 'PYTESTSKU', 'orden_id': oid,
+                                    'email': 'pytest@of.com', 'rating': 6})
+    assert r.status_code == 400
+
+    # Reseña válida → queda pendiente y NO aparece en el listado público
+    r = c.post('/api/resena', json={'producto_sku': 'PYTESTSKU', 'orden_id': oid,
+                                    'email': 'pytest@of.com', 'rating': 4,
+                                    'comentario': 'Muy bueno'})
+    assert r.status_code == 200, r.text
+    assert c.get('/api/producto/PYTESTSKU/resenas').json()['total'] == 0
+
+    # Duplicada para la misma orden → 409
+    r = c.post('/api/resena', json={'producto_sku': 'PYTESTSKU', 'orden_id': oid,
+                                    'email': 'pytest@of.com', 'rating': 5})
+    assert r.status_code == 409
+
+    # El admin aprueba con nombre público → aparece en el listado
+    rid = entorno.execute("SELECT id FROM resenas WHERE producto_sku='PYTESTSKU'").fetchone()[0]
+    r = c.patch(f'/api/admin/resena/{rid}', params={'estado': 'aprobada', 'nombre': 'Tester P.'},
+                headers={'X-Admin-Password': api_local.ADMIN_PASSWORD})
+    assert r.status_code == 200, r.text
+    pub = c.get('/api/producto/PYTESTSKU/resenas').json()
+    assert pub['total'] == 1 and pub['promedio'] == 4.0
+    assert pub['resenas'][0]['nombre'] == 'Tester P.'
+    assert pub['resenas'][0]['comentario'] == 'Muy bueno'

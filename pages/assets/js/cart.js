@@ -364,6 +364,43 @@ function initVentasBadge() {
 }
 
 /**
+ * Reseñas de compradores reales en la ficha de producto (prueba social,
+ * Cialdini). La sección solo aparece si el producto tiene reseñas APROBADAS
+ * por moderación: nunca se muestra contenido inventado ni la sección vacía.
+ */
+function initResenasProducto() {
+  if (typeof PRODUCTO === 'undefined') return;
+  const cont = document.getElementById('resenasProducto');
+  if (!cont) return;
+
+  fetch(`${EG_API_URL}/api/producto/${PRODUCTO.sku}/resenas`)
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data || !data.total) return;
+      const estrellas = v => '★'.repeat(v) + '☆'.repeat(5 - v);
+      const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+      const items = data.resenas.slice(0, 6).map(r => `
+        <div class="resena-item">
+          <div class="resena-head">
+            <span class="resena-stars">${estrellas(r.rating)}</span>
+            ${r.nombre ? `<span class="resena-nombre">${esc(r.nombre)}</span>` : ''}
+            <span class="resena-fecha">${(r.fecha || '').slice(0, 10).split('-').reverse().join('/')}</span>
+          </div>
+          ${r.comentario ? `<p class="resena-texto">${esc(r.comentario)}</p>` : ''}
+        </div>`).join('');
+      cont.innerHTML = `
+        <h3>Opiniones de compradores</h3>
+        <div class="resenas-promedio">
+          <span class="resena-stars">${estrellas(Math.round(data.promedio))}</span>
+          <strong>${data.promedio}</strong> · ${data.total} ${data.total === 1 ? 'opinión verificada' : 'opiniones verificadas'}
+        </div>
+        ${items}`;
+      cont.style.display = 'block';
+    })
+    .catch(() => {});
+}
+
+/**
  * En páginas de producto, guarda el SKU en localStorage.eg_vistos para
  * mostrar "Vistos recientemente" en el catálogo (máx. 8, sin duplicados,
  * el más reciente primero).
@@ -535,6 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPopupRegistro();
   initOfertaYStockProducto();
   initVentasBadge();
+  initResenasProducto();
   registrarProductoVisto();
   mostrarBannerBienvenida();
   capturaRefCode();

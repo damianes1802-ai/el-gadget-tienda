@@ -1225,12 +1225,27 @@ def enviar_email_carrito_abandonado_3(orden: dict, items: list) -> dict:
     return _enviar(orden['email'], f"Último recordatorio — tu carrito se vacía pronto", _layout(cuerpo, marketing=True), is_marketing=True)
 
 
-def enviar_email_review_request(nombre: str, email: str, producto_nombre: str) -> dict:
-    """N8 — Review request post-entrega. Nurturing/marketing."""
+def enviar_email_review_request(nombre: str, email: str, producto_nombre: str,
+                                orden_id: int = None, producto_sku: str = None) -> dict:
+    """N8 — Review request post-entrega. Nurturing/marketing.
+
+    Con orden_id + producto_sku el botón lleva al formulario de reseña con
+    los datos precargados (la reseña se valida contra la compra real).
+    Sin ellos cae al mailto legacy."""
+    from urllib.parse import urlencode
     nombre_s = _html.escape(nombre)
     prod_s = _html.escape(producto_nombre)
     env = Config.cargar_env()
     site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    if orden_id and producto_sku:
+        params = urlencode({
+            'orden': orden_id, 'sku': producto_sku,
+            'email': email, 'producto': producto_nombre,
+        })
+        link_resena = f"{site_url}/resena?{params}"
+    else:
+        link_resena = f"mailto:tienda@elgadget.com.ar?subject=Mi+experiencia+con+{prod_s}"
 
     cuerpo = f"""
       <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¿Qué te pareció tu {prod_s}?</h2>
@@ -1239,9 +1254,10 @@ def enviar_email_review_request(nombre: str, email: str, producto_nombre: str) -
         ¿Qué te pareció?
       </p>
       <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
-        Tu opinión nos ayuda a mejorar y le sirve a otros compradores.
+        Te toma menos de un minuto: elegís las estrellas y, si querés, contás
+        tu experiencia. Le sirve un montón a otros compradores.
       </p>
-      {_boton('Contanos tu experiencia', f"mailto:tienda@elgadget.com.ar?subject=Mi+experiencia+con+{prod_s}")}
+      {_boton('Dejar mi reseña ⭐', link_resena)}
       <p style="color:{GRAY_600};font-size:13px;margin:0;text-align:center">
         ¡Gracias por confiar en El Gadget!
       </p>

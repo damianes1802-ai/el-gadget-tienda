@@ -4593,10 +4593,12 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
         for row in cursor.fetchall():
             o = dict(row)
             prod_row = cursor.execute(
-                "SELECT producto_nombre FROM orden_items WHERE orden_id = ? LIMIT 1", (o['id'],)
+                "SELECT producto_nombre, producto_sku FROM orden_items WHERE orden_id = ? LIMIT 1", (o['id'],)
             ).fetchone()
             prod_nombre = prod_row[0] if prod_row else 'producto'
-            res = enviar_email_review_request(o['nombre'], o['email'], prod_nombre)
+            prod_sku = prod_row[1] if prod_row else None
+            res = enviar_email_review_request(o['nombre'], o['email'], prod_nombre,
+                                              orden_id=o['id'], producto_sku=prod_sku)
             if 'error' not in res:
                 cursor.execute("UPDATE ordenes SET email_review_enviado = 1 WHERE id = ?", (o['id'],))
                 resultado['review_request'] += 1
