@@ -3482,12 +3482,14 @@ def crear_resena(request: Request, datos: NuevaResena):
 
     conn = get_db()
     cursor = conn.cursor()
-    # Validar propiedad: la orden es del email y contiene el producto
+    # Validar propiedad: la orden es del email, contiene el producto y está PAGADA
+    # (sin esto, cualquier orden abandonada sin pagar podría dejar reseña)
     cursor.execute("""
         SELECT 1 FROM ordenes o
         JOIN clientes c ON o.cliente_id = c.id
         JOIN orden_items i ON i.orden_id = o.id
         WHERE o.id = ? AND LOWER(c.email) = LOWER(?) AND i.producto_sku = ?
+          AND o.estado_pago = 'approved'
         LIMIT 1
     """, (datos.orden_id, datos.email.strip(), datos.producto_sku))
     if not cursor.fetchone():

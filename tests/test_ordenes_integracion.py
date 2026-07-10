@@ -96,6 +96,13 @@ def test_resena_flujo_completo(entorno):
     oid, _ = _crear(entorno)
     c = TestClient(api_local.app)
 
+    # Orden sin pagar todavía → no puede reseñar
+    r = c.post('/api/resena', json={'producto_sku': 'PYTESTSKU', 'orden_id': oid,
+                                    'email': 'pytest@of.com', 'rating': 5})
+    assert r.status_code == 403
+    entorno.execute("UPDATE ordenes SET estado_pago='approved' WHERE id=?", (oid,))
+    entorno.commit()
+
     # Solo un comprador real puede reseñar
     r = c.post('/api/resena', json={'producto_sku': 'PYTESTSKU', 'orden_id': oid,
                                     'email': 'otro@mail.com', 'rating': 5})
