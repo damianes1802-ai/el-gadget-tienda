@@ -36,6 +36,7 @@ sys.path.append(str(Path(__file__).parent))
 from utils.config import Config
 from utils.logger import get_logger
 from utils.seo_categorias import CATEGORIAS_SEO, COLECCIONES_SEO, slug_categoria
+from utils.blog_posts import BLOG_POSTS
 
 logger = get_logger('generar_paginas_producto')
 
@@ -968,6 +969,167 @@ fetch(EG_API_URL + '/api/resenas/promedios')
 </html>'''
 
 
+def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str, cuerpo: str) -> str:
+    """Shell compartido de las páginas del blog (misma identidad que los listados)."""
+    return f'''<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{html.escape(titulo)}</title>
+<meta name="description" content="{html.escape(meta)}">
+<link rel="canonical" href="{canonical}">
+<meta property="og:title" content="{html.escape(titulo)}">
+<meta property="og:description" content="{html.escape(meta)}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{canonical}">
+<meta name="theme-color" content="#14151A">
+<link rel="icon" type="image/svg+xml" href="{FAVICON}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<style>
+.blog-hero {{ background: var(--ink); color: #fff; text-align: center; padding: 0 1.25rem 34px;
+  background-image: radial-gradient(circle at 15% 20%, rgba(255,199,0,0.08), transparent 40%), radial-gradient(circle at 85% 80%, rgba(255,199,0,0.06), transparent 45%); }}
+.blog-hero .bc {{ max-width: 1240px; margin: 0 auto; padding: 14px 0 22px; font-size: 12.5px; color: rgba(255,255,255,0.55); display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }}
+.blog-hero .bc a {{ color: rgba(255,255,255,0.8); font-weight: 600; text-decoration: none; }}
+.blog-hero .badge {{ display: inline-block; background: var(--accent); color: var(--ink); font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 16px; border-radius: 20px; margin-bottom: 16px; }}
+.blog-hero h1 {{ font-family: 'Space Grotesk', sans-serif; font-size: clamp(25px, 4.2vw, 38px); margin: 0 0 12px; color: #fff; }}
+.blog-hero p {{ max-width: 680px; font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,0.72); margin: 0 auto; }}
+.blog-hero p strong {{ color: var(--accent); }}
+.blog-fecha {{ font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 14px; }}
+.blog-body {{ max-width: 760px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; }}
+.blog-body section {{ background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); }}
+.blog-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 19px; color: var(--ink); margin: 0 0 10px; text-align: center; }}
+.blog-body h2::after {{ content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--accent); margin: 10px auto 0; }}
+.blog-body p {{ font-size: 14px; line-height: 1.8; color: var(--gray-600); margin: 0; text-align: center; }}
+.blog-body a {{ color: var(--ink); font-weight: 600; }}
+.blog-grid {{ max-width: 900px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; grid-template-columns: 1fr; }}
+@media (min-width: 720px) {{ .blog-grid {{ grid-template-columns: 1fr 1fr; }} }}
+.blog-card {{ background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 20px 22px; text-decoration: none; box-shadow: var(--shadow); transition: border-color .15s; text-align: center; }}
+.blog-card:hover {{ border-color: var(--accent); }}
+.blog-card h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 16.5px; color: var(--ink); margin: 0 0 8px; }}
+.blog-card p {{ font-size: 13px; line-height: 1.65; color: var(--gray-600); margin: 0; }}
+.listado-faqs {{ max-width: 820px; margin: 0 auto; padding: 30px 1.25rem 44px; }}
+.listado-faqs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 16px; text-align: center; }}
+.listado-faq-item {{ background: #fff; border: 1.5px solid var(--gray-200); border-left: 5px solid var(--accent); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 10px; }}
+.listado-faq-item h3 {{ font-size: 14.5px; margin: 0 0 6px; color: var(--ink); }}
+.listado-faq-item p {{ font-size: 13.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }}
+.blog-cierre {{ max-width: 760px; margin: 10px auto 0; padding: 0 1.25rem 40px; text-align: center; }}
+</style>
+<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-badge"><img src="/assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42"></div>
+      <div class="logo-text"><div class="logo-name">El<span> Gadget</span></div><div class="logo-tagline">Tienda online</div></div>
+    </a>
+    <a href="/carrito" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="label">Mi pedido</span><span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
+{hero}
+{cuerpo}
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo"><div class="logo-badge"><img src="/assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42"></div>
+        <div class="logo-text"><div class="logo-name">El<span> Gadget</span></div><div class="logo-tagline">Tienda online</div></div></div>
+      <p>Productos para el hogar, moda y más. Comprá online seguro y te lo enviamos a tu casa.</p>
+    </div>
+    <div class="footer-col"><h4>Tienda</h4><a href="/">Catálogo</a><a href="/categoria/ofertas/">Ofertas</a><a href="/blog/">Blog</a><a href="/seguimiento">Seguimiento</a></div>
+    <div class="footer-col"><h4>Ayuda</h4><a href="/faq">Preguntas frecuentes</a><a href="/devoluciones">Devoluciones</a><a href="/sobre_nosotros">Sobre nosotros</a></div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
+</footer>
+<div class="toast" id="toast"></div>
+<script src="/assets/js/cart.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>'''
+
+
+def generar_blog() -> list:
+    """Genera /blog/ (hub) y /blog/<slug>/ desde utils.blog_posts. Devuelve slugs."""
+    blog_dir = PAGES_DIR / 'blog'
+    slugs = []
+    for slug, cfg in BLOG_POSTS.items():
+        canonical = f"{CANONICAL_DOMAIN}/blog/{slug}/"
+        jsonld = [{
+            "@context": "https://schema.org/",
+            "@type": "Article",
+            "headline": cfg['h1'],
+            "description": cfg['meta'],
+            "datePublished": cfg['fecha'],
+            "author": {"@type": "Organization", "name": BRAND},
+            "publisher": {"@type": "Organization", "name": BRAND},
+            "mainEntityOfPage": canonical,
+        }, {
+            "@context": "https://schema.org/",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Inicio", "item": f"{CANONICAL_DOMAIN}/"},
+                {"@type": "ListItem", "position": 2, "name": "Blog", "item": f"{CANONICAL_DOMAIN}/blog/"},
+                {"@type": "ListItem", "position": 3, "name": cfg['h1']},
+            ],
+        }]
+        if cfg.get('faqs'):
+            jsonld.append({
+                "@context": "https://schema.org/", "@type": "FAQPage",
+                "mainEntity": [{"@type": "Question", "name": q,
+                                "acceptedAnswer": {"@type": "Answer", "text": a}}
+                               for q, a in cfg['faqs']],
+            })
+        hero = f'''<div class="blog-hero">
+  <div class="bc"><a href="/">Inicio</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>{html.escape(cfg['h1'][:42])}…</span></div>
+  <span class="badge">Blog · El Gadget</span>
+  <h1>{html.escape(cfg['h1'])}</h1>
+  <p>{cfg['intro']}</p>
+  <div class="blog-fecha">Actualizado: {cfg['fecha']}</div>
+</div>'''
+        secciones = ''.join(f'<section><h2>{html.escape(t)}</h2><p>{c}</p></section>'
+                            for t, c in cfg['secciones'])
+        faqs = ''
+        if cfg.get('faqs'):
+            items = ''.join(f'<div class="listado-faq-item"><h3>{html.escape(q)}</h3><p>{html.escape(a)}</p></div>'
+                            for q, a in cfg['faqs'])
+            faqs = f'<div class="listado-faqs"><h2>Preguntas frecuentes</h2>{items}</div>'
+        cierre = ('<div class="blog-cierre"><a class="btn btn-accent" href="/" '
+                  'style="display:inline-block">Ver el catálogo completo →</a></div>')
+        cuerpo = f'<div class="blog-body">{secciones}</div>{faqs}{cierre}'
+        destino = blog_dir / slug
+        destino.mkdir(parents=True, exist_ok=True)
+        (destino / 'index.html').write_text(
+            _shell_blog(cfg['title'], cfg['meta'], canonical, jsonld, hero, cuerpo), encoding='utf-8')
+        slugs.append(slug)
+
+    # Hub /blog/
+    canonical = f"{CANONICAL_DOMAIN}/blog/"
+    jsonld = [{"@context": "https://schema.org/", "@type": "Blog", "name": f"Blog de {BRAND}",
+               "url": canonical}]
+    hero = '''<div class="blog-hero">
+  <div class="bc"><a href="/">Inicio</a><span>/</span><span>Blog</span></div>
+  <span class="badge">Blog · El Gadget</span>
+  <h1>Ideas, guías y trucos para tu casa</h1>
+  <p>Organización, deco, regalos y vida diaria: contenido útil, sin humo, escrito para resolver.</p>
+</div>'''
+    cards = ''.join(
+        f'''<a class="blog-card" href="/blog/{s}/"><h2>{html.escape(c['h1'])}</h2><p>{html.escape(re.sub("<[^>]+>", "", c['intro'])[:130])}…</p></a>'''
+        for s, c in BLOG_POSTS.items())
+    cuerpo = f'<div class="blog-grid">{cards}</div><div class="blog-cierre" style="padding-top:30px"><a class="btn btn-accent" href="/" style="display:inline-block">Ir a la tienda →</a></div>'
+    blog_dir.mkdir(parents=True, exist_ok=True)
+    (blog_dir / 'index.html').write_text(
+        _shell_blog(f'Blog de {BRAND} — Ideas y guías para tu casa',
+                    'Guías de organización, deco, regalos y hogar: contenido práctico del equipo de El Gadget, con envío a todo el país.',
+                    canonical, jsonld, hero, cuerpo), encoding='utf-8')
+    return slugs
+
+
 def generar_listados(productos: list, slug_map: dict) -> tuple:
     """Genera /categoria/<slug>/ y /coleccion/<slug>/. Devuelve (slugs_cat, slugs_col)."""
     por_slug_cat = {}
@@ -1101,6 +1263,10 @@ def generar():
     slugs_cat, slugs_col = generar_listados(productos, slug_map)
     print(f"✅ {len(slugs_cat)} páginas de categoría y {len(slugs_col)} de colección generadas")
 
+    # 4c. Blog (contenido informacional que alimenta a las categorías)
+    slugs_blog = generar_blog()
+    print(f"✅ Blog: hub + {len(slugs_blog)} posts generados")
+
     # 5. Generar sitemap.xml
     hoy = date.today().isoformat()
     canonical_url = CANONICAL_DOMAIN
@@ -1126,6 +1292,8 @@ def generar():
                 static_pages.append((f"{canonical_url}/ganar/{d.name}/", "monthly"))
     static_pages += [(f"{canonical_url}/categoria/{s}/", "weekly") for s in slugs_cat]
     static_pages += [(f"{canonical_url}/coleccion/{s}/", "weekly") for s in slugs_col]
+    static_pages.append((f"{canonical_url}/blog/", "weekly"))
+    static_pages += [(f"{canonical_url}/blog/{s}/", "monthly") for s in slugs_blog]
     urls = [(f"{canonical_url}/producto/{slug}/", "weekly") for slug in sorted(slugs_generados)]
     all_urls = static_pages + urls
 

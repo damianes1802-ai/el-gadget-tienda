@@ -598,6 +598,9 @@ a { color: inherit; }
   background: #fff; border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 8px 16px;
   display: flex; align-items: center; gap: 7px; user-select: none; transition: border-color .15s; }
 .mn-item summary::-webkit-details-marker { display: none; }
+.mn-link { font-size: 13px; font-weight: 700; color: var(--ink); background: #fff; border: 1.5px solid var(--gray-200);
+  border-radius: 20px; padding: 8px 16px; text-decoration: none; display: flex; align-items: center; }
+.mn-link:hover { border-color: var(--accent); }
 .mn-item summary::after { content: '▾'; font-size: 10px; color: var(--gray-400); }
 .mn-item summary:hover { border-color: var(--accent); }
 .mn-item[open] summary { background: var(--ink); color: #fff; border-color: var(--ink); }
