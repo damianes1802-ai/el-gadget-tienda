@@ -687,6 +687,10 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
     del research (SEO-KEYWORDS/MAPA-KEYWORDS.md) y FAQ con schema."""
     canonical = f"{CANONICAL_DOMAIN}/{tipo}/{slug}/"
     h1 = cfg['h1']
+    # Posición serial: la primera fila de la grilla es el inventario de
+    # atención más valioso -> ofertas activas primero (orden estable).
+    items = sorted(items, key=lambda p: 0 if (p.get('precio_oferta') is not None
+                   and p['precio_oferta'] < p['precio_venta']) else 1)
     cards = ''.join(_card_listado(p, slug_map) for p in items)
 
     chips_html = ''.join(
@@ -786,6 +790,10 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 .orden-bar select {{ padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }}
 .card-rating {{ font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }}
 .card-rating small {{ color: var(--gray-400); letter-spacing: 0; }}
+.terminal-cta {{ text-align: center; padding: 26px 1.25rem 6px; }}
+.terminal-cta p {{ font-size: 14.5px; font-weight: 600; color: var(--gray-600); margin: 0 0 12px; }}
+.terminal-cta-btns {{ display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }}
+.terminal-cta .btn-outline {{ border: 1.5px solid var(--gray-200); color: var(--ink); }}
 .listado-secciones {{ max-width: 820px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; }}
 .listado-seccion {{ background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 22px 24px; text-align: center; box-shadow: var(--shadow); }}
 .listado-seccion h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 19px; color: var(--ink); margin: 0 0 8px; }}
@@ -852,6 +860,15 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 
 <div class="listado-grid">
   <div class="grid" id="listadoGrid">{cards}</div>
+</div>
+
+<!-- Área terminal (Gutenberg): quien llegó al final sin decidir necesita un siguiente paso -->
+<div class="terminal-cta">
+  <p>¿No encontraste lo que buscabas?</p>
+  <div class="terminal-cta-btns">
+    <a class="btn btn-accent" href="{'/' if tipo == 'categoria' and slug == 'ofertas' else '/categoria/ofertas/'}">{'Ver todo el catálogo' if tipo == 'categoria' and slug == 'ofertas' else 'Ver las ofertas de la semana'}</a>
+    <a class="btn btn-outline" href="https://wa.me/{WHATSAPP_NUM}?text=Hola!%20Busco%20un%20producto" target="_blank" rel="noopener">Preguntanos por WhatsApp</a>
+  </div>
 </div>
 {secciones_html}
 {faqs_html}

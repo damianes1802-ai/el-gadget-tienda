@@ -65,9 +65,6 @@
       <a href="#catalogo" class="btn btn-accent" onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'});return false;" style="font-size:16px;padding:14px 32px;border-radius:12px;font-weight:700;display:inline-block;text-decoration:none">Ver catálogo</a>
     </div>
     <div class="hero-badges">
-      <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="hero-badge" target="_blank" rel="noopener">💬 Hablar por WhatsApp</a>
-      <a href="sobre_nosotros" class="hero-badge">ℹ️ Sobre nosotros</a>
-      <a href="faq" class="hero-badge">❓ Preguntas frecuentes</a>
       <a href="referidos" class="hero-badge">💸 Ganá con nosotros</a>
     </div>
   </div>
@@ -144,6 +141,14 @@
     <span id="gridCount"></span>
   </div>
   <div class="grid" id="productGrid"></div>
+  <!-- Área terminal (Gutenberg): siguiente paso para quien scrolleó sin decidir -->
+  <div style="text-align:center;padding:28px 1.25rem 4px">
+    <p style="font-size:14.5px;font-weight:600;color:var(--gray-600);margin:0 0 12px">¿No encontraste lo que buscabas?</p>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+      <a class="btn btn-accent" href="/categoria/ofertas/">Ver las ofertas de la semana</a>
+      <a class="btn" style="border:1.5px solid var(--gray-200);color:var(--ink)" href="https://wa.me/5491126228481?text=Hola!%20Busco%20un%20producto" target="_blank" rel="noopener">Preguntanos por WhatsApp</a>
+    </div>
+  </div>
 </div>
 
 <!-- VISTOS RECIENTEMENTE -->
@@ -396,6 +401,12 @@ function getFiltrados() {
     lista = [...lista].sort((a, b) => a.precio_venta - b.precio_venta);
   } else if (sortBy === 'precio_desc') {
     lista = [...lista].sort((a, b) => b.precio_venta - a.precio_venta);
+  } else {
+    // Relevancia: ofertas activas primero (posición serial: la primera fila
+    // es el inventario de atención más valioso). Sort estable: el resto
+    // conserva el orden del catálogo.
+    const enOferta = p => p.precio_oferta != null && p.precio_oferta < p.precio_venta ? 1 : 0;
+    lista = [...lista].sort((a, b) => enOferta(b) - enOferta(a));
   }
   return lista;
 }

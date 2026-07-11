@@ -16,6 +16,8 @@
 <body class="pagina-checkout">
 
 <!-- HEADER -->
+<!-- Header reducido: en el paso de pago se cierran las rutas de escape (Hick);
+     el refuerzo de seguridad ocupa el lugar de la navegación -->
 <header class="header">
   <div class="header-inner">
     <a href="/" class="logo">
@@ -27,13 +29,7 @@
         <div class="logo-tagline">Tienda online</div>
       </div>
     </a>
-    <a href="carrito" class="cart-pill">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-      </svg>
-      <span class="label">Mi pedido</span>
-      <span class="cart-badge" id="cartBadge">0</span>
-    </a>
+    <span style="display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--green-ok);background:var(--green-pale);padding:8px 14px;border-radius:20px">🔒 Pago 100% seguro</span>
   </div>
 </header>
 
