@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>El Gadget | Tienda Online</title>
-<meta name="description" content="El Gadget - Encontrá productos para el hogar, moda, tecnología y mucho más. Comprá online de forma segura y rápida.">
+<title>El Gadget — Tienda de artículos para el hogar, deco y más | Envíos a todo el país</title>
+<meta name="description" content="Tienda online de artículos para el hogar, cocina, deco, mascotas y gadgets. Comprá seguro con Mercado Pago, envío a toda Argentina y cambios hasta 10 días.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="El Gadget">
 <meta property="og:title" content="El Gadget | Tienda Online">
@@ -146,8 +146,10 @@
       <a href="/" class="logo"><div class="logo-badge"><img src="/assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42"></div><div class="logo-text"><div class="logo-name">El<span> Gadget</span></div><div class="logo-tagline">Tienda online</div></div></a>
       <p class="footer-desc">Tecnología, gadgets y accesorios con envío a todo el país.</p>
     </div>
-    <div class="footer-links"><h4>Tienda</h4><a href="/">Catálogo</a><a href="/carrito">Mi pedido</a><a href="/seguimiento">Seguimiento</a></div>
-    <div class="footer-links"><h4>Ayuda</h4><a href="/faq">Preguntas frecuentes</a><a href="/sobre_nosotros">Sobre nosotros</a><a href="/referidos">Programa de referidos</a><a href="/mayoristas">Comprá al por mayor</a><a href="/privacidad">Política de privacidad</a><a href="/arrepentimiento">Botón de arrepentimiento</a></div>
+    <div class="footer-links"><h4>Tienda</h4><a href="/">Catálogo</a><a href="/categoria/ofertas/">Ofertas</a><a href="/categoria/nuevos-ingresos/">Novedades</a><a href="/carrito">Mi pedido</a><a href="/seguimiento">Seguimiento</a></div>
+    <div class="footer-links"><h4>Categorías</h4><a href="/categoria/bazar-y-cocina/">Bazar y cocina</a><a href="/categoria/accesorios-de-moda/">Bandoleras y carteras</a><a href="/categoria/articulos-infantiles/">Artículos infantiles</a><a href="/categoria/accesorios-para-mascotas/">Accesorios para mascotas</a><a href="/categoria/deco/">Decoración</a><a href="/categoria/bano-y-limpieza/">Baño y limpieza</a><a href="/categoria/verano/">Verano</a><a href="/categoria/home/">Artículos para el hogar</a></div>
+    <div class="footer-links"><h4>Colecciones</h4><a href="/coleccion/mallas-y-trajes-de-bano/">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/">Lámparas y luces LED</a><a href="/coleccion/organizadores/">Organizadores</a><a href="/coleccion/vasos-y-botellas-termicas/">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/">Inflables para pileta</a></div>
+    <div class="footer-links"><h4>Ayuda</h4><a href="/faq">Preguntas frecuentes</a><a href="/sobre_nosotros">Sobre nosotros</a><a href="/devoluciones">Devoluciones y garantías</a><a href="/referidos">Programa de referidos</a><a href="/mayoristas">Comprá al por mayor</a><a href="/privacidad">Política de privacidad</a><a href="/arrepentimiento">Botón de arrepentimiento</a></div>
   </div>
   <div class="footer-guias">
     <h4>Guías</h4>
@@ -426,8 +428,11 @@ function renderProductCard(p) {
     ? `<div class="card-stock-badge${p.stock === 1 ? ' last' : ''}">⚡ ${p.stock === 1 ? '¡Última unidad!' : `¡Últimas ${p.stock} unidades!`}</div>`
     : '';
 
+  // <a href> real (no onclick): los crawlers descubren los productos y la
+  // navegación gana middle-click/abrir en pestaña.
+  const href = p.url_amigable ? `producto/${p.url_amigable}/` : `producto_detalle?sku=${p.sku}`;
   return `
-    <div class="card" onclick="abrirProducto('${p.sku}', '${p.url_amigable || ''}')">
+    <a class="card" href="${href}">
       <div class="card-img-wrap">
         ${img}
         ${badge}
@@ -437,9 +442,9 @@ function renderProductCard(p) {
         <div class="card-name">${p.nombre}</div>
         ${precioHtml}
         ${stockHtml}
-        <button class="card-btn" onclick="event.stopPropagation();agregarAlCarrito('${p.sku}')">Agregar al pedido</button>
+        <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('${p.sku}')">Agregar al pedido</button>
       </div>
-    </div>`;
+    </a>`;
 }
 
 // ── SKELETON DE CARGA ────────────────────────────────

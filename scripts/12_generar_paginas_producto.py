@@ -35,6 +35,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent))
 from utils.config import Config
 from utils.logger import get_logger
+from utils.seo_categorias import CATEGORIAS_SEO, COLECCIONES_SEO, slug_categoria
 
 logger = get_logger('generar_paginas_producto')
 
@@ -190,6 +191,7 @@ def render_relacionados(relacionados: list, categoria: str, slug_map: dict) -> s
   <div class="related-section" id="relatedSection">
     <div class="grid-heading">
       <h2>Productos relacionados</h2>
+      <a href="../../categoria/{slug_categoria(categoria)}/" style="font-size:13.5px;font-weight:700;color:var(--ink);text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Ver todo en {html.escape(categoria)} →</a>
     </div>
     <div class="grid" id="relatedGrid">{''.join(cards)}</div>
   </div>'''
@@ -200,7 +202,10 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
     sku = producto['sku']
     categoria = producto.get('categoria') or 'General'
     descripcion = (producto.get('descripcion') or '').strip()
-    descripcion_meta = re.sub(r'\s+', ' ', descripcion).strip()[:160] or nombre
+    descripcion_meta = re.sub(r'\s+', ' ', descripcion).strip() or nombre
+    if len(descripcion_meta) > 157:
+        # cortar en límite de palabra para que la meta no termine a mitad de término
+        descripcion_meta = descripcion_meta[:157].rsplit(' ', 1)[0].rstrip(',;:') + '…'
     precio = producto['precio_venta']
     imagenes = parsear_imagenes(producto)
     imagen_principal = imagenes[0] if imagenes else ''
@@ -221,7 +226,8 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
     else:
         stock_badge = '<span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>'
 
-    jsonld = {
+    cat_slug = slug_categoria(categoria)
+    jsonld = [{
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": nombre,
@@ -236,7 +242,16 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
             "price": f"{float(precio or 0):.2f}",
             "availability": "https://schema.org/InStock" if en_stock else "https://schema.org/OutOfStock",
         },
-    }
+    }, {
+        "@context": "https://schema.org/",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Inicio", "item": f"{CANONICAL_DOMAIN}/"},
+            {"@type": "ListItem", "position": 2, "name": categoria,
+             "item": f"{CANONICAL_DOMAIN}/categoria/{cat_slug}/"},
+            {"@type": "ListItem", "position": 3, "name": nombre},
+        ],
+    }]
 
     main_image_html = (
         f'<img id="mainImage" class="main-image" src="{html.escape(imagen_principal)}" '
@@ -290,6 +305,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         '__WHATSAPP_NUM__': WHATSAPP_NUM,
         '__JSONLD__': json.dumps(jsonld, ensure_ascii=False),
         '__BREADCRUMB_CATEGORIA__': html.escape(categoria),
+        '__CAT_SLUG__': cat_slug,
         '__BREADCRUMB_PRODUCTO__': html.escape(breadcrumb_producto),
         '__GALLERY_CLASS__': gallery_class,
         '__CATEGORY_BADGE__': html.escape(categoria),
@@ -367,7 +383,7 @@ TEMPLATE = """<!DOCTYPE html>
 <div class="breadcrumb">
   <a href="../../">Inicio</a>
   <span class="sep">/</span>
-  <span class="current">__BREADCRUMB_CATEGORIA__</span>
+  <a href="../../categoria/__CAT_SLUG__/">__BREADCRUMB_CATEGORIA__</a>
   <span class="sep">/</span>
   <span class="current">__BREADCRUMB_PRODUCTO__</span>
 </div>
@@ -641,6 +657,234 @@ def cargar_productos(conn) -> list:
     return [dict(row) for row in cursor.fetchall()]
 
 
+def _card_listado(p: dict, slug_map: dict) -> str:
+    slug = slug_map.get(p['sku'])
+    href = f"/producto/{slug}/" if slug else f"/producto_detalle?sku={p['sku']}"
+    imagen = p.get('imagen_principal') or ''
+    if imagen:
+        img_html = (f'<img class="card-img" src="{html.escape(imagen)}" '
+                    f'alt="{html.escape(p["nombre"])}" loading="lazy">')
+    else:
+        img_html = '<div class="card-img-placeholder">📦</div>'
+    return f'''
+      <a class="card" href="{href}">
+        <div class="card-img-wrap">{img_html}</div>
+        <div class="card-body">
+          <div class="card-cat">{html.escape(p.get('categoria') or '')}</div>
+          <div class="card-name">{html.escape(p['nombre'])}</div>
+          <div class="card-price">{formatear_precio(p['precio_venta'])}</div>
+        </div>
+      </a>'''
+
+
+def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map: dict,
+                          chips: list) -> str:
+    """Página estática de categoría o colección: grid de productos con <a href>
+    reales (descubrimiento + autoridad interna), copy con la keyword primaria
+    del research (SEO-KEYWORDS/MAPA-KEYWORDS.md) y FAQ con schema."""
+    canonical = f"{CANONICAL_DOMAIN}/{tipo}/{slug}/"
+    h1 = cfg['h1']
+    cards = ''.join(_card_listado(p, slug_map) for p in items)
+
+    chips_html = ''.join(
+        f'<a href="/{t}/{s}/" class="chip{" chip-activa" if (t, s) == (tipo, slug) else ""}">{html.escape(n)}</a>'
+        for t, s, n in chips
+    )
+
+    faqs_html = ''
+    jsonld = [{
+        "@context": "https://schema.org/",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Inicio", "item": f"{CANONICAL_DOMAIN}/"},
+            {"@type": "ListItem", "position": 2, "name": h1},
+        ],
+    }, {
+        "@context": "https://schema.org/",
+        "@type": "ItemList",
+        "name": h1,
+        "numberOfItems": len(items),
+        "itemListElement": [
+            {"@type": "ListItem", "position": i + 1, "name": p['nombre'],
+             "url": f"{CANONICAL_DOMAIN}/producto/{slug_map.get(p['sku'], '')}/"}
+            for i, p in enumerate(items[:24]) if slug_map.get(p['sku'])
+        ],
+    }]
+    if cfg.get('faqs'):
+        faqs_items = ''.join(
+            f'<div class="listado-faq-item"><h3>{html.escape(q)}</h3><p>{html.escape(a)}</p></div>'
+            for q, a in cfg['faqs']
+        )
+        faqs_html = f'''
+  <section class="listado-faqs">
+    <h2>Preguntas frecuentes</h2>
+    {faqs_items}
+  </section>'''
+        jsonld.append({
+            "@context": "https://schema.org/",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {"@type": "Question", "name": q,
+                 "acceptedAnswer": {"@type": "Answer", "text": a}}
+                for q, a in cfg['faqs']
+            ],
+        })
+
+    return f'''<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{html.escape(cfg['title'])}</title>
+<meta name="description" content="{html.escape(cfg['meta'])}">
+<link rel="canonical" href="{canonical}">
+<meta property="og:title" content="{html.escape(cfg['title'])}">
+<meta property="og:description" content="{html.escape(cfg['meta'])}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{canonical}">
+<meta name="theme-color" content="#14151A">
+<link rel="icon" type="image/svg+xml" href="{FAVICON}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<style>
+.listado-hero {{ max-width: 1240px; margin: 0 auto; padding: 26px 1.25rem 6px; }}
+.listado-hero h1 {{ font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 34px); margin: 0 0 10px; color: var(--ink); }}
+.listado-hero p {{ max-width: 720px; font-size: 14.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }}
+.chips-nav {{ max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }}
+.chips-nav::-webkit-scrollbar {{ display: none; }}
+.chip {{ flex-shrink: 0; font-size: 12.5px; font-weight: 600; color: var(--ink); background: #fff; border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 7px 14px; text-decoration: none; }}
+.chip:hover {{ border-color: var(--accent); }}
+.chip-activa {{ background: var(--ink); color: #fff; border-color: var(--ink); }}
+.listado-grid {{ max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }}
+.listado-faqs {{ max-width: 760px; margin: 0 auto; padding: 26px 1.25rem 40px; }}
+.listado-faqs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 14px; }}
+.listado-faq-item {{ border-top: 1px solid var(--gray-200); padding: 14px 0; }}
+.listado-faq-item h3 {{ font-size: 15px; margin: 0 0 6px; color: var(--ink); }}
+.listado-faq-item p {{ font-size: 13.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }}
+</style>
+<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-badge"><img src="/assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42"></div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
+    </a>
+    <div class="search-desktop">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){{window.location.href='/?buscar='+encodeURIComponent(this.value)}}">
+      </div>
+    </div>
+    <a href="/carrito" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="label">Mi pedido</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <a href="/">Inicio</a>
+  <span class="sep">/</span>
+  <span class="current">{html.escape(h1)}</span>
+</div>
+
+<div class="listado-hero">
+  <h1>{html.escape(h1)}</h1>
+  <p>{html.escape(cfg['intro'])}</p>
+</div>
+
+<nav class="chips-nav" aria-label="Categorías">{chips_html}</nav>
+
+<div class="listado-grid">
+  <div class="grid">{cards}</div>
+</div>
+{faqs_html}
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-badge"><img src="/assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42"></div>
+        <div class="logo-text">
+          <div class="logo-name">El<span> Gadget</span></div>
+          <div class="logo-tagline">Tienda online</div>
+        </div>
+      </div>
+      <p>Productos para el hogar, moda, tecnología y mucho más. Elegí tus productos, pagá online de forma segura y te lo enviamos a tu casa.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <a href="/carrito">Mi pedido</a>
+      <a href="/seguimiento">Seguimiento de pedido</a>
+      <a href="/faq">Preguntas frecuentes</a>
+      <a href="/devoluciones">Devoluciones y garantías</a>
+    </div>
+    <div class="footer-col">
+      <h4>Información</h4>
+      <a href="/sobre_nosotros">Sobre nosotros</a>
+      <a href="/mayoristas">Comprar al por mayor</a>
+      <a href="/referidos">Programa de referidos</a>
+      <a href="/privacidad">Política de privacidad</a>
+      <a href="/arrepentimiento">Botón de arrepentimiento</a>
+      <a href="/terminos">Términos y condiciones</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="/assets/js/cart.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>'''
+
+
+def generar_listados(productos: list, slug_map: dict) -> tuple:
+    """Genera /categoria/<slug>/ y /coleccion/<slug>/. Devuelve (slugs_cat, slugs_col)."""
+    por_slug_cat = {}
+    for p in productos:
+        por_slug_cat.setdefault(slug_categoria(p.get('categoria') or ''), []).append(p)
+
+    chips = [('categoria', s, CATEGORIAS_SEO[s]['h1']) for s in CATEGORIAS_SEO if s in por_slug_cat]
+    chips += [('coleccion', s, c['h1']) for s, c in COLECCIONES_SEO.items()]
+
+    cat_dir = PAGES_DIR / 'categoria'
+    slugs_cat = []
+    for s, cfg in CATEGORIAS_SEO.items():
+        items = por_slug_cat.get(s) or []
+        if not items:
+            continue
+        destino = cat_dir / s
+        destino.mkdir(parents=True, exist_ok=True)
+        (destino / 'index.html').write_text(
+            render_pagina_listado('categoria', s, cfg, items, slug_map, chips), encoding='utf-8')
+        slugs_cat.append(s)
+
+    col_dir = PAGES_DIR / 'coleccion'
+    slugs_col = []
+    for s, cfg in COLECCIONES_SEO.items():
+        rx = re.compile(cfg['match'], re.I)
+        items = [p for p in productos if rx.search(p['nombre'])]
+        if len(items) < 3:
+            continue
+        destino = col_dir / s
+        destino.mkdir(parents=True, exist_ok=True)
+        (destino / 'index.html').write_text(
+            render_pagina_listado('coleccion', s, cfg, items, slug_map, chips), encoding='utf-8')
+        slugs_col.append(s)
+
+    return slugs_cat, slugs_col
+
+
 def generar():
     print("\n" + "=" * 70)
     print("🌐 GENERADOR DE PÁGINAS ESTÁTICAS DE PRODUCTO (SEO)")
@@ -702,10 +946,17 @@ def generar():
         variantes = [v for v in por_grupo.get(grupo, []) if v['sku'] != sku] if grupo else []
 
         categoria = p.get('categoria') or ''
-        relacionados = [
-            r for r in por_categoria.get(categoria, [])
-            if r['sku'] != sku
-        ][:RELACIONADOS_LIMIT]
+        # Rotación por posición: cada producto linkea a sus 4 vecinos SIGUIENTES
+        # en la categoría (con vuelta). Así todos reciben ~4 in-links, en vez de
+        # concentrar todos los links en los primeros 4 de la categoría (SEO).
+        cat_lista = por_categoria.get(categoria, [])
+        vecinos = [r for r in cat_lista if r['sku'] != sku]
+        if vecinos:
+            idx = next((i for i, r in enumerate(cat_lista) if r['sku'] == sku), 0)
+            relacionados = [vecinos[(idx + k) % len(vecinos)]
+                            for k in range(min(RELACIONADOS_LIMIT, len(vecinos)))]
+        else:
+            relacionados = []
 
         contenido = render_pagina(p, slug, site_url, variantes, relacionados, slug_map)
 
@@ -726,6 +977,10 @@ def generar():
     if eliminadas:
         print(f"🗑️  {eliminadas} páginas de producto descontinuadas eliminadas")
 
+    # 4b. Páginas de categoría y colección (arquitectura SEO: home -> listado -> producto)
+    slugs_cat, slugs_col = generar_listados(productos, slug_map)
+    print(f"✅ {len(slugs_cat)} páginas de categoría y {len(slugs_col)} de colección generadas")
+
     # 5. Generar sitemap.xml
     hoy = date.today().isoformat()
     canonical_url = CANONICAL_DOMAIN
@@ -739,19 +994,18 @@ def generar():
         (f"{canonical_url}/devoluciones", "monthly"),
         (f"{canonical_url}/terminos", "monthly"),
         (f"{canonical_url}/referidos", "weekly"),
-        (f"{canonical_url}/ganar/", "monthly"),
-        (f"{canonical_url}/ganar/desde-casa/", "monthly"),
-        (f"{canonical_url}/ganar/marketing-afiliados/", "monthly"),
-        (f"{canonical_url}/ganar/monetizar-redes/", "monthly"),
-        (f"{canonical_url}/ganar/vender-sin-stock/", "monthly"),
-        (f"{canonical_url}/ganar/monetizar-instagram/", "monthly"),
-        (f"{canonical_url}/ganar/monetizar-youtube/", "monthly"),
-        (f"{canonical_url}/ganar/monetizar-facebook/", "monthly"),
-        (f"{canonical_url}/ganar/productos-comisiones/", "weekly"),
-        (f"{canonical_url}/ganar/dropshipping/", "monthly"),
-        (f"{canonical_url}/ganar/monetizar-tiktok/", "monthly"),
-        (f"{canonical_url}/ganar/dinero-por-internet/", "monthly"),
+        (f"{canonical_url}/mayoristas", "monthly"),
     ]
+    # Landings /ganar/ desde el filesystem (la lista hardcodeada dejaba afuera
+    # a las landings nuevas). panel-preview es una página soporte: no se indexa.
+    ganar_dir = PAGES_DIR / 'ganar'
+    if ganar_dir.exists():
+        static_pages.append((f"{canonical_url}/ganar/", "monthly"))
+        for d in sorted(ganar_dir.iterdir()):
+            if d.is_dir() and d.name != 'panel-preview' and (d / 'index.html').exists():
+                static_pages.append((f"{canonical_url}/ganar/{d.name}/", "monthly"))
+    static_pages += [(f"{canonical_url}/categoria/{s}/", "weekly") for s in slugs_cat]
+    static_pages += [(f"{canonical_url}/coleccion/{s}/", "weekly") for s in slugs_col]
     urls = [(f"{canonical_url}/producto/{slug}/", "weekly") for slug in sorted(slugs_generados)]
     all_urls = static_pages + urls
 
