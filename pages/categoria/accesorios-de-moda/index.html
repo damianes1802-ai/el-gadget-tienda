@@ -17,30 +17,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
 <style>
-.listado-hero { max-width: 1240px; margin: 0 auto; padding: 26px 1.25rem 6px; text-align: center; }
-.listado-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 34px); margin: 0 0 10px; color: var(--ink); }
-.listado-hero p { max-width: 720px; font-size: 14.5px; line-height: 1.7; color: var(--gray-600); margin: 0 auto; }
-.chips-nav { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+/* Hero oscuro con acento: misma identidad que la home y las landings */
+.listado-hero { background: var(--ink); color: #fff; text-align: center; padding: 0 1.25rem 34px;
+  background-image: radial-gradient(circle at 15% 20%, rgba(255,199,0,0.08), transparent 40%), radial-gradient(circle at 85% 80%, rgba(255,199,0,0.06), transparent 45%); }
+.breadcrumb-oscuro { max-width: 1240px; margin: 0 auto; padding: 14px 0 22px; font-size: 12.5px; color: rgba(255,255,255,0.55); display: flex; gap: 8px; justify-content: center; }
+.breadcrumb-oscuro a { color: rgba(255,255,255,0.8); font-weight: 600; text-decoration: none; }
+.breadcrumb-oscuro a:hover { color: var(--accent); }
+.breadcrumb-oscuro .sep { color: rgba(255,255,255,0.3); }
+.listado-badge { display: inline-block; background: var(--accent); color: var(--ink); font-size: 11.5px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 16px; border-radius: 20px; margin-bottom: 16px; }
+.listado-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 4.5vw, 40px); margin: 0 0 12px; color: #fff; }
+.listado-hero p { max-width: 680px; font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,0.72); margin: 0 auto; }
+.hero-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 20px; font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.65); margin-top: 20px; }
+.chips-nav { max-width: 1240px; margin: 18px auto 0; padding: 0 1.25rem; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
 .chips-nav::-webkit-scrollbar { display: none; }
 @media (min-width: 1100px) { .chips-nav { flex-wrap: wrap; justify-content: center; } }
 .chip { flex-shrink: 0; font-size: 12.5px; font-weight: 600; color: var(--ink); background: #fff; border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 7px 14px; text-decoration: none; }
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
-.trust-strip { max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }
 .orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
 .orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
 .card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
 .card-rating small { color: var(--gray-400); letter-spacing: 0; }
-.listado-secciones { max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }
-.listado-seccion { padding: 16px 0 4px; text-align: center; }
-.listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }
+.listado-secciones { max-width: 820px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; }
+.listado-seccion { background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 22px 24px; text-align: center; box-shadow: var(--shadow); }
+.listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; color: var(--ink); margin: 0 0 8px; }
+.listado-seccion h2::after { content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--accent); margin: 10px auto 0; }
 .listado-seccion p { font-size: 14px; line-height: 1.75; color: var(--gray-600); margin: 0; }
 .listado-seccion a { color: var(--ink); font-weight: 600; }
-.listado-faqs { max-width: 760px; margin: 0 auto; padding: 26px 1.25rem 40px; }
-.listado-faqs h2 { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 14px; text-align: center; }
-.listado-faq-item { border-top: 1px solid var(--gray-200); padding: 14px 0; }
-.listado-faq-item h3 { font-size: 15px; margin: 0 0 6px; color: var(--ink); }
+.listado-faqs { max-width: 820px; margin: 0 auto; padding: 30px 1.25rem 44px; }
+.listado-faqs h2 { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 16px; text-align: center; }
+.listado-faq-item { background: #fff; border: 1.5px solid var(--gray-200); border-left: 5px solid var(--accent); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 10px; }
+.listado-faq-item h3 { font-size: 14.5px; margin: 0 0 6px; color: var(--ink); }
 .listado-faq-item p { font-size: 13.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org/", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://elgadget.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Bandoleras, carteras y accesorios de moda"}]}, {"@context": "https://schema.org/", "@type": "ItemList", "name": "Bandoleras, carteras y accesorios de moda", "numberOfItems": 44, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Cartera Bandolera Mini Bag Cuero Sintético Rígido con Pompón", "url": "https://elgadget.com.ar/producto/cartera-bandolera-mini-bag-cuero-sintetico-rigido-con-pompon-m1365-001c/"}, {"@type": "ListItem", "position": 2, "name": "Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante", "url": "https://elgadget.com.ar/producto/mini-bag-bandolera-bordo-cuero-sintetico-pompon-elegante-m1365-001d/"}, {"@type": "ListItem", "position": 3, "name": "Cartera Sobre Mujer Transparente Lentejuelas Rosa Fiestas", "url": "https://elgadget.com.ar/producto/cartera-sobre-mujer-transparente-lentejuelas-rosa-fiestas-m2013-004a/"}, {"@type": "ListItem", "position": 4, "name": "Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa", "url": "https://elgadget.com.ar/producto/cartera-sobre-mujer-transparente-con-lentejuelas-plateadas-rosa-m2013-004b/"}, {"@type": "ListItem", "position": 5, "name": "Mochila Bolso Morral PU Mujer Sport Chic Estampada Versátil", "url": "https://elgadget.com.ar/producto/mochila-bolso-morral-pu-mujer-sport-chic-estampada-versatil-m2028-001b/"}, {"@type": "ListItem", "position": 6, "name": "Mochila Bolso Mujer Sport Chic Estampada PU - Versátil y Liviana", "url": "https://elgadget.com.ar/producto/mochila-bolso-mujer-sport-chic-estampada-pu-versatil-y-liviana-m2028-001c/"}, {"@type": "ListItem", "position": 7, "name": "Mochila Bolso Mujer Mediana Estampado Hojas Sport Chic", "url": "https://elgadget.com.ar/producto/mochila-bolso-mujer-mediana-estampado-hojas-sport-chic-m2028-001d/"}, {"@type": "ListItem", "position": 8, "name": "Mochila Urbana Mujer Sport Chic Estampada PU - Bolso Morral", "url": "https://elgadget.com.ar/producto/mochila-urbana-mujer-sport-chic-estampada-pu-bolso-morral-m2028-001h/"}, {"@type": "ListItem", "position": 9, "name": "Bolso Bandolera Raffia Tejido Mujer Crochet | Verano y Estilo", "url": "https://elgadget.com.ar/producto/bolso-bandolera-raffia-tejido-mujer-crochet-verano-y-estilo-m2062-002/"}, {"@type": "ListItem", "position": 10, "name": "Bolso Bandolera de Raffia Tejida con Pompones o Cerezas", "url": "https://elgadget.com.ar/producto/bolso-bandolera-de-raffia-tejida-con-pompones-o-cerezas-m2062-004/"}, {"@type": "ListItem", "position": 11, "name": "Cartera Bandolera Mujer Holográfica Cuero PU con Cadena", "url": "https://elgadget.com.ar/producto/cartera-bandolera-mujer-holografica-cuero-pu-con-cadena-m2071-002/"}, {"@type": "ListItem", "position": 12, "name": "Portacosméticos transparente lentejuelas corazones colores práctico", "url": "https://elgadget.com.ar/producto/portacosmeticos-transparente-lentejuelas-corazones-colores-practico-m2087-009a/"}, {"@type": "ListItem", "position": 13, "name": "Portacosméticos transparente lentejuelas corazones, con correa rosa", "url": "https://elgadget.com.ar/producto/portacosmeticos-transparente-lentejuelas-corazones-con-correa-rosa-m2087-009b/"}, {"@type": "ListItem", "position": 14, "name": "Cartera Mini Bag Bandolera Mujer Flúor Snake Eco Cuero", "url": "https://elgadget.com.ar/producto/cartera-mini-bag-bandolera-mujer-fluor-snake-eco-cuero-m2971-007b/"}, {"@type": "ListItem", "position": 15, "name": "Riñonera Mujer Fluo Amarilla Snake Cuero Ecológico Doble Cierre", "url": "https://elgadget.com.ar/producto/rinonera-mujer-fluo-amarilla-snake-cuero-ecologico-doble-cierre-m2974-006a/"}, {"@type": "ListItem", "position": 16, "name": "Riñonera Mujer Rosa Fluo Snake Cuero Ecológico Total Chic", "url": "https://elgadget.com.ar/producto/rinonera-mujer-rosa-fluo-snake-cuero-ecologico-total-chic-m2974-006b/"}, {"@type": "ListItem", "position": 17, "name": "Mochila Transparente PVC Mediana | Ideal para Viajes y Paseos con Estilo", "url": "https://elgadget.com.ar/producto/mochila-transparente-pvc-mediana-ideal-para-viajes-y-paseos-con-estilo-m2999-005/"}, {"@type": "ListItem", "position": 18, "name": "Bandolera Tejida Mujer Negra Crochet Estilo Playa Verano Chic", "url": "https://elgadget.com.ar/producto/bandolera-tejida-mujer-negra-crochet-estilo-playa-verano-chic-m3022-001a/"}, {"@type": "ListItem", "position": 19, "name": "Bolso Bandolera Tejida Crochet Blanca Mujer Verano Playa", "url": "https://elgadget.com.ar/producto/bolso-bandolera-tejida-crochet-blanca-mujer-verano-playa-m3022-001b/"}, {"@type": "ListItem", "position": 20, "name": "Bandolera Transparente Negra PVC con Porta Objeto - El toque de moda", "url": "https://elgadget.com.ar/producto/bandolera-transparente-negra-pvc-con-porta-objeto-el-toque-de-moda-m3030-006a/"}, {"@type": "ListItem", "position": 21, "name": "Cartera Bandolera Transparente Negra para Mujer - Estilo Trendy", "url": "https://elgadget.com.ar/producto/cartera-bandolera-transparente-negra-para-mujer-estilo-trendy-m3102-011a/"}, {"@type": "ListItem", "position": 22, "name": "Cartera Bandolera Mujer Transparente PVC Bordada Moda Blanca", "url": "https://elgadget.com.ar/producto/cartera-bandolera-mujer-transparente-pvc-bordada-moda-blanca-m3102-011b/"}, {"@type": "ListItem", "position": 23, "name": "Bandolera Tejida Mujer Sandía Limón Doble Cierre para Verano", "url": "https://elgadget.com.ar/producto/bandolera-tejida-mujer-sandia-limon-doble-cierre-para-verano-m3103-001a/"}, {"@type": "ListItem", "position": 24, "name": "Bandolera Tejida Mujer Diseño Limón - Ideal para Playa y Verano", "url": "https://elgadget.com.ar/producto/bandolera-tejida-mujer-diseno-limon-ideal-para-playa-y-verano-m3103-001b/"}]}, {"@context": "https://schema.org/", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué diferencia hay entre bandolera y riñonera?", "acceptedAnswer": {"@type": "Answer", "text": "La bandolera se cruza al pecho y cuelga al costado; la riñonera se ajusta a la cintura o cruzada. Las dos liberan las manos: es cuestión de estilo."}}, {"@type": "Question", "name": "¿Puedo cambiar una cartera si no me convence?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, tenés cambios hasta 10 días desde que la recibís. Escribinos por WhatsApp y lo coordinamos."}}]}]</script>
@@ -70,19 +80,18 @@
   </div>
 </header>
 
-<div class="breadcrumb">
-  <a href="/">Inicio</a>
-  <span class="sep">/</span>
-  <span class="current">Bandoleras, carteras y accesorios de moda</span>
-</div>
-
 <div class="listado-hero">
+  <div class="breadcrumb breadcrumb-oscuro">
+    <a href="/">Inicio</a>
+    <span class="sep">/</span>
+    <span class="current">Bandoleras, carteras y accesorios de moda</span>
+  </div>
+  <span class="listado-badge">Categoría · 44 productos</span>
   <h1>Bandoleras, carteras y accesorios de moda</h1>
   <p>Bandoleras tejidas, carteras y riñoneras elegidas para acompañarte todos los días: livianas, cómodas y con onda. Renovate sin gastar una fortuna, con envío a toda la Argentina y cambios sin vueltas.</p>
-</div>
-
-<div class="trust-strip">
-  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+  <div class="hero-trust">
+    <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención real</span>
+  </div>
 </div>
 
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip chip-activa">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>

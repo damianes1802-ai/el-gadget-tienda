@@ -761,30 +761,40 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
 <style>
-.listado-hero {{ max-width: 1240px; margin: 0 auto; padding: 26px 1.25rem 6px; text-align: center; }}
-.listado-hero h1 {{ font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 34px); margin: 0 0 10px; color: var(--ink); }}
-.listado-hero p {{ max-width: 720px; font-size: 14.5px; line-height: 1.7; color: var(--gray-600); margin: 0 auto; }}
-.chips-nav {{ max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }}
+/* Hero oscuro con acento: misma identidad que la home y las landings */
+.listado-hero {{ background: var(--ink); color: #fff; text-align: center; padding: 0 1.25rem 34px;
+  background-image: radial-gradient(circle at 15% 20%, rgba(255,199,0,0.08), transparent 40%), radial-gradient(circle at 85% 80%, rgba(255,199,0,0.06), transparent 45%); }}
+.breadcrumb-oscuro {{ max-width: 1240px; margin: 0 auto; padding: 14px 0 22px; font-size: 12.5px; color: rgba(255,255,255,0.55); display: flex; gap: 8px; justify-content: center; }}
+.breadcrumb-oscuro a {{ color: rgba(255,255,255,0.8); font-weight: 600; text-decoration: none; }}
+.breadcrumb-oscuro a:hover {{ color: var(--accent); }}
+.breadcrumb-oscuro .sep {{ color: rgba(255,255,255,0.3); }}
+.listado-badge {{ display: inline-block; background: var(--accent); color: var(--ink); font-size: 11.5px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 16px; border-radius: 20px; margin-bottom: 16px; }}
+.listado-hero h1 {{ font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 4.5vw, 40px); margin: 0 0 12px; color: #fff; }}
+.listado-hero p {{ max-width: 680px; font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,0.72); margin: 0 auto; }}
+.hero-trust {{ display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 20px; font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.65); margin-top: 20px; }}
+.chips-nav {{ max-width: 1240px; margin: 18px auto 0; padding: 0 1.25rem; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }}
 .chips-nav::-webkit-scrollbar {{ display: none; }}
 @media (min-width: 1100px) {{ .chips-nav {{ flex-wrap: wrap; justify-content: center; }} }}
 .chip {{ flex-shrink: 0; font-size: 12.5px; font-weight: 600; color: var(--ink); background: #fff; border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 7px 14px; text-decoration: none; }}
 .chip:hover {{ border-color: var(--accent); }}
 .chip-activa {{ background: var(--ink); color: #fff; border-color: var(--ink); }}
 .listado-grid {{ max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }}
-.trust-strip {{ max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }}
 .orden-bar {{ max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }}
 .orden-bar select {{ padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }}
 .card-rating {{ font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }}
 .card-rating small {{ color: var(--gray-400); letter-spacing: 0; }}
-.listado-secciones {{ max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }}
-.listado-seccion {{ padding: 16px 0 4px; text-align: center; }}
-.listado-seccion h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }}
+.listado-secciones {{ max-width: 820px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; }}
+.listado-seccion {{ background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 22px 24px; text-align: center; box-shadow: var(--shadow); }}
+.listado-seccion h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 19px; color: var(--ink); margin: 0 0 8px; }}
+.listado-seccion h2::after {{ content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--accent); margin: 10px auto 0; }}
 .listado-seccion p {{ font-size: 14px; line-height: 1.75; color: var(--gray-600); margin: 0; }}
 .listado-seccion a {{ color: var(--ink); font-weight: 600; }}
-.listado-faqs {{ max-width: 760px; margin: 0 auto; padding: 26px 1.25rem 40px; }}
-.listado-faqs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 14px; text-align: center; }}
-.listado-faq-item {{ border-top: 1px solid var(--gray-200); padding: 14px 0; }}
-.listado-faq-item h3 {{ font-size: 15px; margin: 0 0 6px; color: var(--ink); }}
+.listado-faqs {{ max-width: 820px; margin: 0 auto; padding: 30px 1.25rem 44px; }}
+.listado-faqs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 16px; text-align: center; }}
+.listado-faq-item {{ background: #fff; border: 1.5px solid var(--gray-200); border-left: 5px solid var(--accent); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 10px; }}
+.listado-faq-item h3 {{ font-size: 14.5px; margin: 0 0 6px; color: var(--ink); }}
 .listado-faq-item p {{ font-size: 13.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }}
 </style>
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
@@ -814,19 +824,18 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
   </div>
 </header>
 
-<div class="breadcrumb">
-  <a href="/">Inicio</a>
-  <span class="sep">/</span>
-  <span class="current">{html.escape(h1)}</span>
-</div>
-
 <div class="listado-hero">
+  <div class="breadcrumb breadcrumb-oscuro">
+    <a href="/">Inicio</a>
+    <span class="sep">/</span>
+    <span class="current">{html.escape(h1)}</span>
+  </div>
+  <span class="listado-badge">{'Colección' if tipo == 'coleccion' else 'Categoría'} · {len(items)} productos</span>
   <h1>{html.escape(h1)}</h1>
   <p>{html.escape(cfg['intro'])}</p>
-</div>
-
-<div class="trust-strip">
-  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+  <div class="hero-trust">
+    <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención real</span>
+  </div>
 </div>
 
 <nav class="chips-nav" aria-label="Categorías">{chips_html}</nav>

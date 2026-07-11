@@ -17,30 +17,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
 <style>
-.listado-hero { max-width: 1240px; margin: 0 auto; padding: 26px 1.25rem 6px; text-align: center; }
-.listado-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 34px); margin: 0 0 10px; color: var(--ink); }
-.listado-hero p { max-width: 720px; font-size: 14.5px; line-height: 1.7; color: var(--gray-600); margin: 0 auto; }
-.chips-nav { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+/* Hero oscuro con acento: misma identidad que la home y las landings */
+.listado-hero { background: var(--ink); color: #fff; text-align: center; padding: 0 1.25rem 34px;
+  background-image: radial-gradient(circle at 15% 20%, rgba(255,199,0,0.08), transparent 40%), radial-gradient(circle at 85% 80%, rgba(255,199,0,0.06), transparent 45%); }
+.breadcrumb-oscuro { max-width: 1240px; margin: 0 auto; padding: 14px 0 22px; font-size: 12.5px; color: rgba(255,255,255,0.55); display: flex; gap: 8px; justify-content: center; }
+.breadcrumb-oscuro a { color: rgba(255,255,255,0.8); font-weight: 600; text-decoration: none; }
+.breadcrumb-oscuro a:hover { color: var(--accent); }
+.breadcrumb-oscuro .sep { color: rgba(255,255,255,0.3); }
+.listado-badge { display: inline-block; background: var(--accent); color: var(--ink); font-size: 11.5px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 16px; border-radius: 20px; margin-bottom: 16px; }
+.listado-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 4.5vw, 40px); margin: 0 0 12px; color: #fff; }
+.listado-hero p { max-width: 680px; font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,0.72); margin: 0 auto; }
+.hero-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 20px; font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.65); margin-top: 20px; }
+.chips-nav { max-width: 1240px; margin: 18px auto 0; padding: 0 1.25rem; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
 .chips-nav::-webkit-scrollbar { display: none; }
 @media (min-width: 1100px) { .chips-nav { flex-wrap: wrap; justify-content: center; } }
 .chip { flex-shrink: 0; font-size: 12.5px; font-weight: 600; color: var(--ink); background: #fff; border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 7px 14px; text-decoration: none; }
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
-.trust-strip { max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }
 .orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
 .orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
 .card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
 .card-rating small { color: var(--gray-400); letter-spacing: 0; }
-.listado-secciones { max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }
-.listado-seccion { padding: 16px 0 4px; text-align: center; }
-.listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }
+.listado-secciones { max-width: 820px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; }
+.listado-seccion { background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 22px 24px; text-align: center; box-shadow: var(--shadow); }
+.listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; color: var(--ink); margin: 0 0 8px; }
+.listado-seccion h2::after { content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--accent); margin: 10px auto 0; }
 .listado-seccion p { font-size: 14px; line-height: 1.75; color: var(--gray-600); margin: 0; }
 .listado-seccion a { color: var(--ink); font-weight: 600; }
-.listado-faqs { max-width: 760px; margin: 0 auto; padding: 26px 1.25rem 40px; }
-.listado-faqs h2 { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 14px; text-align: center; }
-.listado-faq-item { border-top: 1px solid var(--gray-200); padding: 14px 0; }
-.listado-faq-item h3 { font-size: 15px; margin: 0 0 6px; color: var(--ink); }
+.listado-faqs { max-width: 820px; margin: 0 auto; padding: 30px 1.25rem 44px; }
+.listado-faqs h2 { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 16px; text-align: center; }
+.listado-faq-item { background: #fff; border: 1.5px solid var(--gray-200); border-left: 5px solid var(--accent); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 10px; }
+.listado-faq-item h3 { font-size: 14.5px; margin: 0 0 6px; color: var(--ink); }
 .listado-faq-item p { font-size: 13.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org/", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://elgadget.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Organizadores para el hogar"}]}, {"@context": "https://schema.org/", "@type": "ItemList", "name": "Organizadores para el hogar", "numberOfItems": 29, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Organizador colgante porta tazas metal negro para alacena", "url": "https://elgadget.com.ar/producto/organizador-colgante-porta-tazas-metal-negro-para-alacena-dl2024-bl/"}, {"@type": "ListItem", "position": 2, "name": "Organizador Colgante Porta Tazas de Metal Negro para Alacena - Ahorrá espacio", "url": "https://elgadget.com.ar/producto/organizador-colgante-porta-tazas-de-metal-negro-para-alacena-ahorra-es-dl2024-ne/"}, {"@type": "ListItem", "position": 3, "name": "Organizador Colgante para Placard Gris Oscuro | Ordená Ropa y Zapatos", "url": "https://elgadget.com.ar/producto/organizador-colgante-para-placard-gris-oscuro-ordena-ropa-y-zapatos-dl2126-gr/"}, {"@type": "ListItem", "position": 4, "name": "Organizador colgante de placard negro 6 bolsillos ropa y calzado", "url": "https://elgadget.com.ar/producto/organizador-colgante-de-placard-negro-6-bolsillos-ropa-y-calzado-dl2126-ne/"}, {"@type": "ListItem", "position": 5, "name": "Organizador de Ropa y Objetos Cierre Reforzado Calidad Premium", "url": "https://elgadget.com.ar/producto/organizador-de-ropa-y-objetos-cierre-reforzado-calidad-premium-dl2214-bl/"}, {"@type": "ListItem", "position": 6, "name": "Organizador de ropa con cierre superior y frontal rosa premium", "url": "https://elgadget.com.ar/producto/organizador-de-ropa-con-cierre-superior-y-frontal-rosa-premium-dl2214-ro/"}, {"@type": "ListItem", "position": 7, "name": "Organizador Ropa Cierre Superior Frontal Reforzado Premium", "url": "https://elgadget.com.ar/producto/organizador-ropa-cierre-superior-frontal-reforzado-premium-dl2214-tur/"}, {"@type": "ListItem", "position": 8, "name": "Bolso Organizador Plegable para Baúl de Auto Gris. Practicidad total.", "url": "https://elgadget.com.ar/producto/bolso-organizador-plegable-para-baul-de-auto-gris-practicidad-total-dl2252/"}, {"@type": "ListItem", "position": 9, "name": "Organizador Acrílico Circular con Ruedas Móvil para tu Hogar", "url": "https://elgadget.com.ar/producto/organizador-acrilico-circular-con-ruedas-movil-para-tu-hogar-dl2256/"}, {"@type": "ListItem", "position": 10, "name": "Organizador Escurridor Platos Metálico Extraíble Adhesivo Bajo Bacha", "url": "https://elgadget.com.ar/producto/organizador-escurridor-platos-metalico-extraible-adhesivo-bajo-bacha-dl2276/"}, {"@type": "ListItem", "position": 11, "name": "Organizador Escurre Platos Extraíble Adhesivo para Alacena", "url": "https://elgadget.com.ar/producto/organizador-escurre-platos-extraible-adhesivo-para-alacena-dl2277/"}, {"@type": "ListItem", "position": 12, "name": "Plato giratorio organizador antideslizante 30cm rotación 360°", "url": "https://elgadget.com.ar/producto/plato-giratorio-organizador-antideslizante-30cm-rotacion-360-dl2287/"}, {"@type": "ListItem", "position": 13, "name": "Plato Giratorio Organizador Antideslizante Blanco Multiuso", "url": "https://elgadget.com.ar/producto/plato-giratorio-organizador-antideslizante-blanco-multiuso-dl2287-1/"}, {"@type": "ListItem", "position": 14, "name": "Organizador Esquinero Cocina Especias Frascos Negro - Más orden", "url": "https://elgadget.com.ar/producto/organizador-esquinero-cocina-especias-frascos-negro-mas-orden-dl2305-ne/"}, {"@type": "ListItem", "position": 15, "name": "Estante Organizador Esquinero Cocina para Especias | Orden y espacio", "url": "https://elgadget.com.ar/producto/estante-organizador-esquinero-cocina-para-especias-orden-y-espacio-dl2306-ne/"}, {"@type": "ListItem", "position": 16, "name": "Organizador esquinero de cocina 2 estantes madera y metal", "url": "https://elgadget.com.ar/producto/organizador-esquinero-de-cocina-2-estantes-madera-y-metal-dl2307-ne/"}, {"@type": "ListItem", "position": 17, "name": "Organizador Esquinero Cocina 2 Estantes Madera y Metal", "url": "https://elgadget.com.ar/producto/organizador-esquinero-cocina-2-estantes-madera-y-metal-dl2308-bl/"}, {"@type": "ListItem", "position": 18, "name": "Organizador Infantil Juguetes Osito 7 Espacios con Cajones", "url": "https://elgadget.com.ar/producto/organizador-infantil-juguetes-osito-7-espacios-con-cajones-dl2339/"}, {"@type": "ListItem", "position": 19, "name": "Cajonera organizador infantil 2 niveles con ruedas - pañalero", "url": "https://elgadget.com.ar/producto/cajonera-organizador-infantil-2-niveles-con-ruedas-panalero-dl2341/"}, {"@type": "ListItem", "position": 20, "name": "Cajonera organizador 3 niveles con ruedas para niños | El orden fácil", "url": "https://elgadget.com.ar/producto/cajonera-organizador-3-niveles-con-ruedas-para-ninos-el-orden-facil-dl2342/"}, {"@type": "ListItem", "position": 21, "name": "Cajonera organizador infantil 4 niveles con ruedas y diseño animal", "url": "https://elgadget.com.ar/producto/cajonera-organizador-infantil-4-niveles-con-ruedas-y-diseno-animal-dl2343/"}, {"@type": "ListItem", "position": 22, "name": "Organizador Vertical de Peluches y Juguetes Transparente 150cm", "url": "https://elgadget.com.ar/producto/organizador-vertical-de-peluches-y-juguetes-transparente-150cm-dl2347-1/"}, {"@type": "ListItem", "position": 23, "name": "Perchero doble metálico desarmable con estantes blanco", "url": "https://elgadget.com.ar/producto/perchero-doble-metalico-desarmable-con-estantes-blanco-dl2356-bl/"}, {"@type": "ListItem", "position": 24, "name": "Perchero Metálico Doble con 3 Estantes y Ruedas Negro", "url": "https://elgadget.com.ar/producto/perchero-metalico-doble-con-3-estantes-y-ruedas-negro-dl2356-ne/"}]}, {"@context": "https://schema.org/", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué organizador me conviene para espacios chicos?", "acceptedAnswer": {"@type": "Answer", "text": "Los plegables y los colgantes de puerta rinden mucho en espacios chicos: suman lugares de guardado sin ocupar piso ni requerir instalación."}}, {"@type": "Question", "name": "¿El zapatero necesita armado?", "acceptedAnswer": {"@type": "Answer", "text": "Viene con instrucciones y el armado es simple, sin herramientas raras. En la ficha del producto están las medidas exactas para confirmar que entra en tu espacio."}}]}]</script>
@@ -70,19 +80,18 @@
   </div>
 </header>
 
-<div class="breadcrumb">
-  <a href="/">Inicio</a>
-  <span class="sep">/</span>
-  <span class="current">Organizadores para el hogar</span>
-</div>
-
 <div class="listado-hero">
+  <div class="breadcrumb breadcrumb-oscuro">
+    <a href="/">Inicio</a>
+    <span class="sep">/</span>
+    <span class="current">Organizadores para el hogar</span>
+  </div>
+  <span class="listado-badge">Colección · 29 productos</span>
   <h1>Organizadores para el hogar</h1>
   <p>Ganale espacio a tu casa: organizadores de cocina, baño, placard y hasta para el baúl del auto. Cada cosa en su lugar, sin renovar muebles ni gastar de más.</p>
-</div>
-
-<div class="trust-strip">
-  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+  <div class="hero-trust">
+    <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención real</span>
+  </div>
 </div>
 
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip chip-activa">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>

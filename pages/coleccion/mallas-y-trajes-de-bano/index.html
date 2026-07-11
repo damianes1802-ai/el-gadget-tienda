@@ -17,30 +17,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
 <style>
-.listado-hero { max-width: 1240px; margin: 0 auto; padding: 26px 1.25rem 6px; text-align: center; }
-.listado-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 34px); margin: 0 0 10px; color: var(--ink); }
-.listado-hero p { max-width: 720px; font-size: 14.5px; line-height: 1.7; color: var(--gray-600); margin: 0 auto; }
-.chips-nav { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+/* Hero oscuro con acento: misma identidad que la home y las landings */
+.listado-hero { background: var(--ink); color: #fff; text-align: center; padding: 0 1.25rem 34px;
+  background-image: radial-gradient(circle at 15% 20%, rgba(255,199,0,0.08), transparent 40%), radial-gradient(circle at 85% 80%, rgba(255,199,0,0.06), transparent 45%); }
+.breadcrumb-oscuro { max-width: 1240px; margin: 0 auto; padding: 14px 0 22px; font-size: 12.5px; color: rgba(255,255,255,0.55); display: flex; gap: 8px; justify-content: center; }
+.breadcrumb-oscuro a { color: rgba(255,255,255,0.8); font-weight: 600; text-decoration: none; }
+.breadcrumb-oscuro a:hover { color: var(--accent); }
+.breadcrumb-oscuro .sep { color: rgba(255,255,255,0.3); }
+.listado-badge { display: inline-block; background: var(--accent); color: var(--ink); font-size: 11.5px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 16px; border-radius: 20px; margin-bottom: 16px; }
+.listado-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 4.5vw, 40px); margin: 0 0 12px; color: #fff; }
+.listado-hero p { max-width: 680px; font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,0.72); margin: 0 auto; }
+.hero-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 20px; font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.65); margin-top: 20px; }
+.chips-nav { max-width: 1240px; margin: 18px auto 0; padding: 0 1.25rem; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
 .chips-nav::-webkit-scrollbar { display: none; }
 @media (min-width: 1100px) { .chips-nav { flex-wrap: wrap; justify-content: center; } }
 .chip { flex-shrink: 0; font-size: 12.5px; font-weight: 600; color: var(--ink); background: #fff; border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 7px 14px; text-decoration: none; }
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
-.trust-strip { max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }
 .orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
 .orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
 .card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
 .card-rating small { color: var(--gray-400); letter-spacing: 0; }
-.listado-secciones { max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }
-.listado-seccion { padding: 16px 0 4px; text-align: center; }
-.listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }
+.listado-secciones { max-width: 820px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; }
+.listado-seccion { background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 22px 24px; text-align: center; box-shadow: var(--shadow); }
+.listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; color: var(--ink); margin: 0 0 8px; }
+.listado-seccion h2::after { content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--accent); margin: 10px auto 0; }
 .listado-seccion p { font-size: 14px; line-height: 1.75; color: var(--gray-600); margin: 0; }
 .listado-seccion a { color: var(--ink); font-weight: 600; }
-.listado-faqs { max-width: 760px; margin: 0 auto; padding: 26px 1.25rem 40px; }
-.listado-faqs h2 { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 14px; text-align: center; }
-.listado-faq-item { border-top: 1px solid var(--gray-200); padding: 14px 0; }
-.listado-faq-item h3 { font-size: 15px; margin: 0 0 6px; color: var(--ink); }
+.listado-faqs { max-width: 820px; margin: 0 auto; padding: 30px 1.25rem 44px; }
+.listado-faqs h2 { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 16px; text-align: center; }
+.listado-faq-item { background: #fff; border: 1.5px solid var(--gray-200); border-left: 5px solid var(--accent); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 10px; }
+.listado-faq-item h3 { font-size: 14.5px; margin: 0 0 6px; color: var(--ink); }
 .listado-faq-item p { font-size: 13.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org/", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://elgadget.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Mallas y trajes de baño"}]}, {"@context": "https://schema.org/", "@type": "ItemList", "name": "Mallas y trajes de baño", "numberOfItems": 16, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Traje de Baño Bikini Mujer Mangas Vedetina Lunares - El Gadget", "url": "https://elgadget.com.ar/producto/traje-de-bano-bikini-mujer-mangas-vedetina-lunares-el-gadget-a-pas04a/"}, {"@type": "ListItem", "position": 2, "name": "Bikini Malla Tulum con Mangas Vedetina para Mujer - El Gadget", "url": "https://elgadget.com.ar/producto/bikini-malla-tulum-con-mangas-vedetina-para-mujer-el-gadget-a-pas04b/"}, {"@type": "ListItem", "position": 3, "name": "Malla Enteriza Nudo Malibu: Traje de Baño Chic para Disfrutar el Verano", "url": "https://elgadget.com.ar/producto/malla-enteriza-nudo-malibu-traje-de-bano-chic-para-disfrutar-el-verano-a-pas08a/"}, {"@type": "ListItem", "position": 4, "name": "Malla Enteriza Nudo Flowers: Comodidad y Estilo para tu Verano Argentino", "url": "https://elgadget.com.ar/producto/malla-enteriza-nudo-flowers-comodidad-y-estilo-para-tu-verano-argentin-a-pas08b/"}, {"@type": "ListItem", "position": 5, "name": "Bikini Mujer Hojas Traje de Baño Regulable Vedetina Verano", "url": "https://elgadget.com.ar/producto/bikini-mujer-hojas-traje-de-bano-regulable-vedetina-verano-a-pas12b/"}, {"@type": "ListItem", "position": 6, "name": "Bikini Vedetina Lemon con Tiras para Atar | Ajuste Perfecto", "url": "https://elgadget.com.ar/producto/bikini-vedetina-lemon-con-tiras-para-atar-ajuste-perfecto-a-pas15a/"}, {"@type": "ListItem", "position": 7, "name": "Bikini Cherry Vedetina con Tiras Para Atar - Malla de Verano Trendy", "url": "https://elgadget.com.ar/producto/bikini-cherry-vedetina-con-tiras-para-atar-malla-de-verano-trendy-a-pas15b/"}, {"@type": "ListItem", "position": 8, "name": "Malla Enteriza Negra - Comodidad y estilo para tu verano", "url": "https://elgadget.com.ar/producto/malla-enteriza-negra-comodidad-y-estilo-para-tu-verano-a-pas17b/"}, {"@type": "ListItem", "position": 9, "name": "Bikini Traje de Baño Vedetina Rosa con Nudos. Malla Mujer Verano", "url": "https://elgadget.com.ar/producto/bikini-traje-de-bano-vedetina-rosa-con-nudos-malla-mujer-verano-a-pas18a/"}, {"@type": "ListItem", "position": 10, "name": "Bikini Traje de Baño con Nudos Vedetina Negro - Estilo para Verano", "url": "https://elgadget.com.ar/producto/bikini-traje-de-bano-con-nudos-vedetina-negro-estilo-para-verano-a-pas18b/"}, {"@type": "ListItem", "position": 11, "name": "Malla Bikini Amarillo Vedetina Con Nudos Para Mujer - Estilo y Confort", "url": "https://elgadget.com.ar/producto/malla-bikini-amarillo-vedetina-con-nudos-para-mujer-estilo-y-confort-a-pas18c/"}, {"@type": "ListItem", "position": 12, "name": "Bikini Enteriza de Lunares Amarillo y Blanco: ¡Tu Verano con Estilo!", "url": "https://elgadget.com.ar/producto/bikini-enteriza-de-lunares-amarillo-y-blanco-tu-verano-con-estilo-a-pas20a/"}, {"@type": "ListItem", "position": 13, "name": "Malla Enteriza Combinada Diseño Margaritas Rojo y Azul Verano", "url": "https://elgadget.com.ar/producto/malla-enteriza-combinada-diseno-margaritas-rojo-y-azul-verano-a-pas20b/"}, {"@type": "ListItem", "position": 14, "name": "Traje de Baño Enteriza Cancún Blanca - Malla Verano El Gadget", "url": "https://elgadget.com.ar/producto/traje-de-bano-enteriza-cancun-blanca-malla-verano-el-gadget-a-pas21b/"}, {"@type": "ListItem", "position": 15, "name": "Bikini Traje de Baño Rayas Vedetina Tiro Alto - Tu Verano con Estilo", "url": "https://elgadget.com.ar/producto/bikini-traje-de-bano-rayas-vedetina-tiro-alto-tu-verano-con-estilo-a-pas22/"}, {"@type": "ListItem", "position": 16, "name": "Silla Oficina Ergonómica Cómoda – Respaldo Malla y Ajustes", "url": "https://elgadget.com.ar/producto/silla-oficina-ergonomica-comoda-respaldo-malla-y-ajustes-dl1203-6/"}]}, {"@context": "https://schema.org/", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué pasa si no me queda bien el talle de la malla?", "acceptedAnswer": {"@type": "Answer", "text": "Tenés cambios hasta 10 días después de recibirla. Escribinos por WhatsApp y coordinamos el cambio de talle sin vueltas."}}, {"@type": "Question", "name": "¿Qué malla estiliza más?", "acceptedAnswer": {"@type": "Answer", "text": "Las enterizas de color liso u oscuras son las que más estilizan; la bikini de tiro alto es el punto medio: cobertura en el abdomen sin resignar diseño."}}, {"@type": "Question", "name": "¿Cómo cuido la malla para que dure?", "acceptedAnswer": {"@type": "Answer", "text": "Enjuagala con agua dulce después de la pileta (el cloro degrada la lycra), lavala a mano y secala a la sombra. Con esos tres hábitos te dura varias temporadas."}}]}]</script>
@@ -70,19 +80,18 @@
   </div>
 </header>
 
-<div class="breadcrumb">
-  <a href="/">Inicio</a>
-  <span class="sep">/</span>
-  <span class="current">Mallas y trajes de baño</span>
-</div>
-
 <div class="listado-hero">
+  <div class="breadcrumb breadcrumb-oscuro">
+    <a href="/">Inicio</a>
+    <span class="sep">/</span>
+    <span class="current">Mallas y trajes de baño</span>
+  </div>
+  <span class="listado-badge">Colección · 16 productos</span>
   <h1>Mallas y trajes de baño</h1>
   <p>Mallas de mujer para todos los estilos: enterizas que estilizan, bikinis clásicas y vedetinas con onda. Elegí tu talle, pagá seguro con Mercado Pago y recibila en tu casa — con cambios hasta 10 días por si el talle no es el ideal.</p>
-</div>
-
-<div class="trust-strip">
-  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+  <div class="hero-trust">
+    <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención real</span>
+  </div>
 </div>
 
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip chip-activa">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>

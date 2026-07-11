@@ -588,12 +588,31 @@ a { color: inherit; }
 }
 .footer-col a, .footer-links a { display: block; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: 8px; transition: color 0.15s; }
 .footer-col a:hover, .footer-links a:hover { color: var(--accent); }
-/* La home tiene 4 columnas de links + marca: la grilla se adapta */
 .footer-links { text-align: center; }
 @media (min-width: 640px) { .footer-inner-home { grid-template-columns: 1.4fr 1fr 1fr; } }
-@media (min-width: 980px) {
-  .footer-inner-home { grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; }
-  .footer-inner-home .footer-links { text-align: left; }
+
+/* ── MEGA-NAV (desplegables de la home) ── */
+.mega-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; padding: 10px 1.25rem 4px; }
+.mn-item { position: relative; }
+.mn-item summary { list-style: none; cursor: pointer; font-size: 13px; font-weight: 700; color: var(--ink);
+  background: #fff; border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 8px 16px;
+  display: flex; align-items: center; gap: 7px; user-select: none; transition: border-color .15s; }
+.mn-item summary::-webkit-details-marker { display: none; }
+.mn-item summary::after { content: '▾'; font-size: 10px; color: var(--gray-400); }
+.mn-item summary:hover { border-color: var(--accent); }
+.mn-item[open] summary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.mn-item[open] summary::after { content: '▴'; color: var(--accent); }
+.mn-panel { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
+  box-shadow: 0 14px 36px rgba(20,21,26,0.14); padding: 8px; min-width: 240px; max-height: 62vh;
+  overflow-y: auto; z-index: 130; }
+.mn-panel a { display: block; font-size: 13px; color: var(--ink); text-decoration: none;
+  padding: 9px 12px; border-radius: 8px; white-space: nowrap; }
+.mn-panel a:hover { background: var(--accent-pale); }
+@media (max-width: 640px) {
+  .mn-panel { position: static; transform: none; box-shadow: none; border: none; padding: 4px 0 0;
+    max-height: none; min-width: 0; }
+  .mn-panel a { text-align: center; }
 }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.08); text-align: center; padding: 0.8rem 1.25rem;
