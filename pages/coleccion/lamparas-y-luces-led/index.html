@@ -38,6 +38,11 @@
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
 .orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+.subcats-nav { margin-top: 12px; }
+.subcats-nav .chip { border-color: var(--accent); font-weight: 700; }
+.grupo-titulo { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); text-align: center;
+  margin: 30px 0 4px; scroll-margin-top: 96px; }
+.grupo-titulo::after { content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--accent); margin: 10px auto 0; }
 .orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
 .card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
 .card-rating small { color: var(--gray-400); letter-spacing: 0; }
@@ -100,17 +105,32 @@
 
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip chip-activa">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>
 
-<div class="orden-bar">
-  <label for="ordenSel">Ordenar por:</label>
-  <select id="ordenSel" onchange="ordenarGrid(this.value)">
-    <option value="rel">Relevancia</option>
-    <option value="asc">Menor precio</option>
-    <option value="desc">Mayor precio</option>
-  </select>
-</div>
+<nav class="chips-nav subcats-nav" aria-label="Secciones de la colección"><a href="#g-veladores" class="chip">Veladores LED (2)</a><a href="#g-lamparas" class="chip">Lámparas de mesa y escritorio (8)</a><a href="#g-luces" class="chip">Luces y guirnaldas LED (2)</a></nav>
 
-<div class="listado-grid">
-  <div class="grid" id="listadoGrid">
+<div class="listado-grid" id="listadoGrid">
+  <h2 class="grupo-titulo" id="g-veladores">Veladores LED</h2>
+  <div class="grid">
+      <a class="card" href="/producto/velador-led-de-mesa-anana-26cm-toque-divertido-para-tu-deco-a-r2158-003a/" data-sku="A-R2158-003A" data-precio="28000.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_001" alt="Velador Led de Mesa Anana 26cm: toque divertido para tu deco" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Deco</div>
+          <div class="card-name">Velador Led de Mesa Anana 26cm: toque divertido para tu deco</div>
+          <div class="card-rating" style="display:none"></div>
+          <div class="card-price">$28.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-R2158-003A')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/velador-led-unicornio-efecto-infinito-espejado-decorativo-a-r2234-028c/" data-sku="A-R2234-028C" data-precio="31000.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028C_001" alt="Velador Led Unicornio Efecto Infinito Espejado Decorativo" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Deco</div>
+          <div class="card-name">Velador Led Unicornio Efecto Infinito Espejado Decorativo</div>
+          <div class="card-rating" style="display:none"></div>
+          <div class="card-price">$31.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-R2234-028C')">Agregar al pedido</button>
+        </div>
+      </a></div><h2 class="grupo-titulo" id="g-lamparas">Lámparas de mesa y escritorio</h2>
+  <div class="grid">
       <a class="card" href="/producto/lampara-de-mesa-arbol-de-navidad-verde-a-pilas-para-deco-a-r1986-005/" data-sku="A-R1986-005" data-precio="26000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-005_001" alt="Lámpara de Mesa Árbol de Navidad Verde a Pilas para Deco" loading="lazy"></div>
         <div class="card-body">
@@ -139,26 +159,6 @@
           <div class="card-rating" style="display:none"></div>
           <div class="card-price">$26.000</div>
           <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-R1986-014')">Agregar al pedido</button>
-        </div>
-      </a>
-      <a class="card" href="/producto/velador-led-de-mesa-anana-26cm-toque-divertido-para-tu-deco-a-r2158-003a/" data-sku="A-R2158-003A" data-precio="28000.0">
-        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_001" alt="Velador Led de Mesa Anana 26cm: toque divertido para tu deco" loading="lazy"></div>
-        <div class="card-body">
-          <div class="card-cat">Deco</div>
-          <div class="card-name">Velador Led de Mesa Anana 26cm: toque divertido para tu deco</div>
-          <div class="card-rating" style="display:none"></div>
-          <div class="card-price">$28.000</div>
-          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-R2158-003A')">Agregar al pedido</button>
-        </div>
-      </a>
-      <a class="card" href="/producto/tira-de-luces-mini-cocktails-1-metro-para-decoracion-a-pilas-a-r2234-014/" data-sku="A-R2234-014" data-precio="15000.0">
-        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-014_001" alt="Tira de Luces Mini Cocktails 1 Metro para Decoración A Pilas" loading="lazy"></div>
-        <div class="card-body">
-          <div class="card-cat">Deco</div>
-          <div class="card-name">Tira de Luces Mini Cocktails 1 Metro para Decoración A Pilas</div>
-          <div class="card-rating" style="display:none"></div>
-          <div class="card-price">$15.000</div>
-          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-R2234-014')">Agregar al pedido</button>
         </div>
       </a>
       <a class="card" href="/producto/lampara-led-colgante-cactus-verde-para-decorar-sin-cables-a-r2234-023/" data-sku="A-R2234-023" data-precio="26000.0">
@@ -201,16 +201,6 @@
           <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-R2234-028B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/velador-led-unicornio-efecto-infinito-espejado-decorativo-a-r2234-028c/" data-sku="A-R2234-028C" data-precio="31000.0">
-        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-028C_001" alt="Velador Led Unicornio Efecto Infinito Espejado Decorativo" loading="lazy"></div>
-        <div class="card-body">
-          <div class="card-cat">Deco</div>
-          <div class="card-name">Velador Led Unicornio Efecto Infinito Espejado Decorativo</div>
-          <div class="card-rating" style="display:none"></div>
-          <div class="card-price">$31.000</div>
-          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-R2234-028C')">Agregar al pedido</button>
-        </div>
-      </a>
       <a class="card" href="/producto/lampara-led-escritorio-ventilador-usb-recargable-y-reloj-dl2150/" data-sku="DL2150" data-precio="73000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_001" alt="Lampara Led Escritorio Ventilador USB Recargable y Reloj" loading="lazy"></div>
         <div class="card-body">
@@ -219,6 +209,17 @@
           <div class="card-rating" style="display:none"></div>
           <div class="card-price">$73.000</div>
           <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2150')">Agregar al pedido</button>
+        </div>
+      </a></div><h2 class="grupo-titulo" id="g-luces">Luces y guirnaldas LED</h2>
+  <div class="grid">
+      <a class="card" href="/producto/tira-de-luces-mini-cocktails-1-metro-para-decoracion-a-pilas-a-r2234-014/" data-sku="A-R2234-014" data-precio="15000.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-014_001" alt="Tira de Luces Mini Cocktails 1 Metro para Decoración A Pilas" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Deco</div>
+          <div class="card-name">Tira de Luces Mini Cocktails 1 Metro para Decoración A Pilas</div>
+          <div class="card-rating" style="display:none"></div>
+          <div class="card-price">$15.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-R2234-014')">Agregar al pedido</button>
         </div>
       </a>
       <a class="card" href="/producto/luz-led-recargable-con-sensor-20cm-para-alacena-placar-cama-dl2203/" data-sku="DL2203" data-precio="10500.0">

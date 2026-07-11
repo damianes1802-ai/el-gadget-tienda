@@ -691,7 +691,44 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
     # atención más valioso -> ofertas activas primero (orden estable).
     items = sorted(items, key=lambda p: 0 if (p.get('precio_oferta') is not None
                    and p['precio_oferta'] < p['precio_venta']) else 1)
-    cards = ''.join(_card_listado(p, slug_map) for p in items)
+
+    if cfg.get('grupos'):
+        # Colección agrupada por keyword: H2 por grupo (SEO) + accesos directos
+        # tipo chips (como las categorías de la home). Sin "Ordenar por": el
+        # orden categórico ES el orden de la página.
+        restantes = list(items)
+        grupos_render = []
+        for gid, titulo, patron in cfg['grupos']:
+            rg = re.compile(patron, re.I)
+            del_grupo = [p for p in restantes if rg.search(p['nombre'])]
+            restantes = [p for p in restantes if not rg.search(p['nombre'])]
+            if del_grupo:
+                grupos_render.append((gid, titulo, del_grupo))
+        atajos = ''.join(f'<a href="#g-{gid}" class="chip">{html.escape(t)} ({len(g)})</a>'
+                         for gid, t, g in grupos_render)
+        bloques = ''.join(
+            f'''<h2 class="grupo-titulo" id="g-{gid}">{html.escape(t)}</h2>
+  <div class="grid">{''.join(_card_listado(p, slug_map) for p in g)}</div>'''
+            for gid, t, g in grupos_render)
+        cuerpo_grid = f'''<nav class="chips-nav subcats-nav" aria-label="Secciones de la colección">{atajos}</nav>
+
+<div class="listado-grid" id="listadoGrid">
+  {bloques}
+</div>'''
+    else:
+        cards = ''.join(_card_listado(p, slug_map) for p in items)
+        cuerpo_grid = f'''<div class="orden-bar">
+  <label for="ordenSel">Ordenar por:</label>
+  <select id="ordenSel" onchange="ordenarGrid(this.value)">
+    <option value="rel">Relevancia</option>
+    <option value="asc">Menor precio</option>
+    <option value="desc">Mayor precio</option>
+  </select>
+</div>
+
+<div class="listado-grid">
+  <div class="grid" id="listadoGrid">{cards}</div>
+</div>'''
 
     chips_html = ''.join(
         f'<a href="/{t}/{s}/" class="chip{" chip-activa" if (t, s) == (tipo, slug) else ""}">{html.escape(n)}</a>'
@@ -787,6 +824,11 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 .chip-activa {{ background: var(--ink); color: #fff; border-color: var(--ink); }}
 .listado-grid {{ max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }}
 .orden-bar {{ max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }}
+.subcats-nav {{ margin-top: 12px; }}
+.subcats-nav .chip {{ border-color: var(--accent); font-weight: 700; }}
+.grupo-titulo {{ font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); text-align: center;
+  margin: 30px 0 4px; scroll-margin-top: 96px; }}
+.grupo-titulo::after {{ content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--accent); margin: 10px auto 0; }}
 .orden-bar select {{ padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }}
 .card-rating {{ font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }}
 .card-rating small {{ color: var(--gray-400); letter-spacing: 0; }}
@@ -849,18 +891,7 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 
 <nav class="chips-nav" aria-label="Categorías">{chips_html}</nav>
 
-<div class="orden-bar">
-  <label for="ordenSel">Ordenar por:</label>
-  <select id="ordenSel" onchange="ordenarGrid(this.value)">
-    <option value="rel">Relevancia</option>
-    <option value="asc">Menor precio</option>
-    <option value="desc">Mayor precio</option>
-  </select>
-</div>
-
-<div class="listado-grid">
-  <div class="grid" id="listadoGrid">{cards}</div>
-</div>
+{cuerpo_grid}
 
 <!-- Área terminal (Gutenberg): quien llegó al final sin decidir necesita un siguiente paso -->
 <div class="terminal-cta">
@@ -1172,7 +1203,9 @@ def generar_listados(productos: list, slug_map: dict) -> tuple:
     slugs_col = []
     for s, cfg in COLECCIONES_SEO.items():
         rx = re.compile(cfg['match'], re.I)
-        items = [p for p in productos if rx.search(p['nombre'])]
+        rx_ex = re.compile(cfg['excluir'], re.I) if cfg.get('excluir') else None
+        items = [p for p in productos if rx.search(p['nombre'])
+                 and not (rx_ex and rx_ex.search(p['nombre']))]
         if len(items) < 3:
             continue
         destino = col_dir / s

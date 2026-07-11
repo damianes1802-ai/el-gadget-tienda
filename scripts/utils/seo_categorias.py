@@ -215,6 +215,10 @@ CATEGORIAS_SEO = {
 COLECCIONES_SEO = {
     'mallas-y-trajes-de-bano': {
         'match': r'malla|traje de ba[ñn]o|bikini|enteriza|tankini|trikini|vedetina',
+        'excluir': r'silla|respaldo|escritorio|oficina',
+        'grupos': [('enterizas', 'Mallas enterizas', r'enteriza'),
+                   ('bikinis', 'Bikinis y vedetinas', r'bikini|vedetina|tiro alto'),
+                   ('mas', 'Más mallas y trajes de baño', r'.')],
         'title': 'Mallas y Trajes de Baño de Mujer — Enterizas y bikinis | El Gadget',
         'h1': 'Mallas y trajes de baño',
         'meta': 'Mallas de mujer, enterizas, bikinis y tankinis para este verano. Comprá tu traje de baño online con envío a todo el país y cambios hasta 10 días.',
@@ -236,6 +240,10 @@ COLECCIONES_SEO = {
     },
     'lamparas-y-luces-led': {
         'match': r'lampara|l[áa]mpara|velador|luz led|luces|guirnalda|luminos',
+        'excluir': r'silla|respaldo',
+        'grupos': [('veladores', 'Veladores LED', r'velador'),
+                   ('lamparas', 'Lámparas de mesa y escritorio', r'lampara|l[áa]mpara'),
+                   ('luces', 'Luces y guirnaldas LED', r'.')],
         'title': 'Lámparas LED y Veladores — Luces para tu casa | El Gadget',
         'h1': 'Lámparas LED, veladores y luces',
         'meta': 'Lámparas LED, veladores para mesa de luz y luces decorativas para la habitación. Iluminá tu casa con onda: envío a todo el país y pago seguro.',
@@ -255,6 +263,11 @@ COLECCIONES_SEO = {
     },
     'organizadores': {
         'match': r'organizador|organizadora|cajonera|zapatero|perchero|colgante de puerta',
+        'grupos': [('cocina', 'Organizadores de cocina', r'cocina|escurridor|taza|colgante'),
+                   ('bano', 'Organizadores de baño', r'ba[ñn]o|ducha|bacha'),
+                   ('placard', 'Placard y zapateros', r'zapatero|cajonera|placard|ropa'),
+                   ('auto', 'Para el auto y los viajes', r'auto|ba[úu]l|viaje|valija'),
+                   ('mas', 'Más organizadores', r'.')],
         'title': 'Organizadores para el Hogar — Cocina, baño, auto y más | El Gadget',
         'h1': 'Organizadores para el hogar',
         'meta': 'Organizadores de cocina, baño, placard, zapatero y auto: soluciones para ganar espacio y encontrar todo. Envío a todo el país y pago seguro.',
@@ -274,6 +287,8 @@ COLECCIONES_SEO = {
     },
     'vasos-y-botellas-termicas': {
         'match': r'vaso t[ée]rm|botella t[ée]rm|termo|vaso.*(stanley|starbucks|doble pared)',
+        'grupos': [('vasos', 'Vasos térmicos', r'vaso'),
+                   ('botellas', 'Botellas térmicas y termos', r'.')],
         'title': 'Vasos Térmicos y Botellas Térmicas — Frío y calor por horas | El Gadget',
         'h1': 'Vasos y botellas térmicas',
         'meta': 'Vasos térmicos y botellas térmicas que mantienen tu bebida fría o caliente por horas. Para el mate, el café o el gym. Envío a todo el país.',
@@ -295,6 +310,9 @@ COLECCIONES_SEO = {
     },
     'inflables-para-pileta': {
         'match': r'inflable|flotador|colchoneta',
+        'grupos': [('gigantes', 'Inflables gigantes y flotadores', r'gigante|flotador|tuc[áa]n|cisne|unicornio'),
+                   ('chicos', 'Para los más chicos', r'beb[ée]|infantil|ni[ñn]|chico'),
+                   ('mas', 'Más inflables', r'.')],
         'title': 'Inflables para Pileta — Flotadores y gigantes de verano | El Gadget',
         'h1': 'Inflables para pileta',
         'meta': 'Inflables para pileta: flotadores gigantes y modelos seguros para bebés. El verano más divertido, con envío a todo el país.',

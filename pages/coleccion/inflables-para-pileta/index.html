@@ -38,6 +38,11 @@
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
 .orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+.subcats-nav { margin-top: 12px; }
+.subcats-nav .chip { border-color: var(--accent); font-weight: 700; }
+.grupo-titulo { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); text-align: center;
+  margin: 30px 0 4px; scroll-margin-top: 96px; }
+.grupo-titulo::after { content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--accent); margin: 10px auto 0; }
 .orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
 .card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
 .card-rating small { color: var(--gray-400); letter-spacing: 0; }
@@ -100,17 +105,11 @@
 
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip chip-activa">Inflables para pileta</a></nav>
 
-<div class="orden-bar">
-  <label for="ordenSel">Ordenar por:</label>
-  <select id="ordenSel" onchange="ordenarGrid(this.value)">
-    <option value="rel">Relevancia</option>
-    <option value="asc">Menor precio</option>
-    <option value="desc">Mayor precio</option>
-  </select>
-</div>
+<nav class="chips-nav subcats-nav" aria-label="Secciones de la colección"><a href="#g-gigantes" class="chip">Inflables gigantes y flotadores (7)</a><a href="#g-mas" class="chip">Más inflables (2)</a></nav>
 
-<div class="listado-grid">
-  <div class="grid" id="listadoGrid">
+<div class="listado-grid" id="listadoGrid">
+  <h2 class="grupo-titulo" id="g-gigantes">Inflables gigantes y flotadores</h2>
+  <div class="grid">
       <a class="card" href="/producto/unicornio-inflable-glitter-gigante-1-74m-para-tu-verano-magico-a-62170/" data-sku="A-62170" data-precio="86500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-62170_001" alt="Unicornio Inflable Glitter Gigante 1.74m para tu verano mágico" loading="lazy"></div>
         <div class="card-body">
@@ -151,16 +150,6 @@
           <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-L1896-006')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/inflable-flamenco-para-pileta-1-52m-verano-divertido-con-el-gadget-a-l1973-003/" data-sku="A-L1973-003" data-precio="66000.0">
-        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_001" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" loading="lazy"></div>
-        <div class="card-body">
-          <div class="card-cat">Verano</div>
-          <div class="card-name">Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!</div>
-          <div class="card-rating" style="display:none"></div>
-          <div class="card-price">$66.000</div>
-          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-L1973-003')">Agregar al pedido</button>
-        </div>
-      </a>
       <a class="card" href="/producto/flotador-inflable-cisne-gigante-para-pileta-verano-el-gadget-a-l1973-004/" data-sku="A-L1973-004" data-precio="66000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-004_001" alt="Flotador Inflable Cisne Gigante para Pileta Verano - El Gadget" loading="lazy"></div>
         <div class="card-body">
@@ -169,16 +158,6 @@
           <div class="card-rating" style="display:none"></div>
           <div class="card-price">$66.000</div>
           <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-L1973-004')">Agregar al pedido</button>
-        </div>
-      </a>
-      <a class="card" href="/producto/inflable-de-pileta-ostra-shell-105x160cm-ideal-para-tu-verano-a-l1978-001/" data-sku="A-L1978-001" data-precio="49500.0">
-        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1978-001_001" alt="Inflable de Pileta Ostra Shell 105x160cm - ¡Ideal para tu Verano!" loading="lazy"></div>
-        <div class="card-body">
-          <div class="card-cat">Verano</div>
-          <div class="card-name">Inflable de Pileta Ostra Shell 105x160cm - ¡Ideal para tu Verano!</div>
-          <div class="card-rating" style="display:none"></div>
-          <div class="card-price">$49.500</div>
-          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-L1978-001')">Agregar al pedido</button>
         </div>
       </a>
       <a class="card" href="/producto/inflable-unicornio-transparente-grande-para-pileta-1-2m-el-gadget-a-l2235-001/" data-sku="A-L2235-001" data-precio="74000.0">
@@ -199,6 +178,27 @@
           <div class="card-rating" style="display:none"></div>
           <div class="card-price">$41.500</div>
           <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-L2235-002')">Agregar al pedido</button>
+        </div>
+      </a></div><h2 class="grupo-titulo" id="g-mas">Más inflables</h2>
+  <div class="grid">
+      <a class="card" href="/producto/inflable-flamenco-para-pileta-1-52m-verano-divertido-con-el-gadget-a-l1973-003/" data-sku="A-L1973-003" data-precio="66000.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_001" alt="Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Verano</div>
+          <div class="card-name">Inflable Flamenco para Pileta 1.52m - ¡Verano Divertido con El Gadget!</div>
+          <div class="card-rating" style="display:none"></div>
+          <div class="card-price">$66.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-L1973-003')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/inflable-de-pileta-ostra-shell-105x160cm-ideal-para-tu-verano-a-l1978-001/" data-sku="A-L1978-001" data-precio="49500.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1978-001_001" alt="Inflable de Pileta Ostra Shell 105x160cm - ¡Ideal para tu Verano!" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Verano</div>
+          <div class="card-name">Inflable de Pileta Ostra Shell 105x160cm - ¡Ideal para tu Verano!</div>
+          <div class="card-rating" style="display:none"></div>
+          <div class="card-price">$49.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-L1978-001')">Agregar al pedido</button>
         </div>
       </a></div>
 </div>
