@@ -10,6 +10,7 @@ Los cuerpos admiten HTML (links internos al catálogo).
 
 BLOG_POSTS = {
     'regalos-dia-de-la-madre': {
+        'imagen': ('/assets/img/blog/regalos-dia-de-la-madre-argentina.jpg', 'Regalos envueltos en papel kraft con cintas amarillas y flores frescas sobre una mesa, listos para el Día de la Madre'),
         'title': 'Día de la Madre 2026 en Argentina: cuándo es y 12 ideas de regalos | El Gadget',
         'h1': 'Día de la Madre 2026: cuándo es y qué regalar',
         'meta': 'El Día de la Madre 2026 en Argentina es el domingo 18 de octubre. 12 ideas de regalos útiles y originales por presupuesto, con envío a todo el país.',
@@ -19,9 +20,11 @@ BLOG_POSTS = {
             ('¿Por qué en Argentina se festeja en octubre?',
              'A diferencia de casi todo el mundo (que lo celebra en mayo), Argentina mantiene la fecha de octubre por la tradición católica de la Maternidad de la Virgen, que el calendario litúrgico ubicaba el 11 de octubre. Aunque la Iglesia movió su fecha, la costumbre comercial y familiar quedó: acá, el tercer domingo de octubre es sagrado. Anotalo: <strong>18 de octubre de 2026</strong>.'),
             ('Regalos útiles que va a usar todos los días',
-             'Los regalos que más se agradecen son los que entran en la rutina: un <a href="/coleccion/vasos-y-botellas-termicas/">vaso térmico con tapa</a> para el café o el mate de la mañana (el clásico que no falla), una <a href="/coleccion/vasos-y-botellas-termicas/">botella térmica</a> para el agua del día, o esa <a href="/categoria/bazar-y-cocina/">solución de cocina</a> que le ahorre diez minutos diarios. Cada vez que lo use, se va a acordar de quién se lo regaló — ese es el verdadero truco del regalo útil.'),
+             'Los regalos que más se agradecen son los que entran en la rutina: un <a href="/coleccion/vasos-y-botellas-termicas/">vaso térmico con tapa</a> para el café o el mate de la mañana (el clásico que no falla), una <a href="/coleccion/vasos-y-botellas-termicas/">botella térmica</a> para el agua del día, o esa <a href="/categoria/bazar-y-cocina/">solución de cocina</a> que le ahorre diez minutos diarios. Cada vez que lo use, se va a acordar de quién se lo regaló — ese es el verdadero truco del regalo útil.',
+             ('/assets/img/blog/regalo-dia-de-la-madre-vaso-termico-mate.jpg', 'Vaso térmico de acero y mate argentino sobre la mesada de una cocina luminosa, un regalo útil para el Día de la Madre')),
             ('Para la mamá que ama su casa',
-             'Si lo suyo es el hogar: un <a href="/coleccion/lamparas-y-luces-led/">velador LED con diseño</a> para la mesa de luz (los de efecto infinito espejado son los más regalados del catálogo), un <a href="/categoria/deco/">espejo decorativo</a> que agrande el living, o un detalle de <a href="/categoria/deco/">deco</a> que renueve el ambiente sin obras. Son regalos que se ven todos los días.'),
+             'Si lo suyo es el hogar: un <a href="/coleccion/lamparas-y-luces-led/">velador LED con diseño</a> para la mesa de luz (los de efecto infinito espejado son los más regalados del catálogo), un <a href="/categoria/deco/">espejo decorativo</a> que agrande el living, o un detalle de <a href="/categoria/deco/">deco</a> que renueve el ambiente sin obras. Son regalos que se ven todos los días.',
+             ('/assets/img/blog/regalo-mama-velador-led-mesa-de-luz.jpg', 'Velador LED con luz cálida encendido en la mesa de luz de un dormitorio acogedor, idea de regalo para mamá')),
             ('Para la mamá con estilo',
              'Una <a href="/categoria/accesorios-de-moda/">bandolera tejida o cartera</a> nueva para el día a día — liviana, cómoda y con onda — o algún <a href="/categoria/estetica-y-belleza/">accesorio de belleza</a> para su rutina. Y si tu mamá es de las que cuentan los días para las vacaciones, una <a href="/coleccion/mallas-y-trajes-de-bano/">malla nueva</a> es anticipar el verano: con cambios hasta 10 días, el talle no es riesgo.'),
             ('Para la mamá organizada (o la que sueña con serlo)',
@@ -29,7 +32,8 @@ BLOG_POSTS = {
             ('Para la mamá de la mascota de la familia',
              'Si en tu casa el perro o el gato también es hijo: una <a href="/categoria/accesorios-para-mascotas/">alfombra absorbente para el comedero</a> (chau piso mojado), el guante quita-pelos que salva sillones, o un bebedero portátil para los paseos. Regalo para ella, beneficio para toda la casa.'),
             ('Ideas por presupuesto',
-             'Con <strong>menos de $20.000</strong>: accesorios de cocina, jaboneras y organizadores chicos, luces LED con sensor. Entre <strong>$20.000 y $40.000</strong>: veladores de diseño, bandoleras, alfombras de diatomita, vasos térmicos. <strong>Más de $40.000</strong>: lámparas de escritorio 3-en-1, mallas, organizadores grandes o armá un combo de dos o tres cosas chicas — el efecto "abrió tres regalos" nunca falla.'),
+             'Con <strong>menos de $20.000</strong>: accesorios de cocina, jaboneras y organizadores chicos, luces LED con sensor. Entre <strong>$20.000 y $40.000</strong>: veladores de diseño, bandoleras, alfombras de diatomita, vasos térmicos. <strong>Más de $40.000</strong>: lámparas de escritorio 3-en-1, mallas, organizadores grandes o armá un combo de dos o tres cosas chicas — el efecto "abrió tres regalos" nunca falla.',
+             ('/assets/img/blog/ideas-regalos-dia-de-la-madre-por-presupuesto.jpg', 'Ideas de regalos para el Día de la Madre por presupuesto: bandolera tejida, vaso térmico, velador y caja de regalo con cinta amarilla')),
             ('El tip para no fallar: comprá con tiempo',
              'Comprando online con anticipación tenés envío a todo el país con seguimiento y <strong>cambios hasta 10 días</strong> después de recibido: si el color o el talle no eran los ideales, se cambia sin drama. Pedilo la primera quincena de octubre y llegás sin pagar el apuro. Mirá el <a href="/">catálogo completo</a> o directo las <a href="/categoria/ofertas/">ofertas de la semana</a>.'),
         ],

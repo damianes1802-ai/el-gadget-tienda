@@ -1090,6 +1090,9 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 .listado-faq-item h3 {{ font-size: 14.5px; margin: 0 0 6px; color: var(--ink); }}
 .listado-faq-item p {{ font-size: 13.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }}
 .blog-cierre {{ max-width: 760px; margin: 10px auto 0; padding: 0 1.25rem 40px; text-align: center; }}
+.blog-img-hero {{ max-width: 860px; margin: -18px auto 0; padding: 0 1.25rem; position: relative; z-index: 2; }}
+.blog-img-hero img {{ width: 100%; height: auto; border-radius: var(--radius); box-shadow: 0 14px 34px rgba(20,21,26,0.18); display: block; }}
+.blog-body section img {{ width: 100%; height: auto; border-radius: var(--radius-sm); margin-bottom: 16px; display: block; }}
 </style>
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 </head>
@@ -1165,8 +1168,21 @@ def generar_blog() -> list:
   <p>{cfg['intro']}</p>
   <div class="blog-fecha">Actualizado: {cfg['fecha']}</div>
 </div>'''
-        secciones = ''.join(f'<section><h2>{html.escape(t)}</h2><p>{c}</p></section>'
-                            for t, c in cfg['secciones'])
+        img_hero = ''
+        if cfg.get('imagen'):
+            src, alt = cfg['imagen']
+            img_hero = (f'<div class="blog-img-hero"><img src="{src}" alt="{html.escape(alt)}" '
+                        f'width="1200" height="670"></div>')
+        partes_sec = []
+        for sec in cfg['secciones']:
+            t, c = sec[0], sec[1]
+            img_s = ''
+            if len(sec) > 2 and sec[2]:
+                s_src, s_alt = sec[2]
+                img_s = (f'<img src="{s_src}" alt="{html.escape(s_alt)}" width="1200" '
+                         f'height="670" loading="lazy">')
+            partes_sec.append(f'<section>{img_s}<h2>{html.escape(t)}</h2><p>{c}</p></section>')
+        secciones = ''.join(partes_sec)
         faqs = ''
         if cfg.get('faqs'):
             items = ''.join(f'<div class="listado-faq-item"><h3>{html.escape(q)}</h3><p>{html.escape(a)}</p></div>'
@@ -1174,7 +1190,7 @@ def generar_blog() -> list:
             faqs = f'<div class="listado-faqs"><h2>Preguntas frecuentes</h2>{items}</div>'
         cierre = ('<div class="blog-cierre"><a class="btn btn-accent" href="/" '
                   'style="display:inline-block">Ver el catálogo completo →</a></div>')
-        cuerpo = f'<div class="blog-body">{secciones}</div>{faqs}{cierre}'
+        cuerpo = f'{img_hero}<div class="blog-body">{secciones}</div>{faqs}{cierre}'
         destino = blog_dir / slug
         destino.mkdir(parents=True, exist_ok=True)
         (destino / 'index.html').write_text(
