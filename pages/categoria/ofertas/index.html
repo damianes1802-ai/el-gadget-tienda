@@ -27,6 +27,11 @@
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
+.trust-strip { max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }
+.orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+.orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
+.card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
+.card-rating small { color: var(--gray-400); letter-spacing: 0; }
 .listado-secciones { max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }
 .listado-seccion { padding: 16px 0 4px; text-align: center; }
 .listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }
@@ -76,584 +81,741 @@
   <p>Los precios más afilados del catálogo, en un solo lugar. Descuentos reales sobre productos que ya conocés, mientras dure el stock.</p>
 </div>
 
+<div class="trust-strip">
+  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+</div>
+
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip chip-activa">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>
 
+<div class="orden-bar">
+  <label for="ordenSel">Ordenar por:</label>
+  <select id="ordenSel" onchange="ordenarGrid(this.value)">
+    <option value="rel">Relevancia</option>
+    <option value="asc">Menor precio</option>
+    <option value="desc">Mayor precio</option>
+  </select>
+</div>
+
 <div class="listado-grid">
-  <div class="grid">
-      <a class="card" href="/producto/soporte-ducha-regulable-autoadhesivo-tricolor-sin-agujerear-550371-sd/">
+  <div class="grid" id="listadoGrid">
+      <a class="card" href="/producto/soporte-ducha-regulable-autoadhesivo-tricolor-sin-agujerear-550371-sd/" data-sku="550371-SD" data-precio="3000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_550371-SD_001" alt="Soporte Ducha Regulable Autoadhesivo Tricolor | Sin Agujerear" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Soporte Ducha Regulable Autoadhesivo Tricolor | Sin Agujerear</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$3.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('550371-SD')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/remolque-transportador-de-motos-y-electricos-5-ruedas-resistente-550382/">
+      <a class="card" href="/producto/remolque-transportador-de-motos-y-electricos-5-ruedas-resistente-550382/" data-sku="550382" data-precio="16000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_550382_001" alt="Remolque transportador de motos y eléctricos 5 ruedas resistente" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Remolque transportador de motos y eléctricos 5 ruedas resistente</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$16.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('550382')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-colgante-para-placard-gris-oscuro-ordena-ropa-y-zapatos-dl2126-gr/">
+      <a class="card" href="/producto/organizador-colgante-para-placard-gris-oscuro-ordena-ropa-y-zapatos-dl2126-gr/" data-sku="DL2126-GR" data-precio="10000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2126-GR_001" alt="Organizador Colgante para Placard Gris Oscuro | Ordená Ropa y Zapatos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador Colgante para Placard Gris Oscuro | Ordená Ropa y Zapatos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$10.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2126-GR')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-colgante-de-placard-negro-6-bolsillos-ropa-y-calzado-dl2126-ne/">
+      <a class="card" href="/producto/organizador-colgante-de-placard-negro-6-bolsillos-ropa-y-calzado-dl2126-ne/" data-sku="DL2126-NE" data-precio="10000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2126-NE_001" alt="Organizador colgante de placard negro 6 bolsillos ropa y calzado" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador colgante de placard negro 6 bolsillos ropa y calzado</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$10.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2126-NE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-de-ropa-y-objetos-cierre-reforzado-calidad-premium-dl2214-bl/">
+      <a class="card" href="/producto/organizador-de-ropa-y-objetos-cierre-reforzado-calidad-premium-dl2214-bl/" data-sku="DL2214-BL" data-precio="56000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2214-BL_001" alt="Organizador de Ropa y Objetos Cierre Reforzado Calidad Premium" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador de Ropa y Objetos Cierre Reforzado Calidad Premium</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$56.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2214-BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-de-ropa-con-cierre-superior-y-frontal-rosa-premium-dl2214-ro/">
+      <a class="card" href="/producto/organizador-de-ropa-con-cierre-superior-y-frontal-rosa-premium-dl2214-ro/" data-sku="DL2214-RO" data-precio="56000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2214-RO_001" alt="Organizador de ropa con cierre superior y frontal rosa premium" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador de ropa con cierre superior y frontal rosa premium</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$56.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2214-RO')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-ropa-cierre-superior-frontal-reforzado-premium-dl2214-tur/">
+      <a class="card" href="/producto/organizador-ropa-cierre-superior-frontal-reforzado-premium-dl2214-tur/" data-sku="DL2214-TUR" data-precio="56000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2214-TUR_001" alt="Organizador Ropa Cierre Superior Frontal Reforzado Premium" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador Ropa Cierre Superior Frontal Reforzado Premium</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$56.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2214-TUR')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bolso-organizador-plegable-para-baul-de-auto-gris-practicidad-total-dl2252/">
+      <a class="card" href="/producto/bolso-organizador-plegable-para-baul-de-auto-gris-practicidad-total-dl2252/" data-sku="DL2252" data-precio="17500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2252_001" alt="Bolso Organizador Plegable para Baúl de Auto Gris. Practicidad total." loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Bolso Organizador Plegable para Baúl de Auto Gris. Practicidad total.</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$17.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2252')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-escurridor-platos-metalico-extraible-adhesivo-bajo-bacha-dl2276/">
+      <a class="card" href="/producto/organizador-escurridor-platos-metalico-extraible-adhesivo-bajo-bacha-dl2276/" data-sku="DL2276" data-precio="75500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2276_001" alt="Organizador Escurridor Platos Metálico Extraíble Adhesivo Bajo Bacha" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador Escurridor Platos Metálico Extraíble Adhesivo Bajo Bacha</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$75.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2276')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-escurre-platos-extraible-adhesivo-para-alacena-dl2277/">
+      <a class="card" href="/producto/organizador-escurre-platos-extraible-adhesivo-para-alacena-dl2277/" data-sku="DL2277" data-precio="73000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2277_001" alt="Organizador Escurre Platos Extraíble Adhesivo para Alacena" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador Escurre Platos Extraíble Adhesivo para Alacena</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$73.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2277')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/plato-giratorio-organizador-antideslizante-30cm-rotacion-360-dl2287/">
+      <a class="card" href="/producto/plato-giratorio-organizador-antideslizante-30cm-rotacion-360-dl2287/" data-sku="DL2287" data-precio="36500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287_001" alt="Plato giratorio organizador antideslizante 30cm rotación 360°" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Plato giratorio organizador antideslizante 30cm rotación 360°</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$36.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2287')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/plato-giratorio-organizador-antideslizante-blanco-multiuso-dl2287-1/">
+      <a class="card" href="/producto/plato-giratorio-organizador-antideslizante-blanco-multiuso-dl2287-1/" data-sku="DL2287-1" data-precio="27500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2287-1_001" alt="Plato Giratorio Organizador Antideslizante Blanco Multiuso" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Plato Giratorio Organizador Antideslizante Blanco Multiuso</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$27.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2287-1')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-esquinero-cocina-especias-frascos-negro-mas-orden-dl2305-ne/">
+      <a class="card" href="/producto/organizador-esquinero-cocina-especias-frascos-negro-mas-orden-dl2305-ne/" data-sku="DL2305-NE" data-precio="95500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2305-NE_001" alt="Organizador Esquinero Cocina Especias Frascos Negro - Más orden" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador Esquinero Cocina Especias Frascos Negro - Más orden</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$95.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2305-NE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/estante-organizador-esquinero-cocina-para-especias-orden-y-espacio-dl2306-ne/">
+      <a class="card" href="/producto/estante-organizador-esquinero-cocina-para-especias-orden-y-espacio-dl2306-ne/" data-sku="DL2306-NE" data-precio="70500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2306-NE_001" alt="Estante Organizador Esquinero Cocina para Especias | Orden y espacio" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Estante Organizador Esquinero Cocina para Especias | Orden y espacio</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2306-NE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-esquinero-de-cocina-2-estantes-madera-y-metal-dl2307-ne/">
+      <a class="card" href="/producto/organizador-esquinero-de-cocina-2-estantes-madera-y-metal-dl2307-ne/" data-sku="DL2307-NE" data-precio="80000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2307-NE_001" alt="Organizador esquinero de cocina 2 estantes madera y metal" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador esquinero de cocina 2 estantes madera y metal</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$80.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2307-NE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/funda-cubre-sofa-sillon-elastizada-m-premium-145-185cm-dl2314/">
+      <a class="card" href="/producto/funda-cubre-sofa-sillon-elastizada-m-premium-145-185cm-dl2314/" data-sku="DL2314" data-precio="94000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2314_001" alt="Funda Cubre Sofá Sillón Elastizada M Premium (145-185cm)" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Funda Cubre Sofá Sillón Elastizada M Premium (145-185cm)</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$94.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2314')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/funda-sillon-elastizada-premium-l-190-230cm-protege-y-renova-dl2315/">
+      <a class="card" href="/producto/funda-sillon-elastizada-premium-l-190-230cm-protege-y-renova-dl2315/" data-sku="DL2315" data-precio="117000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2315_001" alt="Funda Sillón Elastizada Premium L (190-230cm) Protege y Renova" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Funda Sillón Elastizada Premium L (190-230cm) Protege y Renova</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$117.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2315')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cinta-membrana-autoadhesiva-techo-impermeable-aislante-termico-dl2319/">
+      <a class="card" href="/producto/cinta-membrana-autoadhesiva-techo-impermeable-aislante-termico-dl2319/" data-sku="DL2319" data-precio="21000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2319_001" alt="Cinta Membrana Autoadhesiva Techo Impermeable Aislante Térmico" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Cinta Membrana Autoadhesiva Techo Impermeable Aislante Térmico</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$21.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2319')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-infantil-juguetes-osito-7-espacios-con-cajones-dl2339/">
+      <a class="card" href="/producto/organizador-infantil-juguetes-osito-7-espacios-con-cajones-dl2339/" data-sku="DL2339" data-precio="252500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2339_001" alt="Organizador Infantil Juguetes Osito 7 Espacios con Cajones" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador Infantil Juguetes Osito 7 Espacios con Cajones</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$252.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2339')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bolas-atrapa-pelos-lavarropas-reutilizables-x4-anti-enredos-y-pelusas-dl2349/">
+      <a class="card" href="/producto/bolas-atrapa-pelos-lavarropas-reutilizables-x4-anti-enredos-y-pelusas-dl2349/" data-sku="DL2349" data-precio="4000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2349_001" alt="Bolas atrapa pelos lavarropas reutilizables x4 anti enredos y pelusas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Bolas atrapa pelos lavarropas reutilizables x4 anti enredos y pelusas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$4.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2349')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/guante-removedor-de-pelos-para-mascotas-chau-pelusa-en-casa-dl2352/">
+      <a class="card" href="/producto/guante-removedor-de-pelos-para-mascotas-chau-pelusa-en-casa-dl2352/" data-sku="DL2352" data-precio="9000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2352_001" alt="Guante Removedor de Pelos para Mascotas - Chau Pelusa en Casa" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Guante Removedor de Pelos para Mascotas - Chau Pelusa en Casa</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$9.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2352')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/maleta-transportadora-rigida-para-viaje-mascotas-perro-gato-dl2353-ma/">
+      <a class="card" href="/producto/maleta-transportadora-rigida-para-viaje-mascotas-perro-gato-dl2353-ma/" data-sku="DL2353-MA" data-precio="56000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2353-MA_001" alt="Maleta Transportadora Rígida para Viaje Mascotas Perro Gato" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Maleta Transportadora Rígida para Viaje Mascotas Perro Gato</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$56.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2353-MA')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/perchero-metalico-desarmable-movil-para-ropa-organizador-dl2359/">
+      <a class="card" href="/producto/perchero-metalico-desarmable-movil-para-ropa-organizador-dl2359/" data-sku="DL2359" data-precio="44500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2359_001" alt="Perchero Metálico Desarmable Móvil para Ropa | Organizador" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Perchero Metálico Desarmable Móvil para Ropa | Organizador</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$44.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2359')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/corrector-postura-faja-soporte-lumbar-talle-l-alivia-tu-espalda-dl2366-l/">
+      <a class="card" href="/producto/corrector-postura-faja-soporte-lumbar-talle-l-alivia-tu-espalda-dl2366-l/" data-sku="DL2366-L" data-precio="11500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2366-L_001" alt="Corrector Postura Faja Soporte Lumbar Talle L alivia tu espalda" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Corrector Postura Faja Soporte Lumbar Talle L alivia tu espalda</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$11.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2366-L')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/corrector-de-postura-faja-soporte-lumbar-talle-m-alivio-y-confort-dl2366-m/">
+      <a class="card" href="/producto/corrector-de-postura-faja-soporte-lumbar-talle-m-alivio-y-confort-dl2366-m/" data-sku="DL2366-M" data-precio="11500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2366-M_001" alt="Corrector de Postura Faja Soporte Lumbar Talle M – Alivio y Confort" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Corrector de Postura Faja Soporte Lumbar Talle M – Alivio y Confort</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$11.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2366-M')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/set-5-fundas-ropa-140cm-colgantes-anti-polillas-y-humedad-dl2370/">
+      <a class="card" href="/producto/set-5-fundas-ropa-140cm-colgantes-anti-polillas-y-humedad-dl2370/" data-sku="DL2370" data-precio="52000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2370_001" alt="Set 5 Fundas Ropa 140cm Colgantes Anti Polillas y Humedad" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Set 5 Fundas Ropa 140cm Colgantes Anti Polillas y Humedad</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$52.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2370')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/set-x5-fundas-colgantes-ropa-60x120cm-proteccion-anti-polvo-y-arrugas-dl2371/">
+      <a class="card" href="/producto/set-x5-fundas-colgantes-ropa-60x120cm-proteccion-anti-polvo-y-arrugas-dl2371/" data-sku="DL2371" data-precio="42500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2371_001" alt="Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Set x5 fundas colgantes ropa 60x120cm - protección anti polvo y arrugas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$42.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2371')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/funda-x5-porta-traje-y-camperas-100cm-ropa-impecable-y-protegida-dl2372/">
+      <a class="card" href="/producto/funda-x5-porta-traje-y-camperas-100cm-ropa-impecable-y-protegida-dl2372/" data-sku="DL2372" data-precio="40500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2372_001" alt="Funda X5 Porta Traje y Camperas 100cm - Ropa impecable y protegida" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Funda X5 Porta Traje y Camperas 100cm - Ropa impecable y protegida</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$40.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2372')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/funda-porta-trajes-y-ropa-60x80cm-set-4-unidades-proteccion-dl2373/">
+      <a class="card" href="/producto/funda-porta-trajes-y-ropa-60x80cm-set-4-unidades-proteccion-dl2373/" data-sku="DL2373" data-precio="37500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2373_001" alt="Funda Porta Trajes y Ropa 60x80cm - Set 4 Unidades Protección" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Funda Porta Trajes y Ropa 60x80cm - Set 4 Unidades Protección</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$37.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2373')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/set-x-3-cajas-organizadoras-plegables-para-ropa-y-hogar-ordena-tu-espa-dl2374/">
+      <a class="card" href="/producto/set-x-3-cajas-organizadoras-plegables-para-ropa-y-hogar-ordena-tu-espa-dl2374/" data-sku="DL2374" data-precio="19500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2374_001" alt="Set x 3 Cajas Organizadoras Plegables para Ropa y Hogar. Ordená tu espacio." loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Set x 3 Cajas Organizadoras Plegables para Ropa y Hogar. Ordená tu espacio.</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$19.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2374')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/espejos-360-grados-para-bici-y-monopatin-pack-x2-dl2392/">
+      <a class="card" href="/producto/espejos-360-grados-para-bici-y-monopatin-pack-x2-dl2392/" data-sku="DL2392" data-precio="15000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2392_001" alt="Espejos 360 grados para bici y monopatín pack x2" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Espejos 360 grados para bici y monopatín pack x2</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$15.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2392')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/zapatero-abatible-3-puertas-blanco-ideal-para-espacios-chicos-dl2393/">
+      <a class="card" href="/producto/zapatero-abatible-3-puertas-blanco-ideal-para-espacios-chicos-dl2393/" data-sku="DL2393" data-precio="293500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2393_001" alt="Zapatero Abatible 3 Puertas Blanco - Ideal para espacios chicos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Zapatero Abatible 3 Puertas Blanco - Ideal para espacios chicos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$293.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2393')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/morral-antirrobo-oxford-azul-bronce-con-cierre-de-clave-y-usb-g-rinoantroboaz/">
+      <a class="card" href="/producto/morral-antirrobo-oxford-azul-bronce-con-cierre-de-clave-y-usb-g-rinoantroboaz/" data-sku="G-RINOANTROBOAZ" data-precio="31500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOAZ_006" alt="Morral Antirrobo Oxford Azul Bronce con Cierre de Clave y USB" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Morral Antirrobo Oxford Azul Bronce con Cierre de Clave y USB</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$31.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('G-RINOANTROBOAZ')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/morral-antirrobo-oxford-gris-y-bronce-con-usb-proteccion-urbana-g-rinoantrobogr/">
+      <a class="card" href="/producto/morral-antirrobo-oxford-gris-y-bronce-con-usb-proteccion-urbana-g-rinoantrobogr/" data-sku="G-RINOANTROBOGR" data-precio="31500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001" alt="Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Morral Antirrobo Oxford Gris y Bronce con USB | Protección Urbana</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$31.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('G-RINOANTROBOGR')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/morral-antirrobo-oxford-gris-y-bronce-seguro-practico-y-con-usb-g-rinoantrobogrb/">
+      <a class="card" href="/producto/morral-antirrobo-oxford-gris-y-bronce-seguro-practico-y-con-usb-g-rinoantrobogrb/" data-sku="G-RINOANTROBOGRB" data-precio="31500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGRB_001" alt="Morral Antirrobo Oxford Gris y Bronce: seguro, práctico y con USB" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Morral Antirrobo Oxford Gris y Bronce: seguro, práctico y con USB</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$31.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('G-RINOANTROBOGRB')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/guantes-divertidos-3-colores-surtidos-para-sorprender-g1396-002/">
+      <a class="card" href="/producto/guantes-divertidos-3-colores-surtidos-para-sorprender-g1396-002/" data-sku="G1396-002" data-precio="17500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-002_001" alt="Guantes Divertidos – 3 colores surtidos para sorprender" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Guantes Divertidos – 3 colores surtidos para sorprender</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$17.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('G1396-002')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/guantes-tejidos-infantiles-beige-y-rosa-para-manos-abrigadas-g1396-003/">
+      <a class="card" href="/producto/guantes-tejidos-infantiles-beige-y-rosa-para-manos-abrigadas-g1396-003/" data-sku="G1396-003" data-precio="12500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G1396-003_001" alt="Guantes tejidos infantiles beige y rosa para manos abrigadas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Guantes tejidos infantiles beige y rosa para manos abrigadas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$12.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('G1396-003')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pack-x-4-resaltadores-surtidos-de-color-para-destacar-tus-ideas-l6129/">
+      <a class="card" href="/producto/pack-x-4-resaltadores-surtidos-de-color-para-destacar-tus-ideas-l6129/" data-sku="L6129" data-precio="13500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6129_001" alt="Pack x 4 resaltadores surtidos de color para destacar tus ideas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Pack x 4 resaltadores surtidos de color para destacar tus ideas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$13.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('L6129')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pack-resaltadores-surtidos-x4-colores-vibrantes-para-organizar-l6130/">
+      <a class="card" href="/producto/pack-resaltadores-surtidos-x4-colores-vibrantes-para-organizar-l6130/" data-sku="L6130" data-precio="13500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6130_001" alt="Pack Resaltadores Surtidos x4 - Colores Vibrantes para Organizar" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Pack Resaltadores Surtidos x4 - Colores Vibrantes para Organizar</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$13.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('L6130')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mini-resaltadores-pastel-pack-x6-para-apuntes-y-estudio-l6139/">
+      <a class="card" href="/producto/mini-resaltadores-pastel-pack-x6-para-apuntes-y-estudio-l6139/" data-sku="L6139" data-precio="29500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6139_001" alt="Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Mini Resaltadores Pastel Pack x6 para Apuntes y Estudio</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$29.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('L6139')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cartuchera-canopla-infantil-3-modelos-diseno-sorpresa-para-el-cole-m6024/">
+      <a class="card" href="/producto/cartuchera-canopla-infantil-3-modelos-diseno-sorpresa-para-el-cole-m6024/" data-sku="M6024" data-precio="17500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M6024_001" alt="Cartuchera canopla infantil 3 modelos: diseño sorpresa para el cole" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Cartuchera canopla infantil 3 modelos: diseño sorpresa para el cole</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$17.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M6024')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/gorro-beanie-trenzado-clasico-abrigo-y-estilo-en-varios-colores-s6064/">
+      <a class="card" href="/producto/gorro-beanie-trenzado-clasico-abrigo-y-estilo-en-varios-colores-s6064/" data-sku="S6064" data-precio="12000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6064_001" alt="Gorro Beanie Trenzado Clásico - Abrigo y Estilo en Varios Colores" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Gorro Beanie Trenzado Clásico - Abrigo y Estilo en Varios Colores</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$12.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('S6064')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/gorro-beanie-clasico-de-lana-7-colores-para-tu-look-sorpresa-t6108/">
+      <a class="card" href="/producto/gorro-beanie-clasico-de-lana-7-colores-para-tu-look-sorpresa-t6108/" data-sku="T6108" data-precio="12000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_T6108_001" alt="Gorro Beanie Clásico de lana, 7 colores para tu look sorpresa" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Gorro Beanie Clásico de lana, 7 colores para tu look sorpresa</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$12.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('T6108')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/gorro-beanie-clasico-de-lana-6-colores-surtidos-para-invierno-t6109/">
+      <a class="card" href="/producto/gorro-beanie-clasico-de-lana-6-colores-surtidos-para-invierno-t6109/" data-sku="T6109" data-precio="16500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_T6109_001" alt="Gorro Beanie Clásico de Lana - 6 Colores Surtidos para Invierno" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Gorro Beanie Clásico de Lana - 6 Colores Surtidos para Invierno</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$16.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('T6109')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/espejo-adhesivo-conejo-decorativo-ninos-seguro-y-personalizable-wh-rwh0167-con/">
+      <a class="card" href="/producto/espejo-adhesivo-conejo-decorativo-ninos-seguro-y-personalizable-wh-rwh0167-con/" data-sku="WH-RWH0167-CON" data-precio="10000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-CON_001" alt="Espejo adhesivo conejo decorativo niños, seguro y personalizable" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Espejo adhesivo conejo decorativo niños, seguro y personalizable</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$10.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-RWH0167-CON')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/espejo-nube-autoadhesivo-decorativo-seguro-para-ninos-con-stickers-wh-rwh0167-nub/">
+      <a class="card" href="/producto/espejo-nube-autoadhesivo-decorativo-seguro-para-ninos-con-stickers-wh-rwh0167-nub/" data-sku="WH-RWH0167-NUB" data-precio="10000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0167-NUB_001" alt="Espejo Nube Autoadhesivo Decorativo Seguro para Niños con Stickers" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Espejo Nube Autoadhesivo Decorativo Seguro para Niños con Stickers</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$10.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-RWH0167-NUB')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/set-globos-bride-to-be-rosa-gold-para-despedida-impactante-wh0160-1/">
+      <a class="card" href="/producto/set-globos-bride-to-be-rosa-gold-para-despedida-impactante-wh0160-1/" data-sku="WH0160-1" data-precio="26500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0160-1_001" alt="Set Globos BRIDE TO BE Rosa Gold para Despedida Impactante" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Set Globos BRIDE TO BE Rosa Gold para Despedida Impactante</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$26.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH0160-1')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/jabonera-de-personajes-japoneses-sumale-un-toque-unico-a-tu-bano-wh7079-1/">
+      <a class="card" href="/producto/jabonera-de-personajes-japoneses-sumale-un-toque-unico-a-tu-bano-wh7079-1/" data-sku="WH7079-1" data-precio="16000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7079-1_001" alt="Jabonera de Personajes Japoneses. Sumale un toque único a tu baño" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Jabonera de Personajes Japoneses. Sumale un toque único a tu baño</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$16.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7079-1')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/peluche-brazalete-de-animalitos-surtidos-diversion-para-tu-muneca-wh7109/">
+      <a class="card" href="/producto/peluche-brazalete-de-animalitos-surtidos-diversion-para-tu-muneca-wh7109/" data-sku="WH7109" data-precio="21000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7109_001" alt="Peluche brazalete de animalitos surtidos | Diversión para tu muñeca" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Peluche brazalete de animalitos surtidos | Diversión para tu muñeca</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$21.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7109')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/rollos-de-mini-stickers-surtidos-2-metros-para-decorar-y-organizar-wh7127/">
+      <a class="card" href="/producto/rollos-de-mini-stickers-surtidos-2-metros-para-decorar-y-organizar-wh7127/" data-sku="WH7127" data-precio="9000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7127_001" alt="Rollos de mini stickers surtidos 2 metros para decorar y organizar" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Rollos de mini stickers surtidos 2 metros para decorar y organizar</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$9.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7127')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cartuchera-infantil-mochila-bandolera-para-ninos-colores-surtidos-wh7137/">
+      <a class="card" href="/producto/cartuchera-infantil-mochila-bandolera-para-ninos-colores-surtidos-wh7137/" data-sku="WH7137" data-precio="26000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137_001" alt="Cartuchera infantil mochila bandolera para niños colores surtidos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Cartuchera infantil mochila bandolera para niños colores surtidos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$26.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7137')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cartuchera-escolar-personajes-japoneses-para-ninos-ideal-regalo-wh7137-1/">
+      <a class="card" href="/producto/cartuchera-escolar-personajes-japoneses-para-ninos-ideal-regalo-wh7137-1/" data-sku="WH7137-1" data-precio="29000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7137-1_001" alt="Cartuchera escolar personajes japoneses para niños - Ideal regalo" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Cartuchera escolar personajes japoneses para niños - Ideal regalo</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$29.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7137-1')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/medias-infantiles-de-osito-divertidas-talle-unico-universal-wh7155/">
+      <a class="card" href="/producto/medias-infantiles-de-osito-divertidas-talle-unico-universal-wh7155/" data-sku="WH7155" data-precio="9000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7155_001" alt="Medias infantiles de osito divertidas - Talle único universal" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Medias infantiles de osito divertidas - Talle único universal</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$9.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7155')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/babero-para-bebes-de-algodon-puro-suavidad-ideal-para-su-piel-wh7164/">
+      <a class="card" href="/producto/babero-para-bebes-de-algodon-puro-suavidad-ideal-para-su-piel-wh7164/" data-sku="WH7164" data-precio="5500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7164_001" alt="Babero para bebés de algodón puro, suavidad ideal para su piel" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Babero para bebés de algodón puro, suavidad ideal para su piel</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$5.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7164')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-enterito-infantil-celeste-de-algodon-puro-talle-66cm-wh7166ce-66/">
+      <a class="card" href="/producto/body-enterito-infantil-celeste-de-algodon-puro-talle-66cm-wh7166ce-66/" data-sku="WH7166CE-66" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CE-66_001" alt="Body enterito infantil Celeste de algodón puro - Talle 66cm" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body enterito infantil Celeste de algodón puro - Talle 66cm</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7166CE-66')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-enterito-bebe-algodon-puro-celeste-73cm-comodidad-y-ahorro-wh7166ce-73/">
+      <a class="card" href="/producto/body-enterito-bebe-algodon-puro-celeste-73cm-comodidad-y-ahorro-wh7166ce-73/" data-sku="WH7166CE-73" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CE-73_001" alt="Body enterito bebé algodón puro celeste 73cm - Comodidad y ahorro" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body enterito bebé algodón puro celeste 73cm - Comodidad y ahorro</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7166CE-73')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-enterito-infantil-celeste-algodon-puro-80cm-para-bebe-wh7166ce-80/">
+      <a class="card" href="/producto/body-enterito-infantil-celeste-algodon-puro-80cm-para-bebe-wh7166ce-80/" data-sku="WH7166CE-80" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CE-80_001" alt="Body enterito infantil celeste algodón puro 80cm para bebé" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body enterito infantil celeste algodón puro 80cm para bebé</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7166CE-80')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-enterito-infantil-algodon-puro-crema-66cm-en-oferta-wh7166cr-66/">
+      <a class="card" href="/producto/body-enterito-infantil-algodon-puro-crema-66cm-en-oferta-wh7166cr-66/" data-sku="WH7166CR-66" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-66_001" alt="Body enterito infantil algodón puro crema 66cm en oferta" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body enterito infantil algodón puro crema 66cm en oferta</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7166CR-66')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-enterito-bebe-algodon-puro-crema-73cm-para-su-comodidad-wh7166cr-73/">
+      <a class="card" href="/producto/body-enterito-bebe-algodon-puro-crema-73cm-para-su-comodidad-wh7166cr-73/" data-sku="WH7166CR-73" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-73_001" alt="Body enterito bebe algodon puro crema 73cm para su comodidad" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body enterito bebe algodon puro crema 73cm para su comodidad</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7166CR-73')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-enterito-bebe-algodon-crema-80cm-suave-y-comodo-wh7166cr-80/">
+      <a class="card" href="/producto/body-enterito-bebe-algodon-crema-80cm-suave-y-comodo-wh7166cr-80/" data-sku="WH7166CR-80" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166CR-80_001" alt="Body enterito bebé algodón crema 80cm suave y cómodo" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body enterito bebé algodón crema 80cm suave y cómodo</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7166CR-80')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-enterito-bebe-rosa-claro-66cm-algodon-puro-wh7166ro-66/">
+      <a class="card" href="/producto/body-enterito-bebe-rosa-claro-66cm-algodon-puro-wh7166ro-66/" data-sku="WH7166RO-66" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-66_001" alt="Body enterito bebé Rosa Claro 66cm - Algodón Puro" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body enterito bebé Rosa Claro 66cm - Algodón Puro</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7166RO-66')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-enterito-infantil-rosa-claro-73cm-algodon-puro-wh7166ro-73/">
+      <a class="card" href="/producto/body-enterito-infantil-rosa-claro-73cm-algodon-puro-wh7166ro-73/" data-sku="WH7166RO-73" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7166RO-73_001" alt="Body enterito infantil Rosa Claro 73cm, algodón puro" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body enterito infantil Rosa Claro 73cm, algodón puro</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7166RO-73')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-infantil-para-bebes-de-conejito-73cm-suave-y-practico-wh7170con-73/">
+      <a class="card" href="/producto/body-infantil-para-bebes-de-conejito-73cm-suave-y-practico-wh7170con-73/" data-sku="WH7170CON-73" data-precio="53000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170CON-73_001" alt="Body infantil para bebes de Conejito 73cm - suave y práctico" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body infantil para bebes de Conejito 73cm - suave y práctico</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$53.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7170CON-73')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-para-bebe-osito-66cm-ideal-para-la-comodidad-diaria-wh7170oso-66/">
+      <a class="card" href="/producto/body-para-bebe-osito-66cm-ideal-para-la-comodidad-diaria-wh7170oso-66/" data-sku="WH7170OSO-66" data-precio="53000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170OSO-66_001" alt="Body para bebe Osito 66cm - ideal para la comodidad diaria" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body para bebe Osito 66cm - ideal para la comodidad diaria</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$53.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7170OSO-66')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-infantil-osito-73cm-para-bebes-dulzura-y-comodidad-wh7170oso-73/">
+      <a class="card" href="/producto/body-infantil-osito-73cm-para-bebes-dulzura-y-comodidad-wh7170oso-73/" data-sku="WH7170OSO-73" data-precio="53000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170OSO-73_001" alt="Body infantil osito 73cm para bebés - dulzura y comodidad" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body infantil osito 73cm para bebés - dulzura y comodidad</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$53.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7170OSO-73')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-infantil-osito-80cm-el-mas-tierno-en-oferta-wh7170oso-80/">
+      <a class="card" href="/producto/body-infantil-osito-80cm-el-mas-tierno-en-oferta-wh7170oso-80/" data-sku="WH7170OSO-80" data-precio="53000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170OSO-80_001" alt="Body infantil Osito 80cm – El más tierno en oferta" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body infantil Osito 80cm – El más tierno en oferta</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$53.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7170OSO-80')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-infantil-de-bebe-oso-panda-73cm-para-la-ternura-de-tu-pequeno-wh7170pan-73/">
+      <a class="card" href="/producto/body-infantil-de-bebe-oso-panda-73cm-para-la-ternura-de-tu-pequeno-wh7170pan-73/" data-sku="WH7170PAN-73" data-precio="53000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170PAN-73_001" alt="Body infantil de bebé Oso Panda 73cm para la ternura de tu pequeño" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body infantil de bebé Oso Panda 73cm para la ternura de tu pequeño</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$53.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7170PAN-73')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-para-bebes-oso-panda-talle-80-cm-dulce-y-divertido-wh7170pan-80/">
+      <a class="card" href="/producto/body-para-bebes-oso-panda-talle-80-cm-dulce-y-divertido-wh7170pan-80/" data-sku="WH7170PAN-80" data-precio="53000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170PAN-80_001" alt="Body para bebes oso panda talle 80 cm. Dulce y divertido" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Body para bebes oso panda talle 80 cm. Dulce y divertido</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$53.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7170PAN-80')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pack-de-5-medias-blancas-con-disenos-divertidos-talle-unico-wh7212-bl/">
+      <a class="card" href="/producto/pack-de-5-medias-blancas-con-disenos-divertidos-talle-unico-wh7212-bl/" data-sku="WH7212-BL" data-precio="11500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-BL_001" alt="Pack de 5 Medias Blancas con Diseños Divertidos Talle Único" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Pack de 5 Medias Blancas con Diseños Divertidos Talle Único</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$11.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7212-BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pack-x5-medias-negras-con-disenos-divertidos-talle-unico-universal-wh7212-ne/">
+      <a class="card" href="/producto/pack-x5-medias-negras-con-disenos-divertidos-talle-unico-universal-wh7212-ne/" data-sku="WH7212-NE" data-precio="11500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7212-NE_001" alt="Pack x5 medias negras con diseños divertidos, talle único universal" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Pack x5 medias negras con diseños divertidos, talle único universal</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$11.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7212-NE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pack-stickers-personajes-japoneses-2-96-hojas-para-coleccionar-wh7275/">
+      <a class="card" href="/producto/pack-stickers-personajes-japoneses-2-96-hojas-para-coleccionar-wh7275/" data-sku="WH7275" data-precio="10500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7275_001" alt="Pack Stickers Personajes Japoneses 2 - 96 hojas para coleccionar" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Pack Stickers Personajes Japoneses 2 - 96 hojas para coleccionar</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$10.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7275')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/caja-de-stickers-personajes-japoneses-96-hojas-surtidas-wh7276/">
+      <a class="card" href="/producto/caja-de-stickers-personajes-japoneses-96-hojas-surtidas-wh7276/" data-sku="WH7276" data-precio="10500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7276_001" alt="Caja de stickers personajes japoneses 96 hojas surtidas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Caja de stickers personajes japoneses 96 hojas surtidas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$10.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7276')">Agregar al pedido</button>
         </div>
       </a></div>
 </div>
@@ -698,6 +860,80 @@
 
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Orden por precio (client-side, el HTML estático queda intacto para SEO)
+var _ordenOriginal = null;
+function ordenarGrid(modo) {
+  var grid = document.getElementById('listadoGrid');
+  if (!_ordenOriginal) _ordenOriginal = [].slice.call(grid.children);
+  var cards = [].slice.call(grid.children);
+  if (modo === 'rel') cards = _ordenOriginal.slice();
+  else cards.sort(function(a, b) {
+    var d = parseFloat(a.dataset.precio) - parseFloat(b.dataset.precio);
+    return modo === 'asc' ? d : -d;
+  });
+  cards.forEach(function(c) { grid.appendChild(c); });
+}
+
+// Catálogo estático (CDN): pinta ofertas/stock y alimenta el botón Agregar
+var _mapProds = {};
+var _catalogoListo = fetch('/productos.json?v=' + new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    var map = _mapProds;
+    (d.productos || d).forEach(function(p) { map[p.sku] = p; });
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var p = map[c.dataset.sku];
+      if (!p) return;
+      if (p.precio_oferta != null && p.precio_oferta < p.precio_venta) {
+        var pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
+        c.querySelector('.card-price').innerHTML =
+          '<span style="text-decoration:line-through;color:var(--gray-400);font-size:12.5px;margin-right:6px">' +
+          formatPrice(p.precio_venta) + '</span>' + formatPrice(p.precio_oferta) +
+          ' <span style="color:var(--red);font-size:12px;font-weight:700">-' + pct + '%</span>';
+        c.dataset.precio = p.precio_oferta;
+      }
+      if (p.stock != null && p.stock > 0 && p.stock <= 5) {
+        var b = document.createElement('div');
+        b.style.cssText = 'font-size:11.5px;font-weight:700;color:var(--red);margin-top:2px';
+        b.textContent = p.stock === 1 ? '⚡ ¡Última unidad!' : '⚡ ¡Últimas ' + p.stock + ' unidades!';
+        c.querySelector('.card-price').insertAdjacentElement('afterend', b);
+      }
+    });
+  }).catch(function() {});
+
+// Agregar al pedido desde la card (usa el catálogo ya cargado; espera si hace falta)
+function agregarAlCarrito(sku) {
+  _catalogoListo.then(function() {
+    var p = _mapProds[sku];
+    if (!p) return;
+    var oferta = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+    addCartItem({
+      sku: p.sku, nombre: p.nombre,
+      precio: oferta ? p.precio_oferta : p.precio_venta,
+      precio_lista: p.precio_venta,
+      imagen: p.imagen_principal || '', cantidad: 1
+    });
+    showToast('✅ ' + p.nombre + ' agregado a tu pedido');
+  });
+}
+
+// Ratings REALES de reseñas aprobadas (se activan solos cuando existan)
+fetch(EG_API_URL + '/api/resenas/promedios')
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var x = d[c.dataset.sku];
+      if (!x || !x.total) return;
+      var el = c.querySelector('.card-rating');
+      el.innerHTML = '★'.repeat(Math.round(x.promedio)) + ' <small>' + x.promedio + ' (' + x.total + ')</small>';
+      el.style.display = 'block';
+    });
+  }).catch(function() {});
+</script>
 </body>
 </html>

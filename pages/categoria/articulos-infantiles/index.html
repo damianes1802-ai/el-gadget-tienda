@@ -27,6 +27,11 @@
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
+.trust-strip { max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }
+.orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+.orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
+.card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
+.card-rating small { color: var(--gray-400); letter-spacing: 0; }
 .listado-secciones { max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }
 .listado-seccion { padding: 16px 0 4px; text-align: center; }
 .listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }
@@ -76,360 +81,461 @@
   <p>Regalos para chicos que no fallan: juguetes didácticos, accesorios para bebés y cosas divertidas para el jardín o la escuela. Ideal si buscás un regalo de cumpleaños práctico y original.</p>
 </div>
 
+<div class="trust-strip">
+  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+</div>
+
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip chip-activa">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>
 
+<div class="orden-bar">
+  <label for="ordenSel">Ordenar por:</label>
+  <select id="ordenSel" onchange="ordenarGrid(this.value)">
+    <option value="rel">Relevancia</option>
+    <option value="asc">Menor precio</option>
+    <option value="desc">Mayor precio</option>
+  </select>
+</div>
+
 <div class="listado-grid">
-  <div class="grid">
-      <a class="card" href="/producto/flotador-inflable-cisne-bebes-80cm-diversion-segura-en-el-agua-a-l1669-012/">
+  <div class="grid" id="listadoGrid">
+      <a class="card" href="/producto/flotador-inflable-cisne-bebes-80cm-diversion-segura-en-el-agua-a-l1669-012/" data-sku="A-L1669-012" data-precio="32500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1669-012_001" alt="Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Flotador Inflable Cisne Bebés 80cm: ¡Diversión Segura en el Agua!</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$32.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-L1669-012')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/boligrafos-pompon-orejitas-x12-surtidos-diversion-al-escribir-a-l6138/">
+      <a class="card" href="/producto/boligrafos-pompon-orejitas-x12-surtidos-diversion-al-escribir-a-l6138/" data-sku="A-L6138" data-precio="49500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L6138_001" alt="Bolígrafos Pompón Orejitas x12 Surtidos - ¡Diversión al Escribir!" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Bolígrafos Pompón Orejitas x12 Surtidos - ¡Diversión al Escribir!</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$49.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-L6138')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/set-x2-moldes-helado-silicona-20-palitos-reutilizables-bwh0207/">
+      <a class="card" href="/producto/set-x2-moldes-helado-silicona-20-palitos-reutilizables-bwh0207/" data-sku="BWH0207" data-precio="10500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0207_001" alt="Set x2 Moldes Helado Silicona 20 Palitos Reutilizables" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Set x2 Moldes Helado Silicona 20 Palitos Reutilizables</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$10.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('BWH0207')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/correa-portabebes-ergonomica-ajustable-gris-confort-para-vos-y-tu-bebe-dl1257-gr/">
+      <a class="card" href="/producto/correa-portabebes-ergonomica-ajustable-gris-confort-para-vos-y-tu-bebe-dl1257-gr/" data-sku="DL1257-GR" data-precio="23000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-GR_001" alt="Correa Portabebés Ergonómica Ajustable Gris. Confort para vos y tu bebé." loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Correa Portabebés Ergonómica Ajustable Gris. Confort para vos y tu bebé.</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$23.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1257-GR')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/correa-portabebes-ergonomica-ajustable-rosa-confort-y-seguridad-dl1257-ro/">
+      <a class="card" href="/producto/correa-portabebes-ergonomica-ajustable-rosa-confort-y-seguridad-dl1257-ro/" data-sku="DL1257-RO" data-precio="23000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-RO_001" alt="Correa Portabebés Ergonómica Ajustable Rosa - Confort y Seguridad" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Correa Portabebés Ergonómica Ajustable Rosa - Confort y Seguridad</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$23.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1257-RO')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/correa-portabebes-ergonomica-ajustable-turquesa-libertad-para-ambos-dl1257-tu/">
+      <a class="card" href="/producto/correa-portabebes-ergonomica-ajustable-turquesa-libertad-para-ambos-dl1257-tu/" data-sku="DL1257-TU" data-precio="23000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1257-TU_001" alt="Correa Portabebés Ergonómica Ajustable Turquesa: Libertad para ambos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Correa Portabebés Ergonómica Ajustable Turquesa: Libertad para ambos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$23.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1257-TU')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pulsera-repelente-de-mosquitos-ninos-proteccion-natural-citronela-dl1280-1-por-uni/">
+      <a class="card" href="/producto/pulsera-repelente-de-mosquitos-ninos-proteccion-natural-citronela-dl1280-1-por-uni/" data-sku="DL1280-1-POR-UNI" data-precio="3000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1-POR-UNI_001" alt="Pulsera Repelente de Mosquitos Niños | Protección Natural Citronela" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Pulsera Repelente de Mosquitos Niños | Protección Natural Citronela</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$3.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1280-1-POR-UNI')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pulsera-repelente-de-mosquitos-ninos-pack-x12-citronela-natural-dl1280-1x12/">
+      <a class="card" href="/producto/pulsera-repelente-de-mosquitos-ninos-pack-x12-citronela-natural-dl1280-1x12/" data-sku="DL1280-1X12" data-precio="30500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1X12_001" alt="Pulsera repelente de mosquitos niños pack x12 citronela natural" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Pulsera repelente de mosquitos niños pack x12 citronela natural</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$30.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1280-1X12')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/lapiceras-infantiles-pompon-x12-unidades-surtidas-colores-y-diversion-l6138/">
+      <a class="card" href="/producto/lapiceras-infantiles-pompon-x12-unidades-surtidas-colores-y-diversion-l6138/" data-sku="L6138" data-precio="70000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6138_001" alt="Lapiceras infantiles Pompón x12 unidades surtidas. Colores y diversión" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Lapiceras infantiles Pompón x12 unidades surtidas. Colores y diversión</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('L6138')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/anotador-pop-it-redondo-para-ninos-colores-surtidos-l6159/">
+      <a class="card" href="/producto/anotador-pop-it-redondo-para-ninos-colores-surtidos-l6159/" data-sku="L6159" data-precio="7000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6159_001" alt="Anotador Pop It Redondo para Niños - Colores Surtidos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Anotador Pop It Redondo para Niños - Colores Surtidos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$7.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('L6159')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/sacapuntas-astronauta-caja-x-24-para-ninos-ideal-souvenir-l6167/">
+      <a class="card" href="/producto/sacapuntas-astronauta-caja-x-24-para-ninos-ideal-souvenir-l6167/" data-sku="L6167" data-precio="149000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6167_001" alt="Sacapuntas Astronauta Caja x 24 para Niños - Ideal Souvenir" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Sacapuntas Astronauta Caja x 24 para Niños - Ideal Souvenir</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$149.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('L6167')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/boligrafos-astronauta-x24-unidades-surtidas-para-chicos-l6168/">
+      <a class="card" href="/producto/boligrafos-astronauta-x24-unidades-surtidas-para-chicos-l6168/" data-sku="L6168" data-precio="134500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6168_001" alt="Bolígrafos Astronauta x24 unidades surtidas para chicos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Bolígrafos Astronauta x24 unidades surtidas para chicos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$134.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('L6168')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/lapiceras-dinosaurio-infantiles-caja-x-36-unidades-colores-surtidos-l6169/">
+      <a class="card" href="/producto/lapiceras-dinosaurio-infantiles-caja-x-36-unidades-colores-surtidos-l6169/" data-sku="L6169" data-precio="201500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6169_001" alt="Lapiceras dinosaurio infantiles caja x 36 unidades colores surtidos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Lapiceras dinosaurio infantiles caja x 36 unidades colores surtidos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$201.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('L6169')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/sacapuntas-dinosaurios-surtidos-caja-x24-para-fiestas-y-colegios-l6170/">
+      <a class="card" href="/producto/sacapuntas-dinosaurios-surtidos-caja-x24-para-fiestas-y-colegios-l6170/" data-sku="L6170" data-precio="149000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6170_001" alt="Sacapuntas Dinosaurios Surtidos Caja x24 para Fiestas y Colegios" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Sacapuntas Dinosaurios Surtidos Caja x24 para Fiestas y Colegios</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$149.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('L6170')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/set-48-boligrafos-dinosaurios-surtidos-para-diversion-infantil-l6171/">
+      <a class="card" href="/producto/set-48-boligrafos-dinosaurios-surtidos-para-diversion-infantil-l6171/" data-sku="L6171" data-precio="268500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6171_001" alt="Set 48 bolígrafos dinosaurios surtidos para diversión infantil" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Set 48 bolígrafos dinosaurios surtidos para diversión infantil</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$268.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('L6171')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/juego-de-bloques-armar-estudio-de-arte-585-pcs-compatible-lego-rwh0180/">
+      <a class="card" href="/producto/juego-de-bloques-armar-estudio-de-arte-585-pcs-compatible-lego-rwh0180/" data-sku="RWH0180" data-precio="56500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_001" alt="Juego de Bloques Armar Estudio de Arte 585 Pcs | Compatible Lego" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Juego de Bloques Armar Estudio de Arte 585 Pcs | Compatible Lego</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$56.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('RWH0180')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/juego-de-bloques-para-armar-de-663-piezas-abs-ideal-para-regalar-rwh0181/">
+      <a class="card" href="/producto/juego-de-bloques-para-armar-de-663-piezas-abs-ideal-para-regalar-rwh0181/" data-sku="RWH0181" data-precio="73500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0181_001" alt="Juego de bloques para armar de 663 piezas ABS | ideal para regalar" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Juego de bloques para armar de 663 piezas ABS | ideal para regalar</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$73.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('RWH0181')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/juego-de-bloques-de-construccion-tostadora-695-piezas-para-ninos-rwh0182/">
+      <a class="card" href="/producto/juego-de-bloques-de-construccion-tostadora-695-piezas-para-ninos-rwh0182/" data-sku="RWH0182" data-precio="73500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0182_001" alt="Juego de Bloques de Construcción Tostadora 695 Piezas para Niños" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Juego de Bloques de Construcción Tostadora 695 Piezas para Niños</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$73.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('RWH0182')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/juguete-para-armar-rueda-de-la-fortuna-musical-710-piezas-rwh0187/">
+      <a class="card" href="/producto/juguete-para-armar-rueda-de-la-fortuna-musical-710-piezas-rwh0187/" data-sku="RWH0187" data-precio="94000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0187_001" alt="Juguete para Armar Rueda de la Fortuna Musical 710 piezas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Juguete para Armar Rueda de la Fortuna Musical 710 piezas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$94.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('RWH0187')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/castillo-de-bloques-con-cupula-683-piezas-magia-y-creatividad-para-nin-rwh0248/">
+      <a class="card" href="/producto/castillo-de-bloques-con-cupula-683-piezas-magia-y-creatividad-para-nin-rwh0248/" data-sku="RWH0248" data-precio="86500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_001" alt="Castillo de Bloques con Cúpula 683 Piezas: Magia y creatividad para niños" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Castillo de Bloques con Cúpula 683 Piezas: Magia y creatividad para niños</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$86.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('RWH0248')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-infantil-caballo-ergonomica-de-neopreno-impermeable-wh-mwh0210-am/">
+      <a class="card" href="/producto/mochila-infantil-caballo-ergonomica-de-neopreno-impermeable-wh-mwh0210-am/" data-sku="WH-MWH0210-AM" data-precio="33000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-AM_001" alt="Mochila Infantil Caballo Ergonómica de Neopreno Impermeable" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Mochila Infantil Caballo Ergonómica de Neopreno Impermeable</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$33.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-MWH0210-AM')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-infantil-dinosaurio-de-neopreno-impermeable-y-ergonomica-wh-mwh0210-az/">
+      <a class="card" href="/producto/mochila-infantil-dinosaurio-de-neopreno-impermeable-y-ergonomica-wh-mwh0210-az/" data-sku="WH-MWH0210-AZ" data-precio="33000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-AZ_001" alt="Mochila infantil dinosaurio de neopreno impermeable y ergonómica" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Mochila infantil dinosaurio de neopreno impermeable y ergonómica</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$33.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-MWH0210-AZ')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-infantil-oso-de-neopreno-impermeable-para-jardin-wh-mwh0210-ma/">
+      <a class="card" href="/producto/mochila-infantil-oso-de-neopreno-impermeable-para-jardin-wh-mwh0210-ma/" data-sku="WH-MWH0210-MA" data-precio="33000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-MA_001" alt="Mochila Infantil Oso de Neopreno Impermeable para Jardín" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Mochila Infantil Oso de Neopreno Impermeable para Jardín</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$33.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-MWH0210-MA')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-infantil-koala-neopreno-ergonomica-impermeable-para-jardin-wh-mwh0210-ve/">
+      <a class="card" href="/producto/mochila-infantil-koala-neopreno-ergonomica-impermeable-para-jardin-wh-mwh0210-ve/" data-sku="WH-MWH0210-VE" data-precio="33000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0210-VE_001" alt="Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Mochila Infantil Koala Neopreno Ergonómica Impermeable para Jardín</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$33.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-MWH0210-VE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-escolar-infantil-gato-ultraligera-y-con-proteccion-columna-wh-mwh0211-az/">
+      <a class="card" href="/producto/mochila-escolar-infantil-gato-ultraligera-y-con-proteccion-columna-wh-mwh0211-az/" data-sku="WH-MWH0211-AZ" data-precio="44500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-AZ_001" alt="Mochila Escolar Infantil Gato Ultraligera y con Protección Columna" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Mochila Escolar Infantil Gato Ultraligera y con Protección Columna</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$44.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-MWH0211-AZ')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-escolar-rana-infantil-proteccion-columna-comoda-wh-mwh0211-be/">
+      <a class="card" href="/producto/mochila-escolar-rana-infantil-proteccion-columna-comoda-wh-mwh0211-be/" data-sku="WH-MWH0211-BE" data-precio="44500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-BE_001" alt="Mochila Escolar Rana infantil protección columna cómoda" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Mochila Escolar Rana infantil protección columna cómoda</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$44.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-MWH0211-BE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-escolar-conejo-proteccion-columna-ultraliviana-wh-mwh0211-ro/">
+      <a class="card" href="/producto/mochila-escolar-conejo-proteccion-columna-ultraliviana-wh-mwh0211-ro/" data-sku="WH-MWH0211-RO" data-precio="44500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-MWH0211-RO_001" alt="Mochila Escolar Conejo Protección Columna Ultraliviana" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Mochila Escolar Conejo Protección Columna Ultraliviana</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$44.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-MWH0211-RO')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/regadera-elefante-azul-para-bebe-bano-sin-lagrimas-wh-rwh0133-az/">
+      <a class="card" href="/producto/regadera-elefante-azul-para-bebe-bano-sin-lagrimas-wh-rwh0133-az/" data-sku="WH-RWH0133-AZ" data-precio="5000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-AZ_001" alt="Regadera Elefante Azul para Bebé - Baño sin lágrimas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Regadera Elefante Azul para Bebé - Baño sin lágrimas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$5.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-RWH0133-AZ')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/regadera-bebe-rosa-elefante-animado-para-banera-enjuague-facil-wh-rwh0133-ro/">
+      <a class="card" href="/producto/regadera-bebe-rosa-elefante-animado-para-banera-enjuague-facil-wh-rwh0133-ro/" data-sku="WH-RWH0133-RO" data-precio="5000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0133-RO_001" alt="Regadera Bebé Rosa Elefante Animado para Bañera | Enjuague Fácil" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Regadera Bebé Rosa Elefante Animado para Bañera | Enjuague Fácil</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$5.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-RWH0133-RO')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pelela-portatil-antiderrame-para-ninos-ideal-viajes-y-paseos-wh-rwh0149-ce/">
+      <a class="card" href="/producto/pelela-portatil-antiderrame-para-ninos-ideal-viajes-y-paseos-wh-rwh0149-ce/" data-sku="WH-RWH0149-CE" data-precio="18000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0149-CE_001" alt="Pelela portátil antiderrame para niños, ideal viajes y paseos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Pelela portátil antiderrame para niños, ideal viajes y paseos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$18.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-RWH0149-CE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/orinal-portatil-antiderrame-para-ninos-viajes-y-paseos-wh-rwh0149-ro/">
+      <a class="card" href="/producto/orinal-portatil-antiderrame-para-ninos-viajes-y-paseos-wh-rwh0149-ro/" data-sku="WH-RWH0149-RO" data-precio="18000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-RWH0149-RO_001" alt="Orinal Portátil Antiderrame para Niños Viajes y Paseos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Orinal Portátil Antiderrame para Niños Viajes y Paseos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$18.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH-RWH0149-RO')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/botella-infantil-500ml-conejito-blanco-ideal-para-el-cole-wh0068-bl/">
+      <a class="card" href="/producto/botella-infantil-500ml-conejito-blanco-ideal-para-el-cole-wh0068-bl/" data-sku="WH0068-BL" data-precio="43500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0068-BL_001" alt="Botella Infantil 500ml Conejito Blanco, ideal para el cole" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Botella Infantil 500ml Conejito Blanco, ideal para el cole</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$43.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH0068-BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/botella-infantil-500ml-conejito-rosa-para-la-escuela-wh0068-ro/">
+      <a class="card" href="/producto/botella-infantil-500ml-conejito-rosa-para-la-escuela-wh0068-ro/" data-sku="WH0068-RO" data-precio="43500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0068-RO_001" alt="Botella infantil 500ml conejito rosa para la escuela" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Botella infantil 500ml conejito rosa para la escuela</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$43.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH0068-RO')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/botella-infantil-500ml-conejito-violeta-ideal-para-el-jardin-wh0068-vi/">
+      <a class="card" href="/producto/botella-infantil-500ml-conejito-violeta-ideal-para-el-jardin-wh0068-vi/" data-sku="WH0068-VI" data-precio="43500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0068-VI_001" alt="Botella infantil 500ml conejito violeta ideal para el jardín" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Botella infantil 500ml conejito violeta ideal para el jardín</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$43.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH0068-VI')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/almohadon-cambiador-para-bebes-de-algodon-suave-y-practico-wh7165/">
+      <a class="card" href="/producto/almohadon-cambiador-para-bebes-de-algodon-suave-y-practico-wh7165/" data-sku="WH7165" data-precio="16500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7165_001" alt="Almohadón cambiador para bebés de algodón, suave y práctico" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Almohadón cambiador para bebés de algodón, suave y práctico</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$16.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7165')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-de-algodon-blanco-para-bebe-59cm-suavidad-y-confort-wh7167-59bl/">
+      <a class="card" href="/producto/body-de-algodon-blanco-para-bebe-59cm-suavidad-y-confort-wh7167-59bl/" data-sku="WH7167-59BL" data-precio="52500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-59BL_001" alt="Body de Algodón Blanco para Bebé 59cm – Suavidad y Confort" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Body de Algodón Blanco para Bebé 59cm – Suavidad y Confort</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$52.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7167-59BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-bebe-algodon-puro-crema-59cm-ideal-primeros-meses-wh7167-59cr/">
+      <a class="card" href="/producto/body-bebe-algodon-puro-crema-59cm-ideal-primeros-meses-wh7167-59cr/" data-sku="WH7167-59CR" data-precio="42500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-59CR_001" alt="Body Bebé Algodón Puro Crema 59cm - Ideal Primeros Meses" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Body Bebé Algodón Puro Crema 59cm - Ideal Primeros Meses</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$42.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7167-59CR')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-bebe-algodon-blanco-66cm-comodidad-pura-para-ninos-wh7167-66bl/">
+      <a class="card" href="/producto/body-bebe-algodon-blanco-66cm-comodidad-pura-para-ninos-wh7167-66bl/" data-sku="WH7167-66BL" data-precio="52500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-66BL_001" alt="Body Bebé Algodón Blanco 66cm - Comodidad Pura para Niños" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Body Bebé Algodón Blanco 66cm - Comodidad Pura para Niños</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$52.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7167-66BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-infantil-bebe-algodon-puro-crema-66cm-confort-seguro-wh7167-66cr/">
+      <a class="card" href="/producto/body-infantil-bebe-algodon-puro-crema-66cm-confort-seguro-wh7167-66cr/" data-sku="WH7167-66CR" data-precio="42500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-66CR_001" alt="Body infantil bebé algodón puro crema 66cm, confort seguro" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Body infantil bebé algodón puro crema 66cm, confort seguro</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$42.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7167-66CR')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/body-infantil-para-bebes-conejito-66cm-suave-y-divertido-wh7170con-66/">
+      <a class="card" href="/producto/body-infantil-para-bebes-conejito-66cm-suave-y-divertido-wh7170con-66/" data-sku="WH7170CON-66" data-precio="53000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7170CON-66_001" alt="Body infantil para bebes Conejito 66cm suave y divertido" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Body infantil para bebes Conejito 66cm suave y divertido</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$53.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7170CON-66')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/par-de-medias-personajes-japoneses-talle-unico-diseno-divertido-wh7182/">
+      <a class="card" href="/producto/par-de-medias-personajes-japoneses-talle-unico-diseno-divertido-wh7182/" data-sku="WH7182" data-precio="8500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7182_001" alt="Par de medias personajes japoneses talle único, diseño divertido" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Par de medias personajes japoneses talle único, diseño divertido</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$8.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7182')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-infantil-capibara-carpincho-peluche-para-jardin-wh7259/">
+      <a class="card" href="/producto/mochila-infantil-capibara-carpincho-peluche-para-jardin-wh7259/" data-sku="WH7259" data-precio="34500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7259_001" alt="Mochila Infantil Capibara Carpincho peluche para jardín" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Mochila Infantil Capibara Carpincho peluche para jardín</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$34.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7259')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-infantil-animalitos-personajes-japoneses-ideal-jardin-wh7261/">
+      <a class="card" href="/producto/mochila-infantil-animalitos-personajes-japoneses-ideal-jardin-wh7261/" data-sku="WH7261" data-precio="62000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7261_001" alt="Mochila infantil animalitos personajes japoneses, ideal jardín" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Mochila infantil animalitos personajes japoneses, ideal jardín</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$62.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7261')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bandolerita-infantil-personajes-japoneses-original-22-cm-divertida-wh7268/">
+      <a class="card" href="/producto/bandolerita-infantil-personajes-japoneses-original-22-cm-divertida-wh7268/" data-sku="WH7268" data-precio="15000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7268_001" alt="Bandolerita infantil personajes japoneses original 22 cm divertida" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Artículos Infantiles</div>
           <div class="card-name">Bandolerita infantil personajes japoneses original 22 cm divertida</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$15.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7268')">Agregar al pedido</button>
         </div>
       </a></div>
 </div>
@@ -474,6 +580,80 @@
 
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Orden por precio (client-side, el HTML estático queda intacto para SEO)
+var _ordenOriginal = null;
+function ordenarGrid(modo) {
+  var grid = document.getElementById('listadoGrid');
+  if (!_ordenOriginal) _ordenOriginal = [].slice.call(grid.children);
+  var cards = [].slice.call(grid.children);
+  if (modo === 'rel') cards = _ordenOriginal.slice();
+  else cards.sort(function(a, b) {
+    var d = parseFloat(a.dataset.precio) - parseFloat(b.dataset.precio);
+    return modo === 'asc' ? d : -d;
+  });
+  cards.forEach(function(c) { grid.appendChild(c); });
+}
+
+// Catálogo estático (CDN): pinta ofertas/stock y alimenta el botón Agregar
+var _mapProds = {};
+var _catalogoListo = fetch('/productos.json?v=' + new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    var map = _mapProds;
+    (d.productos || d).forEach(function(p) { map[p.sku] = p; });
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var p = map[c.dataset.sku];
+      if (!p) return;
+      if (p.precio_oferta != null && p.precio_oferta < p.precio_venta) {
+        var pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
+        c.querySelector('.card-price').innerHTML =
+          '<span style="text-decoration:line-through;color:var(--gray-400);font-size:12.5px;margin-right:6px">' +
+          formatPrice(p.precio_venta) + '</span>' + formatPrice(p.precio_oferta) +
+          ' <span style="color:var(--red);font-size:12px;font-weight:700">-' + pct + '%</span>';
+        c.dataset.precio = p.precio_oferta;
+      }
+      if (p.stock != null && p.stock > 0 && p.stock <= 5) {
+        var b = document.createElement('div');
+        b.style.cssText = 'font-size:11.5px;font-weight:700;color:var(--red);margin-top:2px';
+        b.textContent = p.stock === 1 ? '⚡ ¡Última unidad!' : '⚡ ¡Últimas ' + p.stock + ' unidades!';
+        c.querySelector('.card-price').insertAdjacentElement('afterend', b);
+      }
+    });
+  }).catch(function() {});
+
+// Agregar al pedido desde la card (usa el catálogo ya cargado; espera si hace falta)
+function agregarAlCarrito(sku) {
+  _catalogoListo.then(function() {
+    var p = _mapProds[sku];
+    if (!p) return;
+    var oferta = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+    addCartItem({
+      sku: p.sku, nombre: p.nombre,
+      precio: oferta ? p.precio_oferta : p.precio_venta,
+      precio_lista: p.precio_venta,
+      imagen: p.imagen_principal || '', cantidad: 1
+    });
+    showToast('✅ ' + p.nombre + ' agregado a tu pedido');
+  });
+}
+
+// Ratings REALES de reseñas aprobadas (se activan solos cuando existan)
+fetch(EG_API_URL + '/api/resenas/promedios')
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var x = d[c.dataset.sku];
+      if (!x || !x.total) return;
+      var el = c.querySelector('.card-rating');
+      el.innerHTML = '★'.repeat(Math.round(x.promedio)) + ' <small>' + x.promedio + ' (' + x.total + ')</small>';
+      el.style.display = 'block';
+    });
+  }).catch(function() {});
+</script>
 </body>
 </html>

@@ -3455,6 +3455,22 @@ def solicitar_mayorista(request: Request, datos: SolicitudMayorista):
             "mensaje": "¡Recibimos tu solicitud! Te vamos a contactar para coordinar tu alta como mayorista."}
 
 
+@app.get("/api/resenas/promedios")
+def resenas_promedios():
+    """Promedio y cantidad de reseñas APROBADAS por SKU (para las cards de
+    los listados). Un solo request pinta todas las estrellas de una página."""
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT producto_sku, ROUND(AVG(rating), 1) AS promedio, COUNT(*) AS total "
+        "FROM resenas WHERE estado = 'aprobada' GROUP BY producto_sku"
+    )
+    out = {r["producto_sku"]: {"promedio": r["promedio"], "total": r["total"]}
+           for r in cursor.fetchall()}
+    conn.close()
+    return out
+
+
 @app.get("/api/producto/{sku}/resenas")
 def resenas_producto(sku: str):
     """Reseñas APROBADAS de un producto + promedio (públicas). Vacío si aún no hay."""

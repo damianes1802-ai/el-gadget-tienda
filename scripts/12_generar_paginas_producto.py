@@ -667,12 +667,14 @@ def _card_listado(p: dict, slug_map: dict) -> str:
     else:
         img_html = '<div class="card-img-placeholder">📦</div>'
     return f'''
-      <a class="card" href="{href}">
+      <a class="card" href="{href}" data-sku="{html.escape(p['sku'])}" data-precio="{p['precio_venta'] or 0}">
         <div class="card-img-wrap">{img_html}</div>
         <div class="card-body">
           <div class="card-cat">{html.escape(p.get('categoria') or '')}</div>
           <div class="card-name">{html.escape(p['nombre'])}</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">{formatear_precio(p['precio_venta'])}</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('{html.escape(p['sku'])}')">Agregar al pedido</button>
         </div>
       </a>'''
 
@@ -769,6 +771,11 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 .chip:hover {{ border-color: var(--accent); }}
 .chip-activa {{ background: var(--ink); color: #fff; border-color: var(--ink); }}
 .listado-grid {{ max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }}
+.trust-strip {{ max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }}
+.orden-bar {{ max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }}
+.orden-bar select {{ padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }}
+.card-rating {{ font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }}
+.card-rating small {{ color: var(--gray-400); letter-spacing: 0; }}
 .listado-secciones {{ max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }}
 .listado-seccion {{ padding: 16px 0 4px; text-align: center; }}
 .listado-seccion h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }}
@@ -818,10 +825,23 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
   <p>{html.escape(cfg['intro'])}</p>
 </div>
 
+<div class="trust-strip">
+  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+</div>
+
 <nav class="chips-nav" aria-label="Categorías">{chips_html}</nav>
 
+<div class="orden-bar">
+  <label for="ordenSel">Ordenar por:</label>
+  <select id="ordenSel" onchange="ordenarGrid(this.value)">
+    <option value="rel">Relevancia</option>
+    <option value="asc">Menor precio</option>
+    <option value="desc">Mayor precio</option>
+  </select>
+</div>
+
 <div class="listado-grid">
-  <div class="grid">{cards}</div>
+  <div class="grid" id="listadoGrid">{cards}</div>
 </div>
 {secciones_html}
 {faqs_html}
@@ -860,7 +880,81 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Orden por precio (client-side, el HTML estático queda intacto para SEO)
+var _ordenOriginal = null;
+function ordenarGrid(modo) {{
+  var grid = document.getElementById('listadoGrid');
+  if (!_ordenOriginal) _ordenOriginal = [].slice.call(grid.children);
+  var cards = [].slice.call(grid.children);
+  if (modo === 'rel') cards = _ordenOriginal.slice();
+  else cards.sort(function(a, b) {{
+    var d = parseFloat(a.dataset.precio) - parseFloat(b.dataset.precio);
+    return modo === 'asc' ? d : -d;
+  }});
+  cards.forEach(function(c) {{ grid.appendChild(c); }});
+}}
+
+// Catálogo estático (CDN): pinta ofertas/stock y alimenta el botón Agregar
+var _mapProds = {{}};
+var _catalogoListo = fetch('/productos.json?v=' + new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+  .then(function(r) {{ return r.ok ? r.json() : null; }})
+  .then(function(d) {{
+    if (!d) return;
+    var map = _mapProds;
+    (d.productos || d).forEach(function(p) {{ map[p.sku] = p; }});
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {{
+      var p = map[c.dataset.sku];
+      if (!p) return;
+      if (p.precio_oferta != null && p.precio_oferta < p.precio_venta) {{
+        var pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
+        c.querySelector('.card-price').innerHTML =
+          '<span style="text-decoration:line-through;color:var(--gray-400);font-size:12.5px;margin-right:6px">' +
+          formatPrice(p.precio_venta) + '</span>' + formatPrice(p.precio_oferta) +
+          ' <span style="color:var(--red);font-size:12px;font-weight:700">-' + pct + '%</span>';
+        c.dataset.precio = p.precio_oferta;
+      }}
+      if (p.stock != null && p.stock > 0 && p.stock <= 5) {{
+        var b = document.createElement('div');
+        b.style.cssText = 'font-size:11.5px;font-weight:700;color:var(--red);margin-top:2px';
+        b.textContent = p.stock === 1 ? '⚡ ¡Última unidad!' : '⚡ ¡Últimas ' + p.stock + ' unidades!';
+        c.querySelector('.card-price').insertAdjacentElement('afterend', b);
+      }}
+    }});
+  }}).catch(function() {{}});
+
+// Agregar al pedido desde la card (usa el catálogo ya cargado; espera si hace falta)
+function agregarAlCarrito(sku) {{
+  _catalogoListo.then(function() {{
+    var p = _mapProds[sku];
+    if (!p) return;
+    var oferta = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+    addCartItem({{
+      sku: p.sku, nombre: p.nombre,
+      precio: oferta ? p.precio_oferta : p.precio_venta,
+      precio_lista: p.precio_venta,
+      imagen: p.imagen_principal || '', cantidad: 1
+    }});
+    showToast('✅ ' + p.nombre + ' agregado a tu pedido');
+  }});
+}}
+
+// Ratings REALES de reseñas aprobadas (se activan solos cuando existan)
+fetch(EG_API_URL + '/api/resenas/promedios')
+  .then(function(r) {{ return r.ok ? r.json() : null; }})
+  .then(function(d) {{
+    if (!d) return;
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {{
+      var x = d[c.dataset.sku];
+      if (!x || !x.total) return;
+      var el = c.querySelector('.card-rating');
+      el.innerHTML = '★'.repeat(Math.round(x.promedio)) + ' <small>' + x.promedio + ' (' + x.total + ')</small>';
+      el.style.display = 'block';
+    }});
+  }}).catch(function() {{}});
+</script>
 </body>
 </html>'''
 

@@ -27,6 +27,11 @@
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
+.trust-strip { max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }
+.orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+.orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
+.card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
+.card-rating small { color: var(--gray-400); letter-spacing: 0; }
 .listado-secciones { max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }
 .listado-seccion { padding: 16px 0 4px; text-align: center; }
 .listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }
@@ -76,128 +81,171 @@
   <p>Accesorios pensados para que convivir con tu perro o gato sea más limpio y simple: alfombras absorbentes de diatomita, comederos y bebederos portátiles, cepillos y guantes para el pelo. Envío a toda la Argentina.</p>
 </div>
 
+<div class="trust-strip">
+  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+</div>
+
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip chip-activa">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>
 
+<div class="orden-bar">
+  <label for="ordenSel">Ordenar por:</label>
+  <select id="ordenSel" onchange="ordenarGrid(this.value)">
+    <option value="rel">Relevancia</option>
+    <option value="asc">Menor precio</option>
+    <option value="desc">Mayor precio</option>
+  </select>
+</div>
+
 <div class="listado-grid">
-  <div class="grid">
-      <a class="card" href="/producto/alfombra-absorbente-de-diatomita-para-mascotas-blanco-dl1172-3-bl/">
+  <div class="grid" id="listadoGrid">
+      <a class="card" href="/producto/alfombra-absorbente-de-diatomita-para-mascotas-blanco-dl1172-3-bl/" data-sku="DL1172-3-BL" data-precio="16000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-BL_001" alt="Alfombra absorbente de diatomita para mascotas blanco" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Alfombra absorbente de diatomita para mascotas blanco</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$16.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1172-3-BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/alfombra-absorbente-gris-de-diatomita-para-mascotas-patitas-secas-dl1172-3-gr/">
+      <a class="card" href="/producto/alfombra-absorbente-gris-de-diatomita-para-mascotas-patitas-secas-dl1172-3-gr/" data-sku="DL1172-3-GR" data-precio="17500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-GR_001" alt="Alfombra Absorbente Gris de Diatomita para Mascotas – Patitas secas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Alfombra Absorbente Gris de Diatomita para Mascotas – Patitas secas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$17.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1172-3-GR')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/alfombra-absorbente-para-mascotas-diatomita-beige-pisadas-secas-dl1172-5-be/">
+      <a class="card" href="/producto/alfombra-absorbente-para-mascotas-diatomita-beige-pisadas-secas-dl1172-5-be/" data-sku="DL1172-5-BE" data-precio="16000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-BE_001" alt="Alfombra Absorbente para Mascotas Diatomita Beige: pisadas secas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Alfombra Absorbente para Mascotas Diatomita Beige: pisadas secas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$16.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1172-5-BE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/alfombra-absorbente-para-mascotas-gris-de-diatomita-pisos-limpios-dl1172-5-gr/">
+      <a class="card" href="/producto/alfombra-absorbente-para-mascotas-gris-de-diatomita-pisos-limpios-dl1172-5-gr/" data-sku="DL1172-5-GR" data-precio="16000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-GR_001" alt="Alfombra absorbente para mascotas gris de diatomita. Pisos limpios." loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Alfombra absorbente para mascotas gris de diatomita. Pisos limpios.</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$16.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1172-5-GR')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/alfombra-absorbente-para-mascotas-marron-30x40cm-limpieza-rapida-dl1172-5-ma/">
+      <a class="card" href="/producto/alfombra-absorbente-para-mascotas-marron-30x40cm-limpieza-rapida-dl1172-5-ma/" data-sku="DL1172-5-MA" data-precio="16000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-5-MA_001" alt="Alfombra absorbente para mascotas marrón 30x40cm, limpieza rapida" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Alfombra absorbente para mascotas marrón 30x40cm, limpieza rapida</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$16.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1172-5-MA')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/guante-para-peinar-y-sacar-pelos-mascotas-silicona-perros-gatos-dl1189/">
+      <a class="card" href="/producto/guante-para-peinar-y-sacar-pelos-mascotas-silicona-perros-gatos-dl1189/" data-sku="DL1189" data-precio="4000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1189_001" alt="Guante para peinar y sacar pelos mascotas silicona | perros gatos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Guante para peinar y sacar pelos mascotas silicona | perros gatos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$4.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1189')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/collar-isabelino-para-perros-gatos-35-43-cm-velcro-ajustable-dl1193-2/">
+      <a class="card" href="/producto/collar-isabelino-para-perros-gatos-35-43-cm-velcro-ajustable-dl1193-2/" data-sku="DL1193-2" data-precio="9000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-2_001" alt="Collar Isabelino para Perros Gatos 35-43 cm, Velcro Ajustable" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Collar Isabelino para Perros Gatos 35-43 cm, Velcro Ajustable</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$9.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1193-2')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/collar-isabelino-para-perros-y-gatos-con-velcro-33-36-cm-dl1193-3/">
+      <a class="card" href="/producto/collar-isabelino-para-perros-y-gatos-con-velcro-33-36-cm-dl1193-3/" data-sku="DL1193-3" data-precio="9000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-3_001" alt="Collar Isabelino para Perros y Gatos con Velcro 33-36 cm" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Collar Isabelino para Perros y Gatos con Velcro 33-36 cm</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$9.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1193-3')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/collar-isabelino-para-mascotas-con-velcro-26-33-cm-ajustable-dl1193-4/">
+      <a class="card" href="/producto/collar-isabelino-para-mascotas-con-velcro-26-33-cm-ajustable-dl1193-4/" data-sku="DL1193-4" data-precio="9000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-4_001" alt="Collar isabelino para mascotas con velcro 26-33 cm ajustable" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Collar isabelino para mascotas con velcro 26-33 cm ajustable</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$9.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1193-4')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/collar-isabelino-para-mascotas-23-27-cm-cierre-velcro-ajustable-dl1193-5/">
+      <a class="card" href="/producto/collar-isabelino-para-mascotas-23-27-cm-cierre-velcro-ajustable-dl1193-5/" data-sku="DL1193-5" data-precio="9000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-5_001" alt="Collar Isabelino para Mascotas 23-27 cm, cierre velcro ajustable" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Collar Isabelino para Mascotas 23-27 cm, cierre velcro ajustable</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$9.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1193-5')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/collar-isabelino-para-perros-gatos-velcro-18-22cm-ajuste-comodo-dl1193-6/">
+      <a class="card" href="/producto/collar-isabelino-para-perros-gatos-velcro-18-22cm-ajuste-comodo-dl1193-6/" data-sku="DL1193-6" data-precio="9000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-6_001" alt="Collar Isabelino para Perros Gatos Velcro 18-22cm Ajuste Comodo" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Collar Isabelino para Perros Gatos Velcro 18-22cm Ajuste Comodo</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$9.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1193-6')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bebedero-y-comedero-portatil-para-mascotas-350ml-viajes-paseos-dl2146-bl/">
+      <a class="card" href="/producto/bebedero-y-comedero-portatil-para-mascotas-350ml-viajes-paseos-dl2146-bl/" data-sku="DL2146-BL" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-BL_001" alt="Bebedero y Comedero Portátil para Mascotas 350ml Viajes Paseos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Bebedero y Comedero Portátil para Mascotas 350ml Viajes Paseos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2146-BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/dispenser-portatil-agua-y-comida-mascotas-550ml-rosa-dl2146-ro/">
+      <a class="card" href="/producto/dispenser-portatil-agua-y-comida-mascotas-550ml-rosa-dl2146-ro/" data-sku="DL2146-RO" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-RO_001" alt="Dispenser portatil agua y comida mascotas 550ml rosa" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Dispenser portatil agua y comida mascotas 550ml rosa</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2146-RO')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/dispenser-de-agua-y-comida-mascotas-turquesa-350ml-para-paseos-dl2146-tur/">
+      <a class="card" href="/producto/dispenser-de-agua-y-comida-mascotas-turquesa-350ml-para-paseos-dl2146-tur/" data-sku="DL2146-TUR" data-precio="39000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2146-TUR_001" alt="Dispenser de Agua y Comida Mascotas Turquesa 350ml, para paseos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Dispenser de Agua y Comida Mascotas Turquesa 350ml, para paseos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$39.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2146-TUR')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cepillo-a-vapor-3-en-1-para-mascotas-pelo-limpio-sano-y-sin-nudos-wh0101/">
+      <a class="card" href="/producto/cepillo-a-vapor-3-en-1-para-mascotas-pelo-limpio-sano-y-sin-nudos-wh0101/" data-sku="WH0101" data-precio="15000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_001" alt="Cepillo a vapor 3 en 1 para mascotas: pelo limpio, sano y sin nudos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios para Mascotas</div>
           <div class="card-name">Cepillo a vapor 3 en 1 para mascotas: pelo limpio, sano y sin nudos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$15.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH0101')">Agregar al pedido</button>
         </div>
       </a></div>
 </div>
@@ -242,6 +290,80 @@
 
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Orden por precio (client-side, el HTML estático queda intacto para SEO)
+var _ordenOriginal = null;
+function ordenarGrid(modo) {
+  var grid = document.getElementById('listadoGrid');
+  if (!_ordenOriginal) _ordenOriginal = [].slice.call(grid.children);
+  var cards = [].slice.call(grid.children);
+  if (modo === 'rel') cards = _ordenOriginal.slice();
+  else cards.sort(function(a, b) {
+    var d = parseFloat(a.dataset.precio) - parseFloat(b.dataset.precio);
+    return modo === 'asc' ? d : -d;
+  });
+  cards.forEach(function(c) { grid.appendChild(c); });
+}
+
+// Catálogo estático (CDN): pinta ofertas/stock y alimenta el botón Agregar
+var _mapProds = {};
+var _catalogoListo = fetch('/productos.json?v=' + new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    var map = _mapProds;
+    (d.productos || d).forEach(function(p) { map[p.sku] = p; });
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var p = map[c.dataset.sku];
+      if (!p) return;
+      if (p.precio_oferta != null && p.precio_oferta < p.precio_venta) {
+        var pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
+        c.querySelector('.card-price').innerHTML =
+          '<span style="text-decoration:line-through;color:var(--gray-400);font-size:12.5px;margin-right:6px">' +
+          formatPrice(p.precio_venta) + '</span>' + formatPrice(p.precio_oferta) +
+          ' <span style="color:var(--red);font-size:12px;font-weight:700">-' + pct + '%</span>';
+        c.dataset.precio = p.precio_oferta;
+      }
+      if (p.stock != null && p.stock > 0 && p.stock <= 5) {
+        var b = document.createElement('div');
+        b.style.cssText = 'font-size:11.5px;font-weight:700;color:var(--red);margin-top:2px';
+        b.textContent = p.stock === 1 ? '⚡ ¡Última unidad!' : '⚡ ¡Últimas ' + p.stock + ' unidades!';
+        c.querySelector('.card-price').insertAdjacentElement('afterend', b);
+      }
+    });
+  }).catch(function() {});
+
+// Agregar al pedido desde la card (usa el catálogo ya cargado; espera si hace falta)
+function agregarAlCarrito(sku) {
+  _catalogoListo.then(function() {
+    var p = _mapProds[sku];
+    if (!p) return;
+    var oferta = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+    addCartItem({
+      sku: p.sku, nombre: p.nombre,
+      precio: oferta ? p.precio_oferta : p.precio_venta,
+      precio_lista: p.precio_venta,
+      imagen: p.imagen_principal || '', cantidad: 1
+    });
+    showToast('✅ ' + p.nombre + ' agregado a tu pedido');
+  });
+}
+
+// Ratings REALES de reseñas aprobadas (se activan solos cuando existan)
+fetch(EG_API_URL + '/api/resenas/promedios')
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var x = d[c.dataset.sku];
+      if (!x || !x.total) return;
+      var el = c.querySelector('.card-rating');
+      el.innerHTML = '★'.repeat(Math.round(x.promedio)) + ' <small>' + x.promedio + ' (' + x.total + ')</small>';
+      el.style.display = 'block';
+    });
+  }).catch(function() {});
+</script>
 </body>
 </html>

@@ -27,6 +27,11 @@
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
+.trust-strip { max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }
+.orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+.orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
+.card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
+.card-rating small { color: var(--gray-400); letter-spacing: 0; }
 .listado-secciones { max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }
 .listado-seccion { padding: 16px 0 4px; text-align: center; }
 .listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }
@@ -76,360 +81,461 @@
   <p>Bandoleras tejidas, carteras y riñoneras elegidas para acompañarte todos los días: livianas, cómodas y con onda. Renovate sin gastar una fortuna, con envío a toda la Argentina y cambios sin vueltas.</p>
 </div>
 
+<div class="trust-strip">
+  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+</div>
+
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip chip-activa">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>
 
+<div class="orden-bar">
+  <label for="ordenSel">Ordenar por:</label>
+  <select id="ordenSel" onchange="ordenarGrid(this.value)">
+    <option value="rel">Relevancia</option>
+    <option value="asc">Menor precio</option>
+    <option value="desc">Mayor precio</option>
+  </select>
+</div>
+
 <div class="listado-grid">
-  <div class="grid">
-      <a class="card" href="/producto/cartera-bandolera-mini-bag-cuero-sintetico-rigido-con-pompon-m1365-001c/">
+  <div class="grid" id="listadoGrid">
+      <a class="card" href="/producto/cartera-bandolera-mini-bag-cuero-sintetico-rigido-con-pompon-m1365-001c/" data-sku="M1365-001C" data-precio="44000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001C_001" alt="Cartera Bandolera Mini Bag Cuero Sintético Rígido con Pompón" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Cartera Bandolera Mini Bag Cuero Sintético Rígido con Pompón</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$44.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M1365-001C')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mini-bag-bandolera-bordo-cuero-sintetico-pompon-elegante-m1365-001d/">
+      <a class="card" href="/producto/mini-bag-bandolera-bordo-cuero-sintetico-pompon-elegante-m1365-001d/" data-sku="M1365-001D" data-precio="44000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M1365-001D_001" alt="Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Mini Bag Bandolera Bordó Cuero Sintético Pompón Elegante</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$44.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M1365-001D')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cartera-sobre-mujer-transparente-lentejuelas-rosa-fiestas-m2013-004a/">
+      <a class="card" href="/producto/cartera-sobre-mujer-transparente-lentejuelas-rosa-fiestas-m2013-004a/" data-sku="M2013-004A" data-precio="23500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004A_001" alt="Cartera Sobre Mujer Transparente Lentejuelas Rosa Fiestas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Cartera Sobre Mujer Transparente Lentejuelas Rosa Fiestas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$23.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2013-004A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cartera-sobre-mujer-transparente-con-lentejuelas-plateadas-rosa-m2013-004b/">
+      <a class="card" href="/producto/cartera-sobre-mujer-transparente-con-lentejuelas-plateadas-rosa-m2013-004b/" data-sku="M2013-004B" data-precio="23500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2013-004B_001" alt="Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Cartera Sobre Mujer Transparente con Lentejuelas Plateadas Rosa</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$23.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2013-004B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-bolso-morral-pu-mujer-sport-chic-estampada-versatil-m2028-001b/">
+      <a class="card" href="/producto/mochila-bolso-morral-pu-mujer-sport-chic-estampada-versatil-m2028-001b/" data-sku="M2028-001B" data-precio="34000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001B_001" alt="Mochila Bolso Morral PU Mujer Sport Chic Estampada Versátil" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Mochila Bolso Morral PU Mujer Sport Chic Estampada Versátil</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$34.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2028-001B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-bolso-mujer-sport-chic-estampada-pu-versatil-y-liviana-m2028-001c/">
+      <a class="card" href="/producto/mochila-bolso-mujer-sport-chic-estampada-pu-versatil-y-liviana-m2028-001c/" data-sku="M2028-001C" data-precio="34000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001C_001" alt="Mochila Bolso Mujer Sport Chic Estampada PU - Versátil y Liviana" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Mochila Bolso Mujer Sport Chic Estampada PU - Versátil y Liviana</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$34.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2028-001C')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-bolso-mujer-mediana-estampado-hojas-sport-chic-m2028-001d/">
+      <a class="card" href="/producto/mochila-bolso-mujer-mediana-estampado-hojas-sport-chic-m2028-001d/" data-sku="M2028-001D" data-precio="34000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001D_001" alt="Mochila Bolso Mujer Mediana Estampado Hojas Sport Chic" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Mochila Bolso Mujer Mediana Estampado Hojas Sport Chic</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$34.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2028-001D')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-urbana-mujer-sport-chic-estampada-pu-bolso-morral-m2028-001h/">
+      <a class="card" href="/producto/mochila-urbana-mujer-sport-chic-estampada-pu-bolso-morral-m2028-001h/" data-sku="M2028-001H" data-precio="34000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001H_001" alt="Mochila Urbana Mujer Sport Chic Estampada PU - Bolso Morral" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Mochila Urbana Mujer Sport Chic Estampada PU - Bolso Morral</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$34.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2028-001H')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bolso-bandolera-raffia-tejido-mujer-crochet-verano-y-estilo-m2062-002/">
+      <a class="card" href="/producto/bolso-bandolera-raffia-tejido-mujer-crochet-verano-y-estilo-m2062-002/" data-sku="M2062-002" data-precio="62500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2062-002_001" alt="Bolso Bandolera Raffia Tejido Mujer Crochet | Verano y Estilo" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Bolso Bandolera Raffia Tejido Mujer Crochet | Verano y Estilo</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$62.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2062-002')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bolso-bandolera-de-raffia-tejida-con-pompones-o-cerezas-m2062-004/">
+      <a class="card" href="/producto/bolso-bandolera-de-raffia-tejida-con-pompones-o-cerezas-m2062-004/" data-sku="M2062-004" data-precio="62500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2062-004_001" alt="Bolso Bandolera de Raffia Tejida con Pompones o Cerezas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Bolso Bandolera de Raffia Tejida con Pompones o Cerezas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$62.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2062-004')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cartera-bandolera-mujer-holografica-cuero-pu-con-cadena-m2071-002/">
+      <a class="card" href="/producto/cartera-bandolera-mujer-holografica-cuero-pu-con-cadena-m2071-002/" data-sku="M2071-002" data-precio="57000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_001" alt="Cartera Bandolera Mujer Holográfica Cuero PU con Cadena" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Cartera Bandolera Mujer Holográfica Cuero PU con Cadena</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$57.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2071-002')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/portacosmeticos-transparente-lentejuelas-corazones-colores-practico-m2087-009a/">
+      <a class="card" href="/producto/portacosmeticos-transparente-lentejuelas-corazones-colores-practico-m2087-009a/" data-sku="M2087-009A" data-precio="14500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2087-009A_001" alt="Portacosméticos transparente lentejuelas corazones colores práctico" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Portacosméticos transparente lentejuelas corazones colores práctico</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$14.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2087-009A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/portacosmeticos-transparente-lentejuelas-corazones-con-correa-rosa-m2087-009b/">
+      <a class="card" href="/producto/portacosmeticos-transparente-lentejuelas-corazones-con-correa-rosa-m2087-009b/" data-sku="M2087-009B" data-precio="16000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2087-009B_001" alt="Portacosméticos transparente lentejuelas corazones, con correa rosa" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Portacosméticos transparente lentejuelas corazones, con correa rosa</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$16.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2087-009B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cartera-mini-bag-bandolera-mujer-fluor-snake-eco-cuero-m2971-007b/">
+      <a class="card" href="/producto/cartera-mini-bag-bandolera-mujer-fluor-snake-eco-cuero-m2971-007b/" data-sku="M2971-007B" data-precio="62500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2971-007B_001" alt="Cartera Mini Bag Bandolera Mujer Flúor Snake Eco Cuero" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Cartera Mini Bag Bandolera Mujer Flúor Snake Eco Cuero</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$62.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2971-007B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/rinonera-mujer-fluo-amarilla-snake-cuero-ecologico-doble-cierre-m2974-006a/">
+      <a class="card" href="/producto/rinonera-mujer-fluo-amarilla-snake-cuero-ecologico-doble-cierre-m2974-006a/" data-sku="M2974-006A" data-precio="47000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2974-006A_001" alt="Riñonera Mujer Fluo Amarilla Snake Cuero Ecológico Doble Cierre" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Riñonera Mujer Fluo Amarilla Snake Cuero Ecológico Doble Cierre</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$47.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2974-006A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/rinonera-mujer-rosa-fluo-snake-cuero-ecologico-total-chic-m2974-006b/">
+      <a class="card" href="/producto/rinonera-mujer-rosa-fluo-snake-cuero-ecologico-total-chic-m2974-006b/" data-sku="M2974-006B" data-precio="47000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2974-006B_001" alt="Riñonera Mujer Rosa Fluo Snake Cuero Ecológico Total Chic" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Riñonera Mujer Rosa Fluo Snake Cuero Ecológico Total Chic</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$47.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2974-006B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/mochila-transparente-pvc-mediana-ideal-para-viajes-y-paseos-con-estilo-m2999-005/">
+      <a class="card" href="/producto/mochila-transparente-pvc-mediana-ideal-para-viajes-y-paseos-con-estilo-m2999-005/" data-sku="M2999-005" data-precio="47000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2999-005_001" alt="Mochila Transparente PVC Mediana | Ideal para Viajes y Paseos con Estilo" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Mochila Transparente PVC Mediana | Ideal para Viajes y Paseos con Estilo</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$47.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M2999-005')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bandolera-tejida-mujer-negra-crochet-estilo-playa-verano-chic-m3022-001a/">
+      <a class="card" href="/producto/bandolera-tejida-mujer-negra-crochet-estilo-playa-verano-chic-m3022-001a/" data-sku="M3022-001A" data-precio="59500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001A_001" alt="Bandolera Tejida Mujer Negra Crochet Estilo Playa Verano Chic" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Bandolera Tejida Mujer Negra Crochet Estilo Playa Verano Chic</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$59.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M3022-001A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bolso-bandolera-tejida-crochet-blanca-mujer-verano-playa-m3022-001b/">
+      <a class="card" href="/producto/bolso-bandolera-tejida-crochet-blanca-mujer-verano-playa-m3022-001b/" data-sku="M3022-001B" data-precio="59500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3022-001B_001" alt="Bolso Bandolera Tejida Crochet Blanca Mujer Verano Playa" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Bolso Bandolera Tejida Crochet Blanca Mujer Verano Playa</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$59.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M3022-001B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bandolera-transparente-negra-pvc-con-porta-objeto-el-toque-de-moda-m3030-006a/">
+      <a class="card" href="/producto/bandolera-transparente-negra-pvc-con-porta-objeto-el-toque-de-moda-m3030-006a/" data-sku="M3030-006A" data-precio="77000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_001" alt="Bandolera Transparente Negra PVC con Porta Objeto - El toque de moda" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Bandolera Transparente Negra PVC con Porta Objeto - El toque de moda</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$77.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M3030-006A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cartera-bandolera-transparente-negra-para-mujer-estilo-trendy-m3102-011a/">
+      <a class="card" href="/producto/cartera-bandolera-transparente-negra-para-mujer-estilo-trendy-m3102-011a/" data-sku="M3102-011A" data-precio="57000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011A_001" alt="Cartera Bandolera Transparente Negra para Mujer - Estilo Trendy" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Cartera Bandolera Transparente Negra para Mujer - Estilo Trendy</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$57.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M3102-011A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cartera-bandolera-mujer-transparente-pvc-bordada-moda-blanca-m3102-011b/">
+      <a class="card" href="/producto/cartera-bandolera-mujer-transparente-pvc-bordada-moda-blanca-m3102-011b/" data-sku="M3102-011B" data-precio="57000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3102-011B_001" alt="Cartera Bandolera Mujer Transparente PVC Bordada Moda Blanca" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Cartera Bandolera Mujer Transparente PVC Bordada Moda Blanca</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$57.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M3102-011B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bandolera-tejida-mujer-sandia-limon-doble-cierre-para-verano-m3103-001a/">
+      <a class="card" href="/producto/bandolera-tejida-mujer-sandia-limon-doble-cierre-para-verano-m3103-001a/" data-sku="M3103-001A" data-precio="47000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3103-001A_001" alt="Bandolera Tejida Mujer Sandía Limón Doble Cierre para Verano" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Bandolera Tejida Mujer Sandía Limón Doble Cierre para Verano</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$47.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M3103-001A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/bandolera-tejida-mujer-diseno-limon-ideal-para-playa-y-verano-m3103-001b/">
+      <a class="card" href="/producto/bandolera-tejida-mujer-diseno-limon-ideal-para-playa-y-verano-m3103-001b/" data-sku="M3103-001B" data-precio="47000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3103-001B_001" alt="Bandolera Tejida Mujer Diseño Limón - Ideal para Playa y Verano" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Bandolera Tejida Mujer Diseño Limón - Ideal para Playa y Verano</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$47.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M3103-001B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/camisa-blusa-broderie-mujer-manga-3-4-romantica-ideal-primavera-verano-pa110as/">
+      <a class="card" href="/producto/camisa-blusa-broderie-mujer-manga-3-4-romantica-ideal-primavera-verano-pa110as/" data-sku="PA110AS" data-precio="102500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA110AS_001" alt="Camisa Blusa Broderie Mujer Manga 3/4 Romántica. Ideal primavera verano" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Camisa Blusa Broderie Mujer Manga 3/4 Romántica. Ideal primavera verano</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$102.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA110AS')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-broderie-y-tul-importada-manga-3-4-mujer-estilo-unico-pa110b/">
+      <a class="card" href="/producto/blusa-broderie-y-tul-importada-manga-3-4-mujer-estilo-unico-pa110b/" data-sku="PA110B" data-precio="102500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA110B_001" alt="Blusa Broderie y Tul Importada Manga 3/4 Mujer - Estilo Único" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Broderie y Tul Importada Manga 3/4 Mujer - Estilo Único</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$102.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA110B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-off-shoulder-negra-mujer-manga-larga-estilo-chic-brigitte-pa111a/">
+      <a class="card" href="/producto/blusa-off-shoulder-negra-mujer-manga-larga-estilo-chic-brigitte-pa111a/" data-sku="PA111A" data-precio="70500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111A_001" alt="Blusa Off Shoulder Negra Mujer Manga Larga Estilo Chic Brigitte" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Off Shoulder Negra Mujer Manga Larga Estilo Chic Brigitte</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA111A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-manga-larga-semi-oxford-celeste-mujer-hombros-descubiertos-estil-pa111b/">
+      <a class="card" href="/producto/blusa-manga-larga-semi-oxford-celeste-mujer-hombros-descubiertos-estil-pa111b/" data-sku="PA111B" data-precio="70500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111B_001" alt="Blusa Manga Larga Semi Oxford Celeste Mujer Hombros Descubiertos: Estilo Chic" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Manga Larga Semi Oxford Celeste Mujer Hombros Descubiertos: Estilo Chic</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA111B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-blanca-manga-larga-semi-oxford-mujer-estilo-chic-pa111c/">
+      <a class="card" href="/producto/blusa-blanca-manga-larga-semi-oxford-mujer-estilo-chic-pa111c/" data-sku="PA111C" data-precio="70500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111C_001" alt="Blusa Blanca Manga Larga Semi Oxford Mujer Estilo Chic" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Blanca Manga Larga Semi Oxford Mujer Estilo Chic</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA111C')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-off-shoulder-mujer-rosa-manga-larga-versatil-y-chic-pa111d/">
+      <a class="card" href="/producto/blusa-off-shoulder-mujer-rosa-manga-larga-versatil-y-chic-pa111d/" data-sku="PA111D" data-precio="70500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA111D_001" alt="Blusa Off Shoulder Mujer Rosa Manga Larga. Versátil y Chic" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Off Shoulder Mujer Rosa Manga Larga. Versátil y Chic</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA111D')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-rosa-hombros-descubiertos-tela-liviana-para-mujer-pa112b/">
+      <a class="card" href="/producto/blusa-rosa-hombros-descubiertos-tela-liviana-para-mujer-pa112b/" data-sku="PA112B" data-precio="58000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112B_001" alt="Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Rosa Hombros Descubiertos Tela Liviana para Mujer</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$58.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA112B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-manga-larga-blanca-saten-hombros-descubiertos-estilo-chic-pa112c/">
+      <a class="card" href="/producto/blusa-manga-larga-blanca-saten-hombros-descubiertos-estilo-chic-pa112c/" data-sku="PA112C" data-precio="58000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112C_001" alt="Blusa Manga Larga Blanca Satén Hombros Descubiertos Estilo Chic" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Manga Larga Blanca Satén Hombros Descubiertos Estilo Chic</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$58.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA112C')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-saten-negra-hombros-descubiertos-estilo-versatil-pa112d/">
+      <a class="card" href="/producto/blusa-saten-negra-hombros-descubiertos-estilo-versatil-pa112d/" data-sku="PA112D" data-precio="58000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112D_001" alt="Blusa Satén Negra Hombros Descubiertos - Estilo Versátil" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Satén Negra Hombros Descubiertos - Estilo Versátil</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$58.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA112D')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-negra-escote-hombros-caidos-con-mangas-de-encaje-pa113a/">
+      <a class="card" href="/producto/blusa-negra-escote-hombros-caidos-con-mangas-de-encaje-pa113a/" data-sku="PA113A" data-precio="70000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113A_001" alt="Blusa Negra Escote Hombros Caídos con Mangas de Encaje" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Negra Escote Hombros Caídos con Mangas de Encaje</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA113A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-blanca-bambula-hombros-caidos-acampanada-look-versatil-pa113b/">
+      <a class="card" href="/producto/blusa-blanca-bambula-hombros-caidos-acampanada-look-versatil-pa113b/" data-sku="PA113B" data-precio="70000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA113B_001" alt="Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Blanca Bambula Hombros Caídos Acampanada, look versátil</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA113B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-manga-larga-blanca-viscosa-bambula-bordada-femenina-pa114a/">
+      <a class="card" href="/producto/blusa-manga-larga-blanca-viscosa-bambula-bordada-femenina-pa114a/" data-sku="PA114A" data-precio="70000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114A_001" alt="Blusa Manga Larga Blanca Viscosa Bambula Bordada Femenina" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Manga Larga Blanca Viscosa Bambula Bordada Femenina</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA114A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/blusa-bambula-bordada-negra-manga-larga-comoda-y-versatil-pa114b/">
+      <a class="card" href="/producto/blusa-bambula-bordada-negra-manga-larga-comoda-y-versatil-pa114b/" data-sku="PA114B" data-precio="70000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_001" alt="Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Blusa Bambula Bordada Negra Manga Larga - Cómoda y Versátil</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA114B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/piluso-gorro-charol-impermeable-premium-mujer-invierno-estilo-urbano-s6058a/">
+      <a class="card" href="/producto/piluso-gorro-charol-impermeable-premium-mujer-invierno-estilo-urbano-s6058a/" data-sku="S6058A" data-precio="29000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058A_001" alt="Piluso Gorro Charol Impermeable Premium Mujer Invierno - Estilo Urbano" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Piluso Gorro Charol Impermeable Premium Mujer Invierno - Estilo Urbano</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$29.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('S6058A')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/gorro-piluso-charol-impermeable-mujer-estilo-urbano-invierno-premium-s6058b/">
+      <a class="card" href="/producto/gorro-piluso-charol-impermeable-mujer-estilo-urbano-invierno-premium-s6058b/" data-sku="S6058B" data-precio="29000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058B_001" alt="Gorro Piluso Charol Impermeable Mujer - Estilo Urbano Invierno Premium" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Gorro Piluso Charol Impermeable Mujer - Estilo Urbano Invierno Premium</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$29.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('S6058B')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/gorro-piluso-charol-brillante-impermeable-invierno-urbano-mujer-s6058c/">
+      <a class="card" href="/producto/gorro-piluso-charol-brillante-impermeable-invierno-urbano-mujer-s6058c/" data-sku="S6058C" data-precio="29000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6058C_001" alt="Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Gorro Piluso Charol Brillante Impermeable Invierno Urbano Mujer</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$29.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('S6058C')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/piluso-gorro-mujer-eco-cuero-negro-brillante-invierno-urbano-forrado-s6074/">
+      <a class="card" href="/producto/piluso-gorro-mujer-eco-cuero-negro-brillante-invierno-urbano-forrado-s6074/" data-sku="S6074" data-precio="29500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6074_001" alt="Piluso Gorro Mujer Eco Cuero Negro Brillante Invierno Urbano Forrado" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Piluso Gorro Mujer Eco Cuero Negro Brillante Invierno Urbano Forrado</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$29.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('S6074')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/poncho-bufanda-roja-y-violeta-abrigo-versatil-de-diseno-unico-t2606-002c/">
+      <a class="card" href="/producto/poncho-bufanda-roja-y-violeta-abrigo-versatil-de-diseno-unico-t2606-002c/" data-sku="T2606-002C" data-precio="34000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002C_001" alt="Poncho Bufanda Roja y Violeta - Abrigo Versátil de Diseño Único" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Poncho Bufanda Roja y Violeta - Abrigo Versátil de Diseño Único</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$34.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('T2606-002C')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/manton-poncho-bufanda-verde-abrigo-versatil-y-elegante-invierno-t2606-002d/">
+      <a class="card" href="/producto/manton-poncho-bufanda-verde-abrigo-versatil-y-elegante-invierno-t2606-002d/" data-sku="T2606-002D" data-precio="34000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-002D_001" alt="Mantón Poncho Bufanda Verde - Abrigo Versátil y Elegante Invierno" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Mantón Poncho Bufanda Verde - Abrigo Versátil y Elegante Invierno</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$34.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('T2606-002D')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/manton-poncho-bufanda-rojo-y-negro-para-invierno-abrigo-con-estilo-t2606-003b/">
+      <a class="card" href="/producto/manton-poncho-bufanda-rojo-y-negro-para-invierno-abrigo-con-estilo-t2606-003b/" data-sku="T2606-003B" data-precio="34000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-003B_001" alt="Mantón Poncho Bufanda Rojo y Negro para Invierno - Abrigo con Estilo" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Accesorios de Moda</div>
           <div class="card-name">Mantón Poncho Bufanda Rojo y Negro para Invierno - Abrigo con Estilo</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$34.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('T2606-003B')">Agregar al pedido</button>
         </div>
       </a></div>
 </div>
@@ -474,6 +580,80 @@
 
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Orden por precio (client-side, el HTML estático queda intacto para SEO)
+var _ordenOriginal = null;
+function ordenarGrid(modo) {
+  var grid = document.getElementById('listadoGrid');
+  if (!_ordenOriginal) _ordenOriginal = [].slice.call(grid.children);
+  var cards = [].slice.call(grid.children);
+  if (modo === 'rel') cards = _ordenOriginal.slice();
+  else cards.sort(function(a, b) {
+    var d = parseFloat(a.dataset.precio) - parseFloat(b.dataset.precio);
+    return modo === 'asc' ? d : -d;
+  });
+  cards.forEach(function(c) { grid.appendChild(c); });
+}
+
+// Catálogo estático (CDN): pinta ofertas/stock y alimenta el botón Agregar
+var _mapProds = {};
+var _catalogoListo = fetch('/productos.json?v=' + new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    var map = _mapProds;
+    (d.productos || d).forEach(function(p) { map[p.sku] = p; });
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var p = map[c.dataset.sku];
+      if (!p) return;
+      if (p.precio_oferta != null && p.precio_oferta < p.precio_venta) {
+        var pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
+        c.querySelector('.card-price').innerHTML =
+          '<span style="text-decoration:line-through;color:var(--gray-400);font-size:12.5px;margin-right:6px">' +
+          formatPrice(p.precio_venta) + '</span>' + formatPrice(p.precio_oferta) +
+          ' <span style="color:var(--red);font-size:12px;font-weight:700">-' + pct + '%</span>';
+        c.dataset.precio = p.precio_oferta;
+      }
+      if (p.stock != null && p.stock > 0 && p.stock <= 5) {
+        var b = document.createElement('div');
+        b.style.cssText = 'font-size:11.5px;font-weight:700;color:var(--red);margin-top:2px';
+        b.textContent = p.stock === 1 ? '⚡ ¡Última unidad!' : '⚡ ¡Últimas ' + p.stock + ' unidades!';
+        c.querySelector('.card-price').insertAdjacentElement('afterend', b);
+      }
+    });
+  }).catch(function() {});
+
+// Agregar al pedido desde la card (usa el catálogo ya cargado; espera si hace falta)
+function agregarAlCarrito(sku) {
+  _catalogoListo.then(function() {
+    var p = _mapProds[sku];
+    if (!p) return;
+    var oferta = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+    addCartItem({
+      sku: p.sku, nombre: p.nombre,
+      precio: oferta ? p.precio_oferta : p.precio_venta,
+      precio_lista: p.precio_venta,
+      imagen: p.imagen_principal || '', cantidad: 1
+    });
+    showToast('✅ ' + p.nombre + ' agregado a tu pedido');
+  });
+}
+
+// Ratings REALES de reseñas aprobadas (se activan solos cuando existan)
+fetch(EG_API_URL + '/api/resenas/promedios')
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var x = d[c.dataset.sku];
+      if (!x || !x.total) return;
+      var el = c.querySelector('.card-rating');
+      el.innerHTML = '★'.repeat(Math.round(x.promedio)) + ' <small>' + x.promedio + ' (' + x.total + ')</small>';
+      el.style.display = 'block';
+    });
+  }).catch(function() {});
+</script>
 </body>
 </html>

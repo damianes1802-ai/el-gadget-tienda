@@ -27,6 +27,11 @@
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
+.trust-strip { max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }
+.orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+.orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
+.card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
+.card-rating small { color: var(--gray-400); letter-spacing: 0; }
 .listado-secciones { max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }
 .listado-seccion { padding: 16px 0 4px; text-align: center; }
 .listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }
@@ -76,56 +81,81 @@
   <p>Tu bebida a la temperatura justa, horas después: vasos térmicos para el café o la cerveza y botellas térmicas para el agua del día, el mate o el gym. Acero inoxidable y doble pared de verdad.</p>
 </div>
 
+<div class="trust-strip">
+  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+</div>
+
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip chip-activa">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>
 
+<div class="orden-bar">
+  <label for="ordenSel">Ordenar por:</label>
+  <select id="ordenSel" onchange="ordenarGrid(this.value)">
+    <option value="rel">Relevancia</option>
+    <option value="asc">Menor precio</option>
+    <option value="desc">Mayor precio</option>
+  </select>
+</div>
+
 <div class="listado-grid">
-  <div class="grid">
-      <a class="card" href="/producto/vaso-termico-el-gadget-de-vidrio-doble-pared-para-cafe-80ml-600167/">
+  <div class="grid" id="listadoGrid">
+      <a class="card" href="/producto/vaso-termico-el-gadget-de-vidrio-doble-pared-para-cafe-80ml-600167/" data-sku="600167" data-precio="5000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_001" alt="Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Bazar y Cocina</div>
           <div class="card-name">Vaso Térmico El Gadget de Vidrio Doble Pared para Café 80ml</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$5.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('600167')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/vaso-termico-1200ml-starbucks-con-agarre-para-bebidas-frias-y-caliente-g-beerpints/">
+      <a class="card" href="/producto/vaso-termico-1200ml-starbucks-con-agarre-para-bebidas-frias-y-caliente-g-beerpints/" data-sku="G-BEERPINTS" data-precio="83000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_001" alt="Vaso Termico 1200ml Starbucks con Agarre para Bebidas Frias y Calientes" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Bazar y Cocina</div>
           <div class="card-name">Vaso Termico 1200ml Starbucks con Agarre para Bebidas Frias y Calientes</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$83.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('G-BEERPINTS')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/botella-termica-acero-inoxidable-400ml-frio-y-calor-por-horas-g-termotapamade/">
+      <a class="card" href="/producto/botella-termica-acero-inoxidable-400ml-frio-y-calor-por-horas-g-termotapamade/" data-sku="G-TERMOTAPAMADE" data-precio="37500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_001" alt="Botella Térmica Acero Inoxidable 400ml Frío y Calor por Horas" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Bazar y Cocina</div>
           <div class="card-name">Botella Térmica Acero Inoxidable 400ml Frío y Calor por Horas</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$37.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('G-TERMOTAPAMADE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/vaso-termico-stanley-480ml-con-tapa-transparente-para-cerveza-g-vasostanley/">
+      <a class="card" href="/producto/vaso-termico-stanley-480ml-con-tapa-transparente-para-cerveza-g-vasostanley/" data-sku="G-VASOSTANLEY" data-precio="38500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-VASOSTANLEY_001" alt="Vaso Termico Stanley 480ml con Tapa Transparente para Cerveza" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Bazar y Cocina</div>
           <div class="card-name">Vaso Termico Stanley 480ml con Tapa Transparente para Cerveza</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$38.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('G-VASOSTANLEY')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/botella-termica-doble-infantil-760ml-para-chicos-mantiene-temperatura-wh7032/">
+      <a class="card" href="/producto/botella-termica-doble-infantil-760ml-para-chicos-mantiene-temperatura-wh7032/" data-sku="WH7032" data-precio="32000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7032_001" alt="Botella Térmica Doble Infantil 760ml para Chicos - Mantiene Temperatura" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Bazar y Cocina</div>
           <div class="card-name">Botella Térmica Doble Infantil 760ml para Chicos - Mantiene Temperatura</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$32.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7032')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/botella-termica-de-acero-1000-ml-siliconada-tus-bebidas-siempre-en-su-wh7280/">
+      <a class="card" href="/producto/botella-termica-de-acero-1000-ml-siliconada-tus-bebidas-siempre-en-su-wh7280/" data-sku="WH7280" data-precio="55000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_001" alt="Botella térmica de acero 1000 ml siliconada: tus bebidas siempre en su punto" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Bazar y Cocina</div>
           <div class="card-name">Botella térmica de acero 1000 ml siliconada: tus bebidas siempre en su punto</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$55.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7280')">Agregar al pedido</button>
         </div>
       </a></div>
 </div>
@@ -170,6 +200,80 @@
 
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Orden por precio (client-side, el HTML estático queda intacto para SEO)
+var _ordenOriginal = null;
+function ordenarGrid(modo) {
+  var grid = document.getElementById('listadoGrid');
+  if (!_ordenOriginal) _ordenOriginal = [].slice.call(grid.children);
+  var cards = [].slice.call(grid.children);
+  if (modo === 'rel') cards = _ordenOriginal.slice();
+  else cards.sort(function(a, b) {
+    var d = parseFloat(a.dataset.precio) - parseFloat(b.dataset.precio);
+    return modo === 'asc' ? d : -d;
+  });
+  cards.forEach(function(c) { grid.appendChild(c); });
+}
+
+// Catálogo estático (CDN): pinta ofertas/stock y alimenta el botón Agregar
+var _mapProds = {};
+var _catalogoListo = fetch('/productos.json?v=' + new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    var map = _mapProds;
+    (d.productos || d).forEach(function(p) { map[p.sku] = p; });
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var p = map[c.dataset.sku];
+      if (!p) return;
+      if (p.precio_oferta != null && p.precio_oferta < p.precio_venta) {
+        var pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
+        c.querySelector('.card-price').innerHTML =
+          '<span style="text-decoration:line-through;color:var(--gray-400);font-size:12.5px;margin-right:6px">' +
+          formatPrice(p.precio_venta) + '</span>' + formatPrice(p.precio_oferta) +
+          ' <span style="color:var(--red);font-size:12px;font-weight:700">-' + pct + '%</span>';
+        c.dataset.precio = p.precio_oferta;
+      }
+      if (p.stock != null && p.stock > 0 && p.stock <= 5) {
+        var b = document.createElement('div');
+        b.style.cssText = 'font-size:11.5px;font-weight:700;color:var(--red);margin-top:2px';
+        b.textContent = p.stock === 1 ? '⚡ ¡Última unidad!' : '⚡ ¡Últimas ' + p.stock + ' unidades!';
+        c.querySelector('.card-price').insertAdjacentElement('afterend', b);
+      }
+    });
+  }).catch(function() {});
+
+// Agregar al pedido desde la card (usa el catálogo ya cargado; espera si hace falta)
+function agregarAlCarrito(sku) {
+  _catalogoListo.then(function() {
+    var p = _mapProds[sku];
+    if (!p) return;
+    var oferta = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+    addCartItem({
+      sku: p.sku, nombre: p.nombre,
+      precio: oferta ? p.precio_oferta : p.precio_venta,
+      precio_lista: p.precio_venta,
+      imagen: p.imagen_principal || '', cantidad: 1
+    });
+    showToast('✅ ' + p.nombre + ' agregado a tu pedido');
+  });
+}
+
+// Ratings REALES de reseñas aprobadas (se activan solos cuando existan)
+fetch(EG_API_URL + '/api/resenas/promedios')
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var x = d[c.dataset.sku];
+      if (!x || !x.total) return;
+      var el = c.querySelector('.card-rating');
+      el.innerHTML = '★'.repeat(Math.round(x.promedio)) + ' <small>' + x.promedio + ' (' + x.total + ')</small>';
+      el.style.display = 'block';
+    });
+  }).catch(function() {});
+</script>
 </body>
 </html>

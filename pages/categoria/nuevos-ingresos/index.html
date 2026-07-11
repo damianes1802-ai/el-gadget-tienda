@@ -27,6 +27,11 @@
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
+.trust-strip { max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }
+.orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+.orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
+.card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
+.card-rating small { color: var(--gray-400); letter-spacing: 0; }
 .listado-secciones { max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }
 .listado-seccion { padding: 16px 0 4px; text-align: center; }
 .listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }
@@ -76,136 +81,181 @@
   <p>Lo más nuevo del catálogo, recién llegado. Esta sección se renueva todo el tiempo: si algo te gusta, no lo pienses de más.</p>
 </div>
 
+<div class="trust-strip">
+  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+</div>
+
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip chip-activa">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>
 
+<div class="orden-bar">
+  <label for="ordenSel">Ordenar por:</label>
+  <select id="ordenSel" onchange="ordenarGrid(this.value)">
+    <option value="rel">Relevancia</option>
+    <option value="asc">Menor precio</option>
+    <option value="desc">Mayor precio</option>
+  </select>
+</div>
+
 <div class="listado-grid">
-  <div class="grid">
-      <a class="card" href="/producto/organizador-esquinero-cocina-2-estantes-madera-y-metal-dl2308-bl/">
+  <div class="grid" id="listadoGrid">
+      <a class="card" href="/producto/organizador-esquinero-cocina-2-estantes-madera-y-metal-dl2308-bl/" data-sku="DL2308-BL" data-precio="97000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2308-BL_001" alt="Organizador Esquinero Cocina 2 Estantes Madera y Metal" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Organizador Esquinero Cocina 2 Estantes Madera y Metal</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$97.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2308-BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/rejilla-desague-piso-click-acero-inox-anti-pelos-y-malos-olores-dl2329/">
+      <a class="card" href="/producto/rejilla-desague-piso-click-acero-inox-anti-pelos-y-malos-olores-dl2329/" data-sku="DL2329" data-precio="9000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2329_001" alt="Rejilla desagüe piso click acero inox: anti-pelos y malos olores" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Rejilla desagüe piso click acero inox: anti-pelos y malos olores</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$9.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2329')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/soporte-celular-flexible-blanco-360-con-pinza-ajustable-manos-libres-dl2336-bl/">
+      <a class="card" href="/producto/soporte-celular-flexible-blanco-360-con-pinza-ajustable-manos-libres-dl2336-bl/" data-sku="DL2336-BL" data-precio="18500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2336-BL_001" alt="Soporte Celular Flexible Blanco 360° con Pinza Ajustable Manos Libres" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Soporte Celular Flexible Blanco 360° con Pinza Ajustable Manos Libres</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$18.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2336-BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/soporte-para-celular-ajustable-negro-360-flexible-universal-dl2336-ne/">
+      <a class="card" href="/producto/soporte-para-celular-ajustable-negro-360-flexible-universal-dl2336-ne/" data-sku="DL2336-NE" data-precio="18500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2336-NE_001" alt="Soporte para Celular Ajustable Negro 360° Flexible Universal" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Soporte para Celular Ajustable Negro 360° Flexible Universal</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$18.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2336-NE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cajonera-organizador-infantil-2-niveles-con-ruedas-panalero-dl2341/">
+      <a class="card" href="/producto/cajonera-organizador-infantil-2-niveles-con-ruedas-panalero-dl2341/" data-sku="DL2341" data-precio="101500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2341_001" alt="Cajonera organizador infantil 2 niveles con ruedas - pañalero" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Cajonera organizador infantil 2 niveles con ruedas - pañalero</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$101.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2341')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cajonera-organizador-3-niveles-con-ruedas-para-ninos-el-orden-facil-dl2342/">
+      <a class="card" href="/producto/cajonera-organizador-3-niveles-con-ruedas-para-ninos-el-orden-facil-dl2342/" data-sku="DL2342" data-precio="132500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_001" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Cajonera organizador 3 niveles con ruedas para niños | El orden fácil</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$132.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2342')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cajonera-organizador-infantil-4-niveles-con-ruedas-y-diseno-animal-dl2343/">
+      <a class="card" href="/producto/cajonera-organizador-infantil-4-niveles-con-ruedas-y-diseno-animal-dl2343/" data-sku="DL2343" data-precio="164000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2343_001" alt="Cajonera organizador infantil 4 niveles con ruedas y diseño animal" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Cajonera organizador infantil 4 niveles con ruedas y diseño animal</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$164.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2343')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-vertical-de-peluches-y-juguetes-transparente-150cm-dl2347-1/">
+      <a class="card" href="/producto/organizador-vertical-de-peluches-y-juguetes-transparente-150cm-dl2347-1/" data-sku="DL2347-1" data-precio="104000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2347-1_001" alt="Organizador Vertical de Peluches y Juguetes Transparente 150cm" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Organizador Vertical de Peluches y Juguetes Transparente 150cm</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$104.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2347-1')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/perchero-doble-metalico-desarmable-con-estantes-blanco-dl2356-bl/">
+      <a class="card" href="/producto/perchero-doble-metalico-desarmable-con-estantes-blanco-dl2356-bl/" data-sku="DL2356-BL" data-precio="70500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-BL_001" alt="Perchero doble metálico desarmable con estantes blanco" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Perchero doble metálico desarmable con estantes blanco</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2356-BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/perchero-metalico-doble-con-3-estantes-y-ruedas-negro-dl2356-ne/">
+      <a class="card" href="/producto/perchero-metalico-doble-con-3-estantes-y-ruedas-negro-dl2356-ne/" data-sku="DL2356-NE" data-precio="70500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2356-NE_001" alt="Perchero Metálico Doble con 3 Estantes y Ruedas Negro" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Perchero Metálico Doble con 3 Estantes y Ruedas Negro</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$70.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2356-NE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/faja-correctora-de-postura-premium-soporte-lumbar-confortable-dl2364-l/">
+      <a class="card" href="/producto/faja-correctora-de-postura-premium-soporte-lumbar-confortable-dl2364-l/" data-sku="DL2364-L" data-precio="31500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-L_001" alt="Faja Correctora de Postura Premium Soporte Lumbar Confortable" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Faja Correctora de Postura Premium Soporte Lumbar Confortable</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$31.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2364-L')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/corrector-faja-postura-xxxl-premium-alivia-dolor-espalda-dl2364-xxxl/">
+      <a class="card" href="/producto/corrector-faja-postura-xxxl-premium-alivia-dolor-espalda-dl2364-xxxl/" data-sku="DL2364-XXXL" data-precio="31500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2364-XXXL_001" alt="Corrector Faja Postura XXXL Premium | Alivia Dolor Espalda" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Corrector Faja Postura XXXL Premium | Alivia Dolor Espalda</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$31.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2364-XXXL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-colgante-de-tela-plegable-4-niveles-para-ropa-y-zapatos-dl2368/">
+      <a class="card" href="/producto/organizador-colgante-de-tela-plegable-4-niveles-para-ropa-y-zapatos-dl2368/" data-sku="DL2368" data-precio="23500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2368_001" alt="Organizador colgante de tela plegable 4 niveles para ropa y zapatos" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Organizador colgante de tela plegable 4 niveles para ropa y zapatos</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$23.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2368')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/organizador-estanteria-colgante-tela-plegable-para-ropa-y-zapatos-opti-dl2369/">
+      <a class="card" href="/producto/organizador-estanteria-colgante-tela-plegable-para-ropa-y-zapatos-opti-dl2369/" data-sku="DL2369" data-precio="26000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2369_001" alt="Organizador estantería colgante tela plegable para ropa y zapatos - optimiza tu espacio" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Organizador estantería colgante tela plegable para ropa y zapatos - optimiza tu espacio</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$26.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2369')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cerradura-de-seguridad-ninos-adhesiva-con-llave-sin-perforar-dl2377-bl/">
+      <a class="card" href="/producto/cerradura-de-seguridad-ninos-adhesiva-con-llave-sin-perforar-dl2377-bl/" data-sku="DL2377-BL" data-precio="19500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2377-BL_001" alt="Cerradura de seguridad niños adhesiva con llave sin perforar" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Cerradura de seguridad niños adhesiva con llave sin perforar</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$19.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2377-BL')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cerradura-seguridad-adhesiva-negra-con-llave-para-ninos-y-bebes-dl2377-ne/">
+      <a class="card" href="/producto/cerradura-seguridad-adhesiva-negra-con-llave-para-ninos-y-bebes-dl2377-ne/" data-sku="DL2377-NE" data-precio="19500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2377-NE_001" alt="Cerradura seguridad adhesiva negra con llave para niños y bebés" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Nuevos Ingresos</div>
           <div class="card-name">Cerradura seguridad adhesiva negra con llave para niños y bebés</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$19.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2377-NE')">Agregar al pedido</button>
         </div>
       </a></div>
 </div>
@@ -250,6 +300,80 @@
 
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Orden por precio (client-side, el HTML estático queda intacto para SEO)
+var _ordenOriginal = null;
+function ordenarGrid(modo) {
+  var grid = document.getElementById('listadoGrid');
+  if (!_ordenOriginal) _ordenOriginal = [].slice.call(grid.children);
+  var cards = [].slice.call(grid.children);
+  if (modo === 'rel') cards = _ordenOriginal.slice();
+  else cards.sort(function(a, b) {
+    var d = parseFloat(a.dataset.precio) - parseFloat(b.dataset.precio);
+    return modo === 'asc' ? d : -d;
+  });
+  cards.forEach(function(c) { grid.appendChild(c); });
+}
+
+// Catálogo estático (CDN): pinta ofertas/stock y alimenta el botón Agregar
+var _mapProds = {};
+var _catalogoListo = fetch('/productos.json?v=' + new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    var map = _mapProds;
+    (d.productos || d).forEach(function(p) { map[p.sku] = p; });
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var p = map[c.dataset.sku];
+      if (!p) return;
+      if (p.precio_oferta != null && p.precio_oferta < p.precio_venta) {
+        var pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
+        c.querySelector('.card-price').innerHTML =
+          '<span style="text-decoration:line-through;color:var(--gray-400);font-size:12.5px;margin-right:6px">' +
+          formatPrice(p.precio_venta) + '</span>' + formatPrice(p.precio_oferta) +
+          ' <span style="color:var(--red);font-size:12px;font-weight:700">-' + pct + '%</span>';
+        c.dataset.precio = p.precio_oferta;
+      }
+      if (p.stock != null && p.stock > 0 && p.stock <= 5) {
+        var b = document.createElement('div');
+        b.style.cssText = 'font-size:11.5px;font-weight:700;color:var(--red);margin-top:2px';
+        b.textContent = p.stock === 1 ? '⚡ ¡Última unidad!' : '⚡ ¡Últimas ' + p.stock + ' unidades!';
+        c.querySelector('.card-price').insertAdjacentElement('afterend', b);
+      }
+    });
+  }).catch(function() {});
+
+// Agregar al pedido desde la card (usa el catálogo ya cargado; espera si hace falta)
+function agregarAlCarrito(sku) {
+  _catalogoListo.then(function() {
+    var p = _mapProds[sku];
+    if (!p) return;
+    var oferta = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+    addCartItem({
+      sku: p.sku, nombre: p.nombre,
+      precio: oferta ? p.precio_oferta : p.precio_venta,
+      precio_lista: p.precio_venta,
+      imagen: p.imagen_principal || '', cantidad: 1
+    });
+    showToast('✅ ' + p.nombre + ' agregado a tu pedido');
+  });
+}
+
+// Ratings REALES de reseñas aprobadas (se activan solos cuando existan)
+fetch(EG_API_URL + '/api/resenas/promedios')
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var x = d[c.dataset.sku];
+      if (!x || !x.total) return;
+      var el = c.querySelector('.card-rating');
+      el.innerHTML = '★'.repeat(Math.round(x.promedio)) + ' <small>' + x.promedio + ' (' + x.total + ')</small>';
+      el.style.display = 'block';
+    });
+  }).catch(function() {});
+</script>
 </body>
 </html>

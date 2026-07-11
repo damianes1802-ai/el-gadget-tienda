@@ -27,6 +27,11 @@
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
+.trust-strip { max-width: 1240px; margin: 12px auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12.5px; font-weight: 600; color: var(--gray-600); }
+.orden-bar { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+.orden-bar select { padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }
+.card-rating { font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }
+.card-rating small { color: var(--gray-400); letter-spacing: 0; }
 .listado-secciones { max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }
 .listado-seccion { padding: 16px 0 4px; text-align: center; }
 .listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }
@@ -76,88 +81,121 @@
   <p>Accesorios de baño que suman seguridad y orden: alfombras antideslizantes con piedra pómez, jaboneras, estantes y soluciones de limpieza que simplifican la rutina. Todo con envío a domicilio en Argentina.</p>
 </div>
 
+<div class="trust-strip">
+  <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro con Mercado Pago</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención por WhatsApp</span>
+</div>
+
 <nav class="chips-nav" aria-label="Categorías"><a href="/categoria/bazar-y-cocina/" class="chip">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/" class="chip">Accesorios para mascotas</a><a href="/categoria/deco/" class="chip">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/" class="chip chip-activa">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/" class="chip">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/" class="chip">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/" class="chip">Artículos de verano</a><a href="/categoria/home/" class="chip">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/" class="chip">Accesorios de belleza y estética</a><a href="/categoria/fitness/" class="chip">Accesorios fitness</a><a href="/categoria/electronica/" class="chip">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/" class="chip">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/" class="chip">Novedades y últimos ingresos</a><a href="/coleccion/mallas-y-trajes-de-bano/" class="chip">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/" class="chip">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/" class="chip">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/" class="chip">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/" class="chip">Inflables para pileta</a></nav>
 
+<div class="orden-bar">
+  <label for="ordenSel">Ordenar por:</label>
+  <select id="ordenSel" onchange="ordenarGrid(this.value)">
+    <option value="rel">Relevancia</option>
+    <option value="asc">Menor precio</option>
+    <option value="desc">Mayor precio</option>
+  </select>
+</div>
+
 <div class="listado-grid">
-  <div class="grid">
-      <a class="card" href="/producto/escobilla-giratoria-extensible-para-limpieza-de-bano-sin-esfuerzo-dl1097/">
+  <div class="grid" id="listadoGrid">
+      <a class="card" href="/producto/escobilla-giratoria-extensible-para-limpieza-de-bano-sin-esfuerzo-dl1097/" data-sku="DL1097" data-precio="18500.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001" alt="Escobilla giratoria extensible para limpieza de baño sin esfuerzo" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Baño y Limpieza</div>
           <div class="card-name">Escobilla giratoria extensible para limpieza de baño sin esfuerzo</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$18.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1097')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/rodillo-sacapelusas-extensible-1-metro-set-3-rollos-para-casa-impecabl-dl1101-1/">
+      <a class="card" href="/producto/rodillo-sacapelusas-extensible-1-metro-set-3-rollos-para-casa-impecabl-dl1101-1/" data-sku="DL1101-1" data-precio="17000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1101-1_001" alt="Rodillo sacapelusas extensible 1 metro - Set 3 rollos para casa impecable" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Baño y Limpieza</div>
           <div class="card-name">Rodillo sacapelusas extensible 1 metro - Set 3 rollos para casa impecable</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$17.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1101-1')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pack-x12-escobillas-de-bano-doble-cara-para-limpieza-profunda-dl1103/">
+      <a class="card" href="/producto/pack-x12-escobillas-de-bano-doble-cara-para-limpieza-profunda-dl1103/" data-sku="DL1103" data-precio="29000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1103_001" alt="Pack x12 escobillas de baño doble cara para limpieza profunda" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Baño y Limpieza</div>
           <div class="card-name">Pack x12 escobillas de baño doble cara para limpieza profunda</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$29.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1103')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/alfombrilla-antideslizante-para-banera-beige-con-piedra-pomez-dl1158-be/">
+      <a class="card" href="/producto/alfombrilla-antideslizante-para-banera-beige-con-piedra-pomez-dl1158-be/" data-sku="DL1158-BE" data-precio="52000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-BE_001" alt="Alfombrilla Antideslizante para Bañera Beige con Piedra Pómez" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Baño y Limpieza</div>
           <div class="card-name">Alfombrilla Antideslizante para Bañera Beige con Piedra Pómez</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$52.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1158-BE')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/alfombrilla-banera-antideslizante-con-piedra-pomez-gris-seguridad-y-sp-dl1158-gr/">
+      <a class="card" href="/producto/alfombrilla-banera-antideslizante-con-piedra-pomez-gris-seguridad-y-sp-dl1158-gr/" data-sku="DL1158-GR" data-precio="52000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-GR_001" alt="Alfombrilla Bañera Antideslizante con Piedra Pómez Gris - Seguridad y Spa" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Baño y Limpieza</div>
           <div class="card-name">Alfombrilla Bañera Antideslizante con Piedra Pómez Gris - Seguridad y Spa</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$52.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1158-GR')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pinza-destapa-canerias-flexible-90cm-chau-desagues-tapados-dl1254-1x1/">
+      <a class="card" href="/producto/pinza-destapa-canerias-flexible-90cm-chau-desagues-tapados-dl1254-1x1/" data-sku="DL1254-1X1" data-precio="4000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-1X1_001" alt="Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Baño y Limpieza</div>
           <div class="card-name">Pinza Destapa Cañerías Flexible 90cm - Chau Desagües Tapados</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$4.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1254-1X1')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/pinza-destapa-canerias-flexible-160cm-adios-a-las-obstrucciones-dl1254-2x1/">
+      <a class="card" href="/producto/pinza-destapa-canerias-flexible-160cm-adios-a-las-obstrucciones-dl1254-2x1/" data-sku="DL1254-2X1" data-precio="5000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1254-2X1_001" alt="Pinza Destapa Cañerías Flexible 160cm: adiós a las obstrucciones" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Baño y Limpieza</div>
           <div class="card-name">Pinza Destapa Cañerías Flexible 160cm: adiós a las obstrucciones</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$5.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL1254-2X1')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/cepillo-electrico-9-en-1-recargable-usb-para-limpieza-profunda-dl2113/">
+      <a class="card" href="/producto/cepillo-electrico-9-en-1-recargable-usb-para-limpieza-profunda-dl2113/" data-sku="DL2113" data-precio="96000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2113_001" alt="Cepillo Eléctrico 9 en 1 Recargable USB para Limpieza Profunda" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Baño y Limpieza</div>
           <div class="card-name">Cepillo Eléctrico 9 en 1 Recargable USB para Limpieza Profunda</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$96.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2113')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/rodillo-lavable-saca-pelusas-y-pelos-kit-2-en-1-para-casa-y-viaje-dl2140/">
+      <a class="card" href="/producto/rodillo-lavable-saca-pelusas-y-pelos-kit-2-en-1-para-casa-y-viaje-dl2140/" data-sku="DL2140" data-precio="17000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2140_001" alt="Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Baño y Limpieza</div>
           <div class="card-name">Rodillo lavable saca pelusas y pelos kit 2 en 1 para casa y viaje</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$17.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2140')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/porta-rollo-papel-higienico-acero-inoxidable-para-bano-moderno-dl2144/">
+      <a class="card" href="/producto/porta-rollo-papel-higienico-acero-inoxidable-para-bano-moderno-dl2144/" data-sku="DL2144" data-precio="8000.0">
         <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2144_001" alt="Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno" loading="lazy"></div>
         <div class="card-body">
           <div class="card-cat">Baño y Limpieza</div>
           <div class="card-name">Porta Rollo Papel Higiénico Acero Inoxidable para Baño Moderno</div>
+          <div class="card-rating" style="display:none"></div>
           <div class="card-price">$8.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2144')">Agregar al pedido</button>
         </div>
       </a></div>
 </div>
@@ -202,6 +240,80 @@
 
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Orden por precio (client-side, el HTML estático queda intacto para SEO)
+var _ordenOriginal = null;
+function ordenarGrid(modo) {
+  var grid = document.getElementById('listadoGrid');
+  if (!_ordenOriginal) _ordenOriginal = [].slice.call(grid.children);
+  var cards = [].slice.call(grid.children);
+  if (modo === 'rel') cards = _ordenOriginal.slice();
+  else cards.sort(function(a, b) {
+    var d = parseFloat(a.dataset.precio) - parseFloat(b.dataset.precio);
+    return modo === 'asc' ? d : -d;
+  });
+  cards.forEach(function(c) { grid.appendChild(c); });
+}
+
+// Catálogo estático (CDN): pinta ofertas/stock y alimenta el botón Agregar
+var _mapProds = {};
+var _catalogoListo = fetch('/productos.json?v=' + new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    var map = _mapProds;
+    (d.productos || d).forEach(function(p) { map[p.sku] = p; });
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var p = map[c.dataset.sku];
+      if (!p) return;
+      if (p.precio_oferta != null && p.precio_oferta < p.precio_venta) {
+        var pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
+        c.querySelector('.card-price').innerHTML =
+          '<span style="text-decoration:line-through;color:var(--gray-400);font-size:12.5px;margin-right:6px">' +
+          formatPrice(p.precio_venta) + '</span>' + formatPrice(p.precio_oferta) +
+          ' <span style="color:var(--red);font-size:12px;font-weight:700">-' + pct + '%</span>';
+        c.dataset.precio = p.precio_oferta;
+      }
+      if (p.stock != null && p.stock > 0 && p.stock <= 5) {
+        var b = document.createElement('div');
+        b.style.cssText = 'font-size:11.5px;font-weight:700;color:var(--red);margin-top:2px';
+        b.textContent = p.stock === 1 ? '⚡ ¡Última unidad!' : '⚡ ¡Últimas ' + p.stock + ' unidades!';
+        c.querySelector('.card-price').insertAdjacentElement('afterend', b);
+      }
+    });
+  }).catch(function() {});
+
+// Agregar al pedido desde la card (usa el catálogo ya cargado; espera si hace falta)
+function agregarAlCarrito(sku) {
+  _catalogoListo.then(function() {
+    var p = _mapProds[sku];
+    if (!p) return;
+    var oferta = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+    addCartItem({
+      sku: p.sku, nombre: p.nombre,
+      precio: oferta ? p.precio_oferta : p.precio_venta,
+      precio_lista: p.precio_venta,
+      imagen: p.imagen_principal || '', cantidad: 1
+    });
+    showToast('✅ ' + p.nombre + ' agregado a tu pedido');
+  });
+}
+
+// Ratings REALES de reseñas aprobadas (se activan solos cuando existan)
+fetch(EG_API_URL + '/api/resenas/promedios')
+  .then(function(r) { return r.ok ? r.json() : null; })
+  .then(function(d) {
+    if (!d) return;
+    document.querySelectorAll('#listadoGrid a.card[data-sku]').forEach(function(c) {
+      var x = d[c.dataset.sku];
+      if (!x || !x.total) return;
+      var el = c.querySelector('.card-rating');
+      el.innerHTML = '★'.repeat(Math.round(x.promedio)) + ' <small>' + x.promedio + ' (' + x.total + ')</small>';
+      el.style.display = 'block';
+    });
+  }).catch(function() {});
+</script>
 </body>
 </html>
