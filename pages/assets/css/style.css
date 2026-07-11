@@ -627,6 +627,9 @@ a { color: inherit; }
   .mn-item { width: 100%; }
   .mn-item summary, .mn-link { width: 100%; justify-content: center; box-sizing: border-box; }
   .mn-item:last-child { grid-column: 1 / -1; }
+  /* Abierto ocupa el ancho completo: el panel respira y el texto no se corta */
+  .mega-nav .mn-item[open] { grid-column: 1 / -1; }
+  .mn-panel a { white-space: normal; }
 }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.08); text-align: center; padding: 0.8rem 1.25rem;

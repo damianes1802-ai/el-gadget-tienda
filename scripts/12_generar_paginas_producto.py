@@ -707,7 +707,7 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
         atajos = ''.join(f'<a href="#g-{gid}" class="chip">{html.escape(t)} ({len(g)})</a>'
                          for gid, t, g in grupos_render)
         bloques = ''.join(
-            f'''<h2 class="grupo-titulo" id="g-{gid}">{html.escape(t)}</h2>
+            f'''<div class="grupo-sep" id="g-{gid}"><h2>{html.escape(t)} <span class="gcount">{len(g)}</span></h2></div>
   <div class="grid">{''.join(_card_listado(p, slug_map) for p in g)}</div>'''
             for gid, t, g in grupos_render)
         cuerpo_grid = f'''<nav class="chips-nav subcats-nav" aria-label="Secciones de la colección">{atajos}</nav>
@@ -730,10 +730,13 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
   <div class="grid" id="listadoGrid">{cards}</div>
 </div>'''
 
-    chips_html = ''.join(
-        f'<a href="/{t}/{s}/" class="chip{" chip-activa" if (t, s) == (tipo, slug) else ""}">{html.escape(n)}</a>'
-        for t, s, n in chips
-    )
+    # Dos desplegables (Categorías / Colecciones) en lugar de la fila de 18
+    # chips: misma data, sin ruido visual. Los links quedan en el HTML (SEO).
+    def _panel(t_filtro):
+        return ''.join(f'<a href="/{t}/{s}/">{html.escape(n)}</a>'
+                       for t, s, n in chips if t == t_filtro)
+    chips_html = f'''<details class="mn-item"><summary>Categorías</summary><div class="mn-panel">{_panel('categoria')}</div></details>
+  <details class="mn-item"><summary>Colecciones</summary><div class="mn-panel">{_panel('coleccion')}</div></details>'''
 
     # Secciones H2 con las keywords secundarias del grupo (pueden traer links
     # internos en el texto: no se escapan, el contenido es propio y controlado)
@@ -826,9 +829,19 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 .orden-bar {{ max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }}
 .subcats-nav {{ margin-top: 12px; }}
 .subcats-nav .chip {{ border-color: var(--accent); font-weight: 700; }}
-.grupo-titulo {{ font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); text-align: center;
-  margin: 30px 0 4px; scroll-margin-top: 96px; }}
-.grupo-titulo::after {{ content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--accent); margin: 10px auto 0; }}
+.listado-nav {{ padding-top: 16px; }}
+.listado-nav .mn-item:last-child {{ grid-column: auto; }}
+/* Separador de grupo: línea + píldora oscura = fin de una sección e inicio
+   de la siguiente, legible de un vistazo sin invadir. */
+.grupo-sep {{ display: flex; align-items: center; gap: 14px; margin: 36px 0 14px; scroll-margin-top: 96px; }}
+.grupo-sep::before, .grupo-sep::after {{ content: ''; flex: 1; height: 2px; border-radius: 1px;
+  background: linear-gradient(90deg, transparent, var(--gray-200)); }}
+.grupo-sep::after {{ background: linear-gradient(90deg, var(--gray-200), transparent); }}
+.grupo-sep h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 16.5px; font-weight: 700; color: #fff;
+  background: var(--ink); border-radius: 24px; padding: 11px 22px; margin: 0; display: flex;
+  align-items: center; gap: 9px; box-shadow: var(--shadow); white-space: nowrap; }}
+.grupo-sep .gcount {{ background: var(--accent); color: var(--ink); font-size: 12px; font-weight: 800;
+  border-radius: 12px; padding: 2px 9px; }}
 .orden-bar select {{ padding: 8px 12px; border: 1.5px solid var(--gray-200); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--ink); background: #fff; }}
 .card-rating {{ font-size: 12.5px; color: var(--accent-deep); letter-spacing: 1px; margin-bottom: 2px; }}
 .card-rating small {{ color: var(--gray-400); letter-spacing: 0; }}
@@ -889,9 +902,21 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
   </div>
 </div>
 
-<nav class="chips-nav" aria-label="Categorías">{chips_html}</nav>
+<nav class="mega-nav listado-nav" aria-label="Navegación del catálogo">
+  {chips_html}
+</nav>
 
 {cuerpo_grid}
+<script>
+document.querySelectorAll('.listado-nav details').forEach(function(d) {{
+  d.addEventListener('toggle', function() {{
+    if (d.open) document.querySelectorAll('.listado-nav details[open]').forEach(function(o) {{ if (o !== d) o.open = false; }});
+  }});
+}});
+document.addEventListener('click', function(e) {{
+  if (!e.target.closest('.listado-nav')) document.querySelectorAll('.listado-nav details[open]').forEach(function(o) {{ o.open = false; }});
+}});
+</script>
 
 <!-- Área terminal (Gutenberg): quien llegó al final sin decidir necesita un siguiente paso -->
 <div class="terminal-cta">
