@@ -393,7 +393,13 @@ a { color: inherit; }
 
 /* ── ORDEN Y RANGO DE PRECIO ── */
 .filters-extra { display: flex; gap: 10px; margin: 10px auto 0; flex-wrap: wrap; align-items: center; width: max-content; max-width: 100%; }
-@media (max-width: 759px) { .filters-extra { width: 100%; justify-content: center; margin: 0; } }
+@media (max-width: 759px) {
+  /* Mobile ordenado: select a lo ancho arriba, rango de precio en una fila abajo */
+  .filters-extra { display: grid; grid-template-columns: 1fr; gap: 8px; width: 100%; margin: 0; padding-top: 10px; }
+  .filters-extra .sort-select { width: 100%; box-sizing: border-box; }
+  .filters-extra .price-range { display: flex; gap: 8px; justify-content: center; width: 100%; }
+  .filters-extra .price-range input { flex: 1; min-width: 0; }
+}
 .sort-select {
   padding: 8px 32px 8px 14px; border-radius: 20px; border: 1.5px solid var(--gray-200);
   background-color: var(--paper); font-size: 12.5px; font-weight: 600; color: var(--ink);
@@ -616,6 +622,11 @@ a { color: inherit; }
   .mn-panel { position: static; transform: none; box-shadow: none; border: none; padding: 4px 0 0;
     max-height: none; min-width: 0; }
   .mn-panel a { text-align: center; }
+  /* Grilla 2x2 + Información a lo ancho: pildoras parejas en vez de wrap desprolijo */
+  .mega-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 1rem 6px; }
+  .mn-item { width: 100%; }
+  .mn-item summary, .mn-link { width: 100%; justify-content: center; box-sizing: border-box; }
+  .mn-item:last-child { grid-column: 1 / -1; }
 }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.08); text-align: center; padding: 0.8rem 1.25rem;
