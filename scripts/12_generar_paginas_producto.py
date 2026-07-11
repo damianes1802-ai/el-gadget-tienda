@@ -691,6 +691,16 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
         for t, s, n in chips
     )
 
+    # Secciones H2 con las keywords secundarias del grupo (pueden traer links
+    # internos en el texto: no se escapan, el contenido es propio y controlado)
+    secciones_html = ''
+    if cfg.get('secciones'):
+        bloques = ''.join(
+            f'<section class="listado-seccion"><h2>{html.escape(t)}</h2><p>{cuerpo}</p></section>'
+            for t, cuerpo in cfg['secciones']
+        )
+        secciones_html = f'<div class="listado-secciones">{bloques}</div>'
+
     faqs_html = ''
     jsonld = [{
         "@context": "https://schema.org/",
@@ -759,6 +769,11 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 .chip:hover {{ border-color: var(--accent); }}
 .chip-activa {{ background: var(--ink); color: #fff; border-color: var(--ink); }}
 .listado-grid {{ max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }}
+.listado-secciones {{ max-width: 760px; margin: 0 auto; padding: 10px 1.25rem 0; }}
+.listado-seccion {{ padding: 16px 0 4px; text-align: center; }}
+.listado-seccion h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: var(--ink); margin: 0 0 8px; }}
+.listado-seccion p {{ font-size: 14px; line-height: 1.75; color: var(--gray-600); margin: 0; }}
+.listado-seccion a {{ color: var(--ink); font-weight: 600; }}
 .listado-faqs {{ max-width: 760px; margin: 0 auto; padding: 26px 1.25rem 40px; }}
 .listado-faqs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 14px; text-align: center; }}
 .listado-faq-item {{ border-top: 1px solid var(--gray-200); padding: 14px 0; }}
@@ -808,6 +823,7 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 <div class="listado-grid">
   <div class="grid">{cards}</div>
 </div>
+{secciones_html}
 {faqs_html}
 
 <footer class="footer">
