@@ -17,17 +17,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
 <style>
-.listado-hero { max-width: 1240px; margin: 0 auto; padding: 26px 1.25rem 6px; }
+.listado-hero { max-width: 1240px; margin: 0 auto; padding: 26px 1.25rem 6px; text-align: center; }
 .listado-hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 4vw, 34px); margin: 0 0 10px; color: var(--ink); }
-.listado-hero p { max-width: 720px; font-size: 14.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }
+.listado-hero p { max-width: 720px; font-size: 14.5px; line-height: 1.7; color: var(--gray-600); margin: 0 auto; }
 .chips-nav { max-width: 1240px; margin: 14px auto 0; padding: 0 1.25rem; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
 .chips-nav::-webkit-scrollbar { display: none; }
+@media (min-width: 1100px) { .chips-nav { flex-wrap: wrap; justify-content: center; } }
 .chip { flex-shrink: 0; font-size: 12.5px; font-weight: 600; color: var(--ink); background: #fff; border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 7px 14px; text-decoration: none; }
 .chip:hover { border-color: var(--accent); }
 .chip-activa { background: var(--ink); color: #fff; border-color: var(--ink); }
 .listado-grid { max-width: 1240px; margin: 0 auto; padding: 20px 1.25rem 10px; }
 .listado-faqs { max-width: 760px; margin: 0 auto; padding: 26px 1.25rem 40px; }
-.listado-faqs h2 { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 14px; }
+.listado-faqs h2 { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 14px; text-align: center; }
 .listado-faq-item { border-top: 1px solid var(--gray-200); padding: 14px 0; }
 .listado-faq-item h3 { font-size: 15px; margin: 0 0 6px; color: var(--ink); }
 .listado-faq-item p { font-size: 13.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }
