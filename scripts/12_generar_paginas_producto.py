@@ -1149,7 +1149,8 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 # Interlinking editorial: posts relacionados entre si y guias por listado
 # (auditoria de grafo jul-2026: los posts tenian 1 solo in-link, el hub).
 BLOG_RELACIONADOS = {
-    'regalos-dia-de-la-madre': ['regalos-originales-para-mujeres', 'regalos-originales-para-hombres'],
+    'dia-del-amigo': ['regalos-originales-para-hombres', 'regalos-originales-para-mujeres'],
+    'regalos-dia-de-la-madre': ['regalos-originales-para-mujeres', 'dia-del-amigo'],
     'regalos-originales-para-mujeres': ['regalos-dia-de-la-madre', 'regalos-originales-para-hombres'],
     'regalos-originales-para-hombres': ['regalos-originales-para-mujeres', 'regalos-dia-de-la-madre'],
     'como-organizar-el-placard': ['como-organizar-una-cocina-pequena', 'ideas-para-decorar-una-habitacion'],
@@ -1159,6 +1160,7 @@ BLOG_RELACIONADOS = {
     'como-limpiar-termo-acero-inoxidable': ['como-organizar-una-cocina-pequena', 'como-sacar-pelos-de-mascota-de-la-ropa'],
 }
 GUIAS_LISTADO = {
+    'ofertas': [('dia-del-amigo', 'Día del Amigo: cuándo es y qué regalar')],
     'organizadores': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña')],
     'bazar-y-cocina': [('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar un termo de acero')],
     'vasos-y-botellas-termicas': [('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar tu termo por dentro'), ('regalos-originales-para-hombres', 'Regalos originales para hombres')],
