@@ -1240,6 +1240,36 @@ elgadget.com.ar/?ref=[TU_CODIGO]</div>
 <!-- ════════════════════════════════════════════════════
      FORMULARIO INLINE
      ════════════════════════════════════════════════════ -->
+<!-- Chat ilustrativo animado: el mecanismo del programa en 4 segundos -->
+<div class="chat-demo-wrap">
+<style>
+.chat-demo-wrap{max-width:400px;margin:0 auto;padding:34px 20px 30px}
+.chat-demo{background:#fff;border:1.5px solid var(--gray-200);border-radius:20px;padding:18px 16px 10px;box-shadow:0 12px 30px rgba(20,21,26,0.12)}
+.cd-b{max-width:86%;padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.5;margin-bottom:10px;opacity:0}
+.chat-demo-wrap.play .cd-b{animation:cdIn .5s ease forwards}
+.cd-out{background:var(--accent);color:var(--ink);margin-left:auto;border-bottom-right-radius:4px}
+.chat-demo-wrap.play .cd-out{animation-delay:.2s}
+.cd-in{background:var(--gray-100);color:var(--ink);border-bottom-left-radius:4px}
+.chat-demo-wrap.play .cd-in{animation-delay:1.3s}
+.cd-not{background:var(--ink);color:#fff;text-align:center;border-radius:12px;max-width:100%}
+.chat-demo-wrap.play .cd-not{animation-delay:2.5s}
+.cd-not strong{color:var(--accent)}
+@keyframes cdIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cd-cap{text-align:center;font-size:11px;color:var(--gray-600);margin-top:10px}
+@media (prefers-reduced-motion: reduce){.cd-b{opacity:1;animation:none!important}}
+</style>
+<div class="chat-demo" aria-hidden="true">
+  <div class="cd-b cd-out">Te paso mi código: <strong>MARI10</strong> 🎁 Tenés descuento en El Gadget</div>
+  <div class="cd-b cd-in">¡Genial! Ya pedí una lámpara 😍</div>
+  <div class="cd-b cd-not">💰 Comisión acreditada: <strong>+$1.820</strong></div>
+</div>
+<p class="cd-cap">Ejemplo ilustrativo — comisión base del 7% sobre una compra de $26.000</p>
+<script>
+(function(){var w=document.currentScript.parentElement;
+if(!('IntersectionObserver' in window)){w.classList.add('play');return;}
+new IntersectionObserver(function(e,o){if(e[0].isIntersecting){w.classList.add('play');o.disconnect();}},{threshold:.5}).observe(w);})();
+</script>
+</div>
 <section class="g-form-section" id="registro">
   <div class="g-form-wrap">
     <h2>Empezá a vender sin stock hoy</h2>
