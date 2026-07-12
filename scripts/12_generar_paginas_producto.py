@@ -748,6 +748,12 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
         )
         secciones_html = f'<div class="listado-secciones">{bloques}</div>'
 
+    guias = GUIAS_LISTADO.get(slug, [])
+    guias_html = ''
+    if guias:
+        links_g = ''.join(f'<a href="/blog/{g}/">{html.escape(t)} →</a>' for g, t in guias)
+        guias_html = (f'<div class="listado-guias"><h2>Guías relacionadas</h2>{links_g}</div>')
+
     faqs_html = ''
     jsonld = [{
         "@context": "https://schema.org/",
@@ -855,6 +861,9 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 .listado-seccion h2::after {{ content: ''; display: block; width: 44px; height: 4px; border-radius: 2px; background: var(--accent); margin: 10px auto 0; }}
 .listado-seccion p {{ font-size: 14px; line-height: 1.75; color: var(--gray-600); margin: 0; }}
 .listado-seccion a {{ color: var(--ink); font-weight: 600; }}
+.listado-guias {{ max-width: 760px; margin: 0 auto; padding: 4px 1.25rem 40px; text-align: center; }}
+.listado-guias h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 17px; color: var(--ink); margin: 0 0 10px; }}
+.listado-guias a {{ display: inline-block; margin: 4px 8px; font-size: 13.5px; font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }}
 .listado-faqs {{ max-width: 820px; margin: 0 auto; padding: 30px 1.25rem 44px; }}
 .listado-faqs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: var(--ink); margin: 0 0 16px; text-align: center; }}
 .listado-faq-item {{ background: #fff; border: 1.5px solid var(--gray-200); border-left: 5px solid var(--accent); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 10px; }}
@@ -928,6 +937,7 @@ document.addEventListener('click', function(e) {{
 </div>
 {secciones_html}
 {faqs_html}
+{guias_html}
 
 <footer class="footer">
   <div class="footer-inner">
@@ -1133,6 +1143,32 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 </html>'''
 
 
+# Interlinking editorial: posts relacionados entre si y guias por listado
+# (auditoria de grafo jul-2026: los posts tenian 1 solo in-link, el hub).
+BLOG_RELACIONADOS = {
+    'regalos-dia-de-la-madre': ['regalos-originales-para-mujeres', 'regalos-originales-para-hombres'],
+    'regalos-originales-para-mujeres': ['regalos-dia-de-la-madre', 'regalos-originales-para-hombres'],
+    'regalos-originales-para-hombres': ['regalos-originales-para-mujeres', 'regalos-dia-de-la-madre'],
+    'como-organizar-el-placard': ['como-organizar-una-cocina-pequena', 'ideas-para-decorar-una-habitacion'],
+    'como-organizar-una-cocina-pequena': ['como-organizar-el-placard', 'como-limpiar-termo-acero-inoxidable'],
+    'ideas-para-decorar-una-habitacion': ['como-organizar-el-placard', 'regalos-originales-para-mujeres'],
+    'como-sacar-pelos-de-mascota-de-la-ropa': ['como-limpiar-termo-acero-inoxidable', 'como-organizar-una-cocina-pequena'],
+    'como-limpiar-termo-acero-inoxidable': ['como-organizar-una-cocina-pequena', 'como-sacar-pelos-de-mascota-de-la-ropa'],
+}
+GUIAS_LISTADO = {
+    'organizadores': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña')],
+    'bazar-y-cocina': [('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar un termo de acero')],
+    'vasos-y-botellas-termicas': [('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar tu termo por dentro'), ('regalos-originales-para-hombres', 'Regalos originales para hombres')],
+    'accesorios-para-mascotas': [('como-sacar-pelos-de-mascota-de-la-ropa', 'Cómo sacar los pelos de tu mascota de la ropa')],
+    'lamparas-y-luces-led': [('ideas-para-decorar-una-habitacion', 'Ideas para decorar una habitación'), ('regalos-originales-para-mujeres', 'Regalos originales para mujeres')],
+    'deco': [('ideas-para-decorar-una-habitacion', 'Ideas para decorar una habitación')],
+    'accesorios-de-moda': [('regalos-originales-para-mujeres', 'Regalos originales para mujeres')],
+    'home': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('ideas-para-decorar-una-habitacion', 'Ideas para decorar una habitación')],
+}
+
+
+
+
 def generar_blog(productos: list = None, slug_map: dict = None) -> list:
     """Genera /blog/ (hub) y /blog/<slug>/ desde utils.blog_posts. Devuelve slugs."""
     blog_dir = PAGES_DIR / 'blog'
@@ -1199,9 +1235,17 @@ def generar_blog(productos: list = None, slug_map: dict = None) -> list:
             items = ''.join(f'<div class="listado-faq-item"><h3>{html.escape(q)}</h3><p>{html.escape(a)}</p></div>'
                             for q, a in cfg['faqs'])
             faqs = f'<div class="listado-faqs"><h2>Preguntas frecuentes</h2>{items}</div>'
+        rel = ''
+        rel_slugs = BLOG_RELACIONADOS.get(slug, [])
+        if rel_slugs:
+            cards_rel = ''.join(
+                f'<a class="blog-card" href="/blog/{r}/"><h2>{html.escape(BLOG_POSTS[r]["h1"])}</h2></a>'
+                for r in rel_slugs if r in BLOG_POSTS)
+            rel = (f'<div class="listado-faqs" style="padding-top:6px"><h2>Seguí leyendo</h2>'
+                   f'<div class="blog-grid" style="margin-top:0;padding:0">{cards_rel}</div></div>')
         cierre = ('<div class="blog-cierre"><a class="btn btn-accent" href="/" '
                   'style="display:inline-block">Ver el catálogo completo →</a></div>')
-        cuerpo = f'{img_hero}<div class="blog-body">{secciones}</div>{faqs}{cierre}'
+        cuerpo = f'{img_hero}<div class="blog-body">{secciones}</div>{faqs}{rel}{cierre}'
         destino = blog_dir / slug
         destino.mkdir(parents=True, exist_ok=True)
         (destino / 'index.html').write_text(
