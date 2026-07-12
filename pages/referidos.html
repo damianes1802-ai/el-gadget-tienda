@@ -55,31 +55,31 @@
 }
 
 .ref-numbers {
-  background: var(--accent);
-  padding: 36px 24px;
+  background: linear-gradient(135deg, var(--accent) 0%, #ffd84d 60%, var(--accent) 100%);
+  padding: 30px 20px;
   text-align: center;
 }
 .ref-numbers-grid {
   display: flex;
-  gap: 40px;
+  gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 760px;
+  max-width: 780px;
   margin: 0 auto;
 }
-.ref-num-item { flex: 1; min-width: 160px; }
+.ref-num-item { flex: 1; min-width: 150px; background: var(--ink); border: 2px solid rgba(255,255,255,0.28); border-radius: 18px; padding: 20px 14px; box-shadow: 0 10px 24px rgba(20,21,26,0.22); }
 .ref-num-value {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 42px;
+  font-size: 36px;
   font-weight: 700;
-  color: var(--ink);
+  color: var(--accent);
   line-height: 1;
 }
 .ref-num-label {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
-  color: var(--ink);
-  margin-top: 6px;
+  color: rgba(255,255,255,0.82);
+  margin-top: 8px;
   opacity: 0.75;
 }
 
@@ -698,6 +698,29 @@ function toggleRefFaq(btn) {
     btn.classList.add('open');
   }
 }
+</script>
+<script>
+(function() {
+  var els = document.querySelectorAll('.ref-num-value');
+  if (!els.length || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(es) {
+    es.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      var el = e.target, m = el.textContent.trim().match(/^(\$?)(\d+)(%?)$/);
+      io.unobserve(el);
+      if (!m) return;
+      var fin = parseInt(m[2], 10), t0 = null;
+      function paso(t) {
+        if (!t0) t0 = t;
+        var p = Math.min((t - t0) / 900, 1);
+        el.textContent = m[1] + Math.round(fin * (1 - Math.pow(1 - p, 3))) + m[3];
+        if (p < 1) requestAnimationFrame(paso);
+      }
+      requestAnimationFrame(paso);
+    });
+  }, { threshold: 0.6 });
+  els.forEach(function(el) { io.observe(el); });
+})();
 </script>
 </body>
 </html>
