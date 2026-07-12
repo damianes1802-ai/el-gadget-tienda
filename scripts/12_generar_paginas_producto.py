@@ -1042,7 +1042,8 @@ fetch(EG_API_URL + '/api/resenas/promedios')
 </html>'''
 
 
-def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str, cuerpo: str) -> str:
+def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str, cuerpo: str,
+                og_img: str = '') -> str:
     """Shell compartido de las páginas del blog (misma identidad que los listados)."""
     return f'''<!DOCTYPE html>
 <html lang="es">
@@ -1056,6 +1057,7 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 <meta property="og:description" content="{html.escape(meta)}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{canonical}">
+{f'<meta property="og:image" content="{og_img}">' if og_img else ''}
 <meta name="theme-color" content="#14151A">
 <link rel="icon" type="image/svg+xml" href="{FAVICON}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1089,6 +1091,7 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 .listado-faq-item {{ background: #fff; border: 1.5px solid var(--gray-200); border-left: 5px solid var(--accent); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 10px; }}
 .listado-faq-item h3 {{ font-size: 14.5px; margin: 0 0 6px; color: var(--ink); }}
 .listado-faq-item p {{ font-size: 13.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }}
+.blog-prod {{ max-width: 270px; margin: 18px auto 0; text-align: left; }}
 .blog-cierre {{ max-width: 760px; margin: 10px auto 0; padding: 0 1.25rem 40px; text-align: center; }}
 .blog-img-hero {{ max-width: 860px; margin: -18px auto 0; padding: 0 1.25rem; position: relative; z-index: 2; }}
 .blog-img-hero img {{ width: 100%; height: auto; border-radius: var(--radius); box-shadow: 0 14px 34px rgba(20,21,26,0.18); display: block; }}
@@ -1130,17 +1133,19 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 </html>'''
 
 
-def generar_blog() -> list:
+def generar_blog(productos: list = None, slug_map: dict = None) -> list:
     """Genera /blog/ (hub) y /blog/<slug>/ desde utils.blog_posts. Devuelve slugs."""
     blog_dir = PAGES_DIR / 'blog'
     slugs = []
     for slug, cfg in BLOG_POSTS.items():
         canonical = f"{CANONICAL_DOMAIN}/blog/{slug}/"
+        og_img = f"{CANONICAL_DOMAIN}{cfg['imagen'][0]}" if cfg.get('imagen') else ''
         jsonld = [{
             "@context": "https://schema.org/",
             "@type": "Article",
             "headline": cfg['h1'],
             "description": cfg['meta'],
+            **({"image": [og_img]} if og_img else {}),
             "datePublished": cfg['fecha'],
             "author": {"@type": "Organization", "name": BRAND},
             "publisher": {"@type": "Organization", "name": BRAND},
@@ -1176,12 +1181,18 @@ def generar_blog() -> list:
         partes_sec = []
         for sec in cfg['secciones']:
             t, c = sec[0], sec[1]
-            img_s = ''
+            img_s, prod_s = '', ''
             if len(sec) > 2 and sec[2]:
-                s_src, s_alt = sec[2]
-                img_s = (f'<img src="{s_src}" alt="{html.escape(s_alt)}" width="1200" '
-                         f'height="670" loading="lazy">')
-            partes_sec.append(f'<section>{img_s}<h2>{html.escape(t)}</h2><p>{c}</p></section>')
+                if sec[2][0] == 'prod' and productos:
+                    rxp = re.compile(sec[2][1], re.I)
+                    p_hit = next((p for p in productos if rxp.search(p['nombre'])), None)
+                    if p_hit and slug_map:
+                        prod_s = f'<div class="blog-prod">{_card_listado(p_hit, slug_map)}</div>'
+                else:
+                    s_src, s_alt = sec[2]
+                    img_s = (f'<img src="{s_src}" alt="{html.escape(s_alt)}" width="1200" '
+                             f'height="670" loading="lazy">')
+            partes_sec.append(f'<section>{img_s}<h2>{html.escape(t)}</h2><p>{c}</p>{prod_s}</section>')
         secciones = ''.join(partes_sec)
         faqs = ''
         if cfg.get('faqs'):
@@ -1194,7 +1205,7 @@ def generar_blog() -> list:
         destino = blog_dir / slug
         destino.mkdir(parents=True, exist_ok=True)
         (destino / 'index.html').write_text(
-            _shell_blog(cfg['title'], cfg['meta'], canonical, jsonld, hero, cuerpo), encoding='utf-8')
+            _shell_blog(cfg['title'], cfg['meta'], canonical, jsonld, hero, cuerpo, og_img), encoding='utf-8')
         slugs.append(slug)
 
     # Hub /blog/
@@ -1355,7 +1366,7 @@ def generar():
     print(f"✅ {len(slugs_cat)} páginas de categoría y {len(slugs_col)} de colección generadas")
 
     # 4c. Blog (contenido informacional que alimenta a las categorías)
-    slugs_blog = generar_blog()
+    slugs_blog = generar_blog(productos, slug_map)
     print(f"✅ Blog: hub + {len(slugs_blog)} posts generados")
 
     # 5. Generar sitemap.xml
