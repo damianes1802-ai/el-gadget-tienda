@@ -813,7 +813,7 @@ elgadget.com.ar/?ref=[TU_CODIGO]</div>
   <div class="panel-preview">
     <h3>Así se ve tu panel de referido</h3>
     <div class="video-wrap" onclick="openVideoPlayer()">
-      <video autoplay loop muted playsinline id="panelPreview"><source src="../../assets/video/panel-referidos.mp4" type="video/mp4"></video>
+      <video autoplay loop muted playsinline id="panelPreview" poster="/assets/img/ganar/panel-referidos-poster.jpg"><source src="../../assets/video/panel-referidos.mp4" type="video/mp4"></video>
       <div class="video-play-hint"><span>⛶</span></div>
     </div>
     <p style="text-align:center;font-size:12px;color:var(--gray-600);margin-top:12px">Panel real — accedés al instante después de registrarte.</p>
@@ -1240,5 +1240,30 @@ document.getElementById("year") && (document.getElementById("year").textContent 
 })();
 </script>
 <script src="/assets/js/abtest.js"></script>
+<script>
+// Contadores animados de la franja de stats (solo valores numericos puros)
+(function() {
+  var els = document.querySelectorAll('.g-num-value');
+  if (!els.length || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entradas) {
+    entradas.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      var el = e.target, txt = el.textContent.trim();
+      var m = txt.match(/^(\$?)(\d+)(%?)$/);
+      io.unobserve(el);
+      if (!m) return;
+      var fin = parseInt(m[2], 10), ini = 0, t0 = null, dur = 900;
+      function paso(t) {
+        if (!t0) t0 = t;
+        var p = Math.min((t - t0) / dur, 1);
+        el.textContent = m[1] + Math.round(fin * (1 - Math.pow(1 - p, 3))) + m[3];
+        if (p < 1) requestAnimationFrame(paso);
+      }
+      requestAnimationFrame(paso);
+    });
+  }, { threshold: 0.6 });
+  els.forEach(function(el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>

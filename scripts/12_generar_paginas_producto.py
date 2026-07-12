@@ -1238,8 +1238,14 @@ def generar_blog(productos: list = None, slug_map: dict = None) -> list:
         rel = ''
         rel_slugs = BLOG_RELACIONADOS.get(slug, [])
         if rel_slugs:
+            def _thumb_rel(c):
+                if not c.get('imagen'):
+                    return ''
+                t_src, t_alt = c['imagen']
+                return (f'<img src="{t_src}" alt="{html.escape(t_alt)}" loading="lazy" width="1200" height="670" '
+                        f'style="width:100%;height:120px;object-fit:cover;border-radius:10px;margin-bottom:10px;display:block">')
             cards_rel = ''.join(
-                f'<a class="blog-card" href="/blog/{r}/"><h2>{html.escape(BLOG_POSTS[r]["h1"])}</h2></a>'
+                f'<a class="blog-card" href="/blog/{r}/">{_thumb_rel(BLOG_POSTS[r])}<h2>{html.escape(BLOG_POSTS[r]["h1"])}</h2></a>'
                 for r in rel_slugs if r in BLOG_POSTS)
             rel = (f'<div class="listado-faqs" style="padding-top:6px"><h2>Seguí leyendo</h2>'
                    f'<div class="blog-grid" style="margin-top:0;padding:0">{cards_rel}</div></div>')
@@ -1262,8 +1268,14 @@ def generar_blog(productos: list = None, slug_map: dict = None) -> list:
   <h1>Ideas, guías y trucos para tu casa</h1>
   <p>Organización, deco, regalos y vida diaria: contenido útil, sin humo, escrito para resolver.</p>
 </div>'''
+    def _thumb(c):
+        if not c.get('imagen'):
+            return ''
+        t_src, t_alt = c['imagen']
+        return (f'<img src="{t_src}" alt="{html.escape(t_alt)}" loading="lazy" width="1200" height="670" '
+                f'style="width:100%;height:150px;object-fit:cover;border-radius:12px;margin-bottom:12px;display:block">')
     cards = ''.join(
-        f'''<a class="blog-card" href="/blog/{s}/"><h2>{html.escape(c['h1'])}</h2><p>{html.escape(re.sub("<[^>]+>", "", c['intro'])[:130])}…</p></a>'''
+        f'''<a class="blog-card" href="/blog/{s}/">{_thumb(c)}<h2>{html.escape(c['h1'])}</h2><p>{html.escape(re.sub("<[^>]+>", "", c['intro'])[:130])}…</p></a>'''
         for s, c in BLOG_POSTS.items())
     cuerpo = f'<div class="blog-grid">{cards}</div><div class="blog-cierre" style="padding-top:30px"><a class="btn btn-accent" href="/" style="display:inline-block">Ir a la tienda →</a></div>'
     blog_dir.mkdir(parents=True, exist_ok=True)

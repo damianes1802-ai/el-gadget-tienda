@@ -636,6 +636,14 @@
 </section>
 
 <!-- FORMULARIO -->
+<!-- Video del panel: la prueba real del programa -->
+<section style="padding:44px 24px 40px;text-align:center;background:#fff">
+  <div class="g-section-title">Así se ve tu panel de referidos</div>
+  <div class="g-section-sub" style="margin-bottom:22px">Panel real — accedés al instante después de registrarte.</div>
+  <video autoplay loop muted playsinline controls poster="/assets/img/ganar/panel-referidos-poster.jpg" style="width:100%;max-width:420px;border-radius:18px;box-shadow:0 14px 34px rgba(20,21,26,0.18)">
+    <source src="/assets/video/panel-referidos.mp4" type="video/mp4">
+  </video>
+</section>
 <section class="g-form-section" id="registro">
   <div class="g-form-wrap">
     <h2>Empezá a ganar desde casa hoy</h2>
@@ -830,6 +838,31 @@ async function registrarTDC(e) {
     btn.textContent = 'Obtener mi código gratis →';
   }
 }
+</script>
+<script>
+// Contadores animados de la franja de stats (solo valores numericos puros)
+(function() {
+  var els = document.querySelectorAll('.g-num-value');
+  if (!els.length || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entradas) {
+    entradas.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      var el = e.target, txt = el.textContent.trim();
+      var m = txt.match(/^(\$?)(\d+)(%?)$/);
+      io.unobserve(el);
+      if (!m) return;
+      var fin = parseInt(m[2], 10), ini = 0, t0 = null, dur = 900;
+      function paso(t) {
+        if (!t0) t0 = t;
+        var p = Math.min((t - t0) / dur, 1);
+        el.textContent = m[1] + Math.round(fin * (1 - Math.pow(1 - p, 3))) + m[3];
+        if (p < 1) requestAnimationFrame(paso);
+      }
+      requestAnimationFrame(paso);
+    });
+  }, { threshold: 0.6 });
+  els.forEach(function(el) { io.observe(el); });
+})();
 </script>
 </body>
 </html>
