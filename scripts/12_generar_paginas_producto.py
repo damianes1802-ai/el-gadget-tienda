@@ -1105,6 +1105,9 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 .blog-cierre {{ max-width: 760px; margin: 10px auto 0; padding: 0 1.25rem 40px; text-align: center; }}
 .blog-img-hero {{ max-width: 860px; margin: -18px auto 0; padding: 0 1.25rem; position: relative; z-index: 2; }}
 .blog-img-hero img {{ width: 100%; height: auto; border-radius: var(--radius); box-shadow: 0 14px 34px rgba(20,21,26,0.18); display: block; }}
+.blog-toc nav {{ display: flex; flex-direction: column; gap: 6px; }}
+.blog-toc nav a {{ font-size: 13.5px; font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }}
+.blog-body section {{ scroll-margin-top: 96px; }}
 .blog-body section img {{ width: 100%; height: auto; border-radius: var(--radius-sm); margin-bottom: 16px; display: block; }}
 </style>
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
@@ -1228,8 +1231,14 @@ def generar_blog(productos: list = None, slug_map: dict = None) -> list:
                     s_src, s_alt = sec[2]
                     img_s = (f'<img src="{s_src}" alt="{html.escape(s_alt)}" width="1200" '
                              f'height="670" loading="lazy">')
-            partes_sec.append(f'<section>{img_s}<h2>{html.escape(t)}</h2><p>{c}</p>{prod_s}</section>')
-        secciones = ''.join(partes_sec)
+            sec_id = f'sec-{len(partes_sec) + 1}'
+            partes_sec.append(f'<section id="{sec_id}">{img_s}<h2>{html.escape(t)}</h2><p>{c}</p>{prod_s}</section>')
+        toc = ''
+        if len(cfg['secciones']) >= 6:
+            items_toc = ''.join(f'<a href="#sec-{i + 1}">{html.escape(t[0])}</a>'
+                                for i, t in enumerate(cfg['secciones']))
+            toc = (f'<section class="blog-toc"><h2>En esta guía</h2><nav>{items_toc}</nav></section>')
+        secciones = toc + ''.join(partes_sec)
         faqs = ''
         if cfg.get('faqs'):
             items = ''.join(f'<div class="listado-faq-item"><h3>{html.escape(q)}</h3><p>{html.escape(a)}</p></div>'
