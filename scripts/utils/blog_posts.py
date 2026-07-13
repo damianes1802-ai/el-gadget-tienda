@@ -9,6 +9,35 @@ Los cuerpos admiten HTML (links internos al catálogo).
 """
 
 BLOG_POSTS = {
+    'regalos-de-navidad': {
+        'title': 'Regalos de Navidad 2026: ideas por presupuesto y cuándo comprar | El Gadget',
+        'h1': 'Regalos de Navidad 2026: ideas que llegan a tiempo',
+        'meta': 'Ideas de regalos de Navidad 2026 por presupuesto y por destinatario, cuándo es Navidad y Reyes, y cómo comprar online con tiempo para que lleguen. Envío a todo el país.',
+        'fecha': '2026-07-13',
+        'intro': 'La Navidad llega siempre igual: de golpe. Este año es el <strong>viernes 25 de diciembre</strong>, y entre la cena, el arbolito y el amigo invisible de la oficina, la lista de regalos se hace larga. Acá te la simplificamos: ideas por presupuesto y por destinatario, cuándo comprar para que todo llegue a tiempo, y una herramienta gratis para organizar el amigo invisible sin dramas.',
+        'secciones': [
+            ('¿Cuándo es Navidad y Reyes 2026?',
+             'Para que planifiques con fechas exactas: la <strong>Nochebuena es el jueves 24 de diciembre</strong>, <strong>Navidad el viernes 25</strong> y los <strong>Reyes Magos el miércoles 6 de enero de 2027</strong>. En Argentina son dos momentos de regalos: los adultos suelen intercambiar en Navidad, y a los más chicos les llegan los Reyes el 6 de enero. Si comprás online, la clave es una sola palabra: anticipación (más sobre eso al final).'),
+            ('Regalos de Navidad por presupuesto',
+             'Ordenado por lo que querés gastar. Con <strong>menos de $20.000</strong>: <a href="/coleccion/lamparas-y-luces-led/">luces LED</a> para decorar, accesorios de cocina, gadgets chicos. Entre <strong>$20.000 y $40.000</strong>: <a href="/coleccion/vasos-y-botellas-termicas/">vasos térmicos</a> para el mate del verano, veladores con diseño, <a href="/categoria/accesorios-de-moda/">bandoleras</a>. <strong>Más de $40.000</strong>: lámparas de escritorio, <a href="/coleccion/organizadores/">organizadores</a> grandes, o un combo de varias cosas. Mirá también las <a href="/categoria/ofertas/">ofertas de la semana</a> antes de decidir.'),
+            ('Regalos de Navidad por destinatario',
+             'Si ya sabés para quién es pero no qué: para <strong>ella</strong> tenemos una guía dedicada de <a href="/blog/regalos-originales-para-mujeres/">regalos originales para mujeres</a>; para <strong>él</strong>, la de <a href="/blog/regalos-originales-para-hombres/">regalos originales para hombres</a>. Para <strong>los más chicos</strong>, la sección de <a href="/categoria/articulos-infantiles/">artículos infantiles</a> tiene juguetes didácticos y regalos que entretienen sin pantalla — ideales también para dejar de parte de los Reyes.'),
+            ('¿Amigo invisible en la oficina o la familia?',
+             'El amigo invisible es el clásico navideño de grupos grandes: cada uno le regala a una sola persona y nadie gasta de más. Olvidate de los papelitos: usá nuestro <a href="/amigo-invisible/">amigo invisible online gratis</a>. Cargás los nombres y emails, sorteamos automáticamente (nadie se toca a sí mismo), y cada uno recibe por email a quién le toca — con lista de deseos para no errarle e ideas de regalo del catálogo. Sin registro y sin trampas.'),
+            ('Armá tu propia cajita navideña',
+             'Las cajitas navideñas armadas se agotan y salen caras. La alternativa que queda mejor: armá la tuya combinando 2 o 3 productos que peguen entre sí. Por ejemplo, un <a href="/coleccion/vasos-y-botellas-termicas/">vaso térmico</a> + un paquete de café para el matero; unas <a href="/coleccion/lamparas-y-luces-led/">luces LED</a> + un detalle de <a href="/categoria/deco/">deco</a> para el que estrena casa. Sale más personal, más lindo y muchas veces más barato que la caja prearmada.'),
+            ('Reyes Magos: los regalos del 6 de enero',
+             'Después de Navidad viene la segunda ronda: el 6 de enero, los Reyes le dejan los regalos a los chicos. Si sos de los que dejan todo para último momento, esta vez anticipate: los <a href="/categoria/articulos-infantiles/">juguetes y artículos infantiles</a> más buscados se agotan entre Navidad y Reyes. Comprando en diciembre te asegurás el que querés y evitás el sobreprecio de última hora.'),
+            ('El tip que salva la Navidad: comprá con tiempo',
+             'El error más común es dejar los regalos para la semana del 20 de diciembre, justo cuando los envíos están saturados. Comprando online con anticipación tenés envío a todo el país con seguimiento y <strong>cambios hasta 10 días</strong> por si algo no era lo ideal. La regla simple: pedí antes del <strong>15 de diciembre</strong> y dormís tranquilo. Empezá por el <a href="/">catálogo completo</a> o directo por las <a href="/categoria/ofertas/">ofertas</a>.'),
+        ],
+        'faqs': [('¿Cuándo es Navidad 2026?',
+                  'La Nochebuena es el jueves 24 de diciembre de 2026 y la Navidad el viernes 25. Los Reyes Magos llegan el miércoles 6 de enero de 2027.'),
+                 ('¿Con cuánta anticipación conviene comprar los regalos de Navidad?',
+                  'Lo ideal es comprar online antes del 15 de diciembre: los envíos se saturan la última semana y así te asegurás que todo llegue a tiempo, con margen para cambios si hiciera falta.'),
+                 ('¿Cómo organizo el amigo invisible de Navidad?',
+                  'Usá nuestro amigo invisible online gratis: cargás los participantes con su email, el sistema sortea automáticamente y le avisa a cada uno a quién le regala, con lista de deseos e ideas. Sin registro ni planillas.')],
+    },
     'hot-sale-cyber-monday-black-friday': {
         'imagen': ('/assets/img/blog/hot-sale-cyber-monday-argentina.jpg', 'Persona comparando ofertas online en el celular y la notebook durante una jornada de descuentos como el Hot Sale'),
         'title': 'Hot Sale, Cyber Monday y Black Friday 2026 en Argentina: cuándo son | El Gadget',

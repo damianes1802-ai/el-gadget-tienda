@@ -1149,6 +1149,7 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 # Interlinking editorial: posts relacionados entre si y guias por listado
 # (auditoria de grafo jul-2026: los posts tenian 1 solo in-link, el hub).
 BLOG_RELACIONADOS = {
+    'regalos-de-navidad': ['dia-del-amigo', 'regalos-originales-para-mujeres'],
     'hot-sale-cyber-monday-black-friday': ['dia-del-amigo', 'regalos-originales-para-mujeres'],
     'como-curar-el-mate': ['como-limpiar-termo-acero-inoxidable', 'regalos-originales-para-hombres'],
     'dia-del-amigo': ['regalos-originales-para-hombres', 'regalos-originales-para-mujeres'],
@@ -1162,7 +1163,8 @@ BLOG_RELACIONADOS = {
     'como-limpiar-termo-acero-inoxidable': ['como-curar-el-mate', 'como-organizar-una-cocina-pequena'],
 }
 GUIAS_LISTADO = {
-    'ofertas': [('hot-sale-cyber-monday-black-friday', 'Hot Sale, Cyber Monday y Black Friday: cuándo son'), ('dia-del-amigo', 'Día del Amigo: cuándo es y qué regalar')],
+    'articulos-infantiles': [('regalos-de-navidad', 'Regalos de Navidad y Reyes: ideas por edad y presupuesto')],
+    'ofertas': [('regalos-de-navidad', 'Regalos de Navidad: ideas y cuándo comprar'), ('hot-sale-cyber-monday-black-friday', 'Hot Sale, Cyber Monday y Black Friday: cuándo son'), ('dia-del-amigo', 'Día del Amigo: cuándo es y qué regalar')],
     'organizadores': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña')],
     'bazar-y-cocina': [('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar un termo de acero')],
     'vasos-y-botellas-termicas': [('como-curar-el-mate', 'Cómo curar el mate paso a paso'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar tu termo por dentro')],
