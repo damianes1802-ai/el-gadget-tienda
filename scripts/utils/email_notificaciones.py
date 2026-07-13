@@ -1225,6 +1225,40 @@ def enviar_email_carrito_abandonado_3(orden: dict, items: list) -> dict:
     return _enviar(orden['email'], f"Último recordatorio — tu carrito se vacía pronto", _layout(cuerpo, marketing=True), is_marketing=True)
 
 
+def enviar_email_amigo_invisible(nombre: str, email: str, grupo: str,
+                                 presupuesto: str = "", fecha: str = "", link: str = "") -> dict:
+    """Le manda a cada participante de un sorteo su link privado para descubrir
+    a quién le toca regalar. La asignación NO viaja en el email (se ve solo al
+    abrir el link), así ni el proveedor de mail conoce el resultado del sorteo."""
+    nombre_s = _html.escape(nombre or "")
+    grupo_s = _html.escape(grupo or "tu grupo")
+    detalles = []
+    if presupuesto:
+        detalles.append(f"💰 Presupuesto sugerido: <strong>{_html.escape(presupuesto)}</strong>")
+    if fecha:
+        detalles.append(f"📅 Intercambio: <strong>{_html.escape(fecha)}</strong>")
+    detalles_html = ""
+    if detalles:
+        detalles_html = ('<p style="color:%s;margin:0 0 22px;font-size:13.5px;line-height:1.7">%s</p>'
+                         % (GRAY_600, "<br>".join(detalles)))
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">🎁 ¡Ya se sorteó el amigo invisible de {grupo_s}!</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        ¡Hola {nombre_s}! El sorteo ya está hecho. Abrí tu link privado para descubrir
+        a quién te toca regalar (nadie más puede verlo, ni siquiera quien organizó el grupo).
+      </p>
+      {detalles_html}
+      {_boton('Ver a quién le regalo 🎁', link)}
+      <p style="color:{GRAY_600};font-size:12.5px;margin:0;text-align:center">
+        Guardá este mail: es tu único acceso. En el link también podés dejar tu lista de deseos
+        para que quien te regale a vos sepa qué te gusta.
+      </p>
+    """
+    return _enviar(email, f"🎁 Tu amigo invisible de {grupo} — descubrí a quién le regalás",
+                   _layout(cuerpo, marketing=True), is_marketing=True)
+
+
 def enviar_email_review_request(nombre: str, email: str, producto_nombre: str,
                                 orden_id: int = None, producto_sku: str = None) -> dict:
     """N8 — Review request post-entrega. Nurturing/marketing.

@@ -1452,6 +1452,7 @@ def generar():
         (f"{canonical_url}/terminos", "monthly"),
         (f"{canonical_url}/referidos", "weekly"),
         (f"{canonical_url}/mayoristas", "monthly"),
+        (f"{canonical_url}/amigo-invisible/", "monthly"),
     ]
     # Landings /ganar/ desde el filesystem (la lista hardcodeada dejaba afuera
     # a las landings nuevas). panel-preview es una página soporte: no se indexa.

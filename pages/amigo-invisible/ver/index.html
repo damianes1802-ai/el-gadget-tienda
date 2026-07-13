@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu amigo invisible | El Gadget</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#14151A">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<style>
+.av-wrap { max-width: 560px; margin: 0 auto; padding: 24px 1.25rem 50px; }
+.av-reveal { background: var(--ink); color: #fff; border-radius: var(--radius); padding: 34px 24px; text-align: center;
+  background-image: radial-gradient(circle at 20% 20%, rgba(255,199,0,0.12), transparent 45%); box-shadow: var(--shadow); }
+.av-reveal .small { font-size: 13px; color: rgba(255,255,255,0.6); margin: 0 0 8px; }
+.av-reveal .name { font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 8vw, 44px); font-weight: 700; color: var(--accent); margin: 4px 0 12px; }
+.av-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: center; font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 8px; }
+.av-card { background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow); margin-top: 16px; }
+.av-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 17px; margin: 0 0 8px; color: var(--ink); }
+.av-card p { font-size: 14px; line-height: 1.65; color: var(--gray-600); margin: 0; }
+.av-deseos { background: var(--accent-pale); border: 1.5px solid var(--accent); border-radius: 10px; padding: 12px 14px; font-size: 14px; color: var(--ink); line-height: 1.6; }
+.av-deseos.vacio { background: var(--cream); border-color: var(--gray-200); color: var(--gray-600); font-style: italic; }
+.av-card textarea { width: 100%; box-sizing: border-box; border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 12px; font-family: inherit; font-size: 14px; resize: vertical; min-height: 74px; }
+.av-codigo { display: inline-block; background: var(--ink); color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: 1px; padding: 6px 14px; border-radius: 8px; margin: 4px 0; }
+.av-loading, .av-error { text-align: center; padding: 60px 1.25rem; color: var(--gray-600); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-badge"><img src="/assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42"></div>
+      <div class="logo-text"><div class="logo-name">El<span> Gadget</span></div><div class="logo-tagline">Tienda online</div></div>
+    </a>
+  </div>
+</header>
+
+<div class="av-wrap">
+  <div class="av-loading" id="cargando">Cargando tu amigo invisible…</div>
+  <div class="av-error" id="error" style="display:none"></div>
+  <div id="contenido" style="display:none">
+    <div class="av-reveal">
+      <p class="small">En <strong id="grupoNom"></strong>, te toca regalarle a…</p>
+      <div class="name" id="targetNom"></div>
+      <div class="av-meta" id="meta"></div>
+    </div>
+
+    <div class="av-card" id="cardDeseosTarget">
+      <h2>💡 Lo que le gustaría recibir</h2>
+      <div class="av-deseos" id="targetDeseos"></div>
+    </div>
+
+    <div class="av-card">
+      <h2>🎁 Buscá su regalo</h2>
+      <p id="codigoLinea" style="margin-bottom:10px"></p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn btn-accent" href="/coleccion/vasos-y-botellas-termicas/" style="flex:1;min-width:130px">Ver ideas de regalo</a>
+        <a class="btn" href="/" style="flex:1;min-width:130px;border:1.5px solid var(--gray-200);color:var(--ink)">Todo el catálogo</a>
+      </div>
+    </div>
+
+    <div class="av-card">
+      <h2>✍️ Tu lista de deseos</h2>
+      <p style="margin-bottom:10px">Dejá 2 o 3 ideas de lo que te gustaría recibir, así quien te regala a vos compra a lo seguro.</p>
+      <textarea id="misDeseos" placeholder="Ej: algo para el mate, luces LED para mi cuarto, color favorito violeta…" maxlength="500"></textarea>
+      <button class="btn btn-accent btn-block" id="guardarBtn" onclick="guardarDeseos()" style="margin-top:10px">Guardar mi lista</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/assets/js/cart.js"></script>
+<script>
+const API = 'https://el-gadget-tienda.onrender.com';
+const token = new URLSearchParams(location.search).get('t') || '';
+const esc = s => { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; };
+
+if (!token) {
+  document.getElementById('cargando').style.display = 'none';
+  const e = document.getElementById('error');
+  e.style.display = 'block';
+  e.innerHTML = 'Link inválido. Abrí el amigo invisible desde el botón del email que te enviamos.';
+}
+
+async function cargar() {
+  try {
+    const res = await fetch(API + '/api/amigo-invisible/ver/' + encodeURIComponent(token));
+    if (!res.ok) throw new Error();
+    const d = await res.json();
+    document.getElementById('cargando').style.display = 'none';
+    document.getElementById('contenido').style.display = 'block';
+    document.getElementById('grupoNom').textContent = d.grupo;
+    document.getElementById('targetNom').textContent = d.le_regalas_a;
+
+    const meta = [];
+    if (d.presupuesto) meta.push('💰 ' + esc(d.presupuesto));
+    if (d.fecha_intercambio) meta.push('📅 ' + esc(d.fecha_intercambio));
+    document.getElementById('meta').innerHTML = meta.map(m => '<span>' + m + '</span>').join('');
+
+    const td = document.getElementById('targetDeseos');
+    if (d.sus_deseos && d.sus_deseos.trim()) {
+      td.textContent = d.sus_deseos;
+    } else {
+      td.className = 'av-deseos vacio';
+      td.textContent = 'Todavía no cargó su lista de deseos. ¡Sorprendelo con algo de las ideas de abajo!';
+    }
+
+    const cl = document.getElementById('codigoLinea');
+    if (d.codigo_descuento) {
+      cl.innerHTML = 'Aprovechá el descuento vigente: usá el código <span class="av-codigo">' + esc(d.codigo_descuento) + '</span> al pagar.';
+    } else {
+      cl.innerHTML = 'Encontrá su regalo en el catálogo, con envío a todo el país y cambios hasta 10 días.';
+    }
+
+    if (d.tus_deseos) document.getElementById('misDeseos').value = d.tus_deseos;
+  } catch (err) {
+    document.getElementById('cargando').style.display = 'none';
+    const e = document.getElementById('error');
+    e.style.display = 'block';
+    e.innerHTML = 'No encontramos este amigo invisible. El link puede haber vencido o ser incorrecto.';
+  }
+}
+
+async function guardarDeseos() {
+  const btn = document.getElementById('guardarBtn');
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  try {
+    const res = await fetch(API + '/api/amigo-invisible/ver/' + encodeURIComponent(token) + '/deseos', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ deseos: document.getElementById('misDeseos').value.trim() })
+    });
+    if (!res.ok) throw new Error();
+    showToast('✅ ¡Lista guardada! Quien te regale la va a ver.');
+  } catch (err) {
+    showToast('No pudimos guardar. Probá de nuevo.');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Guardar mi lista';
+  }
+}
+
+if (token) cargar();
+</script>
+</body>
+</html>

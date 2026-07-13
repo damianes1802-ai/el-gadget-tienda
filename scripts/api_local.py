@@ -58,6 +58,7 @@ from utils.email_notificaciones import (
     enviar_email_ultimo_recordatorio_d30,
     enviar_email_carrito_abandonado_2, enviar_email_carrito_abandonado_3,
     enviar_email_review_request, enviar_email_repeat_purchase, enviar_email_winback,
+    enviar_email_amigo_invisible,
 )
 
 # Configuración
@@ -322,6 +323,24 @@ class NuevaResena(BaseModel):
     comentario: Optional[str] = ""
 
 
+class ParticipanteIn(BaseModel):
+    nombre: str
+    email: EmailStr
+
+
+class NuevoSorteo(BaseModel):
+    """Sorteo de amigo invisible creado por el organizador."""
+    nombre: str
+    organizador_email: EmailStr
+    presupuesto: Optional[str] = ""
+    fecha_intercambio: Optional[str] = ""
+    participantes: List[ParticipanteIn]
+
+
+class DeseosIn(BaseModel):
+    deseos: str
+
+
 class MarcarPagadoReferido(BaseModel):
     periodo: str  # "2026-06"
 
@@ -545,6 +564,34 @@ def migrar_db():
             estado TEXT DEFAULT 'pendiente',
             fecha TEXT DEFAULT (datetime('now')),
             UNIQUE(producto_sku, orden_id)
+        )
+    """)
+
+    # Amigo invisible online: un sorteo agrupa participantes. El sorteo
+    # (derangement) se hace server-side y cada participante ve SOLO su propia
+    # asignación vía su token privado; el organizador nunca ve las asignaciones.
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS amigo_sorteos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            organizador_email TEXT NOT NULL,
+            presupuesto TEXT DEFAULT '',
+            fecha_intercambio TEXT DEFAULT '',
+            token_organizador TEXT NOT NULL UNIQUE,
+            creado_at TEXT DEFAULT (datetime('now'))
+        )
+    """)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS amigo_participantes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            sorteo_id INTEGER NOT NULL,
+            nombre TEXT NOT NULL,
+            email TEXT NOT NULL,
+            token_personal TEXT NOT NULL UNIQUE,
+            asignado_a_id INTEGER,
+            deseos TEXT DEFAULT '',
+            visto_at TEXT,
+            FOREIGN KEY (sorteo_id) REFERENCES amigo_sorteos(id)
         )
     """)
 
@@ -3469,6 +3516,136 @@ def resenas_promedios():
            for r in cursor.fetchall()}
     conn.close()
     return out
+
+
+# ============================================================================
+# AMIGO INVISIBLE ONLINE
+# ============================================================================
+
+def _codigo_campana_vigente() -> dict:
+    """Código y título de la campaña de descuento vigente (si hay), para
+    integrarla en el amigo invisible. Reusa la misma lógica que el banner."""
+    conn = get_db()
+    filas = [dict(r) for r in conn.execute(
+        "SELECT * FROM descuentos WHERE mostrar_banner = 1 AND activo = 1 ORDER BY id DESC")]
+    conn.close()
+    ahora = datetime.now().strftime("%Y-%m-%d")
+    v = next((f for f in filas if _fecha_campana_vigente(f, ahora)), None)
+    if not v:
+        return {"codigo": None, "titulo": ""}
+    return {"codigo": v.get("codigo"), "titulo": v.get("banner_titulo") or ""}
+
+
+def _derangement(n: int) -> list:
+    """Permutación sin punto fijo (idx i -> destino != i). Requiere n >= 2."""
+    import random
+    while True:
+        p = list(range(n))
+        random.shuffle(p)
+        if all(p[i] != i for i in range(n)):
+            return p
+
+
+@app.post("/api/amigo-invisible/crear")
+@limiter.limit("5/hour")
+def crear_sorteo(request: Request, datos: NuevoSorteo):
+    """Crea un sorteo de amigo invisible: valida, hace el derangement
+    server-side (nadie se toca a sí mismo) y envía a cada participante su
+    asignación por email. El organizador nunca ve las asignaciones."""
+    parts = datos.participantes
+    if len(parts) < 3:
+        raise HTTPException(status_code=400, detail="Se necesitan al menos 3 participantes para el sorteo")
+    if len(parts) > 40:
+        raise HTTPException(status_code=400, detail="Máximo 40 participantes por sorteo")
+    emails = [p.email.strip().lower() for p in parts]
+    if len(set(emails)) != len(emails):
+        raise HTTPException(status_code=400, detail="Hay emails repetidos en la lista de participantes")
+
+    conn = get_db()
+    cur = conn.cursor()
+    tok_org = secrets.token_urlsafe(16)
+    cur.execute(
+        "INSERT INTO amigo_sorteos (nombre, organizador_email, presupuesto, fecha_intercambio, token_organizador) "
+        "VALUES (?,?,?,?,?)",
+        (datos.nombre.strip()[:80], datos.organizador_email.strip().lower(),
+         (datos.presupuesto or "").strip()[:60], (datos.fecha_intercambio or "").strip()[:40], tok_org))
+    sorteo_id = cur.lastrowid
+    ids = []
+    for p in parts:
+        cur.execute(
+            "INSERT INTO amigo_participantes (sorteo_id, nombre, email, token_personal) VALUES (?,?,?,?)",
+            (sorteo_id, p.nombre.strip()[:60], p.email.strip().lower(), secrets.token_urlsafe(16)))
+        ids.append(cur.lastrowid)
+    perm = _derangement(len(ids))
+    for i, pid in enumerate(ids):
+        cur.execute("UPDATE amigo_participantes SET asignado_a_id = ? WHERE id = ?", (ids[perm[i]], pid))
+    conn.commit()
+
+    enviados = 0
+    filas = [dict(r) for r in conn.execute(
+        "SELECT nombre, email, token_personal FROM amigo_participantes WHERE sorteo_id = ?", (sorteo_id,))]
+    for f in filas:
+        link = f"https://elgadget.com.ar/amigo-invisible/ver/?t={f['token_personal']}"
+        try:
+            res = enviar_email_amigo_invisible(
+                f['nombre'], f['email'], datos.nombre,
+                (datos.presupuesto or ''), (datos.fecha_intercambio or ''), link)
+            if 'error' not in (res or {}):
+                enviados += 1
+        except Exception as e:
+            print(f"[amigo-invisible] email fallo: {e}")
+    conn.close()
+    return {"ok": True, "sorteo_id": sorteo_id, "participantes": len(ids),
+            "emails_enviados": enviados, "token_organizador": tok_org}
+
+
+@app.get("/api/amigo-invisible/ver/{token}")
+def ver_asignacion(token: str):
+    """Vista privada del participante: a quién le regala, la lista de deseos
+    de esa persona, su propia lista, y el descuento vigente."""
+    conn = get_db()
+    cur = conn.cursor()
+    yo = cur.execute("SELECT * FROM amigo_participantes WHERE token_personal = ?", (token,)).fetchone()
+    if not yo:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Link inválido o vencido")
+    yo = dict(yo)
+    sorteo = dict(cur.execute("SELECT * FROM amigo_sorteos WHERE id = ?", (yo['sorteo_id'],)).fetchone())
+    target = cur.execute("SELECT nombre, deseos FROM amigo_participantes WHERE id = ?",
+                         (yo['asignado_a_id'],)).fetchone()
+    target = dict(target) if target else {"nombre": "", "deseos": ""}
+    if not yo.get('visto_at'):
+        cur.execute("UPDATE amigo_participantes SET visto_at = datetime('now') WHERE id = ?", (yo['id'],))
+        conn.commit()
+    conn.close()
+    camp = _codigo_campana_vigente()
+    return {
+        "grupo": sorteo['nombre'],
+        "presupuesto": sorteo.get('presupuesto') or "",
+        "fecha_intercambio": sorteo.get('fecha_intercambio') or "",
+        "tu_nombre": yo['nombre'],
+        "le_regalas_a": target['nombre'],
+        "sus_deseos": target.get('deseos') or "",
+        "tus_deseos": yo.get('deseos') or "",
+        "codigo_descuento": camp['codigo'],
+        "descuento_titulo": camp['titulo'],
+    }
+
+
+@app.post("/api/amigo-invisible/ver/{token}/deseos")
+@limiter.limit("20/minute")
+def guardar_deseos(request: Request, token: str, datos: DeseosIn):
+    """El participante guarda su propia lista de deseos (la ve quien le regala)."""
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("UPDATE amigo_participantes SET deseos = ? WHERE token_personal = ?",
+                ((datos.deseos or '').strip()[:500], token))
+    if cur.rowcount == 0:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Link inválido")
+    conn.commit()
+    conn.close()
+    return {"ok": True}
 
 
 @app.get("/api/producto/{sku}/resenas")
