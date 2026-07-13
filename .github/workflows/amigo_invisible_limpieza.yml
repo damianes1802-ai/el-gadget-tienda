@@ -1,0 +1,31 @@
+name: Amigo invisible - limpieza de sorteos vencidos
+
+# Borra los sorteos de amigo invisible cuya fecha de intercambio ya pasó
+# (minimización de datos: no guardamos nombres+emails más de lo necesario).
+# El endpoint es idempotente. Corre todos los días a las 23:59 ART (02:59 UTC),
+# y además el cron de nurturing (cada 2h) lo repite como red de seguridad por
+# si Render estaba en cold start a esa hora.
+
+on:
+  schedule:
+    - cron: '59 2 * * *'    # 23:59 ART (UTC-3) = 02:59 UTC
+  workflow_dispatch:
+
+jobs:
+  limpieza:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruir config/.env desde el secret
+        run: printf '%s' "${{ secrets.ENV_FILE }}" > config/.env
+
+      - name: Disparar limpieza de sorteos vencidos
+        run: |
+          API_URL=$(grep '^API_URL=' config/.env | cut -d= -f2-)
+          ADMIN_PWD=$(grep '^ADMIN_PASSWORD=' config/.env | cut -d= -f2-)
+          echo "Llamando a $API_URL/api/admin/amigo-invisible/limpiar ..."
+          curl -sf --max-time 120 -X POST "$API_URL/api/admin/amigo-invisible/limpiar" \
+            -H "X-Admin-Password: $ADMIN_PWD" \
+            -H "Content-Type: application/json" \
+            || echo "Limpieza no disponible (Render en cold start?) — nurturing la repite"

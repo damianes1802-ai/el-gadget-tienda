@@ -3581,6 +3581,10 @@ def crear_sorteo(request: Request, datos: NuevoSorteo):
         cur.execute("UPDATE amigo_participantes SET asignado_a_id = ? WHERE id = ?", (ids[perm[i]], pid))
     conn.commit()
 
+    fecha_iso = (datos.fecha_intercambio or '').strip()
+    m_fecha = re.match(r'^(\d{4})-(\d{2})-(\d{2})$', fecha_iso)
+    fecha_disp = f"{m_fecha.group(3)}/{m_fecha.group(2)}/{m_fecha.group(1)}" if m_fecha else fecha_iso
+
     enviados = 0
     filas = [dict(r) for r in conn.execute(
         "SELECT nombre, email, token_personal FROM amigo_participantes WHERE sorteo_id = ?", (sorteo_id,))]
@@ -3589,7 +3593,7 @@ def crear_sorteo(request: Request, datos: NuevoSorteo):
         try:
             res = enviar_email_amigo_invisible(
                 f['nombre'], f['email'], datos.nombre,
-                (datos.presupuesto or ''), (datos.fecha_intercambio or ''), link)
+                (datos.presupuesto or ''), fecha_disp, link)
             if 'error' not in (res or {}):
                 enviados += 1
         except Exception as e:
@@ -3646,6 +3650,41 @@ def guardar_deseos(request: Request, token: str, datos: DeseosIn):
     conn.commit()
     conn.close()
     return {"ok": True}
+
+
+def _limpiar_sorteos_vencidos(conn) -> int:
+    """Borra los sorteos cuya fecha de intercambio (23:59 hora ART) ya pasó, y
+    como red de seguridad los que no tienen fecha válida y superan 60 días.
+    Minimización de datos: no guardamos PII (nombres+emails) más de lo necesario.
+    El servidor corre en UTC; se suman 3h a la expiración ART (23:59 ART = 02:59
+    UTC del día siguiente) para no borrar antes de que termine el día en Argentina."""
+    cur = conn.cursor()
+    ids = [r[0] for r in cur.execute(
+        "SELECT id FROM amigo_sorteos "
+        "WHERE fecha_intercambio GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' "
+        "AND datetime(fecha_intercambio || ' 23:59:59', '+3 hours') <= datetime('now')")]
+    ids += [r[0] for r in cur.execute(
+        "SELECT id FROM amigo_sorteos "
+        "WHERE NOT (fecha_intercambio GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]') "
+        "AND datetime(creado_at) <= datetime('now', '-60 days')")]
+    if not ids:
+        return 0
+    marks = ",".join("?" * len(ids))
+    cur.execute(f"DELETE FROM amigo_participantes WHERE sorteo_id IN ({marks})", ids)
+    cur.execute(f"DELETE FROM amigo_sorteos WHERE id IN ({marks})", ids)
+    conn.commit()
+    return len(ids)
+
+
+@app.post("/api/admin/amigo-invisible/limpiar")
+def limpiar_sorteos_vencidos(x_admin_password: Optional[str] = Header(None)):
+    """Elimina los sorteos vencidos. Lo dispara un cron a las 23:59 ART."""
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+    conn = get_db()
+    n = _limpiar_sorteos_vencidos(conn)
+    conn.close()
+    return {"ok": True, "eliminados": n}
 
 
 @app.get("/api/producto/{sku}/resenas")
@@ -4556,6 +4595,12 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
     """
     if not _es_admin(x_admin_password):
         raise HTTPException(status_code=401, detail="No autorizado")
+    # Red de seguridad: además del cron dedicado de las 23:59, limpiamos los
+    # sorteos vencidos en cada corrida (independiente del estado del email).
+    try:
+        _cl = get_db(); _limpiar_sorteos_vencidos(_cl); _cl.close()
+    except Exception as _e:
+        print(f"[amigo-invisible] limpieza en nurturing falló: {_e}")
     if not email_habilitado():
         return {"ok": False, "motivo": "Email no configurado (falta RESEND_API_KEY)"}
 

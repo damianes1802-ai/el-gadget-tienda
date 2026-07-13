@@ -96,9 +96,10 @@ async function cargar() {
     document.getElementById('grupoNom').textContent = d.grupo;
     document.getElementById('targetNom').textContent = d.le_regalas_a;
 
+    const fmtFecha = s => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ''); return m ? m[3]+'/'+m[2]+'/'+m[1] : (s || ''); };
     const meta = [];
     if (d.presupuesto) meta.push('💰 ' + esc(d.presupuesto));
-    if (d.fecha_intercambio) meta.push('📅 ' + esc(d.fecha_intercambio));
+    if (d.fecha_intercambio) meta.push('📅 ' + esc(fmtFecha(d.fecha_intercambio)));
     document.getElementById('meta').innerHTML = meta.map(m => '<span>' + m + '</span>').join('');
 
     const td = document.getElementById('targetDeseos');
