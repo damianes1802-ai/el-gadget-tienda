@@ -13,7 +13,7 @@
   const VARIANTS_B = {
     '/ganar/desde-casa': {
       badge: 'Para mamás que ya recomiendan',
-      h1: '3 conocidos compran = <span>$5.215 para vos</span>',
+      h1: '3 conocidos compran = <span>$4.172 para vos</span>',
       p: 'Cada vez que alguien compra con tu código, vos cobrás comisión. Automático. Sin stock. Sin horarios. El grupo de mamás puede ser tu mejor fuente de ingreso extra.',
       cta: 'Quiero mi código ahora',
     },
