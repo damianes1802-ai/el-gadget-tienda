@@ -1255,8 +1255,11 @@ def enviar_email_amigo_invisible(nombre: str, email: str, grupo: str,
         para que quien te regale a vos sepa qué te gusta.
       </p>
     """
+    # Transaccional (no marketing): el usuario ESPERA este email (lo dispara el
+    # organizador al sumarlo al sorteo). Sin List-Unsubscribe ni footer de
+    # desuscripción, para que Gmail lo mande a Principal y no a Promociones.
     return _enviar(email, f"🎁 Tu amigo invisible de {grupo} — descubrí a quién le regalás",
-                   _layout(cuerpo, marketing=True), is_marketing=True)
+                   _layout(cuerpo, marketing=False), is_marketing=False)
 
 
 def enviar_email_review_request(nombre: str, email: str, producto_nombre: str,
