@@ -9,6 +9,36 @@ Los cuerpos admiten HTML (links internos al catálogo).
 """
 
 BLOG_POSTS = {
+    'hot-sale-cyber-monday-black-friday': {
+        'imagen': ('/assets/img/blog/hot-sale-cyber-monday-argentina.jpg', 'Persona comparando ofertas online en el celular y la notebook durante una jornada de descuentos como el Hot Sale'),
+        'title': 'Hot Sale, Cyber Monday y Black Friday 2026 en Argentina: cuándo son | El Gadget',
+        'h1': 'Hot Sale, Cyber Monday y Black Friday 2026: el calendario de ofertas argentino',
+        'meta': 'Cuándo es el Hot Sale, el Cyber Monday y el Black Friday 2026 en Argentina, quién los organiza y cómo aprovechar los descuentos reales sin caer en precios inflados.',
+        'fecha': '2026-07-13',
+        'intro': 'Cada año hay tres momentos en los que las tiendas online argentinas se llenan de descuentos: el <strong>Hot Sale</strong>, el <strong>Cyber Monday</strong> y el <strong>Black Friday</strong>. Si querés aprovecharlos de verdad —y no picar el anzuelo de un precio inflado la semana anterior—, conviene saber cuándo son, quién los organiza y cómo comprar con cabeza. Acá va la guía completa, sin humo.',
+        'secciones': [
+            ('¿Qué son el Hot Sale, el Cyber Monday y el Black Friday?',
+             'Los tres son eventos de descuentos, pero no son lo mismo. El <strong>Hot Sale</strong> y el <strong>Cyber Monday</strong> los organiza en Argentina la <strong>CACE</strong> (Cámara Argentina de Comercio Electrónico): son jornadas oficiales de varios días en las que cientos de tiendas adheridas publican ofertas al mismo tiempo. El <strong>Black Friday</strong> es de origen estadounidense (el viernes posterior al Día de Acción de Gracias) y en Argentina lo adoptan cada vez más comercios, aunque de forma menos coordinada. En los tres, la lógica es la misma: descuentos concentrados en pocos días para empujar las ventas.'),
+            ('¿Cuándo son en Argentina en 2026?',
+             'Las fechas exactas de los eventos de la CACE se confirman cada año, pero el patrón se repite: el <strong>Hot Sale suele caer en mayo</strong> y el <strong>Cyber Monday a principios de noviembre</strong>. El <strong>Black Friday 2026 es el viernes 27 de noviembre</strong> (sigue la fecha de Estados Unidos: el viernes después del cuarto jueves de noviembre), con el "Cyber Monday" estadounidense el lunes siguiente. En la práctica, esto arma una temporada fuerte de ofertas entre principios y fines de noviembre. Anotá esas ventanas y planificá con tiempo lo que querés comprar.',
+             ('/assets/img/blog/cuando-es-el-hot-sale-planificar-compras.jpg', 'Escritorio con notebook, lista de compras y café para planificar las compras del Hot Sale y el Cyber Monday')),
+            ('Cómo aprovechar los descuentos sin caer en precios inflados',
+             'El truco más viejo de estas fechas es <strong>subir el precio semanas antes para "rebajarlo"</strong> durante el evento. Para no caer: <strong>1)</strong> armá la lista de lo que querés ANTES del evento y anotá su precio actual, así comparás contra el real y no contra el inflado. <strong>2)</strong> Usá comparadores o el historial de precios cuando puedas. <strong>3)</strong> Desconfiá de los "70% OFF" en productos que nunca costaron eso. <strong>4)</strong> Sumá el envío al total: a veces la "oferta" se come el descuento en el costo de envío. <strong>5)</strong> No compres por FOMO: si no lo ibas a comprar igual, no es ahorro, es gasto. Un buen descuento sobre algo que ya necesitabas es la única oferta que vale.',
+             ('/assets/img/blog/descuentos-reales-hot-sale-comparar-precios.jpg', 'Manos comparando precios en el celular junto a paquetes de compras online, para detectar descuentos reales')),
+            ('En El Gadget no hace falta esperar al Hot Sale',
+             'Nuestra filosofía es la contraria a la del descuento inflado: preferimos <strong>precios reales todo el año</strong> antes que un "70% OFF" de mentira una vez por temporada. Por eso tenemos <a href="/categoria/ofertas/">ofertas rotativas toda la semana</a> —con el precio de lista siempre a la vista para que compares— y un calendario de descuentos por fecha que se activa en las temporadas clave. Si andás cazando una buena compra, no necesitás esperar a noviembre: mirá las <a href="/categoria/ofertas/">ofertas de esta semana</a> o el <a href="/">catálogo completo</a> cuando quieras.'),
+            ('Qué conviene comprar en las fechas de descuento',
+             'Los rubros que más rinden en estos eventos son los que combinan buen ticket y uso durable: <a href="/coleccion/lamparas-y-luces-led/">iluminación LED</a> para renovar ambientes, <a href="/coleccion/organizadores/">organizadores</a> para ordenar la casa, <a href="/coleccion/vasos-y-botellas-termicas/">vasos y botellas térmicas</a> para el mate y el gym, y <a href="/categoria/deco/">deco</a> para darle una vuelta a tu espacio. Si además estás por regalar, aprovechá para adelantarte a fechas como <a href="/blog/dia-del-amigo/">el Día del Amigo</a> o el Día de la Madre y comprá con descuento en vez de a las corridas.'),
+        ],
+        'faqs': [('¿Cuándo es el Hot Sale 2026 en Argentina?',
+                  'El Hot Sale lo organiza la CACE y la fecha exacta se confirma cada año, pero suele realizarse en mayo. El Cyber Monday, también de la CACE, cae a principios de noviembre.'),
+                 ('¿Cuándo es el Black Friday 2026?',
+                  'El viernes 27 de noviembre de 2026. El Black Friday sigue la fecha de Estados Unidos: el viernes posterior al cuarto jueves de noviembre.'),
+                 ('¿Los descuentos del Hot Sale son reales?',
+                  'Muchos sí, pero conviene comparar: un truco común es subir el precio antes del evento para "rebajarlo" durante. Anotá el precio actual de lo que querés antes de que empiece y compará contra ese número, no contra el "precio anterior" que muestra la tienda.'),
+                 ('¿El Gadget participa del Hot Sale?',
+                  'Tenemos ofertas reales rotativas durante todo el año, con el precio de lista siempre visible para que compares. No hace falta esperar a una fecha puntual: mirá la sección de ofertas cuando quieras.')],
+    },
     'como-curar-el-mate': {
         'imagen': ('/assets/img/blog/como-curar-el-mate.jpg', 'Mate de calabaza nuevo con bombilla y yerba sobre mesa de madera, listo para ser curado'),
         'title': 'Cómo Curar el Mate: calabaza, madera y todos los métodos (2026) | El Gadget',
