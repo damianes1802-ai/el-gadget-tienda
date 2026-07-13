@@ -3550,7 +3550,7 @@ def _derangement(n: int) -> list:
 @limiter.limit("5/hour")
 def crear_sorteo(request: Request, datos: NuevoSorteo):
     """Crea un sorteo de amigo invisible: valida, hace el derangement
-    server-side (nadie se toca a sí mismo) y envía a cada participante su
+    server-side (a nadie le sale su propio nombre) y envía a cada participante su
     asignación por email. El organizador nunca ve las asignaciones."""
     parts = datos.participantes
     if len(parts) < 3:
