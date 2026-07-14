@@ -1151,7 +1151,8 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 BLOG_RELACIONADOS = {
     'mewing': ['como-reducir-la-papada', 'como-mejorar-la-postura'],
     'como-reducir-la-papada': ['como-mejorar-la-postura', 'mewing'],
-    'como-mejorar-la-postura': ['como-reducir-la-papada', 'mewing'],
+    'como-mejorar-la-postura': ['como-reducir-la-papada', 'como-dejar-de-roncar'],
+    'como-dejar-de-roncar': ['como-mejorar-la-postura', 'mewing'],
     'regalos-de-navidad': ['dia-del-amigo', 'regalos-originales-para-mujeres'],
     'hot-sale-cyber-monday-black-friday': ['dia-del-amigo', 'regalos-originales-para-mujeres'],
     'como-curar-el-mate': ['como-limpiar-termo-acero-inoxidable', 'regalos-originales-para-hombres'],
@@ -1167,6 +1168,7 @@ BLOG_RELACIONADOS = {
 }
 GUIAS_LISTADO = {
     'fitness': [('mewing', 'Mewing: qué es y si realmente funciona'), ('como-reducir-la-papada', 'Cómo reducir la papada: qué funciona de verdad'), ('como-mejorar-la-postura', 'Cómo mejorar la postura: qué funciona de verdad')],
+    'estetica-y-belleza': [('como-dejar-de-roncar', 'Cómo dejar de roncar y dormir mejor'), ('como-mejorar-la-postura', 'Cómo mejorar la postura: qué funciona de verdad')],
     'articulos-infantiles': [('regalos-de-navidad', 'Regalos de Navidad y Reyes: ideas por edad y presupuesto')],
     'ofertas': [('regalos-de-navidad', 'Regalos de Navidad: ideas y cuándo comprar'), ('hot-sale-cyber-monday-black-friday', 'Hot Sale, Cyber Monday y Black Friday: cuándo son'), ('dia-del-amigo', 'Día del Amigo: cuándo es y qué regalar')],
     'organizadores': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña')],
