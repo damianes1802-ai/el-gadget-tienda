@@ -173,7 +173,7 @@ def render_relacionados(relacionados: list, categoria: str, slug_map: dict) -> s
         href = f"../{slug}/" if slug else f"../../producto_detalle?sku={p['sku']}"
         imagen = p.get('imagen_principal') or ''
         if imagen:
-            img_html = (f'<img class="card-img" src="{html.escape(imagen)}" '
+            img_html = (f'<img class="card-img" src="{html.escape(cloudinary_thumb(imagen, 400))}" '
                         f'alt="{html.escape(p["nombre"])}" loading="lazy">')
         else:
             img_html = '<div class="card-img-placeholder">📦</div>'
@@ -663,7 +663,7 @@ def _card_listado(p: dict, slug_map: dict) -> str:
     href = f"/producto/{slug}/" if slug else f"/producto_detalle?sku={p['sku']}"
     imagen = p.get('imagen_principal') or ''
     if imagen:
-        img_html = (f'<img class="card-img" src="{html.escape(imagen)}" '
+        img_html = (f'<img class="card-img" src="{html.escape(cloudinary_thumb(imagen, 400))}" '
                     f'alt="{html.escape(p["nombre"])}" loading="lazy">')
     else:
         img_html = '<div class="card-img-placeholder">📦</div>'
