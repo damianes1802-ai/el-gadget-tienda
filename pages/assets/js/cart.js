@@ -278,6 +278,10 @@ function initPopupRegistro() {
   // no en el primer paint). Se muestra al primero que ocurra: 30s, scroll >45%,
   // o intención de salida. Una sola vez por sesión.
   let mostrado = false;
+  // Landings de Ads (body[data-eg-landing]): tráfico pago de alta intención de compra.
+  // No interrumpir con timer ni scroll; ofrecer el 10% solo en exit-intent (recupera a
+  // quien se va, sin molestar al comprador enganchado). En mobile no hay exit-intent -> sin popup.
+  const esLanding = document.body && document.body.getAttribute('data-eg-landing') === '1';
   const mostrar = () => {
     if (mostrado || localStorage.getItem('eg_popup_dismissed')) return;
     mostrado = true;
@@ -290,13 +294,13 @@ function initPopupRegistro() {
     if (pct > 0.45) mostrar();
   };
   const onExit = (e) => { if (e.clientY <= 0) mostrar(); };
-  const timer = setTimeout(mostrar, 30000);
+  const timer = esLanding ? null : setTimeout(mostrar, 30000);
   function limpiarTriggers() {
-    clearTimeout(timer);
+    if (timer) clearTimeout(timer);
     window.removeEventListener('scroll', onScroll, { passive: true });
     document.removeEventListener('mouseout', onExit);
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
+  if (!esLanding) window.addEventListener('scroll', onScroll, { passive: true });
   document.addEventListener('mouseout', onExit);
 }
 
