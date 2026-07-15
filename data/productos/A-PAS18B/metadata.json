@@ -22,7 +22,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-con-nudos-vedetina-negro.html",
-  "fecha_scraping": "2026-07-14T06:31:08.858941",
+  "fecha_scraping": "2026-07-15T06:26:05.346353",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -32,7 +32,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-14T06:34:51.212269",
+  "fecha_mapeo_categorias": "2026-07-15T06:31:20.099162",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS18B_002",
@@ -51,5 +51,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 43500.0,
-  "fecha_calculo_precio": "2026-07-14T06:37:01.037177"
+  "fecha_calculo_precio": "2026-07-15T06:32:19.972536"
 }
