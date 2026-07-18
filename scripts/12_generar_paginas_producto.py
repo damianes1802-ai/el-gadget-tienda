@@ -927,7 +927,7 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
   </div>
 </header>
 
-<div class="listado-hero">
+<div class="listado-hero" style="background-image:linear-gradient(rgba(20,21,26,0.72),rgba(20,21,26,0.9)),url(/assets/img/hero-{tipo}-{slug}.jpg);background-size:cover;background-position:center">
   <div class="breadcrumb breadcrumb-oscuro">
     <a href="/">Inicio</a>
     <span class="sep">/</span>
