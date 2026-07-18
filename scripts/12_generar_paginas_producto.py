@@ -127,6 +127,22 @@ def render_thumbnails(imagenes: list, nombre: str) -> str:
     return '<div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails">' + ''.join(items) + '</div></div>'
 
 
+def _normalizar_desc(s: str) -> str:
+    """Purga artefactos de formateo de las descripciones (por si el optimizador IA
+    reintroduce literales): \\n / \\r / \\t escapados -> reales, quita markdown **,
+    y normaliza espacios. El contenedor .description usa white-space:pre-wrap, así
+    que los newlines reales se renderizan como saltos de línea."""
+    s = (s or '').strip()
+    if not s:
+        return s
+    s = s.replace('\\r\\n', '\n').replace('\\n', '\n').replace('\\r', '\n').replace('\\t', ' ')
+    s = re.sub(r'\*\*(.+?)\*\*', r'\1', s).replace('**', '')
+    s = re.sub(r'[ \t]+\n', '\n', s)
+    s = re.sub(r'\n{3,}', '\n\n', s)
+    s = re.sub(r'[ \t]{2,}', ' ', s)
+    return s.strip()
+
+
 def etiqueta_variante(p: dict) -> str:
     return ' - '.join(filter(None, [p.get('color'), p.get('talle')])) or p.get('nombre') or p.get('sku')
 
@@ -202,7 +218,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
     nombre = producto['nombre']
     sku = producto['sku']
     categoria = producto.get('categoria') or 'General'
-    descripcion = (producto.get('descripcion') or '').strip()
+    descripcion = _normalizar_desc(producto.get('descripcion'))
     descripcion_meta = re.sub(r'\s+', ' ', descripcion).strip() or nombre
     if len(descripcion_meta) > 157:
         # cortar en límite de palabra para que la meta no termine a mitad de término
