@@ -27,6 +27,8 @@
   .lp-sub { font-size: 16.5px; line-height: 1.5; color: var(--gray-600, #555); margin-bottom: 20px; }
   .lp-price-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .lp-price { font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 700; color: var(--ink); }
+  .lp-price-old { font-size: 19px; color: var(--gray-500, #777); text-decoration: line-through; display: none; }
+  .lp-price-badge { display: none; background: #E8F8EE; color: #157347; font-weight: 700; font-size: 13px; padding: 4px 10px; border-radius: 999px; }
   .lp-price-note { font-size: 14px; color: var(--gray-600, #555); }
   .lp-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; max-width: 380px; padding: 16px 24px; font-size: 17px; font-weight: 700; margin: 18px 0 12px; cursor: pointer; border: none; }
   .lp-cta-mini { font-size: 13px; color: var(--gray-500, #777); display: flex; gap: 14px; flex-wrap: wrap; }
@@ -90,7 +92,9 @@
       <h1 class="lp-h1">Zapatero Abatible 3 Puertas: ordená tus zapatos sin ocupar espacio</h1>
       <p class="lp-sub">Solo <strong>17 cm de fondo</strong>. Guardá 3 niveles de calzado en el recibidor o el pasillo más angosto, con puertas abatibles de acceso fácil y un diseño blanco que combina con todo.</p>
       <div class="lp-price-row">
-        <span class="lp-price">$293.500</span>
+        <span class="lp-price-old js-price-old">$293.500</span>
+        <span class="lp-price js-price">$293.500</span>
+        <span class="lp-price-badge js-price-badge"></span>
         <span class="lp-price-note">Pagá en cuotas con Mercado Pago</span>
       </div>
       <button class="btn btn-accent lp-cta" onclick="comprarZapatero()">Comprar ahora →</button>
@@ -167,7 +171,7 @@
   <section class="lp-final">
     <h2>Recuperá el orden de tu entrada hoy</h2>
     <p style="max-width:520px;margin:10px auto 20px;color:rgba(255,255,255,.8);font-size:16px">Un zapatero que entra donde otros no, con envío a todo el país y cambios hasta 10 días.</p>
-    <div class="lp-price-row" style="justify-content:center"><span class="lp-price">$293.500</span></div>
+    <div class="lp-price-row" style="justify-content:center"><span class="lp-price-old js-price-old" style="color:rgba(255,255,255,.55)">$293.500</span> <span class="lp-price js-price">$293.500</span></div>
     <button class="btn btn-accent lp-cta" style="margin:18px auto 0" onclick="comprarZapatero()">Comprar ahora →</button>
     <div style="color:rgba(255,255,255,.7);font-size:13px;margin-top:12px">🔒 Pago seguro con Mercado Pago · 🧾 Factura oficial</div>
   </section>
@@ -187,14 +191,33 @@
 
 <script src="/assets/js/cart.js"></script>
 <script>
+  // Precio en vivo: si hay una campaña de temporada vigente muestra lista tachada
+  // + precio de oferta + badge; si no (o si la API falla), queda el precio de lista.
+  const PROD = {
+    sku: 'DL2393',
+    nombre: 'Zapatero Abatible 3 Puertas Blanco - Ideal para espacios chicos',
+    imagen: 'https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2393_001',
+    lista: 293500,
+    precio: 293500
+  };
+  const fmtAr = n => '$' + Math.round(n).toLocaleString('es-AR');
+  fetch(EG_API_URL + '/api/producto/' + PROD.sku)
+    .then(r => r.json())
+    .then(d => {
+      if (d.precio_venta) { PROD.lista = d.precio_venta; PROD.precio = d.precio_venta; }
+      if (d.precio_oferta && d.precio_oferta < PROD.lista) {
+        PROD.precio = d.precio_oferta;
+        const pct = Math.round((1 - PROD.precio / PROD.lista) * 100);
+        document.querySelectorAll('.js-price-old').forEach(e => { e.textContent = fmtAr(PROD.lista); e.style.display = 'inline'; });
+        document.querySelectorAll('.js-price-badge').forEach(e => { e.textContent = '-' + pct + '% OFF'; e.style.display = 'inline-block'; });
+      }
+      document.querySelectorAll('.js-price').forEach(e => e.textContent = fmtAr(PROD.precio));
+    })
+    .catch(() => {});
   function comprarZapatero() {
     addCartItem({
-      sku: 'DL2393',
-      nombre: 'Zapatero Abatible 3 Puertas Blanco - Ideal para espacios chicos',
-      precio: 293500,
-      precio_lista: 293500,
-      imagen: 'https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2393_001',
-      cantidad: 1
+      sku: PROD.sku, nombre: PROD.nombre, precio: PROD.precio, precio_lista: PROD.lista,
+      imagen: PROD.imagen, cantidad: 1
     });
     window.location.href = '/carrito';
   }

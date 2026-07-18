@@ -27,6 +27,8 @@
   .lp-sub { font-size: 16.5px; line-height: 1.5; color: var(--gray-600, #555); margin-bottom: 20px; }
   .lp-price-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .lp-price { font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 700; color: var(--ink); }
+  .lp-price-old { font-size: 19px; color: var(--gray-500, #777); text-decoration: line-through; display: none; }
+  .lp-price-badge { display: none; background: #E8F8EE; color: #157347; font-weight: 700; font-size: 13px; padding: 4px 10px; border-radius: 999px; }
   .lp-price-note { font-size: 14px; color: var(--gray-600, #555); }
   .size-sel { margin: 16px 0 4px; }
   .size-sel-label { font-size: 13px; font-weight: 600; color: var(--gray-600,#555); margin-bottom: 8px; }
@@ -100,7 +102,9 @@
       <h1 class="lp-h1">Funda de Sillón Elastizada: renová tu sofá en minutos</h1>
       <p class="lp-sub">Cubrí un sillón <strong>gastado o manchado</strong> y dale un look nuevo al instante. Se estira y ajusta sola, protege de manchas, niños y mascotas, y <strong>va al lavarropas</strong>.</p>
       <div class="lp-price-row">
+        <span class="lp-price-old js-price-old">$117.000</span>
         <span class="lp-price js-price">$117.000</span>
+        <span class="lp-price-badge js-price-badge"></span>
         <span class="lp-price-note">Pagá en cuotas con Mercado Pago</span>
       </div>
       <div class="size-sel">
@@ -191,7 +195,7 @@
   <section class="lp-final">
     <h2>Dale un giro a tu living hoy</h2>
     <p style="max-width:520px;margin:10px auto 20px;color:rgba(255,255,255,.8);font-size:16px">Funda elastizada que renueva y protege tu sillón, apta lavarropas y con envío a todo el país.</p>
-    <div class="lp-price-row" style="justify-content:center"><span class="lp-price js-price">$117.000</span></div>
+    <div class="lp-price-row" style="justify-content:center"><span class="lp-price-old js-price-old" style="color:rgba(255,255,255,.55)">$117.000</span> <span class="lp-price js-price">$117.000</span></div>
     <button class="btn btn-accent lp-cta" style="margin:18px auto 0" onclick="document.querySelector('.size-sel').scrollIntoView({behavior:'smooth'});">Elegir talle y comprar →</button>
     <div style="color:rgba(255,255,255,.7);font-size:13px;margin-top:12px">🔒 Pago seguro con Mercado Pago · 🧾 Factura oficial</div>
   </section>
@@ -211,21 +215,46 @@
 
 <script src="/assets/js/cart.js"></script>
 <script>
+  // Precio en vivo por talle: si hay una campaña de temporada vigente sobre el SKU
+  // del talle elegido, muestra lista tachada + oferta + badge; si no, lista limpia.
   const FUNDAS = {
-    M: { sku: 'DL2314', nombre: 'Funda Cubre Sofá Sillón Elastizada M Premium (145-185cm)', precio: 94000 },
-    L: { sku: 'DL2315', nombre: 'Funda Sillón Elastizada Premium L (190-230cm)', precio: 117000 }
+    M: { sku: 'DL2314', nombre: 'Funda Cubre Sofá Sillón Elastizada M Premium (145-185cm)', lista: 94000, precio: 94000 },
+    L: { sku: 'DL2315', nombre: 'Funda Sillón Elastizada Premium L (190-230cm)', lista: 117000, precio: 117000 }
   };
   let fundaSel = 'L';
+  const fmtAr = n => '$' + Math.round(n).toLocaleString('es-AR');
+  function pintarPrecio() {
+    const f = FUNDAS[fundaSel];
+    const hayOferta = f.precio < f.lista;
+    document.querySelectorAll('.js-price').forEach(e => e.textContent = fmtAr(f.precio));
+    document.querySelectorAll('.js-price-old').forEach(e => {
+      e.textContent = fmtAr(f.lista);
+      e.style.display = hayOferta ? 'inline' : 'none';
+    });
+    document.querySelectorAll('.js-price-badge').forEach(e => {
+      if (hayOferta) { e.textContent = '-' + Math.round((1 - f.precio / f.lista) * 100) + '% OFF'; e.style.display = 'inline-block'; }
+      else { e.style.display = 'none'; }
+    });
+  }
   function selTalle(t) {
     fundaSel = t;
-    const pf = '$' + FUNDAS[t].precio.toLocaleString('es-AR');
-    document.querySelectorAll('.js-price').forEach(e => e.textContent = pf);
+    pintarPrecio();
     document.querySelectorAll('.size-btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.t === t ? 'true' : 'false'));
   }
+  ['M', 'L'].forEach(t => {
+    fetch(EG_API_URL + '/api/producto/' + FUNDAS[t].sku)
+      .then(r => r.json())
+      .then(d => {
+        if (d.precio_venta) { FUNDAS[t].lista = d.precio_venta; FUNDAS[t].precio = d.precio_venta; }
+        if (d.precio_oferta && d.precio_oferta < FUNDAS[t].lista) FUNDAS[t].precio = d.precio_oferta;
+        if (fundaSel === t) pintarPrecio();
+      })
+      .catch(() => {});
+  });
   function comprarFunda() {
     const f = FUNDAS[fundaSel];
     addCartItem({
-      sku: f.sku, nombre: f.nombre, precio: f.precio, precio_lista: f.precio,
+      sku: f.sku, nombre: f.nombre, precio: f.precio, precio_lista: f.lista,
       imagen: 'https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2315_001', cantidad: 1
     });
     window.location.href = '/carrito';

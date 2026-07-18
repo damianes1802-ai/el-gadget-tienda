@@ -27,6 +27,8 @@
   .lp-sub { font-size: 16.5px; line-height: 1.5; color: var(--gray-600, #555); margin-bottom: 20px; }
   .lp-price-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .lp-price { font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 700; color: var(--ink); }
+  .lp-price-old { font-size: 19px; color: var(--gray-500, #777); text-decoration: line-through; display: none; }
+  .lp-price-badge { display: none; background: #E8F8EE; color: #157347; font-weight: 700; font-size: 13px; padding: 4px 10px; border-radius: 999px; }
   .lp-price-note { font-size: 14px; color: var(--gray-600, #555); }
   .lp-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; max-width: 380px; padding: 16px 24px; font-size: 17px; font-weight: 700; margin: 18px 0 12px; cursor: pointer; border: none; }
   .lp-cta-mini { font-size: 13px; color: var(--gray-500, #777); display: flex; gap: 14px; flex-wrap: wrap; }
@@ -90,7 +92,9 @@
       <h1 class="lp-h1">Silla Ergonómica de Oficina con Soporte de Cabeza</h1>
       <p class="lp-sub">Respaldo de <strong>malla transpirable</strong> y <strong>soporte de cabeza integrado</strong> para acompañar tu postura y darte más comodidad en las jornadas largas de trabajo o estudio.</p>
       <div class="lp-price-row">
-        <span class="lp-price">$192.000</span>
+        <span class="lp-price-old js-price-old">$192.000</span>
+        <span class="lp-price js-price">$192.000</span>
+        <span class="lp-price-badge js-price-badge"></span>
         <span class="lp-price-note">Pagá en cuotas con Mercado Pago</span>
       </div>
       <button class="btn btn-accent lp-cta" onclick="comprarSilla()">Comprar ahora →</button>
@@ -166,7 +170,7 @@
   <section class="lp-final">
     <h2>Trabajá más cómodo desde hoy</h2>
     <p style="max-width:520px;margin:10px auto 20px;color:rgba(255,255,255,.8);font-size:16px">Soporte de cabeza, respaldo de malla y envío a todo el país, con cambios hasta 10 días.</p>
-    <div class="lp-price-row" style="justify-content:center"><span class="lp-price">$192.000</span></div>
+    <div class="lp-price-row" style="justify-content:center"><span class="lp-price-old js-price-old" style="color:rgba(255,255,255,.55)">$192.000</span> <span class="lp-price js-price">$192.000</span></div>
     <button class="btn btn-accent lp-cta" style="margin:18px auto 0" onclick="comprarSilla()">Comprar ahora →</button>
     <div style="color:rgba(255,255,255,.7);font-size:13px;margin-top:12px">🔒 Pago seguro con Mercado Pago · 🧾 Factura oficial</div>
   </section>
@@ -186,14 +190,33 @@
 
 <script src="/assets/js/cart.js"></script>
 <script>
+  // Precio en vivo: si hay una campaña de temporada vigente muestra lista tachada
+  // + precio de oferta + badge; si no (o si la API falla), queda el precio de lista.
+  const PROD = {
+    sku: 'DL1203-4',
+    nombre: 'Silla Ergonómica de Oficina Negra con Soporte de Cabeza',
+    imagen: 'https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_001',
+    lista: 192000,
+    precio: 192000
+  };
+  const fmtAr = n => '$' + Math.round(n).toLocaleString('es-AR');
+  fetch(EG_API_URL + '/api/producto/' + PROD.sku)
+    .then(r => r.json())
+    .then(d => {
+      if (d.precio_venta) { PROD.lista = d.precio_venta; PROD.precio = d.precio_venta; }
+      if (d.precio_oferta && d.precio_oferta < PROD.lista) {
+        PROD.precio = d.precio_oferta;
+        const pct = Math.round((1 - PROD.precio / PROD.lista) * 100);
+        document.querySelectorAll('.js-price-old').forEach(e => { e.textContent = fmtAr(PROD.lista); e.style.display = 'inline'; });
+        document.querySelectorAll('.js-price-badge').forEach(e => { e.textContent = '-' + pct + '% OFF'; e.style.display = 'inline-block'; });
+      }
+      document.querySelectorAll('.js-price').forEach(e => e.textContent = fmtAr(PROD.precio));
+    })
+    .catch(() => {});
   function comprarSilla() {
     addCartItem({
-      sku: 'DL1203-4',
-      nombre: 'Silla Ergonómica de Oficina Negra con Soporte de Cabeza',
-      precio: 192000,
-      precio_lista: 192000,
-      imagen: 'https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1203-4_001',
-      cantidad: 1
+      sku: PROD.sku, nombre: PROD.nombre, precio: PROD.precio, precio_lista: PROD.lista,
+      imagen: PROD.imagen, cantidad: 1
     });
     window.location.href = '/carrito';
   }
