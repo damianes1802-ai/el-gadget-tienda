@@ -237,11 +237,11 @@ BLOG_POSTS = {
     },
     'dia-del-amigo': {
         'imagen': ('/assets/img/blog/dia-del-amigo-argentina.jpg', 'Amigos brindando en una juntada al atardecer con luces cálidas por el Día del Amigo'),
-        'title': 'Día del Amigo 2026: cuándo es, imágenes para compartir y regalos | El Gadget',
+        'title': 'Día del Amigo 2026: regalos, imágenes y amigo invisible gratis | El Gadget',
         'h1': 'Día del Amigo 2026: cuándo es y cómo celebrarlo',
-        'meta': 'El Día del Amigo 2026 es el lunes 20 de julio en Argentina. Imágenes de feliz día para compartir por WhatsApp, ideas de regalos y el plan para la juntada.',
-        'fecha': '2026-07-13',
-        'intro': 'En Argentina, el Día del Amigo se festeja <strong>todos los 20 de julio</strong> — en 2026 cae lunes, así que la juntada se muda al fin de semana o se convierte en la excusa perfecta para arrancar la semana distinto. Acá tenés todo: por qué es el 20, imágenes para saludar al grupo, ideas de regalos y el plan que nunca falla.',
+        'meta': 'El Día del Amigo 2026 es el lunes 20 de julio. Regalos que no fallan, imágenes para saludar por WhatsApp y el sorteo de amigo invisible online gratis, sin registro.',
+        'fecha': '2026-07-18',
+        'intro': 'En Argentina, el Día del Amigo se festeja <strong>todos los 20 de julio</strong> — en 2026 cae lunes, así que la juntada se muda al fin de semana o se convierte en la excusa perfecta para arrancar la semana distinto. Acá tenés todo: imágenes para saludar al grupo, ideas de regalos y el plan que nunca falla. Y si con el grupo hacen intercambio de regalos, <strong><a href="/amigo-invisible/">sorteá el amigo invisible online gratis acá</a></strong>: cargás los nombres y cada uno recibe a quién le regala por email, sin registrarse y en 2 minutos.',
         'secciones': [
             ('¿Cuándo es el Día del Amigo y por qué el 20 de julio?',
              'El Día del Amigo argentino es el <strong>20 de julio, todos los años</strong> (no se mueve como el Día de la Madre). La fecha la propuso el rosarino Enrique Febbraro, que eligió el día de la llegada del hombre a la Luna en 1969 como símbolo de que la humanidad entera podía sentirse amiga. Ojo: no lo confundas con el Día Internacional de la Amistad de la ONU, que es el 30 de julio — acá el que vale es el 20.'),
