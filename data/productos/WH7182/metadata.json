@@ -19,7 +19,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/par-de-medias-personajes-japoneses.html",
-  "fecha_scraping": "2026-07-17T06:29:20.809346",
+  "fecha_scraping": "2026-07-18T06:27:50.159891",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -29,7 +29,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-17T06:33:27.548333",
+  "fecha_mapeo_categorias": "2026-07-18T06:31:07.084154",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7182_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7182_002",
@@ -53,6 +53,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8500.0,
-  "fecha_calculo_precio": "2026-07-17T06:35:29.212687",
+  "fecha_calculo_precio": "2026-07-18T06:32:07.434160",
   "fecha_agotado": "2026-07-06T04:35:09.472080"
 }

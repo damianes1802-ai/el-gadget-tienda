@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/juego-de-bloques.html",
-  "fecha_scraping": "2026-07-17T06:28:08.875831",
+  "fecha_scraping": "2026-07-18T06:25:51.945078",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-17T06:33:27.542498",
+  "fecha_mapeo_categorias": "2026-07-18T06:31:07.075683",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0180_002",
@@ -45,6 +45,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 56500.0,
-  "fecha_calculo_precio": "2026-07-17T06:35:29.170027",
+  "fecha_calculo_precio": "2026-07-18T06:32:07.401210",
   "fecha_agotado": "2026-07-06T04:35:09.468886"
 }

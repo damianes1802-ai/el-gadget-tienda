@@ -1,6 +1,6 @@
 {
   "sku": "G-VASOSTANLEY",
-  "titulo": "Vaso Cervecero Termico Stanley con Tapa Transparente",
+  "titulo": "Vaso Cervecero Termico con Tapa Transparente",
   "precio": 14763,
   "descripcion": "PRODUCTO RÉPLICA\nCOLORES SURTIDO A DISPONIBILIDAD, SIN SELECCIÓN\nVaso Stanley 480ml Acero Inoxidable\nGracias a su doble aislamiento a prueba de golpes, este vaso térmico es capaz de mantener tus líquidos fríos durante hasta 4 horas, y hasta 15 horas si están congelados.\nAdemás, su diseño apilable hace que sea fácil de transportar y perfecto para llevar con vos en cualquier ocasión, desde acampar hasta cumpleaños.\nCon el Vaso Stanley Cervecero, no tendrás que preocuparte por los vasos desechables, ya que podés utilizarlo una y otra vez, y su construcción robusta garantiza una larga vida útil, lo que lo convierte en una inversión inteligente para cualquier hogar.\nCapacidad: 480 ml\nAlto: 17 cm\nDiámetro (en la parte superior): 8,5 cm\nLas especificaciones del producto están sujetas a modificaciones sin previo aviso (Todos los vasos tienen el logo STANLEY).\nLas imágenes son de carácter ilustrativo.",
   "imagenes": [
@@ -79,7 +79,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/vaso-cervecero-termico-stanley-con-tapa-transparente.html",
-  "fecha_scraping": "2026-07-17T06:28:48.249677",
+  "fecha_scraping": "2026-07-18T06:24:49.456329",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -89,7 +89,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-17T06:33:27.564716",
+  "fecha_mapeo_categorias": "2026-07-18T06:31:07.096982",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-VASOSTANLEY_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-VASOSTANLEY_002",
@@ -118,5 +118,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 38500.0,
-  "fecha_calculo_precio": "2026-07-17T06:35:29.143059"
+  "fecha_calculo_precio": "2026-07-18T06:32:07.380468"
 }
