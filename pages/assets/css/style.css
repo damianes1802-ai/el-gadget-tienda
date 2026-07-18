@@ -622,11 +622,10 @@ a { color: inherit; }
   .mn-panel { position: static; transform: none; box-shadow: none; border: none; padding: 4px 0 0;
     max-height: none; min-width: 0; }
   .mn-panel a { text-align: center; }
-  /* Grilla 2x2 + Información a lo ancho: pildoras parejas en vez de wrap desprolijo */
+  /* Grilla simétrica de 2 columnas: 6 ítems = 3 filas parejas (2+2+2) */
   .mega-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px 1rem 6px; }
   .mn-item { width: 100%; }
   .mn-item summary, .mn-link { width: 100%; justify-content: center; box-sizing: border-box; }
-  .mn-item:last-child { grid-column: 1 / -1; }
   /* Abierto ocupa el ancho completo: el panel respira y el texto no se corta */
   .mega-nav .mn-item[open] { grid-column: 1 / -1; }
   .mn-panel a { white-space: normal; }
