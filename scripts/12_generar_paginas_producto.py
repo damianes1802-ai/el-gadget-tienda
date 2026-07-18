@@ -115,6 +115,16 @@ def cloudinary_thumb(url: str, size: int = 150) -> str:
     return url
 
 
+def cloudinary_main(url: str, w: int = 800) -> str:
+    """Imagen principal del PDP: limita el ancho (preserva aspecto) + WebP/calidad
+    auto. Mucho más liviana que la original full-res; la original queda disponible
+    en data-full para el zoom."""
+    marcador = '/image/upload/'
+    if 'res.cloudinary.com' in url and marcador in url and '/upload/w_' not in url and '/upload/c_' not in url:
+        return url.replace(marcador, f'{marcador}w_{w},c_limit,f_auto,q_auto/', 1)
+    return url
+
+
 def render_thumbnails(imagenes: list, nombre: str) -> str:
     items = []
     for i, img in enumerate(imagenes):
@@ -271,7 +281,8 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
     }]
 
     main_image_html = (
-        f'<img id="mainImage" class="main-image" src="{html.escape(imagen_principal)}" '
+        f'<img id="mainImage" class="main-image" src="{html.escape(cloudinary_main(imagen_principal))}" '
+        f'data-full="{html.escape(imagen_principal)}" fetchpriority="high" '
         f'alt="{html.escape(nombre)}" onclick="zoomImage()">'
         if imagen_principal else
         f'<img id="mainImage" class="main-image" src="" alt="{html.escape(nombre)}">'
@@ -529,8 +540,10 @@ const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 let imagenesActuales = PRODUCTO.imagenes || [];
 let imagenIndexActual = 0;
 
+function cldMain(u){ return (u && u.includes('res.cloudinary.com') && u.includes('/image/upload/') && !u.includes('/upload/w_') && !u.includes('/upload/c_')) ? u.replace('/image/upload/','/image/upload/w_800,c_limit,f_auto,q_auto/') : u; }
 function cambiarImagen(src, index) {
-  document.getElementById('mainImage').src = src;
+  const mi = document.getElementById('mainImage');
+  mi.src = cldMain(src); mi.dataset.full = src;
   imagenIndexActual = index;
   document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
     thumb.classList.toggle('active', i === index);
@@ -569,7 +582,8 @@ function galeriaSiguiente() {
 
 function zoomImage() {
   const img = document.getElementById('mainImage');
-  if (img.src) window.open(img.src, '_blank');
+  const full = img.dataset.full || img.src;
+  if (full) window.open(full, '_blank');
 }
 
 // Renderiza la imagen principal y las miniaturas para la variante seleccionada
@@ -579,7 +593,7 @@ function renderImagenes(imagenes, nombre) {
 
   imagenesActuales = imagenes;
   imagenIndexActual = 0;
-  main.src = imagenes[0];
+  main.src = cldMain(imagenes[0]); main.dataset.full = imagenes[0];
   main.alt = nombre;
 
   document.getElementById('gallery').classList.toggle('single-image', imagenes.length <= 1);

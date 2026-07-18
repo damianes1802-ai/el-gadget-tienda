@@ -64,7 +64,7 @@
     <!-- Galería -->
     <div class="gallery" id="gallery">
       <div class="main-image-wrap">
-        <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_001" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
+        <img id="mainImage" class="main-image" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_800,c_limit,f_auto,q_auto/prod_DL2342_001" data-full="https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_001" fetchpriority="high" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" onclick="zoomImage()"><button class="gallery-arrow gallery-arrow-prev" onclick="galeriaAnterior()" aria-label="Imagen anterior" type="button">‹</button><button class="gallery-arrow gallery-arrow-next" onclick="galeriaSiguiente()" aria-label="Imagen siguiente" type="button">›</button>
       </div>
       <div class="thumbnails-wrap"><div class="thumbnails" id="thumbnails"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2342_001" class="thumbnail active" width="72" height="72" loading="lazy" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_001', 0)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2342_002" class="thumbnail" width="72" height="72" loading="lazy" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_002', 1)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2342_003" class="thumbnail" width="72" height="72" loading="lazy" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_003', 2)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2342_004" class="thumbnail" width="72" height="72" loading="lazy" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_004', 3)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2342_005" class="thumbnail" width="72" height="72" loading="lazy" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_005', 4)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2342_006" class="thumbnail" width="72" height="72" loading="lazy" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_006', 5)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2342_007" class="thumbnail" width="72" height="72" loading="lazy" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_007', 6)"><img src="https://res.cloudinary.com/deq2ofluf/image/upload/w_150,h_150,c_fill,f_auto,q_auto/prod_DL2342_008" class="thumbnail" width="72" height="72" loading="lazy" alt="Cajonera organizador 3 niveles con ruedas para niños | El orden fácil" onclick="cambiarImagen('https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2342_008', 7)"></div></div>
     </div>
@@ -226,8 +226,10 @@ const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 let imagenesActuales = PRODUCTO.imagenes || [];
 let imagenIndexActual = 0;
 
+function cldMain(u){ return (u && u.includes('res.cloudinary.com') && u.includes('/image/upload/') && !u.includes('/upload/w_') && !u.includes('/upload/c_')) ? u.replace('/image/upload/','/image/upload/w_800,c_limit,f_auto,q_auto/') : u; }
 function cambiarImagen(src, index) {
-  document.getElementById('mainImage').src = src;
+  const mi = document.getElementById('mainImage');
+  mi.src = cldMain(src); mi.dataset.full = src;
   imagenIndexActual = index;
   document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
     thumb.classList.toggle('active', i === index);
@@ -266,7 +268,8 @@ function galeriaSiguiente() {
 
 function zoomImage() {
   const img = document.getElementById('mainImage');
-  if (img.src) window.open(img.src, '_blank');
+  const full = img.dataset.full || img.src;
+  if (full) window.open(full, '_blank');
 }
 
 // Renderiza la imagen principal y las miniaturas para la variante seleccionada
@@ -276,7 +279,7 @@ function renderImagenes(imagenes, nombre) {
 
   imagenesActuales = imagenes;
   imagenIndexActual = 0;
-  main.src = imagenes[0];
+  main.src = cldMain(imagenes[0]); main.dataset.full = imagenes[0];
   main.alt = nombre;
 
   document.getElementById('gallery').classList.toggle('single-image', imagenes.length <= 1);
