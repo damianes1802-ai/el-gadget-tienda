@@ -16,6 +16,9 @@ marketing_app/data/backups/
 # Checkpoint de alertas Droppers (necesario en CI para no reprocesar el historial)
 !data/droppers_alertas_estado.json
 
+# Estado de lastmod del sitemap (necesario en CI para conservar fechas entre corridas)
+!data/sitemap_lastmod.json
+
 # Config de precios (necesaria para el calculo de precios en CI)
 !data/precios
 data/precios/*

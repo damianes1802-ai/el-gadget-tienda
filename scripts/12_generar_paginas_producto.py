@@ -22,6 +22,7 @@ USO:
 AUTOR: Sistema Ecommerce Automation
 """
 
+import hashlib
 import html
 import json
 import re
@@ -43,6 +44,9 @@ logger = get_logger('generar_paginas_producto')
 PAGES_DIR = Config.BASE_DIR / 'pages'
 PRODUCTO_DIR = PAGES_DIR / 'producto'
 SITEMAP_FILE = PAGES_DIR / 'sitemap.xml'
+# Estado URL -> (hash de contenido, lastmod) para que el sitemap solo declare
+# "cambió" cuando la página cambió DE VERDAD (señal lastmod confiable para Google).
+LASTMOD_STATE_FILE = Config.BASE_DIR / 'data' / 'sitemap_lastmod.json'
 
 BRAND = "El Gadget"
 WHATSAPP_NUM = "5491126228481"
@@ -102,6 +106,44 @@ def parsear_imagenes(producto: dict) -> list:
         if img:
             imagenes.append(img)
     return imagenes
+
+
+def _archivo_de_url(url: str) -> Path:
+    """Resuelve una URL del sitemap al archivo HTML que sirve GitHub Pages."""
+    path = url.replace(CANONICAL_DOMAIN, '', 1).strip('/')
+    if not path:
+        return PAGES_DIR / 'index.html'
+    if url.endswith('/'):
+        return PAGES_DIR / path / 'index.html'
+    return PAGES_DIR / f"{path}.html"
+
+
+def _calcular_lastmods(all_urls) -> dict:
+    """lastmod honesto por URL: conserva la fecha guardada mientras el contenido
+    (hash SHA-256, con CRLF normalizado) no cambie; si cambió o es nueva, hoy.
+    Así el sitemap solo declara "modificado" ante cambios reales y Google puede
+    confiar en la señal. El estado vive en data/sitemap_lastmod.json (versionado)."""
+    hoy = date.today().isoformat()
+    try:
+        estado = json.loads(LASTMOD_STATE_FILE.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        estado = {}
+    nuevo = {}
+    for u, _freq in all_urls:
+        try:
+            contenido = _archivo_de_url(u).read_bytes().replace(b'\r', b'')
+            h = hashlib.sha256(contenido).hexdigest()[:16]
+        except OSError:
+            h = ''
+        prev = estado.get(u)
+        if h and prev and prev.get('hash') == h:
+            nuevo[u] = {'hash': h, 'lastmod': prev['lastmod']}
+        else:
+            nuevo[u] = {'hash': h, 'lastmod': hoy}
+    LASTMOD_STATE_FILE.write_text(
+        json.dumps(nuevo, ensure_ascii=False, indent=0, sort_keys=True) + '\n',
+        encoding='utf-8')
+    return {u: v['lastmod'] for u, v in nuevo.items()}
 
 
 def cloudinary_thumb(url: str, size: int = 150) -> str:
@@ -1477,7 +1519,6 @@ def generar():
     print(f"✅ Blog: hub + {len(slugs_blog)} posts generados")
 
     # 5. Generar sitemap.xml
-    hoy = date.today().isoformat()
     canonical_url = CANONICAL_DOMAIN
     static_pages = [
         (f"{canonical_url}/", "weekly"),
@@ -1507,8 +1548,9 @@ def generar():
     urls = [(f"{canonical_url}/producto/{slug}/", "weekly") for slug in sorted(slugs_generados)]
     all_urls = static_pages + urls
 
+    lastmods = _calcular_lastmods(all_urls)
     sitemap_items = '\n'.join(
-        f"  <url><loc>{html.escape(u)}</loc><lastmod>{hoy}</lastmod><changefreq>{freq}</changefreq></url>"
+        f"  <url><loc>{html.escape(u)}</loc><lastmod>{lastmods[u]}</lastmod><changefreq>{freq}</changefreq></url>"
         for u, freq in all_urls
     )
     sitemap_xml = (

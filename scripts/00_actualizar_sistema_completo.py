@@ -432,6 +432,7 @@ class ActualizadorMaestro:
             'data/precios',
             'pages/producto',
             'pages/sitemap.xml',
+            'data/sitemap_lastmod.json',
         ]
 
         try:
