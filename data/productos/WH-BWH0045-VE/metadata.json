@@ -20,7 +20,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cantimplora-deportiva-750ml-colores-5.html",
-  "fecha_scraping": "2026-07-18T06:27:53.978455",
+  "fecha_scraping": "2026-07-19T06:28:19.786387",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Fitness"
@@ -30,7 +30,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-18T06:31:07.085213",
+  "fecha_mapeo_categorias": "2026-07-19T06:32:05.279250",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-BWH0045-VE_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH-BWH0045-VE_002",
@@ -54,5 +54,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 31500.0,
-  "fecha_calculo_precio": "2026-07-18T06:32:07.409118"
+  "fecha_calculo_precio": "2026-07-19T06:32:58.754021"
 }
