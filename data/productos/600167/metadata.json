@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/vaso-taza-cafe-doble-pared-vidrio-80ml.html",
-  "fecha_scraping": "2026-07-19T06:27:50.392431",
+  "fecha_scraping": "2026-07-20T06:25:54.415674",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-19T06:32:05.292499",
+  "fecha_mapeo_categorias": "2026-07-20T06:32:24.053811",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600167_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 5000.0,
-  "fecha_calculo_precio": "2026-07-19T06:32:58.600017"
+  "fecha_calculo_precio": "2026-07-20T06:34:17.055302"
 }
