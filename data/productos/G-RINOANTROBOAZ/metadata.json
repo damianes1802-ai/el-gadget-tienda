@@ -13,8 +13,8 @@
   ],
   "cantidad_imagenes": 6,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/morral-antirrobo-oxford-1.html",
   "fecha_scraping": "2026-07-20T06:27:46.869554",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -27,14 +27,7 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-06-13T07:56:37.088029",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOAZ_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOAZ_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOAZ_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOAZ_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOAZ_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOAZ_006"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 12100,
     "cargos_fijos": 0,
@@ -47,5 +40,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 31500.0,
-  "fecha_calculo_precio": "2026-07-20T06:34:17.179971"
+  "fecha_calculo_precio": "2026-07-21T06:33:29.615470",
+  "fecha_agotado": "2026-07-21T06:19:19.941162"
 }

@@ -1,0 +1,48 @@
+{
+  "sku": "DL1103X12",
+  "titulo": "Escobilla De Baño Doble Cara Pack 12 Unidades",
+  "precio": 10990,
+  "descripcion": "Escobilla de baño doble cara\nPack x12 unidades\nColores beige, celeste y rosa.\nSe envía surtido.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/i/m/img_4016-13f811a3397c91babc16996289802435-1024-1024.jpeg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/u/n/unnamed_2_.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1103_3_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1103_2_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1103.jpg"
+  ],
+  "cantidad_imagenes": 5,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/escobilla-de-ba-o-doble-cara.html",
+  "fecha_scraping": "2026-07-21T06:26:26.715706",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Baño y Limpieza"
+  ],
+  "categoria_principal": "Baño y Limpieza",
+  "categoria": "Baño y Limpieza",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-07-21T06:31:21.528931",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1784615574/prod_DL1103X12_001.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1784615575/prod_DL1103X12_002.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1784615576/prod_DL1103X12_003.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1784615577/prod_DL1103X12_004.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 10990,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 10990,
+    "margen_porcentaje": 160,
+    "precio_con_margen": 28574.0,
+    "precio_final": 29000.0,
+    "ganancia_neta": 18010.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 29000.0,
+  "fecha_calculo_precio": "2026-07-21T06:33:29.537635"
+}
