@@ -21,7 +21,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/set-de-globos-bride-to-be-para-despedida-de-soltera.html",
-  "fecha_scraping": "2026-07-21T06:25:30.522607",
+  "fecha_scraping": "2026-07-22T06:27:24.776442",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -57,5 +57,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 26500.0,
-  "fecha_calculo_precio": "2026-07-21T06:33:29.663062"
+  "fecha_calculo_precio": "2026-07-22T06:32:08.510237"
 }
