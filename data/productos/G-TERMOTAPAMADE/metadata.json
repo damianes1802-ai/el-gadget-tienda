@@ -71,7 +71,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botella-termica-supreme-400ml.html",
-  "fecha_scraping": "2026-07-22T06:25:00.452165",
+  "fecha_scraping": "2026-07-23T06:26:30.414662",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -81,7 +81,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-22T06:31:00.050528",
+  "fecha_mapeo_categorias": "2026-07-23T06:29:39.088239",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_002",
@@ -111,5 +111,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 37500.0,
-  "fecha_calculo_precio": "2026-07-22T06:32:08.471604"
+  "fecha_calculo_precio": "2026-07-23T06:31:09.299643"
 }
