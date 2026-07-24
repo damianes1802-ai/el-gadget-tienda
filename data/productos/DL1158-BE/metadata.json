@@ -19,7 +19,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/alfombrilla-de-ba-era-antideslizante-con-piedra-pomez-2.html",
-  "fecha_scraping": "2026-07-23T06:25:34.556224",
+  "fecha_scraping": "2026-07-24T06:26:47.418851",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Baño y Limpieza"
@@ -29,7 +29,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-23T06:29:39.094074",
+  "fecha_mapeo_categorias": "2026-07-24T06:30:05.936332",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-BE_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1158-BE_002",
@@ -53,5 +53,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 52000.0,
-  "fecha_calculo_precio": "2026-07-23T06:31:09.226439"
+  "fecha_calculo_precio": "2026-07-24T06:31:17.657486"
 }

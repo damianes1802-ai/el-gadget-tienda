@@ -14,7 +14,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botella-siliconada-termica-1000-ml.html",
-  "fecha_scraping": "2026-07-23T06:25:43.255144",
+  "fecha_scraping": "2026-07-24T06:24:20.082104",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -24,7 +24,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-23T06:29:39.091345",
+  "fecha_mapeo_categorias": "2026-07-24T06:30:05.908433",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_002",
@@ -43,5 +43,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 55000.0,
-  "fecha_calculo_precio": "2026-07-23T06:31:09.385724"
+  "fecha_calculo_precio": "2026-07-24T06:31:17.826145"
 }
