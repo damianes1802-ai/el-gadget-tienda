@@ -18,7 +18,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/soporte-para-celular-ajustable-blanco-1.html",
-  "fecha_scraping": "2026-07-25T06:26:01.959395",
+  "fecha_scraping": "2026-07-26T06:24:54.639987",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Nuevos Ingresos"
@@ -28,7 +28,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-25T06:30:36.424766",
+  "fecha_mapeo_categorias": "2026-07-26T06:29:53.862026",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2336-BL_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2336-BL_002",
@@ -51,5 +51,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 18500.0,
-  "fecha_calculo_precio": "2026-07-25T06:32:36.402455"
+  "fecha_calculo_precio": "2026-07-26T06:31:24.403268"
 }
