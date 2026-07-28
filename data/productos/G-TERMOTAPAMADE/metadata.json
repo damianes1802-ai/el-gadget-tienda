@@ -1,6 +1,6 @@
 {
   "sku": "G-TERMOTAPAMADE",
-  "titulo": "Botella Termica Supreme 400ml",
+  "titulo": "Botella Termica 400ml",
   "precio": 14416,
   "descripcion": "PRODUCTO REPLICA\nCaracteristicas:\nCapacidad: 400ml\nTapa: Plastica simil madera a  rosca\nFiltro: Malla metalica a presion\nEnvase: Acero inoxidable (SUS 304) con recubrimiento de PP\nBase: Antideslizante de silicona\nTemperatura: 5 Horas calientes - 10 Horas frio",
   "imagenes": [
@@ -71,7 +71,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botella-termica-supreme-400ml.html",
-  "fecha_scraping": "2026-07-27T06:26:41.248519",
+  "fecha_scraping": "2026-07-28T06:28:25.824846",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -81,7 +81,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-27T06:29:56.874403",
+  "fecha_mapeo_categorias": "2026-07-28T06:31:53.211126",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_002",
@@ -111,5 +111,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 37500.0,
-  "fecha_calculo_precio": "2026-07-27T06:31:24.660024"
+  "fecha_calculo_precio": "2026-07-28T06:33:39.515874"
 }

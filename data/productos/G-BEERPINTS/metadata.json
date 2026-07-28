@@ -1,6 +1,6 @@
 {
   "sku": "G-BEERPINTS",
-  "titulo": "Vaso Termico 1200ml Starbucks con Agarre",
+  "titulo": "Vaso Termico 1200ml con Agarre",
   "precio": 31802,
   "descripcion": "PRODUCTO RÉPLICA\nCOLORES SURTIDO A DISPONIBILIDAD, SIN SELECCIÓN\nCapacidad: 1200ml\nPeso: 533grs\nAlto: 25cm\nDiámetro base: 7,3cm\nDiámetro boca: 9,8cm\nRecubrimiento POWDER COATED\nDoble pared aislante.\nSuperficie antideslizante.\nTapa hermética a rosca.\nCon sorbete rebatible.\nCon Manija de sistema desmontable.\nApto bebidas frías o calientes.",
   "imagenes": [
@@ -68,7 +68,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/vaso-termico-1200ml-starbucks-con-agarre.html",
-  "fecha_scraping": "2026-07-27T06:26:27.380959",
+  "fecha_scraping": "2026-07-28T06:25:36.709642",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -78,7 +78,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-27T06:29:56.871153",
+  "fecha_mapeo_categorias": "2026-07-28T06:31:53.211478",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_002",
@@ -114,5 +114,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 83000.0,
-  "fecha_calculo_precio": "2026-07-27T06:31:24.657917"
+  "fecha_calculo_precio": "2026-07-28T06:33:39.513777"
 }
