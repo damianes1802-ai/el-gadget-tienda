@@ -17,7 +17,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/collar-isabelino-para-mascotas-2.html",
-  "fecha_scraping": "2026-07-29T06:28:05.961144",
+  "fecha_scraping": "2026-07-30T06:25:40.662890",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios para Mascotas"
@@ -27,7 +27,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-07-29T06:33:54.832108",
+  "fecha_mapeo_categorias": "2026-07-30T06:30:17.817978",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-3_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1193-3_002",
@@ -49,5 +49,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 9000.0,
-  "fecha_calculo_precio": "2026-07-29T06:36:09.263481"
+  "fecha_calculo_precio": "2026-07-30T06:31:31.845923"
 }
