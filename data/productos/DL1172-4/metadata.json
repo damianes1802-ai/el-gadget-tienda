@@ -21,7 +21,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 16000.0,
-  "fecha_calculo_precio": "2026-07-30T06:31:31.837522",
+  "fecha_calculo_precio": "2026-07-31T06:31:41.961792",
   "categoria_principal": "Nuevos Ingresos",
   "categoria": "Nuevos Ingresos",
   "categorias_secundarias": [
@@ -34,7 +34,7 @@
   "total_categorias": 2,
   "fecha_actualizacion_categorias": "2026-02-23T20:46:46.370294",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-07-30T06:19:36.155091",
+  "fecha_agotado": "2026-07-31T06:19:21.445881",
   "availability": "out of stock",
   "imagenes_cloudinary": []
 }
