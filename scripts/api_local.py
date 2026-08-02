@@ -179,10 +179,7 @@ async def _unhandled_exception_handler(request: Request, exc: Exception):
         headers["Vary"] = "Origin"
     return JSONResponse(
         status_code=500,
-        content={
-            "detail": "Ocurrió un error en el servidor. Probá de nuevo en unos segundos.",
-            "_debug": f"{type(exc).__name__}: {exc}",  # TEMP diagnóstico — quitar
-        },
+        content={"detail": "Ocurrió un error en el servidor. Probá de nuevo en unos segundos."},
         headers=headers,
     )
 
@@ -714,7 +711,7 @@ def migrar_db():
             nombre    TEXT NOT NULL,
             email     TEXT NOT NULL UNIQUE,
             telefono  TEXT NOT NULL,
-            dni       TEXT NOT NULL UNIQUE,
+            dni       TEXT UNIQUE,
             codigo    TEXT NOT NULL UNIQUE,
             activo    INTEGER NOT NULL DEFAULT 1,
             creado_at TEXT DEFAULT (datetime('now'))
@@ -755,6 +752,28 @@ def migrar_db():
     for col_name, col_def in columnas_referidos_nuevas:
         if col_name not in cols_ref:
             cursor.execute(f"ALTER TABLE referidos ADD COLUMN {col_name} {col_def}")
+
+    # referidos.dni era NOT NULL UNIQUE: al registrarse SIN DNI se insertaba ''
+    # (las landings ni lo piden), y a partir del 2do registro sin DNI el '' chocaba
+    # con el UNIQUE → 500. Migrar a UNIQUE *nullable* (SQLite permite múltiples NULL)
+    # y pasar los '' existentes a NULL. Reconstruye la tabla preservando todas las
+    # columnas (usa el CREATE real de sqlite_master). FK están off, así que es seguro.
+    ref_info = cursor.execute("PRAGMA table_info(referidos)").fetchall()
+    dni_col = next((c for c in ref_info if c[1] == 'dni'), None)
+    if dni_col is not None and dni_col[3] == 1:  # notnull == 1 → hay que migrar
+        create_sql = cursor.execute(
+            "SELECT sql FROM sqlite_master WHERE type='table' AND name='referidos'"
+        ).fetchone()[0]
+        nuevo_sql = re.sub(r'(\bdni\b\s+TEXT\s+)NOT\s+NULL(\s+UNIQUE)', r'\1\2', create_sql, flags=re.I)
+        nuevo_sql = nuevo_sql.replace('referidos', 'referidos_new', 1)  # renombra la tabla en el CREATE
+        cols_list = ", ".join(c[1] for c in ref_info)
+        cols_select = ", ".join(("NULLIF(dni, '')" if c[1] == 'dni' else c[1]) for c in ref_info)
+        cursor.execute("DROP TABLE IF EXISTS referidos_new")
+        cursor.execute(nuevo_sql)
+        cursor.execute(f"INSERT INTO referidos_new ({cols_list}) SELECT {cols_select} FROM referidos")
+        cursor.execute("DROP TABLE referidos")
+        cursor.execute("ALTER TABLE referidos_new RENAME TO referidos")
+        print("[migrar_db] referidos.dni migrado a UNIQUE nullable ('' -> NULL)")
 
     conn.commit()
     conn.close()
@@ -4062,7 +4081,7 @@ def registro_referido(datos: RegistroReferido):
     cursor.execute("""
         INSERT INTO referidos (nombre, email, telefono, dni, codigo)
         VALUES (?, ?, ?, ?, ?)
-    """, (datos.nombre, datos.email.lower(), datos.telefono, datos.dni or '', codigo))
+    """, (datos.nombre, datos.email.lower(), datos.telefono, datos.dni or None, codigo))
 
     # Insertar el código en la tabla descuentos (15% off, ilimitado, para todos)
     cursor.execute("""
