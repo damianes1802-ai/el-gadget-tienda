@@ -148,19 +148,43 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 # La autenticación es por header (X-Admin-Password / Bearer token), no por
 # cookies, así que no se necesitan credentials. Combinar allow_origins=["*"]
 # con allow_credentials=True es inválido por spec y los navegadores lo rechazan.
+CORS_ALLOWED_ORIGINS = [
+    "https://elgadget.com.ar",
+    "https://www.elgadget.com.ar",
+    "https://damianes1802-ai.github.io",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://elgadget.com.ar",
-        "https://www.elgadget.com.ar",
-        "https://damianes1802-ai.github.io",
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-    ],
+    allow_origins=CORS_ALLOWED_ORIGINS,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(Exception)
+async def _unhandled_exception_handler(request: Request, exc: Exception):
+    """Los 500 no manejados los genera Starlette POR FUERA del CORSMiddleware, así
+    que salen sin headers CORS: el navegador los bloquea y el frontend muestra un
+    engañoso 'Error de conexión' aunque el server esté vivo. Este handler agrega
+    los headers CORS y loguea el traceback (visible en los logs de Render)."""
+    import traceback
+    traceback.print_exc()
+    headers = {}
+    origin = request.headers.get("origin")
+    if origin in CORS_ALLOWED_ORIGINS:
+        headers["Access-Control-Allow-Origin"] = origin
+        headers["Vary"] = "Origin"
+    return JSONResponse(
+        status_code=500,
+        content={
+            "detail": "Ocurrió un error en el servidor. Probá de nuevo en unos segundos.",
+            "_debug": f"{type(exc).__name__}: {exc}",  # TEMP diagnóstico — quitar
+        },
+        headers=headers,
+    )
 
 
 # ============================================================================
