@@ -14,20 +14,12 @@
   ],
   "cantidad_imagenes": 7,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5935/",
   "fecha_scraping": "2026-06-18T10:59:45.451423",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2352_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2352_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2352_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2352_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2352_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2352_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2352_007"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 3290,
     "cargos_fijos": 0,
@@ -40,7 +32,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 9000.0,
-  "fecha_calculo_precio": "2026-08-04T06:32:10.828993",
+  "fecha_calculo_precio": "2026-08-05T06:31:14.423392",
   "categoria_principal": "OFERTAS",
   "categoria": "OFERTAS",
   "categorias_secundarias": [],
@@ -52,5 +44,6 @@
   "categoria_asignada_automaticamente": true,
   "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-06-22T19:52:09.410212"
+  "fecha_mapeo_categorias": "2026-06-22T19:52:09.410212",
+  "fecha_agotado": "2026-08-05T06:16:39.617105"
 }
