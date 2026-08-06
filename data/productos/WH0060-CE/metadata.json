@@ -9,8 +9,8 @@
   ],
   "cantidad_imagenes": 2,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/botella-infantil-osito-1000-ml-3.html",
   "fecha_scraping": "2026-08-05T06:25:38.486555",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -23,10 +23,7 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-08-05T06:29:36.184476",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0060-CE_002"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 9592,
     "cargos_fijos": 0,
@@ -39,5 +36,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 25000.0,
-  "fecha_calculo_precio": "2026-08-05T06:31:14.452747"
+  "fecha_calculo_precio": "2026-08-06T06:31:09.415048",
+  "fecha_agotado": "2026-08-06T06:19:19.007918"
 }
