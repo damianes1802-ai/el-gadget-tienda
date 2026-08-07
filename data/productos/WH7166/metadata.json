@@ -5,8 +5,8 @@
   "descripcion": "Body para niños.\nMaterial: algodón puro.\n3 COLORES.\nTalles 66 cm / 73 cm / 80cm.\nSe entregan surtidos en talles y colores.",
   "imagenes": [],
   "cantidad_imagenes": 0,
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/body-enterito-infantil-para-bebes.html",
   "fecha_scraping": "2026-03-16T19:30:25.979961",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -25,7 +25,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-08-06T06:31:09.429189",
+  "fecha_calculo_precio": "2026-08-07T06:32:13.511088",
   "categoria_principal": "OFERTAS",
   "categoria": "OFERTAS",
   "categorias_secundarias": [],
@@ -35,5 +35,6 @@
   "total_categorias": 1,
   "fecha_actualizacion_categorias": "2026-03-16T19:49:51.142513",
   "categoria_asignada_automaticamente": true,
-  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers"
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "fecha_agotado": "2026-08-07T06:17:56.578853"
 }
