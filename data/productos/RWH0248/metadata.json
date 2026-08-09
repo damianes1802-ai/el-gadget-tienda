@@ -21,7 +21,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/castillo-de-bloques-con-cupula-683pcs.html",
-  "fecha_scraping": "2026-08-08T06:25:49.101970",
+  "fecha_scraping": "2026-08-09T06:25:09.556434",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -31,7 +31,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-08T06:30:20.669857",
+  "fecha_mapeo_categorias": "2026-08-09T06:29:27.242539",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0248_002",
@@ -57,6 +57,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 86500.0,
-  "fecha_calculo_precio": "2026-08-08T06:31:05.513356",
+  "fecha_calculo_precio": "2026-08-09T06:30:36.235769",
   "fecha_agotado": "2026-07-06T04:35:09.485647"
 }
