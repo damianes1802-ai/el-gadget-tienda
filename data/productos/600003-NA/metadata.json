@@ -33,7 +33,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 16500.0,
-  "fecha_calculo_precio": "2026-08-10T06:31:28.167131",
+  "fecha_calculo_precio": "2026-08-11T06:34:07.960456",
   "categoria_principal": "Home",
   "categoria": "Home",
   "categorias_secundarias": [],
@@ -43,6 +43,6 @@
   "total_categorias": 1,
   "fecha_actualizacion_categorias": "2026-03-02T16:18:35.384439",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-08-10T06:20:02.123385",
+  "fecha_agotado": "2026-08-11T06:21:37.732139",
   "availability": "out of stock"
 }

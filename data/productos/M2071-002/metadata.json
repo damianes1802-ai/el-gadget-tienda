@@ -19,7 +19,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cartera-de-mujer-bandolera-de-cuero-sintetico-holografica.html",
-  "fecha_scraping": "2026-08-10T06:25:16.005754",
+  "fecha_scraping": "2026-08-11T06:28:24.910915",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -29,7 +29,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-10T06:30:38.443240",
+  "fecha_mapeo_categorias": "2026-08-11T06:32:44.559282",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2071-002_002",
@@ -53,5 +53,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 57000.0,
-  "fecha_calculo_precio": "2026-08-10T06:31:28.305893"
+  "fecha_calculo_precio": "2026-08-11T06:34:08.026993"
 }

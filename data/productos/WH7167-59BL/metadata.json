@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/body-para-bebes-de-algodon-2.html",
-  "fecha_scraping": "2026-08-10T06:24:53.831930",
+  "fecha_scraping": "2026-08-11T06:28:11.340767",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-10T06:30:38.458251",
+  "fecha_mapeo_categorias": "2026-08-11T06:32:44.667225",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-59BL_001"
   ],
@@ -37,6 +37,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 52500.0,
-  "fecha_calculo_precio": "2026-08-10T06:31:28.362347",
+  "fecha_calculo_precio": "2026-08-11T06:34:08.145679",
   "fecha_agotado": "2026-07-06T04:35:09.483941"
 }
