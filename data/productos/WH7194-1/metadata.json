@@ -2,7 +2,7 @@
   "sku": "WH7194-1",
   "titulo": "Botella deportiva 750 ML",
   "precio": 8677,
-  "descripcion": "Botella deportiva\nCapacidad 750 ML\nColores turquesa, rosa, negro.\nSe envían surtidos.",
+  "descripcion": "Botella deportiva\nCapacidad 750 ML\nColores turquesa, rosa, negro.\nSe envía SURTIDO A DISPONIBILIDAD.",
   "imagenes": [
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7194-1.1.png"
   ],
@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botella-deportiva-750-ml.html",
-  "fecha_scraping": "2026-08-13T06:27:30.829519",
+  "fecha_scraping": "2026-08-14T06:26:09.730735",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-13T06:31:22.940684",
+  "fecha_mapeo_categorias": "2026-08-14T06:30:41.473006",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7194-1_001"
   ],
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 23000.0,
-  "fecha_calculo_precio": "2026-08-13T06:33:01.485983"
+  "fecha_calculo_precio": "2026-08-14T06:31:38.913245"
 }
