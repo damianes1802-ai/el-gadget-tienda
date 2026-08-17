@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/reloj-muneca-oso-panda-blanco-y-negro-ninos-negro.html",
-  "fecha_scraping": "2026-08-16T06:27:38.117563",
+  "fecha_scraping": "2026-08-17T06:28:45.183256",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Electrónica"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-16T06:32:59.424765",
+  "fecha_mapeo_categorias": "2026-08-17T06:32:05.893760",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R3307-001-NE_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R3307-001-NE_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 13000.0,
-  "fecha_calculo_precio": "2026-08-16T06:34:24.088947"
+  "fecha_calculo_precio": "2026-08-17T06:33:23.408974"
 }
