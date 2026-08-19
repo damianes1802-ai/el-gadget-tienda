@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/caja-de-stickers-personajes-japoneses-1.html",
-  "fecha_scraping": "2026-08-18T06:30:11.201261",
+  "fecha_scraping": "2026-08-19T06:28:50.045401",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -37,5 +37,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 10500.0,
-  "fecha_calculo_precio": "2026-08-18T06:35:44.409506"
+  "fecha_calculo_precio": "2026-08-19T06:33:06.234171"
 }

@@ -19,7 +19,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cartera-de-mujer-pvc-negro-transparente-con-porta-objeto-negro-transparente.html",
-  "fecha_scraping": "2026-08-18T06:28:07.245746",
+  "fecha_scraping": "2026-08-19T06:28:30.585470",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -29,17 +29,17 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-18T06:33:28.725257",
+  "fecha_mapeo_categorias": "2026-08-19T06:32:25.957465",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1773081551/prod_M3030-006A_001.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1773081552/prod_M3030-006A_002.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1773081552/prod_M3030-006A_003.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1773081553/prod_M3030-006A_004.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1773081554/prod_M3030-006A_005.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1773081555/prod_M3030-006A_006.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1773081557/prod_M3030-006A_007.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1773081558/prod_M3030-006A_008.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1773081558/prod_M3030-006A_009.jpg"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_009"
   ],
   "calculo_precio": {
     "precio_costo": 29519,
@@ -53,6 +53,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 77000.0,
-  "fecha_calculo_precio": "2026-08-18T06:35:44.342593",
+  "fecha_calculo_precio": "2026-08-19T06:33:06.169321",
   "fecha_agotado": "2026-08-13T06:19:23.140779"
 }
