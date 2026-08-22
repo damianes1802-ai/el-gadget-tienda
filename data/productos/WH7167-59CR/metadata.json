@@ -1,17 +1,17 @@
 {
   "sku": "WH7167-59CR",
-  "titulo": "Body Infantil Para Bebés 59cm",
+  "titulo": "Body Pijama Infantil Para Bebés 59cm Crema",
   "precio": 16280,
-  "descripcion": "Body para niños\nMaterial: algodón puro\nCOLOR CREMA.\nTalles 59 cm .",
+  "descripcion": "Body para niños\nMaterial: algodón puro\nCOLOR CREMA.\nTalle 59 (3 a 6 meses)\nLargo total: 50 cm\nLargo de manga: 23 cm\nAncho de pecho: 26 cm\nAncho de cadera: 27 cm\nAncho de cintura: 27 cm\nAncho de muslo: 11 cm",
   "imagenes": [
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7167_1.jpg"
   ],
   "cantidad_imagenes": 1,
   "variantes_internas": [],
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/body-infantil-para-bebes-2.html",
-  "fecha_scraping": "2026-08-19T06:28:52.626880",
+  "fecha_scraping": "2026-08-22T06:28:38.192026",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -21,8 +21,10 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-19T06:32:25.961743",
-  "imagenes_cloudinary": [],
+  "fecha_mapeo_categorias": "2026-08-22T06:31:50.403379",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-59CR_001"
+  ],
   "calculo_precio": {
     "precio_costo": 16280,
     "cargos_fijos": 0,
@@ -35,6 +37,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 42500.0,
-  "fecha_calculo_precio": "2026-08-21T06:32:06.080374",
-  "fecha_agotado": "2026-08-21T06:20:40.978060"
+  "fecha_calculo_precio": "2026-08-22T06:33:23.234305",
+  "fecha_reingreso": "2026-08-22T06:21:20.183252"
 }

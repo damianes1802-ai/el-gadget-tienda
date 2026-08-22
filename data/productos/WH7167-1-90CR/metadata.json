@@ -1,0 +1,44 @@
+{
+  "sku": "WH7167-1-90CR",
+  "titulo": "Body Infantil Para Bebés de Algodón 90 Crema",
+  "precio": 20152,
+  "descripcion": "Body para niños\nMaterial: algodón puro\nCOLOR CREMA.\nTalle 90 (18 a 24 meses)\nLargo total: 66 cm\nLargo de manga: 33 cm\nPecho: 30 cm\nCadera: 36 cm\nCintura: 34 cm\nMuslo: 16 cm",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7167-1_1_1.jpg"
+  ],
+  "cantidad_imagenes": 1,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5952/",
+  "fecha_scraping": "2026-08-22T06:21:28.952967",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-08-22T06:31:50.527185",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-08-22T06:31:50.527189",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1787380399/prod_WH7167-1-90CR_001.jpg"
+  ],
+  "calculo_precio": {
+    "precio_costo": 20152,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 20152,
+    "margen_porcentaje": 160,
+    "precio_con_margen": 52395.200000000004,
+    "precio_final": 52500.0,
+    "ganancia_neta": 32348.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 52500.0,
+  "fecha_calculo_precio": "2026-08-22T06:33:23.233443"
+}
