@@ -26,7 +26,7 @@
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-08-22T06:31:50.526707",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1787380398/prod_WH7167-1-90BL_001.jpg"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7167-1-90BL_001"
   ],
   "calculo_precio": {
     "precio_costo": 20152,
@@ -40,5 +40,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 52500.0,
-  "fecha_calculo_precio": "2026-08-22T06:33:23.233062"
+  "fecha_calculo_precio": "2026-08-23T06:32:06.130363"
 }
