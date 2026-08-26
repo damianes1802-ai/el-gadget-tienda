@@ -11,7 +11,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bandolerita-infantil-con-forma-de-personajes-japoneses.html",
-  "fecha_scraping": "2026-08-25T06:23:35.648958",
+  "fecha_scraping": "2026-08-26T06:23:58.716137",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -21,7 +21,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-25T06:28:06.979939",
+  "fecha_mapeo_categorias": "2026-08-26T06:28:19.142050",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7268_001"
   ],
@@ -37,6 +37,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 15000.0,
-  "fecha_calculo_precio": "2026-08-25T06:29:30.052523",
+  "fecha_calculo_precio": "2026-08-26T06:29:22.390332",
   "fecha_agotado": "2026-08-23T06:20:06.522074"
 }
