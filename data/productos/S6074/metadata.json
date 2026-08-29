@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/piluso-gorro-gorra-eco-cuero-mujer-invierno-forrado-interior.html",
-  "fecha_scraping": "2026-08-28T06:23:43.790788",
+  "fecha_scraping": "2026-08-29T06:24:25.630072",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-28T06:28:46.125318",
+  "fecha_mapeo_categorias": "2026-08-29T06:29:29.502537",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6074_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_S6074_002",
@@ -45,6 +45,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 29500.0,
-  "fecha_calculo_precio": "2026-08-28T06:29:37.994427",
+  "fecha_calculo_precio": "2026-08-29T06:30:28.715715",
   "fecha_agotado": "2026-08-13T06:19:23.147387"
 }
