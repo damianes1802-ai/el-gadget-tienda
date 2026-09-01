@@ -12,8 +12,8 @@
   ],
   "cantidad_imagenes": 5,
   "variantes_internas": [],
-  "disponibilidad": "in stock",
-  "availability": "in stock",
+  "disponibilidad": "out of stock",
+  "availability": "out of stock",
   "url_original": "https://droppers.com.ar/organizador-estanteria-colgante-tela-plegable-zapatos-ropa.html",
   "fecha_scraping": "2026-08-31T06:29:24.327535",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -26,13 +26,7 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-08-31T06:34:53.948664",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2369_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2369_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2369_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2369_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2369_005"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 9990,
     "cargos_fijos": 0,
@@ -45,5 +39,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 26000.0,
-  "fecha_calculo_precio": "2026-08-31T06:36:24.729325"
+  "fecha_calculo_precio": "2026-09-01T06:33:26.658667",
+  "fecha_agotado": "2026-09-01T06:21:02.354974"
 }

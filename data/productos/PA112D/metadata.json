@@ -29,7 +29,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/blusa-manga-larga-saten-elastico-estilo-chic-lisa.html",
-  "fecha_scraping": "2026-08-31T06:30:23.417419",
+  "fecha_scraping": "2026-09-01T06:28:13.497869",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -39,7 +39,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-31T06:34:53.909788",
+  "fecha_mapeo_categorias": "2026-09-01T06:32:23.550830",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112D_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA112D_002",
@@ -58,6 +58,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 58000.0,
-  "fecha_calculo_precio": "2026-08-31T06:36:24.758807",
+  "fecha_calculo_precio": "2026-09-01T06:33:26.688132",
   "fecha_agotado": "2026-08-13T06:19:23.157782"
 }

@@ -19,7 +19,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cartera-de-mujer-pvc-negro-transparente-con-porta-objeto-negro-transparente.html",
-  "fecha_scraping": "2026-08-31T06:29:33.865214",
+  "fecha_scraping": "2026-09-01T06:28:20.164262",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -29,7 +29,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-31T06:34:53.912722",
+  "fecha_mapeo_categorias": "2026-09-01T06:32:23.545674",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M3030-006A_002",
@@ -53,6 +53,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 77000.0,
-  "fecha_calculo_precio": "2026-08-31T06:36:24.752463",
+  "fecha_calculo_precio": "2026-09-01T06:33:26.682430",
   "fecha_agotado": "2026-08-13T06:19:23.140779"
 }
