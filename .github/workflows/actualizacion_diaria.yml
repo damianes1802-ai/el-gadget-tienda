@@ -101,12 +101,28 @@ jobs:
 
       - name: Backup de órdenes y clientes
         run: |
-          API_URL=$(grep '^API_URL=' config/.env | cut -d= -f2-)
+          # El secret ENV_FILE no define API_URL: sin este fallback la variable
+          # quedaba vacia, curl recibia una URL relativa y fallaba en milisegundos
+          # — el "|| echo" lo tapaba y el workflow quedaba verde sin hacer nada.
+          API_URL=$(grep '^API_URL=' config/.env | cut -d= -f2- || true)
+          API_URL=${API_URL:-https://el-gadget-tienda.onrender.com}
           ADMIN_PWD=$(grep '^ADMIN_PASSWORD=' config/.env | cut -d= -f2-)
-          curl -sf -X POST "$API_URL/api/admin/backup" \
-            -H "X-Admin-Password: $ADMIN_PWD" \
-            -H "Content-Type: application/json" \
-            -o "data/backup_$(date +%Y-%m-%d).json" || echo "Backup no disponible (Render en cold start?)"
+
+          # Render free duerme: se lo despierta antes de la llamada real.
+          curl -s --max-time 90 "$API_URL/" > /dev/null || true
+
+          DESTINO="data/backup_$(date +%Y-%m-%d).json"
+          echo "Llamando a $API_URL/api/admin/backup ..."
+          for intento in 1 2 3; do
+            if curl -sf --max-time 120 -X POST "$API_URL/api/admin/backup" -H "X-Admin-Password: $ADMIN_PWD" -H "Content-Type: application/json" -o "$DESTINO"; then
+              echo "Backup guardado en $DESTINO (intento $intento)."
+              exit 0
+            fi
+            rm -f "$DESTINO"
+            echo "Intento $intento sin respuesta; reintento en 30s..."
+            sleep 30
+          done
+          echo "::error::Backup de ordenes y clientes NO generado tras 3 intentos ($API_URL)."
 
       - name: Subir reporte de la corrida
         if: always()

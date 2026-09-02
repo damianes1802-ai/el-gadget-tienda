@@ -24,10 +24,23 @@ jobs:
 
       - name: Disparar procesamiento de nurturing
         run: |
-          API_URL=$(grep '^API_URL=' config/.env | cut -d= -f2-)
+          # El secret ENV_FILE no define API_URL: sin este fallback la variable
+          # quedaba vacia, curl recibia una URL relativa y fallaba en milisegundos
+          # — el "|| echo" lo tapaba y el workflow quedaba verde sin hacer nada.
+          API_URL=$(grep '^API_URL=' config/.env | cut -d= -f2- || true)
+          API_URL=${API_URL:-https://el-gadget-tienda.onrender.com}
           ADMIN_PWD=$(grep '^ADMIN_PASSWORD=' config/.env | cut -d= -f2-)
+
+          # Render free duerme: se lo despierta antes de la llamada real.
+          curl -s --max-time 90 "$API_URL/" > /dev/null || true
+
           echo "Llamando a $API_URL/api/admin/nurturing/procesar ..."
-          curl -sf --max-time 120 -X POST "$API_URL/api/admin/nurturing/procesar" \
-            -H "X-Admin-Password: $ADMIN_PWD" \
-            -H "Content-Type: application/json" \
-            || echo "Nurturing no disponible (Render en cold start?)"
+          for intento in 1 2 3; do
+            if curl -sf --max-time 120 -X POST "$API_URL/api/admin/nurturing/procesar" -H "X-Admin-Password: $ADMIN_PWD" -H "Content-Type: application/json"; then
+              echo "Nurturing procesado (intento $intento)."
+              exit 0
+            fi
+            echo "Intento $intento sin respuesta; reintento en 30s..."
+            sleep 30
+          done
+          echo "::error::Nurturing no respondio tras 3 intentos ($API_URL)."
