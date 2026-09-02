@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cartera-de-mujer-mini-bag-bandolera-fluor-snake-eco-cuero.html",
-  "fecha_scraping": "2026-09-01T06:28:58.330329",
+  "fecha_scraping": "2026-09-02T06:27:30.613987",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-01T06:32:23.548405",
+  "fecha_mapeo_categorias": "2026-09-02T06:31:27.456940",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2971-007B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2971-007B_002",
@@ -45,6 +45,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 62500.0,
-  "fecha_calculo_precio": "2026-09-01T06:33:26.679933",
+  "fecha_calculo_precio": "2026-09-02T06:32:39.956228",
   "fecha_agotado": "2026-08-13T06:19:23.145854"
 }
