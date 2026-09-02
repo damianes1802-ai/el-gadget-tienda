@@ -642,6 +642,18 @@ class Api:
 
     # ── Content Generator (Claude API) ──
 
+    def _texto_respuesta(self, response):
+        """Texto de la respuesta, salteando bloques que no sean de texto.
+
+        Opus 5 trae el thinking activado por defecto, asi que content[0] puede
+        ser un ThinkingBlock: leer .text de ahi rompe. Se concatenan solo los
+        bloques de tipo texto, que es donde viene el JSON que pedimos.
+        """
+        partes = [b.text for b in response.content if getattr(b, "type", None) == "text"]
+        if not partes:
+            raise ValueError("La respuesta no trajo ningun bloque de texto")
+        return "\n".join(partes)
+
     def _parse_json_response(self, text):
         cleaned = re.sub(r'^```(?:json)?\s*', '', text.strip())
         cleaned = re.sub(r'\s*```$', '', cleaned)
@@ -774,13 +786,13 @@ Hook OBLIGATORIO. Máximo 2 emojis. Respondé SOLO JSON."""
 
             client = anthropic.Anthropic(api_key=self.anthropic_key)
             response = client.messages.create(
-                model="claude-sonnet-4-6",
-                max_tokens=1024,
+                model="claude-opus-5",
+                max_tokens=16000,
                 system=[{"type": "text", "text": sys_prompt, "cache_control": {"type": "ephemeral"}}],
                 messages=[{"role": "user", "content": user_prompt}]
             )
 
-            data = self._parse_json_response(response.content[0].text)
+            data = self._parse_json_response(self._texto_respuesta(response))
 
             conn = self._contenidos_db()
             cursor = conn.cursor()
@@ -1005,13 +1017,13 @@ RESPONDÉ SOLO con este JSON exacto (sin markdown):
 
             client = anthropic.Anthropic(api_key=self.anthropic_key)
             response = client.messages.create(
-                model="claude-sonnet-4-6",
-                max_tokens=1024,
+                model="claude-opus-5",
+                max_tokens=16000,
                 system=[{"type": "text", "text": SYSTEM_PROMPT_NEW, "cache_control": {"type": "ephemeral"}}],
                 messages=[{"role": "user", "content": user_prompt}]
             )
 
-            data = self._parse_json_response(response.content[0].text)
+            data = self._parse_json_response(self._texto_respuesta(response))
 
             # Compose the reel video
             import time as _time
