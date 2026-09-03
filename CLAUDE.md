@@ -174,6 +174,18 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   workflow + warm-up + 3 reintentos + anotación `::error::`. Si aparece otro paso que use
   `$API_URL`, aplicarle el mismo fallback. El nurturing real, mientras tanto, lo venía cubriendo
   **cron-job.org** (por eso los flags `nurturing_d3/d7_enviado` sí estaban marcados).
+- **`SITE_URL` es la misma trampa que `API_URL`, y ya causó daño en producción.** El secret
+  `ENV_FILE` del CI trae un `SITE_URL` viejo (`damianes1802-ai.github.io/el-gadget-tienda`), así que
+  el feed de Meta publicó durante meses una URL rota en CADA ficha del catálogo de WhatsApp — y no
+  se notaba corriéndolo a mano, porque el `.env` local sí tiene el valor correcto. Corregido el
+  2026-09-03 fijando `CANONICAL_DOMAIN` en los dos generadores de feed. **Regla: cualquier URL
+  pública que se publique hacia afuera se arma con la constante fija, nunca leyendo `SITE_URL`.**
+  ⚠️ **Pendiente de verificar en el panel de Render:** ahí no existe `config/.env`, así que
+  `Config.cargar_env()` cae a `os.environ` y `SITE_URL` sale de las variables del panel.
+  `api_local.py` la usa para las URLs de retorno de MercadoPago (`success`/`failure`/`pending` →
+  `/confirmacion`). Si ese valor todavía es el de github.io, cada pago devuelve al cliente al
+  dominio equivocado. Mirarlo antes de la primera venta real.
+
 - **Un paso terminado en `|| echo` es un fallo invisible.** Antes de dar por bueno cualquier
   automatismo de este repo, leer el log de la corrida, no el check verde.
 - **La copia local del repo se atrasa sola.** El CI commitea `data/catalogo.db` + `pages/producto/`
