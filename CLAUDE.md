@@ -158,7 +158,9 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
 - **Generación de contenido con IA**: Claude (`marketing_desktop.py`, posts y guiones de reels) y
   Gemini (`13_optimizar_seo_ia.py`, SEO mensual). El video se genera vía
   `scripts/video_ai_provider.py`, que ya abstrae providers (`local` / `heygen` / `kling`) — cualquier
-  proveedor nuevo se agrega ahí, no dentro de `reel_composer.py`.
+  proveedor nuevo se agrega ahí, no dentro de `reel_composer.py`. **Excepción: YouArt no entra por
+  ahí** (no tiene API REST, solo MCP): evaluación completa con costos, modelos y límites en
+  `marketing_app/estrategia/youart_video_ia.md`.
 
 ---
 
