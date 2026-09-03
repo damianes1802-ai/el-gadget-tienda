@@ -15,6 +15,7 @@ PIPELINE (flujo de 2 fases, basado en scraper_maestro_v2):
 8. Sincronización SQLite (11_sincronizar_sqlite.py)
 9. Generación de páginas estáticas de producto / SEO (12_generar_paginas_producto.py)
 10. Generación de feed Facebook/WhatsApp Catalog (generar_feed_facebook.py)
+10b. Generación de feed Google Merchant Center (generar_feed_google.py)
 11. Sincronización Google Sheets / Facebook Catalog (opcional) (06_sincronizar_google_sheets_OPTIMIZADO.py)
 
 AUTOR: Sistema Ecommerce Automation
@@ -92,6 +93,7 @@ class ActualizadorMaestro:
             'seo_ia': '13_optimizar_seo_ia.py',
             'paginas_producto': '12_generar_paginas_producto.py',
             'feed_facebook': 'generar_feed_facebook.py',
+            'feed_google': 'generar_feed_google.py',
             'sheets': '06_sincronizar_google_sheets_OPTIMIZADO.py',
         }
     
@@ -654,6 +656,15 @@ class ActualizadorMaestro:
         self.ejecutar_script(
             "11. Generación de feed Facebook/WhatsApp",
             self.scripts['feed_facebook'],
+            obligatorio=False
+        )
+
+        # PASO 11b: Generar feed de Google Merchant Center
+        # Se publica en pages/google_shopping.xml y Merchant Center lo levanta
+        # por obtencion programada diaria desde elgadget.com.ar/google_shopping.xml
+        self.ejecutar_script(
+            "11b. Generación de feed Google Merchant Center",
+            self.scripts['feed_google'],
             obligatorio=False
         )
 

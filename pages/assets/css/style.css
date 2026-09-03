@@ -1171,3 +1171,16 @@ body.pagina-checkout .whatsapp-float { display: none; }
   font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
   color: var(--gray-600); margin-bottom: 12px;
 }
+
+/* --- FOOTER LEGAL: identidad del vendedor -------------------------------
+   Requerido por la Ley 24.240 (identificacion del proveedor) y por la politica
+   de Misrepresentation de Google Merchant Center, que exige transparencia sobre
+   quien vende y como contactarlo. No sacar sin reemplazarlo por algo
+   equivalente: sin esto la cuenta de Merchant Center vuelve a quedar expuesta. */
+.footer-legal {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center; padding: 0.9rem 1.25rem 1.1rem;
+  font-size: 12px; line-height: 1.8; color: rgba(255,255,255,0.42);
+}
+.footer-legal a { color: rgba(255,255,255,0.55); text-decoration: underline; }
+.footer-legal strong { color: rgba(255,255,255,0.6); font-weight: 600; }
