@@ -199,6 +199,18 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   asumir que un timeout es un error real.
 - **`SEO-KEYWORDS/` y `.claude/` están gitignoreados**: existen solo en la máquina local. No asumir
   que un colaborador (o el CI) los tiene.
+- **El correo del dominio tiene DOS caminos independientes: no confundirlos ni pisarlos.**
+  *Salida:* Resend envía desde `tienda@elgadget.com.ar` pero firma en el **subdominio**
+  `send.elgadget.com.ar` (SPF + MX propio a `feedback-smtp.sa-east-1.amazonses.com`, DKIM en
+  `resend._domainkey`). *Entrada:* **Cloudflare Email Routing** en el apex (3 MX a
+  `route1/2/3.mx.cloudflare.net` + SPF `include:_spf.mx.cloudflare.net`), con la regla
+  `tienda@elgadget.com.ar` → `damianes1802@gmail.com`. Configurado el 2026-09-03 y verificado con
+  un envío real (Activity Log: `Forwarded`). El DNS está **en Cloudflare** (NS `amber`/`nico`),
+  no en el registrador. Tocar el SPF o los MX del apex rompe la recepción y deja muerta la
+  dirección publicada en las 279 páginas del sitio; tocar los del subdominio `send.` rompe TODOS
+  los emails transaccionales (confirmaciones, tracking, nurturing). El reenvío es **solo de
+  entrada**: para responder *como* `tienda@`, hay que configurar aparte el "Enviar como" de Gmail.
+
 - **Escribir JSON con acentos por `curl -d '...'` inline en PowerShell/Bash corrompe el UTF-8.**
   Escribir el JSON a un archivo y mandarlo con `curl --data-binary @archivo.json`. Para scripts
   Python en Windows, `PYTHONIOENCODING=utf-8` (los `.bat` y workflows ya lo setean).
