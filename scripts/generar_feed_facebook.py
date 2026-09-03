@@ -24,16 +24,22 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent))
 from utils.config import Config
 from utils.logger import get_logger
+from utils.campanas import campanas_programadas_vigentes, calcular_precio_oferta
 
 logger = get_logger('generar_feed_facebook')
 
 BRAND = "El Gadget"
 DESCRIPCION_MAX = 5000
+# Dominio canonico FIJO, igual que en 12_generar_paginas_producto.py. NO leerlo
+# de SITE_URL: el secret ENV_FILE del CI tiene un valor viejo
+# (damianes1802-ai.github.io/el-gadget-tienda) y por eso el catalogo de WhatsApp
+# quedo publicando URLs rotas durante meses.
+CANONICAL_DOMAIN = "https://elgadget.com.ar"
 
 # Columnas según especificación de Meta Commerce Manager
 HEADERS = [
     'id', 'title', 'description', 'availability', 'condition',
-    'price', 'link', 'image_link', 'additional_image_link',
+    'price', 'sale_price', 'link', 'image_link', 'additional_image_link',
     'brand', 'product_type', 'item_group_id',
 ]
 
@@ -51,9 +57,6 @@ def generar_feed():
     print("📡 GENERADOR DE FEED FACEBOOK / WHATSAPP CATALOG")
     print("=" * 70 + "\n")
 
-    env = Config.cargar_env()
-    site_url = env.get('SITE_URL', 'http://localhost:5500').rstrip('/')
-
     db_path = Config.DATA_DIR / 'catalogo.db'
     if not db_path.exists():
         print(f"❌ No se encontró la base de datos: {db_path}")
@@ -62,11 +65,12 @@ def generar_feed():
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
+    descuentos = campanas_programadas_vigentes(cursor)
     cursor.execute("""
-        SELECT sku, nombre, descripcion, precio_venta, categoria,
-               imagen_principal, imagenes_adicionales, item_group_id
+        SELECT sku, nombre, descripcion, precio_venta, stock, categoria,
+               imagen_principal, imagenes_adicionales, item_group_id, url_amigable
         FROM productos
-        WHERE precio_venta > 0
+        WHERE precio_venta > 0 AND stock > 0
         ORDER BY sku
     """)
     productos = cursor.fetchall()
@@ -80,6 +84,7 @@ def generar_feed():
     output_file = output_dir / 'facebook_catalog.csv'
 
     filas_escritas = 0
+    omitidos = []
     with open(output_file, 'w', encoding='utf-8', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(HEADERS)
@@ -88,14 +93,24 @@ def generar_feed():
             sku = p['sku']
             imagenes_adicionales = p['imagenes_adicionales'] or ''
 
+            slug = (p['url_amigable'] or '').strip()
+            if not slug:
+                omitidos.append(sku)   # sin ficha estatica no hay adonde mandar al cliente
+                continue
+
+            precio_lista = float(p['precio_venta'])
+            oferta = calcular_precio_oferta(dict(p), descuentos)
+            sale = f"{float(oferta):.2f} ARS" if (oferta is not None and oferta < precio_lista) else ''
+
             fila = [
                 sku,
                 p['nombre'] or '',
                 limpiar_descripcion(p['descripcion']),
-                'in stock',
+                'in stock' if (p['stock'] or 0) > 0 else 'out of stock',
                 'new',
-                f"{p['precio_venta']:.2f} ARS",
-                f"{site_url}/producto_detalle.html?sku={sku}",
+                f"{precio_lista:.2f} ARS",
+                sale,
+                f"{CANONICAL_DOMAIN}/producto/{slug}/",
                 p['imagen_principal'] or '',
                 imagenes_adicionales,
                 BRAND,
@@ -105,10 +120,12 @@ def generar_feed():
             writer.writerow(fila)
             filas_escritas += 1
 
-    feed_url = f"{site_url}/facebook_catalog.csv"
+    feed_url = f"{CANONICAL_DOMAIN}/facebook_catalog.csv"
 
     print(f"✅ Feed generado: {output_file}")
     print(f"📦 Productos incluidos: {filas_escritas}")
+    if omitidos:
+        print(f"⚠️  Omitidos por falta de slug ({len(omitidos)}): {', '.join(omitidos[:10])}")
     print(f"🔗 URL pública (tras el push): {feed_url}")
     print("\n" + "=" * 70 + "\n")
 
