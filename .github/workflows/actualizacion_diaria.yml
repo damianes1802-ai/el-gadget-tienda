@@ -99,7 +99,9 @@ jobs:
           PYTHONIOENCODING: utf-8
         run: python scripts/00_actualizar_sistema_completo.py --modo completo --con-cloudinary --auto-push
 
-      - name: Backup de órdenes y clientes
+      - name: Backup de órdenes y clientes (cifrado)
+        env:
+          BACKUP_KEY: ${{ secrets.BACKUP_KEY }}
         run: |
           # El secret ENV_FILE no define API_URL: sin este fallback la variable
           # quedaba vacia, curl recibia una URL relativa y fallaba en milisegundos
@@ -108,17 +110,32 @@ jobs:
           API_URL=${API_URL:-https://el-gadget-tienda.onrender.com}
           ADMIN_PWD=$(grep '^ADMIN_PASSWORD=' config/.env | cut -d= -f2-)
 
-          # Render free duerme: se lo despierta antes de la llamada real.
+          # Este repo es PUBLICO, y los artifacts de un repo publico los puede
+          # descargar cualquiera. El backup lleva datos personales de clientes y
+          # referidos (nombre, email, telefono, DNI): NUNCA se sube en claro.
+          # Sin clave se corta ACA, antes de pedirle los datos a la API.
+          if [ -z "$BACKUP_KEY" ]; then
+            echo "::error::Falta el secret BACKUP_KEY. No se genera el backup para no exponer datos personales en un artifact publico."
+            exit 1
+          fi
+
+          # Render duerme: se lo despierta antes de la llamada real.
           curl -s --max-time 90 "$API_URL/" > /dev/null || true
 
-          DESTINO="data/backup_$(date +%Y-%m-%d).json"
+          # El JSON en claro vive FUERA de data/, para que el patron del artifact
+          # (data/backup_*.json.enc) no pueda capturarlo ni por accidente.
+          PLANO="$RUNNER_TEMP/backup_$(date +%Y-%m-%d).json"
+          DESTINO="data/backup_$(date +%Y-%m-%d).json.enc"
+
           echo "Llamando a $API_URL/api/admin/backup ..."
           for intento in 1 2 3; do
-            if curl -sf --max-time 120 -X POST "$API_URL/api/admin/backup" -H "X-Admin-Password: $ADMIN_PWD" -H "Content-Type: application/json" -o "$DESTINO"; then
-              echo "Backup guardado en $DESTINO (intento $intento)."
+            if curl -sf --max-time 120 -X POST "$API_URL/api/admin/backup" -H "X-Admin-Password: $ADMIN_PWD" -H "Content-Type: application/json" -o "$PLANO"; then
+              openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in "$PLANO" -out "$DESTINO" -pass env:BACKUP_KEY
+              rm -f "$PLANO"
+              echo "Backup cifrado en $DESTINO (intento $intento, $(wc -c < "$DESTINO") bytes)."
               exit 0
             fi
-            rm -f "$DESTINO"
+            rm -f "$PLANO"
             echo "Intento $intento sin respuesta; reintento en 30s..."
             sleep 30
           done
@@ -138,7 +155,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: backup-${{ github.run_id }}
-          path: data/backup_*.json
+          path: data/backup_*.json.enc
           retention-days: 30
           if-no-files-found: ignore
 

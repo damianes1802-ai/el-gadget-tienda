@@ -62,3 +62,7 @@ Thumbs.db
 # Claude Code (configuración local del entorno)
 .claude/
 SEO-KEYWORDS/
+
+# Backups de ordenes/clientes: llevan datos personales y este repo es PUBLICO.
+# Nunca se commitean; viajan solo como artifact CIFRADO de Actions.
+data/backup_*
