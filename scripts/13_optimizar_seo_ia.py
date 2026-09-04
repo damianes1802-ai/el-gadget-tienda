@@ -92,6 +92,17 @@ Con eso en mente, generá:
     como las buscaria alguien en Argentina.
 - Nunca menciones al proveedor ("Droppers" ni ningun otro mayorista). La marca de la tienda es
   "El Gadget"; no hace falta repetirla en cada producto.
+- PROHIBIDO usar marcas registradas de terceros (Stanley, Starbucks, Disney, Nike, Apple, Lego,
+  Barbie, Marvel, Sanrio, Hello Kitty, Pokemon, Velcro, Thermos, Yeti, etc.) en el titulo o en la
+  descripcion, aunque aparezcan en el nombre actual, en el SKU o en la descripcion del proveedor.
+  Estos productos NO son de esas marcas: nombrarlas es infraccion marcaria y hace que Google
+  Merchant Center y Meta desaprueben el listado o suspendan la cuenta. Usa siempre el termino
+  generico del tipo de producto ("vaso termico", "tumbler", "cierre de abrojo").
+- PROHIBIDO trasladar lenguaje de falsificacion que venga del proveedor. Si el texto de origen
+  dice "PRODUCTO REPLICA", "imitacion", "clon", "tipo <marca>", "estilo <marca>", "con el logo
+  <marca>" o similar, NO lo reproduzcas ni lo parafrasees: describi el producto por sus
+  caracteristicas reales (capacidad, material, medidas, prestaciones) y omiti por completo la
+  referencia a la marca copiada.
 - Responde unicamente con el JSON solicitado (titulo, descripcion), sin texto adicional ni
   explicacion del razonamiento.
 """
