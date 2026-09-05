@@ -45,6 +45,7 @@ Después: `git push` automático → deploy de Pages → backup de órdenes → 
 | `seo_mensual.yml` | día 1, 08:00 UTC | Reescribe títulos/descripciones con **Gemini 2.5 Flash** + regenera páginas |
 | `pages.yml` | push a `pages/**` | Deploy de GitHub Pages |
 | `redeploy_precios.yml` | manual | Recalcula precios y regenera páginas sin scrapear |
+| `seguridad_binarios.yml` | diario 10:30 UTC + push a `main` | Busca ejecutables/binarios en rutas inusuales (`scripts/detectar_binarios_inusuales.py`); avisa por email |
 
 ---
 
@@ -231,6 +232,14 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   los emails transaccionales (confirmaciones, tracking, nurturing). El reenvío es **solo de
   entrada**: para responder *como* `tienda@`, hay que configurar aparte el "Enviar como" de Gmail.
 
+- **Tres "fuentes" del panel de marketing no son fuentes: son páginas HTML de error 404 que se
+  commitearon con extensión `.ttf`** (`Inter-SemiBold.ttf`, `SpaceGrotesk-Bold.ttf`,
+  `SpaceGrotesk-Medium.ttf`, ~1,6 KB cada una). No rompen nada de forma visible porque
+  `placa_referido.py` ya usa `Inter-Bold` en lugar de SpaceGrotesk y cae a `ImageFont.load_default()`
+  para el peso "semi" — o sea que la placa de referido se dibuja con la fuente bitmap de PIL, no con
+  Inter. Detectadas el 2026-09-05 por `seguridad_binarios.yml`; están anotadas en
+  `config/binarios_conocidos.json` para que el chequeo no quede rojo. Al reponer los `.ttf` reales
+  hay que borrar esas tres entradas del baseline.
 - **Escribir JSON con acentos por `curl -d '...'` inline en PowerShell/Bash corrompe el UTF-8.**
   Escribir el JSON a un archivo y mandarlo con `curl --data-binary @archivo.json`. Para scripts
   Python en Windows, `PYTHONIOENCODING=utf-8` (los `.bat` y workflows ya lo setean).
