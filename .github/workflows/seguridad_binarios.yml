@@ -1,0 +1,95 @@
+name: Seguridad - binarios en rutas inusuales
+
+# Chequeo de integridad del repo: busca ejecutables, librerías, contenedores
+# (zip/gz/7z) o binarios camuflados con extensión de imagen en rutas donde este
+# proyecto no debería tener ninguno.
+#
+# Por qué importa acá: `pages/` se publica solo en elgadget.com.ar en cada
+# corrida del pipeline diario, y los workflows de `.github/` corren con los
+# secrets (ENV_FILE, BACKUP_KEY, GEMINI_API_KEY). Un binario que se cuele en
+# cualquiera de esos dos lugares —por un commit propio distraído, una descarga
+# fallida o una dependencia comprometida— hoy no lo ve nadie.
+#
+# Corre a las 10:30 UTC (07:30 ART), después de que terminan el pipeline diario
+# (dispatch 06:07 UTC) y su cron de respaldo (08:15 UTC + hasta 90 min), así
+# analiza el árbol ya actualizado y commiteado del día. Además corre en cada
+# push a main, para detectar el binario en el momento en que entra.
+#
+# La allowlist y los hallazgos ya revisados viven en `config/binarios_permitidos.json`
+# y `config/binarios_conocidos.json` — el script los explica en su docstring.
+
+on:
+  schedule:
+    - cron: '30 10 * * *'   # 10:30 UTC = 07:30 ART
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  escanear:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Se restaura ANTES del escaneo para que el aviso por email funcione
+      # aunque el paso de escaneo falle (lee RESEND_API_KEY de config/.env).
+      - name: Reconstruir config/.env desde el secret
+        run: printf '%s' "${{ secrets.ENV_FILE }}" > config/.env
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # El script es solo stdlib a propósito: no hace falta pip install, así el
+      # chequeo de seguridad sigue corriendo aunque requirements.txt esté roto.
+      - name: Escanear binarios en rutas inusuales
+        id: escaneo
+        run: |
+          # Modo por defecto = archivos versionados (git ls-files), que es lo
+          # que viaja al repo publico y a Pages. El config/.env que se acaba de
+          # escribir no esta versionado, asi que no entra en el escaneo ni en el
+          # reporte que queda como artifact.
+          python scripts/detectar_binarios_inusuales.py \
+            --ci \
+            --umbral MEDIA \
+            --json "$RUNNER_TEMP/reporte_binarios.json"
+
+      - name: Subir reporte del escaneo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: binarios-${{ github.run_id }}
+          path: ${{ runner.temp }}/reporte_binarios.json
+          retention-days: 30
+          if-no-files-found: ignore
+
+      # Aviso por email vía Resend, igual que el pipeline diario. Un hallazgo
+      # acá no puede quedarse esperando a que alguien mire la pestaña Actions.
+      - name: Avisar por email si hubo hallazgos
+        if: failure()
+        run: |
+          RESEND_KEY=$(grep '^RESEND_API_KEY=' config/.env | cut -d= -f2-)
+          FROM=$(grep '^RESEND_FROM_EMAIL=' config/.env | cut -d= -f2-)
+          FROM=${FROM:-tienda@elgadget.com.ar}
+          ADMIN=$(grep '^ADMIN_EMAIL=' config/.env | cut -d= -f2-)
+          ADMIN=${ADMIN:-damianes1802@gmail.com}
+          RUN_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+
+          # El detalle (rutas y hashes) va SOLO al artifact: el email lleva el
+          # link a la corrida, no el contenido del reporte.
+          if [ -n "$RESEND_KEY" ]; then
+            curl -s -X POST "https://api.resend.com/emails" \
+              -H "Authorization: Bearer $RESEND_KEY" \
+              -H "Content-Type: application/json" \
+              -d "{\"from\":\"El Gadget <${FROM}>\",\"to\":[\"${ADMIN}\"],\"subject\":\"🚨 Binario en ruta inusual en el repo\",\"html\":\"<p>El chequeo diario detecto uno o mas archivos binarios/ejecutables donde no deberia haberlos.</p><p>Revisa el detalle y el reporte JSON de la corrida:</p><p><a href='${RUN_URL}'>${RUN_URL}</a></p><p>Si el hallazgo es legitimo, sumalo a <code>config/binarios_permitidos.json</code> (allowlist) o a <code>config/binarios_conocidos.json</code> (ya revisado) para que deje de alertar.</p>\"}" \
+              && echo "Aviso enviado a $ADMIN"
+          else
+            echo "::warning::Sin RESEND_API_KEY en config/.env: no se pudo avisar por email."
+          fi

@@ -1,0 +1,25 @@
+{
+  "hallazgos_aceptados": [
+    {
+      "ruta": "marketing_app/assets/fonts/Inter-SemiBold.ttf",
+      "motivo": "extension_no_coincide",
+      "sha256": "6704032ac8d93520e4df1973adbf41fa7cc9c405a612870f3b44ff9c0471937b",
+      "nota": "Descarga fallida commiteada como fuente: el archivo es un HTML 404 de Google, no un TTF. Benigno pero roto — placa_referido.py ya usa Inter-Bold en lugar de SpaceGrotesk y cae a load_default() para 'semi'. Reponer las 3 fuentes y borrar estas entradas.",
+      "registrado": "2026-09-05"
+    },
+    {
+      "ruta": "marketing_app/assets/fonts/SpaceGrotesk-Bold.ttf",
+      "motivo": "extension_no_coincide",
+      "sha256": "db61cf8e5cfd941a536482f851c9626b212231022ad95026cfabc456b899eb95",
+      "nota": "Descarga fallida commiteada como fuente: el archivo es un HTML 404 de Google, no un TTF. Benigno pero roto — placa_referido.py ya usa Inter-Bold en lugar de SpaceGrotesk y cae a load_default() para 'semi'. Reponer las 3 fuentes y borrar estas entradas.",
+      "registrado": "2026-09-05"
+    },
+    {
+      "ruta": "marketing_app/assets/fonts/SpaceGrotesk-Medium.ttf",
+      "motivo": "extension_no_coincide",
+      "sha256": "2c65f94fda797e0b68c54ce240bb150c5750c721c2116d571b96556e57a74c66",
+      "nota": "Descarga fallida commiteada como fuente: el archivo es un HTML 404 de Google, no un TTF. Benigno pero roto — placa_referido.py ya usa Inter-Bold en lugar de SpaceGrotesk y cae a load_default() para 'semi'. Reponer las 3 fuentes y borrar estas entradas.",
+      "registrado": "2026-09-05"
+    }
+  ]
+}
