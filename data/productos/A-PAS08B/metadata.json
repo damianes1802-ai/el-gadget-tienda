@@ -21,7 +21,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-enteriza-nudo-flowers.html",
-  "fecha_scraping": "2026-09-07T06:25:53.346905",
+  "fecha_scraping": "2026-09-08T06:22:51.082460",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -31,7 +31,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-07T06:28:40.088148",
+  "fecha_mapeo_categorias": "2026-09-08T06:26:59.589001",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS08B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS08B_002",
@@ -49,5 +49,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 43500.0,
-  "fecha_calculo_precio": "2026-09-07T06:29:09.406914"
+  "fecha_calculo_precio": "2026-09-08T06:27:30.093027"
 }
