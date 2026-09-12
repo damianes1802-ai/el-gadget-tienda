@@ -16,10 +16,10 @@
   ],
   "cantidad_imagenes": 9,
   "variantes_internas": [],
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/alfombra-absorbente-de-diatomita-para-mascotas-1.html",
-  "fecha_scraping": "2026-08-07T06:26:24.595169",
+  "fecha_scraping": "2026-09-12T06:25:22.231818",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios para Mascotas"
@@ -29,8 +29,18 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-07T06:31:16.188705",
-  "imagenes_cloudinary": [],
+  "fecha_mapeo_categorias": "2026-09-12T06:28:59.222301",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-GR_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-GR_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-GR_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-GR_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-GR_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-GR_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-GR_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-GR_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-3-GR_009"
+  ],
   "calculo_precio": {
     "precio_costo": 6655,
     "cargos_fijos": 0,
@@ -43,6 +53,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 17500.0,
-  "fecha_calculo_precio": "2026-09-11T06:31:40.288529",
-  "fecha_agotado": "2026-09-11T06:20:37.977711"
+  "fecha_calculo_precio": "2026-09-12T06:29:52.528501",
+  "fecha_reingreso": "2026-09-12T06:19:50.593882"
 }
