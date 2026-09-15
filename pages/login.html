@@ -221,6 +221,8 @@ async function iniciarSesion() {
     if (!res.ok) throw new Error(data.detail || 'No pudimos iniciar sesión');
 
     guardarSesion(data);
+    ga4Event('login', { method: 'email' });
+    // gtag manda el evento en un beacon: no se pierde con la redirección
     window.location.href = 'mi_cuenta';
   } catch (e) {
     errorEl.textContent = e.message;

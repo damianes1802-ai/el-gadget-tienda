@@ -660,6 +660,18 @@ async function procesarPago() {
   };
 
   try {
+    // Paso intermedio del embudo: llegó con datos de envío completos y confirmó.
+    // Entre begin_checkout y purchase es donde más se pierde gente.
+    try {
+      const _c = getCarrito();
+      ga4Event('add_shipping_info', {
+        currency: 'ARS',
+        value: cartTotal(_c),
+        coupon: descuentoAplicado ? descuentoAplicado.codigo : undefined,
+        shipping_tier: (document.getElementById('provincia') || {}).value || undefined,
+        items: _c.map(i => ({ item_id: i.sku, item_name: i.nombre, price: i.precio, quantity: i.cantidad }))
+      });
+    } catch (_) {}
     const res = await fetch(`${API_URL}/api/orden`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

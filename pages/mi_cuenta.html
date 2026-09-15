@@ -822,6 +822,8 @@ async function cargarReferidos() {
     window._codigoRef = data.codigo || '';
     const tier = data.tier || { porcentaje: 7, tier: 'base', ventas_mes: 0, next_tier_en: 5, next_porcentaje: 11 };
     _cat.tierPct = tier.porcentaje;
+    localStorage.setItem('eg_tier_referido', tier.tier || 'base');
+    if (typeof ga4SetUserProps === 'function') ga4SetUserProps({ tier_referido: tier.tier || 'base' });
 
     // Tier setup
     const tierColors = { base: '#9ca3af', activo: '#3b82f6', top: '#FFC700' };
@@ -1239,6 +1241,12 @@ const irATab = irATabRef;
 // Se llama cuando ya se sabe si el usuario es referido: revela los tabs que
 // corresponden y elige la pantalla inicial (hash valido > resumen > gana).
 function appResolverReferido(esReferido) {
+  // Marca al referidor como propiedad de usuario en GA4 (persiste en este
+  // navegador para que cart.js la mande desde el primer evento de cada visita).
+  if (esReferido) {
+    localStorage.setItem('eg_es_referido', '1');
+    if (typeof ga4SetUserProps === 'function') ga4SetUserProps({ cliente_referidor: 'si' });
+  }
   const sub = document.getElementById('appSub');
   if (esReferido) {
     ['ref-resumen', 'ref-compartir', 'ref-catalogo', 'ref-historial'].forEach(appMostrarTab);

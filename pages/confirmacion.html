@@ -187,6 +187,10 @@ function mostrarConfirmacion(orden, estado) {
         transaction_id: String(orden.id),
         currency: 'ARS',
         value: Number(orden.total || 0),
+        shipping: Number(orden.costo_envio || 0),
+        // Atribución del programa de referidos: qué código estaba activo al comprar
+        ref_code: localStorage.getItem('eg_ref_code') || undefined,
+        coupon: localStorage.getItem('eg_ref_code') || localStorage.getItem('eg_descuento_codigo') || undefined,
         items: (orden.items || []).map(i => ({
           item_id: i.sku,
           item_name: i.producto_nombre || i.sku,

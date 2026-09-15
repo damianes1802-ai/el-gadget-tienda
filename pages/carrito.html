@@ -309,6 +309,7 @@ function cambiarCantidad(idx, delta) {
   carrito[idx].cantidad = nuevaCantidad;
 
   if (carrito[idx].cantidad <= 0) {
+    ga4RemoveFromCart(carrito[idx]);
     carrito.splice(idx, 1);
     showToast('Producto quitado de tu pedido');
   }
@@ -318,15 +319,35 @@ function cambiarCantidad(idx, delta) {
   render();
 }
 
+function ga4RemoveFromCart(item) {
+  ga4Event('remove_from_cart', {
+    currency: 'ARS',
+    value: Number(item.precio || 0) * Number(item.cantidad || 1),
+    items: [{ item_id: item.sku, item_name: item.nombre, price: Number(item.precio || 0), quantity: item.cantidad || 1 }]
+  });
+}
+
 function eliminarItem(idx) {
   const carrito = getCarrito();
   const nombre = carrito[idx].nombre;
+  ga4RemoveFromCart(carrito[idx]);
   carrito.splice(idx, 1);
   guardarCarrito(carrito);
   actualizarCarritoUI();
   showToast(`${nombre} quitado de tu pedido`);
   render();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const c = getCarrito();
+  if (c.length) {
+    ga4Event('view_cart', {
+      currency: 'ARS',
+      value: cartTotal(c),
+      items: c.map(i => ({ item_id: i.sku, item_name: i.nombre, price: i.precio, quantity: i.cantidad }))
+    });
+  }
+});
 
 document.getElementById('cartProvincia').addEventListener('change', () => {
   localStorage.setItem('eg_provincia', document.getElementById('cartProvincia').value);

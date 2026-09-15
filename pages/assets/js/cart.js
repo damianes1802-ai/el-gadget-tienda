@@ -7,19 +7,137 @@ const CARRITO_KEY = 'carrito';
 const EG_API_URL = 'https://el-gadget-tienda.onrender.com';
 const GA4_ID = 'G-D8GWDT1CBS';
 
+// GA4 se carga SIEMPRE, con Consent Mode v2: hasta que la persona acepta
+// cookies, analytics_storage queda en 'denied' y gtag manda pings sin cookies
+// (GA4 modela lo que falta). Antes, sin aceptar el banner no se medía nada:
+// todo el tráfico que ignoraba el banner desaparecía de los informes.
 function initGA4() {
+  if (window.__egGA4) return;
+  window.__egGA4 = true;
   window.dataLayer = window.dataLayer || [];
   window.gtag = function() { dataLayer.push(arguments); };
+  const ok = hasConsentCookies();
+  gtag('consent', 'default', {
+    analytics_storage: ok ? 'granted' : 'denied',
+    ad_storage: ok ? 'granted' : 'denied',
+    ad_user_data: ok ? 'granted' : 'denied',
+    ad_personalization: ok ? 'granted' : 'denied'
+  });
   gtag('js', new Date());
-  gtag('config', GA4_ID);
+  // Propiedades de usuario: quién lo refirió y si es referidor. Van ANTES de
+  // config para que viajen desde el primer evento de la sesión.
+  const props = {};
+  const refCode = localStorage.getItem('eg_ref_code');
+  if (refCode) props.referido_por = refCode;
+  if (localStorage.getItem('eg_es_referido') === '1') props.cliente_referidor = 'si';
+  const tier = localStorage.getItem('eg_tier_referido');
+  if (tier) props.tier_referido = tier;
+  if (Object.keys(props).length) gtag('set', 'user_properties', props);
+  const cfg = {};
+  // Tráfico interno (Damián probando): se marca una vez en el navegador con
+  // localStorage.eg_trafico_interno = '1' y GA4 lo filtra con el data filter.
+  if (localStorage.getItem('eg_trafico_interno') === '1') cfg.traffic_type = 'internal';
+  gtag('config', GA4_ID, cfg);
   const s = document.createElement('script');
   s.async = true;
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
   document.head.appendChild(s);
 }
 
+function ga4Consentir() {
+  if (typeof window.gtag !== 'function') return;
+  gtag('consent', 'update', {
+    analytics_storage: 'granted', ad_storage: 'granted',
+    ad_user_data: 'granted', ad_personalization: 'granted'
+  });
+}
+
 function ga4Event(name, params) {
   if (typeof window.gtag === 'function') window.gtag('event', name, params);
+}
+
+function ga4SetUserProps(props) {
+  if (typeof window.gtag === 'function') window.gtag('set', 'user_properties', props);
+}
+
+// ── Listas de productos (view_item_list / select_item) ──────────────────────
+// Lee las cards del DOM (a.card[data-sku]) para no depender de cada página.
+function egItemsDeCards(cards, listName) {
+  return Array.from(cards).slice(0, 30).map((a, i) => ({
+    item_id: a.dataset.sku,
+    item_name: (a.querySelector('.card-name')?.textContent || a.dataset.nombre || a.dataset.sku).trim(),
+    price: Number(a.dataset.precio || 0),
+    index: i,
+    item_list_name: listName
+  }));
+}
+
+let _egUltimaLista = '';
+function trackItemList(listName, cards) {
+  const items = egItemsDeCards(cards, listName);
+  if (!items.length) return;
+  // La misma lista no se reporta dos veces seguidas (re-render por filtros).
+  const firma = listName + '|' + items.length + '|' + items[0].item_id;
+  if (firma === _egUltimaLista) return;
+  _egUltimaLista = firma;
+  ga4Event('view_item_list', { item_list_name: listName, items });
+}
+
+function egNombreListaPagina() {
+  const h1 = document.querySelector('h1');
+  return (h1 ? h1.textContent : document.title.replace(' | El Gadget', '')).trim().slice(0, 100);
+}
+
+function initItemListTracking() {
+  // select_item: click en cualquier card con SKU (índice, categorías, colecciones)
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a.card[data-sku]');
+    if (!a || e.target.closest('.card-btn')) return;
+    const listName = a.closest('[data-list-name]')?.dataset.listName || egNombreListaPagina();
+    const grilla = a.closest('#productGrid, #listadoGrid, .grid') || document;
+    const item = egItemsDeCards([a], listName)[0];
+    item.index = Array.from(grilla.querySelectorAll('a.card[data-sku]')).indexOf(a);
+    ga4Event('select_item', { item_list_name: listName, items: [item] });
+  });
+  // view_item_list en páginas estáticas (categorías/colecciones) — el índice
+  // lo dispara desde renderGrid porque su grilla se arma por JS.
+  const estaticas = document.querySelectorAll('#listadoGrid a.card[data-sku]');
+  if (estaticas.length) trackItemList(egNombreListaPagina(), estaticas);
+}
+
+// ── Leads por WhatsApp (generate_lead) ───────────────────────────────────────
+// Solo links de CONTACTO (con número). Los wa.me/?text=... sin número son
+// "compartir" y ya se miden como share.
+function initLeadTracking() {
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href') || '';
+    const esWa = /wa\.me\/\d{6,}|api\.whatsapp\.com\/send\?[^#]*phone=|whatsapp:\/\/send\?[^#]*phone=/i.test(href);
+    if (!esWa) return;
+    ga4Event('generate_lead', {
+      method: 'whatsapp',
+      page_type: egTipoDePagina(),
+      item_id: (typeof PRODUCTO !== 'undefined' && PRODUCTO.sku) || undefined,
+      currency: 'ARS',
+      value: (typeof PRODUCTO !== 'undefined' && Number(PRODUCTO.precio_venta)) || undefined
+    });
+    fbqEvent('Contact', { content_category: egTipoDePagina() });
+  });
+}
+
+function egTipoDePagina() {
+  const p = location.pathname;
+  if (typeof PRODUCTO !== 'undefined') return 'producto';
+  if (p.startsWith('/categoria/')) return 'categoria';
+  if (p.startsWith('/coleccion/')) return 'coleccion';
+  if (p.startsWith('/ganar/')) return 'ganar';
+  if (p.startsWith('/blog/')) return 'blog';
+  if (/checkout|carrito|confirmacion/.test(p)) return 'checkout';
+  if (/contacto|sobre_nosotros/.test(p)) return 'contacto';
+  if (/mi_cuenta|login|referidos/.test(p)) return 'cuenta';
+  if (p === '/' || /index/.test(p)) return 'home';
+  return 'otra';
 }
 
 const META_PIXEL_ID = '1749660892357733';
@@ -450,7 +568,12 @@ function capturaRefCode() {
   const params = new URLSearchParams(window.location.search);
   const ref = params.get('ref');
   if (ref && ref.trim()) {
-    localStorage.setItem('eg_ref_code', ref.trim().toUpperCase());
+    const codigo = ref.trim().toUpperCase();
+    localStorage.setItem('eg_ref_code', codigo);
+    // La visita referida es el primer paso medible del embudo de referidos:
+    // registro → compartido → visita con código → compra.
+    ga4SetUserProps({ referido_por: codigo });
+    ga4Event('referral_visit', { ref_code: codigo, page_type: egTipoDePagina() });
   }
   const code = localStorage.getItem('eg_ref_code');
   if (!code) return;
@@ -558,7 +681,7 @@ function acceptCookies() {
   localStorage.setItem('eg_cookies_accepted', '1');
   localStorage.setItem('eg_cookies_decided', '1');
   document.getElementById('eg-cookie-banner')?.remove();
-  initGA4();
+  ga4Consentir();
   initMetaPixel();
 }
 
@@ -569,12 +692,14 @@ function rejectOptionalCookies() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initGA4();
   if (hasConsentCookies()) {
-    initGA4();
     initMetaPixel();
   } else {
     showCookieBanner();
   }
+  initItemListTracking();
+  initLeadTracking();
   actualizarCarritoUI();
   initPopupRegistro();
   initOfertaYStockProducto();

@@ -230,6 +230,7 @@ let precioMax = null;
 const buscarParam = new URLSearchParams(window.location.search).get('buscar');
 if (buscarParam) {
   searchTerm = buscarParam.toLowerCase().trim();
+  document.addEventListener('DOMContentLoaded', () => { if (searchTerm.length >= 3) programarEventoBusqueda(); });
 }
 
 document.getElementById('year').textContent = new Date().getFullYear();
@@ -384,6 +385,20 @@ function onSearchInput(value) {
   document.getElementById('searchDesktop').value = value;
   document.getElementById('searchMobile').value = value;
   renderGrid();
+  programarEventoBusqueda();
+}
+
+// view_search_results: qué busca la gente (y cuántos resultados encuentra).
+// Se manda cuando deja de tipear (800 ms), no por cada letra.
+let _busquedaTimer = null, _ultimaBusqueda = '';
+function programarEventoBusqueda() {
+  clearTimeout(_busquedaTimer);
+  _busquedaTimer = setTimeout(() => {
+    const t = searchTerm;
+    if (t.length < 3 || t === _ultimaBusqueda) return;
+    _ultimaBusqueda = t;
+    ga4Event('view_search_results', { search_term: t, results_count: getFiltrados().length });
+  }, 800);
 }
 
 function getFiltrados() {
@@ -459,7 +474,7 @@ function renderProductCard(p) {
   // navegación gana middle-click/abrir en pestaña.
   const href = p.url_amigable ? `producto/${p.url_amigable}/` : `producto_detalle?sku=${p.sku}`;
   return `
-    <a class="card" href="${href}">
+    <a class="card" href="${href}" data-sku="${p.sku}" data-precio="${tieneDescuento ? p.precio_oferta : p.precio_venta}">
       <div class="card-img-wrap">
         ${img}
         ${badge}
@@ -525,6 +540,10 @@ function renderGrid() {
   }
 
   grid.innerHTML = filtrados.map(renderProductCard).join('');
+  grid.dataset.listName = searchTerm ? 'Búsqueda' : (activeFilter === 'Todos' ? 'Catálogo' : activeFilter);
+  if (!searchTerm && typeof trackItemList === 'function') {
+    trackItemList(grid.dataset.listName, grid.querySelectorAll('a.card[data-sku]'));
+  }
 }
 
 // ── VISTOS RECIENTEMENTE ─────────────────────────────
