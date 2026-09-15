@@ -96,8 +96,18 @@
 .ref-nav{position:sticky;top:64px;z-index:40;display:flex;gap:6px;padding:8px 0;margin:0 0 16px;background:var(--paper,#F7F6F3);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .ref-nav::-webkit-scrollbar{display:none}
 .ref-nav a{flex:0 0 auto;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:999px;border:1.5px solid #e5e7eb;background:#fff;color:var(--gray-600);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
-.ref-nav a.active,.ref-nav a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.ref-sec{scroll-margin-top:118px;margin-bottom:26px}
+.ref-nav a.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ref-nav a:not(.active):hover{border-color:var(--ink);color:var(--ink)}
+.ref-sec{display:none;margin-bottom:26px;min-height:60vh;animation:refFade .18s ease} /* min-height: al cambiar de tab el footer no salta arriba */
+.ref-sec.active{display:block}
+@keyframes refFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.ref-nav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+/* progreso: todo centrado */
+.ref-progreso{background:var(--cream);border-radius:14px;padding:18px 20px;margin-top:12px;text-align:center}
+.ref-progreso-head{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:10px}
+.ref-progreso-bar{display:flex;align-items:center;gap:10px;max-width:420px;margin:0 auto}
+/* cards de compartir: botones centrados */
+.msg-card-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .ref-sec-title{display:flex;align-items:center;gap:10px;margin:0 0 12px}
 .ref-sec-title h3{font-size:17px;font-weight:800;margin:0;color:var(--ink);letter-spacing:-.2px}
 .ref-sec-title .ref-sec-num{width:26px;height:26px;border-radius:8px;background:var(--ink);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -840,8 +850,8 @@ async function cargarReferidos() {
       const tierActualLabel = tier.tier === 'base' ? 'Base 7%' : 'Activo 11%';
       const tierNextLabel = tier.tier === 'base' ? 'Activo 11%' : 'Top 15%';
       progressHtml = `
-        <div style="background:var(--cream);border-radius:14px;padding:18px 20px;margin-top:12px;text-align:left">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+        <div class="ref-progreso">
+          <div class="ref-progreso-head">
             <span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink)">Tu progreso</span>
             <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--gray-600)">
               <span>${tierActualLabel}</span>
@@ -849,7 +859,7 @@ async function cargarReferidos() {
               <span style="color:${tierColor}">${tierNextLabel}</span>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:10px">
+          <div class="ref-progreso-bar">
             <div style="flex:1;background:#e5e7eb;border-radius:6px;height:12px;overflow:hidden">
               <div style="background:${tierColor};height:100%;width:${pct}%;border-radius:6px;transition:width .5s ease"></div>
             </div>
@@ -903,11 +913,11 @@ async function cargarReferidos() {
         <h2>Programa de referidos</h2>
         <p>Tu panel para compartir, seguir tus ventas y cobrar comisiones.</p>
       </div>
-      <nav class="ref-nav" id="refNav" aria-label="Secciones del panel">
-        <a href="#ref-resumen" class="active">Resumen</a>
-        <a href="#ref-compartir">Compartir</a>
-        <a href="#ref-catalogo">Catálogo</a>
-        <a href="#ref-historial">Historial</a>
+      <nav class="ref-nav" id="refNav" role="tablist" aria-label="Secciones del panel">
+        <a href="#ref-resumen" role="tab" data-tab="ref-resumen">Resumen</a>
+        <a href="#ref-compartir" role="tab" data-tab="ref-compartir">Compartir</a>
+        <a href="#ref-catalogo" role="tab" data-tab="ref-catalogo">Catálogo</a>
+        <a href="#ref-historial" role="tab" data-tab="ref-historial">Historial</a>
       </nav>
 
       <!-- ═══ RESUMEN ═══ -->
@@ -973,7 +983,7 @@ async function cargarReferidos() {
             <span style="font-size:13px;color:var(--ink)">Cuando alguien compre, cobrás. Cada venta te genera entre <strong>$1.050 y $2.250</strong>.</span>
           </div>
         </div>
-        <button onclick="document.getElementById('mensajesListos').scrollIntoView({behavior:'smooth'})" style="font-size:12.5px;padding:8px 20px;border-radius:9px;border:none;background:var(--ink);color:var(--accent);cursor:pointer;font-weight:700">Ver mensajes listos para enviar ↓</button>
+        <button onclick="irATabRef('ref-compartir')" style="font-size:12.5px;padding:8px 20px;border-radius:9px;border:none;background:var(--ink);color:var(--accent);cursor:pointer;font-weight:700">Ver mensajes listos para enviar →</button>
       </div>` : ''}
 
       <!-- MENSAJES LISTOS PARA COMPARTIR -->
@@ -1180,32 +1190,37 @@ function compartirCodigoRef(codigo) {
 }
 
 
-// ── Navegación sticky del panel: marca la sección visible ─────────────────
+// ── Navegación del panel: pantallas tipo app (una sección visible a la vez) ──
+// Cada chip muestra SU sección y oculta las demás, como los tabs de una app.
+// El hash (#ref-xxx) guarda la pantalla actual: sobrevive a recargar, al botón
+// atrás, y es adonde llega el registro nuevo (mi_cuenta#ref-resumen).
+const REF_TABS = ['ref-resumen', 'ref-compartir', 'ref-catalogo', 'ref-historial'];
+function irATabRef(id, opts) {
+  if (!REF_TABS.includes(id)) id = 'ref-resumen';
+  document.querySelectorAll('.ref-sec').forEach(s => s.classList.toggle('active', s.id === id));
+  document.querySelectorAll('#refNav a').forEach(a => {
+    const on = a.dataset.tab === id;
+    a.classList.toggle('active', on);
+    if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
+  if (!(opts && opts.sinHash) && location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+  // La pantalla nueva arranca desde su inicio (justo debajo del nav sticky),
+  // como al cambiar de tab en una app: no se hereda el scroll de la anterior.
+  if (!(opts && opts.sinScroll)) {
+    const nav = document.getElementById('refNav');
+    const y = nav ? nav.getBoundingClientRect().top + window.scrollY - 72 : 0;
+    if (window.scrollY > y) window.scrollTo({ top: y, behavior: 'auto' });
+  }
+}
 function activarNavReferidos() {
   const nav = document.getElementById('refNav');
   if (!nav) return;
-  const links = [...nav.querySelectorAll('a')];
-  links.forEach(a => a.addEventListener('click', e => {
-    const el = document.querySelector(a.getAttribute('href'));
-    if (!el) return;
-    e.preventDefault();
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    links.forEach(l => l.classList.remove('active')); a.classList.add('active');
-  }));
-  // Llegada desde el registro (o desde un link) con #ref-<seccion>: la
-  // seccion recien existe ahora, asi que el scroll se hace aca.
-  if (location.hash && location.hash.startsWith('#ref-')) {
-    const dest = document.querySelector(location.hash);
-    if (dest) setTimeout(() => dest.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
-  }
-  if (!('IntersectionObserver' in window)) return;
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-      if (!en.isIntersecting) return;
-      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id));
-    });
-  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
-  document.querySelectorAll('.ref-sec').forEach(s => obs.observe(s));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); irATabRef(a.dataset.tab); }));
+  window.addEventListener('hashchange', () => { const id = location.hash.slice(1); if (REF_TABS.includes(id)) irATabRef(id, { sinHash: true }); });
+  const inicial = location.hash.slice(1);
+  irATabRef(REF_TABS.includes(inicial) ? inicial : 'ref-resumen', { sinScroll: true, sinHash: !REF_TABS.includes(inicial) });
+  // Si se llego con hash (registro recien creado), llevar la vista al panel.
+  if (REF_TABS.includes(inicial)) setTimeout(() => nav.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
 }
 
 // ── Placa para compartir: preview en vivo con campos editables ────────────
