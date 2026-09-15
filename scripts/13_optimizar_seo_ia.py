@@ -124,12 +124,18 @@ def asegurar_columna(conn: sqlite3.Connection):
         conn.commit()
 
 
-def obtener_lote(conn: sqlite3.Connection, limit: int) -> list:
+def obtener_lote(conn: sqlite3.Connection, limit: int, incluir_optimizados: bool = False) -> list:
+    """Productos a optimizar. Por defecto SOLO los que nunca pasaron por acá
+    (seo_optimizado_at IS NULL): un titulo que ya rankea no se reescribe todos
+    los meses, porque cada reescritura cambia el title/H1 que Google ya
+    evaluó y reinicia esa señal. Con --incluir-optimizados vuelve al
+    comportamiento viejo (los mas antiguos primero) para un refresh a mano."""
     cursor = conn.cursor()
-    cursor.execute("""
+    filtro = "" if incluir_optimizados else "AND seo_optimizado_at IS NULL"
+    cursor.execute(f"""
         SELECT sku, nombre, descripcion, categoria, subcategoria, marca, color, talle, precio_venta
         FROM productos
-        WHERE stock > 0
+        WHERE stock > 0 {filtro}
         ORDER BY (seo_optimizado_at IS NULL) DESC, seo_optimizado_at ASC
         LIMIT ?
     """, (limit,))
@@ -200,6 +206,8 @@ def main():
     parser.add_argument("--limit", type=int, default=50, help="Cantidad de productos a optimizar")
     parser.add_argument("--skus", help="Lista de SKUs separados por coma a optimizar (ignora --limit)")
     parser.add_argument("--dry-run", action="store_true", help="No escribe en la base de datos")
+    parser.add_argument("--incluir-optimizados", action="store_true",
+                        help="Reescribe tambien productos ya optimizados (por defecto solo los nuevos)")
     args = parser.parse_args()
 
     env = Config.cargar_env()
@@ -214,7 +222,9 @@ def main():
         skus = [s.strip() for s in args.skus.split(',') if s.strip()]
         productos = obtener_por_skus(conn, skus) if skus else []
     else:
-        productos = obtener_lote(conn, args.limit)
+        productos = obtener_lote(conn, args.limit, args.incluir_optimizados)
+        if not productos:
+            print("Sin productos nuevos para optimizar (todos tienen seo_optimizado_at). Nada que hacer.")
     print(f"\n🔍 {len(productos)} productos seleccionados para optimizar\n")
 
     actualizados = 0
