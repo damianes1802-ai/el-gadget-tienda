@@ -47,6 +47,8 @@ SITEMAP_FILE = PAGES_DIR / 'sitemap.xml'
 # Estado URL -> (hash de contenido, lastmod) para que el sitemap solo declare
 # "cambió" cuando la página cambió DE VERDAD (señal lastmod confiable para Google).
 LASTMOD_STATE_FILE = Config.BASE_DIR / 'data' / 'sitemap_lastmod.json'
+# Slugs viejos de producto -> SKU, para redirigirlos a la URL actual (versionado)
+REDIRECTS_FILE = Config.BASE_DIR / 'data' / 'redirects_producto.json'
 
 BRAND = "El Gadget"
 WHATSAPP_NUM = "5491126228481"
@@ -1536,10 +1538,25 @@ def generar():
         conn.close()
         return 1
 
-    # 1. Calcular slugs y guardarlos en productos.url_amigable
+    # 1. Slugs: se CONGELAN una vez asignados. La URL de una ficha es un
+    #    activo SEO (edad, enlaces, posicion); si se recalculara del nombre
+    #    en cada corrida, cada reescritura de titulo (el job mensual de
+    #    Gemini, un override manual) moveria la pagina a otra URL sin
+    #    redireccion y Google encontraria un 404 donde habia una ficha
+    #    rankeando. Entre junio y septiembre de 2026 eso paso con 35+
+    #    productos. Solo se calcula slug para productos que no tienen uno.
+    #    El sufijo con SKU garantiza unicidad, asi que congelar es seguro.
     slug_map = {}
     slugs_usados = set()
+    # primero los que ya tienen slug (para que ningun nuevo choque con ellos)
     for p in productos:
+        existente = (p.get('url_amigable') or '').strip()
+        if existente:
+            slug_map[p['sku']] = existente
+            slugs_usados.add(existente)
+    for p in productos:
+        if p['sku'] in slug_map:
+            continue
         slug = construir_slug(p['nombre'], p['sku'])
         if slug in slugs_usados:
             slug = f"{slug}-{slugify(p['sku'])}-2"
@@ -1595,11 +1612,55 @@ def generar():
 
     print(f"✅ {len(slugs_generados)} páginas de producto generadas en {PRODUCTO_DIR}")
 
+    # 3b. Redirecciones de slugs viejos. Si alguna vez un producto cambio de
+    #     URL (antes de congelar los slugs, o por un cambio deliberado), la URL
+    #     vieja sigue respondiendo con un stub que redirige a la actual, en vez
+    #     de un 404 que tira la posicion ganada. GitHub Pages no tiene
+    #     redirecciones de servidor: meta refresh 0 + canonical es lo que Google
+    #     trata como redireccion permanente.
+    redirects = {}
+    if REDIRECTS_FILE.exists():
+        try:
+            redirects = json.loads(REDIRECTS_FILE.read_text(encoding='utf-8'))
+        except Exception:
+            redirects = {}
+    # slugs que cambiaron en esta corrida (url_amigable previa distinta al slug actual)
+    for p in productos:
+        previo = (p.get('url_amigable') or '').strip()
+        if previo and previo != slug_map.get(p['sku']) and previo not in slugs_generados:
+            redirects[previo] = p['sku']
+    sku_a_slug = {sku: slug for sku, slug in slug_map.items()}
+    stubs = 0
+    vigentes = {}
+    for viejo_slug, sku in redirects.items():
+        destino = sku_a_slug.get(sku)
+        if not destino or viejo_slug == destino or viejo_slug in slugs_generados:
+            continue  # el producto ya no esta (404 legitimo) o el slug volvio a ser el actual
+        vigentes[viejo_slug] = sku
+        url = f"{CANONICAL_DOMAIN}/producto/{destino}/"
+        stub = (
+            '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
+            f'<title>Redirigiendo… | {BRAND}</title>'
+            f'<link rel="canonical" href="{html.escape(url)}">'
+            f'<meta http-equiv="refresh" content="0;url={html.escape(url)}">'
+            '<meta name="robots" content="noindex">'
+            f'<script>location.replace({json.dumps(url)});</script>'
+            f'</head><body><p>Esta página se movió a <a href="{html.escape(url)}">{html.escape(url)}</a>.</p></body></html>\n'
+        )
+        d = PRODUCTO_DIR / viejo_slug
+        d.mkdir(parents=True, exist_ok=True)
+        (d / 'index.html').write_text(stub, encoding='utf-8')
+        stubs += 1
+    REDIRECTS_FILE.write_text(json.dumps(vigentes, ensure_ascii=False, indent=2, sort_keys=True) + '\n', encoding='utf-8')
+    if stubs:
+        print(f"↪️  {stubs} redirecciones de slugs viejos escritas")
+
     # 4. Eliminar carpetas de productos que ya no están disponibles
+    #    (las de redireccion se conservan)
     eliminadas = 0
     if PRODUCTO_DIR.exists():
         for carpeta in PRODUCTO_DIR.iterdir():
-            if carpeta.is_dir() and carpeta.name not in slugs_generados:
+            if carpeta.is_dir() and carpeta.name not in slugs_generados and carpeta.name not in vigentes:
                 shutil.rmtree(carpeta)
                 eliminadas += 1
 

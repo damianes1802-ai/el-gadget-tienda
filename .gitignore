@@ -19,6 +19,9 @@ marketing_app/data/backups/
 # Estado de lastmod del sitemap (necesario en CI para conservar fechas entre corridas)
 !data/sitemap_lastmod.json
 
+# Slugs viejos de producto -> SKU (redirecciones; el generador lo mantiene)
+!data/redirects_producto.json
+
 # Config de precios (necesaria para el calculo de precios en CI)
 !data/precios
 data/precios/*
