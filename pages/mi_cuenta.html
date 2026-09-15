@@ -14,7 +14,8 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <style>
 .prod-list{border:1.5px solid #e5e7eb;border-radius:12px;overflow:hidden;background:#fff}
-.prod-card{display:flex;align-items:flex-start;gap:12px;padding:14px;border-bottom:1px solid #f3f4f6;transition:background .15s}
+.prod-card{display:flex;flex-direction:column;gap:10px;padding:14px;border-bottom:1px solid #f3f4f6;transition:background .15s}
+.prod-card-top{display:flex;align-items:flex-start;gap:12px}
 .prod-card:last-child{border-bottom:none}
 .prod-card:hover{background:#fafafa}
 .prod-card-img{width:56px;height:56px;object-fit:cover;border-radius:8px;flex-shrink:0;background:#f3f4f6}
@@ -27,7 +28,13 @@
 .prod-card-new{font-size:15px;font-weight:700;color:var(--ink)}
 .prod-card-pct{font-size:11px;color:#10b981;font-weight:600}
 .prod-card-earn{font-size:13.5px;font-weight:700;color:#16a34a;margin-top:4px}
-.prod-card-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0;align-items:flex-end;padding-top:4px;position:relative}
+.prod-card-actions{display:flex;gap:8px;align-items:stretch;position:relative}
+.prod-btn-wa-main{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 14px;border-radius:11px;border:none;background:#25D366;color:#fff;font-size:14px;font-weight:800;text-decoration:none;cursor:pointer;box-shadow:0 2px 8px rgba(37,211,102,.28)}
+.prod-btn-wa-main:active{transform:scale(.985)}
+.prod-btn-wa-main svg{width:20px;height:20px;flex-shrink:0}
+.prod-btn-more{width:44px;min-height:44px;border-radius:11px;border:1.5px solid #e5e7eb;background:#fff;color:var(--ink);font-size:20px;font-weight:800;cursor:pointer;flex-shrink:0;line-height:1}
+.prod-btn-more:hover{border-color:var(--ink)}
+.prod-btn-more[aria-expanded="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .prod-btn{font-size:11.5px;padding:5px 12px;border-radius:7px;text-decoration:none;display:inline-block;font-weight:600;text-align:center;white-space:nowrap;cursor:pointer;border:none}
 .prod-btn-wa{background:#25D366;color:#fff}
 .prod-btn-foto{border:1.5px solid #e5e7eb;color:var(--ink);background:transparent}
@@ -41,6 +48,7 @@
 .share-ig::before{content:"📸 "}
 .share-link::before{content:"🔗 "}
 .share-foto::before{content:"📷 "}
+.share-app::before{content:"↗️ "}
 
 .cobro-wrap{background:var(--cream);border-radius:14px;padding:20px 22px;margin-bottom:16px}
 .cobro-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px}
@@ -1088,6 +1096,7 @@ async function cargarCatalogo() {
       const xShareUrl = encodeURIComponent(xUrl);
       const igCaption = `${p.nombre}\n\nAntes: ${precioOrig} → Ahora: ${precioDesc} (${p.descuento_pct}% OFF)\n\nUsá mi código "${_codigo}" en elgadget.com.ar para tu descuento.\n\n#ElGadget #ReferidosElGadget #DescuentoOnline #Argentina`;
       return `<div class="prod-card">
+        <div class="prod-card-top">
         <img class="prod-card-img" src="${escapeHtmlBasico(p.imagen_url)}" alt="" loading="lazy"
           onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'56\\' height=\\'56\\'%3E%3Crect width=\\'56\\' height=\\'56\\' fill=\\'%23f3f4f6\\' rx=\\'8\\'/%3E%3C/svg%3E'">
         <div class="prod-card-info">
@@ -1100,10 +1109,15 @@ async function cargarCatalogo() {
             <div class="row earn"><span class="k">Vos cobrás</span><span class="v earn">${formatPrice(p.comision_ars)}</span></div>
           </div>
         </div>
+        </div>
         <div class="prod-card-actions">
-          <button class="prod-btn prod-btn-ver" onclick="toggleShareMenu(${idx})" style="position:relative">Compartir ▾</button>
-          <div id="shareMenu${idx}" class="share-menu" style="display:none">
-            <a href="https://wa.me/?text=${waMsg}" target="_blank" rel="noopener" class="share-opt share-wa">WhatsApp</a>
+          <a href="https://wa.me/?text=${waMsg}" target="_blank" rel="noopener" class="prod-btn-wa-main" aria-label="Enviar por WhatsApp">
+            <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+            Enviar por WhatsApp
+          </a>
+          <button class="prod-btn-more" onclick="toggleShareMenu(${idx})" aria-label="Más formas de compartir" aria-haspopup="menu" aria-expanded="false">⋯</button>
+          <div id="shareMenu${idx}" class="share-menu" style="display:none" role="menu">
+            <button onclick="compartirNativo(${idx})" class="share-opt share-app" data-solo-mobile>Compartir con otra app…</button>
             <a href="https://www.facebook.com/sharer/sharer.php?u=${fbShareUrl}" target="_blank" rel="noopener" class="share-opt share-fb">Facebook</a>
             <a href="https://twitter.com/intent/tweet?text=${xText}&url=${xShareUrl}" target="_blank" rel="noopener" class="share-opt share-x">X / Twitter</a>
             <button onclick="copiarCaptionIG(${idx})" class="share-opt share-ig">Instagram (copiar caption)</button>
@@ -1118,6 +1132,13 @@ async function cargarCatalogo() {
       const baseUrl = p.url_tienda + (p.url_tienda.includes('?') ? '&' : '?') + `ref=${_codigo}`;
       return {
         link: baseUrl + '&utm_source=link&utm_medium=referral&utm_campaign=producto_share',
+        texto: `Mirá este producto en El Gadget:
+
+${p.nombre}
+Antes: ${formatPrice(p.precio_venta)} → Ahora: ${formatPrice(p.precio_con_descuento)} (${p.descuento_pct}% OFF)
+
+Usá mi código "${_codigo}" para el descuento:
+` + baseUrl + '&utm_source=share&utm_medium=referral&utm_campaign=producto_share',
         igCaption: `${p.nombre}\n\nAntes: ${formatPrice(p.precio_venta)} → Ahora: ${formatPrice(p.precio_con_descuento)} (${p.descuento_pct}% OFF)\n\nUsá mi código "${_codigo}" en elgadget.com.ar para tu descuento.\n\n#ElGadget #ReferidosElGadget #DescuentoOnline #Argentina`,
       };
     });
@@ -1442,7 +1463,25 @@ function toggleShareMenu(idx) {
   if (!menu) return;
   const isOpen = menu.style.display !== 'none';
   document.querySelectorAll('.share-menu').forEach(m => m.style.display = 'none');
-  if (!isOpen) menu.style.display = 'block';
+  document.querySelectorAll('.prod-btn-more').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  if (!isOpen) {
+    // "Compartir con otra app" solo tiene sentido donde existe el share nativo
+    const nat = menu.querySelector('[data-solo-mobile]');
+    if (nat) nat.style.display = navigator.share ? '' : 'none';
+    menu.style.display = 'block';
+    menu.previousElementSibling.setAttribute('aria-expanded', 'true');
+  }
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.prod-card-actions')) {
+    document.querySelectorAll('.share-menu').forEach(m => m.style.display = 'none');
+    document.querySelectorAll('.prod-btn-more').forEach(b => b.setAttribute('aria-expanded', 'false'));
+  }
+});
+function compartirNativo(idx) {
+  const d = (window._shareData || [])[idx];
+  if (!d || !navigator.share) return;
+  navigator.share({ title: 'El Gadget', text: d.texto }).catch(() => {});
 }
 
 function copiarCaptionIG(idx) {
