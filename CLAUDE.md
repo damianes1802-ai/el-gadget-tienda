@@ -154,6 +154,19 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   están en `SOLO_SI` y solo salen si hay stock que lo respalde. Si entra una familia nueva de productos
   y el title no la nombra: agregar UNA línea en `FAMILIAS`, no editar el title a mano (se pisa).
   `ofertas` y `nuevos-ingresos` no tienen familias y conservan el copy estático.
+- **Medición GA4 (G-D8GWDT1CBS) vive en `pages/assets/js/cart.js`** (268 páginas lo cargan). gtag carga
+  SIEMPRE con Consent Mode v2 (`analytics_storage` denied hasta "Aceptar"; `ga4Consentir()` hace el
+  update). Helpers: `ga4Event`, `ga4SetUserProps`, `trackItemList`, `trackShare` (mi_cuenta). Eventos
+  propios: `referral_visit` (?ref=), `generate_lead` (clic a wa.me con número), `view_search_results`,
+  `view_item_list`/`select_item` (cards `a.card[data-sku]`), `login`, `view_cart`, `remove_from_cart`,
+  `add_shipping_info`, `purchase` con `ref_code`/`coupon`/`shipping`. Propiedades de usuario:
+  `referido_por`, `cliente_referidor`, `tier_referido`. Un parámetro nuevo NO se ve en informes hasta
+  registrarlo en Admin → Custom definitions (ya están: method, content_type, ref_code, page_type + las
+  3 de usuario). Tráfico propio: abrir `elgadget.com.ar/?interno=1` una vez por navegador → manda
+  `traffic_type=internal` y el data filter "Internal Traffic" (activo) lo descarta. Key events:
+  purchase, sign_up, generate_lead. Referrals excluidos: mercadopago.com(.ar), mercadolibre.com.
+  Retención 14 meses. Search Console vinculada. Para probar cambios de medición: copia `_mock_ga4_*.html`
+  con fetch simulado + scripts externos bloqueados y leer `window.dataLayer` (nunca contra GA real).
 - **Regla de negocio del checkout**: los códigos de descuento se calculan sobre el precio de lista y
   **no se combinan** con ofertas de temporada; se cobra el camino que más conviene al cliente. Está
   documentado en `api_local.py` dentro de `crear_orden` — respetarlo al tocar precios.
