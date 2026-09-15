@@ -147,6 +147,13 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
 - **La lógica de campañas vive en `utils/campanas.py` a propósito**: la usan tanto la API como el
   generador de páginas estáticas, para que el precio calculado nunca se desincronice entre ambos.
   Si tocás reglas de descuento, tocalas ahí, no en los dos lados.
+- **Title/H1/meta/intro de las categorías se generan desde el stock real** (`utils/seo_categorias.py`,
+  `FAMILIAS` + `resolver_categoria()`, llamado por el generador `12_`). Cada categoría declara familias
+  `(regex sobre el nombre, frase)`; cada producto cuenta para la primera que matchea y el title se arma
+  con las 3 más presentes + `FAMILIAS_CIERRE`. Las secciones/FAQs que hablan de un producto concreto
+  están en `SOLO_SI` y solo salen si hay stock que lo respalde. Si entra una familia nueva de productos
+  y el title no la nombra: agregar UNA línea en `FAMILIAS`, no editar el title a mano (se pisa).
+  `ofertas` y `nuevos-ingresos` no tienen familias y conservan el copy estático.
 - **Regla de negocio del checkout**: los códigos de descuento se calculan sobre el precio de lista y
   **no se combinan** con ofertas de temporada; se cobra el camino que más conviene al cliente. Está
   documentado en `api_local.py` dentro de `crear_orden` — respetarlo al tocar precios.

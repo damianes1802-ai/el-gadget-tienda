@@ -329,3 +329,271 @@ COLECCIONES_SEO = {
                   'Desinflalo por completo, secalo a la sombra y guardalo plegado lejos del sol. El vinilo agradece: te dura varias temporadas.')],
     },
 }
+
+
+# ============================================================================
+# FAMILIAS DE PRODUCTO POR CATEGORIA (title / H1 / meta / intro dinamicos)
+# ----------------------------------------------------------------------------
+# El stock de Droppers rota: una categoria que hoy es botellas termicas en dos
+# meses puede ser escurridores. Un title escrito a mano queda viejo sin que
+# nadie lo note. Aca cada categoria declara sus familias posibles como
+# (regex sobre el nombre del producto, frase humana). El generador asigna cada
+# producto en stock a la PRIMERA familia que matchea (ordenarlas de especifica
+# a generica), cuenta, y arma title/H1/meta/intro con las mas presentes.
+# Frases de UN concepto (sin " y "), en Title Case porque van al <title>.
+# Para agregar una familia nueva: una linea.
+# ============================================================================
+FAMILIAS = {
+    'bazar-y-cocina': [
+        (r'vaso|tumbler|jarro', 'Vasos Térmicos'),
+        (r't[ée]rmic', 'Botellas Térmicas'),
+        (r'botella.*(deportiv|entrenar|gym|hidrataci[oó]n diaria)', 'Botellas Deportivas'),
+        (r'botella.*(infantil|ni[ñn]|chicos|kawaii|osito|escuela|cole)', 'Botellas Infantiles'),
+        (r'botella', 'Botellas de Agua'),
+        (r'escurridor|secaplatos', 'Escurridores de Platos'),
+        (r'organizador', 'Organizadores de Cocina'),
+        (r'dispenser', 'Dispensers de Jabón'),
+        (r'utensil|rallador|cepillo|filtro|cuchill|tabla|pelador|molde', 'Utensilios de Cocina'),
+    ],
+    'accesorios-de-moda': [
+        (r'blusa|camisa', 'Blusas'),
+        (r'ri[ñn]onera', 'Riñoneras'),
+        (r'bandolera|mini bag', 'Bandoleras'),
+        (r'cartera|sobre', 'Carteras'),
+        (r'mochila', 'Mochilas'),
+        (r'portacosm|neceser', 'Portacosméticos'),
+        (r'gorro|piluso|beanie', 'Gorros'),
+        (r'poncho|bufanda|mant[oó]n|guante', 'Ponchos y Bufandas'),
+    ],
+    'articulos-infantiles': [
+        (r'\bbody', 'Bodys de Bebé'),
+        (r'botella', 'Botellas Infantiles'),
+        (r'l[aá]piz|lapicera|bol[ií]grafo|sacapuntas|resaltador|sticker|anotador|cuaderno', 'Útiles Escolares'),
+        (r'mochila|bandolerita', 'Mochilas Infantiles'),
+        (r'bloques|juguete|armar|rompecabezas|puzzle', 'Juguetes para Armar'),
+        (r'\bmedia', 'Medias Divertidas'),
+        (r'inflable|flotador', 'Flotadores'),
+        (r'pelela|orinal|repelente|pulsera|chupete|babero', 'Accesorios para Bebés'),
+    ],
+    'verano': [
+        (r'bikini|vedetina', 'Bikinis'),
+        (r'malla|enteriza|traje de ba', 'Mallas Enterizas'),
+        (r'inflable|flotador', 'Inflables de Pileta'),
+        (r'lentes|anteojo', 'Anteojos de Sol'),
+        (r'sombrero|gorra|visera', 'Sombreros'),
+    ],
+    'deco': [
+        (r'velador', 'Veladores'),
+        (r'l[aá]mpara', 'Lámparas LED'),
+        (r'tira de luz|tira de luces|luces|guirnalda', 'Tiras de Luces'),
+        (r'maceta', 'Macetas'),
+        (r'cuadro|espejo|reloj de pared', 'Cuadros y Espejos'),
+    ],
+    'accesorios-para-mascotas': [
+        (r'alfombra', 'Alfombras Absorbentes'),
+        (r'collar', 'Collares Isabelinos'),
+        (r'cepillo|guante', 'Cepillos'),
+        (r'comedero|bebedero', 'Comederos'),
+        (r'correa|arn[eé]s', 'Correas'),
+    ],
+    'home': [
+        (r'maceta', 'Macetas Decorativas'),
+        (r'l[aá]mpara|velador', 'Lámparas de Escritorio'),
+        (r'organizador|estante', 'Organizadores'),
+        (r'borde|protector|adhesivo|cinta', 'Protectores para Muebles'),
+        (r'vela', 'Velas de Cumpleaños'),
+    ],
+    'estetica-y-belleza': [
+        (r'dilatador|ronquido', 'Dilatadores Nasales Antirronquidos'),
+        (r'tap[oó]n', 'Tapones Anti Ruido'),
+        (r'depila|strip|cera', 'Accesorios de Depilación'),
+        (r'masaje|facial|rodillo|mascarilla', 'Cuidado Facial'),
+    ],
+    'bano-y-limpieza': [
+        (r'escobilla', 'Escobillas de Baño'),
+        (r'destapaca|desag[uü]e|ca[ñn]er', 'Destapacaños'),
+        (r'sacapelusa|rodillo', 'Rodillos Sacapelusas'),
+        (r'organizador|soporte|ducha|toallero|jabonera', 'Organizadores de Baño'),
+        (r'trapo|esponja|limpia', 'Artículos de Limpieza'),
+    ],
+    'electronica': [
+        (r'reloj', 'Relojes Infantiles'),
+        (r'micr[oó]fono', 'Micrófonos para Celular'),
+        (r'auricular|parlante', 'Auriculares'),
+        (r'cargador|cable|soporte', 'Accesorios para Celular'),
+    ],
+    'fitness': [
+        (r'mand[ií]bula|mewing', 'Ejercitadores de Mandíbula'),
+        (r'botella', 'Botellas Deportivas'),
+        (r'postura|faja|lumbar', 'Correctores de Postura'),
+        (r'banda|el[aá]stic|pesa|mancuerna|soga', 'Bandas y Pesas'),
+    ],
+    # 'ofertas' y 'nuevos-ingresos' son mezclas: conservan su title estatico.
+}
+
+# Como cierra el title de cada categoria. Dos formas:
+#   ' para X'  -> sufijo pegado:            "Bandoleras, Blusas y Carteras de Mujer"
+#   'X'        -> ultimo termino de la lista: "Botellas Térmicas, Vasos y Bazar de Cocina"
+# Sin entrada: el title son solo las familias ("Escobillas de Baño y Destapacaños").
+FAMILIAS_CIERRE = {
+    'bazar-y-cocina': 'Bazar de Cocina',
+    'accesorios-de-moda': ' de Mujer',
+    'articulos-infantiles': 'Regalos para Chicos',
+    'deco': ' para Decorar',
+    'accesorios-para-mascotas': ' para Mascotas',
+    'home': ' para el Hogar',
+    'fitness': ' para Entrenar en Casa',
+}
+
+# Secciones y FAQs que describen un producto concreto: solo se renderizan si
+# algun producto en stock matchea el regex (clave = titulo de la seccion o
+# pregunta de la FAQ). Las que no figuran aca son genericas y salen siempre.
+SOLO_SI = {
+    'bazar-y-cocina': {
+        'Escurridores de platos y orden en la mesada': r'escurridor|secaplatos',
+        'Utensilios de cocina que se usan de verdad': r'filtro|cepillo|organizador|utensil|rallador',
+        '¿Qué escurridor de platos me conviene si tengo poca mesada?': r'escurridor|secaplatos',
+    },
+    'accesorios-para-mascotas': {
+        'Alfombras para el comedero de perros y gatos': r'alfombra',
+        'Paseo, viaje y cuidado del pelo': r'comedero|bebedero|cepillo|guante',
+        'Comedero para perros: la dupla con la alfombra': r'comedero',
+        '¿Las alfombras para mascotas sirven para perros y gatos?': r'alfombra',
+    },
+    'deco': {
+        'Espejos decorativos y detalles con luz': r'espejos?',
+        'Decoración de living: tres movidas seguras': r'espejo',
+        '¿Qué me conviene para renovar un ambiente con poco presupuesto?': r'espejo',
+    },
+    'bano-y-limpieza': {
+        'Seguridad en la ducha: alfombras antideslizantes': r'alfombr',
+        'Orden y limpieza sin esfuerzo': r'jabonera|estante|organizador|limpia|escobilla',
+        '¿Las alfombras de baño son antideslizantes de verdad?': r'alfombr',
+    },
+    'articulos-infantiles': {
+        'Juguetes didácticos para jugar y aprender': r'pop it|anotador|juguete|bloques|armar',
+        'Para bebés: cambiadores, baberos y más': r'cambiador|babero',
+        '¿Los juguetes son seguros para bebés?': r'juguete|bloques|armar',
+    },
+    'accesorios-de-moda': {
+        'Bandoleras de mujer: tejidas, transparentes y urbanas': r'bandolera',
+        'Riñoneras y carteras para cada plan': r'ri[ñn]onera',
+        'Carteras de mujer: cómo elegir la tuya': r'cartera|bandolera',
+        '¿Qué diferencia hay entre bandolera y riñonera?': r'ri[ñn]onera',
+        '¿Puedo cambiar una cartera si no me convence?': r'cartera|bandolera',
+    },
+    'verano': {
+        'Mallas y trajes de baño': r'malla|bikini|enteriza|vedetina',
+        'Inflables y juegos de pileta': r'inflable|flotador',
+    },
+}
+
+TITLE_MAX = 60  # sin el " | El Gadget"
+
+
+def _unir(frases):
+    """'A, B y C' — con 'e' antes de una palabra que empieza con i/hi."""
+    frases = [f for f in frases if f]
+    if not frases:
+        return ''
+    if len(frases) == 1:
+        return frases[0]
+    ult = frases[-1]
+    conj = ' e ' if ult.lower().startswith(('i', 'hi')) else ' y '
+    return ', '.join(frases[:-1]) + conj + ult
+
+
+def _minus(frase):
+    """Pasa una frase de familia a minúsculas conservando siglas (LED, USB)."""
+    return ' '.join(w if w.isupper() and len(w) <= 4 else w.lower() for w in frase.split())
+
+
+def _agrupar(frases):
+    """Junta familias que comparten la primera palabra para no repetirla en
+    el title: 'Botellas Infantiles' + 'Botellas Térmicas' -> 'Botellas
+    Infantiles y Térmicas'. Máximo 2 por cabeza; una tercera se descarta."""
+    grupos = []
+    for f in frases:
+        cab = f.split()[0]
+        g = next((g for g in grupos if g[0] == cab), None)
+        if g is None:
+            grupos.append([cab, [f]])
+        elif len(g[1]) < 2:
+            g[1].append(f)
+    out = []
+    for cab, fs in grupos:
+        if len(fs) == 1:
+            out.append(fs[0])
+            continue
+        resto = fs[1].split(' ', 1)[1] if ' ' in fs[1] else fs[1]
+        conj = 'e' if resto.lower().startswith(('i', 'hi')) else 'y'
+        out.append(f"{fs[0]} {conj} {resto}")
+    return out
+
+
+def _armar(elegidas, cierre):
+    """Title sin marca a partir de las familias elegidas + el cierre."""
+    if cierre.startswith(' '):
+        return _unir(elegidas) + cierre
+    titulo = _unir(elegidas + [cierre]) if cierre else _unir(elegidas)
+    # "Botellas Infantiles y Térmicas y Bazar de Cocina" -> coma en el grupo
+    if len(elegidas) == 1 and cierre and ' y ' in elegidas[0]:
+        titulo = elegidas[0].replace(' y ', ', ', 1) + titulo[len(elegidas[0]):]
+    return titulo
+
+
+def familias_presentes(slug, productos):
+    """[(frase, cantidad)] de las familias con stock, de mayor a menor.
+    Cada producto cuenta para la primera familia que matchea su nombre."""
+    familias = FAMILIAS.get(slug) or []
+    conteo = [0] * len(familias)
+    for p in productos:
+        nombre = p.get('nombre') or ''
+        for i, (rx, _) in enumerate(familias):
+            if re.search(rx, nombre, re.I):
+                conteo[i] += 1
+                break
+    orden = sorted((-n, i) for i, n in enumerate(conteo) if n)
+    return [(familias[i][1], -n) for n, i in orden]
+
+
+def resolver_categoria(slug, cfg, productos):
+    """Devuelve una copia de cfg con title/h1/meta/intro derivados del stock
+    real, y con secciones/faqs filtradas por `solo_si` (tercer elemento
+    opcional: regex que algun producto en stock tiene que matchear para que
+    la seccion/FAQ se renderice). Sin FAMILIAS o sin matches, deja el copy
+    estatico tal cual."""
+    nuevo = dict(cfg)
+    nombres = [(p.get('nombre') or '') for p in productos]
+
+    def filtrar(items):
+        out = []
+        for it in items or []:
+            rx = it[2] if len(it) >= 3 else SOLO_SI.get(slug, {}).get(it[0])
+            if rx and not any(re.search(rx, n, re.I) for n in nombres):
+                continue
+            out.append(tuple(it[:2]))
+        return out
+    nuevo['secciones'] = filtrar(cfg.get('secciones'))
+    nuevo['faqs'] = filtrar(cfg.get('faqs'))
+
+    presentes = familias_presentes(slug, productos)
+    if not presentes:
+        return nuevo
+    cierre = FAMILIAS_CIERRE.get(slug, '')
+    elegidas = _agrupar([f for f, _ in presentes])[:3]
+    # recortar familias hasta que el title entre en 60 caracteres
+    while len(elegidas) > 1 and len(_armar(elegidas, cierre)) > TITLE_MAX:
+        elegidas.pop()
+    titulo = _armar(elegidas, cierre)
+    frase_min = _unir([_minus(f) for f in elegidas])
+    total = len(nombres)
+    plural = 's' if total != 1 else ''
+    nuevo['title'] = f"{titulo} | El Gadget"
+    nuevo['h1'] = titulo
+    nuevo['meta'] = (f"Comprá {_minus(titulo)} online con envío a todo el país. "
+                     f"{total} producto{plural} con fotos reales, pagás seguro con Mercado Pago y lo recibís en tu casa.")
+    nuevo['intro'] = (f"Hoy tenemos {total} producto{plural} en esta categoría, sobre todo {frase_min}, "
+                      "elegidos por su relación precio-calidad y con fotos reales en cada ficha. "
+                      "Comprás online, pagás seguro con Mercado Pago y te lo enviamos a todo el país.")
+    return nuevo

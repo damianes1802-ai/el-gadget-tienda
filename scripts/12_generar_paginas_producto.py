@@ -36,7 +36,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent))
 from utils.config import Config
 from utils.logger import get_logger
-from utils.seo_categorias import CATEGORIAS_SEO, COLECCIONES_SEO, slug_categoria
+from utils.seo_categorias import CATEGORIAS_SEO, COLECCIONES_SEO, slug_categoria, resolver_categoria
 from utils.blog_posts import BLOG_POSTS
 
 logger = get_logger('generar_paginas_producto')
@@ -1493,6 +1493,8 @@ def generar_listados(productos: list, slug_map: dict) -> tuple:
         items = por_slug_cat.get(s) or []
         if not items:
             continue
+        # title/H1/intro salen del stock real de hoy (ver FAMILIAS en seo_categorias.py)
+        cfg = resolver_categoria(s, cfg, items)
         destino = cat_dir / s
         destino.mkdir(parents=True, exist_ok=True)
         (destino / 'index.html').write_text(
