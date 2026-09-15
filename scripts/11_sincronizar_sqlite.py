@@ -277,7 +277,7 @@ class SincronizadorSQLiteOptimizado:
 
         # Cachear filas existentes para preservar copy SEO ya optimizado con IA
         cursor = self.conn.cursor()
-        cursor.execute("SELECT sku, nombre, descripcion, seo_optimizado_at, overrides_manuales, stock_manual, stock FROM productos")
+        cursor.execute("SELECT sku, nombre, descripcion, seo_optimizado_at, overrides_manuales, stock_manual, stock, url_amigable FROM productos")
         db_existing = {
             row[0]: {
                 'nombre': row[1],
@@ -286,6 +286,7 @@ class SincronizadorSQLiteOptimizado:
                 'overrides_manuales': row[4],
                 'stock_manual': row[5] or 0,
                 'stock': row[6],
+                'url_amigable': row[7] or '',
             }
             for row in cursor.fetchall()
         }
@@ -336,7 +337,11 @@ class SincronizadorSQLiteOptimizado:
                 # Categorías
                 categoria = metadata.get('categoria_principal') or metadata.get('categoria', '')
                 subcategoria = metadata.get('subcategoria', '')
-                url_amigable = metadata.get('url_amigable', '')
+                # El slug es la URL publica del producto: una vez asignado por el
+                # generador (12_) se congela, aunque el nombre cambie. Si se pisa
+                # aca, cada rename crea un 404 y tira la posicion ganada en Google.
+                url_amigable = (existente['url_amigable'] if existente and existente['url_amigable']
+                                else metadata.get('url_amigable', ''))
                 
                 # Stock: valor determinístico por SKU (impares 6-14, más creíbles que 999);
                 # si el admin lo protegió manualmente, preservar ese valor.

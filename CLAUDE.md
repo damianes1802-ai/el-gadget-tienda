@@ -226,8 +226,13 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   no tenía presencia orgánica. Ahora `url_amigable` se respeta si existe; los slugs viejos viven en
   `data/redirects_producto.json` (versionado) y el generador les escribe un stub con canonical +
   meta refresh hacia la URL actual. **Renombrar un producto es seguro** (cambia título y H1, no la
-  URL). Si alguna vez se quiere cambiar una URL a propósito: vaciar `url_amigable` de ese SKU y el
-  slug viejo se agrega solo al mapa de redirecciones en la siguiente corrida.
+  URL). Si alguna vez se quiere cambiar una URL a propósito: agregar el slug viejo → SKU a mano en
+  `data/redirects_producto.json` y vaciar `url_amigable` de ese SKU.
+  **El congelamiento tiene DOS mitades**: el generador (`12_`) respeta `url_amigable`, y el sync
+  (`11_sincronizar_sqlite.py`) lo preserva de la fila existente en vez de pisarlo con el metadata del
+  scraper (que no lo trae → quedaba vacío → el generador lo recalculaba del nombre nuevo). La segunda
+  mitad faltó el primer día: el rename de DL1254-2X1 en CI movió la URL igual. Si se toca el
+  INSERT OR REPLACE de `11_`, mantener `url_amigable` en la lista de columnas preservadas.
 
 - **Los slugs de producto incluyen el SKU al final** (`...-diatomita-beige-pisadas-secas-dl1172-5-be`).
   Adivinar la URL desde el nombre da 404: sacarla de `productos.url_amigable` o de `pages/sitemap.xml`.
