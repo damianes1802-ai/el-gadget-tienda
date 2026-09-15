@@ -291,6 +291,7 @@ async function cargarCtaReferido() {
 }
 function compartirComoReferido() {
   if (!_refCta) return;
+  if (typeof ga4Event === 'function') ga4Event('share', { method: navigator.share ? 'nativo' : 'whatsapp', content_type: 'producto_ficha', item_id: _refCta.sku });
   const link = _refCta.url + '?ref=' + encodeURIComponent(_refCta.codigo) + '&utm_source=whatsapp&utm_medium=referral&utm_campaign=ficha_share';
   const texto = 'Mirá este producto en El Gadget:\n\n' + document.title.replace(' | El Gadget', '')
     + '\nAntes: ' + formatPrice(_refCta.precio_venta) + ' → Ahora: ' + formatPrice(_refCta.precio_con_descuento) + ' (' + _refCta.descuento_pct + '% OFF)'
