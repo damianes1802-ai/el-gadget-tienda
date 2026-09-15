@@ -34,8 +34,12 @@ function initGA4() {
   if (tier) props.tier_referido = tier;
   if (Object.keys(props).length) gtag('set', 'user_properties', props);
   const cfg = {};
-  // Tráfico interno (Damián probando): se marca una vez en el navegador con
-  // localStorage.eg_trafico_interno = '1' y GA4 lo filtra con el data filter.
+  // Tráfico interno (Damián probando): abrir una vez elgadget.com.ar/?interno=1
+  // en cada navegador propio deja la marca; GA4 lo excluye con el data filter
+  // "Internal Traffic" (activo). ?interno=0 la saca.
+  const qInterno = new URLSearchParams(location.search).get('interno');
+  if (qInterno === '1') localStorage.setItem('eg_trafico_interno', '1');
+  if (qInterno === '0') localStorage.removeItem('eg_trafico_interno');
   if (localStorage.getItem('eg_trafico_interno') === '1') cfg.traffic_type = 'internal';
   gtag('config', GA4_ID, cfg);
   const s = document.createElement('script');
