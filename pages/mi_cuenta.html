@@ -90,6 +90,10 @@
 .msg-cta-zero{background:linear-gradient(135deg,#fffbeb,var(--cream));border:1.5px dashed var(--accent);border-radius:12px;padding:16px 20px;margin-bottom:16px;text-align:center}
 
 /* ── PANEL DE REFERIDOS: navegacion, titulos, desktop, precios, placa ── */
+.app-head{margin:6px 0 12px}
+.app-hola{font-size:24px;font-weight:800;letter-spacing:-.3px;margin:0 0 2px;color:var(--ink)}
+.app-sub{font-size:13px;color:var(--gray-600);margin:0}
+#tab-cuenta .info-grid{margin-bottom:18px}
 .ref-panel-head{margin:0 0 14px}
 .ref-panel-head h2{font-size:22px;font-weight:800;letter-spacing:-.3px;margin:0 0 2px;color:var(--ink)}
 .ref-panel-head p{font-size:13px;color:var(--gray-600);margin:0}
@@ -129,7 +133,7 @@
 .prod-card-econ .v.earn{color:#16a34a;font-size:16px}
 /* desktop: mas ancho y dos columnas donde suma */
 @media(min-width:1024px){
-  body.ref-wide .page-wrap{max-width:1140px!important} /* el 900px viene inline en el HTML */
+  .page-wrap{max-width:1140px!important} /* toda la cuenta es la app; el 900px viene inline en el HTML */
   .ref-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
   .ref-grid-2>*{margin-bottom:0!important}
   .prod-list{display:grid;grid-template-columns:1fr 1fr;border:none;background:transparent;overflow:visible;gap:12px}
@@ -137,6 +141,7 @@
   .prod-card:last-child{border-bottom:1.5px solid #e5e7eb}
   .ref-nav{top:72px}
   .ref-nav a{font-size:13px;padding:9px 18px}
+  #tab-pedidos details{max-width:820px}
 }
 /* placa: editor con preview en vivo */
 .placa-box{max-width:920px}
@@ -198,52 +203,56 @@
 
 <!-- CONTENIDO -->
 <div class="page-wrap" style="max-width:900px">
-  <h1 class="page-title">Mi cuenta</h1>
+  <!-- Cabecera de la app: saludo + nav de pantallas. Los tabs arrancan
+       ocultos y se muestran según lo que el usuario es (referido, mayorista). -->
+  <div class="app-head">
+    <h1 class="app-hola" id="appHola">Mi cuenta</h1>
+    <p class="app-sub" id="appSub">Cargando tu panel…</p>
+  </div>
+  <nav class="ref-nav" id="refNav" role="tablist" aria-label="Secciones de tu cuenta">
+    <a href="#ref-resumen" role="tab" data-tab="ref-resumen" hidden>Resumen</a>
+    <a href="#ref-compartir" role="tab" data-tab="ref-compartir" hidden>Compartir</a>
+    <a href="#ref-catalogo" role="tab" data-tab="ref-catalogo" hidden>Catálogo</a>
+    <a href="#ref-historial" role="tab" data-tab="ref-historial" hidden>Historial</a>
+    <a href="#tab-ganar" role="tab" data-tab="tab-ganar" hidden>Ganá</a>
+    <a href="#tab-mayorista" role="tab" data-tab="tab-mayorista" hidden>Mayorista</a>
+    <a href="#tab-pedidos" role="tab" data-tab="tab-pedidos">Pedidos</a>
+    <a href="#tab-cuenta" role="tab" data-tab="tab-cuenta">Mi cuenta</a>
+  </nav>
 
-  <div class="info-grid" id="infoGrid"></div>
+  <!-- Pantallas de referidos: las llena cargarReferidos() -->
+  <div id="referidosWrap"></div>
 
-  <div class="content-section" style="padding:0">
-    <div onclick="togglePedidos()" style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;user-select:none">
-      <span style="font-size:17px;font-weight:700;color:var(--ink)">Mis pedidos <span id="pedidosCount" style="font-size:13px;font-weight:500;color:var(--gray-600)"></span></span>
-      <div style="display:flex;align-items:center;gap:10px" onclick="event.stopPropagation()">
-        <button id="btnCSVPedidos" onclick="generarCSVPedidos()" style="display:none;font-size:12px;padding:4px 12px;border-radius:7px;border:1px solid #d1d5db;background:transparent;color:var(--gray-600);cursor:pointer">Exportar CSV</button>
-        <span id="pedidosChevron" style="font-size:11px;color:var(--gray-600);display:inline-block;transition:transform .25s">▼</span>
-      </div>
+  <!-- GANÁ: CTA para quien todavía no es referido -->
+  <section class="ref-sec" id="tab-ganar">
+    <div class="ref-sec-title"><span class="ref-sec-num">★</span><h3>Ganá plata recomendando</h3></div>
+    <div id="bannerReferidos" style="background:var(--ink);border-radius:14px;padding:28px 24px;text-align:center">
+      <p style="color:var(--white);font-size:17px;font-weight:700;margin:0 0 8px">¿Querés ganar dinero recomendando El Gadget?</p>
+      <p style="color:rgba(255,255,255,0.75);font-size:13.5px;margin:0 0 18px;line-height:1.5">Sumate al programa de referidos: compartís tu código, tus amigos compran con 10-20% OFF según lo que gastan, y vos cobrás entre 7% y 15% de cada venta. Gratis, sin stock, desde el celular.</p>
+      <a href="referidos" class="btn btn-accent">Quiero mi código</a>
     </div>
-    <div id="pedidosWrap" style="display:none;padding:0 20px 16px"></div>
-  </div>
+  </section>
 
-  <!-- Tab switcher — visible solo cuando el usuario es referido Y mayorista -->
-  <div id="panelSwitcher" style="display:none;border-bottom:2px solid #e5e7eb;margin:28px 0 0 0">
-    <button id="btnTabRef" onclick="mostrarPanelRef()"
-      style="padding:11px 28px;border:none;border-bottom:3px solid var(--ink);margin-bottom:-2px;background:transparent;color:var(--ink);font-size:14px;font-weight:700;cursor:pointer">
-      Mis Referidos
-    </button>
-    <button id="btnTabMay" onclick="mostrarPanelMay()"
-      style="padding:11px 28px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:transparent;color:var(--gray-600);font-size:14px;font-weight:600;cursor:pointer">
-      Panel Mayorista
-    </button>
-  </div>
-
-  <!-- SECCIÓN REFERIDOS (se muestra solo si el usuario es referido) -->
-  <div class="content-section" id="referidosSection" style="display:none;margin-top:20px">
-    <div id="referidosWrap"></div>
-  </div>
-
-  <!-- SECCIÓN MAYORISTA (se muestra solo si el usuario es mayorista) -->
-  <div class="content-section" id="mayoristaSection" style="display:none;margin-top:20px">
-    <h2 style="padding-top:8px">Panel Mayorista</h2>
+  <!-- MAYORISTA (solo si el usuario es mayorista) -->
+  <section class="ref-sec" id="tab-mayorista">
+    <div class="ref-sec-title"><span class="ref-sec-num">%</span><h3>Panel mayorista</h3><span class="ref-sec-hint">25% OFF desde $100.000</span></div>
     <div id="mayoristaWrap"></div>
-  </div>
+  </section>
 
-  <!-- BANNER para no-referidos (se muestra si el usuario NO es referido) -->
-  <div id="bannerReferidos" style="display:none;background:var(--ink);border-radius:14px;padding:24px 28px;margin-bottom:24px;text-align:center">
-    <p style="color:var(--white);font-size:15px;font-weight:600;margin:0 0 6px">¿Querés ganar dinero recomendando El Gadget?</p>
-    <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0 0 16px">Sumate al programa de referidos: compartí tu código, tus amigos compran con 10-20% OFF según lo que gastan, y vos cobrás comisión de cada venta.</p>
-    <a href="referidos" class="btn btn-accent">Quiero mi código</a>
-  </div>
+  <!-- PEDIDOS -->
+  <section class="ref-sec" id="tab-pedidos">
+    <div class="ref-sec-title"><span class="ref-sec-num">📦</span><h3>Mis pedidos <span id="pedidosCount" style="font-size:13px;font-weight:500;color:var(--gray-600)"></span></h3>
+      <button id="btnCSVPedidos" onclick="generarCSVPedidos()" style="display:none;margin-left:auto;font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Exportar CSV</button>
+    </div>
+    <div id="pedidosWrap"><p style="font-size:13px;color:var(--gray-600)">Cargando…</p></div>
+  </section>
 
-  <button class="btn btn-outline" id="btnLogout" onclick="cerrarSesion()">Cerrar sesión</button>
+  <!-- MI CUENTA: datos + cerrar sesión -->
+  <section class="ref-sec" id="tab-cuenta">
+    <div class="ref-sec-title"><span class="ref-sec-num">👤</span><h3>Mi cuenta</h3></div>
+    <div class="info-grid" id="infoGrid"></div>
+    <button class="btn btn-outline" id="btnLogout" onclick="cerrarSesion()">Cerrar sesión</button>
+  </section>
 </div>
 
 <!-- FOOTER -->
@@ -367,6 +376,8 @@ async function cargarCuenta() {
     if (!res.ok) throw new Error(data.detail || 'Sesión inválida');
 
     localStorage.setItem('eg_nombre', data.nombre || '');
+    const _hola = document.getElementById('appHola');
+    if (_hola && data.nombre) _hola.textContent = 'Hola, ' + (data.nombre || '').split(' ')[0];
 
     const yaUsado = data.descuento_usado === 1 || data.descuento_usado === true;
     if (yaUsado) {
@@ -406,15 +417,6 @@ async function cargarCuenta() {
 
 let _pedidos = [];
 
-function togglePedidos() {
-  const wrap = document.getElementById('pedidosWrap');
-  const chevron = document.getElementById('pedidosChevron');
-  if (!wrap) return;
-  const abierto = wrap.style.display !== 'none';
-  wrap.style.display = abierto ? 'none' : 'block';
-  if (chevron) chevron.style.transform = abierto ? '' : 'rotate(180deg)';
-}
-
 function generarCSVPedidos() {
   if (!_pedidos.length) { showToast('No hay pedidos para exportar'); return; }
   const headers = ['Nro Orden','Fecha','Estado pedido','Estado pago','SKU','Producto','Cantidad','Precio unit.','Subtotal','Total orden'];
@@ -452,7 +454,7 @@ async function cargarPedidos() {
     if (csvBtn && _pedidos.length > 0) csvBtn.style.display = 'inline-block';
 
     if (_pedidos.length === 0) {
-      wrap.innerHTML = '<p style="font-size:13.5px;color:var(--gray-600)">Todavía no hiciste ninguna compra.</p>';
+      wrap.innerHTML = '<div style="background:var(--cream);border-radius:14px;padding:26px 20px;text-align:center"><p style="font-size:14px;font-weight:600;color:var(--ink);margin:0 0 6px">Todavía no hiciste ninguna compra</p><p style="font-size:12.5px;color:var(--gray-600);margin:0 0 14px">Cuando compres, acá vas a ver el estado y el seguimiento de cada pedido.</p><a href="/" class="btn btn-accent">Ver productos</a></div>';
       return;
     }
 
@@ -802,22 +804,12 @@ async function cargarReferidos() {
     const res = await fetch(`${API}/api/referidos/dashboard`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
-    if (res.status === 404) {
-      document.getElementById('bannerReferidos').style.display = 'block';
-      return;
-    }
-    if (!res.ok) return;
+    if (res.status === 404) { appResolverReferido(false); return; }
+    if (!res.ok) { appResolverReferido(false); return; }
     const data = await res.json();
 
-    const seccion = document.getElementById('referidosSection');
     const wrap = document.getElementById('referidosWrap');
-    seccion.style.display = 'block';
     window._esReferidoConfirmado = true;
-    if (window._esMayoristaConfirmado) {
-      document.getElementById('panelSwitcher').style.display = 'block';
-      document.getElementById('mayoristaSection').style.display = 'none';
-      setTabActivo('ref');
-    }
 
     window._codigoRef = data.codigo || '';
     const tier = data.tier || { porcentaje: 7, tier: 'base', ventas_mes: 0, next_tier_en: 5, next_porcentaje: 11 };
@@ -907,18 +899,7 @@ async function cargarReferidos() {
           }).join('')}</tbody>
         </table></div>`;
 
-    document.body.classList.add('ref-wide');
     wrap.innerHTML = `
-      <div class="ref-panel-head">
-        <h2>Programa de referidos</h2>
-        <p>Tu panel para compartir, seguir tus ventas y cobrar comisiones.</p>
-      </div>
-      <nav class="ref-nav" id="refNav" role="tablist" aria-label="Secciones del panel">
-        <a href="#ref-resumen" role="tab" data-tab="ref-resumen">Resumen</a>
-        <a href="#ref-compartir" role="tab" data-tab="ref-compartir">Compartir</a>
-        <a href="#ref-catalogo" role="tab" data-tab="ref-catalogo">Catálogo</a>
-        <a href="#ref-historial" role="tab" data-tab="ref-historial">Historial</a>
-      </nav>
 
       <!-- ═══ RESUMEN ═══ -->
       <section class="ref-sec" id="ref-resumen">
@@ -1040,13 +1021,13 @@ async function cargarReferidos() {
       ${periodosHtml}
       </section>
     `;
-    activarNavReferidos();
+    appResolverReferido(true);
 
     // Cargar el catálogo después de que el DOM esté listo
     cargarCatalogo();
 
   } catch (e) {
-    document.getElementById('bannerReferidos').style.display = 'block';
+    appResolverReferido(false);
   }
 }
 
@@ -1190,18 +1171,28 @@ function compartirCodigoRef(codigo) {
 }
 
 
-// ── Navegación del panel: pantallas tipo app (una sección visible a la vez) ──
-// Cada chip muestra SU sección y oculta las demás, como los tabs de una app.
-// El hash (#ref-xxx) guarda la pantalla actual: sobrevive a recargar, al botón
-// atrás, y es adonde llega el registro nuevo (mi_cuenta#ref-resumen).
-const REF_TABS = ['ref-resumen', 'ref-compartir', 'ref-catalogo', 'ref-historial'];
+// ── Navegación de la cuenta: pantallas tipo app (una sección visible a la vez) ──
+// Un solo nav para toda la cuenta. Cada chip muestra SU pantalla y oculta las
+// demás. El hash (#ref-xxx / #tab-xxx) guarda la pantalla actual: sobrevive a
+// recargar, al botón atrás, y es adonde llega el registro nuevo (#ref-resumen).
+// Los tabs de referidos/mayorista/ganá arrancan ocultos y se muestran cuando
+// se sabe qué es el usuario (appResolverReferido / appMostrarTab).
+const APP_TABS = ['ref-resumen', 'ref-compartir', 'ref-catalogo', 'ref-historial', 'tab-ganar', 'tab-mayorista', 'tab-pedidos', 'tab-cuenta'];
+let _appTabInicialElegido = false;
+function appTabVisible(id) { const a = document.querySelector(`#refNav a[data-tab="${id}"]`); return !!a && !a.hidden; }
+function appMostrarTab(id) {
+  const a = document.querySelector(`#refNav a[data-tab="${id}"]`); if (a) a.hidden = false;
+  // Si la pantalla inicial ya se eligio pero el hash pedia ESTE tab (que recien
+  // ahora existe, ej. #tab-mayorista llegando antes que cargue el mayorista), ir.
+  if (_appTabInicialElegido && location.hash === '#' + id) irATabRef(id, { sinScroll: true });
+}
 function irATabRef(id, opts) {
-  if (!REF_TABS.includes(id)) id = 'ref-resumen';
+  if (!APP_TABS.includes(id) || !appTabVisible(id)) id = appTabVisible('ref-resumen') ? 'ref-resumen' : (appTabVisible('tab-ganar') ? 'tab-ganar' : 'tab-pedidos');
   document.querySelectorAll('.ref-sec').forEach(s => s.classList.toggle('active', s.id === id));
   document.querySelectorAll('#refNav a').forEach(a => {
     const on = a.dataset.tab === id;
     a.classList.toggle('active', on);
-    if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    if (on) { a.setAttribute('aria-current', 'page'); a.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' }); } else a.removeAttribute('aria-current');
   });
   if (!(opts && opts.sinHash) && location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
   // La pantalla nueva arranca desde su inicio (justo debajo del nav sticky),
@@ -1212,15 +1203,32 @@ function irATabRef(id, opts) {
     if (window.scrollY > y) window.scrollTo({ top: y, behavior: 'auto' });
   }
 }
+const irATab = irATabRef;
+// Se llama cuando ya se sabe si el usuario es referido: revela los tabs que
+// corresponden y elige la pantalla inicial (hash valido > resumen > gana).
+function appResolverReferido(esReferido) {
+  const sub = document.getElementById('appSub');
+  if (esReferido) {
+    ['ref-resumen', 'ref-compartir', 'ref-catalogo', 'ref-historial'].forEach(appMostrarTab);
+    if (sub) sub.textContent = 'Compartí, seguí tus ventas y cobrá comisiones.';
+  } else {
+    appMostrarTab('tab-ganar');
+    if (sub) sub.textContent = 'Tus pedidos, tus datos, y una forma de ganar plata recomendando.';
+  }
+  if (_appTabInicialElegido) return;
+  _appTabInicialElegido = true;
+  const inicial = location.hash.slice(1);
+  const valido = APP_TABS.includes(inicial) && appTabVisible(inicial);
+  irATabRef(valido ? inicial : (esReferido ? 'ref-resumen' : 'tab-ganar'), { sinScroll: true, sinHash: !valido });
+  // Si se llego con hash (registro recien creado), llevar la vista al panel.
+  if (valido) setTimeout(() => document.getElementById('refNav').scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+}
 function activarNavReferidos() {
   const nav = document.getElementById('refNav');
   if (!nav) return;
   nav.querySelectorAll('a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); irATabRef(a.dataset.tab); }));
-  window.addEventListener('hashchange', () => { const id = location.hash.slice(1); if (REF_TABS.includes(id)) irATabRef(id, { sinHash: true }); });
-  const inicial = location.hash.slice(1);
-  irATabRef(REF_TABS.includes(inicial) ? inicial : 'ref-resumen', { sinScroll: true, sinHash: !REF_TABS.includes(inicial) });
-  // Si se llego con hash (registro recien creado), llevar la vista al panel.
-  if (REF_TABS.includes(inicial)) setTimeout(() => nav.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+  window.addEventListener('hashchange', () => { const id = location.hash.slice(1); if (APP_TABS.includes(id)) irATabRef(id, { sinHash: true }); });
+  document.body.classList.add('ref-wide');
 }
 
 // ── Placa para compartir: preview en vivo con campos editables ────────────
@@ -1471,16 +1479,10 @@ async function cargarMayorista() {
     if (!res.ok) return;
     const data = await res.json();
 
-    const seccion = document.getElementById('mayoristaSection');
     const wrap = document.getElementById('mayoristaWrap');
-    seccion.style.display = 'block';
     window._esMayoristaConfirmado = true;
     document.getElementById('mayoristaCtaRef')?.remove();
-    if (window._esReferidoConfirmado) {
-      document.getElementById('panelSwitcher').style.display = 'block';
-      document.getElementById('mayoristaSection').style.display = 'none';
-      setTabActivo('ref');
-    }
+    appMostrarTab('tab-mayorista');
 
     window._codigoMay = data.codigo_mayorista || '';
     const stats = data.stats || {};
@@ -1686,30 +1688,6 @@ function generarCSVComprasMayorista() {
   URL.revokeObjectURL(url);
 }
 
-function setTabActivo(tab) {
-  const btnRef = document.getElementById('btnTabRef');
-  const btnMay = document.getElementById('btnTabMay');
-  if (!btnRef || !btnMay) return;
-  btnRef.style.borderBottom = tab === 'ref' ? '3px solid var(--ink)' : '3px solid transparent';
-  btnRef.style.color = tab === 'ref' ? 'var(--ink)' : 'var(--gray-600)';
-  btnRef.style.fontWeight = tab === 'ref' ? '700' : '600';
-  btnMay.style.borderBottom = tab === 'may' ? '3px solid var(--ink)' : '3px solid transparent';
-  btnMay.style.color = tab === 'may' ? 'var(--ink)' : 'var(--gray-600)';
-  btnMay.style.fontWeight = tab === 'may' ? '700' : '600';
-}
-
-function mostrarPanelRef() {
-  document.getElementById('referidosSection').style.display = 'block';
-  document.getElementById('mayoristaSection').style.display = 'none';
-  setTabActivo('ref');
-}
-
-function mostrarPanelMay() {
-  document.getElementById('referidosSection').style.display = 'none';
-  document.getElementById('mayoristaSection').style.display = 'block';
-  setTabActivo('may');
-}
-
 async function activarMayorista(btn) {
   const textoOriginal = btn.textContent;
   btn.textContent = 'Activando...';
@@ -1732,8 +1710,7 @@ async function activarMayorista(btn) {
 }
 
 if (token) cargarCuenta();
-if (token) cargarReferidos();
-if (token) cargarMayorista();
+if (token) { activarNavReferidos(); cargarReferidos(); cargarMayorista(); }
 </script>
 </body>
 </html>
