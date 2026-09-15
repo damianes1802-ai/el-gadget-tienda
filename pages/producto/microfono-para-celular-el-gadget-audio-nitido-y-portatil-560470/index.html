@@ -84,6 +84,7 @@
       <div class="actions" id="mainActions">
         <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
         <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
+    <button class="ref-share-cta" id="refShareCta" type="button" onclick="compartirComoReferido()"></button>
       </div>
 
       <!-- Descripción -->
@@ -263,10 +264,86 @@ function galeriaSiguiente() {
   }, { passive: true });
 })();
 
+
+// ── Referidos: "Comparti y gana $X" con la comision real de este producto ──
+let _refCta = null;
+async function cargarCtaReferido() {
+  const token = localStorage.getItem('eg_token');
+  const btn = document.getElementById('refShareCta');
+  if (!token || !btn) return;
+  try {
+    const res = await fetch(EG_API_URL + '/api/referidos/comision/' + encodeURIComponent(varianteActiva.sku), { headers: { 'Authorization': 'Bearer ' + token } });
+    if (!res.ok) return;           // no es referido, o sesion vencida: no se muestra nada
+    _refCta = await res.json();
+    btn.innerHTML = 'Compartí y ganá <span style="font-size:17px">' + formatPrice(_refCta.comision_ars) + '</span>'
+      + '<small>Tu referido paga ' + formatPrice(_refCta.precio_con_descuento) + ' (−' + _refCta.descuento_pct + '%) · vos cobrás el ' + _refCta.tier_pct + '%</small>';
+    btn.classList.add('visible');
+  } catch (e) { /* silencioso: la ficha funciona igual sin esto */ }
+}
+function compartirComoReferido() {
+  if (!_refCta) return;
+  const link = _refCta.url + '?ref=' + encodeURIComponent(_refCta.codigo) + '&utm_source=whatsapp&utm_medium=referral&utm_campaign=ficha_share';
+  const texto = 'Mirá este producto en El Gadget:\n\n' + document.title.replace(' | El Gadget', '')
+    + '\nAntes: ' + formatPrice(_refCta.precio_venta) + ' → Ahora: ' + formatPrice(_refCta.precio_con_descuento) + ' (' + _refCta.descuento_pct + '% OFF)'
+    + '\n\nUsá mi código "' + _refCta.codigo + '" para el descuento:\n' + link;
+  if (navigator.share) { navigator.share({ title: 'El Gadget', text: texto }).catch(function () {}); return; }
+  window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+}
+
 function zoomImage() {
-  const img = document.getElementById('mainImage');
-  const full = img.dataset.full || img.src;
-  if (full) window.open(full, '_blank');
+  // Antes abria la URL de Cloudinary en otra pestana: el usuario se iba del
+  // sitio por error al tocar la imagen. Ahora agranda ACA, con navegacion.
+  let lb = document.getElementById('lightbox');
+  if (!lb) {
+    lb = document.createElement('div');
+    lb.id = 'lightbox'; lb.className = 'lightbox'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-label', 'Imagen ampliada');
+    lb.innerHTML = '<button class="lightbox-close" aria-label="Cerrar" type="button">×</button>'
+      + '<button class="gallery-arrow gallery-arrow-prev" aria-label="Imagen anterior" type="button">‹</button>'
+      + '<img alt="">'
+      + '<button class="gallery-arrow gallery-arrow-next" aria-label="Imagen siguiente" type="button">›</button>'
+      + '<div class="lightbox-count"></div>';
+    document.body.appendChild(lb);
+    lb.querySelector('.lightbox-close').onclick = cerrarLightbox;
+    lb.querySelector('.gallery-arrow-prev').onclick = function (e) { e.stopPropagation(); galeriaAnterior(); actualizarLightbox(); };
+    lb.querySelector('.gallery-arrow-next').onclick = function (e) { e.stopPropagation(); galeriaSiguiente(); actualizarLightbox(); };
+    lb.addEventListener('click', function (e) { if (e.target === lb) cerrarLightbox(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') cerrarLightbox();
+      if (e.key === 'ArrowLeft') { galeriaAnterior(); actualizarLightbox(); }
+      if (e.key === 'ArrowRight') { galeriaSiguiente(); actualizarLightbox(); }
+    });
+    activarSwipe(lb, function () { galeriaSiguiente(); actualizarLightbox(); }, function () { galeriaAnterior(); actualizarLightbox(); });
+  }
+  actualizarLightbox();
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function actualizarLightbox() {
+  const lb = document.getElementById('lightbox');
+  const main = document.getElementById('mainImage');
+  if (!lb || !main) return;
+  lb.querySelector('img').src = main.dataset.full || main.src;
+  lb.querySelector('img').alt = main.alt || '';
+  const n = (imagenesActuales || []).length;
+  lb.querySelector('.lightbox-count').textContent = n > 1 ? (imagenIndexActual + 1) + ' / ' + n : '';
+  lb.querySelectorAll('.gallery-arrow').forEach(function (b) { b.style.display = n > 1 ? '' : 'none'; });
+}
+function cerrarLightbox() {
+  const lb = document.getElementById('lightbox');
+  if (lb) lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Swipe horizontal (mobile): deslizar cambia de imagen, como en cualquier app
+function activarSwipe(el, onLeft, onRight) {
+  let x0 = null, y0 = null;
+  el.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  el.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    x0 = y0 = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) { if (dx < 0) onLeft(); else onRight(); }
+  }, { passive: true });
 }
 
 // Renderiza la imagen principal y las miniaturas para la variante seleccionada
@@ -319,6 +396,7 @@ function cambiarVariante(sku) {
   if (variante.url) {
     history.replaceState(null, '', variante.url);
   }
+  cargarCtaReferido();
 }
 
 // Cambiar variante interna seleccionada: solo cambia la galería de imágenes
@@ -355,6 +433,9 @@ function comprarAhora() {
   agregarAlCarrito();
   window.location.href = '../../carrito';
 }
+
+// IMG6: si el visitante es un referido logueado, mostrar cuanto gana con ESTE producto
+cargarCtaReferido();
 </script>
 </body>
 </html>

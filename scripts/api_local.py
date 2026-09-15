@@ -4143,6 +4143,52 @@ def placa_referido(request: Request, codigo: str = Query(...)):
     )
 
 
+@app.get("/api/referidos/comision/{sku}")
+def comision_producto_referido(sku: str, authorization: Optional[str] = Header(None)):
+    """Lo que cobraría el referido autenticado por vender ESTE producto, con su
+    tier actual. Lo usa la ficha de producto para el botón "Compartí y ganá $X".
+    Mismo cálculo que el catálogo de referidos (_comision_producto_referido)."""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Token requerido")
+    token = authorization.split(" ", 1)[1]
+
+    conn = get_db()
+    cursor = conn.cursor()
+    sesion = cursor.execute(
+        "SELECT usuario_id FROM sesiones_usuario WHERE token = ? AND creado_at > datetime('now', '-30 days')", (token,)
+    ).fetchone()
+    if not sesion:
+        conn.close()
+        raise HTTPException(status_code=401, detail="Sesión inválida o expirada")
+    usuario = cursor.execute("SELECT email FROM usuarios_registrados WHERE id = ?", (sesion[0],)).fetchone()
+    ref = cursor.execute("SELECT id, codigo FROM referidos WHERE email = ? AND activo = 1", (usuario[0],)).fetchone() if usuario else None
+    if not ref:
+        conn.close()
+        raise HTTPException(status_code=404, detail="No estás registrado en el programa de referidos")
+
+    producto = cursor.execute(
+        "SELECT sku, nombre, precio_venta, url_amigable FROM productos WHERE sku = ? AND stock > 0", (sku,)
+    ).fetchone()
+    if not producto:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Producto no encontrado")
+
+    tier = _get_tier_comision(ref["id"], conn)
+    conn.close()
+    calc = _comision_producto_referido(float(producto["precio_venta"]), tier["porcentaje"])
+    return {
+        "sku": producto["sku"],
+        "codigo": ref["codigo"],
+        "tier": tier["tier"],
+        "tier_pct": tier["porcentaje"],
+        "precio_venta": producto["precio_venta"],
+        "descuento_pct": calc["descuento_pct"],
+        "precio_con_descuento": calc["precio_con_descuento"],
+        "comision_ars": calc["comision_ars"],
+        "url": f"https://elgadget.com.ar/producto/{producto['url_amigable']}/",
+    }
+
+
 @app.get("/api/referidos/dashboard")
 def dashboard_referido(authorization: Optional[str] = Header(None)):
     """Dashboard del referido autenticado: su código, comisiones por periodo y totales."""

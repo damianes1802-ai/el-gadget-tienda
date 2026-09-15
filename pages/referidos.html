@@ -608,6 +608,12 @@ async function registrarReferido(e) {
     document.getElementById('formReferido').style.display = 'none';
     document.getElementById('codigoDisplay').textContent = data.codigo;
     document.getElementById('refSuccess').style.display = 'block';
+    // Cuenta creada: llevar al panel de referidos directamente (ahi estan el
+    // codigo, los mensajes listos, la placa y el catalogo con comisiones).
+    if (data.token) {
+      showToast('¡Cuenta creada! Te llevamos a tu panel...');
+      setTimeout(() => { window.location.href = 'mi_cuenta#ref-resumen'; }, 1200);
+    }
     generarMensajesRegistro(data.codigo);
   } catch (err) {
     errDiv.textContent = 'Error de conexión. Verificá tu internet e intentá de nuevo.';

@@ -88,6 +88,65 @@
 .msg-btn-copy:hover{background:var(--ink);color:var(--paper)}
 .msg-btn-send{font-size:11.5px;padding:6px 14px;border-radius:8px;border:none;background:#25D366;color:#fff;cursor:pointer;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
 .msg-cta-zero{background:linear-gradient(135deg,#fffbeb,var(--cream));border:1.5px dashed var(--accent);border-radius:12px;padding:16px 20px;margin-bottom:16px;text-align:center}
+
+/* ── PANEL DE REFERIDOS: navegacion, titulos, desktop, precios, placa ── */
+.ref-panel-head{margin:0 0 14px}
+.ref-panel-head h2{font-size:22px;font-weight:800;letter-spacing:-.3px;margin:0 0 2px;color:var(--ink)}
+.ref-panel-head p{font-size:13px;color:var(--gray-600);margin:0}
+.ref-nav{position:sticky;top:64px;z-index:40;display:flex;gap:6px;padding:8px 0;margin:0 0 16px;background:var(--paper,#F7F6F3);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ref-nav::-webkit-scrollbar{display:none}
+.ref-nav a{flex:0 0 auto;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:999px;border:1.5px solid #e5e7eb;background:#fff;color:var(--gray-600);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
+.ref-nav a.active,.ref-nav a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ref-sec{scroll-margin-top:118px;margin-bottom:26px}
+.ref-sec-title{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.ref-sec-title h3{font-size:17px;font-weight:800;margin:0;color:var(--ink);letter-spacing:-.2px}
+.ref-sec-title .ref-sec-num{width:26px;height:26px;border-radius:8px;background:var(--ink);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ref-sec-title .ref-sec-hint{font-size:12px;color:var(--gray-600);margin-left:auto}
+.ref-mayorista{border:1px dashed #d1d5db;border-radius:12px;padding:18px 18px 16px;margin-bottom:16px;text-align:center}
+.ref-mayorista p{margin:0}
+.ref-mayorista .ref-mayorista-btn{display:inline-block;margin-top:12px;font-size:13px;padding:9px 20px;border-radius:9px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:700}
+.ref-mayorista .ref-mayorista-btn:hover{background:var(--ink);color:var(--paper)}
+/* precios: quien gana que (filas etiqueta … valor, legibles a 375px) */
+.prod-card-econ{margin-top:8px;display:flex;flex-direction:column;gap:5px;font-size:12px;text-align:left}
+.prod-card-econ .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.prod-card-econ .k{color:var(--gray-600);white-space:nowrap}
+.prod-card-econ .v{font-weight:700;color:var(--ink);text-align:right}
+.prod-card-econ .v.old{font-weight:500;color:var(--gray-600);text-decoration:line-through}
+.prod-card-econ .v.buyer{font-size:14.5px}
+.prod-card-econ .ahorro{font-size:11px;font-weight:700;color:#10b981;text-align:right;margin-top:-3px}
+.prod-card-econ .row.earn{border-top:1px dashed #e5e7eb;padding-top:5px;margin-top:2px}
+.prod-card-econ .row.earn .k{color:#166534;font-weight:700}
+.prod-card-econ .v.earn{color:#16a34a;font-size:16px}
+/* desktop: mas ancho y dos columnas donde suma */
+@media(min-width:1024px){
+  body.ref-wide .page-wrap{max-width:1140px!important} /* el 900px viene inline en el HTML */
+  .ref-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  .ref-grid-2>*{margin-bottom:0!important}
+  .prod-list{display:grid;grid-template-columns:1fr 1fr;border:none;background:transparent;overflow:visible;gap:12px}
+  .prod-card{border:1.5px solid #e5e7eb;border-radius:12px;background:#fff}
+  .prod-card:last-child{border-bottom:1.5px solid #e5e7eb}
+  .ref-nav{top:72px}
+  .ref-nav a{font-size:13px;padding:9px 18px}
+}
+/* placa: editor con preview en vivo */
+.placa-box{max-width:920px}
+.placa-grid{display:grid;grid-template-columns:1fr;gap:18px}
+.placa-fields{display:flex;flex-direction:column;gap:12px}
+.placa-preview-wrap{position:relative;background:#111;border-radius:14px;overflow:hidden;aspect-ratio:9/16;max-height:62vh;margin:0 auto;width:100%;max-width:340px}
+.placa-preview-wrap canvas{width:100%;height:100%;display:block}
+.placa-styles{display:flex;gap:8px;flex-wrap:wrap}
+.placa-style{width:38px;height:38px;border-radius:10px;border:2px solid transparent;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.placa-style.active{border-color:var(--accent);box-shadow:0 0 0 2px #fff,0 0 0 4px var(--accent)}
+.placa-overlay-fields{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-direction:column;gap:8px}
+.placa-overlay-fields .modal-input{background:rgba(255,255,255,.94);font-size:13px;padding:9px 12px}
+@media(min-width:760px){
+  .placa-grid{grid-template-columns:1fr 340px}
+  .placa-overlay-fields{display:none}
+  .placa-preview-wrap{max-height:none;margin:0}
+}
+@media(max-width:759px){
+  .placa-fields-desktop{display:none}
+}
 </style>
 </head>
 <body>
@@ -158,7 +217,6 @@
 
   <!-- SECCIÓN REFERIDOS (se muestra solo si el usuario es referido) -->
   <div class="content-section" id="referidosSection" style="display:none;margin-top:20px">
-    <h2 style="padding-top:8px">Programa de Referidos</h2>
     <div id="referidosWrap"></div>
   </div>
 
@@ -797,8 +855,9 @@ async function cargarReferidos() {
             </div>
             <span style="font-size:12px;font-weight:700;color:${tierColor};white-space:nowrap">${pct}%</span>
           </div>
-          <p style="font-size:12px;color:var(--ink);margin:10px 0 0;line-height:1.45">
-            Te ${tier.next_tier_en === 1 ? 'falta <strong>1 venta</strong>' : `faltan <strong>${tier.next_tier_en} ventas</strong>`} para ganar <strong>+${extraPor15k} por venta de $15.000</strong> — para siempre.
+          <p style="font-size:13px;color:var(--ink);margin:10px 0 0;line-height:1.5">
+            Ganás <strong>${tier.porcentaje}%</strong> por cada venta · sube a <strong>${tier.next_porcentaje || 11}%</strong> si conseguís <strong>${end} ventas</strong> en el mes${tier.ventas_mes > 0 ? ` (te ${tier.next_tier_en === 1 ? 'falta 1' : 'faltan ' + tier.next_tier_en})` : ''}.
+            <span style="display:block;font-size:12px;color:var(--gray-600);margin-top:3px">En una venta de $15.000 son <strong>+${extraPor15k}</strong> más para vos, para siempre.</span>
           </p>
         </div>`;
     } else {
@@ -838,19 +897,37 @@ async function cargarReferidos() {
           }).join('')}</tbody>
         </table></div>`;
 
+    document.body.classList.add('ref-wide');
     wrap.innerHTML = `
+      <div class="ref-panel-head">
+        <h2>Programa de referidos</h2>
+        <p>Tu panel para compartir, seguir tus ventas y cobrar comisiones.</p>
+      </div>
+      <nav class="ref-nav" id="refNav" aria-label="Secciones del panel">
+        <a href="#ref-resumen" class="active">Resumen</a>
+        <a href="#ref-compartir">Compartir</a>
+        <a href="#ref-catalogo">Catálogo</a>
+        <a href="#ref-historial">Historial</a>
+      </nav>
+
+      <!-- ═══ RESUMEN ═══ -->
+      <section class="ref-sec" id="ref-resumen">
+      <div class="ref-sec-title"><span class="ref-sec-num">1</span><h3>Tu resumen</h3><span class="ref-sec-hint">cuánto ganás y cuándo cobrás</span></div>
+      <div class="ref-grid-2">
+      <div>
       <!-- BARRA DE COBRO -->
       ${generarBarraCobroHtml(data)}
-
+      </div>
       <!-- TIER WIDGET -->
       <div style="background:var(--cream);border-radius:14px;padding:18px 22px;margin-bottom:16px;text-align:center">
         ${tierTimelineHtml}
         <p style="font-size:12px;color:var(--gray-600);margin:0 0 2px">${tier.ventas_mes} venta${tier.ventas_mes !== 1 ? 's' : ''} este mes · Próximo cobro: <strong>${escapeHtmlBasico(data.proximo_cobro || '')}</strong></p>
         ${progressHtml}
       </div>
+      </div>
 
       <!-- CARDS: Por cobrar → Total ganado → Código+Compartir -->
-      <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+      <div style="display:flex;gap:12px;margin:16px 0 0;flex-wrap:wrap">
         <div style="flex:1;min-width:130px;background:${totalPendiente > 0 ? 'linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%)' : 'var(--cream)'};border:1.5px solid ${totalPendiente > 0 ? '#86efac' : '#e5e7eb'};border-radius:12px;padding:16px 20px;text-align:center">
           <p style="font-size:10.5px;color:var(--gray-600);margin:0 0 3px;text-transform:uppercase;letter-spacing:.5px">Por cobrar</p>
           <p style="font-size:22px;font-weight:700;color:${totalPendiente > 0 ? '#16a34a' : 'var(--gray-600)'};margin:0 0 3px">${formatPrice(totalPendiente)}</p>
@@ -866,13 +943,18 @@ async function cargarReferidos() {
           <p style="font-size:22px;font-weight:700;letter-spacing:3px;color:var(--paper);margin:0 0 10px">${escapeHtmlBasico(data.codigo || '')}</p>
           <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
             <button onclick="copiarCodigoRef()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--paper);cursor:pointer;font-weight:600">Copiar</button>
-            <button onclick="descargarPlacaRef('${escapeHtmlBasico(data.codigo || '')}')" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--paper);cursor:pointer;font-weight:600">📷 Placa</button>
+            <button onclick="abrirEditorPlaca('${escapeHtmlBasico(data.codigo || '')}', '${escapeHtmlBasico((data.nombre || localStorage.getItem('eg_nombre') || '').split(' ')[0])}')" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--paper);cursor:pointer;font-weight:600">📷 Placa</button>
             <button onclick="compartirCodigoRef('${escapeHtmlBasico(data.codigo || '')}')" style="font-size:12px;padding:6px 16px;border-radius:8px;border:none;background:var(--accent);color:var(--ink);cursor:pointer;font-weight:700">Compartir →</button>
           </div>
           <p style="font-size:10.5px;color:rgba(255,255,255,.65);margin:10px 0 0;line-height:1.4">Quien compre con este código ahorra hasta 20% · Vos cobrás entre 7% y 15%</p>
         </div>
       </div>
 
+      </section>
+
+      <!-- ═══ COMPARTIR ═══ -->
+      <section class="ref-sec" id="ref-compartir">
+      <div class="ref-sec-title"><span class="ref-sec-num">2</span><h3>Compartí y empezá a ganar</h3><span class="ref-sec-hint">mensajes listos y tu placa</span></div>
       <!-- Estado onboarding para referidos nuevos (Mejora 4) -->
       ${totalPendiente === 0 && totalComision === 0 ? `
       <div style="background:linear-gradient(135deg,#fffbeb 0%,var(--cream) 100%);border:1.5px solid var(--accent);border-radius:14px;padding:22px 24px;margin-bottom:16px" id="ctaZeroComisiones">
@@ -900,21 +982,19 @@ async function cargarReferidos() {
       </div>
 
       <!-- CTA MAYORISTA (oculto si el usuario ya es mayorista) -->
-      <div id="mayoristaCtaRef" style="border:1px dashed #d1d5db;border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-        <div>
-          <p style="font-size:12.5px;font-weight:600;color:var(--ink);margin:0 0 2px">¿Comprás en cantidad para revender?</p>
-          <p style="font-size:11.5px;color:var(--gray-600);margin:0">Activá precio mayorista: 25% OFF en pedidos de $100.000 o más. En un pedido de $100k ahorrás $25.000.</p>
-        </div>
-        <button onclick="activarMayorista(this)" style="font-size:12px;padding:5px 14px;border-radius:8px;border:1px solid #d1d5db;background:transparent;color:var(--gray-600);cursor:pointer;white-space:nowrap;flex-shrink:0">Activar precio mayorista →</button>
+      <div id="mayoristaCtaRef" class="ref-mayorista">
+        <p style="font-size:13.5px;font-weight:700;color:var(--ink);margin:0 0 4px">¿Comprás en cantidad para revender?</p>
+        <p style="font-size:12px;color:var(--gray-600)">Activá precio mayorista: 25% OFF en pedidos de $100.000 o más. En un pedido de $100k ahorrás $25.000.</p>
+        <button onclick="activarMayorista(this)" class="ref-mayorista-btn">Activar precio mayorista →</button>
       </div>
 
-      <!-- CATÁLOGO -->
+      </section>
+
+      <!-- ═══ CATÁLOGO ═══ -->
+      <section class="ref-sec" id="ref-catalogo">
       <div style="margin-bottom:24px">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px">
-          <h3 style="margin:0;font-size:15px">Elegí qué compartir</h3>
-          <button onclick="generarCSVCatalogo()" style="font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Descargar CSV</button>
-        </div>
-        <p style="font-size:12px;color:var(--gray-600);margin:0 0 10px">Compartir un producto específico convierte mejor que el código solo. Usá el botón <strong>WA</strong> de cada fila para enviar un mensaje ya listo.</p>
+        <div class="ref-sec-title"><span class="ref-sec-num">3</span><h3>Elegí qué compartir</h3><button onclick="generarCSVCatalogo()" style="margin-left:auto;font-size:12px;padding:6px 14px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-weight:600">Descargar CSV</button></div>
+        <p style="font-size:12.5px;color:var(--gray-600);margin:0 0 12px">Compartir un producto específico convierte mejor que el código solo. En cada producto ves <strong>lo que ahorra tu referido</strong> y <strong>lo que cobrás vos</strong>. Usá <strong>Compartir</strong> para mandar un mensaje ya listo.</p>
         <!-- Filtros -->
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
           <input id="catSearch" type="text" placeholder="Buscar producto..." value="${escapeHtmlBasico(_cat.search)}"
@@ -942,10 +1022,15 @@ async function cargarReferidos() {
         <div id="catalogoPaginas" style="display:flex;justify-content:center;align-items:center;gap:12px;margin-top:12px"></div>
       </div>
 
-      <!-- HISTORIAL -->
-      <h3 style="margin:0 0 12px;font-size:15px">Historial de comisiones</h3>
+      </section>
+
+      <!-- ═══ HISTORIAL ═══ -->
+      <section class="ref-sec" id="ref-historial">
+      <div class="ref-sec-title"><span class="ref-sec-num">4</span><h3>Historial de comisiones</h3></div>
       ${periodosHtml}
+      </section>
     `;
+    activarNavReferidos();
 
     // Cargar el catálogo después de que el DOM esté listo
     cargarCatalogo();
@@ -1017,12 +1102,12 @@ async function cargarCatalogo() {
         <div class="prod-card-info">
           <a class="prod-card-name" href="${escapeHtmlBasico(p.url_tienda)}" target="_blank" rel="noopener">${escapeHtmlBasico(p.nombre)}</a>
           <div class="prod-card-cat">${escapeHtmlBasico(p.categoria || '')}</div>
-          <div class="prod-card-prices">
-            <span class="prod-card-old">${precioOrig}</span>
-            <span class="prod-card-new">${precioDesc}</span>
-            <span class="prod-card-pct">−${p.descuento_pct}%</span>
+          <div class="prod-card-econ">
+            <div class="row"><span class="k">Precio de lista</span><span class="v old">${precioOrig}</span></div>
+            <div class="row"><span class="k">Tu referido paga</span><span class="v buyer">${precioDesc}</span></div>
+            <div class="ahorro">ahorra ${formatPrice(Math.round(p.precio_venta - p.precio_con_descuento))} (−${p.descuento_pct}%)</div>
+            <div class="row earn"><span class="k">Vos cobrás</span><span class="v earn">${formatPrice(p.comision_ars)}</span></div>
           </div>
-          <div class="prod-card-earn">Ganás ${formatPrice(p.comision_ars)}</div>
         </div>
         <div class="prod-card-actions">
           <button class="prod-btn prod-btn-ver" onclick="toggleShareMenu(${idx})" style="position:relative">Compartir ▾</button>
@@ -1092,6 +1177,211 @@ function compartirCodigoRef(codigo) {
   } else {
     navigator.clipboard.writeText(texto).then(() => showToast('¡Texto copiado!')).catch(() => {});
   }
+}
+
+
+// ── Navegación sticky del panel: marca la sección visible ─────────────────
+function activarNavReferidos() {
+  const nav = document.getElementById('refNav');
+  if (!nav) return;
+  const links = [...nav.querySelectorAll('a')];
+  links.forEach(a => a.addEventListener('click', e => {
+    const el = document.querySelector(a.getAttribute('href'));
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    links.forEach(l => l.classList.remove('active')); a.classList.add('active');
+  }));
+  // Llegada desde el registro (o desde un link) con #ref-<seccion>: la
+  // seccion recien existe ahora, asi que el scroll se hace aca.
+  if (location.hash && location.hash.startsWith('#ref-')) {
+    const dest = document.querySelector(location.hash);
+    if (dest) setTimeout(() => dest.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+  }
+  if (!('IntersectionObserver' in window)) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id));
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+  document.querySelectorAll('.ref-sec').forEach(s => obs.observe(s));
+}
+
+// ── Placa para compartir: preview en vivo con campos editables ────────────
+// Se dibuja en canvas en el navegador (misma composicion que
+// utils/placa_referido.py, formato story 1080x1920) para que el usuario vea
+// el resultado mientras edita. El endpoint /api/referidos/placa queda como
+// fallback si el canvas no estuviera disponible.
+// roundRect no existe en algunos Android viejos: polyfill minimo
+if (window.CanvasRenderingContext2D && !CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+    r = Math.min(r, w / 2, h / 2);
+    this.moveTo(x + r, y); this.arcTo(x + w, y, x + w, y + h, r); this.arcTo(x + w, y + h, x, y + h, r);
+    this.arcTo(x, y + h, x, y, r); this.arcTo(x, y, x + w, y, r); this.closePath(); return this;
+  };
+}
+const PLACA_ESTILOS = {
+  oscuro:   { bg: '#14151A', ink: '#14151A', txt: '#FFFFFF', sub: '#BEBEC3', acc: '#FFC700', box: '#FFC700', boxTxt: '#14151A', boxLbl: '#785F00', chip: '#FFC700' },
+  claro:    { bg: '#FDF9F0', ink: '#14151A', txt: '#14151A', sub: '#5A554E', acc: '#14151A', box: '#14151A', boxTxt: '#FFC700', boxLbl: '#BEBEC3', chip: '#FFC700' },
+  amarillo: { bg: '#FFC700', ink: '#14151A', txt: '#14151A', sub: '#5A4A00', acc: '#14151A', box: '#14151A', boxTxt: '#FFC700', boxLbl: '#BEBEC3', chip: '#14151A' },
+};
+const _placa = { codigo: '', nombre: '', frase: 'Comprá con mi código', estilo: 'oscuro' };
+
+function abrirEditorPlaca(codigo, nombre) {
+  if (!codigo) return;
+  _placa.codigo = codigo; _placa.nombre = nombre || '';
+  let ov = document.getElementById('placaOverlay');
+  if (!ov) {
+    ov = document.createElement('div');
+    ov.id = 'placaOverlay'; ov.className = 'modal-overlay';
+    ov.innerHTML = `
+      <div class="modal-box placa-box" role="dialog" aria-modal="true" aria-labelledby="placaTitle">
+        <h3 class="modal-title" id="placaTitle">Tu placa para compartir</h3>
+        <p class="modal-desc">Editá el texto y mirá cómo queda. Se guarda como imagen lista para historias, estados y posteos.</p>
+        <div class="placa-grid">
+          <div class="placa-fields placa-fields-desktop">
+            <div class="modal-field"><label class="modal-label" for="placaFrase">Frase principal</label><input id="placaFrase" class="modal-input" maxlength="34" oninput="_placa.frase=this.value;const m=document.getElementById('placaFraseM');if(m)m.value=this.value;dibujarPlaca()"></div>
+            <div class="modal-field"><label class="modal-label" for="placaNombre">Tu nombre (opcional)</label><input id="placaNombre" class="modal-input" maxlength="24" placeholder="Aparece como «de parte de …»" oninput="_placa.nombre=this.value;const m=document.getElementById('placaNombreM');if(m)m.value=this.value;dibujarPlaca()"></div>
+            <div class="modal-field"><span class="modal-label">Estilo</span><div class="placa-styles" id="placaStyles"></div></div>
+            <p style="font-size:12px;color:var(--gray-600);margin:0">Tu código <strong>${escapeHtmlBasico(codigo)}</strong> siempre va en la placa: es lo que tu referido usa para el descuento.</p>
+          </div>
+          <div>
+            <div class="placa-preview-wrap">
+              <canvas id="placaCanvas" width="1080" height="1920"></canvas>
+              <div class="placa-overlay-fields">
+                <input id="placaFraseM" class="modal-input" maxlength="34" placeholder="Frase principal" oninput="_placa.frase=this.value;const d=document.getElementById('placaFrase');if(d)d.value=this.value;dibujarPlaca()">
+                <input id="placaNombreM" class="modal-input" maxlength="24" placeholder="Tu nombre (opcional)" oninput="_placa.nombre=this.value;const d=document.getElementById('placaNombre');if(d)d.value=this.value;dibujarPlaca()">
+                <div class="placa-styles" id="placaStylesM"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn modal-btn-secondary" onclick="cerrarEditorPlaca()">Cerrar</button>
+          <button class="btn modal-btn-primary" onclick="descargarPlacaCanvas()">Guardar / compartir</button>
+        </div>
+      </div>`;
+    document.body.appendChild(ov);
+    ov.addEventListener('click', e => { if (e.target === ov) cerrarEditorPlaca(); });
+  }
+  document.getElementById('placaFrase').value = _placa.frase;
+  document.getElementById('placaFraseM').value = _placa.frase;
+  document.getElementById('placaNombre').value = _placa.nombre;
+  document.getElementById('placaNombreM').value = _placa.nombre;
+  ['placaStyles', 'placaStylesM'].forEach(id => {
+    const c = document.getElementById(id);
+    c.innerHTML = Object.keys(PLACA_ESTILOS).map(k => `<button type="button" class="placa-style${k === _placa.estilo ? ' active' : ''}" data-estilo="${k}" title="${k}" style="background:${PLACA_ESTILOS[k].bg};border-color:${k === _placa.estilo ? 'var(--accent)' : (k === 'claro' ? '#e5e7eb' : 'transparent')}" onclick="_placa.estilo='${k}';document.querySelectorAll('.placa-style').forEach(b=>b.classList.toggle('active',b.dataset.estilo==='${k}'));dibujarPlaca()"></button>`).join('');
+  });
+  ov.style.display = 'flex';
+  requestAnimationFrame(() => ov.classList.add('visible'));
+  const dibujar = () => dibujarPlaca();
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(dibujar);
+  dibujar();
+}
+
+function cerrarEditorPlaca() {
+  const ov = document.getElementById('placaOverlay');
+  if (!ov) return;
+  ov.classList.remove('visible');
+  setTimeout(() => { ov.style.display = 'none'; }, 200);
+}
+
+function _placaTxt(ctx, texto, cx, y, font, color, maxW, tracking) {
+  ctx.font = font; ctx.fillStyle = color; ctx.textBaseline = 'top';
+  if (tracking) {
+    const chars = [...texto];
+    const widths = chars.map(ch => ctx.measureText(ch).width + tracking);
+    let x = cx - (widths.reduce((a, b) => a + b, 0) - tracking) / 2;
+    ctx.textAlign = 'left';
+    chars.forEach((ch, i) => { ctx.fillText(ch, x, y); x += widths[i]; });
+    return;
+  }
+  ctx.textAlign = 'center';
+  if (maxW && ctx.measureText(texto).width > maxW) {
+    // envuelve en 2 lineas como maximo
+    const palabras = texto.split(' '); let l1 = '', l2 = '';
+    for (const w of palabras) {
+      const prueba = (l1 ? l1 + ' ' : '') + w;
+      if (ctx.measureText(prueba).width <= maxW && !l2) l1 = prueba; else l2 = (l2 ? l2 + ' ' : '') + w;
+    }
+    ctx.fillText(l1, cx, y);
+    if (l2) ctx.fillText(l2, cx, y + parseInt(font, 10) * 1.15);
+    return l2 ? 2 : 1;
+  }
+  ctx.fillText(texto, cx, y);
+  return 1;
+}
+
+function dibujarPlaca() {
+  const cv = document.getElementById('placaCanvas');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const s = PLACA_ESTILOS[_placa.estilo] || PLACA_ESTILOS.oscuro;
+  const W = 1080, H = 1920, cx = W / 2;
+  const grot = "'Space Grotesk', 'Inter', system-ui, sans-serif";
+  const inter = "'Inter', system-ui, sans-serif";
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H);
+
+  // barras del logo (ecualizador) + marca
+  const barras = [46, 84, 60, 110, 72];
+  let bx = cx - (barras.length * 28 - 12) / 2;
+  barras.forEach(h => { ctx.fillStyle = s.chip; ctx.beginPath(); ctx.roundRect(bx, 150 - h, 16, h, 6); ctx.fill(); bx += 28; });
+  _placaTxt(ctx, 'EL GADGET', cx, 176, `700 46px ${grot}`, s.txt, null, 8);
+
+  // frase principal + subtitulo
+  const frase = (_placa.frase || 'Comprá con mi código').trim() || 'Comprá con mi código';
+  const lineas = _placaTxt(ctx, frase, cx, 330, `700 62px ${inter}`, s.txt, 940) || 1;
+  let y = 330 + (lineas === 2 ? 150 : 84);
+  _placaTxt(ctx, 'y ahorrá hasta', cx, y, `400 40px ${inter}`, s.sub);
+  y += 60;
+  _placaTxt(ctx, '20% OFF', cx, y, `700 150px ${grot}`, s.acc);
+  y += 200;
+
+  // caja del codigo
+  const boxW = 880, boxH = 300, boxX = cx - boxW / 2;
+  ctx.fillStyle = s.box; ctx.beginPath(); ctx.roundRect(boxX, y, boxW, boxH, 40); ctx.fill();
+  _placaTxt(ctx, 'TU CÓDIGO', cx, y + 44, `700 34px ${inter}`, s.boxLbl, null, 6);
+  let size = 120;
+  ctx.font = `700 ${size}px ${grot}`;
+  while (ctx.measureText(_placa.codigo).width > boxW - 100 && size > 48) { size -= 6; ctx.font = `700 ${size}px ${grot}`; }
+  _placaTxt(ctx, _placa.codigo, cx, y + 112, `700 ${size}px ${grot}`, s.boxTxt);
+  y += boxH + 60;
+
+  // de parte de (opcional)
+  const nombre = (_placa.nombre || '').trim();
+  if (nombre) { _placaTxt(ctx, `de parte de ${nombre}`, cx, y, `500 40px ${inter}`, s.sub, 900); y += 70; }
+
+  _placaTxt(ctx, 'Usalo al finalizar tu compra en', cx, y + 20, `500 38px ${inter}`, s.sub);
+  _placaTxt(ctx, 'elgadget.com.ar', cx, y + 76, `700 56px ${inter}`, s.acc);
+
+  // pasos al pie
+  const pasos = ['Entrá a la tienda', 'Elegí tus productos', 'Poné el código y pagá'];
+  const pieY = H - 300, colW = W / 3;
+  pasos.forEach((p, i) => {
+    const px = colW * i + colW / 2;
+    ctx.fillStyle = s.chip; ctx.beginPath(); ctx.arc(px, pieY, 40, 0, Math.PI * 2); ctx.fill();
+    _placaTxt(ctx, String(i + 1), px, pieY - 22, `700 40px ${inter}`, s.ink === s.chip ? s.txt : s.ink);
+    _placaTxt(ctx, p, px, pieY + 66, `500 28px ${inter}`, s.txt, colW - 40);
+  });
+}
+
+async function descargarPlacaCanvas() {
+  const cv = document.getElementById('placaCanvas');
+  if (!cv) return;
+  const codigo = _placa.codigo;
+  cv.toBlob(async blob => {
+    if (!blob) { descargarPlacaRef(codigo); return; }
+    const file = new File([blob], `mi-codigo-${codigo}.png`, { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file], title: 'Mi código El Gadget' }); return; } catch (e) { /* cancelado: cae a descarga */ }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = `mi-codigo-${codigo}.png`;
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    showToast('¡Placa guardada! Compartila en tus redes.');
+  }, 'image/png');
 }
 
 async function descargarPlacaRef(codigo) {
