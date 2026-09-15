@@ -212,6 +212,16 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   backslash y `curl ... \` + salto queda pegado en una sola línea. Para editar workflows, usar la
   herramienta de escritura de archivos (o un script Python en el scratchpad), no heredocs. Validar
   siempre después con `bash -n` sobre el bloque `run:` extraído.
+- **Los slugs de producto están CONGELADOS desde el 2026-09-15 — nunca volver a recalcularlos del
+  nombre.** Antes se recomputaban en cada corrida: el job mensual de Gemini reescribía nombres, el
+  generador movía la ficha a otra URL y borraba la carpeta vieja → 404 donde había una página
+  rankeando. Pasó con 36+ productos entre junio y septiembre y es buena parte de por qué el catálogo
+  no tenía presencia orgánica. Ahora `url_amigable` se respeta si existe; los slugs viejos viven en
+  `data/redirects_producto.json` (versionado) y el generador les escribe un stub con canonical +
+  meta refresh hacia la URL actual. **Renombrar un producto es seguro** (cambia título y H1, no la
+  URL). Si alguna vez se quiere cambiar una URL a propósito: vaciar `url_amigable` de ese SKU y el
+  slug viejo se agrega solo al mapa de redirecciones en la siguiente corrida.
+
 - **Los slugs de producto incluyen el SKU al final** (`...-diatomita-beige-pisadas-secas-dl1172-5-be`).
   Adivinar la URL desde el nombre da 404: sacarla de `productos.url_amigable` o de `pages/sitemap.xml`.
 - **Render free duerme.** La primera llamada después de un rato puede tardar ~50 s. Cualquier script
