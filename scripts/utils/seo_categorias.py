@@ -18,7 +18,7 @@ def slug_categoria(nombre: str) -> str:
 
 CATEGORIAS_SEO = {
     'bazar-y-cocina': {
-        'title': 'Artículos de Bazar y Cocina — Utensilios y accesorios | El Gadget',
+        'title': 'Botellas Térmicas, Vasos y Bazar de Cocina | El Gadget',
         'h1': 'Artículos de bazar y cocina',
         'meta': 'Utensilios de cocina, ralladores, escurridores y accesorios de bazar con envío a todo el país. Pagá seguro con Mercado Pago y recibilo en tu casa.',
         'intro': 'Todo lo que hace más fácil la cocina de todos los días: utensilios prácticos, escurridores de platos y accesorios de bazar elegidos por su relación precio-calidad. Comprás online, pagás seguro con Mercado Pago y te lo enviamos a todo el país.',
@@ -36,7 +36,7 @@ CATEGORIAS_SEO = {
                   'Mercado Pago: tarjetas de crédito, débito y dinero en cuenta. El pago es 100% seguro y la factura llega a tu email.')],
     },
     'accesorios-para-mascotas': {
-        'title': 'Accesorios para Mascotas — Alfombras, comederos y más | El Gadget',
+        'title': 'Alfombras Absorbentes y Collares para Mascotas | El Gadget',
         'h1': 'Accesorios para mascotas',
         'meta': 'Accesorios para mascotas: alfombras absorbentes, comederos, cepillos y más para perros y gatos. Envío a todo el país y pago seguro con Mercado Pago.',
         'intro': 'Accesorios pensados para que convivir con tu perro o gato sea más limpio y simple: alfombras absorbentes de diatomita, comederos y bebederos portátiles, cepillos y guantes para el pelo. Envío a toda la Argentina.',
@@ -54,7 +54,7 @@ CATEGORIAS_SEO = {
                   'Tenés cambios hasta 10 días después de recibirlo. Escribinos por WhatsApp y lo resolvemos.')],
     },
     'deco': {
-        'title': 'Artículos de Decoración para el Hogar — Deco online | El Gadget',
+        'title': 'Lámparas, Luces LED y Decoración para el Hogar | El Gadget',
         'h1': 'Artículos de decoración',
         'meta': 'Deco para tu casa: adornos, espejos, detalles luminosos y objetos con onda para renovar ambientes. Comprá online con envío a todo el país.',
         'intro': 'Detalles que cambian un ambiente sin gastar de más: objetos decorativos, espejos y piezas con personalidad para el living, la habitación o tu escritorio.',
@@ -72,7 +72,7 @@ CATEGORIAS_SEO = {
                   'Luz y espejos: un velador LED cálido más un espejo decorativo cambian el clima de una habitación por menos de lo que cuesta pintar.')],
     },
     'bano-y-limpieza': {
-        'title': 'Accesorios de Baño y Limpieza — Organizá tu baño | El Gadget',
+        'title': 'Escobillas y Accesorios de Baño y Limpieza | El Gadget',
         'h1': 'Accesorios de baño y limpieza',
         'meta': 'Accesorios de baño: alfombras antideslizantes, jaboneras, estantes y artículos de limpieza prácticos. Envío a todo el país y pago con Mercado Pago.',
         'intro': 'Accesorios de baño que suman seguridad y orden: alfombras antideslizantes con piedra pómez, jaboneras, estantes y soluciones de limpieza que simplifican la rutina. Todo con envío a domicilio en Argentina.',
@@ -88,7 +88,7 @@ CATEGORIAS_SEO = {
                   'No: casi todos son adhesivos, con sopapas o apoyados. Nada de agujerear azulejos ni llamar a nadie.')],
     },
     'articulos-infantiles': {
-        'title': 'Artículos Infantiles — Juguetes didácticos y regalos para chicos | El Gadget',
+        'title': 'Bodys de Bebé, Útiles y Regalos para Chicos | El Gadget',
         'h1': 'Artículos infantiles',
         'meta': 'Juguetes didácticos, accesorios para bebés y regalos para chicos de todas las edades. Comprá online con envío a todo el país y pago seguro.',
         'intro': 'Regalos para chicos que no fallan: juguetes didácticos, accesorios para bebés y cosas divertidas para el jardín o la escuela. Ideal si buscás un regalo de cumpleaños práctico y original.',
@@ -104,7 +104,7 @@ CATEGORIAS_SEO = {
                   'Cada ficha de producto indica la edad recomendada y los materiales. Ante cualquier duda, escribinos por WhatsApp antes de comprar.')],
     },
     'accesorios-de-moda': {
-        'title': 'Bandoleras y Carteras de Mujer — Accesorios de moda | El Gadget',
+        'title': 'Blusas, Bandoleras y Carteras de Mujer | El Gadget',
         'h1': 'Bandoleras, carteras y accesorios de moda',
         'meta': 'Bandoleras de mujer, carteras, riñoneras y accesorios de moda para todos los días. Comprá online con envío a todo el país y cambios hasta 10 días.',
         'intro': 'Bandoleras tejidas, carteras y riñoneras elegidas para acompañarte todos los días: livianas, cómodas y con onda. Renovate sin gastar una fortuna, con envío a toda la Argentina y cambios sin vueltas.',
@@ -122,7 +122,7 @@ CATEGORIAS_SEO = {
                   'Sí, tenés cambios hasta 10 días desde que la recibís. Escribinos por WhatsApp y lo coordinamos.')],
     },
     'verano': {
-        'title': 'Artículos de Verano — Accesorios de pileta y playa | El Gadget',
+        'title': 'Bikinis, Mallas e Inflables de Pileta | El Gadget',
         'h1': 'Artículos de verano',
         'meta': 'Accesorios de pileta, juegos de agua y todo para el verano argentino. Mirá también nuestras mallas e inflables. Envío a todo el país.',
         'intro': 'El verano se disfruta equipado: accesorios de pileta, juegos de agua y todo lo que hace mejores los días de calor.',
@@ -136,7 +136,7 @@ CATEGORIAS_SEO = {
                   'Los envíos demoran según tu zona (se calcula en el checkout). Te recomendamos comprar con unos días de anticipación en temporada alta.')],
     },
     'home': {
-        'title': 'Artículos para el Hogar — Cosas útiles para tu casa | El Gadget',
+        'title': 'Macetas y Artículos Decorativos para el Hogar | El Gadget',
         'h1': 'Artículos para el hogar',
         'meta': 'Cosas para la casa que resuelven: artículos para el hogar prácticos y con buen diseño. Comprá online con envío a todo el país y pago seguro.',
         'intro': 'Artículos para el hogar que usás todos los días: soluciones prácticas, con buen diseño y precios razonables. La casa que funciona mejor se arma con detalles bien elegidos.',
@@ -176,7 +176,7 @@ CATEGORIAS_SEO = {
                   'Sí: son elementos de entrada, ideales para arrancar en casa. En cada ficha vas a encontrar medidas, materiales y sugerencias de uso.')],
     },
     'electronica': {
-        'title': 'Gadgets y Accesorios Electrónicos | El Gadget',
+        'title': 'Relojes Infantiles y Gadgets Electrónicos | El Gadget',
         'h1': 'Gadgets y accesorios electrónicos',
         'meta': 'Accesorios electrónicos y gadgets útiles para tu día a día. Comprá online con envío a todo el país y pago seguro con Mercado Pago.',
         'intro': 'Gadgets electrónicos elegidos por útiles: tecnología simple que resuelve cosas concretas del día a día.',
