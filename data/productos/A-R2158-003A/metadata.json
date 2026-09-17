@@ -15,7 +15,7 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/lampara-led-de-mesa-anana-26cm.html",
-  "fecha_scraping": "2026-09-16T06:24:26.666410",
+  "fecha_scraping": "2026-09-17T06:26:12.242248",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Deco"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-16T06:28:08.214142",
+  "fecha_mapeo_categorias": "2026-09-17T06:29:28.519782",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2158-003A_002",
@@ -45,5 +45,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 28000.0,
-  "fecha_calculo_precio": "2026-09-16T06:29:27.350951"
+  "fecha_calculo_precio": "2026-09-17T06:30:03.508491"
 }

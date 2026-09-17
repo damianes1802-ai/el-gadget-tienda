@@ -5,8 +5,8 @@
   "descripcion": "Calza deportiva elevadora\nColor negro\nTalles S/M y L/XL",
   "imagenes": [],
   "cantidad_imagenes": 0,
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/calza-deportiva-elevadora-corta-l-xl.html",
   "fecha_scraping": "2026-03-16T19:31:13.811021",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -18,7 +18,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-03-16T19:46:15.732181",
+  "fecha_mapeo_categorias": "2026-09-17T06:29:28.513983",
   "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 0,
@@ -32,6 +32,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-09-16T06:29:27.536618",
-  "fecha_agotado": "2026-09-16T06:18:58.448054"
+  "fecha_calculo_precio": "2026-09-17T06:30:03.677962",
+  "fecha_reingreso": "2026-09-17T06:19:51.716227"
 }
