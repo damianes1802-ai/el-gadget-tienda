@@ -1,0 +1,52 @@
+{
+  "sku": "DL2378-NE",
+  "titulo": "Protectores de perilla cocina x4 Oscuro",
+  "precio": 4590,
+  "descripcion": "Pack x4 unidades\nColor transparente oscuro\nMedidas aproximadas:\n- Diámetro total: 6.5 cm\n- Diámetro de entrada: 4.5 cm\nMaterial: plastico reforzado (soporta hasta 120°).",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_756076-mla116195958821_082026-f.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/61yhdvl1cwl._sl1280_2048x2048.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/h/chatgptimage14sept2026_07_59_04_2048x2048.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/h/chatgptimage14sept2026_07_59_09_2048x2048.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/h/chatgptimage14sept2026_07_59_38_2048x2048.jpg"
+  ],
+  "cantidad_imagenes": 5,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5955/",
+  "fecha_scraping": "2026-09-18T06:19:55.461428",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "total_categorias": 1,
+  "fecha_actualizacion_categorias": "2026-09-18T06:29:06.938638",
+  "categoria_asignada_automaticamente": true,
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-09-18T06:29:06.938646",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1789712963/prod_DL2378-NE_001.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1789712964/prod_DL2378-NE_002.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1789712965/prod_DL2378-NE_003.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1789712966/prod_DL2378-NE_004.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1789712967/prod_DL2378-NE_005.jpg"
+  ],
+  "calculo_precio": {
+    "precio_costo": 4590,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 4590,
+    "margen_porcentaje": 160,
+    "precio_con_margen": 11934.0,
+    "precio_final": 12000.0,
+    "ganancia_neta": 7410.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 12000.0,
+  "fecha_calculo_precio": "2026-09-18T06:29:45.547186"
+}
