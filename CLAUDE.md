@@ -155,8 +155,10 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   y el title no la nombra: agregar UNA línea en `FAMILIAS`, no editar el title a mano (se pisa).
   `ofertas` y `nuevos-ingresos` no tienen familias y conservan el copy estático.
 - **Medición GA4 (G-D8GWDT1CBS) vive en `pages/assets/js/cart.js`** (268 páginas lo cargan). gtag carga
-  SIEMPRE con Consent Mode v2 (`analytics_storage` denied hasta "Aceptar"; `ga4Consentir()` hace el
-  update). Helpers: `ga4Event`, `ga4SetUserProps`, `trackItemList`, `trackShare` (mi_cuenta). Eventos
+  SIEMPRE con Consent Mode v2: `analytics_storage` **granted por defecto** (decisión de Damián
+  2026-09-18: en Argentina no hay opt-in tipo GDPR para analítica y el banner ignorado borraba el 60-70%
+  del tráfico); `ad_*` y el Meta Pixel solo con "Aceptar" (`ga4Consentir()`), "Solo necesarias" los
+  revoca. `/privacidad#cookies` lo explica y tiene el link "Configurar cookies" (`egConfigurarCookies`). Helpers: `ga4Event`, `ga4SetUserProps`, `trackItemList`, `trackShare` (mi_cuenta). Eventos
   propios: `referral_visit` (?ref=), `generate_lead` (clic a wa.me con número), `view_search_results`,
   `view_item_list`/`select_item` (cards `a.card[data-sku]`), `login`, `view_cart`, `remove_from_cart`,
   `add_shipping_info`, `purchase` con `ref_code`/`coupon`/`shipping`. Propiedades de usuario:

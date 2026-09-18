@@ -7,10 +7,13 @@ const CARRITO_KEY = 'carrito';
 const EG_API_URL = 'https://el-gadget-tienda.onrender.com';
 const GA4_ID = 'G-D8GWDT1CBS';
 
-// GA4 se carga SIEMPRE, con Consent Mode v2: hasta que la persona acepta
-// cookies, analytics_storage queda en 'denied' y gtag manda pings sin cookies
-// (GA4 modela lo que falta). Antes, sin aceptar el banner no se medía nada:
-// todo el tráfico que ignoraba el banner desaparecía de los informes.
+// GA4 se carga SIEMPRE con Consent Mode v2. La analítica (analytics_storage)
+// está activa por defecto: en Argentina no rige un opt-in tipo GDPR para
+// medición agregada, y sin esto el 60-70% del tráfico que ignora el banner
+// desaparecía de los informes (sign_up, referral_visit, purchase). Lo que sí
+// queda atado al "Aceptar" del banner es la publicidad: ad_storage /
+// ad_user_data / ad_personalization y el Meta Pixel. Quien elige "Solo
+// necesarias" no recibe cookies publicitarias. Decisión de Damián, 2026-09-18.
 function initGA4() {
   if (window.__egGA4) return;
   window.__egGA4 = true;
@@ -18,7 +21,7 @@ function initGA4() {
   window.gtag = function() { dataLayer.push(arguments); };
   const ok = hasConsentCookies();
   gtag('consent', 'default', {
-    analytics_storage: ok ? 'granted' : 'denied',
+    analytics_storage: 'granted',
     ad_storage: ok ? 'granted' : 'denied',
     ad_user_data: ok ? 'granted' : 'denied',
     ad_personalization: ok ? 'granted' : 'denied'
@@ -674,7 +677,7 @@ function showCookieBanner() {
   // los CTAs de compra. Consentimiento válido igual (LIFT: menos distracción).
   banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#14151A;color:#fff;padding:9px 14px;z-index:9999;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:nowrap;font-size:12px;line-height:1.35;box-shadow:0 -2px 12px rgba(0,0,0,0.3)';
   banner.innerHTML = `
-    <span style="flex:1;min-width:0">🍪 Usamos cookies para mejorar tu experiencia. <a href="/privacidad#cookies" style="color:#FFC700;text-decoration:underline">Más info</a></span>
+    <span style="flex:1;min-width:0">🍪 Usamos cookies para medir el uso del sitio y, si aceptás, para publicidad. <a href="/privacidad#cookies" style="color:#FFC700;text-decoration:underline">Más info</a></span>
     <button onclick="acceptCookies()" style="background:#FFC700;color:#14151A;border:none;padding:6px 14px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap">Aceptar</button>
     <button onclick="rejectOptionalCookies()" aria-label="Solo cookies necesarias" style="background:transparent;color:rgba(255,255,255,0.7);border:none;padding:6px 6px;font-size:12px;cursor:pointer;white-space:nowrap;text-decoration:underline">Solo necesarias</button>
   `;
@@ -689,10 +692,20 @@ function acceptCookies() {
   initMetaPixel();
 }
 
+// Reabre el banner para cambiar la preferencia (link en /privacidad#cookies).
+function egConfigurarCookies() {
+  localStorage.removeItem('eg_cookies_decided');
+  showCookieBanner();
+  return false;
+}
+
 function rejectOptionalCookies() {
   localStorage.setItem('eg_cookies_accepted', '0');
   localStorage.setItem('eg_cookies_decided', '1');
   document.getElementById('eg-cookie-banner')?.remove();
+  if (typeof window.gtag === 'function') {
+    gtag('consent', 'update', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
