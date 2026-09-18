@@ -1102,7 +1102,8 @@ async function cargarCatalogo() {
 
     const _codigo = window._codigoRef || '';
     const filas = _todosProductos.map((p, idx) => {
-      const baseUrl = p.url_tienda + (p.url_tienda.includes('?') ? '&' : '?') + `ref=${_codigo}`;
+      // url_tienda ya viene de la API con ?ref=CODIGO: no volver a agregarlo
+      const baseUrl = /[?&]ref=/.test(p.url_tienda) ? p.url_tienda : p.url_tienda + (p.url_tienda.includes('?') ? '&' : '?') + `ref=${_codigo}`;
       const waUrl = baseUrl + '&utm_source=whatsapp&utm_medium=referral&utm_campaign=producto_share';
       const fbUrl = baseUrl + '&utm_source=facebook&utm_medium=referral&utm_campaign=producto_share';
       const xUrl = baseUrl + '&utm_source=twitter&utm_medium=referral&utm_campaign=producto_share';
@@ -1148,7 +1149,8 @@ async function cargarCatalogo() {
     }).join('');
 
     window._shareData = _todosProductos.map((p, idx) => {
-      const baseUrl = p.url_tienda + (p.url_tienda.includes('?') ? '&' : '?') + `ref=${_codigo}`;
+      // url_tienda ya viene de la API con ?ref=CODIGO: no volver a agregarlo
+      const baseUrl = /[?&]ref=/.test(p.url_tienda) ? p.url_tienda : p.url_tienda + (p.url_tienda.includes('?') ? '&' : '?') + `ref=${_codigo}`;
       return {
         link: baseUrl + '&utm_source=link&utm_medium=referral&utm_campaign=producto_share',
         texto: `Mirá este producto en El Gadget:

@@ -159,6 +159,18 @@ def cloudinary_thumb(url: str, size: int = 150) -> str:
     return url
 
 
+def cloudinary_social(url: str) -> str:
+    """Imagen para previews de WhatsApp / Facebook / X (og:image). Las
+    originales son PNG de ~1 MB y 800x1200: WhatsApp no muestra miniatura si
+    la imagen pesa más de ~300 KB. JPG cuadrado 1080x1080 con el producto
+    entero sobre fondo blanco (c_pad), ~60-100 KB."""
+    marcador = '/image/upload/'
+    if 'res.cloudinary.com' in url and marcador in url and '/upload/w_' not in url and '/upload/c_' not in url:
+        t = 'w_1080,h_1080,c_pad,b_white,f_jpg,q_auto:good'
+        return url.replace(marcador, f'{marcador}{t}/', 1)
+    return url
+
+
 def cloudinary_main(url: str, w: int = 800) -> str:
     """Imagen principal del PDP: limita el ancho (preserva aspecto) + WebP/calidad
     auto. Mucho más liviana que la original full-res; la original queda disponible
@@ -370,7 +382,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         '__TITLE__': html.escape(titulo_pagina),
         '__META_DESC__': html.escape(descripcion_meta),
         '__CANONICAL__': html.escape(canonical),
-        '__OG_IMAGE__': html.escape(imagen_principal),
+        '__OG_IMAGE__': html.escape(cloudinary_social(imagen_principal)),
         '__FAVICON__': FAVICON,
         '__LOGO_SVG__': LOGO_SVG,
         '__WHATSAPP_ICON__': WHATSAPP_ICON,
@@ -413,6 +425,16 @@ TEMPLATE = """<!DOCTYPE html>
 <meta property="og:description" content="__META_DESC__">
 <meta property="og:url" content="__CANONICAL__">
 <meta property="og:image" content="__OG_IMAGE__">
+<meta property="og:image:secure_url" content="__OG_IMAGE__">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="1080">
+<meta property="og:site_name" content="El Gadget">
+<meta property="og:locale" content="es_AR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="__TITLE__">
+<meta name="twitter:description" content="__META_DESC__">
+<meta name="twitter:image" content="__OG_IMAGE__">
 <meta name="theme-color" content="#14151A">
 <link rel="icon" type="image/svg+xml" href="__FAVICON__">
 <link rel="preconnect" href="https://fonts.googleapis.com">
