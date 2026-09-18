@@ -1157,6 +1157,7 @@ body.pagina-checkout .whatsapp-float { display: none; }
   background: rgba(255,255,255,.22); white-space: nowrap;
 }
 .pb-tag-time { border-color: var(--ink); background: rgba(255,255,255,.4); }
+.pb-tag-note { border-style: dashed; opacity: .8; font-weight: 600; }
 .pb-code { cursor: pointer; font-family: inherit; display: inline-flex; gap: 5px; align-items: center; }
 .pb-code b { letter-spacing: .08em; }
 .pb-copy { font-weight: 600; opacity: .7; text-decoration: underline; }

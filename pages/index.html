@@ -294,6 +294,8 @@ async function cargarBannerPromo() {
       if (b.codigo) tags.push(`<button type="button" class="pb-code" onclick="copiarCodigoPromo(this,'${b.codigo}')" title="Copiar código">Código <b>${b.codigo}</b> <span class="pb-copy">copiar</span></button>`);
       else tags.push('<span class="pb-tag">Sin código · se aplica solo</span>');
       if (hasta) tags.push(`<span class="pb-tag pb-tag-time">⏱ ${hasta}</span>`);
+      // El checkout cobra el camino más barato (oferta o códigos), nunca los dos: que se sepa antes.
+      tags.push('<span class="pb-tag pb-tag-note">No acumulable con códigos</span>');
       el.innerHTML = `
         <div class="promo-banner-inner" role="region" aria-label="Promoción vigente">
           <div class="pb-glyph" aria-hidden="true">%</div>
