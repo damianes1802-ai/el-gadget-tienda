@@ -309,9 +309,9 @@ function compartirComoReferido() {
   if (!_refCta) return;
   if (typeof ga4Event === 'function') ga4Event('share', { method: navigator.share ? 'nativo' : 'whatsapp', content_type: 'producto_ficha', item_id: _refCta.sku });
   const link = _refCta.url + '?ref=' + encodeURIComponent(_refCta.codigo) + '&utm_source=whatsapp&utm_medium=referral&utm_campaign=ficha_share';
-  const texto = 'Mirá este producto en El Gadget:\n\n' + document.title.replace(' | El Gadget', '')
-    + '\nAntes: ' + formatPrice(_refCta.precio_venta) + ' → Ahora: ' + formatPrice(_refCta.precio_con_descuento) + ' (' + _refCta.descuento_pct + '% OFF)'
-    + '\n\nUsá mi código "' + _refCta.codigo + '" para el descuento:\n' + link;
+  // Corto a propósito: la vista previa del link ya muestra nombre y foto.
+  const texto = '🎁 ' + _refCta.descuento_pct + '% OFF en este producto de El Gadget: ' + formatPrice(_refCta.precio_venta) + ' → *' + formatPrice(_refCta.precio_con_descuento) + '*'
+    + '\n\nComprá con el descuento desde este link (se aplica solo):\n' + link;
   if (navigator.share) { navigator.share({ title: 'El Gadget', text: texto }).catch(function () {}); return; }
   window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank', 'noopener');
 }

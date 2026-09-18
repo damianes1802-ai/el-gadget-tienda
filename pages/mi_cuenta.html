@@ -1110,7 +1110,8 @@ async function cargarCatalogo() {
       const igUrl = baseUrl + '&utm_source=instagram&utm_medium=referral&utm_campaign=producto_share';
       const precioDesc = formatPrice(p.precio_con_descuento);
       const precioOrig = formatPrice(p.precio_venta);
-      const waMsg = encodeURIComponent(`Mirá este producto en El Gadget:\n\n${p.nombre}\nAntes: ${precioOrig} → Ahora: ${precioDesc} (${p.descuento_pct}% OFF)\n\nUsá mi código "${_codigo}" para el descuento:\n${waUrl}`);
+      // Corto a propósito: la vista previa del link ya muestra nombre y foto.
+      const waMsg = encodeURIComponent(`🎁 ${p.descuento_pct}% OFF en este producto de El Gadget: ${precioOrig} → *${precioDesc}*\n\nComprá con el descuento desde este link (se aplica solo):\n${waUrl}`);
       const fbShareUrl = encodeURIComponent(fbUrl);
       const xText = encodeURIComponent(`${p.nombre} con ${p.descuento_pct}% OFF en El Gadget. Usá mi código "${_codigo}" para el descuento`);
       const xShareUrl = encodeURIComponent(xUrl);
@@ -1153,12 +1154,9 @@ async function cargarCatalogo() {
       const baseUrl = /[?&]ref=/.test(p.url_tienda) ? p.url_tienda : p.url_tienda + (p.url_tienda.includes('?') ? '&' : '?') + `ref=${_codigo}`;
       return {
         link: baseUrl + '&utm_source=link&utm_medium=referral&utm_campaign=producto_share',
-        texto: `Mirá este producto en El Gadget:
+        texto: `🎁 ${p.descuento_pct}% OFF en este producto de El Gadget: ${formatPrice(p.precio_venta)} → ${formatPrice(p.precio_con_descuento)}
 
-${p.nombre}
-Antes: ${formatPrice(p.precio_venta)} → Ahora: ${formatPrice(p.precio_con_descuento)} (${p.descuento_pct}% OFF)
-
-Usá mi código "${_codigo}" para el descuento:
+Comprá con el descuento desde este link (se aplica solo):
 ` + baseUrl + '&utm_source=share&utm_medium=referral&utm_campaign=producto_share',
         igCaption: `${p.nombre}\n\nAntes: ${formatPrice(p.precio_venta)} → Ahora: ${formatPrice(p.precio_con_descuento)} (${p.descuento_pct}% OFF)\n\nUsá mi código "${_codigo}" en elgadget.com.ar para tu descuento.\n\n#ElGadget #ReferidosElGadget #DescuentoOnline #Argentina`,
       };
