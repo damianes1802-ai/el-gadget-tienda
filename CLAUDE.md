@@ -186,6 +186,16 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
 
 ## 5. Lecciones ya aprendidas (no volver a probar estos caminos)
 
+- **Los paneles de escritorio se abren con `index_path.as_uri()` (file://), no con la ruta a secas.**
+  Con pywebview 6.x (Python 3.14), pasar la ruta hace que pywebview sirva `admin_app/` con su servidor
+  HTTP interno, y ese servidor pierde parte de los 14 `<script>` que el index pide en paralelo (llegan
+  con 0 bytes: `precios.js`, `clientes.js`, `mayoristas.js`...). El síntoma es engañoso: la ventana
+  abre, muestra "Cargando datos del ecommerce…" para siempre y no hay `logs/admin_desktop_error.log`,
+  porque el error es JS (`ReferenceError: loadPrecios is not defined` en `main.js`) y aborta el `init()`
+  antes de la primera llamada a la API. Parece "Render caído" y no lo es. Para diagnosticar un panel
+  que no carga: abrir la ventana con `js_api` real y `win.evaluate_js(...)` desde un thread
+  (`performance.getEntriesByType('resource')` muestra qué archivo llegó vacío) — no adivinar.
+
 - **El secret `ENV_FILE` no define `API_URL`.** Los tres pasos de Actions que llamaban a la API
   (`nurturing`, `amigo_invisible_limpieza`, backup del pipeline diario) construían la URL con esa
   variable vacía: curl recibía una ruta relativa, fallaba en **milisegundos** (no era cold start de

@@ -1453,7 +1453,11 @@ def main():
 
     webview.create_window(
         "El Gadget — Marketing",
-        str(index_path),
+        # file:// a propósito: con la ruta a secas, pywebview 6 sirve la carpeta con
+        # su servidor HTTP interno, que pierde parte de los 14 <script> pedidos en
+        # paralelo (llegaban con 0 bytes) → ReferenceError → el loader nunca se
+        # ocultaba. Con file:// WebView2 lee los archivos directo. Ver CLAUDE.md.
+        index_path.as_uri(),
         js_api=Api(),
         width=1400,
         height=900,
