@@ -592,14 +592,18 @@ function capturaRefCode() {
   banner.setAttribute('role', 'status');
 
   if (tieneBienvenida) {
+    // Dos líneas explícitas: el titular con la cifra y el código, y debajo
+    // el desglose. Antes era una sola frase larga en flex-wrap y en celulares
+    // se cortaba en cualquier lado.
     banner.className = 'eg-bar eg-bar-combo';
     banner.id = 'egComboBanner';
-    banner.innerHTML = '<span class="eg-bar-big">Hasta 30% OFF</span> <span class="eg-bar-sep">·</span> '
-      + '10% de bienvenida + hasta 20% con <span class="eg-bar-code">' + code + '</span> <span class="eg-bar-sep">·</span> se aplican al pagar';
+    banner.innerHTML = '<div class="eg-bar-l1">Hasta <b>30% OFF</b> con tu código <span class="eg-bar-code">' + code + '</span></div>'
+      + '<div class="eg-bar-l2">10% de bienvenida + hasta 20% del código · se aplican solos al pagar</div>';
   } else {
     banner.className = 'eg-bar';
     banner.id = 'egRefBanner';
-    banner.innerHTML = '🏷️ Código <span class="eg-bar-code">' + code + '</span> activo <span class="eg-bar-sep">·</span> <b>hasta 20% OFF</b> se aplica solo al pagar';
+    banner.innerHTML = '<div class="eg-bar-l1">Código <span class="eg-bar-code">' + code + '</span> activo: <b>hasta 20% OFF</b></div>'
+      + '<div class="eg-bar-l2">Se aplica solo al pagar</div>';
   }
   document.body.insertBefore(banner, document.body.firstChild);
 }
