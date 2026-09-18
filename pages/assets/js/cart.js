@@ -560,9 +560,10 @@ function mostrarBannerBienvenida() {
   if (document.getElementById('egWelcomeBanner')) return;
 
   const banner = document.createElement('div');
-  banner.className = 'eg-welcome-banner';
+  banner.className = 'eg-bar';
   banner.id = 'egWelcomeBanner';
-  banner.textContent = '🎉 Tenés 10% OFF en tu primera compra: se aplica automáticamente al pagar';
+  banner.setAttribute('role', 'status');
+  banner.innerHTML = '🎁 <b>10% OFF</b> en tu primera compra <span class="eg-bar-sep">·</span> se aplica solo al pagar';
   document.body.insertBefore(banner, document.body.firstChild);
 }
 
@@ -588,16 +589,17 @@ function capturaRefCode() {
 
   const tieneBienvenida = localStorage.getItem('eg_descuento_pendiente') === '1';
   const banner = document.createElement('div');
+  banner.setAttribute('role', 'status');
 
   if (tieneBienvenida) {
-    banner.className = 'eg-combo-banner';
+    banner.className = 'eg-bar eg-bar-combo';
     banner.id = 'egComboBanner';
-    banner.innerHTML = '<div class="eg-combo-big">Hasta 30% OFF</div>'
-      + '<div class="eg-combo-detail">🎉 10% por tu primera compra + hasta 20% con el código <strong>' + code + '</strong> — se aplican automáticamente al pagar</div>';
+    banner.innerHTML = '<span class="eg-bar-big">Hasta 30% OFF</span> <span class="eg-bar-sep">·</span> '
+      + '10% de bienvenida + hasta 20% con <span class="eg-bar-code">' + code + '</span> <span class="eg-bar-sep">·</span> se aplican al pagar';
   } else {
-    banner.className = 'eg-ref-banner';
+    banner.className = 'eg-bar';
     banner.id = 'egRefBanner';
-    banner.innerHTML = '🏷️ Código de descuento <strong>' + code + '</strong> activo — hasta 20% OFF se aplica automáticamente al pagar';
+    banner.innerHTML = '🏷️ Código <span class="eg-bar-code">' + code + '</span> activo <span class="eg-bar-sep">·</span> <b>hasta 20% OFF</b> se aplica solo al pagar';
   }
   document.body.insertBefore(banner, document.body.firstChild);
 }

@@ -278,22 +278,45 @@ async function cargarBannerPromo() {
     const res = await fetch(`${API_URL}/api/descuentos/activos`);
     const data = await res.json();
     if (data && data.banner) {
+      const b = data.banner;
       const el = document.getElementById('promoBanner');
+      // Jerarquía: la oferta ("15% OFF") es lo más grande; el nombre de la
+      // campaña queda como eyebrow. Si el título no trae "NN% OFF", se usa
+      // el valor de la campaña; si tampoco, el título entero va grande.
+      let titulo = (b.titulo || '').trim();
+      let oferta = '';
+      const m = titulo.match(/(\d+\s*%\s*OFF)/i);
+      if (m) { oferta = m[1].replace(/\s+/g, ' ').toUpperCase(); titulo = titulo.replace(m[0], '').replace(/[:\-–—·]\s*$/, '').trim(); }
+      else if (b.tipo === 'porcentaje' && b.valor) { oferta = `${Math.round(b.valor)}% OFF`; }
+      else { oferta = titulo; titulo = ''; }
+      const hasta = b.hasta ? (() => { const [y, mo, d] = b.hasta.split('-'); return `Hasta el ${d}/${mo}`; })() : '';
+      const tags = [];
+      if (b.codigo) tags.push(`<button type="button" class="pb-code" onclick="copiarCodigoPromo(this,'${b.codigo}')" title="Copiar código">Código <b>${b.codigo}</b> <span class="pb-copy">copiar</span></button>`);
+      else tags.push('<span class="pb-tag">Sin código · se aplica solo</span>');
+      if (hasta) tags.push(`<span class="pb-tag pb-tag-time">⏱ ${hasta}</span>`);
       el.innerHTML = `
-        <div class="promo-banner-inner">
-          <span class="pb-deco tl">✦</span>
-          <span class="pb-deco tr">✦</span>
-          <span class="pb-deco bl">✦</span>
-          <span class="pb-deco br">✦</span>
-          <div class="promo-banner-text">
-            <strong>${data.banner.titulo || ''}</strong>
-            ${data.banner.texto || ''}
+        <div class="promo-banner-inner" role="region" aria-label="Promoción vigente">
+          <div class="pb-glyph" aria-hidden="true">%</div>
+          <div class="pb-main">
+            ${titulo ? `<div class="pb-eyebrow">${titulo}</div>` : ''}
+            <div class="pb-offer">${oferta}</div>
+            ${b.texto ? `<p class="pb-text">${b.texto}</p>` : ''}
           </div>
-          ${data.banner.codigo ? `<div class="promo-banner-code">Código: ${data.banner.codigo}</div>` : ''}
+          <div class="pb-side">
+            <a class="pb-cta" href="#productGrid" onclick="ga4Event('select_promotion',{promotion_name:'${(b.titulo||'').replace(/'/g,'')}'})">Comprar con ${oferta} →</a>
+            <div class="pb-tags">${tags.join('')}</div>
+          </div>
         </div>`;
       el.classList.add('show');
+      ga4Event('view_promotion', { promotion_name: b.titulo || oferta });
     }
   } catch (e) {}
+}
+
+function copiarCodigoPromo(btn, codigo) {
+  navigator.clipboard?.writeText(codigo).then(() => {
+    const s = btn.querySelector('.pb-copy'); if (s) { s.textContent = '¡copiado!'; setTimeout(() => s.textContent = 'copiar', 1600); }
+  }).catch(() => {});
 }
 
 async function cargarProductos() {

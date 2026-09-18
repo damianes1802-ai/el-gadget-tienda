@@ -1080,72 +1080,90 @@ body.pagina-checkout .whatsapp-float { display: none; }
 .eg-popup-card .field { text-align: center; margin-bottom: 12px; }
 .eg-popup-error { font-size: 12px; color: var(--red); margin-top: -6px; margin-bottom: 10px; display: none; }
 
-/* ── BANNER DE BIENVENIDA (10% OFF por registro) ── */
-.eg-welcome-banner {
-  background: var(--accent); color: var(--ink);
-  font-size: 12.5px; font-weight: 700; line-height: 1.4;
-  padding: 9px 16px;
+/* ── ANNOUNCEMENT BAR (bienvenida / código de referido / combo) ──
+   Una sola franja fina, oscura como el header del hero, con la cifra en
+   amarillo: se lee en un vistazo y no compite con el contenido. */
+.eg-bar {
+  background: var(--ink); color: rgba(255,255,255,.88);
+  font-size: 12.5px; font-weight: 600; line-height: 1.35; letter-spacing: .01em;
+  padding: 9px 14px; text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
+  border-bottom: 2px solid var(--accent);
 }
+.eg-bar b { color: var(--accent); font-weight: 800; }
+.eg-bar .eg-bar-code {
+  display: inline-block; background: var(--accent); color: var(--ink);
+  font-weight: 800; letter-spacing: .08em; border-radius: 999px; padding: 2px 10px; font-size: 12px;
+}
+.eg-bar .eg-bar-sep { opacity: .35; }
+.eg-bar.eg-bar-combo { padding: 10px 14px; }
+.eg-bar-big { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--accent); letter-spacing: -.01em; }
+@media (max-width: 480px) { .eg-bar { font-size: 12px; padding: 8px 12px; gap: 6px; } .eg-bar .eg-bar-sep { display: none; } }
+/* compatibilidad: clases viejas siguen mapeando al mismo estilo */
+.eg-welcome-banner, .eg-ref-banner, .eg-combo-banner { display: none; }
 
-/* ── BANNER DE REFERIDO (código activo) ── */
-.eg-ref-banner {
-  background: #2E8B57; color: #fff;
-  font-size: 12.5px; font-weight: 600; line-height: 1.4;
-  padding: 9px 16px; text-align: center;
-}
-.eg-ref-banner strong { font-weight: 800; letter-spacing: 0.5px; }
-
-/* ── BANNER COMBO (referido + bienvenida = hasta 30% OFF) ── */
-.eg-combo-banner {
-  background: linear-gradient(135deg, #FFC700 0%, #E0AC00 100%);
-  padding: 14px 16px; text-align: center;
-}
-.eg-combo-big {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 22px; font-weight: 800; color: #B91C1C;
-  letter-spacing: -0.5px; line-height: 1.2;
-}
-.eg-combo-detail {
-  font-size: 12px; font-weight: 600; color: #14151A;
-  margin-top: 4px; line-height: 1.4;
-}
-.eg-combo-detail strong { font-weight: 800; }
-
-/* ── BANNER PROMOCIONAL (home) ── */
+/* ── BANNER PROMOCIONAL (home) ──
+   Jerarquía en 3 segundos: oferta grande → qué es → un solo CTA. Urgencia con
+   fecha límite, código visible y copiable. Decoración tipográfica (el "%"
+   gigante al 6%), no clip-art. Amarillo de marca sobre el hero oscuro. */
 .promo-banner { display: none; max-width: 1240px; margin: 0 auto; padding: 0 1.25rem; }
 .promo-banner.show { display: block; }
 .promo-banner-inner {
-  margin-top: 14px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
-  border-radius: var(--radius); padding: 18px 48px;
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  text-align: center; position: relative; overflow: hidden;
+  margin-top: 14px; position: relative; overflow: hidden;
+  background: linear-gradient(120deg, #FFD23A 0%, var(--accent) 55%, #F2B900 100%);
+  border-radius: 18px; padding: 22px 26px;
+  display: flex; align-items: center; justify-content: space-between; gap: 22px;
+  box-shadow: 0 10px 30px -18px rgba(20,21,26,.45), inset 0 0 0 1px rgba(20,21,26,.06);
 }
-/* Resplandor central: guía la vista hacia el mensaje */
-.promo-banner-inner::before {
+.promo-banner-inner::after {
+  /* velo de luz diagonal: da profundidad sin ruido */
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 60% 100% at 50% 50%, rgba(255,255,255,0.35), transparent 70%);
+  background: linear-gradient(100deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 38%, rgba(20,21,26,.05) 100%);
 }
-.promo-banner-text { font-size: 13.5px; font-weight: 600; color: var(--ink); position: relative; max-width: 62ch; }
-.promo-banner-text strong { font-family: 'Space Grotesk', sans-serif; font-size: clamp(17px, 2.6vw, 21px); display: block; margin-bottom: 3px; letter-spacing: -0.01em; }
-.promo-banner-code {
-  background: var(--ink); border-radius: 20px; padding: 6px 16px; font-weight: 700;
-  font-size: 12.5px; color: var(--accent); letter-spacing: 1px; position: relative;
+.pb-glyph {
+  position: absolute; right: 30%; top: 50%; transform: translateY(-52%) rotate(-8deg);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 190px; line-height: 1;
+  color: var(--ink); opacity: .06; pointer-events: none; user-select: none;
 }
-/* Destellos de esquina: negro sobre amarillo = máximo contraste (capta la vista) */
-.pb-deco {
-  position: absolute; color: var(--ink); pointer-events: none; line-height: 1;
-  animation: pbTwinkle 2.6s ease-in-out infinite;
+.pb-main { position: relative; min-width: 0; flex: 1; text-align: left; }
+.pb-eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink); opacity: .78; margin-bottom: 4px;
 }
-.pb-deco.tl { top: 8px;    left: 12px;  font-size: 22px; transform: rotate(-12deg); }
-.pb-deco.tr { top: 10px;   right: 16px; font-size: 15px; transform: rotate(18deg);  animation-delay: .7s; }
-.pb-deco.bl { bottom: 9px; left: 20px;  font-size: 14px; transform: rotate(9deg);   animation-delay: 1.3s; }
-.pb-deco.br { bottom: 7px; right: 12px; font-size: 21px; transform: rotate(-15deg); animation-delay: 1.9s; }
-@keyframes pbTwinkle {
-  0%, 100% { opacity: .85; }
-  50% { opacity: .3; }
+.pb-offer {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--ink);
+  font-size: clamp(34px, 5.2vw, 52px); line-height: .98; letter-spacing: -0.03em;
 }
-@media (prefers-reduced-motion: reduce) { .pb-deco { animation: none; } }
-@media (max-width: 560px) { .promo-banner-inner { padding: 16px 34px; } .pb-deco.tr, .pb-deco.bl { display: none; } }
+.pb-text { margin: 8px 0 0; font-size: 14px; font-weight: 600; color: var(--ink); opacity: .85; max-width: 46ch; line-height: 1.45; }
+.pb-side { position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex-shrink: 0; }
+.pb-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--ink); color: var(--accent); text-decoration: none;
+  font-weight: 800; font-size: 14px; padding: 13px 20px; border-radius: 999px;
+  box-shadow: 0 8px 18px -10px rgba(20,21,26,.7); transition: transform .15s, background .15s;
+  white-space: nowrap;
+}
+.pb-cta:hover { background: var(--ink-soft); transform: translateY(-1px); }
+.pb-tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.pb-tag, .pb-code {
+  font-size: 11.5px; font-weight: 700; color: var(--ink);
+  border: 1.5px solid rgba(20,21,26,.28); border-radius: 999px; padding: 5px 11px;
+  background: rgba(255,255,255,.22); white-space: nowrap;
+}
+.pb-tag-time { border-color: var(--ink); background: rgba(255,255,255,.4); }
+.pb-code { cursor: pointer; font-family: inherit; display: inline-flex; gap: 5px; align-items: center; }
+.pb-code b { letter-spacing: .08em; }
+.pb-copy { font-weight: 600; opacity: .7; text-decoration: underline; }
+@media (max-width: 720px) {
+  .promo-banner-inner { flex-direction: column; align-items: center; text-align: center; padding: 20px 18px 18px; gap: 14px; }
+  .pb-main { text-align: center; }
+  .pb-glyph { right: -12px; top: 8px; transform: rotate(-8deg); font-size: 150px; }
+  .pb-text { margin-left: auto; margin-right: auto; }
+  .pb-side { align-items: center; width: 100%; }
+  .pb-cta { width: 100%; justify-content: center; }
+  .pb-tags { justify-content: center; }
+}
 
 /* ── PRECIOS DE OFERTA (catálogo) ── */
 .card-price-row { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }

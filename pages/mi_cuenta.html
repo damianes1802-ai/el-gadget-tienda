@@ -105,15 +105,26 @@
 .ref-panel-head{margin:0 0 14px}
 .ref-panel-head h2{font-size:22px;font-weight:800;letter-spacing:-.3px;margin:0 0 2px;color:var(--ink)}
 .ref-panel-head p{font-size:13px;color:var(--gray-600);margin:0}
-.ref-nav{position:sticky;top:64px;z-index:40;display:flex;gap:6px;padding:8px 0;margin:0 0 16px;background:var(--paper,#F7F6F3);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+/* Nav de pantallas: barra oscura de borde a borde (sale del padding del
+   page-wrap), tab activo en amarillo, flechas cuando hay más pantallas que
+   ancho (mismo patrón que las categorías de la home) y centrado cuando entra
+   todo (justify-content: safe center). */
+.ref-nav-wrap{position:sticky;top:64px;z-index:40;background:var(--cream,#F7F6F3);margin:0 -1.25rem 16px;padding:8px 8px}
+.ref-nav-scroller{position:relative;display:flex;align-items:center;gap:6px}
+.ref-nav{flex:1;min-width:0;display:flex;gap:6px;justify-content:safe center;padding:6px;background:var(--ink);border-radius:999px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;box-shadow:0 8px 22px -14px rgba(20,21,26,.6)}
 .ref-nav::-webkit-scrollbar{display:none}
-.ref-nav a{flex:0 0 auto;font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:999px;border:1.5px solid #e5e7eb;background:#fff;color:var(--gray-600);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
-.ref-nav a.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.ref-nav a:not(.active):hover{border-color:var(--ink);color:var(--ink)}
+.ref-nav a{flex:0 0 auto;font-size:13px;font-weight:700;padding:9px 15px;border-radius:999px;border:1.5px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.82);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
+.ref-nav a.active,.ref-nav a[aria-current="page"]{background:var(--accent);color:var(--ink);border-color:var(--accent)}
+.ref-nav a:not(.active):hover{border-color:rgba(255,255,255,.55);color:#fff}
+.ref-nav-arrow{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:none;background:var(--ink);color:var(--accent);font-size:20px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .15s,background .15s;box-shadow:0 4px 12px -6px rgba(20,21,26,.6)}
+.ref-nav-arrow:hover{background:var(--accent);color:var(--ink)}
+.ref-nav-wrap.has-prev .ref-nav-arrow-prev,.ref-nav-wrap.has-next .ref-nav-arrow-next{opacity:1;pointer-events:auto}
+.ref-nav-wrap.has-next .ref-nav{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent)}
+.ref-nav-wrap.has-prev .ref-nav{-webkit-mask-image:linear-gradient(90deg,transparent,#000 34px);mask-image:linear-gradient(90deg,transparent,#000 34px)}
+.ref-nav-wrap.has-prev.has-next .ref-nav{-webkit-mask-image:linear-gradient(90deg,transparent,#000 34px,#000 calc(100% - 34px),transparent);mask-image:linear-gradient(90deg,transparent,#000 34px,#000 calc(100% - 34px),transparent)}
 .ref-sec{display:none;margin-bottom:26px;min-height:60vh;animation:refFade .18s ease} /* min-height: al cambiar de tab el footer no salta arriba */
 .ref-sec.active{display:block}
 @keyframes refFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-.ref-nav a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 /* progreso: todo centrado */
 .ref-progreso{background:var(--cream);border-radius:14px;padding:18px 20px;margin-top:12px;text-align:center}
 .ref-progreso-head{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:10px}
@@ -147,8 +158,8 @@
   .prod-list{display:grid;grid-template-columns:1fr 1fr;border:none;background:transparent;overflow:visible;gap:12px}
   .prod-card{border:1.5px solid #e5e7eb;border-radius:12px;background:#fff}
   .prod-card:last-child{border-bottom:1.5px solid #e5e7eb}
-  .ref-nav{top:72px}
-  .ref-nav a{font-size:13px;padding:9px 18px}
+  .ref-nav-wrap{top:72px;margin-left:0;margin-right:0;padding:10px 0}
+  .ref-nav a{font-size:13.5px;padding:10px 20px}
   #tab-pedidos details{max-width:820px}
 }
 /* placa: editor con preview en vivo */
@@ -217,6 +228,9 @@
     <h1 class="app-hola" id="appHola">Mi cuenta</h1>
     <p class="app-sub" id="appSub">Cargando tu panel…</p>
   </div>
+  <div class="ref-nav-wrap" id="refNavWrap">
+    <div class="ref-nav-scroller">
+      <button class="ref-nav-arrow ref-nav-arrow-prev" type="button" onclick="scrollRefNav(-1)" aria-label="Pantallas anteriores">‹</button>
   <nav class="ref-nav" id="refNav" role="tablist" aria-label="Secciones de tu cuenta">
     <a href="#ref-resumen" role="tab" data-tab="ref-resumen" hidden>Resumen</a>
     <a href="#ref-compartir" role="tab" data-tab="ref-compartir" hidden>Compartir</a>
@@ -227,6 +241,9 @@
     <a href="#tab-pedidos" role="tab" data-tab="tab-pedidos">Pedidos</a>
     <a href="#tab-cuenta" role="tab" data-tab="tab-cuenta">Mi cuenta</a>
   </nav>
+      <button class="ref-nav-arrow ref-nav-arrow-next" type="button" onclick="scrollRefNav(1)" aria-label="Más pantallas">›</button>
+    </div>
+  </div>
 
   <!-- Pantallas de referidos: las llena cargarReferidos() -->
   <div id="referidosWrap"></div>
@@ -1213,6 +1230,27 @@ function trackShare(method, tipo, id) {
 // se sabe qué es el usuario (appResolverReferido / appMostrarTab).
 const APP_TABS = ['ref-resumen', 'ref-compartir', 'ref-catalogo', 'ref-historial', 'tab-ganar', 'tab-mayorista', 'tab-pedidos', 'tab-cuenta'];
 let _appTabInicialElegido = false;
+// Flechas del nav: aparecen solo cuando hay pantallas fuera de la vista.
+function updateRefNavArrows() {
+  const nav = document.getElementById('refNav'), wrap = document.getElementById('refNavWrap');
+  if (!nav || !wrap) return;
+  const max = nav.scrollWidth - nav.clientWidth;
+  wrap.classList.toggle('has-prev', nav.scrollLeft > 4);
+  wrap.classList.toggle('has-next', max > 4 && nav.scrollLeft < max - 4);
+}
+function scrollRefNav(dir) {
+  const nav = document.getElementById('refNav');
+  nav.scrollBy({ left: dir * nav.clientWidth * 0.6, behavior: 'smooth' });
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.getElementById('refNav');
+  if (!nav) return;
+  nav.addEventListener('scroll', updateRefNavArrows, { passive: true });
+  window.addEventListener('resize', updateRefNavArrows);
+  new MutationObserver(updateRefNavArrows).observe(nav, { attributes: true, subtree: true, attributeFilter: ['hidden', 'class'] });
+  updateRefNavArrows();
+});
+
 function appTabVisible(id) { const a = document.querySelector(`#refNav a[data-tab="${id}"]`); return !!a && !a.hidden; }
 function appMostrarTab(id) {
   const a = document.querySelector(`#refNav a[data-tab="${id}"]`); if (a) a.hidden = false;

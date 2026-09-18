@@ -1842,11 +1842,24 @@ def descuentos_activos():
     if not banner_dict:
         _cache_set(("banner",), {"banner": None})
         return {"banner": None}
+    # Fecha límite para el mensaje de urgencia del banner. Para las
+    # recurrentes anuales, el fin es el de ESTE ciclo (mismo mes-día, este año
+    # o el que viene si la ventana cruza fin de año).
+    hasta = banner_dict.get("fecha_fin") or None
+    if hasta and banner_dict.get("recurrente_anual"):
+        md = hasta[5:10] if len(hasta) >= 10 else hasta[-5:]
+        anio = ahora[:4]
+        if md < ahora[5:10]:
+            anio = str(int(anio) + 1)
+        hasta = f"{anio}-{md}"
     respuesta = {
         "banner": {
             "titulo": banner_dict.get("banner_titulo") or "",
             "texto": banner_dict.get("banner_texto") or "",
             "codigo": banner_dict.get("codigo"),
+            "tipo": banner_dict.get("tipo"),
+            "valor": banner_dict.get("valor"),
+            "hasta": hasta,
         }
     }
     _cache_set(("banner",), respuesta)
