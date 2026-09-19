@@ -18,7 +18,8 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/organizador-escurre-platos-extraible-cajon-bandeja.html",
-  "fecha_scraping": "2026-09-19T06:26:24.148841",
+  "droppers_id": 5895,
+  "fecha_scraping": "2026-09-19T13:22:19.678672",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -51,5 +52,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 75500.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.399612"
+  "fecha_calculo_precio": "2026-09-19T13:32:22.062600"
 }

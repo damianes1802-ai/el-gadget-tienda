@@ -21,12 +21,14 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 6000.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.338045",
+  "fecha_calculo_precio": "2026-09-19T13:32:21.095167",
   "es_variante": false,
   "item_group_id": "DL1078",
   "fecha_actualizacion_variantes": "2026-02-01T19:05:06.413172",
   "disponibilidad": "out of stock",
   "fecha_agotado": "2026-06-16T00:50:47.113979",
   "availability": "out of stock",
-  "imagenes_cloudinary": []
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1078_001"
+  ]
 }

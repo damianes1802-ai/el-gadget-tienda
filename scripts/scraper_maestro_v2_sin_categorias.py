@@ -121,6 +121,7 @@ class ScraperMaestroV2:
     def __init__(self):
         self.session = self._crear_sesion()
         self.base_url = "https://droppers.com.ar"
+        self.ids_encontrados = {}  # sku -> id de Droppers (ver utils/droppers_ids.py)
         
         # Credenciales
         self.email = os.getenv('DROPPERS_EMAIL') or os.getenv('DROPPERS_USER')
@@ -256,6 +257,16 @@ class ScraperMaestroV2:
                 logger.error(f"Error en página {pagina_actual}: {e}")
                 break
         
+        # Productos que /productos.html no lista (solo existen por id) o
+        # nuevos descubiertos por id en el paso 1: ver utils/droppers_ids.py
+        try:
+            from utils import droppers_ids as _dids
+            extra = [u for u in _dids.cargar_urls_extra() if u not in urls_productos]
+            if extra:
+                logger.info(f"➕ {len(extra)} URLs extra por id (fuera del listado)")
+                urls_productos.update(extra)
+        except Exception as e:
+            logger.warning(f"No se pudieron cargar las URLs extra por id: {e}")
         logger.info(f"✅ Total URLs extraídas: {len(urls_productos)}")
         return list(urls_productos)
     
@@ -286,6 +297,15 @@ class ScraperMaestroV2:
             # Algunos productos de Droppers traen SKUs con espacios (ej: "550371 SD"),
             # lo cual genera URLs/IDs de Cloudinary inválidos. Normalizamos a guiones.
             sku = re.sub(r'\s+', '-', sku)
+            # id numérico de Droppers: la única identidad estable (los slugs se reusan)
+            try:
+                from utils import droppers_ids as _dids
+                _droppers_id = _dids.extraer_id(html)
+                if _droppers_id:
+                    # se acumula en memoria (hay threads) y se guarda al final
+                    self.ids_encontrados[sku] = _droppers_id
+            except Exception:
+                _droppers_id = None
             
             # ============================================================
             # 2. DATOS BÁSICOS
@@ -373,6 +393,7 @@ class ScraperMaestroV2:
 
                 # Metadata
                 'url_original': url,
+                'droppers_id': _droppers_id,
                 'fecha_scraping': datetime.now().isoformat(),
                 'scrapeado_con': 'scraper_maestro_v2_sin_categorias',
 
@@ -553,6 +574,13 @@ def main():
     estadisticas = scraper.scrapear_catalogo_completo(urls_productos)
     tiempo_total = time.time() - inicio
     
+    # Guardar ids de Droppers aprendidos en esta corrida
+    try:
+        from utils import droppers_ids as _dids
+        _mapa = _dids.cargar(); _mapa.update(scraper.ids_encontrados); _dids.guardar(_mapa)
+        logger.info(f"💾 ids de Droppers: {len(_mapa)} ({len(scraper.ids_encontrados)} de esta corrida)")
+    except Exception as e:
+        logger.warning(f"No se pudieron guardar los ids de Droppers: {e}")
     # Reporte
     reporte = scraper.generar_reporte(estadisticas)
     

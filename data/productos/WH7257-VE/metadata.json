@@ -19,7 +19,9 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-03-16T19:46:15.280783",
-  "imagenes_cloudinary": [],
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7257-VE_001"
+  ],
   "calculo_precio": {
     "precio_costo": 0,
     "cargos_fijos": 0,
@@ -32,6 +34,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.517100",
-  "fecha_agotado": "2026-09-19T06:20:11.082935"
+  "fecha_calculo_precio": "2026-09-19T13:32:23.403608",
+  "fecha_agotado": "2026-09-19T13:20:06.516575"
 }

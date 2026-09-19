@@ -14,7 +14,8 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/par-de-medias-con-dise-os-divertidos-1.html",
-  "fecha_scraping": "2026-09-19T06:24:48.981976",
+  "droppers_id": 5186,
+  "fecha_scraping": "2026-09-19T13:21:02.477392",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -43,5 +44,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 11500.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.513439"
+  "fecha_calculo_precio": "2026-09-19T13:32:23.345518"
 }

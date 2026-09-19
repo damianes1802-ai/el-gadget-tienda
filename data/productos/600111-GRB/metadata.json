@@ -13,9 +13,33 @@
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/513q5srt2cl._sx679__1.jpg",
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_743461-mla78248764689_082024-f_1_2.png"
   ],
-  "url_original": "https://droppers.com.ar/morral-antirrobo-oxford-4.html",
-  "fecha_scraping": "2026-02-23T20:10:29.945128",
   "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/4632/",
+  "droppers_id": 4632,
+  "fecha_scraping": "2026-09-19T13:22:13.057258",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "OFERTAS"
+  ],
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-08-12T06:31:25.709700",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_008"
+  ],
   "calculo_precio": {
     "precio_costo": 12100,
     "cargos_fijos": 0,
@@ -28,29 +52,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 31500.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.302620",
-  "disponibilidad": "in stock",
-  "availability": "in stock",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_007",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600111-GRB_008"
-  ],
-  "categoria_principal": "OFERTAS",
-  "categoria": "OFERTAS",
-  "categorias_secundarias": [],
-  "todas_las_categorias": [
-    "OFERTAS"
-  ],
-  "total_categorias": 1,
-  "fecha_actualizacion_categorias": "2026-08-12T06:31:25.709693",
-  "categoria_asignada_automaticamente": true,
-  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
-  "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-08-12T06:31:25.709700"
+  "fecha_calculo_precio": "2026-09-19T13:32:20.626666"
 }

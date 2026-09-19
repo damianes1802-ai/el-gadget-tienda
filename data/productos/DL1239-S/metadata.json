@@ -21,7 +21,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 52000.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.371724",
+  "fecha_calculo_precio": "2026-09-19T13:32:21.630056",
   "es_variante": false,
   "item_group_id": "DL1239-S",
   "fecha_actualizacion_variantes": "2026-02-01T19:05:05.772519",
@@ -30,5 +30,7 @@
   "disponibilidad": "out of stock",
   "fecha_agotado": "2026-06-16T00:50:47.149902",
   "availability": "out of stock",
-  "imagenes_cloudinary": []
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1239-S_001"
+  ]
 }

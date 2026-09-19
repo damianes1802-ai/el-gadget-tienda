@@ -13,7 +13,10 @@
   "url_original": "https://droppers.com.ar/plato-playo-de-ceramica-6.html",
   "fecha_scraping": "2026-03-09T15:24:41.823210",
   "cantidad_imagenes": 5,
-  "imagenes_cloudinary": [],
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-BR_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-BR_002"
+  ],
   "calculo_precio": {
     "precio_costo": 3268,
     "cargos_fijos": 0,
@@ -26,7 +29,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8500.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.328948",
+  "fecha_calculo_precio": "2026-09-19T13:32:20.933911",
   "categoria_principal": "Bazar y Cocina",
   "categoria": "Bazar y Cocina",
   "categorias_secundarias": [],
@@ -36,6 +39,6 @@
   "total_categorias": 1,
   "fecha_actualizacion_categorias": "2026-03-09T20:52:31.505526",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-09-19T06:20:11.080093",
+  "fecha_agotado": "2026-09-19T13:20:06.501598",
   "availability": "out of stock"
 }

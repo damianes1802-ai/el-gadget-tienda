@@ -32,6 +32,7 @@ import sys
 sys.path.append(str(Path(__file__).parent))
 from utils.logger import get_logger
 from utils.config import Config
+from utils import droppers_ids
 
 logger = get_logger('deteccion_agotados')
 load_dotenv(Config.CONFIG_DIR / '.env')
@@ -68,6 +69,12 @@ class DetectorAgotadosRobusto:
         # Productos fuera de categorias (OFERTAS / sin categoria): se verifican
         # individualmente porque el scraper de categorias nunca los va a encontrar
         self.skus_fuera_categorias = {}  # sku -> url_original
+        # Identidad por id (ver utils/droppers_ids.py): lo verificado por id
+        # es la palabra final, por encima de lo que digan las categorías.
+        self.ids = droppers_ids.cargar()          # sku -> id
+        self.verificados_por_id = set()
+        self.urls_extra = set()                   # URLs por id para Fase 1
+        self.stats_id = {'verificados': 0, 'disponibles': 0, 'agotados': 0, 'descubiertos': 0, 'sin_respuesta': 0}
 
         # Resultados
         self.agotados = set()
@@ -184,16 +191,23 @@ class DetectorAgotadosRobusto:
         try:
             resp = self.session.get(url_producto, timeout=15)
             soup = BeautifulSoup(resp.content, 'html.parser')
+            pid = droppers_ids.extraer_id(resp.text)
 
             # Método 1: div.product.attribute.sku .value
             sku_elem = soup.select_one('div.product.attribute.sku .value')
             if sku_elem:
-                return sku_elem.text.strip()
+                sku = sku_elem.text.strip()
+                if sku and pid:
+                    self.ids[sku] = pid
+                return sku
 
             # Método 2: meta sku
             meta = soup.find('meta', {'itemprop': 'sku'})
             if meta:
-                return meta.get('content', '').strip()
+                sku = meta.get('content', '').strip()
+                if sku and pid:
+                    self.ids[sku] = pid
+                return sku
 
             # Ambos selectores fallaron — posible cambio en la estructura HTML del proveedor
             logger.warning(f"Selectores de SKU no coinciden en {url_producto} — ¿cambió el HTML?")
@@ -365,8 +379,10 @@ class DetectorAgotadosRobusto:
         # REINGRESADOS: Antes agotados PERO AHORA sí en Droppers
         self.reingresados = self.skus_anteriormente_agotados & self.skus_droppers
         
-        # NUEVOS: En Droppers PERO NO en tu base
-        self.nuevos = self.skus_droppers - self.skus_base_datos
+        # NUEVOS: En Droppers PERO NO en tu base (sin carpeta de metadata; los
+        # OFERTAS/sin categoría verificados por id ya son conocidos)
+        conocidos = {p.name for p in Config.PRODUCTOS_DIR.iterdir() if p.is_dir()}
+        self.nuevos = (self.skus_droppers - self.skus_base_datos - conocidos) | self.nuevos
         
         # Estadísticas
         self.stats['nuevos_agotados'] = len(self.agotados)
@@ -448,6 +464,113 @@ class DetectorAgotadosRobusto:
         
         print(f"\n✅ Total: {actualizados} archivos metadata actualizados\n")
     
+    def verificar_por_id(self):
+        """Verificación autoritativa: cada SKU con id conocido se consulta por
+        /catalog/product/view/id/N/. Droppers reusa los slugs de URL y las
+        categorías no listan todo, así que lo que diga la ficha por id manda:
+        en stock → disponible (aunque ninguna categoría lo liste); agotado o
+        404 → agotado (aunque la URL vieja hoy muestre otro producto en
+        stock)."""
+        # Todo SKU con id conocido, tenga o no metadata: los que no tienen
+        # carpeta son productos que existen en Droppers y nunca se scrapearon.
+        candidatos = sorted(set(self.ids) | {s for s in (self.skus_base_datos | set(self.skus_fuera_categorias)) if s in self.ids})
+        if not candidatos:
+            print("ℹ️  Sin ids de Droppers cargados: se omite la verificación por id\n")
+            return
+        conocidos = {p.name for p in Config.PRODUCTOS_DIR.iterdir() if p.is_dir()}
+
+        def metadata_vieja(sku):
+            # sin precio / sin fotos en Cloudinary / scrapeado hace más de 30 días:
+            # Fase 1 tiene que volver a visitarlo aunque alguna categoría lo liste
+            mf = Config.PRODUCTOS_DIR / sku / 'metadata.json'
+            if not mf.exists():
+                return True
+            try:
+                m = json.loads(mf.read_text(encoding='utf-8'))
+            except Exception:
+                return True
+            try:
+                sin_precio = float(m.get('precio') or 0) <= 0
+            except (TypeError, ValueError):
+                sin_precio = True
+            sin_fotos = not m.get('imagenes_cloudinary')
+            fecha = (m.get('fecha_scraping') or '')[:10]
+            try:
+                vieja = (not fecha) or (datetime.now() - datetime.fromisoformat(fecha)).days > 30
+            except ValueError:
+                vieja = True
+            return sin_precio or sin_fotos or vieja
+
+        print(f"🔎 Verificando {len(candidatos)} productos por id de Droppers...\n")
+        for sku in candidatos:
+            try:
+                f = droppers_ids.leer_ficha(self.session, droppers_ids.url_por_id(self.ids[sku]))
+            except Exception as e:
+                logger.warning(f"id {self.ids[sku]} ({sku}): {e}")
+                self.stats_id['sin_respuesta'] += 1
+                continue
+            if f['sku'] and f['sku'] != sku:
+                # el id ahora sirve otro producto: mapa viejo, se descarta
+                logger.warning(f"id {self.ids[sku]} ya no es {sku} sino {f['sku']}: se olvida el id")
+                self.ids.pop(sku, None)
+                continue
+            if f['disponible'] is None:
+                self.stats_id['sin_respuesta'] += 1
+                continue
+            self.stats_id['verificados'] += 1
+            self.verificados_por_id.add(sku)
+            if f['disponible']:
+                self.stats_id['disponibles'] += 1
+                self.skus_droppers.add(sku)
+                if sku not in conocidos:
+                    self.nuevos.add(sku)
+                if sku not in getattr(self, 'skus_en_categorias', set()) or metadata_vieja(sku):
+                    # No lo lista ninguna categoría (y /productos.html tampoco), o
+                    # su metadata está vieja: Fase 1 lo re-scrapea por id (precio,
+                    # fotos, textos). Si no, el sync lo omite por "sin precio".
+                    self.urls_extra.add(droppers_ids.url_por_id(self.ids[sku]))
+            else:
+                self.stats_id['agotados'] += 1
+                self.skus_droppers.discard(sku)
+            time.sleep(0.2)
+        # Lo verificado por id no se vuelve a verificar por URL "bonita"
+        for sku in self.verificados_por_id:
+            self.skus_fuera_categorias.pop(sku, None)
+        print(f"   ✅ Disponibles: {self.stats_id['disponibles']}  🔴 Agotados: {self.stats_id['agotados']}  "
+              f"❔ Sin respuesta: {self.stats_id['sin_respuesta']}\n")
+
+    def descubrir_nuevos_por_id(self, margen: int = 60):
+        """Productos nuevos que no aparecen en ningún listado: se prueban los
+        ids siguientes al mayor conocido. Un hit se agrega al mapa y a las URLs
+        extra para que Fase 1 lo scrapee."""
+        if not self.ids:
+            return
+        desde = max(self.ids.values()) + 1
+        print(f"🆕 Buscando productos nuevos por id ({desde}..{desde + margen - 1})...\n")
+        conocidos = {p.name for p in Config.PRODUCTOS_DIR.iterdir() if p.is_dir()}
+        for pid in range(desde, desde + margen):
+            try:
+                f = droppers_ids.leer_ficha(self.session, droppers_ids.url_por_id(pid))
+            except Exception as e:
+                logger.warning(f"id {pid}: {e}")
+                continue
+            if f['http'] == 200 and f['sku']:
+                self.ids[f['sku']] = pid
+                self.stats_id['descubiertos'] += 1
+                if f['disponible']:
+                    self.skus_droppers.add(f['sku'])
+                    self.urls_extra.add(droppers_ids.url_por_id(pid))
+                    if f['sku'] not in conocidos:
+                        self.nuevos.add(f['sku'])
+                logger.info(f"Descubierto por id {pid}: {f['sku']} ({'en stock' if f['disponible'] else 'agotado'})")
+            time.sleep(0.2)
+        print(f"   🆕 Descubiertos: {self.stats_id['descubiertos']}\n")
+
+    def guardar_ids(self):
+        droppers_ids.guardar(self.ids)
+        droppers_ids.guardar_urls_extra(sorted(self.urls_extra))
+        print(f"💾 {len(self.ids)} ids de Droppers guardados · {len(self.urls_extra)} URLs extra para Fase 1\n")
+
     def verificar_fuera_categorias(self):
         """Verifica disponibilidad de productos OFERTAS/sin categoría visitando su URL directamente."""
         if not self.skus_fuera_categorias:
@@ -629,11 +752,21 @@ class DetectorAgotadosRobusto:
         # 3. Cargar SKUs de base de datos
         self.cargar_skus_base_datos()
 
+        # 3.1 Verificación autoritativa por id + descubrimiento de nuevos.
+        #     Corrige lo que las categorías no ven (slugs reusados, productos
+        #     que solo existen por id).
+        self.skus_en_categorias = set(self.skus_droppers)
+        self.verificar_por_id()
+        self.descubrir_nuevos_por_id()
+        self.stats['total_skus_droppers'] = len(self.skus_droppers)
+        self.stats['verificacion_por_id'] = dict(self.stats_id)
+
         # 4. Validar datos
         if not self.validar_datos():
             print("\n⛔ PROCESO ABORTADO POR ERRORES DE VALIDACIÓN\n")
             print("   Revisar los errores y ejecutar de nuevo.\n")
             self.generar_reporte_fallo("Errores de validación: " + " | ".join(self.stats['errores']))
+            droppers_ids.guardar(self.ids)
             return False
 
         # 5. Detectar cambios
@@ -658,6 +791,7 @@ class DetectorAgotadosRobusto:
 
         # 8. Actualizar metadata
         self.actualizar_metadata()
+        self.guardar_ids()
 
         # 9. Generar reporte
         self.generar_reporte()

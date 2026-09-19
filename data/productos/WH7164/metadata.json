@@ -22,7 +22,9 @@
   "categoria": "OFERTAS",
   "categorias_secundarias": [],
   "total_categorias": 1,
-  "imagenes_cloudinary": [],
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7164_001"
+  ],
   "calculo_precio": {
     "precio_costo": 1991,
     "cargos_fijos": 0,
@@ -35,6 +37,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 5500.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.496305",
+  "fecha_calculo_precio": "2026-09-19T13:32:23.133625",
   "fecha_agotado": "2026-07-21T06:19:25.137519"
 }

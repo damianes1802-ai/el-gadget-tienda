@@ -16,18 +16,16 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5943/",
-  "fecha_scraping": "2026-06-26T04:49:40.824188",
+  "droppers_id": 5943,
+  "fecha_scraping": "2026-09-19T13:23:22.292040",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
-  "categoria_principal": "OFERTAS",
-  "categoria": "OFERTAS",
-  "categorias_secundarias": [],
   "todas_las_categorias": [
     "OFERTAS"
   ],
+  "categoria_principal": "OFERTAS",
+  "categoria": "OFERTAS",
+  "categorias_secundarias": [],
   "total_categorias": 1,
-  "fecha_actualizacion_categorias": "2026-06-26T05:05:53.434462",
-  "categoria_asignada_automaticamente": true,
-  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-06-26T05:05:53.434466",
   "imagenes_cloudinary": [
@@ -50,5 +48,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 52000.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.424256"
+  "fecha_calculo_precio": "2026-09-19T13:32:22.343784"
 }

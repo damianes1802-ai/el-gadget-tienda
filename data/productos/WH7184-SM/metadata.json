@@ -1,0 +1,55 @@
+{
+  "sku": "WH7184-SM",
+  "titulo": "Calza Deportiva Elevadora Corta-S/M",
+  "precio": 4312,
+  "descripcion": "Calza deportiva elevadora\nColor negro\nTalles S/M y L/XL",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_22__6.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_17__6.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_18__5.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_19__4_2.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_20__1_2.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_21__1_4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_23__1_4.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_858245-mla92575094740_092025-f.jpg"
+  ],
+  "cantidad_imagenes": 8,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5197/",
+  "droppers_id": 5197,
+  "fecha_scraping": "2026-09-19T13:21:19.374909",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Fitness"
+  ],
+  "categoria_principal": "Fitness",
+  "categoria": "Fitness",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-09-19T13:26:54.452499",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7184-SM_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7184-SM_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7184-SM_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7184-SM_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7184-SM_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7184-SM_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7184-SM_007"
+  ],
+  "calculo_precio": {
+    "precio_costo": 4312,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 4312,
+    "margen_porcentaje": 160,
+    "precio_con_margen": 11211.2,
+    "precio_final": 11500.0,
+    "ganancia_neta": 7188.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 11500.0,
+  "fecha_calculo_precio": "2026-09-19T13:32:23.325279"
+}

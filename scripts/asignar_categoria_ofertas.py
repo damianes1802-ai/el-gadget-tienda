@@ -6,6 +6,7 @@ Asigna automáticamente categoría "OFERTAS" SOLO a productos DISPONIBLES sin ca
 """
 
 import json
+import re
 from pathlib import Path
 from datetime import datetime
 
@@ -32,6 +33,24 @@ def asignar_categoria_ofertas():
     disponibles_actualizados = []
     agotados_sin_categoria = []
     
+    # Categoría de los hermanos de SKU (WH7167-59BL ↔ WH7167-59CR ↔ WH7167-1-80CR):
+    # un producto que Droppers no lista en ninguna categoría pero cuya familia
+    # sí está categorizada hereda esa categoría en vez de caer en OFERTAS.
+    def _base_sku(s):
+        return re.split(r'[-_]', s or '', 1)[0].upper()
+    categoria_por_base = {}
+    for c in PRODUCTOS_DIR.iterdir():
+        mf = c / 'metadata.json'
+        if not c.is_dir() or not mf.exists():
+            continue
+        try:
+            m = json.loads(mf.read_text(encoding='utf-8'))
+        except Exception:
+            continue
+        cat = m.get('categoria_principal') or m.get('categoria')
+        if cat and cat != 'OFERTAS' and not m.get('categoria_asignada_automaticamente'):
+            categoria_por_base.setdefault(_base_sku(m.get('sku', c.name)), cat)
+
     # Recorrer todos los productos
     for carpeta in PRODUCTOS_DIR.iterdir():
         if not carpeta.is_dir():
@@ -58,15 +77,17 @@ def asignar_categoria_ofertas():
                 
                 # ✅ SOLO ASIGNAR "OFERTAS" SI ESTÁ DISPONIBLE
                 if disponibilidad != 'out of stock':
-                    # ASIGNAR CATEGORÍA "OFERTAS"
-                    metadata['categoria_principal'] = 'OFERTAS'
-                    metadata['categoria'] = 'OFERTAS'
+                    heredada = categoria_por_base.get(_base_sku(sku))
+                    cat_final = heredada or 'OFERTAS'
+                    metadata['categoria_principal'] = cat_final
+                    metadata['categoria'] = cat_final
                     metadata['categorias_secundarias'] = []
-                    metadata['todas_las_categorias'] = ['OFERTAS']
+                    metadata['todas_las_categorias'] = [cat_final]
                     metadata['total_categorias'] = 1
                     metadata['fecha_actualizacion_categorias'] = datetime.now().isoformat()
                     metadata['categoria_asignada_automaticamente'] = True
-                    metadata['razon_categoria_ofertas'] = 'Producto disponible sin categoría en Droppers'
+                    metadata['razon_categoria_ofertas'] = (f'Heredada de un hermano de SKU ({_base_sku(sku)})' if heredada
+                                                           else 'Producto disponible sin categoría en Droppers')
                     # Marcar como "asignada" para que el scraper no la vuelva a
                     # marcar como pendiente en futuros re-scrapeos
                     metadata['categorias_asignadas'] = True

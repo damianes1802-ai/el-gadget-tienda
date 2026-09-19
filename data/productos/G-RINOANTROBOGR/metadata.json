@@ -26,7 +26,13 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-06-13T07:56:37.089233",
-  "imagenes_cloudinary": [],
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-RINOANTROBOGR_005"
+  ],
   "calculo_precio": {
     "precio_costo": 12100,
     "cargos_fijos": 0,
@@ -39,6 +45,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 31500.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.432224",
+  "fecha_calculo_precio": "2026-09-19T13:32:22.422078",
   "fecha_agotado": "2026-07-21T06:18:18.770306"
 }

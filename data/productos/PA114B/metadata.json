@@ -36,7 +36,8 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/blusa-manga-larga-confeccionada-en-viscosa-bambula-bordada-blanca-1.html",
-  "fecha_scraping": "2026-09-19T06:25:21.205637",
+  "droppers_id": 5752,
+  "fecha_scraping": "2026-09-19T13:21:22.845924",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -46,7 +47,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-19T06:29:52.486175",
+  "fecha_mapeo_categorias": "2026-09-19T13:26:53.968357",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_PA114B_002",
@@ -65,6 +66,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 70000.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.457516",
+  "fecha_calculo_precio": "2026-09-19T13:32:22.668996",
   "fecha_agotado": "2026-08-13T06:19:23.162686"
 }

@@ -188,6 +188,19 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
 
 ## 5. Lecciones ya aprendidas (no volver a probar estos caminos)
 
+- **La identidad de un producto de Droppers es su ID numérico, nunca la URL ni la categoría.**
+  Droppers (Magento) reusa los slugs: `body-para-bebes-de-algodon-1.html` fue WH7167-66BL y hoy
+  sirve WH7167-1-73BL; y ni las categorías ni `/productos.html` listan todo (hay productos que solo
+  existen por `/catalog/product/view/id/N/`). Verificar "¿sigue en Droppers?" por URL o por listado
+  marcaba agotados productos en stock (2026-09-19: 5 productos vendibles fuera del sitio, uno desde
+  marzo). Desde entonces `utils/droppers_ids.py` mantiene `data/droppers_ids.json` (sku → id,
+  versionado, lo aprenden solos el scraper y el detector) y `17_deteccion_agotados_robusto.py`
+  hace la verificación autoritativa por id (ficha existe = en stock; 404 = agotado — Droppers da
+  de baja la ficha al agotarse), descubre nuevos probando los ids siguientes al mayor conocido y
+  manda a Fase 1 (`data/droppers_urls_extra.json`) lo que ningún listado muestra o tiene metadata
+  vieja (sin precio/fotos, >30 días). Si alguna vez hay que auditar todo: barrer ids 1..max
+  (~5.000 requests, 50 min) con la sesión del scraper — es la única enumeración completa.
+
 - **Los paneles de escritorio se abren con `index_path.as_uri()` (file://), no con la ruta a secas.**
   Con pywebview 6.x (Python 3.14), pasar la ruta hace que pywebview sirva `admin_app/` con su servidor
   HTTP interno, y ese servidor pierde parte de los 14 `<script>` que el index pide en paralelo (llegan

@@ -15,7 +15,8 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/organizador-escurre-platos-extraible-bandeja-alacena.html",
-  "fecha_scraping": "2026-09-19T06:26:03.751021",
+  "droppers_id": 5896,
+  "fecha_scraping": "2026-09-19T13:22:26.518574",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -45,5 +46,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 73000.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.400092"
+  "fecha_calculo_precio": "2026-09-19T13:32:22.070567"
 }

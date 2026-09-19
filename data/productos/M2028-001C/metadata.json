@@ -15,7 +15,8 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/mochila-bolso-morral-pu-mediana-mujer-sport-chic-estampado-2.html",
-  "fecha_scraping": "2026-09-19T06:26:48.933185",
+  "droppers_id": 5685,
+  "fecha_scraping": "2026-09-19T13:22:25.096308",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -25,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-19T06:29:52.483858",
+  "fecha_mapeo_categorias": "2026-09-19T13:26:54.162928",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001C_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_M2028-001C_002",
@@ -45,6 +46,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 34000.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.443782",
+  "fecha_calculo_precio": "2026-09-19T13:32:22.522135",
   "fecha_agotado": "2026-08-13T06:19:23.154712"
 }

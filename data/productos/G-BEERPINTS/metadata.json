@@ -68,7 +68,8 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/vaso-termico-1200ml-starbucks-con-agarre.html",
-  "fecha_scraping": "2026-09-19T06:25:49.690943",
+  "droppers_id": 3927,
+  "fecha_scraping": "2026-09-19T13:21:23.045512",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -78,7 +79,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-19T06:29:52.506973",
+  "fecha_mapeo_categorias": "2026-09-19T13:26:54.769520",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-BEERPINTS_002",
@@ -114,5 +115,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 83000.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.431204"
+  "fecha_calculo_precio": "2026-09-19T13:32:22.404933"
 }

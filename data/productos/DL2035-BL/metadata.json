@@ -22,7 +22,9 @@
   "total_categorias": 2,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-03-16T19:46:16.434675",
-  "imagenes_cloudinary": [],
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2035-BL_001"
+  ],
   "calculo_precio": {
     "precio_costo": 0,
     "cargos_fijos": 0,
@@ -35,6 +37,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.384686",
-  "fecha_agotado": "2026-09-19T06:20:11.105278"
+  "fecha_calculo_precio": "2026-09-19T13:32:21.847671",
+  "fecha_agotado": "2026-09-19T13:20:06.541298"
 }

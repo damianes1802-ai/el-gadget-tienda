@@ -15,7 +15,8 @@
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/lampara-led-colgante-unicornio-lila-26cm.html",
-  "fecha_scraping": "2026-09-19T06:24:41.173630",
+  "droppers_id": 2838,
+  "fecha_scraping": "2026-09-19T13:20:46.313135",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Deco"
@@ -25,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-19T06:29:52.502120",
+  "fecha_mapeo_categorias": "2026-09-19T13:26:54.648198",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R1986-012_002",
@@ -45,5 +46,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 26000.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.324432"
+  "fecha_calculo_precio": "2026-09-19T13:32:20.903709"
 }

@@ -435,6 +435,12 @@ class ActualizadorMaestro:
             'pages/producto',
             'pages/sitemap.xml',
             'data/sitemap_lastmod.json',
+            'data/droppers_ids.json',
+            'data/droppers_urls_extra.json',
+            'data/droppers_alertas_estado.json',
+            'pages/categoria',
+            'pages/coleccion',
+            'pages/productos.json',
         ]
 
         try:

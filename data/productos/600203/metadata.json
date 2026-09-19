@@ -19,7 +19,23 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-03-16T19:46:17.771407",
-  "imagenes_cloudinary": [],
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_010",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_011",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_012",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_013",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_014",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600203_015"
+  ],
   "calculo_precio": {
     "precio_costo": 0,
     "cargos_fijos": 0,
@@ -32,6 +48,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.312357",
-  "fecha_agotado": "2026-09-19T06:20:11.107672"
+  "fecha_calculo_precio": "2026-09-19T13:32:20.801247",
+  "fecha_agotado": "2026-09-19T13:20:06.477318"
 }

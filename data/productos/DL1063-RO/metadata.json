@@ -22,7 +22,9 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-06-25T06:34:36.946734",
-  "imagenes_cloudinary": [],
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1063-RO_001"
+  ],
   "calculo_precio": {
     "precio_costo": 8800,
     "cargos_fijos": 0,
@@ -35,6 +37,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 23000.0,
-  "fecha_calculo_precio": "2026-09-19T06:30:25.336505",
-  "fecha_agotado": "2026-09-19T06:20:11.078335"
+  "fecha_calculo_precio": "2026-09-19T13:32:21.064749",
+  "fecha_agotado": "2026-09-19T13:20:06.543729"
 }
