@@ -2,19 +2,24 @@
   "sku": "WH7280",
   "titulo": "Botella siliconada térmica 1000 ML",
   "precio": 21120,
-  "descripcion": "Botella siliconada térmica\nCapacidad 1000 ML\nMaterial: Acero\nColores negro, blanco, gris.\nSe envían surtidos.",
+  "descripcion": "Botella siliconada térmica\nCapacidad 1000 ML\nMaterial: Acero\nColores negro, blanco, gris, beige.\nSe envían surtidos.",
   "imagenes": [
-    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/c/h/chatgpt_image_27_jun_2025_13_55_38.png",
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7280_2_.jpg",
     "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7280_3_.jpg",
-    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7280_4_.jpg"
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7280_4_.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_656413-mla84537450302_052025-f.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_780174-mla107386892699_022026-f.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_782972-mla106811157956_022026-f.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_800180-mla107485821771_022026-f.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/_/d_nq_np_2x_948262-mla105491344508_012026-f.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/6/1/616pytlyztl._ac_sl1500_.jpg"
   ],
-  "cantidad_imagenes": 4,
+  "cantidad_imagenes": 9,
   "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botella-siliconada-termica-1000-ml.html",
-  "fecha_scraping": "2026-09-18T06:25:51.637028",
+  "fecha_scraping": "2026-09-19T06:24:36.276596",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -24,12 +29,17 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-18T06:29:06.843421",
+  "fecha_mapeo_categorias": "2026-09-19T06:29:52.506666",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_002",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_004"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7280_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1789799422/prod_WH7280_005.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1789799422/prod_WH7280_006.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1789799423/prod_WH7280_007.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1789799424/prod_WH7280_008.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1789799424/prod_WH7280_009.jpg"
   ],
   "calculo_precio": {
     "precio_costo": 21120,
@@ -43,5 +53,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 55000.0,
-  "fecha_calculo_precio": "2026-09-18T06:29:45.638897"
+  "fecha_calculo_precio": "2026-09-19T06:30:25.520456"
 }

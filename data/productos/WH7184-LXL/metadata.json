@@ -18,7 +18,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-18T06:29:06.833435",
+  "fecha_mapeo_categorias": "2026-09-19T06:29:52.498544",
   "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 0,
@@ -32,6 +32,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-09-18T06:29:45.629791",
+  "fecha_calculo_precio": "2026-09-19T06:30:25.511601",
   "fecha_reingreso": "2026-09-17T06:19:51.716227"
 }
