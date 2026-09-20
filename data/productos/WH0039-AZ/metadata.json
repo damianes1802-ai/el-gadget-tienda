@@ -12,9 +12,7 @@
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0039-AZ_001"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 0,
     "cargos_fijos": 0,
@@ -27,7 +25,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-09-19T13:32:22.966512",
+  "fecha_calculo_precio": "2026-09-20T06:36:07.557163",
   "categoria_principal": "OFERTAS",
   "categoria": "OFERTAS",
   "categorias_secundarias": [],

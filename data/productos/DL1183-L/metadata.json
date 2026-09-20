@@ -21,7 +21,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 88500.0,
-  "fecha_calculo_precio": "2026-09-19T13:32:21.511803",
+  "fecha_calculo_precio": "2026-09-20T06:36:07.449971",
   "item_group_id": "grupo_030",
   "variante_atributo": "indeterminado",
   "variante_valor": "L",
@@ -31,7 +31,5 @@
   "disponibilidad": "out of stock",
   "fecha_agotado": "2026-06-16T00:50:47.132989",
   "availability": "out of stock",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1183-L_001"
-  ]
+  "imagenes_cloudinary": []
 }

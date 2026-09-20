@@ -13,13 +13,7 @@
   "url_original": "https://droppers.com.ar/plato-playo-de-ceramica-8.html",
   "fecha_scraping": "2026-03-09T15:24:45.328778",
   "cantidad_imagenes": 5,
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-BRX4_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-BRX4_002",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-BRX4_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-BRX4_004",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0057-4-BRX4_005"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 14144,
     "cargos_fijos": 0,
@@ -32,7 +26,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 37000.0,
-  "fecha_calculo_precio": "2026-09-19T13:32:20.943379",
+  "fecha_calculo_precio": "2026-09-20T06:36:07.417887",
   "categoria_principal": "Bazar y Cocina",
   "categoria": "Bazar y Cocina",
   "categorias_secundarias": [],
@@ -42,6 +36,6 @@
   "total_categorias": 1,
   "fecha_actualizacion_categorias": "2026-03-09T20:52:31.537218",
   "disponibilidad": "out of stock",
-  "fecha_agotado": "2026-09-19T13:20:06.513559",
+  "fecha_agotado": "2026-09-20T06:24:57.113495",
   "availability": "out of stock"
 }

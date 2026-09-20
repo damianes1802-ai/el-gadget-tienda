@@ -19,7 +19,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/kit-x8-dilatadores-nasales-antirronquidos-2.html",
   "droppers_id": 4467,
-  "fecha_scraping": "2026-09-19T13:23:35.962020",
+  "fecha_scraping": "2026-09-20T06:30:56.165601",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Estética y Belleza"
@@ -29,12 +29,16 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-19T13:26:54.470373",
+  "fecha_mapeo_categorias": "2026-09-20T06:34:51.246377",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_002",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_003",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_004"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_600201-1_008"
   ],
   "calculo_precio": {
     "precio_costo": 2900,
@@ -48,5 +52,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8000.0,
-  "fecha_calculo_precio": "2026-09-19T13:32:20.789917"
+  "fecha_calculo_precio": "2026-09-20T06:36:07.400809"
 }

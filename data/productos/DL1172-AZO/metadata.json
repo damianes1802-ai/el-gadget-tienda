@@ -17,7 +17,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5416/",
   "droppers_id": 5416,
-  "fecha_scraping": "2026-09-19T13:23:52.356021",
+  "fecha_scraping": "2026-09-20T06:29:52.532520",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Home",
@@ -39,11 +39,7 @@
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-AZO_003",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-AZO_004",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-AZO_005",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-AZO_006",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-AZO_007",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-AZO_008",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-AZO_009",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-AZO_010"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1172-AZO_006"
   ],
   "calculo_precio": {
     "precio_costo": 7150,
@@ -57,6 +53,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 19000.0,
-  "fecha_calculo_precio": "2026-09-19T13:32:21.451246",
+  "fecha_calculo_precio": "2026-09-20T06:36:07.446078",
   "fecha_reingreso": "2026-09-19T13:02:49.937902"
 }

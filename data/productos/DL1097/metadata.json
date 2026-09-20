@@ -22,9 +22,7 @@
   "total_categorias": 1,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-08-13T06:31:22.946137",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1097_001"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 6990,
     "cargos_fijos": 0,
@@ -37,6 +35,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 18500.0,
-  "fecha_calculo_precio": "2026-09-19T13:32:21.180079",
-  "fecha_agotado": "2026-09-19T13:20:06.528721"
+  "fecha_calculo_precio": "2026-09-20T06:36:07.429829",
+  "fecha_agotado": "2026-09-20T06:24:57.103995"
 }

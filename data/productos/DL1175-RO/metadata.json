@@ -22,10 +22,7 @@
   "total_categorias": 2,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-03-16T19:46:18.231973",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1175-RO_001",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1175-RO_002"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 0,
     "cargos_fijos": 0,
@@ -38,6 +35,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-09-19T13:32:21.488897",
-  "fecha_agotado": "2026-09-19T13:20:06.500403"
+  "fecha_calculo_precio": "2026-09-20T06:36:07.448296",
+  "fecha_agotado": "2026-09-20T06:24:57.090718"
 }

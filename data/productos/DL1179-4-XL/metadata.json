@@ -22,9 +22,7 @@
   "total_categorias": 2,
   "categorias_asignadas": true,
   "fecha_mapeo_categorias": "2026-03-16T19:46:18.249589",
-  "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1179-4-XL_001"
-  ],
+  "imagenes_cloudinary": [],
   "calculo_precio": {
     "precio_costo": 0,
     "cargos_fijos": 0,
@@ -37,6 +35,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-09-19T13:32:21.503769",
-  "fecha_agotado": "2026-09-19T13:20:06.525765"
+  "fecha_calculo_precio": "2026-09-20T06:36:07.449142",
+  "fecha_agotado": "2026-09-20T06:24:57.099772"
 }
