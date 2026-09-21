@@ -655,7 +655,10 @@ async function egCargarZonasEnvio() {
  * Aires, si aplica) a partir de los datos de egCargarZonasEnvio().
  * Devuelve { zona, costo, nombre, plazo } o null si no se puede calcular.
  */
-function egCalcularEnvio(zonasData, provincia, partido) {
+// subtotalPagado: productos ya con descuentos (sin envío). Si la zona está en
+// envio_bonificado.zonas y alcanza el mínimo, el envío es $0. `falta` indica
+// cuánto le falta al cliente para llegar (para el mensaje de umbral).
+function egCalcularEnvio(zonasData, provincia, partido, subtotalPagado) {
   if (!zonasData || !provincia) return null;
 
   let zonaId;
@@ -668,7 +671,21 @@ function egCalcularEnvio(zonasData, provincia, partido) {
     zonaId = zonasData.zona_default_resto_pais;
   }
 
-  return { zona: zonaId, ...zonasData.zonas[zonaId] };
+  const zona = zonasData.zonas[zonaId];
+  const bon = zonasData.envio_bonificado || {};
+  const elegible = Array.isArray(bon.zonas) && bon.zonas.includes(zonaId);
+  const minimo = Number(bon.minimo || 0);
+  const tieneSubtotal = typeof subtotalPagado === 'number' && !isNaN(subtotalPagado);
+  const bonificado = elegible && minimo > 0 && tieneSubtotal && subtotalPagado >= minimo;
+  return {
+    zona: zonaId, ...zona,
+    costo: bonificado ? 0 : zona.costo,
+    costo_lista: zona.costo,
+    bonificado,
+    bonificable: elegible,
+    minimo_bonificado: elegible ? minimo : null,
+    falta: (elegible && minimo > 0 && tieneSubtotal && !bonificado) ? (minimo - subtotalPagado) : 0
+  };
 }
 
 function hasConsentCookies() {

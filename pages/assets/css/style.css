@@ -537,6 +537,12 @@ a { color: inherit; }
 .field-row .field { flex: 1; min-width: 140px; }
 @media (max-width: 420px) { .field-row .field { min-width: 120px; } }
 .field-hint { font-size: 12px; color: var(--gray-600); margin-top: 4px; }
+/* Campos secundarios del checkout escondidos tras un link (CUIT, aclaraciones) */
+.field-more { margin-top: 10px; }
+.field-more > summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ink); list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+.field-more > summary::-webkit-details-marker { display: none; }
+.field-more > summary::before { content: "+"; display: inline-flex; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--gray-200); align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+.field-more[open] > summary::before { content: "–"; }
 .field-error { font-size: 12px; color: var(--red); margin-top: 4px; }
 
 /* Tarjetas de contenido genéricas (FAQ, info, etc.) */

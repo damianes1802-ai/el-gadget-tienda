@@ -270,7 +270,7 @@ function actualizarEnvioCarrito() {
   if (!esBuenosAires) document.getElementById('cartPartido').value = '';
 
   const partido = document.getElementById('cartPartido').value;
-  envioSeleccionado = egCalcularEnvio(zonasEnvioData, provincia, partido);
+  envioSeleccionado = egCalcularEnvio(zonasEnvioData, provincia, partido, cartTotal(getCarrito()));
   actualizarResumen(getCarrito());
 }
 
@@ -284,9 +284,13 @@ function actualizarResumen(carrito) {
   const plazoLine = document.getElementById('cartEnvioPlazoLine');
 
   if (envioSeleccionado) {
+    // el envío bonificado depende del subtotal: recalcular con el carrito actual
+    envioSeleccionado = egCalcularEnvio(zonasEnvioData, document.getElementById('cartProvincia').value, document.getElementById('cartPartido').value, total) || envioSeleccionado;
     valorEl.className = '';
-    valorEl.textContent = formatPrice(envioSeleccionado.costo);
-    document.getElementById('cartEnvioPlazo').textContent = envioSeleccionado.plazo;
+    valorEl.textContent = envioSeleccionado.bonificado ? 'GRATIS 🎉' : formatPrice(envioSeleccionado.costo);
+    document.getElementById('cartEnvioPlazo').textContent = envioSeleccionado.bonificado
+      ? `Envío bonificado · ${envioSeleccionado.plazo}`
+      : (envioSeleccionado.falta > 0 ? `Sumá ${formatPrice(envioSeleccionado.falta)} más y el envío es gratis · ${envioSeleccionado.plazo}` : envioSeleccionado.plazo);
     plazoLine.style.display = '';
     document.getElementById('summaryTotal').textContent = formatPrice(total + envioSeleccionado.costo);
   } else {

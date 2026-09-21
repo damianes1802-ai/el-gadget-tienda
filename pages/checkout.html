@@ -86,15 +86,9 @@
       <div id="step1Panel">
         <div class="form-section-title">Datos personales</div>
 
-        <div class="field-row">
-          <div class="field">
-            <label for="nombre">Nombre *</label>
-            <input type="text" id="nombre" placeholder="Ej: Juan" autocomplete="given-name">
-          </div>
-          <div class="field">
-            <label for="apellido">Apellido *</label>
-            <input type="text" id="apellido" placeholder="Ej: García" autocomplete="family-name">
-          </div>
+        <div class="field">
+          <label for="nombre_completo">Nombre y apellido *</label>
+          <input type="text" id="nombre_completo" placeholder="Ej: Juan García" autocomplete="name">
         </div>
 
         <div class="field-row">
@@ -108,11 +102,22 @@
           </div>
         </div>
 
-        <div class="field">
-          <label for="cuit_dni">DNI o CUIT *</label>
-          <input type="text" id="cuit_dni" placeholder="Ej: 12345678 (DNI) o 20-12345678-9 (CUIT)" inputmode="numeric">
-          <div class="field-hint">Lo usamos únicamente para emitir tu factura.</div>
-        </div>
+        <!-- Factura: sale a consumidor final con el DNI que informa Mercado Pago.
+             El CUIT solo hace falta si piden factura con CUIT (desplegable). -->
+        <details class="field-more" id="facturaCuit">
+          <summary>¿Necesitás la factura con CUIT? <span class="optional">(opcional)</span></summary>
+          <div class="field-row" style="margin-top:8px">
+            <div class="field">
+              <label for="cuit_dni">CUIT</label>
+              <input type="text" id="cuit_dni" placeholder="20-12345678-9" inputmode="numeric" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="razon_social">Razón social</label>
+              <input type="text" id="razon_social" placeholder="Nombre de la empresa" autocomplete="organization">
+            </div>
+          </div>
+          <div class="field-hint">Si no completás esto, la factura sale a consumidor final con el DNI de tu pago.</div>
+        </details>
 
         <div class="field" style="margin-top:16px">
           <label style="display:flex;align-items:flex-start;gap:11px;cursor:pointer;font-size:13px;font-weight:400;color:var(--gray-600);text-transform:none;letter-spacing:0;line-height:1.5">
@@ -141,30 +146,16 @@
 
         <div class="field-row">
           <div class="field" style="flex:2">
-            <label for="calle">Calle *</label>
-            <input type="text" id="calle" placeholder="Ej: Av. Corrientes" autocomplete="address-line1">
+            <label for="direccion_calle">Calle y altura *</label>
+            <input type="text" id="direccion_calle" placeholder="Ej: Av. Corrientes 1234" autocomplete="address-line1">
           </div>
           <div class="field">
-            <label for="altura">Altura *</label>
-            <input type="text" id="altura" placeholder="1234">
-          </div>
-          <div class="field">
-            <label for="piso">Piso</label>
-            <input type="text" id="piso" placeholder="3">
-          </div>
-          <div class="field">
-            <label for="departamento">Dpto.</label>
-            <input type="text" id="departamento" placeholder="B">
+            <label for="piso_depto">Piso / Dpto. <span class="optional">(opcional)</span></label>
+            <input type="text" id="piso_depto" placeholder="Ej: 3 B" autocomplete="address-line2">
           </div>
         </div>
 
         <div class="field-row">
-          <div class="field">
-            <label for="pais">País</label>
-            <select id="pais" autocomplete="country-name">
-              <option value="Argentina" selected>Argentina</option>
-            </select>
-          </div>
           <div class="field">
             <label for="provincia">Provincia *</label>
             <select id="provincia" autocomplete="address-level1">
@@ -217,12 +208,12 @@
           </div>
         </div>
 
-        <div class="field">
-          <label for="notas">Notas / Aclaraciones <span class="optional">(opcional)</span></label>
-          <input type="text" id="notas" placeholder="Instrucciones especiales para el envío...">
-        </div>
-
-        <input type="hidden" id="razon_social" value="">
+        <details class="field-more">
+          <summary>Agregar una aclaración para el envío <span class="optional">(opcional)</span></summary>
+          <div class="field" style="margin-top:8px">
+            <input type="text" id="notas" placeholder="Ej: tocar timbre 2B, dejar en portería" aria-label="Aclaración para el envío">
+          </div>
+        </details>
       </div>
     </div>
 
@@ -330,7 +321,7 @@ const codigoBienvenida = localStorage.getItem('eg_descuento_codigo');
 const descuentoBienvenidaPendiente = localStorage.getItem('eg_descuento_pendiente') === '1';
 
 function avanzarStep2() {
-  const requeridos1 = ['nombre', 'apellido', 'email', 'telefono', 'cuit_dni'];
+  const requeridos1 = ['nombre_completo', 'email', 'telefono'];
   document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
   let ok = true;
   requeridos1.forEach(id => {
@@ -448,8 +439,8 @@ function poblarPartidos() {
     partidos.map(p => `<option>${p}</option>`).join('');
 }
 
-function calcularEnvio(provincia, partido) {
-  return egCalcularEnvio(zonasEnvioData, provincia, partido);
+function calcularEnvio(provincia, partido, subtotalPagado) {
+  return egCalcularEnvio(zonasEnvioData, provincia, partido, subtotalPagado);
 }
 
 function actualizarPartidoVisibility() {
@@ -500,15 +491,34 @@ function renderResumen() {
 
   const provincia = document.getElementById('provincia').value;
   const partido = document.getElementById('partido').value;
-  const envio = calcularEnvio(provincia, partido);
+
+  // Total de productos que paga el cliente (con descuentos): base del envío
+  // bonificado. Espejo de crear_orden en la API.
+  let totalProductos = subtotal;
+  if (!ganaOferta) {
+    if (descuentoAplicado) totalProductos -= descuentoAplicado.monto_descuento;
+    if (descuentoBienvenidaExtra) totalProductos -= descuentoBienvenidaExtra.monto_descuento;
+  }
+  totalProductos = Math.max(totalProductos, 0);
+  const envio = egCalcularEnvio(zonasEnvioData, provincia, partido, totalProductos);
 
   let envioHtml;
   let total = subtotal;
   if (envio) {
     total += envio.costo;
-    envioHtml = `
+    if (envio.bonificado) {
+      envioHtml = `
+      <div class="summary-line"><span>Envío (${envio.nombre})</span><span><s style="color:var(--gray-600);font-weight:500">${formatPrice(envio.costo_lista)}</s> <strong style="color:#2E8B57">GRATIS</strong></span></div>
+      <div class="summary-line"><span class="shipping-info">🎉 Envío bonificado · ${envio.plazo}</span><span></span></div>`;
+    } else if (envio.falta > 0) {
+      envioHtml = `
+      <div class="summary-line"><span>Envío (${envio.nombre})</span><span>${formatPrice(envio.costo)}</span></div>
+      <div class="summary-line"><span class="shipping-info">🚚 Sumá ${formatPrice(envio.falta)} más en productos y el envío es gratis · ${envio.plazo}</span><span></span></div>`;
+    } else {
+      envioHtml = `
       <div class="summary-line"><span>Envío (${envio.nombre})</span><span>${formatPrice(envio.costo)}</span></div>
       <div class="summary-line"><span class="shipping-info">${envio.plazo}</span><span></span></div>`;
+    }
   } else {
     envioHtml = `<div class="summary-line"><span>Envío</span><span class="shipping-badge">Completá tu provincia${provincia === (zonasEnvioData && zonasEnvioData.provincia_buenos_aires) ? ' y partido' : ''}</span></div>`;
   }
@@ -553,7 +563,7 @@ function renderResumen() {
     document.getElementById('miniResumenTotal').textContent = formatPrice(Math.max(total, 0));
     document.getElementById('miniResumenDetalle').innerHTML =
       carrito.map(i => `<div class="mr-line"><span>${i.nombre} ×${i.cantidad}</span><span>${formatPrice((ganaOferta ? i.precio : (i.precio_lista || i.precio)) * i.cantidad)}</span></div>`).join('')
-      + `<div class="mr-line" style="border-top:1px solid rgba(255,255,255,0.15);margin-top:5px;padding-top:6px"><span>Envío</span><span>${envio ? formatPrice(envio.costo) : 'a calcular'}</span></div>`;
+      + `<div class="mr-line" style="border-top:1px solid rgba(255,255,255,0.15);margin-top:5px;padding-top:6px"><span>Envío</span><span>${envio ? (envio.bonificado ? 'GRATIS' : formatPrice(envio.costo)) : 'a calcular'}</span></div>`;
   }
 }
 
@@ -606,7 +616,7 @@ async function aplicarCodigoDescuento() {
 }
 
 function validarFormulario() {
-  const requeridos = ['nombre','apellido','email','telefono','cuit_dni','calle','altura','provincia','ciudad','codigo_postal'];
+  const requeridos = ['nombre_completo','email','telefono','direccion_calle','provincia','ciudad','codigo_postal'];
   if (zonasEnvioData && document.getElementById('provincia').value === zonasEnvioData.provincia_buenos_aires) {
     requeridos.push('partido');
   }
@@ -630,21 +640,33 @@ async function procesarPago() {
   document.getElementById('overlay').classList.add('show');
   document.getElementById('btnPagar').disabled = true;
 
-  const c = id => document.getElementById(id).value.trim();
-  const direccionCompleta = [c('calle'), c('altura'), c('piso') ? `Piso ${c('piso')}` : '', c('departamento') ? `Dpto ${c('departamento')}` : ''].filter(Boolean).join(' ');
+  const c = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+  // Campos combinados → los que espera la API (sin cambiar el backend):
+  // "Juan García" → nombre/apellido; "Av. Corrientes 1234" → calle/altura;
+  // "3 B" → piso/departamento.
+  const partesNombre = c('nombre_completo').split(/\s+/).filter(Boolean);
+  const nombre = partesNombre.shift() || '';
+  const apellido = partesNombre.join(' ');
+  const mAlt = c('direccion_calle').match(/^(.*?)[\s,]+(\d+[A-Za-z]?)\s*$/);
+  const calle = mAlt ? mAlt[1].trim() : c('direccion_calle');
+  const altura = mAlt ? mAlt[2] : 'S/N';
+  const partesPiso = c('piso_depto').split(/[\s,\/-]+/).filter(Boolean);
+  const piso = partesPiso[0] || '';
+  const departamento = partesPiso.slice(1).join(' ');
+  const direccionCompleta = [calle, altura, piso ? `Piso ${piso}` : '', departamento ? `Dpto ${departamento}` : ''].filter(Boolean).join(' ');
 
   const payload = {
     cliente: {
-      nombre: c('nombre'),
-      apellido: c('apellido'),
+      nombre: nombre,
+      apellido: apellido,
       razon_social: c('razon_social'),
       email: c('email'),
       telefono: c('telefono'),
       cuit_dni: c('cuit_dni'),
-      calle: c('calle'),
-      altura: c('altura'),
-      piso: c('piso'),
-      departamento: c('departamento'),
+      calle: calle,
+      altura: altura,
+      piso: piso,
+      departamento: departamento,
       direccion: direccionCompleta,
       pais: 'Argentina',
       provincia: c('provincia'),

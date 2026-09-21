@@ -837,10 +837,16 @@ def _usuario_desde_token(token: Optional[str], cursor) -> Optional[dict]:
     return dict(row) if row else None
 
 
-def calcular_envio(provincia: str, partido: str = "") -> dict:
+def calcular_envio(provincia: str, partido: str = "", subtotal_pagado: float = None) -> dict:
     """
     Determina la zona de envío y su tarifa (costo, modalidad, plazo) según
     la provincia y, si corresponde, el partido del comprador.
+
+    `subtotal_pagado` es el total de productos que paga el cliente (ya con
+    descuentos, sin envío): si la zona está en `envio_bonificado.zonas` y el
+    subtotal alcanza `envio_bonificado.minimo`, el envío sale $0 (la tienda
+    absorbe la tarifa de Droppers). La regla vive en zonas_envio.json y el
+    front la espeja (egCalcularEnvio en cart.js).
 
     - CABA / Capital Federal -> zona CABA
     - Provincia de Buenos Aires -> zona según el partido (GBA1/GBA2/GBA3/BSAS)
@@ -859,10 +865,18 @@ def calcular_envio(provincia: str, partido: str = "") -> dict:
         zona_id = ZONAS_ENVIO["zona_default_resto_pais"]
 
     zona = ZONAS_ENVIO["zonas"][zona_id]
+    bon = ZONAS_ENVIO.get("envio_bonificado") or {}
+    elegible = zona_id in (bon.get("zonas") or [])
+    minimo = float(bon.get("minimo") or 0)
+    bonificado = bool(elegible and minimo > 0 and subtotal_pagado is not None and float(subtotal_pagado) >= minimo)
     return {
         "zona": zona_id,
         "zona_nombre": zona["nombre"],
-        "costo": zona["costo"],
+        "costo": 0 if bonificado else zona["costo"],
+        "costo_lista": zona["costo"],
+        "bonificado": bonificado,
+        "bonificable": elegible,
+        "minimo_bonificado": minimo if elegible else None,
         "modalidad": zona["modalidad"],
         "plazo": zona["plazo"],
     }
@@ -2234,7 +2248,9 @@ def crear_orden(request: Request, orden: CrearOrden):
             it.pop('precio_oferta', None)
 
         # 2.1 Calcular costo de envío según zona del cliente
-        envio = calcular_envio(orden.cliente.provincia or "", orden.cliente.partido or "")
+        # `total` acá = productos que paga el cliente (con descuentos, sin envío):
+        # es la base del envío bonificado en CABA/GBA1.
+        envio = calcular_envio(orden.cliente.provincia or "", orden.cliente.partido or "", subtotal_pagado=total)
         total += envio["costo"]
 
         # 3. Crear orden
@@ -2509,6 +2525,10 @@ async def mp_webhook(request: Request):
                         "UPDATE ordenes SET estado_pago = ? WHERE id = ?",
                         (estado_pago, int(orden_id))
                     )
+                    # El checkout ya no pide DNI: la factura sale con el documento
+                    # que informa Mercado Pago (payer.identification), si el
+                    # cliente no cargó un CUIT a mano. Se guarda ANTES de facturar.
+                    _guardar_dni_desde_mp(conn, int(orden_id), pago)
                     conn.commit()
 
                     if estado_pago == "approved":
@@ -2518,6 +2538,26 @@ async def mp_webhook(request: Request):
     except Exception as e:
         print(f"Webhook error: {e}")
     return {"status": "ok"}
+
+
+def _guardar_dni_desde_mp(conn: sqlite3.Connection, orden_id: int, pago: dict) -> None:
+    """Completa clientes.cuit_dni con el documento del pagador de Mercado Pago
+    (DNI/CUIT/CUIL) cuando el cliente no cargó ninguno en el checkout."""
+    try:
+        ident = (pago.get("payer") or {}).get("identification") or {}
+        numero = re.sub(r"\D", "", str(ident.get("number") or ""))
+        if not numero or len(numero) not in (7, 8, 11):
+            return
+        fila = conn.execute(
+            "SELECT c.id, c.cuit_dni FROM ordenes o JOIN clientes c ON o.cliente_id = c.id WHERE o.id = ?",
+            (orden_id,)
+        ).fetchone()
+        if not fila or (fila["cuit_dni"] or "").strip():
+            return
+        conn.execute("UPDATE clientes SET cuit_dni = ? WHERE id = ?", (numero, fila["id"]))
+        print(f"🪪 Orden #{orden_id}: documento del pagador tomado de Mercado Pago ({ident.get('type', '?')})")
+    except Exception as e:
+        print(f"⚠️ No se pudo guardar el documento de MP para la orden #{orden_id}: {e}")
 
 
 def procesar_pago_aprobado(conn: sqlite3.Connection, orden_id: int):

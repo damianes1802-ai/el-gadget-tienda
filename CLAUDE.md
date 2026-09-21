@@ -169,6 +169,17 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   purchase, sign_up, generate_lead. Referrals excluidos: mercadopago.com(.ar), mercadolibre.com.
   Retención 14 meses. Search Console vinculada. Para probar cambios de medición: copia `_mock_ga4_*.html`
   con fetch simulado + scripts externos bloqueados y leer `window.dataLayer` (nunca contra GA real).
+- **Envío bonificado** (desde 2026-09-21): CABA y GBA1 con productos pagados ≥ $40.000 → envío $0,
+  la tienda absorbe la tarifa de Droppers. La regla vive en `data/envios/zonas_envio.json`
+  (`envio_bonificado`) y se espeja en `calcular_envio(..., subtotal_pagado)` (API) y `egCalcularEnvio`
+  (cart.js → checkout y carrito, con mensaje "sumá $X y el envío es gratis").
+  `tests/test_envio_bonificado.py` demuestra que en el umbral ningún camino de descuentos deja
+  pérdida (peor caso: 50% de landing en GBA1, +5% sobre costo con MP 7,6%). Si cambia el margen, el
+  mínimo o los descuentos, ese test es el que avisa.
+- **Checkout a 8 campos** (desde 2026-09-21): nombre y apellido juntos, calle y altura juntos, piso/dpto
+  opcional, sin país ni DNI. El front separa los campos combinados antes de enviar (la API no cambió).
+  La factura sale a consumidor final con el documento que informa Mercado Pago (`payer.identification`,
+  guardado en el webhook antes de facturar); CUIT/razón social solo en un desplegable opcional.
 - **Regla de negocio del checkout**: los códigos de descuento se calculan sobre el precio de lista y
   **no se combinan** con ofertas de temporada; se cobra el camino que más conviene al cliente. Está
   documentado en `api_local.py` dentro de `crear_orden` — respetarlo al tocar precios.

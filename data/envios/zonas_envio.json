@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "fecha_actualizacion": "2026-06-14",
+  "fecha_actualizacion": "2026-09-21",
   "fuente": "Tarifario de envios Droppers (moto CABA/GBA + correo Buenos Aires / Resto del pais)",
   "zonas": {
     "CABA": {
@@ -85,5 +85,13 @@
     "Tres de Febrero": "GBA1",
     "Vicente López": "GBA1",
     "Zárate": "BSAS"
+  },
+  "envio_bonificado": {
+    "zonas": [
+      "CABA",
+      "GBA1"
+    ],
+    "minimo": 40000,
+    "nota": "Envío gratis en CABA y GBA 1 cuando el total de productos YA CON DESCUENTOS es >= minimo. Verificado 2026-09-21: con margen 160% + redondeo, el peor caso (50% bienvenida landing, MP 7,6%, envío GBA1 absorbido) deja +5% sobre costo; con códigos 30% + comisión 15%: +19%."
   }
 }
