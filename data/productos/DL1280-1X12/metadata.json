@@ -18,7 +18,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/pulsera-repelente-de-mosquitos-x12.html",
   "droppers_id": 5376,
-  "fecha_scraping": "2026-09-20T06:29:01.567602",
+  "fecha_scraping": "2026-09-21T06:30:53.577445",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -28,7 +28,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-20T06:34:51.239196",
+  "fecha_mapeo_categorias": "2026-09-21T06:36:40.400409",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1X12_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1280-1X12_002",
@@ -50,6 +50,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 30500.0,
-  "fecha_calculo_precio": "2026-09-20T06:36:07.462302",
+  "fecha_calculo_precio": "2026-09-21T06:37:52.915899",
   "fecha_agotado": "2026-07-06T04:35:09.472503"
 }

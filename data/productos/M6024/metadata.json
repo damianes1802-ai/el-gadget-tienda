@@ -10,9 +10,9 @@
   "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
-  "url_original": "https://droppers.com.ar/cartuchera-canopla.html",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5098/",
   "droppers_id": 5098,
-  "fecha_scraping": "2026-09-20T06:31:58.681842",
+  "fecha_scraping": "2026-09-21T06:31:23.596617",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -38,5 +38,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 17500.0,
-  "fecha_calculo_precio": "2026-09-20T06:36:07.530089"
+  "fecha_calculo_precio": "2026-09-21T06:37:52.955828"
 }
