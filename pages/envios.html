@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Envíos a todo el país: zonas, costos y plazos | El Gadget</title>
+<meta name="description" content="Envíos de El Gadget a todo el país: moto en CABA y GBA (hasta 48 h hábiles, desde $2.899), correo al interior (2 a 5 días hábiles). Envío gratis en CABA y GBA 1 desde $40.000. Zonas, costos y plazos.">
+<link rel="canonical" href="https://elgadget.com.ar/envios">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Envíos a todo el país: zonas, costos y plazos | El Gadget">
+<meta property="og:description" content="Envíos de El Gadget a todo el país: moto en CABA y GBA (hasta 48 h hábiles, desde $2.899), correo al interior (2 a 5 días hábiles). Envío gratis en CABA y GBA 1 desde $40.000. Zonas, costos y plazos.">
+<meta property="og:url" content="https://elgadget.com.ar/envios">
+<meta property="og:site_name" content="El Gadget">
+<meta property="og:locale" content="es_AR">
+<meta name="theme-color" content="#14151A">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cuánto cuesta el envío?", "acceptedAnswer": {"@type": "Answer", "text": "Depende de la zona: $2.899 en CABA (moto), entre $4.650 y $8.350 en el Gran Buenos Aires según el cordón (moto), $8.250 al resto de la provincia de Buenos Aires (correo) y $8.690 al resto del país (correo). El costo exacto se calcula solo en el checkout al indicar tu provincia y partido. Envío gratis en CABA (Capital Federal) y GBA zona 1 (primer cordón) con compras desde $40.000."}}, {"@type": "Question", "name": "¿Cuánto tarda en llegar mi pedido?", "acceptedAnswer": {"@type": "Answer", "text": "En CABA y GBA el envío va en moto y llega hasta 48 h hábiles desde el despacho. Al resto de la provincia de Buenos Aires y al interior del país va por correo y demora 2 a 5 días hábiles, según la distancia."}}, {"@type": "Question", "name": "¿Hacen envíos a todo el país?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Enviamos a todas las provincias de Argentina: en moto dentro de CABA y el Gran Buenos Aires, y por correo al resto de la provincia de Buenos Aires y al interior del país."}}, {"@type": "Question", "name": "¿Cuándo el envío es gratis?", "acceptedAnswer": {"@type": "Answer", "text": "Cuando el total de los productos del pedido, ya con descuentos aplicados, es de $40.000 o más y la dirección de entrega está en CABA (Capital Federal) y GBA zona 1 (primer cordón). El checkout lo aplica solo: si se cumplen las dos condiciones, el envío figura en $0. En el resto de las zonas se cobra la tarifa de la tabla."}}, {"@type": "Question", "name": "¿Cómo sigo mi pedido?", "acceptedAnswer": {"@type": "Answer", "text": "Apenas se despacha te mandamos por email el número y el link de seguimiento. También podés consultarlo en cualquier momento en https://elgadget.com.ar/seguimiento con tu número de orden. Si el pedido superó el plazo estimado para tu zona, escribinos por WhatsApp con el número de orden y lo revisamos en el día."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://elgadget.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Envíos"}]}]</script>
+<style>
+  .envios-tabla-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 10px; }
+  .envios-tabla { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 520px; }
+  .envios-tabla thead tr { background: var(--gray-100); }
+  .envios-tabla th { padding: 9px 10px; text-align: left; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-600); }
+  .envios-tabla td { padding: 10px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; color: var(--gray-600); }
+  .envios-tabla td:first-child { font-weight: 600; color: var(--ink); }
+  .envios-tabla td.costo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .zona-partidos { border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 8px; background: var(--paper); }
+  .zona-partidos summary { cursor: pointer; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+  .zona-partidos p { margin: 8px 0 0; font-size: 13px; color: var(--gray-600); line-height: 1.7; }
+  .envios-nota { font-size: 12.5px; color: var(--gray-600); }
+  .envios-tabla .bonif { display: inline-block; margin-top: 4px; font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--green-ok); background: var(--green-pale); padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-badge">
+        <img src="assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
+    </a>
+    <a href="carrito" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="label">Mi pedido</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Inicio</a>
+  <span class="sep">/</span>
+  <span class="current">Envíos</span>
+</div>
+
+<!-- CONTENIDO -->
+<div class="page-wrap" style="max-width:760px">
+  <h1 class="page-title">Envíos: zonas, costos y plazos</h1>
+
+  <!-- RESUMEN VISUAL -->
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px">
+    <div style="flex:1;min-width:160px;background:var(--cream);border-radius:12px;padding:16px 18px;text-align:center">
+      <p style="font-size:28px;font-weight:700;color:var(--ink);margin:0 0 4px">48 h</p>
+      <p style="font-size:12.5px;color:var(--gray-600);margin:0">hábiles en moto<br><strong>CABA y GBA</strong></p>
+    </div>
+    <div style="flex:1;min-width:160px;background:var(--cream);border-radius:12px;padding:16px 18px;text-align:center">
+      <p style="font-size:28px;font-weight:700;color:var(--ink);margin:0 0 4px">2-5</p>
+      <p style="font-size:12.5px;color:var(--gray-600);margin:0">días hábiles por correo<br><strong>resto del país</strong></p>
+    </div>
+    <div style="flex:1;min-width:160px;background:var(--ink);border-radius:12px;padding:16px 18px;text-align:center">
+      <p style="font-size:28px;font-weight:700;color:var(--paper);margin:0 0 4px">$0</p><p style="font-size:12.5px;color:var(--paper);opacity:.8;margin:0">envío gratis desde $40.000<br><strong>CABA (Capital Federal) y GBA zona 1 (primer cordón)</strong></p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Tarifario por zona</h2>
+    <p>
+      Enviamos a todo el país. El costo y el plazo dependen de la zona de entrega; el checkout los
+      calcula solo cuando indicás tu provincia (y tu partido, si estás en la provincia de Buenos Aires).
+    </p>
+    <div class="envios-tabla-wrap">
+      <table class="envios-tabla">
+        <thead><tr><th>Zona</th><th>Modalidad</th><th>Plazo estimado</th><th>Costo</th></tr></thead>
+        <tbody>
+        <tr><td>CABA (Capital Federal)</td><td>Moto (mensajería)</td><td>Hasta 48 horas habiles desde el despacho</td><td class="costo">$2.899<br><span class="bonif">Gratis desde $40.000</span></td></tr>
+        <tr><td>GBA zona 1 (primer cordón)</td><td>Moto (mensajería)</td><td>Hasta 48 horas habiles desde el despacho</td><td class="costo">$4.650<br><span class="bonif">Gratis desde $40.000</span></td></tr>
+        <tr><td>GBA zona 2 (segundo cordón)</td><td>Moto (mensajería)</td><td>Hasta 48 horas habiles desde el despacho</td><td class="costo">$5.150</td></tr>
+        <tr><td>GBA zona 3 (tercer cordón)</td><td>Moto (mensajería)</td><td>Hasta 48 horas habiles desde el despacho</td><td class="costo">$8.350</td></tr>
+        <tr><td>Resto de la provincia de Buenos Aires</td><td>Correo</td><td>2 a 5 dias habiles, segun distancia</td><td class="costo">$8.250</td></tr>
+        <tr><td>Resto del país</td><td>Correo</td><td>2 a 5 dias habiles, segun distancia</td><td class="costo">$8.690</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="envios-nota">Tarifas en pesos argentinos, vigentes al 21 de septiembre de 2026. Los plazos son hábiles y se cuentan desde el despacho.</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Envío gratis desde $40.000 en CABA (Capital Federal) y GBA zona 1 (primer cordón)</h2>
+    <p>
+      Si el total de los productos de tu pedido, <strong>ya con los descuentos aplicados</strong>, es de
+      <strong>$40.000 o más</strong> y la dirección de entrega está en CABA (Capital Federal) y GBA zona 1 (primer cordón),
+      el envío sale <strong>$0</strong>. No hace falta ningún código: el checkout lo aplica solo al calcular el envío.
+      En el resto de las zonas se cobra la tarifa de la tabla.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Moto en CABA y Gran Buenos Aires</h2>
+    <p>
+      Dentro de la Ciudad de Buenos Aires y los partidos del Gran Buenos Aires el pedido va en moto
+      (mensajería) y llega <strong>hasta 48 h hábiles</strong> desde que lo despachamos. El GBA se divide en
+      tres cordones con distinto costo; abajo podés ver a qué zona pertenece cada partido.
+    </p>
+      <details class="zona-partidos"><summary>GBA zona 1 (primer cordón) — $4.650 · moto (mensajería) (12 partidos)</summary><p>Avellaneda, General San Martín, Hurlingham, Ituzaingó, La Matanza, Lanús, Lomas de Zamora, Morón, Quilmes, San Isidro, Tres de Febrero, Vicente López.</p></details>
+      <details class="zona-partidos"><summary>GBA zona 2 (segundo cordón) — $5.150 · moto (mensajería) (12 partidos)</summary><p>Almirante Brown, Berazategui, Esteban Echeverría, Ezeiza, Florencio Varela, José C. Paz, Malvinas Argentinas, Merlo, Moreno, San Fernando, San Miguel, Tigre.</p></details>
+      <details class="zona-partidos"><summary>GBA zona 3 (tercer cordón) — $8.350 · moto (mensajería) (10 partidos)</summary><p>Brandsen, Cañuelas, Escobar, General Las Heras, General Rodríguez, Luján, Marcos Paz, Pilar, Presidente Perón, San Vicente.</p></details>
+      <details class="zona-partidos"><summary>Resto de la provincia de Buenos Aires — $8.250 · correo (5 partidos)</summary><p>Berisso, Campana, Ensenada, La Plata, Zárate.</p></details>
+  </div>
+
+  <div class="content-section">
+    <h2>Correo al resto de la provincia y al interior del país</h2>
+    <p>
+      Fuera del GBA (resto de la provincia de Buenos Aires y todas las demás provincias) el envío va por
+      correo y demora <strong>2 a 5 días hábiles</strong> según la distancia. Cuesta $8.250
+      dentro de la provincia de Buenos Aires y $8.690 al resto del país.
+    </p>
+    <p>
+      Apenas se despacha te mandamos el número y el link de seguimiento por email; también podés
+      consultarlo en <a href="seguimiento" style="color:var(--ink);font-weight:600">Seguimiento de pedido</a>.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Cambios y devoluciones</h2>
+    <p>
+      Tenés <strong>10 días hábiles</strong> desde que recibís el pedido para arrepentirte sin dar
+      explicaciones: coordinamos el retiro sin costo y el reembolso va por el mismo medio de pago
+      (Mercado Pago). Más detalle en <a href="devoluciones" style="color:var(--ink);font-weight:600">Devoluciones y garantías</a>.
+    </p>
+  </div>
+
+  <div class="faq-category">
+    <h2>Preguntas frecuentes sobre envíos</h2>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Cuánto cuesta el envío?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Depende de la zona: $2.899 en CABA (moto), entre $4.650 y $8.350 en el Gran Buenos Aires según el cordón (moto), $8.250 al resto de la provincia de Buenos Aires (correo) y $8.690 al resto del país (correo). El costo exacto se calcula solo en el checkout al indicar tu provincia y partido. Envío gratis en CABA (Capital Federal) y GBA zona 1 (primer cordón) con compras desde $40.000.
+      </div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Cuánto tarda en llegar mi pedido?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        En CABA y GBA el envío va en moto y llega hasta 48 h hábiles desde el despacho. Al resto de la provincia de Buenos Aires y al interior del país va por correo y demora 2 a 5 días hábiles, según la distancia.
+      </div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Hacen envíos a todo el país?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Sí. Enviamos a todas las provincias de Argentina: en moto dentro de CABA y el Gran Buenos Aires, y por correo al resto de la provincia de Buenos Aires y al interior del país.
+      </div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Cuándo el envío es gratis?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Cuando el total de los productos del pedido, ya con descuentos aplicados, es de $40.000 o más y la dirección de entrega está en CABA (Capital Federal) y GBA zona 1 (primer cordón). El checkout lo aplica solo: si se cumplen las dos condiciones, el envío figura en $0. En el resto de las zonas se cobra la tarifa de la tabla.
+      </div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ¿Cómo sigo mi pedido?
+        <span class="icon">+</span>
+      </button>
+      <div class="faq-answer"><div class="faq-answer-inner">
+        Apenas se despacha te mandamos por email el número y el link de seguimiento. También podés consultarlo en cualquier momento en https://elgadget.com.ar/seguimiento con tu número de orden. Si el pedido superó el plazo estimado para tu zona, escribinos por WhatsApp con el número de orden y lo revisamos en el día.
+      </div></div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <p style="font-size:12.5px">
+      ¿Alguna otra duda? Escribinos por <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta%20sobre%20env%C3%ADos" target="_blank" rel="noopener" style="color:var(--ink);font-weight:600">WhatsApp</a> y te respondemos en el día.
+    </p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-badge">
+          <img src="assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+        </div>
+        <div class="logo-text">
+          <div class="logo-name">El<span> Gadget</span></div>
+          <div class="logo-tagline">Tienda online</div>
+        </div>
+      </div>
+      <p>Productos para el hogar, moda, tecnología y mucho más. Elegí tus productos, pagá online de forma segura y te lo enviamos a tu casa.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <a href="carrito">Mi pedido</a>
+      <a href="seguimiento">Seguimiento de pedido</a>
+      <a href="faq">Preguntas frecuentes</a>
+      <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Información</h4>
+      <a href="sobre_nosotros">Sobre nosotros</a>
+      <a href="envios">Envíos</a>
+      <a href="privacidad">Política de privacidad</a>
+      <a href="devoluciones">Devoluciones y garantías</a>
+      <a href="arrepentimiento">Botón de arrepentimiento</a>
+      <a href="terminos">Términos y condiciones</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados · <a href="privacidad" style="color:inherit;opacity:.8;text-decoration:none">Privacidad</a> · <a href="arrepentimiento" style="color:inherit;opacity:.8;text-decoration:none">Arrepentimiento</a> · <a href="terminos" style="color:inherit;opacity:.8;text-decoration:none">Términos</a></div>
+  <div class="footer-legal">
+    <strong>El Gadget</strong> &middot; Dami&aacute;n Ezequiel S&aacute;nchez &middot; CUIT 20-42396477-5 &middot; Responsable Monotributo<br>
+    Esteban Echeverr&iacute;a 964, Wilde (B1875ATT), Provincia de Buenos Aires, Argentina<br>
+    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a> &middot; <a href="/envios">Env&iacute;os</a>
+  </div>
+</footer>
+
+<script src="assets/js/cart.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
+</script>
+</body>
+</html>
