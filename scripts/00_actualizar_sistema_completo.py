@@ -435,6 +435,8 @@ class ActualizadorMaestro:
             'pages/producto',
             'pages/sitemap.xml',
             'data/sitemap_lastmod.json',
+            'data/redirects_producto.json',
+            'data/fichas_producto.json',
             'data/droppers_ids.json',
             'data/droppers_urls_extra.json',
             'data/droppers_alertas_estado.json',

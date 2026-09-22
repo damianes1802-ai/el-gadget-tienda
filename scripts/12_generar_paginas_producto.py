@@ -13,8 +13,11 @@ También:
 - Guarda el slug calculado en productos.url_amigable (data/catalogo.db).
 - Genera pages/sitemap.xml con todas las páginas de producto y las páginas
   principales del sitio.
-- Elimina carpetas pages/producto/<slug>/ de productos que ya no están
-  disponibles en el catálogo, para no dejar páginas huérfanas indexadas.
+- Conserva la ficha de los productos AGOTADOS (badge, sin compra, JSON-LD
+  OutOfStock, alternativas en stock) en vez de borrarla: la URL no da 404 y
+  al reingresar recupera la misma posición. Pasados AGOTADO_DIAS_MAX días, la
+  ficha pasa a un stub noindex + refresh a su categoría y sale del sitemap.
+  Estado por SKU (slug congelado, nombre, agotado_desde): data/fichas_producto.json.
 
 USO:
     python 12_generar_paginas_producto.py
@@ -32,6 +35,7 @@ import sys
 import unicodedata
 from datetime import date
 from pathlib import Path
+from urllib.parse import quote
 
 sys.path.append(str(Path(__file__).parent))
 from utils.config import Config
@@ -49,6 +53,18 @@ SITEMAP_FILE = PAGES_DIR / 'sitemap.xml'
 LASTMOD_STATE_FILE = Config.BASE_DIR / 'data' / 'sitemap_lastmod.json'
 # Slugs viejos de producto -> SKU, para redirigirlos a la URL actual (versionado)
 REDIRECTS_FILE = Config.BASE_DIR / 'data' / 'redirects_producto.json'
+# Estado de fichas por SKU (versionado): slug congelado + último nombre + desde
+# cuándo está agotado. Es la memoria que sobrevive al borrado de la fila en
+# catalogo.db (11_ borra los agotados en cada sync): con esto la ficha de un
+# agotado sigue publicada (badge + alternativas, OutOfStock) en vez de dar 404,
+# y al reingresar recupera la MISMA URL (posición ganada, sin volver a cero).
+FICHAS_STATE_FILE = Config.BASE_DIR / 'data' / 'fichas_producto.json'
+# Fuente de datos de un agotado (ya no está en la base): data/productos/<SKU>/metadata.json
+METADATA_DIR = Config.PRODUCTOS_DIR
+# Más de N días agotado -> la ficha pasa a stub noindex + refresh a su categoría
+# y sale del sitemap. Mientras tanto sigue indexable (Google: mantener la URL
+# viva con OutOfStock conserva la posición cuando el producto vuelve).
+AGOTADO_DIAS_MAX = 90
 
 BRAND = "El Gadget"
 WHATSAPP_NUM = "5491126228481"
@@ -148,6 +164,149 @@ def _calcular_lastmods(all_urls) -> dict:
     return {u: v['lastmod'] for u, v in nuevo.items()}
 
 
+# ── Fichas agotadas: estado por SKU, datos desde metadata.json ─────────────
+
+def cargar_fichas_state() -> dict:
+    """{sku: {'slug', 'nombre', 'precio', 'agotado_desde'?}} — ver FICHAS_STATE_FILE."""
+    try:
+        estado = json.loads(FICHAS_STATE_FILE.read_text(encoding='utf-8'))
+        return estado if isinstance(estado, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def guardar_fichas_state(estado: dict) -> None:
+    FICHAS_STATE_FILE.write_text(
+        json.dumps(estado, ensure_ascii=False, indent=1, sort_keys=True) + '\n', encoding='utf-8')
+
+
+def leer_metadata(sku: str) -> dict:
+    """metadata.json del producto (fuente de un agotado que ya no está en la base). {} si no hay."""
+    f = METADATA_DIR / sku / 'metadata.json'
+    try:
+        m = json.loads(f.read_text(encoding='utf-8'))
+        return m if isinstance(m, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def listar_skus_con_metadata() -> list:
+    if not METADATA_DIR.exists():
+        return []
+    return sorted(d.name for d in METADATA_DIR.iterdir() if d.is_dir() and (d / 'metadata.json').exists())
+
+
+def producto_desde_metadata(sku: str, meta: dict, nombre_previo: str = '') -> dict:
+    """Arma un dict con la misma forma que una fila de `productos` a partir de
+    data/productos/<SKU>/metadata.json (mismo mapeo que 11_sincronizar_sqlite).
+    `nombre_previo` es el último nombre publicado (puede venir reescrito por el
+    SEO mensual): se prefiere sobre el título crudo del proveedor para que la
+    ficha agotada no cambie de título respecto de lo que Google ya indexó."""
+    imagenes = meta.get('imagenes_cloudinary') or meta.get('imagenes') or []
+    precio = meta.get('precio_venta') or 0
+    if not precio and isinstance(meta.get('calculo_precio'), dict):
+        precio = meta['calculo_precio'].get('precio_final') or 0
+    try:
+        precio = float(precio)
+    except (TypeError, ValueError):
+        precio = 0.0
+    return {
+        'sku': sku,
+        'nombre': (nombre_previo or meta.get('titulo') or sku).strip(),
+        'descripcion': meta.get('descripcion') or '',
+        'precio_venta': precio,
+        'stock': 0,
+        'categoria': meta.get('categoria_principal') or meta.get('categoria') or 'General',
+        'imagen_principal': imagenes[0] if imagenes else '',
+        'imagenes_adicionales': ','.join(imagenes[1:]),
+        'item_group_id': meta.get('item_group_id') or '',
+        'variantes_internas': json.dumps(meta.get('variantes_internas') or [], ensure_ascii=False),
+        'color': '', 'talle': '',
+    }
+
+
+def sku_de_ficha_existente(carpeta: Path) -> str:
+    """SKU que sirve una carpeta pages/producto/<slug>/ ya publicada (leyendo el
+    HTML), o '' si no es una ficha (stub de redirección, carpeta vacía). Es el
+    último recurso para no perder la URL de un producto que quedó fuera de la
+    base antes de que existiera el registro de fichas."""
+    try:
+        contenido = (carpeta / 'index.html').read_text(encoding='utf-8', errors='replace')
+    except OSError:
+        return ''
+    if 'http-equiv="refresh"' in contenido:
+        return ''
+    m = re.search(r'id="productSku">SKU: ([^<]+)<', contenido)
+    return html.unescape(m.group(1)).strip() if m else ''
+
+
+def nombre_de_ficha_existente(carpeta: Path) -> str:
+    try:
+        contenido = (carpeta / 'index.html').read_text(encoding='utf-8', errors='replace')
+    except OSError:
+        return ''
+    m = re.search(r'<h1 class="product-title" id="productTitle">([^<]*)</h1>', contenido)
+    return html.unescape(m.group(1)).strip() if m else ''
+
+
+def fecha_agotado_de_metadata(meta: dict) -> str:
+    """'YYYY-MM-DD' de metadata.fecha_agotado (la escribe 17_deteccion_agotados_robusto), o ''."""
+    f = (meta.get('fecha_agotado') or '')[:10]
+    try:
+        date.fromisoformat(f)
+        return f
+    except ValueError:
+        return ''
+
+
+def elegir_alternativas(sku: str, grupo: str, categoria: str, por_grupo: dict, por_categoria: dict,
+                        productos: list) -> list:
+    """Hasta RELACIONADOS_LIMIT productos EN STOCK para la ficha de un agotado:
+    primero el mismo item_group_id (otro color/talle del mismo producto),
+    después la misma categoría, y si no alcanza, el catálogo general. La
+    elección es determinística (hash del SKU) para que la página no cambie de
+    contenido en cada corrida sin motivo."""
+    elegidos, vistos = [], {sku}
+
+    def _sumar(lista):
+        if not lista:
+            return
+        n = len(lista)
+        base = int(hashlib.md5(sku.encode()).hexdigest(), 16) % n
+        for k in range(n):
+            if len(elegidos) >= RELACIONADOS_LIMIT:
+                return
+            p = lista[(base + k) % n]
+            if p['sku'] not in vistos:
+                vistos.add(p['sku'])
+                elegidos.append(p)
+
+    if grupo:
+        _sumar(por_grupo.get(grupo, []))
+    _sumar(por_categoria.get(categoria, []))
+    _sumar(productos)
+    return elegidos
+
+
+def render_stub_agotado(slug: str, categoria: str) -> str:
+    """Ficha de un producto agotado hace más de AGOTADO_DIAS_MAX días: noindex +
+    canonical y meta refresh a su categoría (mismo patrón que los stubs de
+    redirección de slugs viejos; GitHub Pages no tiene redirecciones de
+    servidor). Sale del sitemap, pero la URL no da 404 y la carpeta se conserva:
+    si el producto reingresa, vuelve a ser la ficha completa en la misma URL."""
+    url = f"{CANONICAL_DOMAIN}/categoria/{slug_categoria(categoria)}/"
+    return (
+        '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
+        f'<title>Producto no disponible | {BRAND}</title>'
+        f'<link rel="canonical" href="{html.escape(url)}">'
+        f'<meta http-equiv="refresh" content="0;url={html.escape(url)}">'
+        '<meta name="robots" content="noindex">'
+        f'<script>location.replace({json.dumps(url)});</script>'
+        f'</head><body><p>Este producto ya no está disponible. Te llevamos a '
+        f'<a href="{html.escape(url)}">{html.escape(categoria)}</a>.</p></body></html>\n'
+    )
+
+
 def cloudinary_thumb(url: str, size: int = 150) -> str:
     """Inserta transformaciones de Cloudinary para servir una miniatura liviana
     (w×h, recorte, formato y calidad automáticos). Si no es una URL de
@@ -245,7 +404,8 @@ def render_variantes(producto: dict, variantes: list) -> str:
     return ''
 
 
-def render_relacionados(relacionados: list, categoria: str, slug_map: dict) -> str:
+def render_relacionados(relacionados: list, categoria: str, slug_map: dict,
+                        titulo: str = 'Productos relacionados', intro: str = '') -> str:
     if not relacionados:
         return ''
 
@@ -270,17 +430,23 @@ def render_relacionados(relacionados: list, categoria: str, slug_map: dict) -> s
             </div>
           </a>''')
 
+    intro_html = f'\n    <p class="related-intro">{html.escape(intro)}</p>' if intro else ''
     return f'''
   <div class="related-section" id="relatedSection">
     <div class="grid-heading">
-      <h2>Productos relacionados</h2>
+      <h2>{html.escape(titulo)}</h2>
       <a href="../../categoria/{slug_categoria(categoria)}/" style="font-size:13.5px;font-weight:700;color:var(--ink);text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Ver todo en {html.escape(categoria)} →</a>
-    </div>
+    </div>{intro_html}
     <div class="grid" id="relatedGrid">{''.join(cards)}</div>
   </div>'''
 
 
-def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, relacionados: list, slug_map: dict) -> str:
+def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, relacionados: list, slug_map: dict,
+                  agotado: bool = False) -> str:
+    """Ficha completa. Con `agotado=True` (producto fuera de la base o con
+    stock 0): misma URL/título/galería, badge "Agotado", sin botones de compra
+    (CTA "Avisame cuando vuelva" por WhatsApp), JSON-LD OutOfStock y
+    `relacionados` se muestra como "Alternativas disponibles"."""
     nombre = producto['nombre']
     sku = producto['sku']
     categoria = producto.get('categoria') or 'General'
@@ -298,7 +464,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
 
     breadcrumb_producto = nombre if len(nombre) <= 40 else nombre[:40] + '…'
 
-    stock_val = producto.get('stock') or 0
+    stock_val = 0 if agotado else (producto.get('stock') or 0)
     en_stock = stock_val > 0
     if not en_stock:
         stock_badge = '<span class="stock-badge out-of-stock" id="stockBadge">✗ Agotado</span>'
@@ -335,6 +501,9 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
             {"@type": "ListItem", "position": 3, "name": nombre},
         ],
     }]
+    if not en_stock and float(precio or 0) <= 0:
+        # agotado sin precio conocido: no declarar "$0.00" (señal falsa); OutOfStock alcanza
+        jsonld[0]['offers'].pop('price', None)
 
     main_image_html = (
         f'<img id="mainImage" class="main-image" src="{html.escape(cloudinary_main(imagen_principal))}" '
@@ -351,11 +520,42 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
 
     gallery_class = 'gallery' if len(imagenes) > 1 else 'gallery single-image'
 
+    # CTA principal + barra sticky (mobile). Agotado: sin compra; el botón pasa
+    # a "Avisame cuando vuelva" (WhatsApp con mensaje prearmado; cart.js lo
+    # registra solo como generate_lead con el SKU) + atajo a las alternativas.
+    if not en_stock:
+        aviso_txt = f"Hola! Quiero que me avisen cuando vuelva a estar disponible: {nombre} (SKU {sku})"
+        wa_aviso = f"https://wa.me/{WHATSAPP_NUM}?text={quote(aviso_txt)}"
+        precio_visible = formatear_precio(precio) if float(precio or 0) > 0 else 'Precio no disponible'
+        acciones_html = (
+            f'<div class="agotado-notice" role="status"><strong>Este producto está agotado por el momento.</strong> '
+            f'Pedí que te avisemos cuando vuelva o elegí una alternativa disponible más abajo.</div>\n'
+            f'      <div class="actions actions-agotado" id="mainActions">\n'
+            f'        <a class="btn btn-accent" href="{html.escape(wa_aviso)}" target="_blank" rel="noopener">Avisame cuando vuelva</a>\n'
+            f'        <a class="btn btn-dark" href="#relatedSection">Ver alternativas</a>\n'
+            f'      </div>')
+        sticky_cta = f'<a class="btn btn-accent" href="{html.escape(wa_aviso)}" target="_blank" rel="noopener">Avisame</a>'
+        sticky_precio = '<span style="color:var(--red)">Agotado</span>'
+        related_html = render_relacionados(
+            relacionados, categoria, slug_map, titulo='Alternativas disponibles',
+            intro='Estos productos sí están disponibles ahora, con envío a todo el país.')
+    else:
+        precio_visible = formatear_precio(precio)
+        acciones_html = (
+            '<div class="actions" id="mainActions">\n'
+            '        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>\n'
+            '        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>\n'
+            '    <button class="ref-share-cta" id="refShareCta" type="button" onclick="compartirComoReferido()"></button>\n'
+            '      </div>')
+        sticky_cta = '<button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>'
+        sticky_precio = formatear_precio(precio)
+        related_html = render_relacionados(relacionados, categoria, slug_map)
+
     producto_js = {
         "sku": sku,
         "nombre": nombre,
         "precio_venta": precio,
-        "stock": producto.get('stock') or 0,
+        "stock": stock_val,
         "color": producto.get('color') or '',
         "talle": producto.get('talle') or '',
         "descripcion": descripcion,
@@ -395,14 +595,17 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         '__CATEGORY_BADGE__': html.escape(categoria),
         '__PRODUCT_TITLE__': html.escape(nombre),
         '__PRODUCT_NAME_SHORT__': html.escape((nombre[:42] + '…') if len(nombre) > 43 else nombre),
-        '__PRODUCT_PRICE__': formatear_precio(precio),
+        '__PRODUCT_PRICE__': precio_visible,
         '__PRODUCT_SKU__': html.escape(sku),
         '__STOCK_BADGE__': stock_badge,
         '__MAIN_IMAGE__': main_image_html,
         '__THUMBNAILS__': render_thumbnails(imagenes, nombre),
         '__DESCRIPTION__': html.escape(descripcion or 'Sin descripción disponible.'),
         '__VARIANTS__': render_variantes(producto, variantes),
-        '__RELATED__': render_relacionados(relacionados, categoria, slug_map),
+        '__ACTIONS__': acciones_html,
+        '__STICKY_PRICE__': sticky_precio,
+        '__STICKY_CTA__': sticky_cta,
+        '__RELATED__': related_html,
         '__PRODUCTO_JSON__': json.dumps(producto_js, ensure_ascii=False),
     }
 
@@ -505,11 +708,7 @@ TEMPLATE = """<!DOCTYPE html>
       __VARIANTS__
 
       <!-- Acciones -->
-      <div class="actions" id="mainActions">
-        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>
-        <button class="btn btn-dark" onclick="comprarAhora()">Comprar ahora</button>
-    <button class="ref-share-cta" id="refShareCta" type="button" onclick="compartirComoReferido()"></button>
-      </div>
+      __ACTIONS__
 
       <!-- Descripción -->
       <div class="product-description">
@@ -582,9 +781,9 @@ __RELATED__
 <div class="pdp-sticky-buy" id="pdpStickyBuy" aria-hidden="true">
   <div class="pdp-sticky-info">
     <span class="pdp-sticky-name">__PRODUCT_NAME_SHORT__</span>
-    <span class="pdp-sticky-price" id="pdpStickyPrice">__PRODUCT_PRICE__</span>
+    <span class="pdp-sticky-price" id="pdpStickyPrice">__STICKY_PRICE__</span>
   </div>
-  <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>
+  __STICKY_CTA__
 </div>
 
 <!-- TOAST -->
@@ -836,6 +1035,18 @@ def cargar_productos(conn) -> list:
     cursor.execute("""
         SELECT * FROM productos
         WHERE stock > 0 AND precio_venta > 0
+        ORDER BY sku
+    """)
+    return [dict(row) for row in cursor.fetchall()]
+
+
+def cargar_agotados_db(conn) -> list:
+    """Filas que siguen en la base pero no se venden (stock 0 —p. ej. apagado a
+    mano desde el panel— o sin precio): su ficha se publica como agotada."""
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT * FROM productos
+        WHERE NOT (stock > 0 AND precio_venta > 0)
         ORDER BY sku
     """)
     return [dict(row) for row in cursor.fetchall()]
@@ -1571,8 +1782,14 @@ def generar():
     #    rankeando. Entre junio y septiembre de 2026 eso paso con 35+
     #    productos. Solo se calcula slug para productos que no tienen uno.
     #    El sufijo con SKU garantiza unicidad, asi que congelar es seguro.
+    #    Un producto que REINGRESA llega sin url_amigable (11_ inserta la fila
+    #    de cero porque la anterior se borro al agotarse): su slug se recupera
+    #    del registro de fichas (data/fichas_producto.json), asi vuelve a la
+    #    misma URL que Google ya conocia en vez de estrenar una nueva.
+    fichas = cargar_fichas_state()
     slug_map = {}
     slugs_usados = set()
+    restaurados = 0
     # primero los que ya tienen slug (para que ningun nuevo choque con ellos)
     for p in productos:
         existente = (p.get('url_amigable') or '').strip()
@@ -1582,11 +1799,19 @@ def generar():
     for p in productos:
         if p['sku'] in slug_map:
             continue
+        previo = (fichas.get(p['sku']) or {}).get('slug') or ''
+        if previo and previo not in slugs_usados:
+            slug_map[p['sku']] = previo
+            slugs_usados.add(previo)
+            restaurados += 1
+            continue
         slug = construir_slug(p['nombre'], p['sku'])
         if slug in slugs_usados:
             slug = f"{slug}-{slugify(p['sku'])}-2"
         slugs_usados.add(slug)
         slug_map[p['sku']] = slug
+    if restaurados:
+        print(f"♻️  {restaurados} productos reingresados recuperaron su URL anterior")
 
     cursor = conn.cursor()
     cursor.executemany(
@@ -1634,8 +1859,75 @@ def generar():
         destino_dir = PRODUCTO_DIR / slug
         destino_dir.mkdir(parents=True, exist_ok=True)
         (destino_dir / 'index.html').write_text(contenido, encoding='utf-8')
+        # memoria de la ficha (sobrevive a que 11_ borre la fila al agotarse)
+        fichas[sku] = {'slug': slug, 'nombre': p['nombre'], 'precio': p['precio_venta']}
 
     print(f"✅ {len(slugs_generados)} páginas de producto generadas en {PRODUCTO_DIR}")
+
+    # 3a. Fichas de productos AGOTADOS. Antes se borraba la carpeta y la URL
+    #     daba 404: se perdia la posicion ganada (ej. la pinza destapacanerias
+    #     DL1254-1X1 rankeaba en el puesto 9 y desaparecio) y al reingresar
+    #     (el stock de Droppers rota seguido) habia que empezar de cero. Ahora
+    #     la ficha queda publicada con badge "Agotado", sin compra, JSON-LD
+    #     OutOfStock y 4 alternativas en stock. Fuente de datos: la fila de la
+    #     base si sigue ahi (stock 0), si no data/productos/<SKU>/metadata.json.
+    #     La URL sale de la base, del registro de fichas o de la carpeta ya
+    #     publicada: NUNCA se inventa una URL nueva para un agotado.
+    #     Pasados AGOTADO_DIAS_MAX dias, la ficha se reemplaza por un stub
+    #     noindex + refresh a su categoria y sale del sitemap.
+    hoy = date.today()
+    agotados_db = {p['sku']: dict(p) for p in cargar_agotados_db(conn)}
+    carpetas_por_sku = {}
+    for carpeta in PRODUCTO_DIR.iterdir():
+        if carpeta.is_dir() and carpeta.name not in slugs_generados:
+            s = sku_de_ficha_existente(carpeta)
+            if s and s not in slug_map:
+                carpetas_por_sku.setdefault(s, carpeta.name)
+    candidatos = (set(agotados_db) | set(listar_skus_con_metadata()) | set(fichas) | set(carpetas_por_sku)) - set(slug_map)
+    fichas_agotadas = {}     # slug -> 'ficha' | 'stub'
+    slug_map_agotados = {}   # sku -> slug (para redirecciones de slugs viejos)
+    for sku in sorted(candidatos):
+        fila = agotados_db.get(sku)
+        meta = leer_metadata(sku)
+        reg = fichas.get(sku) or {}
+        if not fila and not meta:
+            continue  # sin datos para renderizar (no se inventa nada)
+        slug = ((fila.get('url_amigable') or '').strip() if fila else '') or reg.get('slug') or carpetas_por_sku.get(sku, '')
+        if not slug or slug in slugs_generados or slug in fichas_agotadas:
+            continue  # nunca tuvo ficha publicada (o colision imposible por el sufijo SKU)
+        nombre_previo = reg.get('nombre') or (nombre_de_ficha_existente(PRODUCTO_DIR / slug) if sku in carpetas_por_sku else '')
+        if fila:
+            producto = fila
+            producto['nombre'] = (producto.get('nombre') or nombre_previo or sku).strip()
+        else:
+            producto = producto_desde_metadata(sku, meta, nombre_previo)
+        if float(producto.get('precio_venta') or 0) <= 0 and reg.get('precio'):
+            producto['precio_venta'] = reg['precio']  # ultimo precio publicado
+        # Desde cuando esta agotado: lo mas antiguo entre el registro y
+        # metadata.fecha_agotado (17_); si no hay nada, hoy. Nunca avanza
+        # mientras siga agotado; se limpia al reingresar.
+        fechas = [f for f in (reg.get('agotado_desde'), fecha_agotado_de_metadata(meta)) if f]
+        desde = min(fechas) if fechas else hoy.isoformat()
+        dias = (hoy - date.fromisoformat(desde)).days
+        categoria = producto.get('categoria') or 'General'
+        destino_dir = PRODUCTO_DIR / slug
+        destino_dir.mkdir(parents=True, exist_ok=True)
+        if dias > AGOTADO_DIAS_MAX:
+            (destino_dir / 'index.html').write_text(render_stub_agotado(slug, categoria), encoding='utf-8')
+            fichas_agotadas[slug] = 'stub'
+        else:
+            alternativas = elegir_alternativas(sku, producto.get('item_group_id') or '', categoria,
+                                               por_grupo, por_categoria, productos)
+            contenido = render_pagina(producto, slug, site_url, [], alternativas, slug_map, agotado=True)
+            (destino_dir / 'index.html').write_text(contenido, encoding='utf-8')
+            fichas_agotadas[slug] = 'ficha'
+        slug_map_agotados[sku] = slug
+        fichas[sku] = {'slug': slug, 'nombre': producto['nombre'], 'precio': producto.get('precio_venta') or 0,
+                       'agotado_desde': desde}
+    n_fichas_ag = sum(1 for v in fichas_agotadas.values() if v == 'ficha')
+    n_stubs_ag = len(fichas_agotadas) - n_fichas_ag
+    print(f"⛔ {n_fichas_ag} fichas de agotados conservadas (indexables, con alternativas) "
+          f"+ {n_stubs_ag} agotados hace más de {AGOTADO_DIAS_MAX} días como stub noindex → categoría")
 
     # 3b. Redirecciones de slugs viejos. Si alguna vez un producto cambio de
     #     URL (antes de congelar los slugs, o por un cambio deliberado), la URL
@@ -1654,12 +1946,14 @@ def generar():
         previo = (p.get('url_amigable') or '').strip()
         if previo and previo != slug_map.get(p['sku']) and previo not in slugs_generados:
             redirects[previo] = p['sku']
-    sku_a_slug = {sku: slug for sku, slug in slug_map.items()}
+    # los agotados con ficha conservada tambien son destino valido: sus slugs
+    # viejos siguen redirigiendo (y la entrada no se pierde mientras esten agotados)
+    sku_a_slug = {**slug_map_agotados, **slug_map}
     stubs = 0
     vigentes = {}
     for viejo_slug, sku in redirects.items():
         destino = sku_a_slug.get(sku)
-        if not destino or viejo_slug == destino or viejo_slug in slugs_generados:
+        if not destino or viejo_slug == destino or viejo_slug in slugs_generados or viejo_slug in fichas_agotadas:
             continue  # el producto ya no esta (404 legitimo) o el slug volvio a ser el actual
         vigentes[viejo_slug] = sku
         url = f"{CANONICAL_DOMAIN}/producto/{destino}/"
@@ -1680,17 +1974,23 @@ def generar():
     if stubs:
         print(f"↪️  {stubs} redirecciones de slugs viejos escritas")
 
-    # 4. Eliminar carpetas de productos que ya no están disponibles
-    #    (las de redireccion se conservan)
+    # 4. Eliminar SOLO las carpetas que no corresponden a nada: ni ficha en
+    #    stock, ni agotado (ficha o stub, ver 3a), ni redireccion. Un agotado
+    #    ya no se borra; aca solo cae una carpeta sin metadata ni fila en la
+    #    base (no hay con que renderizarla) — 404 legitimo.
     eliminadas = 0
     if PRODUCTO_DIR.exists():
         for carpeta in PRODUCTO_DIR.iterdir():
-            if carpeta.is_dir() and carpeta.name not in slugs_generados and carpeta.name not in vigentes:
+            if (carpeta.is_dir() and carpeta.name not in slugs_generados and carpeta.name not in vigentes
+                    and carpeta.name not in fichas_agotadas):
+                logger.warning(f"Carpeta sin producto ni metadata, se elimina: {carpeta.name}")
                 shutil.rmtree(carpeta)
                 eliminadas += 1
 
     if eliminadas:
-        print(f"🗑️  {eliminadas} páginas de producto descontinuadas eliminadas")
+        print(f"🗑️  {eliminadas} carpetas de producto sin datos eliminadas")
+
+    guardar_fichas_state(fichas)
 
     # 4b. Páginas de categoría y colección (arquitectura SEO: home -> listado -> producto)
     slugs_cat, slugs_col = generar_listados(productos, slug_map)
@@ -1729,6 +2029,10 @@ def generar():
     static_pages.append((f"{canonical_url}/blog/", "weekly"))
     static_pages += [(f"{canonical_url}/blog/{s}/", "monthly") for s in slugs_blog]
     urls = [(f"{canonical_url}/producto/{slug}/", "weekly") for slug in sorted(slugs_generados)]
+    # Agotados con ficha conservada: siguen en el sitemap (indexables, weekly).
+    # Los stubs noindex (agotados hace mas de AGOTADO_DIAS_MAX dias) NO van.
+    urls += [(f"{canonical_url}/producto/{slug}/", "weekly")
+             for slug in sorted(s for s, tipo in fichas_agotadas.items() if tipo == 'ficha')]
     all_urls = static_pages + urls
 
     lastmods = _calcular_lastmods(all_urls)
@@ -1767,7 +2071,8 @@ def generar():
 
     conn.close()
     print("\n" + "=" * 70 + "\n")
-    logger.info(f"Páginas de producto generadas: {len(slugs_generados)}, eliminadas: {eliminadas}")
+    logger.info(f"Páginas de producto generadas: {len(slugs_generados)}, agotados: {n_fichas_ag} fichas + "
+                f"{n_stubs_ag} stubs, eliminadas: {eliminadas}")
     return 0
 
 
