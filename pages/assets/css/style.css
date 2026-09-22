@@ -1231,3 +1231,13 @@ body.pagina-checkout .whatsapp-float { display: none; }
 }
 .footer-legal a { color: rgba(255,255,255,0.55); text-decoration: underline; }
 .footer-legal strong { color: rgba(255,255,255,0.6); font-weight: 600; }
+
+/* ── FICHA: envío / cambios / pago (bloque de texto visible, datos de utils/envios.py) ── */
+.pdp-benefits {
+  list-style: none; margin: 0; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px;
+  background: var(--cream); border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
+}
+.pdp-benefits li { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.55; color: var(--gray-600); }
+.pdp-benefits li .ico { font-size: 17px; line-height: 1.3; flex-shrink: 0; }
+.pdp-benefits strong { color: var(--ink); font-weight: 600; }
+.pdp-benefits a { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
