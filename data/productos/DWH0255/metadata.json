@@ -19,7 +19,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/dispenser-dosificador-jabon-liquido-ceramica-ba-o-oso-250ml.html",
   "droppers_id": 4272,
-  "fecha_scraping": "2026-09-21T06:33:04.210187",
+  "fecha_scraping": "2026-09-22T06:30:07.546736",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina",
@@ -32,7 +32,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-21T06:36:40.406354",
+  "fecha_mapeo_categorias": "2026-09-22T06:32:58.597115",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DWH0255_002",
@@ -55,5 +55,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 28000.0,
-  "fecha_calculo_precio": "2026-09-21T06:37:52.943986"
+  "fecha_calculo_precio": "2026-09-22T06:33:59.591992"
 }

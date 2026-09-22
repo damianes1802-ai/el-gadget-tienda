@@ -15,7 +15,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/pack-de-mini-resaltadores-pastel-x6-unidades.html",
   "droppers_id": 2929,
-  "fecha_scraping": "2026-09-21T06:31:00.466715",
+  "fecha_scraping": "2026-09-22T06:29:54.736286",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -44,5 +44,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 29500.0,
-  "fecha_calculo_precio": "2026-09-21T06:37:52.948064"
+  "fecha_calculo_precio": "2026-09-22T06:33:59.599608"
 }

@@ -15,7 +15,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/inflable-unicornio-para-pileta-grande-transparente-1-2m-x-0-6m.html",
   "droppers_id": 2816,
-  "fecha_scraping": "2026-09-21T06:32:19.912595",
+  "fecha_scraping": "2026-09-22T06:29:31.711658",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -25,7 +25,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-21T06:36:40.411104",
+  "fecha_mapeo_categorias": "2026-09-22T06:32:58.604686",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-001_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L2235-001_002",
@@ -44,5 +44,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 74000.0,
-  "fecha_calculo_precio": "2026-09-21T06:37:52.883162"
+  "fecha_calculo_precio": "2026-09-22T06:33:59.492650"
 }
