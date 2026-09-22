@@ -38,6 +38,8 @@ from utils.config import Config
 from utils.logger import get_logger
 from utils.seo_categorias import CATEGORIAS_SEO, COLECCIONES_SEO, slug_categoria, resolver_categoria
 from utils.blog_posts import BLOG_POSTS
+from utils.bloques_productos import (seleccionar_regalos_por_presupuesto, seleccionar_destacados,
+                                     seleccionar_ofertas, fechas_comerciales_vigentes)
 
 logger = get_logger('generar_paginas_producto')
 
@@ -1297,6 +1299,24 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 .blog-toc nav a {{ font-size: 13.5px; font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }}
 .blog-body section {{ scroll-margin-top: 96px; }}
 .blog-body section img {{ width: 100%; height: auto; border-radius: var(--radius-sm); margin-bottom: 16px; display: block; }}
+/* Bloques de productos reales (regalos por presupuesto / ofertas) */
+.blog-body .bloque-prods {{ text-align: left; margin-top: 14px; }}
+.blog-body .bloque-prods h3 {{ font-family: 'Space Grotesk', sans-serif; font-size: 15px; color: var(--ink); margin: 18px 0 10px; padding-left: 12px; border-left: 4px solid var(--accent); }}
+.blog-body .bloque-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }}
+@media (min-width: 640px) {{ .blog-body .bloque-grid {{ grid-template-columns: repeat(4, 1fr); }} }}
+.blog-body .bloque-prods img {{ margin-bottom: 0; border-radius: 0; }}
+.blog-body .bloque-prods .card {{ font-weight: 400; }}
+.blog-body .bloque-nota {{ font-size: 12.5px; color: var(--gray-400); margin-top: 14px; text-align: center; }}
+.blog-body .bloque-prods .card-price-row {{ display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }}
+.blog-body .bloque-prods .price-old {{ font-size: 12px; color: var(--gray-400); text-decoration: line-through; }}
+.blog-body .bloque-prods .card-price-row .card-price {{ margin-bottom: 0; color: var(--red); }}
+.blog-body .bloque-prods .offer-badge {{ left: auto; right: 8px; background: var(--red); color: #fff; }}
+/* Imágenes para compartir */
+.blog-body .galeria-saludos {{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }}
+.blog-body .galeria-saludos figure {{ min-width: 0; margin: 0; }}
+.blog-body .galeria-saludos img {{ margin-bottom: 8px; border-radius: 12px; }}
+.blog-body .galeria-saludos .acciones {{ display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }}
+.blog-body .galeria-saludos .acciones a {{ padding: 8px 14px; font-size: 12.5px; }}
 </style>
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 </head>
@@ -1334,9 +1354,172 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 </footer>
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+// "Agregar al pedido" desde una card del blog: el catálogo estático se pide
+// recién al primer clic (los posts sin cards no descargan nada).
+var _egCatalogo = null;
+function agregarAlCarrito(sku) {{
+  if (!_egCatalogo) {{
+    _egCatalogo = fetch('/productos.json?v=' + new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+      .then(function(r) {{ return r.ok ? r.json() : []; }})
+      .then(function(d) {{ var m = {{}}; (d.productos || d).forEach(function(p) {{ m[p.sku] = p; }}); return m; }})
+      .catch(function() {{ return {{}}; }});
+  }}
+  _egCatalogo.then(function(m) {{
+    var p = m[sku];
+    if (!p) {{ showToast('No pudimos cargar el producto, probá de nuevo'); return; }}
+    var oferta = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+    addCartItem({{ sku: p.sku, nombre: p.nombre, precio: oferta ? p.precio_oferta : p.precio_venta,
+                  precio_lista: p.precio_venta, imagen: p.imagen_principal || '', cantidad: 1 }});
+    showToast('✅ ' + p.nombre + ' agregado a tu pedido');
+  }});
+}}
+</script>
 </body>
 </html>'''
+
+
+# ── Bloques de productos reales (home + posts de fecha comercial) ─────────────
+# La elección vive en utils/bloques_productos.py; acá solo se renderiza.
+
+def anotar_precio_oferta(productos: list, cursor, hoy: str = None) -> None:
+    """Agrega p['precio_oferta'] (None si no hay campaña) con la MISMA lógica
+    compartida que usan la API y el catálogo estático (utils/campanas.py)."""
+    from utils.campanas import campanas_programadas_vigentes, calcular_precio_oferta
+    campanas = campanas_programadas_vigentes(cursor, hoy)
+    for p in productos:
+        p['precio_oferta'] = calcular_precio_oferta(p, campanas)
+
+
+def _card_bloque(p: dict, slug_map: dict) -> str:
+    """Card de producto para bloques estáticos: igual a _card_listado, pero con
+    precio de oferta (tachado + badge) cuando hay campaña vigente."""
+    slug = slug_map.get(p['sku'])
+    href = f"/producto/{slug}/" if slug else f"/producto_detalle?sku={p['sku']}"
+    imagen = p.get('imagen_principal') or ''
+    if imagen:
+        img_html = (f'<img class="card-img" src="{html.escape(cloudinary_thumb(imagen, 400))}" '
+                    f'alt="{html.escape(p["nombre"])}" loading="lazy">')
+    else:
+        img_html = '<div class="card-img-placeholder">📦</div>'
+    oferta = p.get('precio_oferta')
+    if oferta is not None and 0 < oferta < (p.get('precio_venta') or 0):
+        pct = round((1 - oferta / p['precio_venta']) * 100)
+        badge = f'<span class="card-badge offer-badge">-{pct}%</span>'
+        precio_html = (f'<div class="card-price-row"><span class="price-old">{formatear_precio(p["precio_venta"])}</span>'
+                       f'<span class="card-price">{formatear_precio(oferta)}</span></div>')
+        precio_data = oferta
+    else:
+        badge = '<span class="card-badge">Oferta</span>' if (p.get('categoria') or '').upper() == 'OFERTAS' else ''
+        precio_html = f'<div class="card-price">{formatear_precio(p["precio_venta"])}</div>'
+        precio_data = p['precio_venta'] or 0
+    return f'''
+      <a class="card" href="{href}" data-sku="{html.escape(p['sku'])}" data-precio="{precio_data}">
+        <div class="card-img-wrap">{img_html}{badge}</div>
+        <div class="card-body">
+          <div class="card-cat">{html.escape(p.get('categoria') or '')}</div>
+          <div class="card-name">{html.escape(p['nombre'])}</div>
+          {precio_html}
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('{html.escape(p['sku'])}')">Agregar al pedido</button>
+        </div>
+      </a>'''
+
+
+def _nota_bloque(hoy: date) -> str:
+    return (f'<p class="bloque-nota">Precios y stock actualizados el {hoy.strftime("%d/%m/%Y")}. '
+            f'Todos con envío a todo el país y cambios hasta 10 días.</p>')
+
+
+def render_bloque_regalos(productos: list, slug_map: dict, cfg: dict, hoy: date = None) -> str:
+    """Bloque estático de regalos reales agrupados por presupuesto (post del
+    Día de la Madre). cfg: {'lista': nombre para GA4, 'n': total}."""
+    hoy = hoy or date.today()
+    tramos = seleccionar_regalos_por_presupuesto(productos, slug_map, hoy, n_total=cfg.get('n', 12))
+    if not tramos:
+        return ''
+    partes = []
+    for titulo, items in tramos:
+        cards = ''.join(_card_bloque(p, slug_map) for p in items)
+        partes.append(f'<h3>{html.escape(titulo)}</h3><div class="grid bloque-grid">{cards}</div>')
+    lista = html.escape(cfg.get('lista', 'Regalos'))
+    return f'<div class="bloque-prods" data-list-name="{lista}">{"".join(partes)}{_nota_bloque(hoy)}</div>'
+
+
+def render_bloque_ofertas(productos: list, slug_map: dict, cfg: dict, hoy: date = None) -> str:
+    """Bloque estático de ofertas (post Cyber Monday / Black Friday): campaña
+    vigente si la hay; si no, destacados. cfg: {'lista', 'n'}."""
+    hoy = hoy or date.today()
+    items, modo = seleccionar_ofertas(productos, slug_map, hoy, n=cfg.get('n', 10))
+    if not items:
+        return ''
+    if modo == 'campana':
+        titulo = 'Con descuento hoy, precio de lista a la vista'
+    else:
+        titulo = 'Lo más elegido del catálogo hoy (precio real, sin inflar)'
+    cards = ''.join(_card_bloque(p, slug_map) for p in items)
+    lista = html.escape(cfg.get('lista', 'Ofertas'))
+    return (f'<div class="bloque-prods" data-list-name="{lista}"><h3>{html.escape(titulo)}</h3>'
+            f'<div class="grid bloque-grid">{cards}</div>{_nota_bloque(hoy)}</div>')
+
+
+HOME_FILE = PAGES_DIR / 'index.html'
+HOME_MARCADORES = ('DESTACADOS', 'FECHA-BANNER', 'FECHA-NAV')
+
+
+def _reemplazar_marcador(texto: str, nombre: str, contenido: str) -> str:
+    ini, fin = f'<!-- {nombre} -->', f'<!-- /{nombre} -->'
+    a, b = texto.find(ini), texto.find(fin)
+    if a < 0 or b < 0 or b < a:
+        print(f"⚠️  index.html: falta el marcador {ini} … {fin}; ese bloque no se escribe")
+        return texto
+    return texto[:a + len(ini)] + contenido + texto[b:]
+
+
+def generar_home(productos: list, slug_map: dict, hoy: date = None) -> bool:
+    """Escribe en pages/index.html, entre marcadores, lo que la home no puede
+    tener por JS: (a) "Destacados", 8-12 <a href> reales a fichas (antes la
+    home no tenía NINGÚN link estático a producto: la grilla se arma por JS);
+    (b) el link a la fecha comercial vigente (Día de la Madre, Cyber Monday…)
+    arriba del catálogo y en el nav. Devuelve True si el archivo cambió."""
+    hoy = hoy or date.today()
+    if not HOME_FILE.exists():
+        print(f"⚠️  No existe {HOME_FILE}")
+        return False
+    original = HOME_FILE.read_text(encoding='utf-8')
+
+    destacados = seleccionar_destacados(productos, slug_map, hoy, n=10)
+    bloque = ''
+    if destacados:
+        cards = ''.join(_card_bloque(p, slug_map) for p in destacados)
+        bloque = f'''
+<section class="grid-wrap destacados" aria-labelledby="destacadosTitle">
+  <div class="grid-heading">
+    <h2 id="destacadosTitle">Destacados de la semana</h2>
+    <a href="#catalogo">Ver todo el catálogo →</a>
+  </div>
+  <div class="grid destacados-grid" data-list-name="Destacados">{cards}
+  </div>
+</section>
+'''
+    fechas = fechas_comerciales_vigentes(hoy)
+    banner = ''
+    nav = ''
+    if fechas:
+        items = ''.join(
+            f'<a href="{f["href"]}"><b>{html.escape(f["label"])}</b><span>{html.escape(f["sub"])}</span>'
+            f'<span class="arrow" aria-hidden="true">→</span></a>' for f in fechas)
+        banner = f'\n<div class="fecha-strip" id="fechaStrip">{items}</div>\n'
+        nav = ''.join(f'<a class="mn-item mn-link mn-fecha" href="{f["href"]}">{html.escape(f["label"])}</a>'
+                      for f in fechas)
+    nuevo = original
+    for nombre, contenido in (('DESTACADOS', bloque), ('FECHA-BANNER', banner), ('FECHA-NAV', nav)):
+        nuevo = _reemplazar_marcador(nuevo, nombre, contenido)
+    if nuevo != original:
+        HOME_FILE.write_text(nuevo, encoding='utf-8')
+    print(f"✅ Home: {len(destacados)} destacados + {len(fechas)} fecha(s) comercial(es) "
+          f"[{', '.join(f['id'] for f in fechas) or 'ninguna'}]")
+    return nuevo != original
 
 
 # Interlinking editorial: posts relacionados entre si y guias por listado
@@ -1347,10 +1530,10 @@ BLOG_RELACIONADOS = {
     'como-mejorar-la-postura': ['como-reducir-la-papada', 'como-dejar-de-roncar'],
     'como-dejar-de-roncar': ['como-mejorar-la-postura', 'mewing'],
     'regalos-de-navidad': ['dia-del-amigo', 'regalos-originales-para-mujeres'],
-    'hot-sale-cyber-monday-black-friday': ['dia-del-amigo', 'regalos-originales-para-mujeres'],
+    'hot-sale-cyber-monday-black-friday': ['regalos-dia-de-la-madre', 'regalos-de-navidad'],
     'como-curar-el-mate': ['como-limpiar-termo-acero-inoxidable', 'regalos-originales-para-hombres'],
     'dia-del-amigo': ['regalos-originales-para-hombres', 'regalos-originales-para-mujeres'],
-    'regalos-dia-de-la-madre': ['regalos-originales-para-mujeres', 'dia-del-amigo'],
+    'regalos-dia-de-la-madre': ['regalos-originales-para-mujeres', 'hot-sale-cyber-monday-black-friday'],
     'regalos-originales-para-mujeres': ['regalos-dia-de-la-madre', 'regalos-originales-para-hombres'],
     'regalos-originales-para-hombres': ['regalos-originales-para-mujeres', 'regalos-dia-de-la-madre'],
     'como-organizar-el-placard': ['como-organizar-una-cocina-pequena', 'ideas-para-decorar-una-habitacion'],
@@ -1365,12 +1548,12 @@ GUIAS_LISTADO = {
     'articulos-infantiles': [('regalos-de-navidad', 'Regalos de Navidad y Reyes: ideas por edad y presupuesto')],
     'ofertas': [('regalos-de-navidad', 'Regalos de Navidad: ideas y cuándo comprar'), ('hot-sale-cyber-monday-black-friday', 'Hot Sale, Cyber Monday y Black Friday: cuándo son'), ('dia-del-amigo', 'Día del Amigo: cuándo es y qué regalar')],
     'organizadores': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña')],
-    'bazar-y-cocina': [('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar un termo de acero')],
+    'bazar-y-cocina': [('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar un termo de acero'), ('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar')],
     'vasos-y-botellas-termicas': [('como-curar-el-mate', 'Cómo curar el mate paso a paso'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar tu termo por dentro')],
     'accesorios-para-mascotas': [('como-sacar-pelos-de-mascota-de-la-ropa', 'Cómo sacar los pelos de tu mascota de la ropa')],
     'lamparas-y-luces-led': [('ideas-para-decorar-una-habitacion', 'Ideas para decorar una habitación'), ('regalos-originales-para-mujeres', 'Regalos originales para mujeres')],
-    'deco': [('ideas-para-decorar-una-habitacion', 'Ideas para decorar una habitación')],
-    'accesorios-de-moda': [('regalos-originales-para-mujeres', 'Regalos originales para mujeres')],
+    'deco': [('ideas-para-decorar-una-habitacion', 'Ideas para decorar una habitación'), ('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar')],
+    'accesorios-de-moda': [('regalos-originales-para-mujeres', 'Regalos originales para mujeres'), ('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar')],
     'home': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('ideas-para-decorar-una-habitacion', 'Ideas para decorar una habitación')],
 }
 
@@ -1432,6 +1615,17 @@ def generar_blog(productos: list = None, slug_map: dict = None) -> list:
                     p_hit = next((p for p in productos if rxp.search(p['nombre'])), None)
                     if p_hit and slug_map:
                         prod_s = f'<div class="blog-prod">{_card_listado(p_hit, slug_map)}</div>'
+                elif sec[2][0] == 'regalos':
+                    # bloque de regalos reales por presupuesto (ver utils/bloques_productos.py)
+                    if productos and slug_map:
+                        prod_s = render_bloque_regalos(productos, slug_map, sec[2][1])
+                elif sec[2][0] == 'ofertas':
+                    if productos and slug_map:
+                        prod_s = render_bloque_ofertas(productos, slug_map, sec[2][1])
+                elif sec[2][0] == 'html':
+                    # HTML libre después del párrafo (galerías): así no queda un
+                    # <div> adentro de un <p>
+                    prod_s = sec[2][1]
                 else:
                     s_src, s_alt = sec[2]
                     img_s = (f'<img src="{s_src}" alt="{html.escape(s_alt)}" width="1200" '
@@ -1696,9 +1890,16 @@ def generar():
     slugs_cat, slugs_col = generar_listados(productos, slug_map)
     print(f"✅ {len(slugs_cat)} páginas de categoría y {len(slugs_col)} de colección generadas")
 
-    # 4c. Blog (contenido informacional que alimenta a las categorías)
+    # 4c. Blog (contenido informacional que alimenta a las categorías).
+    #     Los bloques de productos reales (regalos/ofertas) muestran el precio
+    #     de oferta del día: se anota antes con la lógica compartida de campañas.
+    anotar_precio_oferta(productos, conn.cursor())
     slugs_blog = generar_blog(productos, slug_map)
     print(f"✅ Blog: hub + {len(slugs_blog)} posts generados")
+
+    # 4d. Home: bloque "Destacados" con links estáticos a fichas + link a la
+    #     fecha comercial vigente (se reescribe entre marcadores en index.html)
+    generar_home(productos, slug_map)
 
     # 5. Generar sitemap.xml
     canonical_url = CANONICAL_DOMAIN
