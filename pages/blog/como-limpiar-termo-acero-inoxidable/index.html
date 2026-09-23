@@ -52,6 +52,24 @@
 .blog-toc nav a { font-size: 13.5px; font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .blog-body section { scroll-margin-top: 96px; }
 .blog-body section img { width: 100%; height: auto; border-radius: var(--radius-sm); margin-bottom: 16px; display: block; }
+/* Bloques de productos reales (regalos por presupuesto / ofertas) */
+.blog-body .bloque-prods { text-align: left; margin-top: 14px; }
+.blog-body .bloque-prods h3 { font-family: 'Space Grotesk', sans-serif; font-size: 15px; color: var(--ink); margin: 18px 0 10px; padding-left: 12px; border-left: 4px solid var(--accent); }
+.blog-body .bloque-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (min-width: 640px) { .blog-body .bloque-grid { grid-template-columns: repeat(4, 1fr); } }
+.blog-body .bloque-prods img { margin-bottom: 0; border-radius: 0; }
+.blog-body .bloque-prods .card { font-weight: 400; }
+.blog-body .bloque-nota { font-size: 12.5px; color: var(--gray-400); margin-top: 14px; text-align: center; }
+.blog-body .bloque-prods .card-price-row { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.blog-body .bloque-prods .price-old { font-size: 12px; color: var(--gray-400); text-decoration: line-through; }
+.blog-body .bloque-prods .card-price-row .card-price { margin-bottom: 0; color: var(--red); }
+.blog-body .bloque-prods .offer-badge { left: auto; right: 8px; background: var(--red); color: #fff; }
+/* Imágenes para compartir */
+.blog-body .galeria-saludos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }
+.blog-body .galeria-saludos figure { min-width: 0; margin: 0; }
+.blog-body .galeria-saludos img { margin-bottom: 8px; border-radius: 12px; }
+.blog-body .galeria-saludos .acciones { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.blog-body .galeria-saludos .acciones a { padding: 8px 14px; font-size: 12.5px; }
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org/", "@type": "Article", "headline": "Cómo limpiar un termo de acero inoxidable por dentro", "description": "Guía completa para limpiar un termo de acero inoxidable por dentro: sacar el sarro, eliminar olores y qué NO usar nunca. Métodos caseros que funcionan.", "image": ["https://elgadget.com.ar/assets/img/blog/como-limpiar-termo-acero-inoxidable.jpg"], "datePublished": "2026-07-13", "author": {"@type": "Organization", "name": "El Gadget"}, "publisher": {"@type": "Organization", "name": "El Gadget"}, "mainEntityOfPage": "https://elgadget.com.ar/blog/como-limpiar-termo-acero-inoxidable/"}, {"@context": "https://schema.org/", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://elgadget.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://elgadget.com.ar/blog/"}, {"@type": "ListItem", "position": 3, "name": "Cómo limpiar un termo de acero inoxidable por dentro"}]}, {"@context": "https://schema.org/", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Se puede lavar un termo de acero inoxidable en el lavavajillas?", "acceptedAnswer": {"@type": "Answer", "text": "No, salvo que el fabricante lo indique expresamente. El calor del ciclo puede dañar el vacío de la doble pared y las juntas de la tapa: el termo deja de mantener la temperatura."}}, {"@type": "Question", "name": "¿Cada cuánto hay que limpiar el termo por dentro?", "acceptedAnswer": {"@type": "Answer", "text": "Enjuague diario, lavado con detergente semanal y limpieza profunda con vinagre una vez por mes si lo usás todos los días para mate o café."}}, {"@type": "Question", "name": "¿El sarro del termo hace mal a la salud?", "acceptedAnswer": {"@type": "Answer", "text": "El sarro es principalmente carbonato de calcio del agua: no es tóxico, pero da mal sabor y aloja bacterias si se acumula. Conviene sacarlo apenas aparece."}}]}]</script>
 </head>
@@ -105,6 +123,27 @@
 </footer>
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+// "Agregar al pedido" desde una card del blog: el catálogo estático se pide
+// recién al primer clic (los posts sin cards no descargan nada).
+var _egCatalogo = null;
+function agregarAlCarrito(sku) {
+  if (!_egCatalogo) {
+    _egCatalogo = fetch('/productos.json?v=' + new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+      .then(function(r) { return r.ok ? r.json() : []; })
+      .then(function(d) { var m = {}; (d.productos || d).forEach(function(p) { m[p.sku] = p; }); return m; })
+      .catch(function() { return {}; });
+  }
+  _egCatalogo.then(function(m) {
+    var p = m[sku];
+    if (!p) { showToast('No pudimos cargar el producto, probá de nuevo'); return; }
+    var oferta = p.precio_oferta != null && p.precio_oferta < p.precio_venta;
+    addCartItem({ sku: p.sku, nombre: p.nombre, precio: oferta ? p.precio_oferta : p.precio_venta,
+                  precio_lista: p.precio_venta, imagen: p.imagen_principal || '', cantidad: 1 });
+    showToast('✅ ' + p.nombre + ' agregado a tu pedido');
+  });
+}
+</script>
 </body>
 </html>
