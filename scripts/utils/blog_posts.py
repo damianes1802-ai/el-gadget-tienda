@@ -6,7 +6,46 @@ MAPA-KEYWORDS.md: una primaria = una URL). Regla: el blog responde
 preguntas y linkea al catálogo; NUNCA apunta a las keywords comerciales
 de categorías/colecciones (eso sería canibalización).
 Los cuerpos admiten HTML (links internos al catálogo).
+
+Tercer elemento opcional de cada sección (lo interpreta el generador 12_):
+- ('/assets/img/...', 'alt')  imagen ilustrativa arriba del texto
+- ('prod', r'regex')          una card del primer producto cuyo nombre matchea
+- ('regalos', {'lista', 'n'}) bloque de productos REALES por presupuesto
+                               (utils/bloques_productos.py), regenerado cada día
+- ('ofertas', {'lista', 'n'}) bloque de ofertas vigentes (o destacados)
+- ('html', '<div>…</div>')    HTML libre después del párrafo (galerías, etc.)
 """
+
+from urllib.parse import quote
+
+DOMINIO = 'https://elgadget.com.ar'
+
+# Imágenes de saludo descargables (las genera scripts/generar_imagenes_dia_de_la_madre.py;
+# si se cambia un nombre acá, cambiarlo allá).
+IMAGENES_DIA_DE_LA_MADRE = [
+    ('imagen-feliz-dia-de-la-madre-2026-negro-y-amarillo.png',
+     'Imagen de Feliz Día de la Madre 2026 para compartir por WhatsApp: letras blancas y amarillas sobre fondo negro con corazones'),
+    ('imagen-feliz-dia-de-la-madre-2026-gracias-mama.png',
+     'Imagen de Feliz Día de la Madre 2026 con el mensaje "Gracias por todo, mamá" sobre fondo amarillo'),
+    ('imagen-feliz-dia-de-la-madre-2026-corazon.png',
+     'Imagen de Feliz Día de la Madre 2026 con un gran corazón amarillo y el texto "Feliz día, mamá"'),
+    ('imagen-feliz-dia-de-la-madre-2026-flores.png',
+     'Imagen de Feliz Día de la Madre 2026 con flores amarillas minimalistas sobre fondo claro, para la mejor mamá del mundo'),
+]
+
+
+def galeria_saludos(imagenes: list, carpeta: str, saludo: str, ancho: int = 1080) -> str:
+    """Grilla de imágenes para compartir/descargar (botón WhatsApp + descarga)."""
+    figs = []
+    for archivo, alt in imagenes:
+        ruta = f'/assets/img/{carpeta}/{archivo}'
+        wa = 'https://wa.me/?text=' + quote(f'{saludo} {DOMINIO}{ruta}', safe='')
+        figs.append(
+            f'<figure><img src="{ruta}" alt="{alt}" width="{ancho}" height="{ancho}" loading="lazy">'
+            f'<div class="acciones"><a class="btn btn-accent" href="{wa}" target="_blank" rel="noopener">Compartir 💬</a>'
+            f'<a class="btn" style="border:1.5px solid var(--gray-200);color:var(--ink)" href="{ruta}" download>Descargar ⬇️</a></div></figure>')
+    return '<div class="galeria-saludos">' + ''.join(figs) + '</div>'
+
 
 BLOG_POSTS = {
     'mewing': {
@@ -190,8 +229,11 @@ BLOG_POSTS = {
              ('/assets/img/blog/descuentos-reales-hot-sale-comparar-precios.jpg', 'Manos comparando precios en el celular junto a paquetes de compras online, para detectar descuentos reales')),
             ('En El Gadget no hace falta esperar al Hot Sale',
              'Nuestra filosofía es la contraria a la del descuento inflado: preferimos <strong>precios reales todo el año</strong> antes que un "70% OFF" de mentira una vez por temporada. Por eso tenemos <a href="/categoria/ofertas/">ofertas rotativas toda la semana</a> —con el precio de lista siempre a la vista para que compares— y un calendario de descuentos por fecha que se activa en las temporadas clave. Si andás cazando una buena compra, no necesitás esperar a noviembre: mirá las <a href="/categoria/ofertas/">ofertas de esta semana</a> o el <a href="/">catálogo completo</a> cuando quieras.'),
+            ('Ofertas con stock hoy: comprá con precio real, sin esperar',
+             'Esto no es una promesa para noviembre: son <strong>productos del catálogo con stock en este momento</strong>. Cuando hay una campaña de descuento vigente, ves el precio de lista tachado y el porcentaje real al lado; cuando no, ves lo más elegido del catálogo a su precio normal, que no se infla antes de ninguna fecha. La lista se actualiza sola todos los días.',
+             ('ofertas', {'lista': 'Ofertas Cyber Monday', 'n': 10})),
             ('Qué conviene comprar en las fechas de descuento',
-             'Los rubros que más rinden en estos eventos son los que combinan buen ticket y uso durable: <a href="/coleccion/lamparas-y-luces-led/">iluminación LED</a> para renovar ambientes, <a href="/coleccion/organizadores/">organizadores</a> para ordenar la casa, <a href="/coleccion/vasos-y-botellas-termicas/">vasos y botellas térmicas</a> para el mate y el gym, y <a href="/categoria/deco/">deco</a> para darle una vuelta a tu espacio. Si además estás por regalar, aprovechá para adelantarte a fechas como <a href="/blog/dia-del-amigo/">el Día del Amigo</a> o el Día de la Madre y comprá con descuento en vez de a las corridas.'),
+             'Los rubros que más rinden en estos eventos son los que combinan buen ticket y uso durable: <a href="/coleccion/lamparas-y-luces-led/">iluminación LED</a> para renovar ambientes, <a href="/coleccion/organizadores/">organizadores</a> para ordenar la casa, <a href="/coleccion/vasos-y-botellas-termicas/">vasos y botellas térmicas</a> para el mate y el gym, y <a href="/categoria/deco/">deco</a> para darle una vuelta a tu espacio. Si además estás por regalar, aprovechá para adelantarte a fechas como <a href="/blog/regalos-dia-de-la-madre/">el Día de la Madre</a> (18 de octubre) o <a href="/blog/regalos-de-navidad/">Navidad</a> y comprá con descuento en vez de a las corridas.'),
         ],
         'faqs': [('¿Cuándo es el Hot Sale 2026 en Argentina?',
                   'El Hot Sale lo organiza la CACE y la fecha exacta se confirma cada año, pero suele realizarse en mayo. El Cyber Monday 2026, también de la CACE, es el 2, 3 y 4 de noviembre, con Cyber Week hasta el 8.'),
@@ -268,14 +310,20 @@ BLOG_POSTS = {
     },
     'regalos-dia-de-la-madre': {
         'imagen': ('/assets/img/blog/regalos-dia-de-la-madre-argentina.jpg', 'Regalos envueltos en papel kraft con cintas amarillas y flores frescas sobre una mesa, listos para el Día de la Madre'),
-        'title': 'Día de la Madre 2026 en Argentina: cuándo es y 12 ideas de regalos | El Gadget',
-        'h1': 'Día de la Madre 2026: cuándo es y qué regalar',
-        'meta': 'El Día de la Madre 2026 en Argentina es el domingo 18 de octubre. 12 ideas de regalos útiles y originales por presupuesto, con envío a todo el país.',
-        'fecha': '2026-07-12',
-        'intro': 'En Argentina, el Día de la Madre se celebra el tercer domingo de octubre: en 2026 cae el <strong>domingo 18 de octubre</strong>. Si este año querés llegar con un regalo pensado (y no comprado a las corridas el sábado a la noche), acá van 12 ideas útiles y originales, organizadas por tipo de mamá y por presupuesto.',
+        'title': 'Día de la Madre 2026 en Argentina: es el 18 de octubre · Regalos con envío a todo el país',
+        'h1': 'Día de la Madre 2026: es el domingo 18 de octubre. Regalos con stock y envío a todo el país',
+        'meta': 'El Día de la Madre 2026 en Argentina es el domingo 18 de octubre. 12 regalos con stock hoy por presupuesto (hasta $15.000, hasta $40.000 y más), imágenes para saludar por WhatsApp y envío a todo el país.',
+        'fecha': '2026-09-22',
+        'intro': '<strong>¿Cuándo es el Día de la Madre 2026 en Argentina? El domingo 18 de octubre</strong> (siempre es el tercer domingo de octubre). Si este año querés llegar con un regalo pensado —y no comprado a las corridas el sábado a la noche—, acá tenés <strong>12 regalos reales con stock hoy, ordenados por presupuesto</strong>, imágenes para saludar por WhatsApp y las ideas por tipo de mamá. Todo con envío a todo el país y cambios hasta 10 días.',
         'secciones': [
-            ('¿Por qué en Argentina se festeja en octubre?',
-             'A diferencia de casi todo el mundo (que lo celebra en mayo), Argentina mantiene la fecha de octubre por la tradición católica de la Maternidad de la Virgen, que el calendario litúrgico ubicaba el 11 de octubre. Aunque la Iglesia movió su fecha, la costumbre comercial y familiar quedó: acá, el tercer domingo de octubre es sagrado. Anotalo: <strong>18 de octubre de 2026</strong>.'),
+            ('¿Cuándo es el Día de la Madre 2026 en Argentina y por qué en octubre?',
+             'El <strong>Día de la Madre 2026 es el domingo 18 de octubre</strong>. A diferencia de casi todo el mundo (que lo celebra en mayo), Argentina mantiene la fecha de octubre por la tradición católica de la Maternidad de la Virgen, que el calendario litúrgico ubicaba el 11 de octubre. Aunque la Iglesia movió su fecha, la costumbre comercial y familiar quedó: acá, el <strong>tercer domingo de octubre</strong> es sagrado. En 2027 va a ser el 17 de octubre; en 2025 fue el 19. Para 2026, anotalo: <strong>18 de octubre</strong>, y comprá con tiempo (más abajo te decimos hasta cuándo).'),
+            ('12 regalos para el Día de la Madre con stock hoy, por presupuesto',
+             'Esta lista no es una idea abstracta: son <strong>productos del catálogo con stock en este momento</strong>, agrupados por lo que querés gastar. Se actualiza sola todos los días, así que lo que ves acá se puede comprar hoy y llega a tu casa con seguimiento. Tocá cualquiera para ver la ficha completa, o agregalo directo al pedido.',
+             ('regalos', {'lista': 'Regalos Día de la Madre', 'n': 12})),
+            ('Imágenes de Feliz Día de la Madre para compartir por WhatsApp',
+             'Si estás lejos o querés arrancar el domingo con un mensaje, acá van cuatro imágenes de <strong>Feliz Día de la Madre 2026</strong> listas para mandar por WhatsApp, subir a un estado o imprimir. Son gratis y sin marca de agua: tocá <strong>Compartir</strong> para mandarla directo o <strong>Descargar</strong> para guardarla en el celular.',
+             ('html', galeria_saludos(IMAGENES_DIA_DE_LA_MADRE, 'dia-de-la-madre', '¡Feliz Día de la Madre! 💛'))),
             ('Regalos útiles que va a usar todos los días',
              'Los regalos que más se agradecen son los que entran en la rutina: un <a href="/coleccion/vasos-y-botellas-termicas/">vaso térmico con tapa</a> para el café o el mate de la mañana (el clásico que no falla), una <a href="/coleccion/vasos-y-botellas-termicas/">botella térmica</a> para el agua del día, o esa <a href="/categoria/bazar-y-cocina/">solución de cocina</a> que le ahorre diez minutos diarios. Cada vez que lo use, se va a acordar de quién se lo regaló — ese es el verdadero truco del regalo útil.',
              ('/assets/img/blog/regalo-dia-de-la-madre-vaso-termico-mate.jpg', 'Vaso térmico de acero y mate argentino sobre la mesada de una cocina luminosa, un regalo útil para el Día de la Madre')),
@@ -286,23 +334,24 @@ BLOG_POSTS = {
              'Una <a href="/categoria/accesorios-de-moda/">bandolera tejida o cartera</a> nueva para el día a día — liviana, cómoda y con onda — o algún <a href="/categoria/estetica-y-belleza/">accesorio de belleza</a> para su rutina. Y si tu mamá es de las que cuentan los días para las vacaciones, una <a href="/coleccion/mallas-y-trajes-de-bano/">malla nueva</a> es anticipar el verano: con cambios hasta 10 días, el talle no es riesgo.',
              ('prod', r'bandolera tejida')),
             ('Para la mamá organizada (o la que sueña con serlo)',
-             'Los <a href="/coleccion/organizadores/">organizadores</a> son el regalo sorpresa: nadie los pide, todas los terminan amando. Un zapatero que libere el recibidor, cajoneras para el placard o el organizador de baúl para el auto. Regalar orden es regalar tiempo — y a una mamá, el tiempo es el regalo más escaso.',
-             ('prod', r'zapatero')),
+             'Los <a href="/coleccion/organizadores/">organizadores</a> son el regalo sorpresa: nadie los pide, todas los terminan amando. Un organizador colgante que libere el placard, fundas para la ropa de temporada o el plato giratorio para la alacena. Regalar orden es regalar tiempo — y a una mamá, el tiempo es el regalo más escaso.',
+             ('prod', r'organizador colgante|zapatero')),
             ('Para la mamá de la mascota de la familia',
              'Si en tu casa el perro o el gato también es hijo: una <a href="/categoria/accesorios-para-mascotas/">alfombra absorbente para el comedero</a> (chau piso mojado), el guante quita-pelos que salva sillones, o un bebedero portátil para los paseos. Regalo para ella, beneficio para toda la casa.',
              ('prod', r'alfombra absorbente')),
-            ('Ideas por presupuesto',
-             'Con <strong>menos de $20.000</strong>: accesorios de cocina, jaboneras y organizadores chicos, luces LED con sensor. Entre <strong>$20.000 y $40.000</strong>: veladores de diseño, bandoleras, alfombras de diatomita, vasos térmicos. <strong>Más de $40.000</strong>: lámparas de escritorio 3-en-1, mallas, organizadores grandes o armá un combo de dos o tres cosas chicas — el efecto "abrió tres regalos" nunca falla.',
-             ('/assets/img/blog/ideas-regalos-dia-de-la-madre-por-presupuesto.jpg', 'Ideas de regalos para el Día de la Madre por presupuesto: bandolera tejida, vaso térmico, velador y caja de regalo con cinta amarilla')),
             ('El tip para no fallar: comprá con tiempo',
-             'Comprando online con anticipación tenés envío a todo el país con seguimiento y <strong>cambios hasta 10 días</strong> después de recibido: si el color o el talle no eran los ideales, se cambia sin drama. Pedilo la primera quincena de octubre y llegás sin pagar el apuro. Mirá el <a href="/">catálogo completo</a> o directo las <a href="/categoria/ofertas/">ofertas de la semana</a>.'),
+             'Comprando online con anticipación tenés envío a todo el país con seguimiento y <strong>cambios hasta 10 días</strong> después de recibido: si el color o el talle no eran los ideales, se cambia sin drama. <strong>Pedilo antes del 10 de octubre</strong> y llegás sin pagar el apuro a cualquier punto del país. Mirá el <a href="/">catálogo completo</a> o directo las <a href="/categoria/ofertas/">ofertas de la semana</a>.'),
         ],
         'faqs': [('¿Cuándo es el Día de la Madre 2026 en Argentina?',
                   'El domingo 18 de octubre de 2026. En Argentina siempre se celebra el tercer domingo de octubre, a diferencia de la mayoría de los países que lo festejan en mayo.'),
+                 ('¿Qué regalar para el Día de la Madre con menos de $15.000?',
+                  'Detalles de deco como tiras de luces LED a pilas, un portacosméticos o accesorios de cocina. La primera sección de la lista de regalos de esta guía muestra las opciones con stock hoy en ese rango; se actualiza todos los días.'),
                  ('¿Qué regalar si no conozco sus gustos?',
                   'Andá por lo útil: vasos térmicos, organizadores o un velador con diseño funcionan para casi cualquier mamá. Y con cambios hasta 10 días, el riesgo es cero.'),
                  ('¿Hasta cuándo puedo comprar online para que llegue a tiempo?',
-                  'Depende de tu zona: los envíos se calculan en el checkout con su demora estimada. Como regla general, comprá antes del 10 de octubre y llegás cómodo a cualquier punto del país.')],
+                  'Depende de tu zona: los envíos se calculan en el checkout con su demora estimada. Como regla general, comprá antes del 10 de octubre y llegás cómodo a cualquier punto del país.'),
+                 ('¿Tienen imágenes de Feliz Día de la Madre para mandar por WhatsApp?',
+                  'Sí: en esta guía hay cuatro imágenes gratis, sin marca de agua, con botón para compartir por WhatsApp o descargar al celular.')],
     },
     'regalos-originales-para-mujeres': {
         'imagen': ('/assets/img/blog/regalos-originales-para-mujeres.jpg', 'Composición de regalos originales para mujeres: bandolera tejida, velador cálido, vaso térmico y caja de regalo con cinta amarilla'),

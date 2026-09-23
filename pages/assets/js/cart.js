@@ -110,6 +110,13 @@ function initItemListTracking() {
   // lo dispara desde renderGrid porque su grilla se arma por JS.
   const estaticas = document.querySelectorAll('#listadoGrid a.card[data-sku]');
   if (estaticas.length) trackItemList(egNombreListaPagina(), estaticas);
+  // Bloques estáticos con nombre propio (Destacados de la home, regalos por
+  // presupuesto en el blog): los escribe el generador, se miden por su data-list-name.
+  document.querySelectorAll('[data-list-name]').forEach(c => {
+    if (c.id === 'productGrid' || c.id === 'listadoGrid') return;
+    const cards = c.querySelectorAll('a.card[data-sku]');
+    if (cards.length) trackItemList(c.dataset.listName, cards);
+  });
 }
 
 // ── Leads por WhatsApp (generate_lead) ───────────────────────────────────────

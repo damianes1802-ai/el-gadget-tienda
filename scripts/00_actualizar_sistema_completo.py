@@ -443,6 +443,8 @@ class ActualizadorMaestro:
             'pages/categoria',
             'pages/coleccion',
             'pages/productos.json',
+            'pages/blog',        # bloques de productos reales (regalos/ofertas) cambian a diario
+            'pages/index.html',  # Destacados + link a la fecha comercial vigente
         ]
 
         try:
