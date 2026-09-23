@@ -83,6 +83,115 @@
 <!-- BANNER PROMOCIONAL -->
 <div class="promo-banner" id="promoBanner"></div>
 
+<!-- FECHA COMERCIAL VIGENTE (Día de la Madre, Cyber Monday, Navidad…): lo escribe
+     scripts/12_generar_paginas_producto.py (generar_home) según la fecha. No editar a mano. -->
+<!-- FECHA-BANNER -->
+<div class="fecha-strip" id="fechaStrip"><a href="/blog/regalos-dia-de-la-madre/"><b>🎁 Regalos para el Día de la Madre</b><span>Es el domingo 18 de octubre: ideas con stock, por presupuesto, con envío a todo el país</span><span class="arrow" aria-hidden="true">→</span></a></div>
+<!-- /FECHA-BANNER -->
+
+<!-- DESTACADOS: 8-12 <a href> reales a fichas, escritos por el generador en cada corrida
+     (la grilla de abajo se arma por JS y los crawlers no ven ningún link a producto). -->
+<!-- DESTACADOS -->
+<section class="grid-wrap destacados" aria-labelledby="destacadosTitle">
+  <div class="grid-heading">
+    <h2 id="destacadosTitle">Destacados de la semana</h2>
+    <a href="#catalogo">Ver todo el catálogo →</a>
+  </div>
+  <div class="grid destacados-grid" data-list-name="Destacados">
+      <a class="card" href="/producto/cartera-bandolera-mujer-transparente-pvc-bordada-moda-blanca-m3102-011b/" data-sku="M3102-011B" data-precio="57000.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_M3102-011B_001" alt="Cartera Bandolera Mujer Transparente PVC Bordada Moda Blanca" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Accesorios de Moda</div>
+          <div class="card-name">Cartera Bandolera Mujer Transparente PVC Bordada Moda Blanca</div>
+          <div class="card-price">$57.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M3102-011B')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/tira-de-luz-mini-ostras-blanco-1-metro-para-deco-con-pilas-a-r2234-013/" data-sku="A-R2234-013" data-precio="14500.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_A-R2234-013_001" alt="Tira de Luz Mini Ostras Blanco 1 Metro para Deco con pilas" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Deco</div>
+          <div class="card-name">Tira de Luz Mini Ostras Blanco 1 Metro para Deco con pilas</div>
+          <div class="card-price">$14.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-R2234-013')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/blusa-off-shoulder-negra-mujer-manga-larga-estilo-chic-brigitte-pa111a/" data-sku="PA111A" data-precio="70500.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_PA111A_001" alt="Blusa Off Shoulder Negra Mujer Manga Larga Estilo Chic Brigitte" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Accesorios de Moda</div>
+          <div class="card-name">Blusa Off Shoulder Negra Mujer Manga Larga Estilo Chic Brigitte</div>
+          <div class="card-price">$70.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('PA111A')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/botella-termica-de-acero-1000-ml-siliconada-tus-bebidas-siempre-en-su-wh7280/" data-sku="WH7280" data-precio="55000.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_WH7280_001" alt="Botella térmica de acero 1000 ml siliconada: tus bebidas siempre en su punto" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Bazar y Cocina</div>
+          <div class="card-name">Botella térmica de acero 1000 ml siliconada: tus bebidas siempre en su punto</div>
+          <div class="card-price">$55.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7280')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/lampara-led-anana-espejada-efecto-infinito-deco-original-sin-cables-a-r2234-028a/" data-sku="A-R2234-028A" data-precio="31000.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_A-R2234-028A_001" alt="Lámpara LED Ananá Espejada Efecto Infinito: deco original sin cables" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Deco</div>
+          <div class="card-name">Lámpara LED Ananá Espejada Efecto Infinito: deco original sin cables</div>
+          <div class="card-price">$31.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('A-R2234-028A')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/botella-deportiva-diseno-1100-ml-para-hidratarte-con-estilo-wh7028/" data-sku="WH7028" data-precio="64500.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_WH7028_001" alt="Botella deportiva diseño 1100 ML para hidratarte con estilo" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Bazar y Cocina</div>
+          <div class="card-name">Botella deportiva diseño 1100 ML para hidratarte con estilo</div>
+          <div class="card-price">$64.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('WH7028')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/maceta-doble-hombrecitos-decorativa-blanco-o-negro-para-tu-hogar-r6125/" data-sku="R6125" data-precio="28500.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_R6125_001" alt="Maceta Doble Hombrecitos Decorativa, Blanco o Negro, para tu Hogar" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Home</div>
+          <div class="card-name">Maceta Doble Hombrecitos Decorativa, Blanco o Negro, para tu Hogar</div>
+          <div class="card-price">$28.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('R6125')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/maceta-decorativa-moderna-para-hogar-en-blanco-o-negro-r6127/" data-sku="R6127" data-precio="20000.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_R6127_001" alt="Maceta Decorativa Moderna para Hogar en Blanco o Negro" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-cat">Home</div>
+          <div class="card-name">Maceta Decorativa Moderna para Hogar en Blanco o Negro</div>
+          <div class="card-price">$20.000</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('R6127')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/plato-giratorio-organizador-antideslizante-30cm-rotacion-360-dl2287/" data-sku="DL2287" data-precio="36500.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_DL2287_001" alt="Plato giratorio organizador antideslizante 30cm rotación 360°" loading="lazy"><span class="card-badge">Oferta</span></div>
+        <div class="card-body">
+          <div class="card-cat">OFERTAS</div>
+          <div class="card-name">Plato giratorio organizador antideslizante 30cm rotación 360°</div>
+          <div class="card-price">$36.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2287')">Agregar al pedido</button>
+        </div>
+      </a>
+      <a class="card" href="/producto/cartuchera-canopla-infantil-3-modelos-diseno-sorpresa-para-el-cole-m6024/" data-sku="M6024" data-precio="17500.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_M6024_001" alt="Cartuchera canopla infantil 3 modelos: diseño sorpresa para el cole" loading="lazy"><span class="card-badge">Oferta</span></div>
+        <div class="card-body">
+          <div class="card-cat">OFERTAS</div>
+          <div class="card-name">Cartuchera canopla infantil 3 modelos: diseño sorpresa para el cole</div>
+          <div class="card-price">$17.500</div>
+          <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('M6024')">Agregar al pedido</button>
+        </div>
+      </a>
+  </div>
+</section>
+<!-- /DESTACADOS -->
+
 <!-- FILTROS -->
 <div class="filters-wrap" id="catalogo">
   <div class="filters-inner">
@@ -103,6 +212,7 @@
         <a href="/ganar/">Programa de referidos: empezá acá</a><a href="/referidos">Tu panel de referidos</a><a href="/ganar/desde-casa/">Ganar dinero desde casa</a><a href="/ganar/dinero-por-internet/">Ganar dinero por internet</a><a href="/ganar/trabajos-desde-casa/">Trabajos desde casa</a><a href="/ganar/monetizar-redes/">Monetizar redes sociales</a><a href="/ganar/monetizar-instagram/">Monetizar Instagram</a><a href="/ganar/monetizar-youtube/">Monetizar YouTube</a><a href="/ganar/monetizar-tiktok/">Monetizar TikTok</a><a href="/ganar/monetizar-facebook/">Monetizar Facebook</a><a href="/ganar/cuanto-paga-youtube/">¿Cuánto paga YouTube?</a><a href="/ganar/marketing-afiliados/">Marketing de afiliados</a><a href="/ganar/dropshipping/">Dropshipping Argentina</a><a href="/ganar/vender-sin-stock/">Vender sin stock</a><a href="/ganar/emprendimientos-para-mujeres/">Emprendimientos para mujeres</a>
       </div></details>
       <a class="mn-item mn-link" href="/blog/">Blog</a>
+      <!-- FECHA-NAV --><a class="mn-item mn-link mn-fecha" href="/blog/regalos-dia-de-la-madre/">🎁 Regalos para el Día de la Madre</a><!-- /FECHA-NAV -->
       <a class="mn-item mn-link" href="/amigo-invisible/">🎁 Amigo invisible</a>
       <details class="mn-item"><summary>Información</summary><div class="mn-panel">
         <a href="/sobre_nosotros">Sobre nosotros</a><a href="/faq">Preguntas frecuentes</a><a href="/seguimiento">Seguimiento de pedido</a><a href="/devoluciones">Devoluciones y garantías</a><a href="/mayoristas">Comprá al por mayor</a><a href="/terminos">Términos y condiciones</a><a href="/privacidad">Política de privacidad</a><a href="/arrepentimiento">Botón de arrepentimiento</a>
@@ -248,7 +358,9 @@ document.addEventListener('click', e => {
 // ── CARRITO ────────────────────────────────────────
 function agregarAlCarrito(sku) {
   const producto = todosLosProductos.find(p => p.sku === sku);
-  if (!producto) return;
+  // Las cards de "Destacados" son estáticas: pueden clickearse antes de que
+  // llegue el catálogo. Se avisa en vez de fallar en silencio.
+  if (!producto) { showToast('Cargando el catálogo… probá de nuevo en un segundo'); return; }
 
   const enOferta = producto.precio_oferta != null && producto.precio_oferta < producto.precio_venta;
   addCartItem({
