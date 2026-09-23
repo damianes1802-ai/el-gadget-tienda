@@ -19,7 +19,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/juguete-para-armar-rueda-de-la-fortuna.html",
   "droppers_id": 4327,
-  "fecha_scraping": "2026-09-22T06:27:56.753385",
+  "fecha_scraping": "2026-09-23T06:28:01.244306",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -29,7 +29,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-22T06:32:58.577892",
+  "fecha_mapeo_categorias": "2026-09-23T06:32:26.068015",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0187_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_RWH0187_002",
@@ -52,6 +52,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 94000.0,
-  "fecha_calculo_precio": "2026-09-22T06:33:59.626254",
+  "fecha_calculo_precio": "2026-09-23T06:33:29.104568",
   "fecha_agotado": "2026-07-06T04:35:09.477182"
 }

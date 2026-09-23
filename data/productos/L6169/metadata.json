@@ -13,7 +13,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/boligrafos-dinosaurio-caja-x-36.html",
   "droppers_id": 5115,
-  "fecha_scraping": "2026-09-22T06:29:54.076757",
+  "fecha_scraping": "2026-09-23T06:27:50.903421",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -23,7 +23,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-22T06:32:58.579819",
+  "fecha_mapeo_categorias": "2026-09-23T06:32:26.070401",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6169_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6169_002"
@@ -40,6 +40,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 201500.0,
-  "fecha_calculo_precio": "2026-09-22T06:33:59.601258",
+  "fecha_calculo_precio": "2026-09-23T06:33:29.080237",
   "fecha_agotado": "2026-08-23T06:20:06.551090"
 }

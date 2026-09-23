@@ -12,7 +12,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5950/",
   "droppers_id": 5950,
-  "fecha_scraping": "2026-09-22T06:27:37.279730",
+  "fecha_scraping": "2026-09-23T06:27:33.283083",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -38,6 +38,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 42500.0,
-  "fecha_calculo_precio": "2026-09-22T06:33:59.665684",
+  "fecha_calculo_precio": "2026-09-23T06:33:29.146429",
   "fecha_reingreso": "2026-09-19T13:02:49.906083"
 }
