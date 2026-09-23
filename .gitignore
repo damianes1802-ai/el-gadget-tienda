@@ -22,6 +22,10 @@ marketing_app/data/backups/
 # Slugs viejos de producto -> SKU (redirecciones; el generador lo mantiene)
 !data/redirects_producto.json
 
+# Registro de fichas por SKU (slug congelado + agotado_desde): memoria que
+# sobrevive al borrado de la fila en catalogo.db, necesaria en CI entre corridas
+!data/fichas_producto.json
+
 # Identidad de productos de Droppers por id (sku -> id) y URLs extra para el
 # scraper: necesarios en CI para la verificacion de stock por id entre corridas
 !data/droppers_ids.json

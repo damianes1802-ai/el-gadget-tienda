@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada | El Gadget</title>
+<meta name="description" content="La página que buscás no existe o ya no está disponible. Buscá el producto o entrá a una categoría de El Gadget.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14151A">
+<!-- GitHub Pages sirve este archivo para cualquier ruta inexistente (a cualquier profundidad):
+     por eso TODAS las rutas son absolutas. Los stubs de redirección de slugs viejos
+     (pages/producto/<slug-viejo>/) no pasan por acá: existen como archivo y redirigen solos. -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2314151A'/><rect x='14' y='34' width='72' height='34' rx='17' fill='none' stroke='white' stroke-width='7'/><circle cx='34' cy='51' r='6' fill='white'/><rect x='58' y='42' width='6' height='18' rx='2' fill='%23FFC700'/><rect x='68' y='36' width='6' height='30' rx='2' fill='%23FFC700'/><rect x='78' y='45' width='6' height='12' rx='2' fill='%23FFC700'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-badge">
+        <img src="/assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+      </div>
+      <div class="logo-text">
+        <div class="logo-name">El<span> Gadget</span></div>
+        <div class="logo-tagline">Tienda online</div>
+      </div>
+    </a>
+    <div class="search-desktop">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){window.location.href='/?buscar='+encodeURIComponent(this.value)}">
+      </div>
+    </div>
+    <a href="/carrito" class="cart-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="label">Mi pedido</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+  </div>
+</header>
+
+<main class="nf-wrap">
+  <div class="nf-code" aria-hidden="true">4<span>0</span>4</div>
+  <h1>Esta página no existe (o ya no está)</h1>
+  <p>Puede que el link esté mal escrito o que el producto se haya dado de baja del catálogo.
+  Buscalo por nombre o entrá directo a una categoría.</p>
+
+  <form class="nf-search" action="/" method="get" role="search">
+    <input type="search" name="buscar" placeholder="¿Qué estás buscando?" aria-label="Buscar productos" autocomplete="off" required>
+    <button class="btn btn-accent" type="submit">Buscar</button>
+  </form>
+
+  <div class="nf-actions">
+    <a class="btn btn-dark" href="/">Ir al catálogo</a>
+    <a class="btn btn-outline" href="/categoria/ofertas/">Ver las ofertas</a>
+    <a class="btn btn-outline" href="https://wa.me/5491126228481?text=Hola!%20Busco%20un%20producto%20y%20el%20link%20no%20funciona" target="_blank" rel="noopener">Preguntar por WhatsApp</a>
+  </div>
+
+  <section class="nf-cats">
+    <h2>Categorías</h2>
+    <div class="chips">
+      <a class="chip" href="/categoria/bazar-y-cocina/">Bazar y cocina</a>
+      <a class="chip" href="/categoria/home/">Hogar</a>
+      <a class="chip" href="/categoria/deco/">Deco</a>
+      <a class="chip" href="/categoria/bano-y-limpieza/">Baño y limpieza</a>
+      <a class="chip" href="/categoria/accesorios-para-mascotas/">Mascotas</a>
+      <a class="chip" href="/categoria/articulos-infantiles/">Infantiles</a>
+      <a class="chip" href="/categoria/accesorios-de-moda/">Accesorios de moda</a>
+      <a class="chip" href="/categoria/estetica-y-belleza/">Belleza y estética</a>
+      <a class="chip" href="/categoria/fitness/">Fitness</a>
+      <a class="chip" href="/categoria/electronica/">Electrónica</a>
+      <a class="chip" href="/categoria/verano/">Verano</a>
+      <a class="chip" href="/categoria/nuevos-ingresos/">Nuevos ingresos</a>
+      <a class="chip" href="/categoria/ofertas/">Ofertas</a>
+      <a class="chip" href="/blog/">Blog</a>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-badge">
+          <img src="/assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">
+        </div>
+        <div class="logo-text">
+          <div class="logo-name">El<span> Gadget</span></div>
+          <div class="logo-tagline">Tienda online</div>
+        </div>
+      </div>
+      <p>Productos para el hogar, moda, tecnología y mucho más. Elegí tus productos, pagá online de forma segura y te lo enviamos a tu casa.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <a href="/carrito">Mi pedido</a>
+      <a href="/seguimiento">Seguimiento de pedido</a>
+      <a href="/faq">Preguntas frecuentes</a>
+      <a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Información</h4>
+      <a href="/sobre_nosotros">Sobre nosotros</a>
+      <a href="/privacidad">Política de privacidad</a>
+      <a href="/devoluciones">Devoluciones y garantías</a>
+      <a href="/arrepentimiento">Botón de arrepentimiento</a>
+      <a href="/terminos">Términos y condiciones</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados · <a href="/privacidad" style="color:inherit;opacity:.8;text-decoration:none">Privacidad</a> · <a href="/arrepentimiento" style="color:inherit;opacity:.8;text-decoration:none">Arrepentimiento</a> · <a href="/terminos" style="color:inherit;opacity:.8;text-decoration:none">Términos</a></div>
+  <div class="footer-legal">
+    <strong>El Gadget</strong> &middot; Dami&aacute;n Ezequiel S&aacute;nchez &middot; CUIT 20-42396477-5 &middot; Responsable Monotributo<br>
+    Esteban Echeverr&iacute;a 964, Wilde (B1875ATT), Provincia de Buenos Aires, Argentina<br>
+    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/5491126228481?text=Hola!%20Tengo%20una%20consulta" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp" title="Contactanos por WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.04 2.67C8.7 2.67 2.74 8.62 2.74 15.96c0 2.62.73 5.14 2.1 7.33L2 29.33l6.2-1.79a13.2 13.2 0 0 0 7.84 2.42h.01c7.34 0 13.3-5.95 13.3-13.29 0-3.55-1.39-6.89-3.9-9.4a13.2 13.2 0 0 0-9.4-3.9zm0 24.34h-.01a11 11 0 0 1-5.6-1.53l-.4-.24-4.16 1.2 1.21-4.05-.26-.42a10.96 10.96 0 0 1-1.68-5.86c0-6.07 4.94-11.01 11.02-11.01a10.96 10.96 0 0 1 7.79 3.23 10.96 10.96 0 0 1 3.22 7.8c0 6.08-4.95 11.02-11.13 11.02zm6.04-8.25c-.33-.17-1.96-.97-2.27-1.08-.3-.11-.52-.17-.74.17-.22.33-.85 1.07-1.04 1.29-.19.22-.38.24-.7.08-1.9-.95-3.15-1.7-4.4-3.84-.33-.58.33-.54.95-1.79.1-.22.05-.4-.05-.57-.1-.17-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.5-.17 0-.37 0-.57.01-.2 0-.51.07-.78.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.87 1.22 3.08c.15.2 2.05 3.18 5.07 4.4 2.51 1.01 3.02.83 3.57.77.55-.06 1.79-.73 2.04-1.45.25-.71.25-1.32.17-1.45-.07-.13-.27-.2-.54-.34z"/></svg>
+</a>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="/assets/js/cart.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+// Medición: qué URLs caen en 404 (para detectar links rotos / fichas dadas de baja)
+if (typeof ga4Event === 'function') {
+  ga4Event('page_not_found', { page_location: location.href, page_referrer: document.referrer || undefined });
+}
+</script>
+</body>
+</html>

@@ -1237,3 +1237,35 @@ body.pagina-checkout .whatsapp-float { display: none; }
 }
 .footer-legal a { color: rgba(255,255,255,0.55); text-decoration: underline; }
 .footer-legal strong { color: rgba(255,255,255,0.6); font-weight: 600; }
+
+/* --- FICHA DE PRODUCTO AGOTADO ------------------------------------------
+   La ficha de un agotado sigue publicada (misma URL, OutOfStock) en vez de
+   dar 404: aviso claro, CTA "Avisame cuando vuelva" y "Alternativas
+   disponibles" en lugar de los botones de compra. Generada por 12_. */
+.agotado-notice {
+  background: var(--red-pale); border: 1.5px solid rgba(215,71,58,0.25); border-left: 5px solid var(--red);
+  border-radius: var(--radius-sm); padding: 12px 16px; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft);
+}
+.agotado-notice strong { color: var(--red); }
+.actions-agotado .btn { text-align: center; text-decoration: none; }
+.related-intro { font-size: 13.5px; color: var(--gray-600); margin: -6px 0 14px; line-height: 1.6; text-align: left; }
+.pdp-sticky-buy a.btn { text-decoration: none; }
+
+/* --- PAGINA 404 --------------------------------------------------------- */
+.nf-wrap { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.25rem 3rem; text-align: center; }
+.nf-code { font-family: 'Space Grotesk', sans-serif; font-size: clamp(64px, 14vw, 112px); font-weight: 700; line-height: 1; color: var(--ink); letter-spacing: -2px; }
+.nf-code span { color: var(--accent); }
+.nf-wrap h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(22px, 4vw, 30px); color: var(--ink); margin: 14px 0 10px; }
+.nf-wrap > p { font-size: 15px; line-height: 1.7; color: var(--gray-600); max-width: 520px; margin: 0 auto 22px; }
+.nf-search { display: flex; gap: 8px; max-width: 520px; margin: 0 auto 26px; }
+.nf-search input {
+  flex: 1; min-width: 0; padding: 13px 16px; border: 1.5px solid var(--gray-200); border-radius: 30px;
+  font-family: 'Inter', sans-serif; font-size: 14px; color: var(--ink); background: var(--paper);
+}
+.nf-search input:focus { outline: none; border-color: var(--accent); }
+.nf-search button { border-radius: 30px; padding: 12px 22px; }
+.nf-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 34px; }
+.nf-cats h2 { font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: var(--ink); margin-bottom: 12px; }
+.nf-cats .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.nf-cats .chip { font-size: 12.5px; font-weight: 600; color: var(--ink); background: #fff; border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 7px 14px; text-decoration: none; }
+.nf-cats .chip:hover { border-color: var(--accent); }
