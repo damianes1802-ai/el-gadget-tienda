@@ -199,6 +199,17 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
 
 ## 5. Lecciones ya aprendidas (no volver a probar estos caminos)
 
+- **El clúster `/ganar/` atrae al que quiere monetizar una plataforma, no al que quiere vender.**
+  GSC 21-09-2026: 402 queries informacionales → 5 clics; "cuánto paga YouTube" 7.683 impresiones y 8
+  clics (0,1%). Solo `vender-sin-stock` (CTR 2,9%) y `desde-casa` (2,3%) alinean con el pitch de
+  referidos. Decisión (2026-09-22): **no producir más artículos "cuánto paga X"** — posicionan pero
+  traen al público equivocado — y **no borrarlos ni redirigirlos todavía**: en 10 de ellos hay un
+  bloque puente (`.g-puente`, después del bloque de números, antes del primer H2) que contrasta el
+  requisito de la plataforma con el programa de referidos y baja al formulario. Cada landing reporta
+  `sign_up` con `method` = su `source` (cpy_landing, ig_landing, tt_landing…), y el CTA del puente
+  manda `select_promotion` con `creative_slot` = la landing. **Revisar a fines de octubre 2026**: la
+  landing que no genere registros se redirige a `vender-sin-stock`.
+
 - **La identidad de un producto de Droppers es su ID numérico, nunca la URL ni la categoría.**
   Droppers (Magento) reusa los slugs: `body-para-bebes-de-algodon-1.html` fue WH7167-66BL y hoy
   sirve WH7167-1-73BL; y ni las categorías ni `/productos.html` listan todo (hay productos que solo

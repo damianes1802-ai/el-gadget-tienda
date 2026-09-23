@@ -781,6 +781,48 @@
   </div>
 </div>
 
+<!-- PUENTE: de la búsqueda informacional al programa de referidos.
+     La persona que busca esto quiere ingresos; acá se le ofrece el camino
+     corto, sin exagerar lo que la plataforma paga. Ver CLAUDE.md (lección
+     sobre el clúster /ganar/). -->
+<section class="g-puente" aria-labelledby="g-puente-t">
+  <div class="g-puente-in">
+    <p class="g-puente-kicker">Mientras tanto</p>
+    <h2 id="g-puente-t">La mayoría de estas opciones tarda meses; esta paga este mes</h2>
+    <p class="g-puente-txt">Para cobrar por acá hace falta tiempo, constancia y en general una audiencia, y aun así son ingresos que tardan meses en aparecer. Con el programa de referidos de El Gadget compartís productos con tu código y cobrás comisión por cada venta, desde la primera, sin esperar a ningún umbral.</p>
+    <ul class="g-puente-lista">
+      <li><strong>Sin seguidores mínimos</strong> · compartís por WhatsApp a quien quieras</li>
+      <li><strong>Sin stock ni inversión</strong> · los envíos y la logística los hacemos nosotros</li>
+      <li><strong>7% a 15% por venta</strong> · en pesos, se cobra el 5 de cada mes</li>
+    </ul>
+    <a class="g-puente-cta" href="#registro" onclick="egPuenteClick()">Quiero mi código gratis →</a>
+    <p class="g-puente-nota">Es gratis y no reemplaza nada de lo que leas más abajo: podés hacer las dos cosas.</p>
+  </div>
+</section>
+<style>
+.g-puente{background:linear-gradient(135deg,#14151A 0%,#22242C 100%);padding:38px 20px;border-top:3px solid #FFC700}
+.g-puente-in{max-width:760px;margin:0 auto;text-align:center;color:#fff}
+.g-puente-kicker{font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#FFC700;margin:0 0 6px}
+.g-puente h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(21px,3.4vw,27px);font-weight:700;line-height:1.22;letter-spacing:-.02em;margin:0 0 10px;color:#fff}
+.g-puente-txt{font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.82);margin:0 auto 18px;max-width:58ch}
+.g-puente-lista{list-style:none;padding:0;margin:0 auto 20px;display:flex;flex-direction:column;gap:8px;max-width:520px;text-align:left}
+.g-puente-lista li{font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.88);padding-left:26px;position:relative}
+.g-puente-lista li::before{content:"✓";position:absolute;left:0;top:-1px;color:#FFC700;font-weight:800}
+.g-puente-lista strong{color:#fff}
+.g-puente-cta{display:inline-flex;align-items:center;gap:7px;background:#FFC700;color:#14151A;text-decoration:none;font-weight:800;font-size:15px;padding:14px 26px;border-radius:999px;box-shadow:0 10px 22px -12px rgba(255,199,0,.8);transition:transform .15s,background .15s}
+.g-puente-cta:hover{background:#FFD23A;transform:translateY(-1px)}
+.g-puente-nota{font-size:12px;color:rgba(255,255,255,.55);margin:14px 0 0}
+@media (max-width:560px){.g-puente{padding:30px 16px}.g-puente-cta{width:100%;justify-content:center}}
+</style>
+<script>
+function egPuenteClick() {
+  if (typeof ga4Event === 'function') ga4Event('select_promotion', { promotion_name: 'puente_ganar', creative_slot: 'dinero-por-internet' });
+  var el = document.getElementById('registro');
+  if (el) { el.scrollIntoView({ behavior: 'smooth' }); return false; }
+  return true;
+}
+</script>
+
 <!-- ════════════════════════════════════════════════════
      GUIA DE OPCIONES — Formas de ganar dinero online
      ════════════════════════════════════════════════════ -->
@@ -1583,6 +1625,10 @@ async function registrarDI(e) {
         localStorage.setItem('eg_email_registrado', payload.email);
       }
     }
+    // Registro de referido desde esta landing: se mide por separado para saber
+    // qué artículo del clúster /ganar/ convierte (ver CLAUDE.md).
+    if (typeof ga4Event === 'function') ga4Event('sign_up', { method: 'dinero_landing' });
+    if (typeof fbqEvent === 'function') fbqEvent('CompleteRegistration', { content_name: 'dinero_landing' });
     document.getElementById('diForm').style.display = 'none';
     document.querySelector('.g-form-trust').style.display = 'none';
     document.getElementById('diCodigoDisplay').textContent = data.codigo;

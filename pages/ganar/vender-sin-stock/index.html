@@ -1170,6 +1170,10 @@ async function registrarVS(e) {
         localStorage.setItem('eg_email_registrado', payload.email);
       }
     }
+    // Registro de referido desde esta landing: se mide por separado para saber
+    // qué artículo del clúster /ganar/ convierte (ver CLAUDE.md).
+    if (typeof ga4Event === 'function') ga4Event('sign_up', { method: 'stock_landing' });
+    if (typeof fbqEvent === 'function') fbqEvent('CompleteRegistration', { content_name: 'stock_landing' });
     document.getElementById('vsForm').style.display = 'none';
     document.querySelector('.g-form-trust').style.display = 'none';
     document.getElementById('vsCodigoDisplay').textContent = data.codigo;
