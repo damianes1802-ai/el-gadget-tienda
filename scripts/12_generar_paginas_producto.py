@@ -25,6 +25,7 @@ USO:
 AUTOR: Sistema Ecommerce Automation
 """
 
+import functools
 import hashlib
 import html
 import json
@@ -44,6 +45,8 @@ from utils.seo_categorias import CATEGORIAS_SEO, COLECCIONES_SEO, slug_categoria
 from utils.blog_posts import BLOG_POSTS
 from utils.bloques_productos import (seleccionar_regalos_por_presupuesto, seleccionar_destacados,
                                      seleccionar_ofertas, fechas_comerciales_vigentes)
+from utils.campanas import campanas_programadas_vigentes, calcular_precio_oferta
+from utils.envios import resumen_envios, frases_envio, shipping_details_jsonld, return_policy_jsonld, DEVOLUCION_DIAS
 
 logger = get_logger('generar_paginas_producto')
 
@@ -74,6 +77,35 @@ RELACIONADOS_LIMIT = 4
 CANONICAL_DOMAIN = "https://elgadget.com.ar"  # dominio canónico fijo, no depende de SITE_URL del .env
 
 LOGO_SVG = '<img src="../../assets/img/logo-badge-animado.gif" alt="El Gadget" width="42" height="42">'
+
+# Campañas vigentes: las carga generar() una sola vez. render_pagina() las usa
+# para saber cuánto paga HOY el cliente por el producto, que es lo que define
+# si el envío bonificado del JSON-LD aplica comprándolo solo.
+_CAMPANAS = []
+
+
+@functools.lru_cache(maxsize=1)
+def _envios():
+    """Tarifario de envíos (data/envios/zonas_envio.json), leído una vez por corrida."""
+    return resumen_envios()
+
+
+def render_beneficios(envios: dict) -> str:
+    """Bloque visible de la ficha con envío / cambios / pago, armado desde el
+    tarifario real (los mismos números que el JSON-LD y la página /envios)."""
+    fr = frases_envio(envios)
+    envio = html.escape(fr['resumen'])
+    bonif = f" {html.escape(fr['bonificado_corto'])}" if fr['bonificado_corto'] else ''
+    return (
+        '<ul class="pdp-benefits" aria-label="Envío, cambios y pago">\n'
+        f'        <li><span class="ico" aria-hidden="true">🚚</span><span><strong>Envío a todo el país.</strong> {envio}{bonif} '
+        '<a href="../../envios">Ver zonas y costos</a></span></li>\n'
+        f'        <li><span class="ico" aria-hidden="true">🔁</span><span><strong>{DEVOLUCION_DIAS} días hábiles para cambiar de idea.</strong> '
+        'Coordinamos el retiro sin costo y te reembolsamos el 100 %. <a href="../../devoluciones">Cómo funciona</a></span></li>\n'
+        '        <li><span class="ico" aria-hidden="true">🔒</span><span><strong>Pago seguro con Mercado Pago.</strong> '
+        'Si devolvés, el reembolso va por el mismo medio de pago dentro de los 3 días hábiles de recibido el producto.</span></li>\n'
+        '      </ul>'
+    )
 
 FAVICON = ("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>"
            "<rect width='100' height='100' rx='22' fill='%2314151A'/>"
@@ -478,6 +510,14 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         stock_badge = '<span class="stock-badge in-stock" id="stockBadge">✓ En stock</span>'
 
     cat_slug = slug_categoria(categoria)
+
+    # Envío y devoluciones en el Offer (datos reales de utils/envios.py). El
+    # umbral de envío bonificado se evalúa con lo que paga el cliente por este
+    # producto hoy (precio de oferta si hay campaña vigente), no con el de lista.
+    envios = _envios()
+    oferta = calcular_precio_oferta(producto, _CAMPANAS) if _CAMPANAS else None
+    precio_pagado = float(oferta) if (oferta is not None and float(oferta) < float(precio or 0)) else float(precio or 0)
+
     jsonld = [{
         "@context": "https://schema.org/",
         "@type": "Product",
@@ -492,6 +532,8 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
             "priceCurrency": "ARS",
             "price": f"{float(precio or 0):.2f}",
             "availability": "https://schema.org/InStock" if en_stock else "https://schema.org/OutOfStock",
+            "shippingDetails": shipping_details_jsonld(envios, precio_pagado),
+            "hasMerchantReturnPolicy": return_policy_jsonld(),
         },
     }, {
         "@context": "https://schema.org/",
@@ -607,7 +649,9 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         '__ACTIONS__': acciones_html,
         '__STICKY_PRICE__': sticky_precio,
         '__STICKY_CTA__': sticky_cta,
+        # related_html ya distingue en stock / agotado (ver más arriba)
         '__RELATED__': related_html,
+        '__BENEFICIOS__': render_beneficios(envios),
         '__PRODUCTO_JSON__': json.dumps(producto_js, ensure_ascii=False),
     }
 
@@ -712,6 +756,9 @@ TEMPLATE = """<!DOCTYPE html>
       <!-- Acciones -->
       __ACTIONS__
 
+      <!-- Envío / cambios / pago: texto plano visible, mismos datos que el JSON-LD -->
+      __BENEFICIOS__
+
       <!-- Descripción -->
       <div class="product-description">
         <h3>Descripción</h3>
@@ -750,7 +797,7 @@ __RELATED__
     <div class="footer-col">
       <h4>Información</h4>
       <a href="../../sobre_nosotros">Sobre nosotros</a>
-      <a href="#" onclick="return false;">Envíos a todo el país</a>
+      <a href="../../envios">Envíos a todo el país</a>
       <a href="#" onclick="return false;">Pagos seguros</a>
       <a href="../../arrepentimiento">Botón de arrepentimiento</a>
     </div>
@@ -759,7 +806,7 @@ __RELATED__
   <div class="footer-legal">
     <strong>El Gadget</strong> &middot; Dami&aacute;n Ezequiel S&aacute;nchez &middot; CUIT 20-42396477-5 &middot; Responsable Monotributo<br>
     Esteban Echeverr&iacute;a 964, Wilde (B1875ATT), Provincia de Buenos Aires, Argentina<br>
-    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a>
+    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a> &middot; <a href="/envios">Env&iacute;os</a>
   </div>
 </footer>
 
@@ -1352,6 +1399,7 @@ document.addEventListener('click', function(e) {{
       <a href="/carrito">Mi pedido</a>
       <a href="/seguimiento">Seguimiento de pedido</a>
       <a href="/faq">Preguntas frecuentes</a>
+      <a href="/envios">Envíos</a>
       <a href="/devoluciones">Devoluciones y garantías</a>
     </div>
     <div class="footer-col">
@@ -1368,7 +1416,7 @@ document.addEventListener('click', function(e) {{
   <div class="footer-legal">
     <strong>El Gadget</strong> &middot; Dami&aacute;n Ezequiel S&aacute;nchez &middot; CUIT 20-42396477-5 &middot; Responsable Monotributo<br>
     Esteban Echeverr&iacute;a 964, Wilde (B1875ATT), Provincia de Buenos Aires, Argentina<br>
-    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a>
+    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a> &middot; <a href="/envios">Env&iacute;os</a>
   </div>
 </footer>
 
@@ -1554,13 +1602,13 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
       <p>Productos para el hogar, moda y más. Comprá online seguro y te lo enviamos a tu casa.</p>
     </div>
     <div class="footer-col"><h4>Tienda</h4><a href="/">Catálogo</a><a href="/categoria/ofertas/">Ofertas</a><a href="/blog/">Blog</a><a href="/seguimiento">Seguimiento</a></div>
-    <div class="footer-col"><h4>Ayuda</h4><a href="/faq">Preguntas frecuentes</a><a href="/devoluciones">Devoluciones</a><a href="/sobre_nosotros">Sobre nosotros</a></div>
+    <div class="footer-col"><h4>Ayuda</h4><a href="/faq">Preguntas frecuentes</a><a href="/envios">Envíos</a><a href="/devoluciones">Devoluciones</a><a href="/sobre_nosotros">Sobre nosotros</a></div>
   </div>
   <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
   <div class="footer-legal">
     <strong>El Gadget</strong> &middot; Dami&aacute;n Ezequiel S&aacute;nchez &middot; CUIT 20-42396477-5 &middot; Responsable Monotributo<br>
     Esteban Echeverr&iacute;a 964, Wilde (B1875ATT), Provincia de Buenos Aires, Argentina<br>
-    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a>
+    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a> &middot; <a href="/envios">Env&iacute;os</a>
   </div>
 </footer>
 <div class="toast" id="toast"></div>
@@ -2024,6 +2072,8 @@ def generar():
             por_grupo.setdefault(grupo, []).append(p)
 
     # 3. Generar página por producto
+    global _CAMPANAS
+    _CAMPANAS = campanas_programadas_vigentes(conn.cursor())
     PRODUCTO_DIR.mkdir(parents=True, exist_ok=True)
     slugs_generados = set()
 
@@ -2212,6 +2262,7 @@ def generar():
         (f"{canonical_url}/seguimiento", "monthly"),
         (f"{canonical_url}/privacidad", "monthly"),
         (f"{canonical_url}/devoluciones", "monthly"),
+        (f"{canonical_url}/envios", "monthly"),
         (f"{canonical_url}/terminos", "monthly"),
         (f"{canonical_url}/referidos", "weekly"),
         (f"{canonical_url}/mayoristas", "monthly"),
@@ -2255,8 +2306,9 @@ def generar():
     # usa como primera fuente y solo cae a la API si falla. Como este script
     # corre en la sync diaria (03-04 AM) y también al redeploy manual de
     # precios, los precios de oferta del día ya vienen calculados acá con la
-    # MISMA lógica compartida que usa la API (utils/campanas.py).
-    from utils.campanas import campanas_programadas_vigentes, calcular_precio_oferta
+    # MISMA lógica compartida que usa la API (utils/campanas.py, importado
+    # arriba: un import local acá volvería locales esos nombres para toda
+    # generar() y rompería el uso del paso 3).
     cur_json = conn.cursor()
     cur_json.execute("SELECT * FROM productos WHERE stock > 0 ORDER BY nombre")
     filas_catalogo = [dict(r) for r in cur_json.fetchall()]
@@ -2269,6 +2321,15 @@ def generar():
         encoding='utf-8'
     )
     print(f"✅ Catálogo estático: {catalogo_file} ({len(filas_catalogo)} productos)")
+
+    # 7. Página /envios (tarifario público): se regenera en cada corrida para
+    #    que nunca quede desfasada del JSON de zonas ni de las fichas.
+    try:
+        from generar_pagina_envios import generar as generar_envios
+        generar_envios()
+    except Exception as e:  # nunca frenar la generación de fichas por esto
+        print(f"⚠️  No se pudo regenerar pages/envios.html: {e}")
+        logger.warning(f"envios.html no regenerado: {e}")
 
     conn.close()
     print("\n" + "=" * 70 + "\n")

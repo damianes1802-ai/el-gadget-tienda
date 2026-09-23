@@ -1298,3 +1298,13 @@ body.pagina-checkout .whatsapp-float { display: none; }
   .destacados .grid-heading h2 { font-size: 16px; }
   .destacados .grid-heading a { font-size: 12.5px; white-space: nowrap; }
 }
+
+/* ── FICHA: envío / cambios / pago (bloque de texto visible, datos de utils/envios.py) ── */
+.pdp-benefits {
+  list-style: none; margin: 0; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px;
+  background: var(--cream); border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
+}
+.pdp-benefits li { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.55; color: var(--gray-600); }
+.pdp-benefits li .ico { font-size: 17px; line-height: 1.3; flex-shrink: 0; }
+.pdp-benefits strong { color: var(--ink); font-weight: 600; }
+.pdp-benefits a { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }

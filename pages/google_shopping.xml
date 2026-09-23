@@ -4,7 +4,7 @@
     <title>El Gadget</title>
     <link>https://elgadget.com.ar</link>
     <description>Catálogo de productos de El Gadget para Google Merchant Center</description>
-    <lastBuildDate>Sat, 19 Sep 2026 13:33:56 -0300</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 20:41:38 -0300</lastBuildDate>
     <item>
       <g:id>505524</g:id>
       <title>Vela Cumpleaños Payaso Sorpresa: ¡Magia y Alegría en Tu Torta!</title>
@@ -22,6 +22,7 @@
       <g:condition>new</g:condition>
       <g:price>1000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Arts &amp; Entertainment &gt; Party &amp; Celebration &gt; Party Supplies &gt; Birthday Candles</g:google_product_category>
       <g:product_type>Home</g:product_type>
     </item>
     <item>
@@ -34,6 +35,7 @@
       <g:condition>new</g:condition>
       <g:price>3000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Bathroom Accessories</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -51,6 +53,7 @@
       <g:condition>new</g:condition>
       <g:price>16000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Vehicles &amp; Parts &gt; Vehicle Parts &amp; Accessories &gt; Vehicle Storage &amp; Cargo &gt; Motor Vehicle Trailers</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -67,6 +70,7 @@
       <g:condition>new</g:condition>
       <g:price>3000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Electronics &gt; Audio &gt; Audio Components &gt; Microphones</g:google_product_category>
       <g:product_type>Electrónica</g:product_type>
     </item>
     <item>
@@ -86,6 +90,7 @@
       <g:condition>new</g:condition>
       <g:price>31500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Backpacks</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -104,6 +109,7 @@
       <g:condition>new</g:condition>
       <g:price>9500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care &gt; Sleeping Aids &gt; Snoring &amp; Sleep Apnea Aids</g:google_product_category>
       <g:product_type>Estética y Belleza</g:product_type>
     </item>
     <item>
@@ -123,6 +129,7 @@
       <g:condition>new</g:condition>
       <g:price>8000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care &gt; Sleeping Aids &gt; Snoring &amp; Sleep Apnea Aids</g:google_product_category>
       <g:product_type>Estética y Belleza</g:product_type>
     </item>
     <item>
@@ -142,6 +149,7 @@
       <g:condition>new</g:condition>
       <g:price>8000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care &gt; Sleeping Aids &gt; Snoring &amp; Sleep Apnea Aids</g:google_product_category>
       <g:product_type>Estética y Belleza</g:product_type>
     </item>
     <item>
@@ -156,6 +164,7 @@
       <g:condition>new</g:condition>
       <g:price>86500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Pool &amp; Spa &gt; Pool &amp; Spa Accessories &gt; Pool Floats &amp; Loungers</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -171,6 +180,7 @@
       <g:condition>new</g:condition>
       <g:price>94000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Pool &amp; Spa &gt; Pool &amp; Spa Accessories &gt; Pool Floats &amp; Loungers</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -187,6 +197,7 @@
       <g:condition>new</g:condition>
       <g:price>32500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Pool &amp; Spa &gt; Pool &amp; Spa Accessories &gt; Pool Floats &amp; Loungers</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -203,6 +214,7 @@
       <g:condition>new</g:condition>
       <g:price>74000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Pool &amp; Spa &gt; Pool &amp; Spa Accessories &gt; Pool Floats &amp; Loungers</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -219,6 +231,7 @@
       <g:condition>new</g:condition>
       <g:price>66000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Pool &amp; Spa &gt; Pool &amp; Spa Accessories &gt; Pool Floats &amp; Loungers</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -234,6 +247,7 @@
       <g:condition>new</g:condition>
       <g:price>66000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Pool &amp; Spa &gt; Pool &amp; Spa Accessories &gt; Pool Floats &amp; Loungers</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -249,6 +263,7 @@
       <g:condition>new</g:condition>
       <g:price>49500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Pool &amp; Spa &gt; Pool &amp; Spa Accessories &gt; Pool Floats &amp; Loungers</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -264,6 +279,7 @@
       <g:condition>new</g:condition>
       <g:price>74000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Pool &amp; Spa &gt; Pool &amp; Spa Accessories &gt; Pool Floats &amp; Loungers</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -278,6 +294,7 @@
       <g:condition>new</g:condition>
       <g:price>41500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Pool &amp; Spa &gt; Pool &amp; Spa Accessories &gt; Pool Floats &amp; Loungers</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -293,6 +310,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -307,6 +325,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -321,6 +340,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -335,6 +355,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -350,6 +371,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -365,6 +387,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -380,6 +403,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -395,6 +419,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -409,6 +434,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -423,6 +449,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -437,6 +464,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -451,6 +479,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -466,6 +495,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -481,6 +511,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -496,6 +527,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Swimwear</g:google_product_category>
       <g:product_type>Verano</g:product_type>
     </item>
     <item>
@@ -513,6 +545,7 @@
       <g:condition>new</g:condition>
       <g:price>26000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Lamps</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -529,6 +562,7 @@
       <g:condition>new</g:condition>
       <g:price>26000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Lamps</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -545,6 +579,7 @@
       <g:condition>new</g:condition>
       <g:price>26000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Lamps</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -561,6 +596,7 @@
       <g:condition>new</g:condition>
       <g:price>28000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Lamps</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -576,6 +612,7 @@
       <g:condition>new</g:condition>
       <g:price>14500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Night Lights &amp; Ambient Lighting</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -592,6 +629,7 @@
       <g:condition>new</g:condition>
       <g:price>15000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Night Lights &amp; Ambient Lighting</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -609,6 +647,7 @@
       <g:condition>new</g:condition>
       <g:price>26000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Lamps</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -626,6 +665,7 @@
       <g:condition>new</g:condition>
       <g:price>26000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Lamps</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -643,6 +683,7 @@
       <g:condition>new</g:condition>
       <g:price>16500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Night Lights &amp; Ambient Lighting</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -660,6 +701,7 @@
       <g:condition>new</g:condition>
       <g:price>31000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Lamps</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -675,6 +717,7 @@
       <g:condition>new</g:condition>
       <g:price>31000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Lamps</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -690,6 +733,7 @@
       <g:condition>new</g:condition>
       <g:price>31000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Lamps</g:google_product_category>
       <g:product_type>Deco</g:product_type>
     </item>
     <item>
@@ -707,6 +751,7 @@
       <g:condition>new</g:condition>
       <g:price>10500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Kitchen Tools &amp; Utensils</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -719,6 +764,7 @@
       <g:condition>new</g:condition>
       <g:price>16000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care &gt; Shaving &amp; Grooming &gt; Hair Removal &gt; Waxing Kits &amp; Supplies</g:google_product_category>
       <g:product_type>Estética y Belleza</g:product_type>
     </item>
     <item>
@@ -731,6 +777,7 @@
       <g:condition>new</g:condition>
       <g:price>10500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Health &amp; Beauty &gt; Personal Care &gt; Ear Care &gt; Earplugs</g:google_product_category>
       <g:product_type>Estética y Belleza</g:product_type>
     </item>
     <item>
@@ -743,6 +790,7 @@
       <g:condition>new</g:condition>
       <g:price>8500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Baby &amp; Toddler &gt; Baby Safety &gt; Baby Safety Locks &amp; Guards</g:google_product_category>
       <g:product_type>Home</g:product_type>
     </item>
     <item>
@@ -758,6 +806,7 @@
       <g:condition>new</g:condition>
       <g:price>17000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Household Supplies &gt; Laundry Supplies &gt; Lint Rollers</g:google_product_category>
       <g:product_type>Baño y Limpieza</g:product_type>
     </item>
     <item>
@@ -773,6 +822,7 @@
       <g:condition>new</g:condition>
       <g:price>2500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Bathroom Accessories &gt; Toilet Brushes &amp; Holders</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -788,6 +838,7 @@
       <g:condition>new</g:condition>
       <g:price>29000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Bathroom Accessories &gt; Toilet Brushes &amp; Holders</g:google_product_category>
       <g:product_type>Baño y Limpieza</g:product_type>
     </item>
     <item>
@@ -803,6 +854,7 @@
       <g:condition>new</g:condition>
       <g:price>16000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -823,6 +875,7 @@
       <g:condition>new</g:condition>
       <g:price>17500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -841,6 +894,7 @@
       <g:condition>new</g:condition>
       <g:price>16000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -857,6 +911,7 @@
       <g:condition>new</g:condition>
       <g:price>16000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -870,6 +925,7 @@
       <g:condition>new</g:condition>
       <g:price>16000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -891,6 +947,7 @@
       <g:condition>new</g:condition>
       <g:price>19000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies</g:google_product_category>
       <g:product_type>Home</g:product_type>
     </item>
     <item>
@@ -909,6 +966,7 @@
       <g:condition>new</g:condition>
       <g:price>9000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies &gt; Pet Medical Collars</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -927,6 +985,7 @@
       <g:condition>new</g:condition>
       <g:price>9000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies &gt; Pet Medical Collars</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -943,6 +1002,7 @@
       <g:condition>new</g:condition>
       <g:price>9000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies &gt; Pet Medical Collars</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -961,6 +1021,7 @@
       <g:condition>new</g:condition>
       <g:price>9000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies &gt; Pet Medical Collars</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -979,6 +1040,7 @@
       <g:condition>new</g:condition>
       <g:price>9000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies &gt; Pet Medical Collars</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -996,6 +1058,7 @@
       <g:condition>new</g:condition>
       <g:price>5000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Hardware &gt; Plumbing &gt; Plumbing Fixture Hardware &amp; Parts &gt; Drain Components &gt; Drain Rods</g:google_product_category>
       <g:product_type>Baño y Limpieza</g:product_type>
     </item>
     <item>
@@ -1012,6 +1075,7 @@
       <g:condition>new</g:condition>
       <g:price>25000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Household Supplies &gt; Household Cleaning Supplies &gt; Scrub Brushes</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -1029,6 +1093,7 @@
       <g:condition>new</g:condition>
       <g:price>3000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Household Supplies &gt; Pest Control &gt; Repellents</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -1047,6 +1112,7 @@
       <g:condition>new</g:condition>
       <g:price>30500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Household Supplies &gt; Pest Control &gt; Repellents</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -1067,6 +1133,7 @@
       <g:condition>new</g:condition>
       <g:price>73000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lighting &gt; Lamps</g:google_product_category>
       <g:product_type>Home</g:product_type>
     </item>
     <item>
@@ -1086,6 +1153,7 @@
       <g:condition>new</g:condition>
       <g:price>75500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Kitchen Tools &amp; Utensils &gt; Dish Racks &amp; Drain Boards</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1102,6 +1170,7 @@
       <g:condition>new</g:condition>
       <g:price>73000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Kitchen Tools &amp; Utensils &gt; Dish Racks &amp; Drain Boards</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1122,6 +1191,7 @@
       <g:condition>new</g:condition>
       <g:price>36500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Kitchen Tools &amp; Utensils &gt; Kitchen Organizers</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1140,6 +1210,7 @@
       <g:condition>new</g:condition>
       <g:price>21000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Hardware &gt; Building Consumables &gt; Hardware Tape</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1158,6 +1229,7 @@
       <g:condition>new</g:condition>
       <g:price>9000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Hardware &gt; Plumbing &gt; Plumbing Fixture Hardware &amp; Parts &gt; Drain Components &gt; Drain Covers &amp; Strainers</g:google_product_category>
       <g:product_type>Nuevos Ingresos</g:product_type>
     </item>
     <item>
@@ -1176,6 +1248,7 @@
       <g:condition>new</g:condition>
       <g:price>4000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Household Supplies &gt; Laundry Supplies &gt; Laundry Balls</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1197,6 +1270,7 @@
       <g:condition>new</g:condition>
       <g:price>11500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Supports &amp; Braces</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1218,6 +1292,7 @@
       <g:condition>new</g:condition>
       <g:price>11500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Supports &amp; Braces</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1234,6 +1309,7 @@
       <g:condition>new</g:condition>
       <g:price>26000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Household Supplies &gt; Storage &amp; Organization &gt; Clothing &amp; Closet Storage &gt; Closet Organizers &amp; Garment Racks</g:google_product_category>
       <g:product_type>Nuevos Ingresos</g:product_type>
     </item>
     <item>
@@ -1251,6 +1327,7 @@
       <g:condition>new</g:condition>
       <g:price>52000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Garment Bags</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1268,6 +1345,7 @@
       <g:condition>new</g:condition>
       <g:price>42500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Garment Bags</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1285,6 +1363,7 @@
       <g:condition>new</g:condition>
       <g:price>40500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Garment Bags</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1303,6 +1382,7 @@
       <g:condition>new</g:condition>
       <g:price>37500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Garment Bags</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1319,6 +1399,7 @@
       <g:condition>new</g:condition>
       <g:price>12000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Baby &amp; Toddler &gt; Baby Safety &gt; Baby Safety Locks &amp; Guards</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1335,6 +1416,7 @@
       <g:condition>new</g:condition>
       <g:price>12000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Baby &amp; Toddler &gt; Baby Safety &gt; Baby Safety Locks &amp; Guards</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1354,6 +1436,7 @@
       <g:condition>new</g:condition>
       <g:price>15000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Sporting Goods &gt; Outdoor Recreation &gt; Cycling &gt; Bicycle Accessories &gt; Bicycle Mirrors</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1369,6 +1452,7 @@
       <g:condition>new</g:condition>
       <g:price>28000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Bathroom Accessories &gt; Soap &amp; Lotion Dispensers</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -1391,6 +1475,7 @@
       <g:condition>new</g:condition>
       <g:price>83000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Tableware &gt; Drinkware &gt; Tumblers</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -1413,6 +1498,7 @@
       <g:condition>new</g:condition>
       <g:price>37500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Thermoses</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -1426,6 +1512,7 @@
       <g:condition>new</g:condition>
       <g:price>17500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Gloves &amp; Mittens</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1438,6 +1525,7 @@
       <g:condition>new</g:condition>
       <g:price>12500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Gloves &amp; Mittens</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1453,6 +1541,7 @@
       <g:condition>new</g:condition>
       <g:price>13500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Office Instruments &gt; Writing &amp; Drawing Instruments &gt; Markers &amp; Highlighters &gt; Highlighters</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1467,6 +1556,7 @@
       <g:condition>new</g:condition>
       <g:price>13500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Office Instruments &gt; Writing &amp; Drawing Instruments &gt; Markers &amp; Highlighters &gt; Highlighters</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1482,6 +1572,7 @@
       <g:condition>new</g:condition>
       <g:price>29500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Office Instruments &gt; Writing &amp; Drawing Instruments &gt; Markers &amp; Highlighters &gt; Highlighters</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1495,6 +1586,7 @@
       <g:condition>new</g:condition>
       <g:price>7000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; General Office Supplies &gt; Paper Products &gt; Notebooks &amp; Notepads</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -1508,6 +1600,7 @@
       <g:condition>new</g:condition>
       <g:price>149000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Office Instruments &gt; Pencil Sharpeners</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -1521,6 +1614,7 @@
       <g:condition>new</g:condition>
       <g:price>134500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Office Instruments &gt; Writing &amp; Drawing Instruments &gt; Pens &amp; Pencils</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -1534,6 +1628,7 @@
       <g:condition>new</g:condition>
       <g:price>201500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Office Instruments &gt; Writing &amp; Drawing Instruments &gt; Pens &amp; Pencils</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -1548,6 +1643,7 @@
       <g:condition>new</g:condition>
       <g:price>149000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Office Instruments &gt; Pencil Sharpeners</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -1562,6 +1658,7 @@
       <g:condition>new</g:condition>
       <g:price>268500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Office Instruments &gt; Writing &amp; Drawing Instruments &gt; Pens &amp; Pencils</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -1577,6 +1674,7 @@
       <g:condition>new</g:condition>
       <g:price>44000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1593,6 +1691,7 @@
       <g:condition>new</g:condition>
       <g:price>44000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1612,6 +1711,7 @@
       <g:condition>new</g:condition>
       <g:price>23500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1629,6 +1729,7 @@
       <g:condition>new</g:condition>
       <g:price>23500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1644,6 +1745,7 @@
       <g:condition>new</g:condition>
       <g:price>34000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Backpacks</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1660,6 +1762,7 @@
       <g:condition>new</g:condition>
       <g:price>34000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Backpacks</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1674,6 +1777,7 @@
       <g:condition>new</g:condition>
       <g:price>34000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Backpacks</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1689,6 +1793,7 @@
       <g:condition>new</g:condition>
       <g:price>34000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Backpacks</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1705,6 +1810,7 @@
       <g:condition>new</g:condition>
       <g:price>62500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1720,6 +1826,7 @@
       <g:condition>new</g:condition>
       <g:price>62500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1740,6 +1847,7 @@
       <g:condition>new</g:condition>
       <g:price>57000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1758,6 +1866,7 @@
       <g:condition>new</g:condition>
       <g:price>14500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Cosmetic &amp; Toiletry Bags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1775,6 +1884,7 @@
       <g:condition>new</g:condition>
       <g:price>16000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Cosmetic &amp; Toiletry Bags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1791,6 +1901,7 @@
       <g:condition>new</g:condition>
       <g:price>62500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1807,6 +1918,7 @@
       <g:condition>new</g:condition>
       <g:price>47000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Fanny Packs</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1823,6 +1935,7 @@
       <g:condition>new</g:condition>
       <g:price>47000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Fanny Packs</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1845,6 +1958,7 @@
       <g:condition>new</g:condition>
       <g:price>47000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Backpacks</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1863,6 +1977,7 @@
       <g:condition>new</g:condition>
       <g:price>59500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1884,6 +1999,7 @@
       <g:condition>new</g:condition>
       <g:price>59500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1901,6 +2017,7 @@
       <g:condition>new</g:condition>
       <g:price>57000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1917,6 +2034,7 @@
       <g:condition>new</g:condition>
       <g:price>57000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1934,6 +2052,7 @@
       <g:condition>new</g:condition>
       <g:price>47000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1951,6 +2070,7 @@
       <g:condition>new</g:condition>
       <g:price>47000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1963,6 +2083,7 @@
       <g:condition>new</g:condition>
       <g:price>17500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Filing &amp; Organization &gt; Pen &amp; Pencil Cases</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -1979,6 +2100,7 @@
       <g:condition>new</g:condition>
       <g:price>102500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -1994,6 +2116,7 @@
       <g:condition>new</g:condition>
       <g:price>102500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2010,6 +2133,7 @@
       <g:condition>new</g:condition>
       <g:price>70500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2024,6 +2148,7 @@
       <g:condition>new</g:condition>
       <g:price>70500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2039,6 +2164,7 @@
       <g:condition>new</g:condition>
       <g:price>70500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2054,6 +2180,7 @@
       <g:condition>new</g:condition>
       <g:price>70500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2069,6 +2196,7 @@
       <g:condition>new</g:condition>
       <g:price>58000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2086,6 +2214,7 @@
       <g:condition>new</g:condition>
       <g:price>58000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2101,6 +2230,7 @@
       <g:condition>new</g:condition>
       <g:price>58000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2117,6 +2247,7 @@
       <g:condition>new</g:condition>
       <g:price>70000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2133,6 +2264,7 @@
       <g:condition>new</g:condition>
       <g:price>70000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2148,6 +2280,7 @@
       <g:condition>new</g:condition>
       <g:price>70000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2163,6 +2296,7 @@
       <g:condition>new</g:condition>
       <g:price>70000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Shirts &amp; Tops</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2180,6 +2314,7 @@
       <g:condition>new</g:condition>
       <g:price>13000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Jewelry &gt; Watches</g:google_product_category>
       <g:product_type>Electrónica</g:product_type>
     </item>
     <item>
@@ -2196,6 +2331,7 @@
       <g:condition>new</g:condition>
       <g:price>13000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Jewelry &gt; Watches</g:google_product_category>
       <g:product_type>Electrónica</g:product_type>
     </item>
     <item>
@@ -2208,6 +2344,7 @@
       <g:condition>new</g:condition>
       <g:price>28500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lawn &amp; Garden &gt; Gardening &gt; Pots &amp; Planters</g:google_product_category>
       <g:product_type>Home</g:product_type>
     </item>
     <item>
@@ -2220,6 +2357,7 @@
       <g:condition>new</g:condition>
       <g:price>20000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lawn &amp; Garden &gt; Gardening &gt; Pots &amp; Planters</g:google_product_category>
       <g:product_type>Home</g:product_type>
     </item>
     <item>
@@ -2232,6 +2370,7 @@
       <g:condition>new</g:condition>
       <g:price>20000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Lawn &amp; Garden &gt; Gardening &gt; Pots &amp; Planters</g:google_product_category>
       <g:product_type>Home</g:product_type>
     </item>
     <item>
@@ -2245,6 +2384,7 @@
       <g:condition>new</g:condition>
       <g:price>73500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Toys &amp; Games &gt; Toys &gt; Building Toys &gt; Construction Set Toys</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2264,6 +2404,7 @@
       <g:condition>new</g:condition>
       <g:price>94000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Toys &amp; Games &gt; Toys &gt; Building Toys &gt; Construction Set Toys</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2278,6 +2419,7 @@
       <g:condition>new</g:condition>
       <g:price>29000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Hats</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2292,6 +2434,7 @@
       <g:condition>new</g:condition>
       <g:price>29000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Hats</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2307,6 +2450,7 @@
       <g:condition>new</g:condition>
       <g:price>29000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Hats</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2319,6 +2463,7 @@
       <g:condition>new</g:condition>
       <g:price>12000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Hats</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2335,6 +2480,7 @@
       <g:condition>new</g:condition>
       <g:price>29500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Hats</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2354,6 +2500,7 @@
       <g:condition>new</g:condition>
       <g:price>34000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Scarves &amp; Shawls</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2373,6 +2520,7 @@
       <g:condition>new</g:condition>
       <g:price>34000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Scarves &amp; Shawls</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2389,6 +2537,7 @@
       <g:condition>new</g:condition>
       <g:price>34000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Scarves &amp; Shawls</g:google_product_category>
       <g:product_type>Accesorios de Moda</g:product_type>
     </item>
     <item>
@@ -2402,6 +2551,7 @@
       <g:condition>new</g:condition>
       <g:price>12000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Hats</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2414,6 +2564,7 @@
       <g:condition>new</g:condition>
       <g:price>16500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing Accessories &gt; Hats</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2430,6 +2581,7 @@
       <g:condition>new</g:condition>
       <g:price>18000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Baby &amp; Toddler &gt; Potty Training</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2451,6 +2603,7 @@
       <g:condition>new</g:condition>
       <g:price>18000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Baby &amp; Toddler &gt; Potty Training</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2464,6 +2617,7 @@
       <g:condition>new</g:condition>
       <g:price>25000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -2477,6 +2631,7 @@
       <g:condition>new</g:condition>
       <g:price>25000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -2490,6 +2645,7 @@
       <g:condition>new</g:condition>
       <g:price>25000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -2504,6 +2660,7 @@
       <g:condition>new</g:condition>
       <g:price>32000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -2517,6 +2674,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2530,6 +2688,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2543,6 +2702,7 @@
       <g:condition>new</g:condition>
       <g:price>43500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2565,6 +2725,7 @@
       <g:condition>new</g:condition>
       <g:price>15000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Animals &amp; Pet Supplies &gt; Pet Supplies &gt; Pet Grooming Supplies &gt; Pet Combs &amp; Brushes</g:google_product_category>
       <g:product_type>Accesorios para Mascotas</g:product_type>
     </item>
     <item>
@@ -2587,6 +2748,7 @@
       <g:condition>new</g:condition>
       <g:price>26500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Arts &amp; Entertainment &gt; Party &amp; Celebration &gt; Party Supplies &gt; Balloons</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2602,6 +2764,7 @@
       <g:condition>new</g:condition>
       <g:price>30000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -2618,6 +2781,7 @@
       <g:condition>new</g:condition>
       <g:price>64500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -2634,6 +2798,7 @@
       <g:condition>new</g:condition>
       <g:price>49500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -2649,6 +2814,7 @@
       <g:condition>new</g:condition>
       <g:price>32000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Thermoses</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -2666,6 +2832,7 @@
       <g:condition>new</g:condition>
       <g:price>30000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -2687,6 +2854,7 @@
       <g:condition>new</g:condition>
       <g:price>16000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Bathroom Accessories &gt; Soap Dishes &amp; Holders</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2702,6 +2870,7 @@
       <g:condition>new</g:condition>
       <g:price>21000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Toys &amp; Games &gt; Toys &gt; Dolls, Playsets &amp; Toy Figures &gt; Stuffed Animals</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2718,6 +2887,7 @@
       <g:condition>new</g:condition>
       <g:price>9000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Arts &amp; Entertainment &gt; Hobbies &amp; Creative Arts &gt; Arts &amp; Crafts &gt; Art &amp; Crafting Materials &gt; Embellishments &amp; Trims &gt; Decorative Stickers</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2731,6 +2901,7 @@
       <g:condition>new</g:condition>
       <g:price>26000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Filing &amp; Organization &gt; Pen &amp; Pencil Cases</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2745,6 +2916,7 @@
       <g:condition>new</g:condition>
       <g:price>29000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Office Supplies &gt; Filing &amp; Organization &gt; Pen &amp; Pencil Cases</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2761,6 +2933,7 @@
       <g:condition>new</g:condition>
       <g:price>9000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Underwear &amp; Socks &gt; Socks</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2773,6 +2946,7 @@
       <g:condition>new</g:condition>
       <g:price>52500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2785,6 +2959,7 @@
       <g:condition>new</g:condition>
       <g:price>52500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2797,6 +2972,7 @@
       <g:condition>new</g:condition>
       <g:price>52500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2809,6 +2985,7 @@
       <g:condition>new</g:condition>
       <g:price>52500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2821,6 +2998,7 @@
       <g:condition>new</g:condition>
       <g:price>52500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2833,6 +3011,7 @@
       <g:condition>new</g:condition>
       <g:price>52500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2845,6 +3024,7 @@
       <g:condition>new</g:condition>
       <g:price>42500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2857,6 +3037,7 @@
       <g:condition>new</g:condition>
       <g:price>42500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2869,6 +3050,7 @@
       <g:condition>new</g:condition>
       <g:price>42500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2881,6 +3063,7 @@
       <g:condition>new</g:condition>
       <g:price>42500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2893,6 +3076,7 @@
       <g:condition>new</g:condition>
       <g:price>53000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2905,6 +3089,7 @@
       <g:condition>new</g:condition>
       <g:price>53000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2917,6 +3102,7 @@
       <g:condition>new</g:condition>
       <g:price>53000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2929,6 +3115,7 @@
       <g:condition>new</g:condition>
       <g:price>53000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2941,6 +3128,7 @@
       <g:condition>new</g:condition>
       <g:price>53000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Baby &amp; Toddler Clothing &gt; Baby One-Pieces</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -2958,6 +3146,7 @@
       <g:condition>new</g:condition>
       <g:price>8500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Underwear &amp; Socks &gt; Socks</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -2976,6 +3165,7 @@
       <g:condition>new</g:condition>
       <g:price>11500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Activewear</g:google_product_category>
       <g:product_type>Fitness</g:product_type>
     </item>
     <item>
@@ -2994,6 +3184,7 @@
       <g:condition>new</g:condition>
       <g:price>11500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Activewear</g:google_product_category>
       <g:product_type>Fitness</g:product_type>
     </item>
     <item>
@@ -3006,6 +3197,7 @@
       <g:condition>new</g:condition>
       <g:price>23000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -3021,6 +3213,7 @@
       <g:condition>new</g:condition>
       <g:price>11500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Underwear &amp; Socks &gt; Socks</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -3036,6 +3229,7 @@
       <g:condition>new</g:condition>
       <g:price>11500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Clothing &gt; Underwear &amp; Socks &gt; Socks</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -3048,6 +3242,7 @@
       <g:condition>new</g:condition>
       <g:price>34500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Backpacks</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -3063,6 +3258,7 @@
       <g:condition>new</g:condition>
       <g:price>62000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Luggage &amp; Bags &gt; Backpacks</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -3077,6 +3273,7 @@
       <g:condition>new</g:condition>
       <g:price>42500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -3089,6 +3286,7 @@
       <g:condition>new</g:condition>
       <g:price>15000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Apparel &amp; Accessories &gt; Handbags, Wallets &amp; Cases &gt; Handbags</g:google_product_category>
       <g:product_type>Artículos Infantiles</g:product_type>
     </item>
     <item>
@@ -3101,6 +3299,7 @@
       <g:condition>new</g:condition>
       <g:price>57500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Water Bottles</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>
@@ -3113,6 +3312,7 @@
       <g:condition>new</g:condition>
       <g:price>10500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Arts &amp; Entertainment &gt; Hobbies &amp; Creative Arts &gt; Arts &amp; Crafts &gt; Art &amp; Crafting Materials &gt; Embellishments &amp; Trims &gt; Decorative Stickers</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -3126,6 +3326,7 @@
       <g:condition>new</g:condition>
       <g:price>10500.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Arts &amp; Entertainment &gt; Hobbies &amp; Creative Arts &gt; Arts &amp; Crafts &gt; Art &amp; Crafting Materials &gt; Embellishments &amp; Trims &gt; Decorative Stickers</g:google_product_category>
       <g:product_type>OFERTAS</g:product_type>
     </item>
     <item>
@@ -3141,6 +3342,7 @@
       <g:condition>new</g:condition>
       <g:price>55000.00 ARS</g:price>
       <g:identifier_exists>no</g:identifier_exists>
+      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Thermoses</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
   </channel>
