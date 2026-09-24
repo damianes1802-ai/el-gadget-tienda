@@ -26,7 +26,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/cepillo-con-vapor-para-pelos-de-mascotas-1.html",
   "droppers_id": 5062,
-  "fecha_scraping": "2026-09-23T06:29:42.536817",
+  "fecha_scraping": "2026-09-24T06:33:40.622018",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios para Mascotas"
@@ -36,7 +36,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-23T06:32:26.088903",
+  "fecha_mapeo_categorias": "2026-09-24T06:36:31.456499",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH0101_002",
@@ -66,5 +66,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 15000.0,
-  "fecha_calculo_precio": "2026-09-23T06:33:29.128168"
+  "fecha_calculo_precio": "2026-09-24T06:37:53.923725"
 }

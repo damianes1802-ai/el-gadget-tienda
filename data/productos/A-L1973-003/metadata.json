@@ -16,7 +16,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/inflable-flamingo-para-pileta-1-52m-x-0-89m.html",
   "droppers_id": 2818,
-  "fecha_scraping": "2026-09-23T06:28:41.543758",
+  "fecha_scraping": "2026-09-24T06:31:37.117531",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -26,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-23T06:32:26.094927",
+  "fecha_mapeo_categorias": "2026-09-24T06:36:31.462975",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-L1973-003_002",
@@ -46,5 +46,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 66000.0,
-  "fecha_calculo_precio": "2026-09-23T06:33:28.955941"
+  "fecha_calculo_precio": "2026-09-24T06:37:53.726552"
 }
