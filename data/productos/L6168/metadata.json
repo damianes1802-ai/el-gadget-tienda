@@ -13,7 +13,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/boligrafos-con-forma-de-astronauta-x24-unidades.html",
   "droppers_id": 5134,
-  "fecha_scraping": "2026-09-24T06:32:26.492900",
+  "fecha_scraping": "2026-09-25T06:30:02.469809",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -23,7 +23,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-24T06:36:31.425238",
+  "fecha_mapeo_categorias": "2026-09-25T06:35:37.620830",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6168_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6168_002"
@@ -40,6 +40,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 134500.0,
-  "fecha_calculo_precio": "2026-09-24T06:37:53.867542",
+  "fecha_calculo_precio": "2026-09-25T06:36:59.601925",
   "fecha_agotado": "2026-08-23T06:20:06.551497"
 }

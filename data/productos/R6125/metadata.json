@@ -12,7 +12,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/maceta-simple-decorativa-2.html",
   "droppers_id": 5139,
-  "fecha_scraping": "2026-09-24T06:32:15.201352",
+  "fecha_scraping": "2026-09-25T06:31:27.416418",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Home"
@@ -22,7 +22,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-24T06:36:31.438280",
+  "fecha_mapeo_categorias": "2026-09-25T06:35:37.632985",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R6125_001"
   ],
@@ -38,5 +38,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 28500.0,
-  "fecha_calculo_precio": "2026-09-24T06:37:53.892522"
+  "fecha_calculo_precio": "2026-09-25T06:36:59.624950"
 }
