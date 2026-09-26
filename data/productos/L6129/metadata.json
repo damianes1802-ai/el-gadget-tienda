@@ -13,9 +13,9 @@
   "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
-  "url_original": "https://droppers.com.ar/catalog/product/view/id/5100/",
+  "url_original": "https://droppers.com.ar/pack-resaltadores-1.html",
   "droppers_id": 5100,
-  "fecha_scraping": "2026-09-25T06:31:04.953305",
+  "fecha_scraping": "2026-09-26T06:29:04.461239",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -44,5 +44,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 13500.0,
-  "fecha_calculo_precio": "2026-09-25T06:36:59.599133"
+  "fecha_calculo_precio": "2026-09-26T06:33:41.936434"
 }

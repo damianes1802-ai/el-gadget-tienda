@@ -16,7 +16,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/manton-poncho-bufanda-roja-con-lineas-violeta-2.html",
   "droppers_id": 5727,
-  "fecha_scraping": "2026-09-25T06:31:57.423748",
+  "fecha_scraping": "2026-09-26T06:28:27.554202",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Accesorios de Moda"
@@ -26,7 +26,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-25T06:35:37.607761",
+  "fecha_mapeo_categorias": "2026-09-26T06:31:47.453240",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-003B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_T2606-003B_002",
@@ -46,6 +46,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 34000.0,
-  "fecha_calculo_precio": "2026-09-25T06:36:59.636052",
+  "fecha_calculo_precio": "2026-09-26T06:33:41.963858",
   "fecha_agotado": "2026-08-13T06:19:23.129658"
 }

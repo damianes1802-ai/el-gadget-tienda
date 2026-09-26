@@ -14,7 +14,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/botella-infantil-con-forma-de-personajes-japoneses-760-ml.html",
   "droppers_id": 5130,
-  "fecha_scraping": "2026-09-25T06:30:05.651452",
+  "fecha_scraping": "2026-09-26T06:28:09.375130",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Bazar y Cocina"
@@ -24,7 +24,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-25T06:35:37.643806",
+  "fecha_mapeo_categorias": "2026-09-26T06:31:47.473347",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7265_002",
@@ -42,5 +42,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 42500.0,
-  "fecha_calculo_precio": "2026-09-25T06:36:59.693945"
+  "fecha_calculo_precio": "2026-09-26T06:33:42.003137"
 }
