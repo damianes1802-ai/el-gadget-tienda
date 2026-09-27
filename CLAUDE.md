@@ -329,6 +329,37 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   exclusivo) además de regex, y `'hero'` permite reusar una foto existente en vez de la
   convención `hero-<tipo>-<slug>.jpg`.
 
+- **La tabla `descuentos` vive en Render, no en el repo — y hay UN solo puente, en un solo
+  sentido.** `sincronizar_catalogo_desde_repo()` (api_local.py) copia repo → Render y **solo**
+  `productos`, `historial_precios` e `historial_actualizaciones`. Los descuentos los escribe el
+  panel en el disco persistente de Render y desde ahí cobra el checkout; el generador de páginas
+  y los feeds de Google y Facebook, en cambio, leen el `catalogo.db` del repo. Hasta el
+  2026-09-27 nadie traía las campañas de vuelta: **una oferta cargada en el panel la cobraba el
+  checkout mientras el sitio publicaba precio de lista**. Lo cierra
+  `scripts/10_sincronizar_campanas.py`, que baja `GET /api/descuentos/campanas` (público, solo
+  lectura, nunca devuelve filas con `codigo`) y las escribe en el repo como paso 9b del flujo
+  completo y 4b del rápido, **antes** de generar. Falla en blando a propósito: si la API no
+  responde deja el repo como estaba, porque borrar campañas por un timeout publicaría precio de
+  lista en medio de una promoción. Consecuencia práctica: **una campaña recién cargada aparece en
+  el sitio recién en la corrida diaria siguiente** — programarla con un día de anticipación.
+  Nunca crear una campaña escribiendo directo el `catalogo.db` del repo: se vería en el sitio y
+  el checkout cobraría precio de lista.
+
+- **Una colección estacional puede existir solo mientras haya oferta real: `solo_con_oferta`.**
+  Con ese flag, `items_de_coleccion()` se queda únicamente con los productos que tienen
+  `precio_oferta` vigente; si no hay campaña, la colección no se genera, no entra al sitemap ni
+  al desplegable, y `redirige_a` deja un stub noindex hacia otra URL para que la publicidad no
+  aterrice en un 404. Es lo que evita publicar una página titulada "Ofertas" con precios de
+  lista. Ojo con el otro lado: `_card_bloque()` todavía pone un badge genérico "Oferta" cuando
+  `categoria == 'OFERTAS'`, que en este catálogo es un nombre de categoría de Droppers y **no un
+  descuento** (mismo margen 2,64× que el resto) — si alguna vez se audita el copy comercial,
+  empezar por ahí.
+
+- **Techo de descuento de campaña: 52%.** Peor caso = pedido justo en el umbral de envío gratis
+  ($40.000) y zona bonificada más cara (GBA1, $4.650 absorbidos), con 7,61% de Mercado Pago y
+  factor precio/costo 2,6. Lo verifica `tests/test_envio_bonificado.py::test_tope_de_descuento_de_campana`,
+  que además falla si el techo se mueve porque alguien tocó el margen o el mínimo de envío gratis.
+
 - **Clúster del Día de la Madre: el volumen está en la FECHA, no en el regalo (14 a 1).** Del
   research de sep-2026 (`SEO-KEYWORDS/DIA DE LA MADRE 1.csv` + `2.csv`, 2.494 keywords, de las
   que el 94% está en el piso de 10-100 búsquedas/mes): el clúster "cuándo es el día de la madre"
