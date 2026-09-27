@@ -532,6 +532,16 @@
         <div id="modal-descuento-sku-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"></div>
         <textarea id="modal-descuento-skus" rows="2" style="display:none"></textarea>
         <p class="field-hint">Los seleccionados quedan como etiquetas — clic en la ✕ para sacarlos.</p>
+        <details style="margin-top:6px">
+          <summary style="cursor:pointer;font-size:12.5px;font-weight:600">Pegar una lista de SKUs</summary>
+          <textarea id="modal-descuento-skus-pegar" rows="3"
+                    placeholder="DL1054, T6108, S6064…  (separados por coma, espacio o salto de línea)"
+                    style="width:100%;margin-top:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px"></textarea>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap">
+            <button type="button" class="btn btn-sm" onclick="pegarSkusDescuento()">Agregar a la selección</button>
+            <span id="modal-descuento-skus-pegar-msg" class="cell-muted" style="font-size:12px"></span>
+          </div>
+        </details>
       </div>
       <div class="field">
         <label>Código de descuento (opcional)</label>

@@ -153,6 +153,34 @@ function quitarSkuDescuento(sku) {
   _setSkus(_skusActuales().filter(s => s !== sku));
 }
 
+/* Pegar una lista de SKUs de una sola vez. Una campaña estacional son 30 o 40
+   productos: buscarlos y clickearlos de a uno es media hora de trabajo. */
+function pegarSkusDescuento() {
+  const ta = document.getElementById('modal-descuento-skus-pegar');
+  const msg = document.getElementById('modal-descuento-skus-pegar-msg');
+  const pegados = ta.value.split(/[\s,;]+/).map(s => s.trim()).filter(Boolean);
+  if (!pegados.length) { msg.textContent = 'No hay nada para agregar.'; return; }
+
+  const actuales = _skusActuales();
+  const conocidos = new Set(Object.keys(_skuNombres));
+  const nuevos = [], repetidos = [], sin_nombre = [];
+  pegados.forEach(sku => {
+    if (actuales.includes(sku)) { repetidos.push(sku); return; }
+    actuales.push(sku);
+    nuevos.push(sku);
+    // El buscador solo conoce lo que ya se buscó, así que no se descarta
+    // ningún SKU por no estar en esa lista: se avisa para revisarlo a ojo.
+    if (conocidos.size && !conocidos.has(sku)) sin_nombre.push(sku);
+  });
+  _setSkus(actuales);
+  ta.value = '';
+
+  const partes = [`${nuevos.length} agregado(s)`];
+  if (repetidos.length) partes.push(`${repetidos.length} ya estaba(n)`);
+  if (sin_nombre.length) partes.push(`sin nombre a la vista: ${sin_nombre.slice(0, 4).join(', ')}${sin_nombre.length > 4 ? '…' : ''}`);
+  msg.textContent = partes.join(' · ');
+}
+
 let _skuBuscarTimer = null;
 document.getElementById('modal-descuento-sku-buscar').addEventListener('input', (e) => {
   const term = e.target.value.trim();
