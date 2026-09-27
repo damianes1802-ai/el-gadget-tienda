@@ -1123,6 +1123,11 @@ def _card_listado(p: dict, slug_map: dict) -> str:
       </a>'''
 
 
+def _texto_plano(s: str) -> str:
+    """Saca las etiquetas HTML. Para el JSON-LD, que quiere texto y no markup."""
+    return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', s)).strip()
+
+
 def _precio_efectivo(p: dict) -> float:
     """Lo que paga el cliente hoy: la oferta si hay, si no el precio de lista."""
     base = p.get('precio_venta') or 0
@@ -1284,8 +1289,10 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
         ],
     }]
     if cfg.get('faqs'):
+        # La respuesta admite HTML (links internos), igual que 'intro' y
+        # 'secciones'; el JSON-LD se queda con el texto plano.
         faqs_items = ''.join(
-            f'<div class="listado-faq-item"><h3>{html.escape(q)}</h3><p>{html.escape(a)}</p></div>'
+            f'<div class="listado-faq-item"><h3>{html.escape(q)}</h3><p>{a}</p></div>'
             for q, a in cfg['faqs']
         )
         faqs_html = f'''
@@ -1298,7 +1305,7 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
             "@type": "FAQPage",
             "mainEntity": [
                 {"@type": "Question", "name": q,
-                 "acceptedAnswer": {"@type": "Answer", "text": a}}
+                 "acceptedAnswer": {"@type": "Answer", "text": _texto_plano(a)}}
                 for q, a in cfg['faqs']
             ],
         })
@@ -1939,7 +1946,7 @@ def generar_blog(productos: list = None, slug_map: dict = None) -> list:
             jsonld.append({
                 "@context": "https://schema.org/", "@type": "FAQPage",
                 "mainEntity": [{"@type": "Question", "name": q,
-                                "acceptedAnswer": {"@type": "Answer", "text": a}}
+                                "acceptedAnswer": {"@type": "Answer", "text": _texto_plano(a)}}
                                for q, a in cfg['faqs']],
             })
         hero = f'''<div class="blog-hero">
@@ -1989,7 +1996,7 @@ def generar_blog(productos: list = None, slug_map: dict = None) -> list:
         secciones = toc + ''.join(partes_sec)
         faqs = ''
         if cfg.get('faqs'):
-            items = ''.join(f'<div class="listado-faq-item"><h3>{html.escape(q)}</h3><p>{html.escape(a)}</p></div>'
+            items = ''.join(f'<div class="listado-faq-item"><h3>{html.escape(q)}</h3><p>{a}</p></div>'
                             for q, a in cfg['faqs'])
             faqs = f'<div class="listado-faqs"><h2>Preguntas frecuentes</h2>{items}</div>'
         rel = ''

@@ -5,6 +5,10 @@ Title/H1/meta/intro/secciones/FAQ salen del research de Keyword Planner
 (SEO-KEYWORDS/MAPA-KEYWORDS.md — regla: una keyword primaria = una URL).
 Las 'secciones' (H2 + párrafo) cubren las keywords SECUNDARIAS de cada grupo;
 solo se usan términos que el inventario puede satisfacer honestamente.
+
+'intro', 'secciones' y las RESPUESTAS de las FAQ admiten HTML (links internos):
+no se escapan al renderizar, así que un "<", ">" o "&" literal hay que
+escribirlo ya escapado (&lt; &gt; &amp;). Las PREGUNTAS sí se escapan.
 """
 import re
 import unicodedata

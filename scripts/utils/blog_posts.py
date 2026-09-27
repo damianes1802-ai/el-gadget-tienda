@@ -5,7 +5,10 @@ Keywords del research SEO-KEYWORDS/blog-*.csv (asignaciones en
 MAPA-KEYWORDS.md: una primaria = una URL). Regla: el blog responde
 preguntas y linkea al catálogo; NUNCA apunta a las keywords comerciales
 de categorías/colecciones (eso sería canibalización).
-Los cuerpos admiten HTML (links internos al catálogo).
+Los cuerpos admiten HTML (links internos al catálogo), y las RESPUESTAS de
+las FAQ también. Por eso no se escapan al renderizar: si una respuesta
+necesita un "<", un ">" o un "&" literal, hay que escribirlo ya escapado
+(&lt; &gt; &amp;). Las PREGUNTAS sí se escapan: van en texto plano.
 
 Tercer elemento opcional de cada sección (lo interpreta el generador 12_):
 - ('/assets/img/...', 'alt')  imagen ilustrativa arriba del texto
