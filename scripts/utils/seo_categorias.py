@@ -328,6 +328,58 @@ COLECCIONES_SEO = {
                  ('¿Cómo guardo el inflable para que dure?',
                   'Desinflalo por completo, secalo a la sombra y guardalo plegado lejos del sol. El vinilo agradece: te dura varias temporadas.')],
     },
+    # BOFU del clúster "Día de la Madre" (ver SEO-KEYWORDS/DIA DE LA MADRE *.csv).
+    # Colección CURADA: "sirve de regalo para una mamá" es un criterio editorial
+    # que ningún regex sobre el nombre del producto captura, así que va por
+    # 'skus'. Agrupada por PRECIO y no por tipo de producto: el keyword research
+    # mostró cero búsquedas de "regalos para mamá <categoría>" y en cambio sí
+    # de "regalos para el día de la madre económicos" y "detalles para mamá" —
+    # quien compra un regalo filtra por cuánto quiere gastar.
+    # Evergreen a propósito: "regalos de cumpleaños para mamá" tiene demanda
+    # todo el año, así que esta página no muere el 19 de octubre.
+    'regalos-para-mama': {
+        'hero': '/assets/img/blog/regalos-dia-de-la-madre-argentina.jpg',
+        'skus': [
+            # Detalles hasta $15.000
+            'DL2349', 'DL1054', 'S6064', 'T6108', 'A-R2234-013', 'M2087-009A',
+            # De $15.000 a $40.000
+            'A-R2234-014', 'DL1032', 'M2087-009B', 'A-R2234-027', 'DL1101-1',
+            'R6126', 'R6127', 'WH7194-1', 'M2013-004A', 'A-R2234-023', 'DL2369',
+            'A-R2158-003A', 'R6125', 'S6058B', 'S6074', 'A-R2234-028A',
+            'A-R2234-028B', 'A-R2234-028C', 'M2028-001B', 'T2606-002C',
+            'T2606-002D', 'DL2287', 'DL2373', 'G-TERMOTAPAMADE',
+            # Más de $40.000
+            'DL2372', 'DL2371', 'M1365-001C', 'M1365-001D', 'M2974-006A',
+            'M3103-001A', 'WH7028-1', 'DL2370', 'WH7280', 'M2071-002',
+            'M3102-011A', 'M3022-001B', 'M2062-002', 'M2062-004', 'DL2277',
+            'DL2150', 'G-BEERPINTS', 'PA113B', 'PA110AS',
+        ],
+        'grupos': [('hasta-15', 'Detalles hasta $15.000', {'hasta': 15000}),
+                   ('de-15-a-40', 'Regalos de $15.000 a $40.000', {'desde': 15000, 'hasta': 40000}),
+                   ('mas-de-40', 'Para regalar en grande: más de $40.000', {'desde': 40000})],
+        'title': 'Regalos para Mamá — Ideas con stock y envío a todo el país | El Gadget',
+        'h1': 'Regalos para mamá',
+        'meta': 'Regalos para mamá con stock real, elegidos uno por uno y ordenados por presupuesto. Envío a todo el país, envío gratis en CABA y GBA desde $40.000 y cambios hasta 10 días.',
+        'intro': 'Regalos para mamá que se pueden comprar hoy, elegidos uno por uno y ordenados por lo que querés gastar. Con envío a todo el país, cambios hasta 10 días y pago en cuotas con Mercado Pago.',
+        'secciones': [
+            ('Hasta cuándo comprar para que llegue para el Día de la Madre',
+             'El <strong>Día de la Madre 2026 es el domingo 18 de octubre</strong>. Para el interior del país el envío tarda de 2 a 5 días hábiles, así que conviene comprar <strong>hasta el miércoles 7 de octubre</strong>; en CABA y GBA la entrega es en moto en hasta 48 horas hábiles y llegás comprando <strong>hasta el martes 13</strong>. Tené en cuenta que el lunes 12 es feriado y no hay despachos. Los plazos y el costo exacto de tu zona se calculan en el <a href="/envios">checkout</a>.'),
+            ('Envío gratis en CABA y GBA desde $40.000',
+             'Si tu pedido supera los $40.000 en productos y la entrega es en CABA o el primer cordón del Gran Buenos Aires, el envío te sale $0. En el resto del país la tarifa es fija según la zona, sin sorpresas al final: la ves antes de pagar. Todos los pedidos salen con seguimiento y podés consultarlo en <a href="/seguimiento">seguimiento de pedido</a>.'),
+            ('Regalos para mamá todo el año, no solo en octubre',
+             'Esta selección no es solo para el Día de la Madre: sirve igual para un cumpleaños o para cualquier fecha en la que quieras acertar. Si buscás algo más específico, mirá los <a href="/coleccion/organizadores/">organizadores</a>, las <a href="/coleccion/lamparas-y-luces-led/">lámparas y luces LED</a>, los <a href="/coleccion/vasos-y-botellas-termicas/">vasos y botellas térmicas</a> o los <a href="/categoria/accesorios-de-moda/">accesorios de moda</a>. Y si todavía estás decidiendo, la <a href="/blog/regalos-dia-de-la-madre/">guía del Día de la Madre</a> ordena las ideas por tipo de mamá.'),
+        ],
+        'faqs': [('¿Llega antes del Día de la Madre?',
+                  'Si comprás hasta el miércoles 7 de octubre llega a cualquier punto del país; en CABA y GBA tenés hasta el martes 13. El lunes 12 es feriado y no hay despachos, tenelo en cuenta.'),
+                 ('¿Cuánto sale el envío?',
+                  'Es una tarifa fija por zona que ves antes de pagar. En CABA y GBA 1 el envío es gratis a partir de $40.000 en productos.'),
+                 ('¿Y si no le gusta o no es lo que esperaba?',
+                  'Tenés cambios hasta 10 días después de recibido. Escribinos por WhatsApp y lo coordinamos sin vueltas.'),
+                 ('¿Puedo pagar en cuotas?',
+                  'Sí, con Mercado Pago podés pagar con tarjeta en cuotas o con dinero en cuenta. El detalle de cuotas y recargos lo muestra Mercado Pago al momento de pagar.'),
+                 ('¿Hacen envoltorio para regalo?',
+                  'Los pedidos salen en su embalaje de envío, sin el precio a la vista. Si querés que vaya con un mensaje, escribinos por WhatsApp antes de que despachemos y lo sumamos.')],
+    },
 }
 
 

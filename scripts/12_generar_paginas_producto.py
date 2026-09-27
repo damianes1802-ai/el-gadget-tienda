@@ -1123,6 +1123,69 @@ def _card_listado(p: dict, slug_map: dict) -> str:
       </a>'''
 
 
+def _precio_efectivo(p: dict) -> float:
+    """Lo que paga el cliente hoy: la oferta si hay, si no el precio de lista."""
+    base = p.get('precio_venta') or 0
+    oferta = p.get('precio_oferta')
+    return oferta if (oferta is not None and oferta < base) else base
+
+
+def _criterio_grupo(criterio):
+    """Un grupo de colección se define de dos maneras:
+
+    - regex (str): matchea contra el nombre del producto. Sirve cuando el grupo
+      ES un tipo de producto ("enterizas", "bikinis").
+    - franja de precio (dict): {'desde': n, 'hasta': n} en pesos, 'hasta'
+      exclusivo. Lo pide la colección de regalos: el que busca un regalo filtra
+      por cuánto quiere gastar, no por el tipo de producto.
+    """
+    if isinstance(criterio, dict):
+        desde, hasta = criterio.get('desde', 0), criterio.get('hasta')
+        return lambda p: (desde <= _precio_efectivo(p)
+                          and (hasta is None or _precio_efectivo(p) < hasta))
+    rx = re.compile(criterio, re.I)
+    return lambda p: bool(rx.search(p['nombre']))
+
+
+def items_de_coleccion(slug: str, cfg: dict, productos: list) -> list:
+    """Productos que entran en una colección. Dos formas de armarla, combinables:
+
+    - 'skus': lista explícita, para colecciones CURADAS — cuando el criterio es
+      editorial ("sirve de regalo para una mamá") y ningún regex sobre el
+      nombre lo captura. Manda el orden de la lista. Los SKUs que hoy no están
+      a la venta se saltean (el catálogo de Droppers cambia todos los días y
+      esto se regenera solo) y se avisan por consola para reemplazarlos.
+    - 'match' / 'excluir': regex sobre el nombre, para colecciones que se
+      completan solas con lo que vaya entrando al catálogo.
+
+    Con las dos, primero van los curados y después los del regex, sin repetir.
+    """
+    por_sku = {p['sku']: p for p in productos}
+    items, vistos, faltantes = [], set(), []
+
+    for sku in cfg.get('skus') or []:
+        if sku in vistos:
+            continue
+        p = por_sku.get(sku)
+        if p is None:
+            faltantes.append(sku)
+            continue
+        items.append(p)
+        vistos.add(sku)
+
+    if cfg.get('match'):
+        rx = re.compile(cfg['match'], re.I)
+        rx_ex = re.compile(cfg['excluir'], re.I) if cfg.get('excluir') else None
+        items += [p for p in productos
+                  if p['sku'] not in vistos and rx.search(p['nombre'])
+                  and not (rx_ex and rx_ex.search(p['nombre']))]
+
+    if faltantes:
+        print(f"   ⚠️  /coleccion/{slug}/: {len(faltantes)} SKU(s) curados sin stock hoy "
+              f"({', '.join(faltantes[:8])}{'…' if len(faltantes) > 8 else ''})")
+    return items
+
+
 def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map: dict,
                           chips: list) -> str:
     """Página estática de categoría o colección: grid de productos con <a href>
@@ -1130,6 +1193,10 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
     del research (SEO-KEYWORDS/MAPA-KEYWORDS.md) y FAQ con schema."""
     canonical = f"{CANONICAL_DOMAIN}/{tipo}/{slug}/"
     h1 = cfg['h1']
+    # Por convención cada listado tiene su /assets/img/hero-<tipo>-<slug>.jpg;
+    # 'hero' en la config permite reusar una foto que ya existe (p. ej. una
+    # colección estacional que comparte imagen con su post del blog).
+    hero_img = cfg.get('hero') or f'/assets/img/hero-{tipo}-{slug}.jpg'
     # Posición serial: la primera fila de la grilla es el inventario de
     # atención más valioso -> ofertas activas primero (orden estable).
     items = sorted(items, key=lambda p: 0 if (p.get('precio_oferta') is not None
@@ -1141,10 +1208,10 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
         # orden categórico ES el orden de la página.
         restantes = list(items)
         grupos_render = []
-        for gid, titulo, patron in cfg['grupos']:
-            rg = re.compile(patron, re.I)
-            del_grupo = [p for p in restantes if rg.search(p['nombre'])]
-            restantes = [p for p in restantes if not rg.search(p['nombre'])]
+        for gid, titulo, criterio in cfg['grupos']:
+            entra = _criterio_grupo(criterio)
+            del_grupo = [p for p in restantes if entra(p)]
+            restantes = [p for p in restantes if not entra(p)]
             if del_grupo:
                 grupos_render.append((gid, titulo, del_grupo))
         atajos = ''.join(f'<a href="#g-{gid}" class="chip">{html.escape(t)} ({len(g)})</a>'
@@ -1340,7 +1407,7 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
   </div>
 </header>
 
-<div class="listado-hero" style="background-image:linear-gradient(rgba(20,21,26,0.72),rgba(20,21,26,0.9)),url(/assets/img/hero-{tipo}-{slug}.jpg);background-size:cover;background-position:center">
+<div class="listado-hero" style="background-image:linear-gradient(rgba(20,21,26,0.72),rgba(20,21,26,0.9)),url({hero_img});background-size:cover;background-position:center">
   <div class="breadcrumb breadcrumb-oscuro">
     <a href="/">Inicio</a>
     <span class="sep">/</span>
@@ -1806,7 +1873,10 @@ GUIAS_LISTADO = {
     'estetica-y-belleza': [('como-dejar-de-roncar', 'Cómo dejar de roncar y dormir mejor'), ('como-mejorar-la-postura', 'Cómo mejorar la postura: qué funciona de verdad')],
     'articulos-infantiles': [('regalos-de-navidad', 'Regalos de Navidad y Reyes: ideas por edad y presupuesto')],
     'ofertas': [('regalos-de-navidad', 'Regalos de Navidad: ideas y cuándo comprar'), ('hot-sale-cyber-monday-black-friday', 'Hot Sale, Cyber Monday y Black Friday: cuándo son'), ('dia-del-amigo', 'Día del Amigo: cuándo es y qué regalar')],
-    'organizadores': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña')],
+    'organizadores': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña'), ('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar')],
+    # BOFU: los links del listado de regalos son los ÚNICOS que suben de nivel
+    # en el embudo, y van al pie a propósito (quien llegó acá vino a comprar).
+    'regalos-para-mama': [('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar'), ('regalos-originales-para-mujeres', 'Regalos originales para mujeres')],
     'bazar-y-cocina': [('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar un termo de acero'), ('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar')],
     'vasos-y-botellas-termicas': [('como-curar-el-mate', 'Cómo curar el mate paso a paso'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar tu termo por dentro')],
     'accesorios-para-mascotas': [('como-sacar-pelos-de-mascota-de-la-ropa', 'Cómo sacar los pelos de tu mascota de la ropa')],
@@ -1979,11 +2049,8 @@ def generar_listados(productos: list, slug_map: dict) -> tuple:
     col_dir = PAGES_DIR / 'coleccion'
     slugs_col = []
     for s, cfg in COLECCIONES_SEO.items():
-        rx = re.compile(cfg['match'], re.I)
-        rx_ex = re.compile(cfg['excluir'], re.I) if cfg.get('excluir') else None
-        items = [p for p in productos if rx.search(p['nombre'])
-                 and not (rx_ex and rx_ex.search(p['nombre']))]
-        if len(items) < 3:
+        items = items_de_coleccion(s, cfg, productos)
+        if len(items) < cfg.get('minimo', 3):
             continue
         destino = col_dir / s
         destino.mkdir(parents=True, exist_ok=True)

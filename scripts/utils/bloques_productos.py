@@ -205,7 +205,11 @@ def _tomar(ranking: list, n: int, max_por_cat: int, max_por_tipo: int = 2,
 
 TRAMOS_PRESUPUESTO = [
     # (tope inferior exclusivo, tope superior inclusivo, título)
-    (0, 15000, 'Hasta $15.000'),
+    # "Detalles" y no "Hasta $15.000" a secas: el research del Día de la Madre
+    # mostró demanda propia de "detalles para el día de la madre" / "detalles
+    # para mamá" (Low, sin pujas) y es como se le llama acá al regalo chico.
+    # Sirve igual para el resto de los posts de regalos.
+    (0, 15000, 'Detalles hasta $15.000'),
     (15000, 40000, 'De $15.000 a $40.000'),
     (40000, None, 'Más de $40.000'),
 ]

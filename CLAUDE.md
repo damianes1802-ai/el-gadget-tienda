@@ -316,3 +316,33 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
 - **Escribir JSON con acentos por `curl -d '...'` inline en PowerShell/Bash corrompe el UTF-8.**
   Escribir el JSON a un archivo y mandarlo con `curl --data-binary @archivo.json`. Para scripts
   Python en Windows, `PYTHONIOENCODING=utf-8` (los `.bat` y workflows ya lo setean).
+
+- **Una colección puede ser CURADA: `'skus': [...]` en `COLECCIONES_SEO`.** Hasta sep-2026 la
+  única forma de armar una `/coleccion/` era un regex sobre el nombre del producto (`match`), que
+  sirve cuando el grupo ES un tipo de producto ("mallas", "vasos térmicos") pero no cuando el
+  criterio es editorial — "sirve de regalo para una mamá" no está en ningún nombre. Ahora
+  `items_de_coleccion()` acepta `skus` (lista explícita, manda su orden), `match` (regex), o las
+  dos (primero los curados). **Los SKUs que no están a la venta ese día se saltean solos y se
+  avisan por consola** (`⚠️ /coleccion/x/: N SKU(s) curados sin stock hoy`): con Droppers el stock
+  cambia todos los días y una lista fija se pudre sola si nadie mira ese aviso. Los `grupos` de
+  una colección también aceptan **franjas de precio** (`{'desde': n, 'hasta': n}`, `hasta`
+  exclusivo) además de regex, y `'hero'` permite reusar una foto existente en vez de la
+  convención `hero-<tipo>-<slug>.jpg`.
+
+- **Clúster del Día de la Madre: el volumen está en la FECHA, no en el regalo (14 a 1).** Del
+  research de sep-2026 (`SEO-KEYWORDS/DIA DE LA MADRE 1.csv` + `2.csv`, 2.494 keywords, de las
+  que el 94% está en el piso de 10-100 búsquedas/mes): el clúster "cuándo es el día de la madre"
+  suma ~1.530.000/mes con competencia **Low** y puja de $8-49, contra ~108.000/mes del clúster
+  "regalos" con competencia **High** (índice 99-100) y puja de **$104-605**. Con margen bruto
+  mediano de $20.010 por producto, pujar en la head comercial deja ~$4.000 con 1,5% de conversión
+  y pierde plata con 1%: **no se pelea**. Lo barato y rentable es `ofertas/descuentos día de la
+  madre` (Medium, $18-287). Tres hallazgos que contradicen la intuición y no hay que volver a
+  probar: (1) **nadie busca por familia de producto + mamá** — "regalos para mamá cocina /
+  mascotas / organización / belleza / accesorios" dieron CERO, así que las secciones por tipo de
+  mamá son herramienta de conversión y no de SEO, y su orden se decide con `view_item_list` de
+  GA4; (2) "envío a domicilio / envío rápido" tiene volumen de piso: convierte, pero no capta;
+  (3) `detalles para el día de la madre` / `detalles para mamá` tienen volumen con competencia
+  **Low y sin pujas** — por eso el tramo barato de los bloques de regalo se llama "Detalles hasta
+  $15.000". Reparto de URLs en `SEO-KEYWORDS/MAPA-KEYWORDS.md`: el pilar
+  `/blog/regalos-dia-de-la-madre/` se queda con la intención fecha y
+  `/coleccion/regalos-para-mama/` con la comercial.
