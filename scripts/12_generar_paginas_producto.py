@@ -1643,6 +1643,15 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 .blog-body .galeria-saludos img {{ margin-bottom: 8px; border-radius: 12px; }}
 .blog-body .galeria-saludos .acciones {{ display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }}
 .blog-body .galeria-saludos .acciones a {{ padding: 8px 14px; font-size: 12.5px; }}
+/* Frases para copiar: cada una en su tarjeta, texto seleccionable cómodo con el dedo */
+.blog-body .frases-copiar {{ list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 8px; }}
+.blog-body .frases-copiar li {{ background: #fff; border: 1.5px solid var(--gray-200); border-left: 5px solid var(--accent); border-radius: var(--radius-sm); padding: 12px 16px; font-size: 14.5px; line-height: 1.65; color: var(--ink); user-select: all; }}
+/* En mobile la galería es la página entera: los botones van a ancho completo
+   y con 44px de alto (el mínimo táctil; antes quedaban en 33px). */
+@media (max-width: 560px) {{
+  .blog-body .galeria-saludos .acciones {{ flex-direction: column; }}
+  .blog-body .galeria-saludos .acciones a {{ width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: center; padding: 8px 10px; }}
+}}
 </style>
 <script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>
 </head>
@@ -1759,9 +1768,12 @@ def _nota_bloque(hoy: date) -> str:
 
 def render_bloque_regalos(productos: list, slug_map: dict, cfg: dict, hoy: date = None) -> str:
     """Bloque estático de regalos reales agrupados por presupuesto (post del
-    Día de la Madre). cfg: {'lista': nombre para GA4, 'n': total}."""
+    Día de la Madre). cfg: {'lista': nombre para GA4, 'n': total, 'tramos':
+    franjas propias}. Sin 'tramos' usa las tres de TRAMOS_PRESUPUESTO; un post
+    de regalos económicos pasa las suyas para no mostrar lo que no puede pagar."""
     hoy = hoy or date.today()
-    tramos = seleccionar_regalos_por_presupuesto(productos, slug_map, hoy, n_total=cfg.get('n', 12))
+    tramos = seleccionar_regalos_por_presupuesto(productos, slug_map, hoy, n_total=cfg.get('n', 12),
+                                                 tramos=cfg.get('tramos'))
     if not tramos:
         return ''
     partes = []
@@ -1859,8 +1871,16 @@ BLOG_RELACIONADOS = {
     'hot-sale-cyber-monday-black-friday': ['regalos-dia-de-la-madre', 'regalos-de-navidad'],
     'como-curar-el-mate': ['como-limpiar-termo-acero-inoxidable', 'regalos-originales-para-hombres'],
     'dia-del-amigo': ['regalos-originales-para-hombres', 'regalos-originales-para-mujeres'],
-    'regalos-dia-de-la-madre': ['regalos-originales-para-mujeres', 'hot-sale-cyber-monday-black-friday'],
-    'regalos-originales-para-mujeres': ['regalos-dia-de-la-madre', 'regalos-originales-para-hombres'],
+    # Clúster Día de la Madre: el pilar es el hub y linkea a los cuatro
+    # satélites; cada satélite le devuelve el link (hub y radios).
+    'regalos-dia-de-la-madre': ['detalles-dia-de-la-madre', 'regalos-originales-dia-de-la-madre',
+                                'regalos-madres-primerizas', 'feliz-dia-de-la-madre-imagenes'],
+    'detalles-dia-de-la-madre': ['regalos-dia-de-la-madre', 'regalos-originales-dia-de-la-madre'],
+    'feliz-dia-de-la-madre-imagenes': ['regalos-dia-de-la-madre', 'detalles-dia-de-la-madre'],
+    'regalos-originales-dia-de-la-madre': ['regalos-dia-de-la-madre', 'detalles-dia-de-la-madre',
+                                           'regalos-originales-para-mujeres'],
+    'regalos-madres-primerizas': ['regalos-dia-de-la-madre', 'detalles-dia-de-la-madre'],
+    'regalos-originales-para-mujeres': ['regalos-originales-dia-de-la-madre', 'regalos-originales-para-hombres'],
     'regalos-originales-para-hombres': ['regalos-originales-para-mujeres', 'regalos-dia-de-la-madre'],
     'como-organizar-el-placard': ['como-organizar-una-cocina-pequena', 'ideas-para-decorar-una-habitacion'],
     'como-organizar-una-cocina-pequena': ['como-organizar-el-placard', 'como-limpiar-termo-acero-inoxidable'],
@@ -1870,19 +1890,19 @@ BLOG_RELACIONADOS = {
 }
 GUIAS_LISTADO = {
     'fitness': [('mewing', 'Mewing: qué es y si realmente funciona'), ('como-reducir-la-papada', 'Cómo reducir la papada: qué funciona de verdad'), ('como-mejorar-la-postura', 'Cómo mejorar la postura: qué funciona de verdad')],
-    'estetica-y-belleza': [('como-dejar-de-roncar', 'Cómo dejar de roncar y dormir mejor'), ('como-mejorar-la-postura', 'Cómo mejorar la postura: qué funciona de verdad')],
-    'articulos-infantiles': [('regalos-de-navidad', 'Regalos de Navidad y Reyes: ideas por edad y presupuesto')],
+    'estetica-y-belleza': [('como-dejar-de-roncar', 'Cómo dejar de roncar y dormir mejor'), ('como-mejorar-la-postura', 'Cómo mejorar la postura: qué funciona de verdad'), ('detalles-dia-de-la-madre', 'Detalles para el Día de la Madre: ideas económicas')],
+    'articulos-infantiles': [('regalos-de-navidad', 'Regalos de Navidad y Reyes: ideas por edad y presupuesto'), ('regalos-madres-primerizas', 'Regalos para madres primerizas: qué le sirve a ella')],
     'ofertas': [('regalos-de-navidad', 'Regalos de Navidad: ideas y cuándo comprar'), ('hot-sale-cyber-monday-black-friday', 'Hot Sale, Cyber Monday y Black Friday: cuándo son'), ('dia-del-amigo', 'Día del Amigo: cuándo es y qué regalar')],
     'organizadores': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña'), ('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar')],
     # BOFU: los links del listado de regalos son los ÚNICOS que suben de nivel
     # en el embudo, y van al pie a propósito (quien llegó acá vino a comprar).
-    'regalos-para-mama': [('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar'), ('regalos-originales-para-mujeres', 'Regalos originales para mujeres')],
+    'regalos-para-mama': [('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar'), ('detalles-dia-de-la-madre', 'Detalles económicos para el Día de la Madre'), ('regalos-originales-dia-de-la-madre', 'Regalos originales para el Día de la Madre'), ('regalos-madres-primerizas', 'Regalos para madres primerizas')],
     'bazar-y-cocina': [('como-organizar-una-cocina-pequena', 'Cómo organizar una cocina pequeña'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar un termo de acero'), ('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar')],
     'vasos-y-botellas-termicas': [('como-curar-el-mate', 'Cómo curar el mate paso a paso'), ('como-limpiar-termo-acero-inoxidable', 'Cómo limpiar tu termo por dentro')],
     'accesorios-para-mascotas': [('como-sacar-pelos-de-mascota-de-la-ropa', 'Cómo sacar los pelos de tu mascota de la ropa')],
     'lamparas-y-luces-led': [('ideas-para-decorar-una-habitacion', 'Ideas para decorar una habitación'), ('regalos-originales-para-mujeres', 'Regalos originales para mujeres')],
     'deco': [('ideas-para-decorar-una-habitacion', 'Ideas para decorar una habitación'), ('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar')],
-    'accesorios-de-moda': [('regalos-originales-para-mujeres', 'Regalos originales para mujeres'), ('regalos-dia-de-la-madre', 'Día de la Madre 2026: cuándo es y qué regalar')],
+    'accesorios-de-moda': [('regalos-originales-para-mujeres', 'Regalos originales para mujeres'), ('regalos-originales-dia-de-la-madre', 'Regalos originales para el Día de la Madre')],
     'home': [('como-organizar-el-placard', 'Cómo organizar el placard'), ('ideas-para-decorar-una-habitacion', 'Ideas para decorar una habitación')],
 }
 

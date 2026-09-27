@@ -70,6 +70,15 @@
 .blog-body .galeria-saludos img { margin-bottom: 8px; border-radius: 12px; }
 .blog-body .galeria-saludos .acciones { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .blog-body .galeria-saludos .acciones a { padding: 8px 14px; font-size: 12.5px; }
+/* Frases para copiar: cada una en su tarjeta, texto seleccionable cómodo con el dedo */
+.blog-body .frases-copiar { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 8px; }
+.blog-body .frases-copiar li { background: #fff; border: 1.5px solid var(--gray-200); border-left: 5px solid var(--accent); border-radius: var(--radius-sm); padding: 12px 16px; font-size: 14.5px; line-height: 1.65; color: var(--ink); user-select: all; }
+/* En mobile la galería es la página entera: los botones van a ancho completo
+   y con 44px de alto (el mínimo táctil; antes quedaban en 33px). */
+@media (max-width: 560px) {
+  .blog-body .galeria-saludos .acciones { flex-direction: column; }
+  .blog-body .galeria-saludos .acciones a { width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: center; padding: 8px 10px; }
+}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org/", "@type": "Article", "headline": "Regalos de Navidad 2026: ideas que llegan a tiempo", "description": "Ideas de regalos de Navidad 2026 por presupuesto y por destinatario, cuándo es Navidad y Reyes, y cómo comprar online con tiempo para que lleguen. Envío a todo el país.", "image": ["https://elgadget.com.ar/assets/img/blog/regalos-de-navidad-argentina.jpg"], "datePublished": "2026-07-13", "author": {"@type": "Organization", "name": "El Gadget"}, "publisher": {"@type": "Organization", "name": "El Gadget"}, "mainEntityOfPage": "https://elgadget.com.ar/blog/regalos-de-navidad/"}, {"@context": "https://schema.org/", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://elgadget.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://elgadget.com.ar/blog/"}, {"@type": "ListItem", "position": 3, "name": "Regalos de Navidad 2026: ideas que llegan a tiempo"}]}, {"@context": "https://schema.org/", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cuándo es Navidad 2026?", "acceptedAnswer": {"@type": "Answer", "text": "La Nochebuena es el jueves 24 de diciembre de 2026 y la Navidad el viernes 25. Los Reyes Magos llegan el miércoles 6 de enero de 2027."}}, {"@type": "Question", "name": "¿Con cuánta anticipación conviene comprar los regalos de Navidad?", "acceptedAnswer": {"@type": "Answer", "text": "Lo ideal es comprar online antes del 15 de diciembre: los envíos se saturan la última semana y así te asegurás que todo llegue a tiempo, con margen para cambios si hiciera falta."}}, {"@type": "Question", "name": "¿Cómo organizo el amigo invisible de Navidad?", "acceptedAnswer": {"@type": "Answer", "text": "Usá nuestro amigo invisible online gratis: cargás los participantes con su email, el sistema sortea automáticamente y le avisa a cada uno a quién le regala, con lista de deseos e ideas. Sin registro ni planillas."}}]}]</script>
 </head>

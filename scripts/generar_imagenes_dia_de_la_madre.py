@@ -3,12 +3,13 @@
 """
 IMÁGENES DE SALUDO "FELIZ DÍA DE LA MADRE" (descargables desde el blog)
 
-Genera 4 PNG cuadrados (1080x1080, < 300 KB cada uno) en el estilo de marca
+Genera 10 PNG cuadrados (1080x1080, < 300 KB cada uno) en el estilo de marca
 de El Gadget (negro #14151A, amarillo #FFC700, Space Grotesk / Inter) en
 pages/assets/img/dia-de-la-madre/, con nombres de archivo pensados para el
 intent de búsqueda "imágenes feliz día de la madre 2026".
 
-Las usa el post /blog/regalos-dia-de-la-madre/ (ver utils/blog_posts.py,
+Las usan /blog/regalos-dia-de-la-madre/ (las 4 primeras) y
+/blog/feliz-dia-de-la-madre-imagenes/ (las 10) — ver utils/blog_posts.py,
 IMAGENES_DIA_DE_LA_MADRE: nombre de archivo + alt). Si se cambia un nombre
 acá hay que cambiarlo allá.
 
@@ -51,6 +52,21 @@ IMAGENES = [
      'Imagen de Feliz Día de la Madre 2026 con un gran corazón amarillo y el texto "Feliz día, mamá"'),
     ('imagen-feliz-dia-de-la-madre-2026-flores.png',
      'Imagen de Feliz Día de la Madre 2026 con flores amarillas minimalistas sobre fondo claro, para la mejor mamá del mundo'),
+    # Las 6 que siguen son de /blog/feliz-dia-de-la-madre-imagenes/ (las 4 de
+    # arriba también aparecen ahí). Cada una cubre una búsqueda propia del
+    # research: "para una amiga" (4 variantes), "mamita", "gracioso".
+    ('imagen-feliz-dia-de-la-madre-para-una-amiga.png',
+     'Imagen de Feliz Día de la Madre para una amiga: texto blanco y amarillo sobre fondo negro con dos corazones unidos'),
+    ('imagen-feliz-dia-de-la-madre-amiga-que-es-mama.png',
+     'Imagen de Feliz Día de la Madre para la amiga que también es mamá, con flores amarillas sobre fondo crema'),
+    ('imagen-feliz-dia-mamita.png',
+     'Imagen de Feliz día mamita para mandar por WhatsApp, con un corazón amarillo grande sobre fondo negro'),
+    ('imagen-feliz-dia-de-la-madre-graciosa.png',
+     'Imagen graciosa de Feliz Día de la Madre con el mensaje "gracias por bancarte todas", letras blancas sobre fondo negro'),
+    ('imagen-gracias-mama-flores.png',
+     'Imagen con el mensaje "Gracias, mamá" rodeado de flores amarillas sobre fondo crema'),
+    ('imagen-feliz-dia-de-la-madre-te-quiero.png',
+     'Imagen de Feliz Día de la Madre con el mensaje "Te quiero, mamá" en amarillo sobre fondo negro con corazones'),
 ]
 
 
@@ -206,7 +222,91 @@ def diseno_4_flores():
     return img
 
 
-DISENOS = [diseno_1_negro_amarillo, diseno_2_gracias_mama, diseno_3_corazon, diseno_4_flores]
+def diseno_5_para_una_amiga():
+    """'Feliz día de la madre para una amiga': 4 variantes de la búsqueda en
+    100-1K y ninguna tienda la atiende. Dos corazones = la amistad, no el hijo."""
+    img, d = lienzo(INK)
+    corazon(d, W // 2 - 105 * SS, 250 * SS, 82 * SS, ACCENT)
+    corazon(d, W // 2 + 105 * SS, 250 * SS, 82 * SS, ACCENT_DEEP)
+    texto_centrado(d, 400 * SS, 'PARA VOS, AMIGA', font('body', 24), GRAY)
+    f_big = font('display', 104)
+    texto_centrado(d, 452 * SS, 'Feliz Día', f_big, WHITE)
+    texto_centrado(d, 558 * SS, 'de la Madre', f_big, ACCENT)
+    d.rounded_rectangle((W // 2 - 60 * SS, 700 * SS, W // 2 + 60 * SS, 710 * SS), radius=5 * SS, fill=ACCENT)
+    texto_centrado(d, 740 * SS, 'Sos una mamá increíble', font('medium', 36), (215, 213, 208))
+    texto_centrado(d, 800 * SS, 'y una amiga todavía mejor.', font('medium', 36), (215, 213, 208))
+    marca(d, WHITE, ACCENT, GRAY)
+    return img
+
+
+def diseno_6_amiga_que_es_mama():
+    img, d = lienzo(CREAM)
+    for cx, cy, r in [(150, 190, 52), (940, 230, 62), (120, 880, 44), (960, 900, 50), (540, 130, 34)]:
+        flor(d, cx * SS, cy * SS, r * SS, ACCENT, INK)
+    texto_centrado(d, 350 * SS, 'A LA AMIGA QUE TAMBIÉN ES MAMÁ', font('body', 22), (111, 106, 99))
+    f_big = font('display', 96)
+    texto_centrado(d, 410 * SS, 'Feliz Día', f_big, INK)
+    texto_centrado(d, 508 * SS, 'de la Madre', f_big, INK)
+    d.rounded_rectangle((W // 2 - 60 * SS, 640 * SS, W // 2 + 60 * SS, 650 * SS), radius=5 * SS, fill=ACCENT)
+    texto_centrado(d, 680 * SS, 'Hoy también es tu día.', font('medium', 36), (111, 106, 99))
+    marca(d, INK, ACCENT_DEEP, (111, 106, 99))
+    return img
+
+
+def diseno_7_mamita():
+    img, d = lienzo(INK)
+    corazon(d, W // 2, 430 * SS, 330 * SS, ACCENT)
+    texto_centrado(d, 350 * SS, 'Feliz día,', font('display', 86), INK)
+    texto_centrado(d, 442 * SS, 'mamita', font('display', 138), INK)
+    texto_centrado(d, 880 * SS, 'Te lo digo poco, pero lo pienso siempre.', font('medium', 30), (215, 213, 208))
+    marca(d, WHITE, ACCENT, GRAY, y=W - 100 * SS)
+    return img
+
+
+def diseno_8_graciosa():
+    img, d = lienzo(INK)
+    for cx, cy, r, col in [(140, 170, 46, ACCENT_DEEP), (950, 200, 30, ACCENT), (170, 930, 32, ACCENT)]:
+        corazon(d, cx * SS, cy * SS, r * SS, col)
+    texto_centrado(d, 280 * SS, 'FELIZ DÍA DE LA MADRE', font('body', 26), ACCENT)
+    f_big = font('display', 92)
+    texto_centrado(d, 360 * SS, 'Gracias por', f_big, WHITE)
+    texto_centrado(d, 462 * SS, 'bancarte', f_big, WHITE)
+    texto_centrado(d, 564 * SS, 'TODAS.', font('display', 120), ACCENT)
+    d.rounded_rectangle((W // 2 - 60 * SS, 730 * SS, W // 2 + 60 * SS, 740 * SS), radius=5 * SS, fill=ACCENT)
+    texto_centrado(d, 775 * SS, '(y fueron unas cuantas)', font('medium', 32), GRAY)
+    marca(d, WHITE, ACCENT, GRAY)
+    return img
+
+
+def diseno_9_gracias_mama_flores():
+    img, d = lienzo(CREAM)
+    for cx, cy, r in [(180, 300, 60), (900, 330, 66), (140, 720, 48), (940, 740, 52),
+                      (300, 170, 34), (790, 160, 38)]:
+        flor(d, cx * SS, cy * SS, r * SS, ACCENT, INK)
+    f_big = font('display', 130)
+    texto_centrado(d, 400 * SS, 'Gracias,', f_big, INK)
+    texto_centrado(d, 540 * SS, 'mamá', f_big, INK)
+    d.rounded_rectangle((W // 2 - 60 * SS, 710 * SS, W // 2 + 60 * SS, 720 * SS), radius=5 * SS, fill=ACCENT)
+    texto_centrado(d, 750 * SS, 'Por todo. Por siempre.', font('medium', 36), (111, 106, 99))
+    marca(d, INK, ACCENT_DEEP, (111, 106, 99))
+    return img
+
+
+def diseno_10_te_quiero():
+    img, d = lienzo(INK)
+    for cx, cy, r, col in [(160, 240, 64, ACCENT), (930, 200, 40, ACCENT_DEEP), (130, 860, 44, ACCENT_DEEP),
+                           (950, 840, 72, ACCENT), (290, 110, 24, ACCENT)]:
+        corazon(d, cx * SS, cy * SS, r * SS, col)
+    texto_centrado(d, 380 * SS, 'FELIZ DÍA DE LA MADRE · 18 DE OCTUBRE', font('body', 22), GRAY)
+    texto_centrado(d, 440 * SS, 'Te quiero,', font('display', 116), WHITE)
+    texto_centrado(d, 562 * SS, 'mamá', font('display', 150), ACCENT)
+    marca(d, WHITE, ACCENT, GRAY)
+    return img
+
+
+DISENOS = [diseno_1_negro_amarillo, diseno_2_gracias_mama, diseno_3_corazon, diseno_4_flores,
+           diseno_5_para_una_amiga, diseno_6_amiga_que_es_mama, diseno_7_mamita,
+           diseno_8_graciosa, diseno_9_gracias_mama_flores, diseno_10_te_quiero]
 
 
 def main() -> int:

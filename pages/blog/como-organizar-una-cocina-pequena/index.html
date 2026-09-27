@@ -70,6 +70,15 @@
 .blog-body .galeria-saludos img { margin-bottom: 8px; border-radius: 12px; }
 .blog-body .galeria-saludos .acciones { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .blog-body .galeria-saludos .acciones a { padding: 8px 14px; font-size: 12.5px; }
+/* Frases para copiar: cada una en su tarjeta, texto seleccionable cómodo con el dedo */
+.blog-body .frases-copiar { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 8px; }
+.blog-body .frases-copiar li { background: #fff; border: 1.5px solid var(--gray-200); border-left: 5px solid var(--accent); border-radius: var(--radius-sm); padding: 12px 16px; font-size: 14.5px; line-height: 1.65; color: var(--ink); user-select: all; }
+/* En mobile la galería es la página entera: los botones van a ancho completo
+   y con 44px de alto (el mínimo táctil; antes quedaban en 33px). */
+@media (max-width: 560px) {
+  .blog-body .galeria-saludos .acciones { flex-direction: column; }
+  .blog-body .galeria-saludos .acciones a { width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: center; padding: 8px 10px; }
+}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org/", "@type": "Article", "headline": "Cómo organizar una cocina pequeña sin obras", "description": "Trucos concretos para organizar una cocina pequeña: paredes, alturas, mesada libre y los organizadores que sí funcionan. Sin obras ni gastar de más.", "image": ["https://elgadget.com.ar/assets/img/blog/como-organizar-una-cocina-pequena.jpg"], "datePublished": "2026-07-11", "author": {"@type": "Organization", "name": "El Gadget"}, "publisher": {"@type": "Organization", "name": "El Gadget"}, "mainEntityOfPage": "https://elgadget.com.ar/blog/como-organizar-una-cocina-pequena/"}, {"@context": "https://schema.org/", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://elgadget.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://elgadget.com.ar/blog/"}, {"@type": "ListItem", "position": 3, "name": "Cómo organizar una cocina pequeña sin obras"}]}, {"@context": "https://schema.org/", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué es lo primero para ordenar una cocina chica?", "acceptedAnswer": {"@type": "Answer", "text": "Despejar la mesada. Sacá todo lo que no uses a diario y buscale lugar en altura o pared. El cambio visual es inmediato y motiva el resto."}}, {"@type": "Question", "name": "¿Los organizadores adhesivos aguantan el peso?", "acceptedAnswer": {"@type": "Answer", "text": "Los de calidad sí, sobre azulejo o superficie lisa y limpia. Cada ficha de producto indica el peso máximo recomendado."}}]}]</script>
 </head>
