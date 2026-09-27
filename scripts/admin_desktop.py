@@ -25,6 +25,7 @@ import requests
 import webview
 
 sys.path.append(str(Path(__file__).parent))
+from utils import http_panel
 from utils.config import Config
 
 API_URL = "https://el-gadget-tienda.onrender.com"
@@ -40,37 +41,24 @@ class Api:
     def _headers(self, admin=False):
         return {"X-Admin-Password": self.admin_password} if admin else {}
 
+    def _pedir(self, metodo, path, *, params=None, json_body=None, admin=False, idempotente=True):
+        """Llama a la API con reintentos (ver utils/http_panel.py: Render free
+        se duerme y el arranque en frío llega como 502 o como SSLError)."""
+        return http_panel.pedir(metodo, f"{API_URL}{path}", params=params, json_body=json_body,
+                                headers=self._headers(admin), idempotente=idempotente)
+
     def _get(self, path, params=None, admin=False):
-        try:
-            resp = requests.get(f"{API_URL}{path}", params=params, headers=self._headers(admin), timeout=15)
-            resp.raise_for_status()
-            return resp.json()
-        except Exception as e:
-            return {"error": str(e)}
+        return self._pedir("GET", path, params=params, admin=admin)
 
     def _patch(self, path, json_body=None, params=None, admin=True):
-        try:
-            resp = requests.patch(f"{API_URL}{path}", json=json_body, params=params, headers=self._headers(admin), timeout=15)
-            resp.raise_for_status()
-            return resp.json()
-        except Exception as e:
-            return {"error": str(e)}
+        return self._pedir("PATCH", path, params=params, json_body=json_body,
+                           admin=admin, idempotente=False)
 
     def _post(self, path, json_body=None, admin=True):
-        try:
-            resp = requests.post(f"{API_URL}{path}", json=json_body, headers=self._headers(admin), timeout=30)
-            resp.raise_for_status()
-            return resp.json()
-        except Exception as e:
-            return {"error": str(e)}
+        return self._pedir("POST", path, json_body=json_body, admin=admin, idempotente=False)
 
     def _delete(self, path, admin=True):
-        try:
-            resp = requests.delete(f"{API_URL}{path}", headers=self._headers(admin), timeout=15)
-            resp.raise_for_status()
-            return resp.json()
-        except Exception as e:
-            return {"error": str(e)}
+        return self._pedir("DELETE", path, admin=admin, idempotente=False)
 
     # ── Estadísticas ──
     def get_estadisticas(self):

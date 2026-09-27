@@ -21,6 +21,7 @@ import requests
 import webview
 
 sys.path.append(str(Path(__file__).parent))
+from utils import http_panel
 from utils.config import Config
 
 API_URL = "https://el-gadget-tienda.onrender.com"
@@ -584,12 +585,10 @@ class Api:
         return {"X-Admin-Password": self.admin_password}
 
     def _get(self, path, params=None):
-        try:
-            resp = requests.get(f"{API_URL}{path}", params=params, headers=self._headers(), timeout=60)
-            resp.raise_for_status()
-            return resp.json()
-        except Exception as e:
-            return {"error": str(e)}
+        """Con reintentos: Render free se duerme y el arranque en frío llega
+        como 502 o como SSLError 'BAD_RECORD_MAC' (ver utils/http_panel.py)."""
+        return http_panel.pedir("GET", f"{API_URL}{path}", params=params,
+                                headers=self._headers())
 
     # ── Data fetching (métricas) ──
 
