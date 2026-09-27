@@ -1110,14 +1110,27 @@ def _card_listado(p: dict, slug_map: dict) -> str:
                     f'alt="{html.escape(p["nombre"])}" loading="lazy">')
     else:
         img_html = '<div class="card-img-placeholder">📦</div>'
+    # Mismo criterio que _card_bloque: si hay campaña vigente se muestra el
+    # precio tachado y el % real. Sin campaña no se inventa ningún "antes".
+    oferta = p.get('precio_oferta')
+    if oferta is not None and 0 < oferta < (p.get('precio_venta') or 0):
+        pct = round((1 - oferta / p['precio_venta']) * 100)
+        badge = f'<span class="card-badge offer-badge">-{pct}%</span>'
+        precio_html = (f'<div class="card-price-row"><span class="price-old">{formatear_precio(p["precio_venta"])}</span>'
+                       f'<span class="card-price">{formatear_precio(oferta)}</span></div>')
+        precio_data = oferta
+    else:
+        badge = ''
+        precio_html = f'<div class="card-price">{formatear_precio(p["precio_venta"])}</div>'
+        precio_data = p['precio_venta'] or 0
     return f'''
-      <a class="card" href="{href}" data-sku="{html.escape(p['sku'])}" data-precio="{p['precio_venta'] or 0}">
-        <div class="card-img-wrap">{img_html}</div>
+      <a class="card" href="{href}" data-sku="{html.escape(p['sku'])}" data-precio="{precio_data}">
+        <div class="card-img-wrap">{img_html}{badge}</div>
         <div class="card-body">
           <div class="card-cat">{html.escape(p.get('categoria') or '')}</div>
           <div class="card-name">{html.escape(p['nombre'])}</div>
           <div class="card-rating" style="display:none"></div>
-          <div class="card-price">{formatear_precio(p['precio_venta'])}</div>
+          {precio_html}
           <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('{html.escape(p['sku'])}')">Agregar al pedido</button>
         </div>
       </a>'''
@@ -1185,10 +1198,35 @@ def items_de_coleccion(slug: str, cfg: dict, productos: list) -> list:
                   if p['sku'] not in vistos and rx.search(p['nombre'])
                   and not (rx_ex and rx_ex.search(p['nombre']))]
 
+    if cfg.get('solo_con_oferta'):
+        # Una colección que se llama "ofertas" solo puede existir mientras haya
+        # descuento real. Sin campaña vigente se queda sin productos, no se
+        # genera, y la URL se resuelve con el stub de 'redirige_a'.
+        items = [p for p in items
+                 if (p.get('precio_oferta') or 0) > 0 and p['precio_oferta'] < (p.get('precio_venta') or 0)]
+
     if faltantes:
         print(f"   ⚠️  /coleccion/{slug}/: {len(faltantes)} SKU(s) curados sin stock hoy "
               f"({', '.join(faltantes[:8])}{'…' if len(faltantes) > 8 else ''})")
     return items
+
+
+def escribir_stub_redireccion(destino_dir: Path, url: str) -> None:
+    """Página mínima que manda a otra URL (canonical + refresh + JS, noindex).
+    Se usa cuando una URL publicada deja de tener contenido propio y no
+    queremos que devuelva 404 —por ejemplo el aviso de una campaña que
+    terminó, con la publicidad todavía apuntando ahí."""
+    stub = (
+        '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
+        f'<title>Redirigiendo… | {BRAND}</title>'
+        f'<link rel="canonical" href="{html.escape(url)}">'
+        f'<meta http-equiv="refresh" content="0;url={html.escape(url)}">'
+        '<meta name="robots" content="noindex">'
+        f'<script>location.replace({json.dumps(url)});</script>'
+        f'</head><body><p>Esta página se movió a <a href="{html.escape(url)}">{html.escape(url)}</a>.</p></body></html>\n'
+    )
+    destino_dir.mkdir(parents=True, exist_ok=True)
+    (destino_dir / 'index.html').write_text(stub, encoding='utf-8')
 
 
 def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map: dict,
@@ -2056,8 +2094,14 @@ def generar_listados(productos: list, slug_map: dict) -> tuple:
     for p in productos:
         por_slug_cat.setdefault(slug_categoria(p.get('categoria') or ''), []).append(p)
 
+    # Los productos de cada colección se resuelven primero: una colección sin
+    # stock (o una estacional fuera de campaña) no se publica, y tampoco tiene
+    # que aparecer en el desplegable de todo el sitio.
+    col_items = {s: items_de_coleccion(s, cfg, productos) for s, cfg in COLECCIONES_SEO.items()}
+
     chips = [('categoria', s, CATEGORIAS_SEO[s]['h1']) for s in CATEGORIAS_SEO if s in por_slug_cat]
-    chips += [('coleccion', s, c['h1']) for s, c in COLECCIONES_SEO.items()]
+    chips += [('coleccion', s, c['h1']) for s, c in COLECCIONES_SEO.items()
+              if len(col_items[s]) >= c.get('minimo', 3)]
 
     cat_dir = PAGES_DIR / 'categoria'
     slugs_cat = []
@@ -2076,8 +2120,11 @@ def generar_listados(productos: list, slug_map: dict) -> tuple:
     col_dir = PAGES_DIR / 'coleccion'
     slugs_col = []
     for s, cfg in COLECCIONES_SEO.items():
-        items = items_de_coleccion(s, cfg, productos)
+        items = col_items[s]
         if len(items) < cfg.get('minimo', 3):
+            if cfg.get('redirige_a'):
+                escribir_stub_redireccion(col_dir / s, f"{CANONICAL_DOMAIN}{cfg['redirige_a']}")
+                print(f"   ↪️  /coleccion/{s}/: sin productos hoy → redirige a {cfg['redirige_a']}")
             continue
         destino = col_dir / s
         destino.mkdir(parents=True, exist_ok=True)
@@ -2330,14 +2377,17 @@ def generar():
 
     guardar_fichas_state(fichas)
 
-    # 4b. Páginas de categoría y colección (arquitectura SEO: home -> listado -> producto)
+    # 4b. Precio de oferta del día (lógica compartida de campañas). Va ANTES de
+    #     los listados: hasta el 2026-09-27 se anotaba recién después, así que
+    #     las páginas de categoría y colección mostraban precio de lista aunque
+    #     hubiera campaña vigente, y el orden "ofertas primero" nunca se aplicaba.
+    anotar_precio_oferta(productos, conn.cursor())
+
+    # 4c. Páginas de categoría y colección (arquitectura SEO: home -> listado -> producto)
     slugs_cat, slugs_col = generar_listados(productos, slug_map)
     print(f"✅ {len(slugs_cat)} páginas de categoría y {len(slugs_col)} de colección generadas")
 
-    # 4c. Blog (contenido informacional que alimenta a las categorías).
-    #     Los bloques de productos reales (regalos/ofertas) muestran el precio
-    #     de oferta del día: se anota antes con la lógica compartida de campañas.
-    anotar_precio_oferta(productos, conn.cursor())
+    # 4d. Blog (contenido informacional que alimenta a las categorías)
     slugs_blog = generar_blog(productos, slug_map)
     print(f"✅ Blog: hub + {len(slugs_blog)} posts generados")
 

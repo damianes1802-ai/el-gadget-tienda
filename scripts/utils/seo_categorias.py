@@ -384,6 +384,56 @@ COLECCIONES_SEO = {
                  ('¿Hacen envoltorio para regalo?',
                   'Los pedidos salen en su embalaje de envío, sin el precio a la vista. Si querés que vaya con un mensaje, escribinos por WhatsApp antes de que despachemos y lo sumamos.')],
     },
+    # Landing de la campaña de Día de la Madre y destino de la publicidad
+    # (keyword "ofertas día de la madre": competencia Medium y puja de $18-287,
+    # diez veces más barata que la head comercial).
+    #
+    # 'solo_con_oferta': la página EXISTE solo mientras la campaña esté vigente.
+    # Sin descuento real no hay productos, no se genera nada, y la URL cae en el
+    # stub de 'redirige_a' hacia /coleccion/regalos-para-mama/ — así el anuncio
+    # nunca aterriza en un 404 ni en una página que promete una oferta que no
+    # existe. El descuento se define en la tabla `descuentos` (alcance 'skus',
+    # con esta misma lista) y lo calcula utils/campanas.py.
+    'ofertas-dia-de-la-madre': {
+        'hero': '/assets/img/blog/ideas-regalos-dia-de-la-madre-por-presupuesto.jpg',
+        'redirige_a': '/coleccion/regalos-para-mama/',
+        'solo_con_oferta': True,
+        'skus': [
+            # Selección de campaña: buena foto, ticket medio y familia regalable.
+            'DL1054', 'T6108', 'S6064', 'M2087-009A', 'A-R2234-013',
+            'A-R2234-014', 'A-R2234-027', 'DL1032', 'DL1101-1', 'R6126', 'R6127',
+            'M2013-004A', 'A-R2234-023', 'A-R2158-003A', 'R6125', 'S6074', 'S6058B',
+            'A-R2234-028A', 'A-R2234-028B', 'A-R2234-028C', 'T2606-002C', 'M2028-001B',
+            'DL2287', 'G-TERMOTAPAMADE', 'DL2373',
+            'M1365-001C', 'M2974-006A', 'M3103-001A', 'WH7280', 'M2071-002',
+            'M3022-001B', 'DL2277', 'G-BEERPINTS',
+        ],
+        'grupos': [('hasta-15', 'Detalles hasta $15.000', {'hasta': 15000}),
+                   ('de-15-a-40', 'De $15.000 a $40.000', {'desde': 15000, 'hasta': 40000}),
+                   ('mas-de-40', 'Más de $40.000', {'desde': 40000})],
+        'title': 'Ofertas del Día de la Madre 2026 — Descuentos con stock | El Gadget',
+        'h1': 'Ofertas del Día de la Madre',
+        'meta': 'Ofertas y descuentos del Día de la Madre 2026 con stock real y precio de lista a la vista. Envío a todo el país, gratis en CABA y GBA desde $40.000.',
+        'intro': 'Descuentos reales sobre el precio de lista de siempre, en una selección de regalos con stock. La campaña vence el domingo 18 de octubre: el precio tachado es el que tenía el producto antes, no un número inventado para la ocasión.',
+        'secciones': [
+            ('Hasta cuándo comprar para que llegue para el Día de la Madre',
+             'Para el <strong>interior del país</strong> el correo tarda de 2 a 5 días hábiles: comprá <strong>hasta el miércoles 7 de octubre</strong>. En <strong>CABA y GBA</strong> la entrega es en moto en hasta 48 horas hábiles y llegás comprando <strong>hasta el martes 13</strong>. El <strong>lunes 12 es feriado</strong> y no hay despachos. El costo y el plazo exactos de tu zona se calculan antes de pagar; el detalle está en <a href="/envios">envíos</a>.'),
+            ('Envío gratis en CABA y GBA desde $40.000',
+             'Si el total de productos supera los $40.000 —ya con el descuento aplicado— y la entrega es en CABA o el primer cordón del Gran Buenos Aires, el envío te sale $0. En el resto del país la tarifa es fija por zona y la ves antes de pagar, sin sorpresas en el último paso.'),
+            ('Los descuentos no se acumulan con códigos',
+             'Estos precios ya vienen rebajados, así que no se combinan con códigos de referido ni con el de bienvenida: siempre se aplica el camino que te deja el precio más bajo, nunca los dos a la vez. Si tenés un código, probalo en el checkout y quedate con el que más te convenga. El resto del catálogo de regalos, sin descuento de campaña pero con más variedad, está en <a href="/coleccion/regalos-para-mama/">regalos para mamá</a>.'),
+        ],
+        'faqs': [('¿Hasta cuándo dura la oferta?',
+                  'Hasta el domingo 18 de octubre de 2026 inclusive, o hasta agotar stock. Los precios vuelven al valor de lista cuando termina la campaña.'),
+                 ('¿El precio tachado es real?',
+                  'Sí. Es el precio de lista que el producto tenía antes de la campaña y al que vuelve cuando termina. No inflamos el precio previo para mostrar un descuento más grande.'),
+                 ('¿Se puede usar un código de descuento además de la oferta?',
+                  'No se acumulan. El sistema aplica siempre la opción que te deja pagando menos, nunca las dos juntas.'),
+                 ('¿Llega antes del Día de la Madre?',
+                  'Si comprás hasta el miércoles 7 de octubre llega a cualquier punto del país; en CABA y GBA tenés hasta el martes 13. El lunes 12 es feriado y no hay despachos.'),
+                 ('¿Cuánto sale el envío?',
+                  'Es una tarifa fija por zona que ves antes de pagar. En CABA y GBA 1 el envío es gratis a partir de $40.000 en productos.')],
+    },
 }
 
 

@@ -60,6 +60,29 @@ def test_envio_bonificado_no_deja_perdida(zona_id, caso):
     )
 
 
+def test_tope_de_descuento_de_campana():
+    """Hasta dónde puede llegar una campaña estacional sin dejar pérdida.
+
+    Peor caso posible: el pedido cae justo en el umbral de envío gratis (el
+    envío absorbido pesa lo máximo) y va a la zona bonificada más cara. Si
+    alguien baja el margen o sube el mínimo de envío gratis, el techo baja y
+    este test avisa antes de que se publique una oferta que pierde plata.
+    """
+    pagado = float(BON["minimo"])
+    envio = max(float(ZONAS["zonas"][z]["costo"]) for z in BON["zonas"])
+
+    def ganancia(desc):
+        costo = (pagado / (1 - desc)) / _factor_precio()
+        return pagado - pagado * MP_FEE - envio - costo
+
+    assert ganancia(0.30) > 0, "una campaña del 30% ya no cierra: revisar margen o mínimo de envío"
+    assert ganancia(0.50) > 0, "el techo de campaña bajó de 50%: ajustar las ofertas publicadas"
+
+    # El techo real, para tenerlo documentado y que no se descubra a los golpes.
+    techo = max(d for d in (i / 100 for i in range(1, 100)) if ganancia(d) > 0)
+    assert 0.50 <= techo <= 0.60, f"techo inesperado: {techo:.0%}"
+
+
 def test_calcular_envio_aplica_la_regla():
     from api_local import calcular_envio
 
