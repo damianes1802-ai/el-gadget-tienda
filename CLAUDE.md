@@ -329,6 +329,19 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   exclusivo) además de regex, y `'hero'` permite reusar una foto existente en vez de la
   convención `hero-<tipo>-<slug>.jpg`.
 
+- **`SSLV3_ALERT_BAD_RECORD_MAC` desde los paneles NO es un bug de TLS: es Render despertando.**
+  El plan free duerme el servicio a los 15 minutos sin tráfico y tarda ~50s en levantar; durante
+  ese arranque, y durante cada deploy, el edge devuelve 502 o corta la conexión en pleno
+  handshake, y `requests` lo reporta como `SSLError: BAD_RECORD_MAC` (verificado el 2026-09-27:
+  el panel falló exactamente en los minutos en que el endpoint respondía 502, y ocho llamadas
+  seguidas con el servicio despierto dieron 8/8 OK en <1s). No perder tiempo buscando antivirus,
+  proxies ni versiones de OpenSSL. Ambos paneles usan ahora `utils/http_panel.py`, que reintenta
+  4 veces con espera creciente. **Si se agrega otro cliente HTTP al proyecto, usar ese módulo**, y
+  respetar su regla: en GET se reintenta todo, en POST/PATCH/DELETE **solo** errores de conexión
+  —un read timeout en un POST puede ser una petición que el servidor sí procesó—. Y nunca
+  compartir una `Session` de requests entre llamadas: pywebview llama desde varios hilos y una
+  Session no es thread-safe, lo que corrompe registros TLS con este mismo síntoma.
+
 - **La tabla `descuentos` vive en Render, no en el repo — y hay UN solo puente, en un solo
   sentido.** `sincronizar_catalogo_desde_repo()` (api_local.py) copia repo → Render y **solo**
   `productos`, `historial_precios` e `historial_actualizaciones`. Los descuentos los escribe el
