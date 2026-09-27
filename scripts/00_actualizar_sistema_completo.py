@@ -90,6 +90,7 @@ class ActualizadorMaestro:
             'cloudinary': '03_subir_imagenes_cloudinary.py',
             'precios': '04_calculo_precios.py',
             'sqlite': '11_sincronizar_sqlite.py',
+            'campanas': '10_sincronizar_campanas.py',
             'seo_ia': '13_optimizar_seo_ia.py',
             'paginas_producto': '12_generar_paginas_producto.py',
             'feed_facebook': 'generar_feed_facebook.py',
@@ -655,6 +656,16 @@ class ActualizadorMaestro:
         # PASO 9: Optimizar SEO con IA de productos nuevos detectados en este sync
         self.optimizar_seo_productos_nuevos()
 
+        # PASO 9b: Traer las campañas de descuento del panel (viven en el disco
+        # de Render) al catalogo.db del repo. Tiene que correr ANTES de generar
+        # páginas y feeds: si no, el checkout cobra con descuento y el sitio
+        # publica precio de lista. Falla en blando (ver el script).
+        self.ejecutar_script(
+            "9b. Sincronización de campañas de descuento",
+            self.scripts['campanas'],
+            obligatorio=False
+        )
+
         # PASO 10: Generar páginas estáticas de producto (SEO)
         self.ejecutar_script(
             "10. Generación de páginas estáticas de producto (SEO)",
@@ -737,6 +748,13 @@ class ActualizadorMaestro:
 
         # PASO 4: Optimizar SEO con IA de productos nuevos detectados en este sync
         self.optimizar_seo_productos_nuevos()
+
+        # PASO 4b: Campañas del panel → repo, antes de generar (ver flujo completo)
+        self.ejecutar_script(
+            "4b. Sincronización de campañas de descuento",
+            self.scripts['campanas'],
+            obligatorio=False
+        )
 
         # PASO 5: Generar páginas estáticas de producto (SEO)
         self.ejecutar_script(

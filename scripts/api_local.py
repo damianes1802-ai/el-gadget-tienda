@@ -1880,6 +1880,29 @@ def descuentos_activos():
     return respuesta
 
 
+@app.get("/api/descuentos/campanas")
+def descuentos_campanas():
+    """Campañas programadas vigentes hoy: las que mueven el precio del catálogo.
+
+    Público y de solo lectura. No expone nada nuevo —es la misma rebaja que ya
+    se ve en el precio de cada producto— y NUNCA devuelve filas con código
+    (esas son privadas: referidos, bienvenida, email asociado).
+
+    Lo consume el pipeline diario (scripts/10_sincronizar_campanas.py) para
+    copiar las campañas al catalogo.db del repo antes de generar las páginas
+    estáticas y los feeds. Sin esto, una campaña cargada en el panel la cobra
+    el checkout pero el sitio sigue mostrando el precio de lista.
+    """
+    conn = get_db()
+    cursor = conn.cursor()
+    campanas = obtener_descuentos_programados(cursor)
+    conn.close()
+    campos = ("id", "nombre", "tipo", "valor", "alcance", "categoria", "skus",
+              "fecha_inicio", "fecha_fin", "recurrente_anual", "activo",
+              "mostrar_banner", "banner_titulo", "banner_texto")
+    return {"campanas": [{k: c.get(k) for k in campos} for c in campanas]}
+
+
 @app.post("/api/descuentos/validar")
 @limiter.limit("10/minute")
 def validar_descuento(request: Request, datos: ValidarDescuento):
