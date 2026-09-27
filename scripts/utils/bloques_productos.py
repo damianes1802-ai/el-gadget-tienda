@@ -348,10 +348,14 @@ def fechas_comerciales_vigentes(hoy: date = None) -> list:
     madre = dia_de_la_madre(a)
     cm, bf = cyber_monday(a), black_friday(a)
     ventanas = [
+        # Apunta al LISTADO y no al post: quien está en la home ya vino a
+        # comprar, mandarlo a leer una guía le corta la intención. El post
+        # igual recibe links desde el hub del blog, tres categorías y el pie
+        # de la propia colección.
         ('dia-de-la-madre', madre - timedelta(days=28), madre, {
             'label': '🎁 Regalos para el Día de la Madre',
-            'href': '/blog/regalos-dia-de-la-madre/',
-            'sub': f'Es el domingo {madre.day} de octubre: ideas con stock, por presupuesto, con envío a todo el país',
+            'href': '/coleccion/regalos-para-mama/',
+            'sub': f'Es el domingo {madre.day} de octubre: elegí por presupuesto, con stock real y envío a todo el país',
         }),
         ('cyber-monday-black-friday', date(a, 10, 5), date(a, 11, 30), {
             'label': '🛒 Cyber Monday y Black Friday',
