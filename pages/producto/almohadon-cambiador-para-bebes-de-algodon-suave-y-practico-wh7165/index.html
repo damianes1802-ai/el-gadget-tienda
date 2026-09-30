@@ -241,7 +241,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
   io.observe(main);
 })();
 
-const PRODUCTO = {"sku": "WH7165", "nombre": "Almohadón cambiador para bebés de algodón, suave y práctico", "precio_venta": 16500.0, "stock": 0, "color": "", "talle": "", "descripcion": "Almohadón de cambiado para bebes\nMaterial: Algodón\nMedidas 25 x 40 cm", "imagenes": ["https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7165.jpg"], "variantes_internas": [], "variantes": []};
+const PRODUCTO = {"sku": "WH7165", "nombre": "Almohadón cambiador para bebés de algodón, suave y práctico", "precio_venta": 16500.0, "precio_oferta": null, "stock": 0, "color": "", "talle": "", "descripcion": "Almohadón de cambiado para bebes\nMaterial: Algodón\nMedidas 25 x 40 cm", "imagenes": ["https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh7165.jpg"], "variantes_internas": [], "variantes": []};
 let varianteActiva = PRODUCTO;
 const opcionesVariantes = [PRODUCTO, ...(PRODUCTO.variantes || [])];
 

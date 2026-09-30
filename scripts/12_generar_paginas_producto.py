@@ -589,7 +589,10 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
             "@type": "Offer",
             "url": canonical,
             "priceCurrency": "ARS",
-            "price": f"{float(precio or 0):.2f}",
+            # El precio del Offer tiene que ser el que el cliente paga hoy. Si
+            # declarás el de lista y la página muestra el de campaña, Merchant
+            # Center rechaza el producto por "precio no coincide".
+            "price": f"{precio_pagado:.2f}",
             "availability": "https://schema.org/InStock" if en_stock else "https://schema.org/OutOfStock",
             "shippingDetails": shipping_details_jsonld(envios, precio_pagado),
             "hasMerchantReturnPolicy": return_policy_jsonld(),
@@ -643,7 +646,20 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
             relacionados, categoria, slug_map, titulo='Alternativas disponibles',
             intro='Estos productos sí están disponibles ahora, con envío a todo el país.')
     else:
-        precio_visible = formatear_precio(precio)
+        # Con campaña vigente la ficha muestra el precio con descuento, no el
+        # de lista. Hasta el 2026-09-30 el listado anunciaba -20% y la ficha
+        # seguía con el precio viejo: quien entraba desde un anuncio veía dos
+        # números distintos. El CSS (.product-price-row) ya existía sin uso.
+        if oferta is not None and float(oferta) < float(precio or 0):
+            pct_off = round((1 - float(oferta) / float(precio)) * 100)
+            precio_visible = (
+                f'<span class="product-price-row"><span class="product-price-old">{formatear_precio(precio)}</span>'
+                f'<span class="product-price-offer">{formatear_precio(oferta)}</span>'
+                f'<span class="discount-pill">-{pct_off}%</span></span>')
+            sticky_precio = formatear_precio(oferta)
+        else:
+            precio_visible = formatear_precio(precio)
+            sticky_precio = formatear_precio(precio)
         acciones_html = (
             '<div class="actions" id="mainActions">\n'
             '        <button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar al pedido</button>\n'
@@ -651,13 +667,16 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
             '    <button class="ref-share-cta" id="refShareCta" type="button" onclick="compartirComoReferido()"></button>\n'
             '      </div>')
         sticky_cta = '<button class="btn btn-accent" onclick="agregarAlCarrito()">Agregar</button>'
-        sticky_precio = formatear_precio(precio)
         related_html = render_relacionados(relacionados, categoria, slug_map)
 
     producto_js = {
         "sku": sku,
         "nombre": nombre,
         "precio_venta": precio,
+        # El carrito ya sabía usar precio_oferta, pero nadie se lo mandaba:
+        # agregaba al pedido el precio de lista mientras el checkout cobraba
+        # el de campaña.
+        "precio_oferta": float(oferta) if (oferta is not None and float(oferta) < float(precio or 0)) else None,
         "stock": stock_val,
         "color": producto.get('color') or '',
         "talle": producto.get('talle') or '',
@@ -669,6 +688,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
                 "sku": v['sku'],
                 "nombre": v['nombre'],
                 "precio_venta": v['precio_venta'],
+                "precio_oferta": _oferta_de(v),
                 "stock": v.get('stock') or 0,
                 "color": v.get('color') or '',
                 "talle": v.get('talle') or '',
@@ -1193,6 +1213,14 @@ def _card_listado(p: dict, slug_map: dict) -> str:
           <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('{html.escape(p['sku'])}')">Agregar al pedido</button>
         </div>
       </a>'''
+
+
+def _oferta_de(p: dict):
+    """Precio de campaña de un producto, o None. Cada variante tiene el suyo:
+    una campaña por SKU puede alcanzar a un color y no a otro."""
+    o = calcular_precio_oferta(p, _CAMPANAS) if _CAMPANAS else None
+    base = float(p.get('precio_venta') or 0)
+    return float(o) if (o is not None and float(o) < base) else None
 
 
 def _texto_plano(s: str) -> str:
