@@ -60,6 +60,10 @@
 .terminal-cta p { font-size: 14.5px; font-weight: 600; color: var(--gray-600); margin: 0 0 12px; }
 .terminal-cta-btns { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
 .terminal-cta .btn-outline { border: 1.5px solid var(--gray-200); color: var(--ink); }
+.listado-deadline { max-width: 620px; margin: 14px auto 0; background: rgba(255,199,0,.14); border: 1px solid rgba(255,199,0,.45);
+  border-radius: 999px; padding: 9px 18px; font-size: 13px; line-height: 1.5; color: #fff; }
+.listado-deadline strong { color: var(--accent); }
+@media (max-width: 560px) { .listado-deadline { border-radius: 14px; font-size: 12.5px; padding: 10px 14px; } }
 .listado-secciones { max-width: 820px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; }
 .listado-seccion { background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 22px 24px; text-align: center; box-shadow: var(--shadow); }
 .listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; color: var(--ink); margin: 0 0 8px; }
@@ -111,6 +115,7 @@
   <span class="listado-badge">Colección · 15 productos</span>
   <h1>Mallas y trajes de baño</h1>
   <p>Mallas de mujer para todos los estilos: enterizas que estilizan, bikinis clásicas y vedetinas con onda. Elegí tu talle, pagá seguro con Mercado Pago y recibila en tu casa — con cambios hasta 10 días por si el talle no es el ideal.</p>
+  
   <div class="hero-trust">
     <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención real</span>
   </div>
@@ -118,7 +123,7 @@
 
 <nav class="mega-nav listado-nav" aria-label="Navegación del catálogo">
   <details class="mn-item"><summary>Categorías</summary><div class="mn-panel"><a href="/categoria/bazar-y-cocina/">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/">Accesorios para mascotas</a><a href="/categoria/deco/">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/">Artículos de verano</a><a href="/categoria/home/">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/">Accesorios de belleza y estética</a><a href="/categoria/fitness/">Accesorios fitness</a><a href="/categoria/electronica/">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/">Novedades y últimos ingresos</a></div></details>
-  <details class="mn-item"><summary>Colecciones</summary><div class="mn-panel"><a href="/coleccion/mallas-y-trajes-de-bano/">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/">Inflables para pileta</a><a href="/coleccion/regalos-para-mama/">Regalos para mamá</a></div></details>
+  <details class="mn-item"><summary>Colecciones</summary><div class="mn-panel"><a href="/coleccion/mallas-y-trajes-de-bano/">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/">Inflables para pileta</a><a href="/coleccion/regalos-para-mama/">Regalos para mamá</a><a href="/coleccion/ofertas-dia-de-la-madre/">Ofertas del Día de la Madre</a></div></details>
 </nav>
 
 <nav class="chips-nav subcats-nav" aria-label="Secciones de la colección"><a href="#g-enterizas" class="chip">Mallas enterizas (6)</a><a href="#g-bikinis" class="chip">Bikinis y vedetinas (9)</a></nav>
@@ -279,6 +284,21 @@
       </a></div>
 </div>
 <script>
+// La cuenta regresiva se recalcula en el navegador: las páginas se regeneran
+// una vez por día y un "faltan N días" congelado envejece mal. Si el JS no
+// corre, queda el número del día en que se generó, que es el del sitemap.
+(function() {
+  var el = document.querySelector('.listado-deadline');
+  if (!el) return;
+  var partes = (el.dataset.evento || '').split('-');
+  if (partes.length !== 3) return;
+  var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  var evento = new Date(+partes[0], +partes[1] - 1, +partes[2]);
+  var dias = Math.round((evento - hoy) / 86400000);
+  var txt = dias === 0 ? 'es hoy' : (dias === 1 ? 'es mañana' : 'faltan ' + dias + ' días');
+  var span = el.querySelector('.dl-cuenta');
+  if (span && dias >= 0) span.textContent = (el.dataset.nombre || '') + ': ' + txt;
+})();
 document.querySelectorAll('.listado-nav details').forEach(function(d) {
   d.addEventListener('toggle', function() {
     if (d.open) document.querySelectorAll('.listado-nav details[open]').forEach(function(o) { if (o !== d) o.open = false; });

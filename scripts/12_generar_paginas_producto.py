@@ -46,7 +46,9 @@ from utils.blog_posts import BLOG_POSTS
 from utils.bloques_productos import (seleccionar_regalos_por_presupuesto, seleccionar_destacados,
                                      seleccionar_ofertas, fechas_comerciales_vigentes)
 from utils.campanas import campanas_programadas_vigentes, calcular_precio_oferta
-from utils.envios import resumen_envios, frases_envio, shipping_details_jsonld, return_policy_jsonld, DEVOLUCION_DIAS
+from utils.envios import (resumen_envios, frases_envio, shipping_details_jsonld,
+                          return_policy_jsonld, cargar_zonas, DEVOLUCION_DIAS)
+from utils.fechas_entrega import limites_por_modalidad, fecha_larga
 
 logger = get_logger('generar_paginas_producto')
 
@@ -90,14 +92,71 @@ def _envios():
     return resumen_envios()
 
 
-def render_beneficios(envios: dict) -> str:
+def _limites_evento(hoy: date = None) -> tuple:
+    """(evento_vigente, [(zona, fecha_límite, plazo)]) o (None, []).
+
+    La pregunta que decide una compra de regalo es "¿llega?", y se hace en la
+    ficha del producto, no en un artículo del blog. Los límites salen del
+    tarifario real y del calendario de feriados (utils/fechas_entrega.py), así
+    que valen igual para Navidad o el Día del Padre sin tocar nada."""
+    hoy = hoy or date.today()
+    # Solo las fechas de REGALO prometen entrega —Cyber Monday y Black Friday
+    # son un período de ofertas, no un día para el que algo tenga que llegar—
+    # y solo mientras no hayan pasado: la ventana de Navidad sigue abierta
+    # hasta Reyes, y el 26 de diciembre una cuenta regresiva a Navidad daría
+    # días negativos.
+    vigentes = [f for f in fechas_comerciales_vigentes(hoy)
+                if f.get('entrega') and f['fecha'] >= hoy]
+    if not vigentes:
+        return None, []
+    ev = vigentes[0]
+    limites = [(z, f, p) for z, f, p in limites_por_modalidad(ev['fecha'], cargar_zonas())
+               if f >= hoy]
+    return ev, limites
+
+
+def render_aviso_entrega(hoy: date = None, clase: str = 'pdp-deadline') -> str:
+    """Aviso de cuántos días faltan y hasta cuándo comprar para llegar.
+
+    El contador se recalcula en el navegador con `data-evento`: las páginas se
+    regeneran una vez por día, y un "faltan N días" congelado envejece mal.
+    El valor que se renderiza acá es el que ve Google y el que queda si el JS
+    no corre."""
+    hoy = hoy or date.today()
+    ev, limites = _limites_evento(hoy)
+    if not ev:
+        return ''
+    nombre = ev['nombre']
+    dias = (ev['fecha'] - hoy).days
+    cuenta = 'es hoy' if dias == 0 else ('es mañana' if dias == 1 else f'faltan {dias} días')
+    if limites:
+        detalle = ' · '.join(f'{z}, hasta el {fecha_larga(f)}' for z, f, _ in limites)
+        cuerpo = f'Comprá a tiempo: {detalle}.'
+    else:
+        # Pasadas las dos fechas límite, prometer que llega sería mentir.
+        cuerpo = 'Ya no llegamos a entregarlo para la fecha, pero el pedido sale igual.'
+    return (f'<p class="{clase}" data-evento="{ev["fecha"].isoformat()}" '
+            f'data-nombre="{html.escape(nombre)}">'
+            f'<strong><span class="dl-cuenta">{nombre}: {cuenta}</span></strong> {html.escape(cuerpo)}</p>')
+
+
+def render_beneficios(envios: dict, hoy: date = None) -> str:
     """Bloque visible de la ficha con envío / cambios / pago, armado desde el
     tarifario real (los mismos números que el JSON-LD y la página /envios)."""
     fr = frases_envio(envios)
     envio = html.escape(fr['resumen'])
     bonif = f" {html.escape(fr['bonificado_corto'])}" if fr['bonificado_corto'] else ''
+    ev, limites = _limites_evento(hoy)
+    li_evento = ''
+    if ev and limites:
+        detalle = ' · '.join(f'<strong>{html.escape(z)}</strong>, hasta el {fecha_larga(f)}'
+                             for z, f, _ in limites)
+        li_evento = (f'        <li><span class="ico" aria-hidden="true">🎁</span><span>'
+                     f'<strong>Llega para {html.escape((ev.get("articulo", "") + " " + ev["nombre"]).strip())}.</strong> '
+                     f'{detalle}.</span></li>\n')
     return (
         '<ul class="pdp-benefits" aria-label="Envío, cambios y pago">\n'
+        + li_evento +
         f'        <li><span class="ico" aria-hidden="true">🚚</span><span><strong>Envío a todo el país.</strong> {envio}{bonif} '
         '<a href="../../envios">Ver zonas y costos</a></span></li>\n'
         f'        <li><span class="ico" aria-hidden="true">🔁</span><span><strong>{DEVOLUCION_DIAS} días hábiles para cambiar de idea.</strong> '
@@ -1240,6 +1299,9 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
     # 'hero' en la config permite reusar una foto que ya existe (p. ej. una
     # colección estacional que comparte imagen con su post del blog).
     hero_img = cfg.get('hero') or f'/assets/img/hero-{tipo}-{slug}.jpg'
+    # Cuenta regresiva + fecha límite de compra, solo en los listados de regalo
+    # ('evento' en la config): en /categoria/bano-y-limpieza/ no viene a cuento.
+    aviso_evento = render_aviso_entrega(clase='listado-deadline') if cfg.get('evento') else ''
     # Posición serial: la primera fila de la grilla es el inventario de
     # atención más valioso -> ofertas activas primero (orden estable).
     items = sorted(items, key=lambda p: 0 if (p.get('precio_oferta') is not None
@@ -1410,6 +1472,10 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 .terminal-cta p {{ font-size: 14.5px; font-weight: 600; color: var(--gray-600); margin: 0 0 12px; }}
 .terminal-cta-btns {{ display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }}
 .terminal-cta .btn-outline {{ border: 1.5px solid var(--gray-200); color: var(--ink); }}
+.listado-deadline {{ max-width: 620px; margin: 14px auto 0; background: rgba(255,199,0,.14); border: 1px solid rgba(255,199,0,.45);
+  border-radius: 999px; padding: 9px 18px; font-size: 13px; line-height: 1.5; color: #fff; }}
+.listado-deadline strong {{ color: var(--accent); }}
+@media (max-width: 560px) {{ .listado-deadline {{ border-radius: 14px; font-size: 12.5px; padding: 10px 14px; }} }}
 .listado-secciones {{ max-width: 820px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; }}
 .listado-seccion {{ background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 22px 24px; text-align: center; box-shadow: var(--shadow); }}
 .listado-seccion h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 19px; color: var(--ink); margin: 0 0 8px; }}
@@ -1461,6 +1527,7 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
   <span class="listado-badge">{'Colección' if tipo == 'coleccion' else 'Categoría'} · {len(items)} productos</span>
   <h1>{html.escape(h1)}</h1>
   <p>{html.escape(cfg['intro'])}</p>
+  {aviso_evento}
   <div class="hero-trust">
     <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención real</span>
   </div>
@@ -1472,6 +1539,21 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 
 {cuerpo_grid}
 <script>
+// La cuenta regresiva se recalcula en el navegador: las páginas se regeneran
+// una vez por día y un "faltan N días" congelado envejece mal. Si el JS no
+// corre, queda el número del día en que se generó, que es el del sitemap.
+(function() {{
+  var el = document.querySelector('.listado-deadline');
+  if (!el) return;
+  var partes = (el.dataset.evento || '').split('-');
+  if (partes.length !== 3) return;
+  var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  var evento = new Date(+partes[0], +partes[1] - 1, +partes[2]);
+  var dias = Math.round((evento - hoy) / 86400000);
+  var txt = dias === 0 ? 'es hoy' : (dias === 1 ? 'es mañana' : 'faltan ' + dias + ' días');
+  var span = el.querySelector('.dl-cuenta');
+  if (span && dias >= 0) span.textContent = (el.dataset.nombre || '') + ': ' + txt;
+}})();
 document.querySelectorAll('.listado-nav details').forEach(function(d) {{
   d.addEventListener('toggle', function() {{
     if (d.open) document.querySelectorAll('.listado-nav details[open]').forEach(function(o) {{ if (o !== d) o.open = false; }});
@@ -1791,7 +1873,11 @@ def _card_bloque(p: dict, slug_map: dict) -> str:
                        f'<span class="card-price">{formatear_precio(oferta)}</span></div>')
         precio_data = oferta
     else:
-        badge = '<span class="card-badge">Oferta</span>' if (p.get('categoria') or '').upper() == 'OFERTAS' else ''
+        # Sin campaña vigente no hay badge. "OFERTAS" es el nombre de una
+        # categoría de Droppers, no un descuento: esos productos tienen el
+        # mismo margen que el resto (2,64x, medido el 2026-09-30), así que
+        # anunciarlos como oferta era decir algo que no es cierto.
+        badge = ''
         precio_html = f'<div class="card-price">{formatear_precio(p["precio_venta"])}</div>'
         precio_data = p['precio_venta'] or 0
     return f'''

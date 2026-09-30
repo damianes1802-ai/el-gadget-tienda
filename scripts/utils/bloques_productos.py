@@ -354,26 +354,45 @@ def fechas_comerciales_vigentes(hoy: date = None) -> list:
         # de la propia colección.
         ('dia-de-la-madre', madre - timedelta(days=28), madre, {
             'label': '🎁 Regalos para el Día de la Madre',
+            'nombre': 'Día de la Madre',
+            'articulo': 'el',
+            'entrega': True,
             'href': '/coleccion/regalos-para-mama/',
             'sub': f'Es el domingo {madre.day} de octubre: elegí por presupuesto, con stock real y envío a todo el país',
         }),
         ('cyber-monday-black-friday', date(a, 10, 5), date(a, 11, 30), {
             'label': '🛒 Cyber Monday y Black Friday',
+            'nombre': 'Cyber Monday y Black Friday',
+            'entrega': False,
             'href': '/blog/hot-sale-cyber-monday-black-friday/',
             'sub': f'Cyber Monday {cm.day} al {(cm + timedelta(days=2)).day}/11 · Black Friday {bf.day}/11: fechas y ofertas reales',
         }),
+        # La ventana llega hasta Reyes, pero el evento para el que algo tiene
+        # que LLEGAR es el 25: sin 'fecha_evento' explícita, el aviso de
+        # entrega prometía plazos contra el 6 de enero.
         ('navidad', date(a, 12, 1), date(a + 1, 1, 6), {
             'label': '🎄 Regalos de Navidad y Reyes',
+            'nombre': 'Navidad',
+            'articulo': '',
+            'entrega': True,
+            'fecha_evento': date(a, 12, 25),
             'href': '/blog/regalos-de-navidad/',
             'sub': 'Ideas por edad y presupuesto, con envío a todo el país',
         }),
         ('navidad', date(a - 1, 12, 1), date(a, 1, 6), {  # primeros días de enero
             'label': '🎄 Regalos de Navidad y Reyes',
+            'nombre': 'Reyes',
+            'articulo': '',
+            'entrega': True,
+            'fecha_evento': date(a, 1, 6),
             'href': '/blog/regalos-de-navidad/',
             'sub': 'Ideas por edad y presupuesto, con envío a todo el país',
         }),
         ('dia-del-amigo', date(a, 7, 1), date(a, 7, 20), {
             'label': '🧉 Día del Amigo: regalos e imágenes',
+            'nombre': 'Día del Amigo',
+            'articulo': 'el',
+            'entrega': True,
             'href': '/blog/dia-del-amigo/',
             'sub': 'Es el 20 de julio: ideas, imágenes para saludar y amigo invisible gratis',
         }),
@@ -382,5 +401,9 @@ def fechas_comerciales_vigentes(hoy: date = None) -> list:
     for fid, ini, fin, datos in ventanas:
         if ini <= hoy <= fin and fid not in vistas:
             vistas.add(fid)
-            out.append({'id': fid, **datos})
+            # 'fecha' es el día del EVENTO, no el fin de la ventana: lo usan
+            # el aviso de "hasta cuándo comprar" de las fichas y la cuenta
+            # regresiva de los listados. Para el Día de la Madre y el Día del
+            # Amigo coinciden; para Navidad no (la ventana sigue hasta Reyes).
+            out.append({'id': fid, 'fecha': datos.get('fecha_evento') or fin, **datos})
     return out

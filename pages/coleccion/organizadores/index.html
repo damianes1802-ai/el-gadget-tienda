@@ -60,6 +60,10 @@
 .terminal-cta p { font-size: 14.5px; font-weight: 600; color: var(--gray-600); margin: 0 0 12px; }
 .terminal-cta-btns { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
 .terminal-cta .btn-outline { border: 1.5px solid var(--gray-200); color: var(--ink); }
+.listado-deadline { max-width: 620px; margin: 14px auto 0; background: rgba(255,199,0,.14); border: 1px solid rgba(255,199,0,.45);
+  border-radius: 999px; padding: 9px 18px; font-size: 13px; line-height: 1.5; color: #fff; }
+.listado-deadline strong { color: var(--accent); }
+@media (max-width: 560px) { .listado-deadline { border-radius: 14px; font-size: 12.5px; padding: 10px 14px; } }
 .listado-secciones { max-width: 820px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; }
 .listado-seccion { background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 22px 24px; text-align: center; box-shadow: var(--shadow); }
 .listado-seccion h2 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; color: var(--ink); margin: 0 0 8px; }
@@ -75,7 +79,7 @@
 .listado-faq-item h3 { font-size: 14.5px; margin: 0 0 6px; color: var(--ink); }
 .listado-faq-item p { font-size: 13.5px; line-height: 1.7; color: var(--gray-600); margin: 0; }
 </style>
-<script type="application/ld+json">[{"@context": "https://schema.org/", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://elgadget.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Organizadores para el hogar"}]}, {"@context": "https://schema.org/", "@type": "ItemList", "name": "Organizadores para el hogar", "numberOfItems": 3, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Organizador Escurridor Platos Metálico Extraíble Adhesivo Bajo Bacha", "url": "https://elgadget.com.ar/producto/organizador-escurridor-platos-metalico-extraible-adhesivo-bajo-bacha-dl2276/"}, {"@type": "ListItem", "position": 2, "name": "Organizador Escurre Platos Extraíble Adhesivo para Alacena", "url": "https://elgadget.com.ar/producto/organizador-escurre-platos-extraible-adhesivo-para-alacena-dl2277/"}, {"@type": "ListItem", "position": 3, "name": "Plato giratorio organizador antideslizante 30cm rotación 360°", "url": "https://elgadget.com.ar/producto/plato-giratorio-organizador-antideslizante-30cm-rotacion-360-dl2287/"}]}, {"@context": "https://schema.org/", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué organizador me conviene para espacios chicos?", "acceptedAnswer": {"@type": "Answer", "text": "Los plegables y los colgantes de puerta rinden mucho en espacios chicos: suman lugares de guardado sin ocupar piso ni requerir instalación."}}, {"@type": "Question", "name": "¿El zapatero necesita armado?", "acceptedAnswer": {"@type": "Answer", "text": "Viene con instrucciones y el armado es simple, sin herramientas raras. En la ficha del producto están las medidas exactas para confirmar que entra en tu espacio."}}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org/", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://elgadget.com.ar/"}, {"@type": "ListItem", "position": 2, "name": "Organizadores para el hogar"}]}, {"@context": "https://schema.org/", "@type": "ItemList", "name": "Organizadores para el hogar", "numberOfItems": 3, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Organizador Escurre Platos Extraíble Adhesivo para Alacena", "url": "https://elgadget.com.ar/producto/organizador-escurre-platos-extraible-adhesivo-para-alacena-dl2277/"}, {"@type": "ListItem", "position": 2, "name": "Plato giratorio organizador antideslizante 30cm rotación 360°", "url": "https://elgadget.com.ar/producto/plato-giratorio-organizador-antideslizante-30cm-rotacion-360-dl2287/"}, {"@type": "ListItem", "position": 3, "name": "Organizador Escurridor Platos Metálico Extraíble Adhesivo Bajo Bacha", "url": "https://elgadget.com.ar/producto/organizador-escurridor-platos-metalico-extraible-adhesivo-bajo-bacha-dl2276/"}]}, {"@context": "https://schema.org/", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué organizador me conviene para espacios chicos?", "acceptedAnswer": {"@type": "Answer", "text": "Los plegables y los colgantes de puerta rinden mucho en espacios chicos: suman lugares de guardado sin ocupar piso ni requerir instalación."}}, {"@type": "Question", "name": "¿El zapatero necesita armado?", "acceptedAnswer": {"@type": "Answer", "text": "Viene con instrucciones y el armado es simple, sin herramientas raras. En la ficha del producto están las medidas exactas para confirmar que entra en tu espacio."}}]}]</script>
 </head>
 <body>
 
@@ -111,6 +115,7 @@
   <span class="listado-badge">Colección · 3 productos</span>
   <h1>Organizadores para el hogar</h1>
   <p>Ganale espacio a tu casa: organizadores de cocina, baño, placard y hasta para el baúl del auto. Cada cosa en su lugar, sin renovar muebles ni gastar de más.</p>
+  
   <div class="hero-trust">
     <span>🚚 Envíos a todo el país</span><span>🔒 Pago seguro</span><span>🔄 Cambios hasta 10 días</span><span>💬 Atención real</span>
   </div>
@@ -118,7 +123,7 @@
 
 <nav class="mega-nav listado-nav" aria-label="Navegación del catálogo">
   <details class="mn-item"><summary>Categorías</summary><div class="mn-panel"><a href="/categoria/bazar-y-cocina/">Artículos de bazar y cocina</a><a href="/categoria/accesorios-para-mascotas/">Accesorios para mascotas</a><a href="/categoria/deco/">Artículos de decoración</a><a href="/categoria/bano-y-limpieza/">Accesorios de baño y limpieza</a><a href="/categoria/articulos-infantiles/">Artículos infantiles</a><a href="/categoria/accesorios-de-moda/">Bandoleras, carteras y accesorios de moda</a><a href="/categoria/verano/">Artículos de verano</a><a href="/categoria/home/">Artículos para el hogar</a><a href="/categoria/estetica-y-belleza/">Accesorios de belleza y estética</a><a href="/categoria/fitness/">Accesorios fitness</a><a href="/categoria/electronica/">Gadgets y accesorios electrónicos</a><a href="/categoria/ofertas/">Ofertas de la semana</a><a href="/categoria/nuevos-ingresos/">Novedades y últimos ingresos</a></div></details>
-  <details class="mn-item"><summary>Colecciones</summary><div class="mn-panel"><a href="/coleccion/mallas-y-trajes-de-bano/">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/">Inflables para pileta</a><a href="/coleccion/regalos-para-mama/">Regalos para mamá</a></div></details>
+  <details class="mn-item"><summary>Colecciones</summary><div class="mn-panel"><a href="/coleccion/mallas-y-trajes-de-bano/">Mallas y trajes de baño</a><a href="/coleccion/lamparas-y-luces-led/">Lámparas LED, veladores y luces</a><a href="/coleccion/organizadores/">Organizadores para el hogar</a><a href="/coleccion/vasos-y-botellas-termicas/">Vasos y botellas térmicas</a><a href="/coleccion/inflables-para-pileta/">Inflables para pileta</a><a href="/coleccion/regalos-para-mama/">Regalos para mamá</a><a href="/coleccion/ofertas-dia-de-la-madre/">Ofertas del Día de la Madre</a></div></details>
 </nav>
 
 <nav class="chips-nav subcats-nav" aria-label="Secciones de la colección"><a href="#g-cocina" class="chip">Organizadores de cocina (1)</a><a href="#g-mas" class="chip">Más organizadores (2)</a></nav>
@@ -137,28 +142,43 @@
         </div>
       </a></div><div class="grupo-sep" id="g-mas"><h2>Más organizadores <span class="gcount">2</span></h2></div>
   <div class="grid">
-      <a class="card" href="/producto/organizador-escurre-platos-extraible-adhesivo-para-alacena-dl2277/" data-sku="DL2277" data-precio="73000.0">
-        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_DL2277_001" alt="Organizador Escurre Platos Extraíble Adhesivo para Alacena" loading="lazy"></div>
+      <a class="card" href="/producto/organizador-escurre-platos-extraible-adhesivo-para-alacena-dl2277/" data-sku="DL2277" data-precio="58400.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_DL2277_001" alt="Organizador Escurre Platos Extraíble Adhesivo para Alacena" loading="lazy"><span class="card-badge offer-badge">-20%</span></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Organizador Escurre Platos Extraíble Adhesivo para Alacena</div>
           <div class="card-rating" style="display:none"></div>
-          <div class="card-price">$73.000</div>
+          <div class="card-price-row"><span class="price-old">$73.000</span><span class="card-price">$58.400</span></div>
           <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2277')">Agregar al pedido</button>
         </div>
       </a>
-      <a class="card" href="/producto/plato-giratorio-organizador-antideslizante-30cm-rotacion-360-dl2287/" data-sku="DL2287" data-precio="36500.0">
-        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_DL2287_001" alt="Plato giratorio organizador antideslizante 30cm rotación 360°" loading="lazy"></div>
+      <a class="card" href="/producto/plato-giratorio-organizador-antideslizante-30cm-rotacion-360-dl2287/" data-sku="DL2287" data-precio="29200.0">
+        <div class="card-img-wrap"><img class="card-img" src="https://res.cloudinary.com/deq2ofluf/image/upload/w_400,h_400,c_fill,f_auto,q_auto/prod_DL2287_001" alt="Plato giratorio organizador antideslizante 30cm rotación 360°" loading="lazy"><span class="card-badge offer-badge">-20%</span></div>
         <div class="card-body">
           <div class="card-cat">OFERTAS</div>
           <div class="card-name">Plato giratorio organizador antideslizante 30cm rotación 360°</div>
           <div class="card-rating" style="display:none"></div>
-          <div class="card-price">$36.500</div>
+          <div class="card-price-row"><span class="price-old">$36.500</span><span class="card-price">$29.200</span></div>
           <button class="card-btn" onclick="event.preventDefault();event.stopPropagation();agregarAlCarrito('DL2287')">Agregar al pedido</button>
         </div>
       </a></div>
 </div>
 <script>
+// La cuenta regresiva se recalcula en el navegador: las páginas se regeneran
+// una vez por día y un "faltan N días" congelado envejece mal. Si el JS no
+// corre, queda el número del día en que se generó, que es el del sitemap.
+(function() {
+  var el = document.querySelector('.listado-deadline');
+  if (!el) return;
+  var partes = (el.dataset.evento || '').split('-');
+  if (partes.length !== 3) return;
+  var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  var evento = new Date(+partes[0], +partes[1] - 1, +partes[2]);
+  var dias = Math.round((evento - hoy) / 86400000);
+  var txt = dias === 0 ? 'es hoy' : (dias === 1 ? 'es mañana' : 'faltan ' + dias + ' días');
+  var span = el.querySelector('.dl-cuenta');
+  if (span && dias >= 0) span.textContent = (el.dataset.nombre || '') + ': ' + txt;
+})();
 document.querySelectorAll('.listado-nav details').forEach(function(d) {
   d.addEventListener('toggle', function() {
     if (d.open) document.querySelectorAll('.listado-nav details[open]').forEach(function(o) { if (o !== d) o.open = false; });

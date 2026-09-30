@@ -342,6 +342,7 @@ COLECCIONES_SEO = {
     # Evergreen a propósito: "regalos de cumpleaños para mamá" tiene demanda
     # todo el año, así que esta página no muere el 19 de octubre.
     'regalos-para-mama': {
+        'evento': True,   # muestra la cuenta regresiva y la fecha límite de compra
         'hero': '/assets/img/blog/regalos-dia-de-la-madre-argentina.jpg',
         'skus': [
             # Detalles hasta $15.000
@@ -395,6 +396,7 @@ COLECCIONES_SEO = {
     # existe. El descuento se define en la tabla `descuentos` (alcance 'skus',
     # con esta misma lista) y lo calcula utils/campanas.py.
     'ofertas-dia-de-la-madre': {
+        'evento': True,   # muestra la cuenta regresiva y la fecha límite de compra
         'hero': '/assets/img/blog/ideas-regalos-dia-de-la-madre-por-presupuesto.jpg',
         'redirige_a': '/coleccion/regalos-para-mama/',
         'solo_con_oferta': True,
