@@ -329,6 +329,15 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
   exclusivo) además de regex, y `'hero'` permite reusar una foto existente en vez de la
   convención `hero-<tipo>-<slug>.jpg`.
 
+- **Probar endpoints de escritura con TestClient escribe en el `catalogo.db` del REPO.** Sin
+  `PERSISTENT_DATA_DIR`, `DB_PATH` cae en `data/catalogo.db`, que está versionado y es público:
+  un POST de prueba a `/api/referidos/registro` dejó 3 cuentas falsas con su sesión y su cupón
+  adentro del archivo (2026-09-30). Antes de commitear después de tocar la API, mirar
+  `git status data/catalogo.db`; si aparece modificado y no fue el pipeline, `git checkout --`.
+  Mejor todavía: apuntar `api_local.DB_PATH` a una copia en el temp antes de llamar al
+  TestClient. **Nunca commitear datos de clientes**: el repo es público y en esas tablas hay
+  nombres, emails, teléfonos y DNI.
+
 - **`SSLV3_ALERT_BAD_RECORD_MAC` desde los paneles NO es un bug de TLS: es Render despertando.**
   El plan free duerme el servicio a los 15 minutos sin tráfico y tarda ~50s en levantar; durante
   ese arranque, y durante cada deploy, el edge devuelve 502 o corta la conexión en pleno

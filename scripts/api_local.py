@@ -4085,11 +4085,19 @@ def listar_historial_actualizaciones(
 # ============================================================================
 
 @app.post("/api/referidos/registro")
-def registro_referido(datos: RegistroReferido):
+@limiter.limit("3/minute")
+def registro_referido(request: Request, datos: RegistroReferido):
     """
     Registra un usuario en el programa de referidos. Si ya tiene cuenta de
     usuario (mismo email), la vincula y le agrega DNI + código. Si no tiene
     cuenta, la crea junto con el perfil de referido.
+
+    Mismo límite que /api/registro (3/minuto): esta ruta también CREA una
+    cuenta y emite su cupón de bienvenida, así que sin límite se podía saltear
+    el de aquella entrando por acá. El riesgo real no es el descuento sino el
+    correo: cada alta dispara la secuencia de nurturing, y un alta masiva
+    falsa son cientos de rebotes que arruinan la reputación de envío en
+    Resend — la misma que usamos para las confirmaciones de compra.
     """
     conn = get_db()
     cursor = conn.cursor()
