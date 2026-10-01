@@ -17,7 +17,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/tira-de-luz-mini-sandias-deco-x1metro.html",
   "droppers_id": 2849,
-  "fecha_scraping": "2026-09-30T06:27:56.505313",
+  "fecha_scraping": "2026-10-01T06:31:36.085700",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Deco"
@@ -27,7 +27,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-09-30T06:31:04.979180",
+  "fecha_mapeo_categorias": "2026-10-01T06:35:02.422406",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-R2234-027_002",
@@ -48,5 +48,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 16500.0,
-  "fecha_calculo_precio": "2026-09-30T06:31:59.640888"
+  "fecha_calculo_precio": "2026-10-01T06:36:25.345606"
 }
