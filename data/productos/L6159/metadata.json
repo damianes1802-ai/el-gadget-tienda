@@ -13,7 +13,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/anotador-pop-it-para-ni-os.html",
   "droppers_id": 5136,
-  "fecha_scraping": "2026-10-07T06:30:52.504927",
+  "fecha_scraping": "2026-10-08T06:29:38.794363",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles"
@@ -23,7 +23,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-10-07T06:35:17.558869",
+  "fecha_mapeo_categorias": "2026-10-08T06:33:00.234747",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6159_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_L6159_002"
@@ -40,6 +40,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 7000.0,
-  "fecha_calculo_precio": "2026-10-07T06:37:49.662663",
+  "fecha_calculo_precio": "2026-10-08T06:33:55.689651",
   "fecha_agotado": "2026-08-23T06:20:06.537436"
 }
