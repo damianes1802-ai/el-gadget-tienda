@@ -57,9 +57,34 @@ ATRIBUTOS DE CLASIFICACIÓN (2026-09-21)
 - `g:product_type`: categoría (> subcategoría) de la tienda, texto libre.
 - `g:condition`: siempre `new` (todo el catálogo es nuevo).
 
+ENVÍO (g:shipping, 2026-10-09)
+-----------------------------
+Google **exige** el costo de envío para publicar en Argentina (en el feed o en
+la configuración de la cuenta). Sin él la fuente de datos queda desaprobada
+entera, que es lo que venía pasando. Se arma desde `data/envios/zonas_envio.json`
+—la MISMA fuente que usa el checkout— para que el envío publicado nunca se
+desincronice del cobrado.
+
+Las seis zonas propias no se pueden publicar una por una: `g:region` admite
+códigos ISO 3166-2 y GBA 1/2/3 más "Buenos Aires correo" caen todos dentro de
+AR-B. Para AR-B se publica entonces la tarifa MÁS ALTA de la provincia:
+subestimar el envío desaprueba el producto y genera reclamos, sobreestimar solo
+cuesta algo de CTR.
+
+El envío bonificado (CABA/GBA1 con productos ya con descuento >= mínimo) no se
+puede expresar como condición, pero sí **por producto**: un artículo cuyo precio
+efectivo ya supera el mínimo garantiza envío gratis en CABA, así que para esos
+ítems se publica 0 en AR-C y Google muestra "Envío gratis". GBA1 queda dentro de
+AR-B y conserva la tarifa máxima.
+
+Los tiempos de tránsito salen de la modalidad de cada zona (moto = hasta 48 h
+hábiles; correo = 2 a 5 días hábiles). El de preparación NO está en el JSON: se
+declara con las constantes ENVIO_HANDLING_* de abajo.
+
 AUTOR: Sistema Ecommerce Automation
 """
 
+import json
 import re
 import sqlite3
 import sys
@@ -85,6 +110,11 @@ MAX_IMAGENES_EXTRA = 10  # additional_image_link admite hasta 10
 # números de parte reales del fabricante, poner True y emitirlos desde esa
 # columna, no desde el SKU de Droppers.
 INCLUIR_MPN = False
+
+# Días hábiles de preparación del pedido (no están en zonas_envio.json, cuyos
+# plazos cuentan "desde el despacho"). Se suman al tránsito para la estimación
+# de entrega que muestra Google: conviene no quedarse corto.
+ENVIO_HANDLING_MIN, ENVIO_HANDLING_MAX = 1, 2
 
 # ---------------------------------------------------------------------------
 # MAPEO A LA TAXONOMÍA DE GOOGLE (google_product_category)
@@ -213,6 +243,55 @@ def verificar_mapeo_taxonomia(ruta_taxonomia) -> list:
     return sorted(r for r in usadas if r not in oficiales)
 
 
+def tarifas_envio() -> tuple:
+    """Lee data/envios/zonas_envio.json y devuelve (grupos, minimo_bonificado).
+
+    `grupos` es [(region_iso, costo, transito_min, transito_max)] de la más
+    específica a la más genérica; region_iso vacío = resto del país (sin
+    `g:region`, aplica a todo AR salvo donde gane una región más específica).
+    `minimo_bonificado` es el piso de envío gratis en CABA, o None si la
+    bonificación no incluye CABA. Ver el docblock del módulo.
+    """
+    cfg = json.loads((Config.DATA_DIR / 'envios' / 'zonas_envio.json').read_text(encoding='utf-8'))
+    zonas = cfg['zonas']
+
+    def costo(z):
+        return float(zonas[z]['costo'])
+
+    # Moto: "hasta 48 horas hábiles desde el despacho". Correo: "2 a 5 días".
+    # AR-B mezcla ambas modalidades, así que abarca de 1 a 5 días.
+    en_provincia = [z for z in ('GBA1', 'GBA2', 'GBA3', 'BSAS') if z in zonas]
+    grupos = [
+        ('AR-C', costo('CABA'), 1, 2),
+        ('AR-B', max(costo(z) for z in en_provincia), 1, 5),
+        ('', costo('RESTO_PAIS'), 2, 5),
+    ]
+
+    bonif = cfg.get('envio_bonificado') or {}
+    minimo = float(bonif['minimo']) if 'CABA' in (bonif.get('zonas') or []) and bonif.get('minimo') else None
+    return grupos, minimo
+
+
+def envio_xml(grupos, minimo, precio_efectivo: float) -> list:
+    """Bloques <g:shipping> del producto, con CABA en 0 si ya califica."""
+    bloques = []
+    for region, costo, t_min, t_max in grupos:
+        if region == 'AR-C' and minimo is not None and precio_efectivo >= minimo:
+            costo = 0.0
+        partes = ['<g:country>AR</g:country>']
+        if region:
+            partes.append(f'<g:region>{region}</g:region>')
+        partes += [
+            f'<g:price>{costo:.2f} ARS</g:price>',
+            f'<g:min_handling_time>{ENVIO_HANDLING_MIN}</g:min_handling_time>',
+            f'<g:max_handling_time>{ENVIO_HANDLING_MAX}</g:max_handling_time>',
+            f'<g:min_transit_time>{t_min}</g:min_transit_time>',
+            f'<g:max_transit_time>{t_max}</g:max_transit_time>',
+        ]
+        bloques.append('<g:shipping>' + ''.join(partes) + '</g:shipping>')
+    return bloques
+
+
 def limpiar(texto: str, limite: int) -> str:
     """Aplana a una línea y recorta al límite de Google."""
     if not texto:
@@ -228,7 +307,7 @@ def imagenes_de(producto) -> tuple:
     return principal, extra[:MAX_IMAGENES_EXTRA]
 
 
-def item_xml(producto, descuentos) -> str:
+def item_xml(producto, descuentos, envio=None) -> str:
     """Arma el <item> de un producto. Devuelve '' si le falta algo obligatorio."""
     sku = producto['sku']
     slug = (producto['url_amigable'] or '').strip()
@@ -256,6 +335,13 @@ def item_xml(producto, descuentos) -> str:
     ]
     if oferta is not None and oferta < precio_lista:
         campos.append(f"<g:sale_price>{float(oferta):.2f} ARS</g:sale_price>")
+
+    # Envío: obligatorio en Argentina. El precio efectivo decide si el ítem ya
+    # califica para la bonificación de CABA (ver docblock).
+    if envio:
+        grupos, minimo = envio
+        efectivo = float(oferta) if (oferta is not None and oferta < precio_lista) else precio_lista
+        campos += envio_xml(grupos, minimo, efectivo)
 
     # Genéricos de dropshipping: sin marca ni GTIN reales. Declararlo es lo que
     # Google espera; inventar una marca sería incorrecto.
@@ -317,9 +403,15 @@ def generar_feed():
         print("⚠️  No hay productos disponibles en catalogo.db")
         return 1
 
+    envio = tarifas_envio()
+    grupos, minimo = envio
+    print("🚚 Envío declarado: " + " · ".join(
+        f"{r or 'resto AR'} ${c:,.0f}".replace(',', '.') for r, c, _, _ in grupos)
+        + (f" · gratis en AR-C desde ${minimo:,.0f}".replace(',', '.') if minimo else ""))
+
     items, omitidos = [], []
     for p in productos:
-        xml = item_xml(p, descuentos)
+        xml = item_xml(p, descuentos, envio)
         (items.append(xml) if xml else omitidos.append(p['sku']))
 
     feed = (
@@ -344,6 +436,8 @@ def generar_feed():
     print(f"   google_product_category: {feed.count('<g:google_product_category>')} · "
           f"item_group_id: {feed.count('<g:item_group_id>')} · "
           f"color: {feed.count('<g:color>')} · size: {feed.count('<g:size>')}")
+    print(f"   shipping: {feed.count('<g:shipping>')} bloques · "
+          f"{feed.count('<g:price>0.00 ARS</g:price>')} ítems con envío gratis en CABA")
     if omitidos:
         print(f"⚠️  Omitidos por falta de slug o imagen ({len(omitidos)}): {', '.join(omitidos[:10])}")
     print(f"🔗 URL pública (tras el push): {CANONICAL_DOMAIN}/google_shopping.xml")

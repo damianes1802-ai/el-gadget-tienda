@@ -425,12 +425,13 @@ class ActualizadorMaestro:
         return True
 
     def git_push_catalogo(self):
-        """Publica catalogo.db, el feed Facebook/WhatsApp y el estado de productos/precios (git add + commit + push) si hubo cambios"""
+        """Publica catalogo.db, los feeds de Facebook/WhatsApp y Google Merchant y el estado de productos/precios (git add + commit + push) si hubo cambios"""
         self.banner("PUBLICACIÓN DE CAMBIOS (git push)", '-')
 
         rutas = [
             'data/catalogo.db',
             'pages/facebook_catalog.csv',
+            'pages/google_shopping.xml',  # el paso 11b lo regenera: si no se publica, Merchant lee un feed viejo
             'data/productos',
             'data/precios',
             'pages/producto',
