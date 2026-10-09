@@ -10,9 +10,9 @@
   "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
-  "url_original": "https://droppers.com.ar/undefined-tricolor.html",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/3165/",
   "droppers_id": 3165,
-  "fecha_scraping": "2026-10-08T06:28:48.024699",
+  "fecha_scraping": "2026-10-09T06:27:53.518514",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -38,5 +38,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 3000.0,
-  "fecha_calculo_precio": "2026-10-08T06:33:55.519051"
+  "fecha_calculo_precio": "2026-10-09T06:34:23.341905"
 }

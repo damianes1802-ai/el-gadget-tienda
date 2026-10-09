@@ -17,7 +17,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/molde-silicona-reposteria-galletitas-jabones-velas-helado-x2.html",
   "droppers_id": 4240,
-  "fecha_scraping": "2026-10-08T06:29:54.876703",
+  "fecha_scraping": "2026-10-09T06:27:22.310018",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Artículos Infantiles",
@@ -30,7 +30,7 @@
   ],
   "total_categorias": 2,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-10-08T06:33:00.234045",
+  "fecha_mapeo_categorias": "2026-10-09T06:32:59.720642",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0207_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_BWH0207_002",
@@ -51,5 +51,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 10500.0,
-  "fecha_calculo_precio": "2026-10-08T06:33:55.565841"
+  "fecha_calculo_precio": "2026-10-09T06:34:23.387063"
 }
