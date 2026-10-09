@@ -599,21 +599,20 @@
       </a></div>
 </div>
 <script>
-// La cuenta regresiva se recalcula en el navegador: las páginas se regeneran
-// una vez por día y un "faltan N días" congelado envejece mal. Si el JS no
-// corre, queda el número del día en que se generó, que es el del sitemap.
 (function() {
-  var el = document.querySelector('.listado-deadline');
-  if (!el) return;
-  var partes = (el.dataset.evento || '').split('-');
-  if (partes.length !== 3) return;
-  var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
-  var evento = new Date(+partes[0], +partes[1] - 1, +partes[2]);
-  var dias = Math.round((evento - hoy) / 86400000);
-  var txt = dias === 0 ? 'es hoy' : (dias === 1 ? 'es mañana' : 'faltan ' + dias + ' días');
-  var span = el.querySelector('.dl-cuenta');
-  if (span && dias >= 0) span.textContent = (el.dataset.nombre || '') + ': ' + txt;
+  document.querySelectorAll('.listado-deadline').forEach(function(el) {
+    var partes = (el.dataset.evento || '').split('-');
+    if (partes.length !== 3) return;
+    var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+    var evento = new Date(+partes[0], +partes[1] - 1, +partes[2]);
+    var dias = Math.round((evento - hoy) / 86400000);
+    var txt = dias === 0 ? 'es hoy' : (dias === 1 ? 'es mañana' : 'faltan ' + dias + ' días');
+    var span = el.querySelector('.dl-cuenta');
+    if (span && dias >= 0) span.textContent = (el.dataset.nombre || '') + ': ' + txt;
+  });
 })();
+</script>
+<script>
 document.querySelectorAll('.listado-nav details').forEach(function(d) {
   d.addEventListener('toggle', function() {
     if (d.open) document.querySelectorAll('.listado-nav details[open]').forEach(function(o) { if (o !== d) o.open = false; });

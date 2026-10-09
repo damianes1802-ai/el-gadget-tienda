@@ -115,16 +115,23 @@ def _limites_evento(hoy: date = None) -> tuple:
     return ev, limites
 
 
-def render_aviso_entrega(hoy: date = None, clase: str = 'pdp-deadline') -> str:
+def render_aviso_entrega(hoy: date = None, clase: str = 'pdp-deadline',
+                         evento_id: str = None) -> str:
     """Aviso de cuántos días faltan y hasta cuándo comprar para llegar.
 
     El contador se recalcula en el navegador con `data-evento`: las páginas se
     regeneran una vez por día, y un "faltan N días" congelado envejece mal.
     El valor que se renderiza acá es el que ve Google y el que queda si el JS
-    no corre."""
+    no corre.
+
+    `evento_id` ata el aviso a UNA fecha comercial (los ids de
+    utils/bloques_productos.fechas_comerciales_vigentes). Sin eso, el post del
+    Día del Amigo mostraría en octubre la cuenta regresiva del Día de la Madre,
+    que es la vigente. Las fichas y los listados no lo pasan a propósito:
+    cualquier producto sirve de regalo para la fecha que esté corriendo."""
     hoy = hoy or date.today()
     ev, limites = _limites_evento(hoy)
-    if not ev:
+    if not ev or (evento_id and ev.get('id') != evento_id):
         return ''
     nombre = ev['nombre']
     dias = (ev['fecha'] - hoy).days
@@ -138,6 +145,29 @@ def render_aviso_entrega(hoy: date = None, clase: str = 'pdp-deadline') -> str:
     return (f'<p class="{clase}" data-evento="{ev["fecha"].isoformat()}" '
             f'data-nombre="{html.escape(nombre)}">'
             f'<strong><span class="dl-cuenta">{nombre}: {cuenta}</span></strong> {html.escape(cuerpo)}</p>')
+
+
+# La cuenta regresiva se recalcula en el navegador: las páginas se regeneran
+# una vez por día y un "faltan N días" congelado envejece mal. Si el JS no
+# corre, queda el número del día en que se generó, que es el del sitemap.
+# Lo comparten los listados y los posts de fecha comercial, así que vive acá y
+# no duplicado en cada plantilla. OJO: las plantillas son f-strings y esto se
+# INTERPOLA (`{JS_CUENTA_REGRESIVA}`), así que las llaves van simples — si se
+# doblaran, saldrían dobladas en el HTML.
+JS_CUENTA_REGRESIVA = '''<script>
+(function() {
+  document.querySelectorAll('.listado-deadline').forEach(function(el) {
+    var partes = (el.dataset.evento || '').split('-');
+    if (partes.length !== 3) return;
+    var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+    var evento = new Date(+partes[0], +partes[1] - 1, +partes[2]);
+    var dias = Math.round((evento - hoy) / 86400000);
+    var txt = dias === 0 ? 'es hoy' : (dias === 1 ? 'es mañana' : 'faltan ' + dias + ' días');
+    var span = el.querySelector('.dl-cuenta');
+    if (span && dias >= 0) span.textContent = (el.dataset.nombre || '') + ': ' + txt;
+  });
+})();
+</script>'''
 
 
 def render_beneficios(envios: dict, hoy: date = None) -> str:
@@ -1566,22 +1596,8 @@ def render_pagina_listado(tipo: str, slug: str, cfg: dict, items: list, slug_map
 </nav>
 
 {cuerpo_grid}
+{JS_CUENTA_REGRESIVA}
 <script>
-// La cuenta regresiva se recalcula en el navegador: las páginas se regeneran
-// una vez por día y un "faltan N días" congelado envejece mal. Si el JS no
-// corre, queda el número del día en que se generó, que es el del sitemap.
-(function() {{
-  var el = document.querySelector('.listado-deadline');
-  if (!el) return;
-  var partes = (el.dataset.evento || '').split('-');
-  if (partes.length !== 3) return;
-  var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
-  var evento = new Date(+partes[0], +partes[1] - 1, +partes[2]);
-  var dias = Math.round((evento - hoy) / 86400000);
-  var txt = dias === 0 ? 'es hoy' : (dias === 1 ? 'es mañana' : 'faltan ' + dias + ' días');
-  var span = el.querySelector('.dl-cuenta');
-  if (span && dias >= 0) span.textContent = (el.dataset.nombre || '') + ': ' + txt;
-}})();
 document.querySelectorAll('.listado-nav details').forEach(function(d) {{
   d.addEventListener('toggle', function() {{
     if (d.open) document.querySelectorAll('.listado-nav details[open]').forEach(function(o) {{ if (o !== d) o.open = false; }});
@@ -1755,6 +1771,10 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
 .blog-hero p {{ max-width: 680px; font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,0.72); margin: 0 auto; }}
 .blog-hero p strong {{ color: var(--accent); }}
 .blog-fecha {{ font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 14px; }}
+.listado-deadline {{ max-width: 620px; margin: 16px auto 0; background: rgba(255,199,0,.14); border: 1px solid rgba(255,199,0,.45);
+  border-radius: 16px; padding: 11px 16px; font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.88); }}
+.listado-deadline strong {{ color: var(--accent); }}
+@media (max-width: 560px) {{ .listado-deadline {{ border-radius: 14px; font-size: 12.5px; padding: 10px 14px; }} }}
 .blog-body {{ max-width: 760px; margin: 26px auto 0; padding: 0 1.25rem; display: grid; gap: 14px; }}
 .blog-body section {{ background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); }}
 .blog-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 19px; color: var(--ink); margin: 0 0 10px; text-align: center; }}
@@ -2101,11 +2121,16 @@ def generar_blog(productos: list = None, slug_map: dict = None) -> list:
                                 "acceptedAnswer": {"@type": "Answer", "text": _texto_plano(a)}}
                                for q, a in cfg['faqs']],
             })
+        # Cuenta regresiva + fecha límite de compra, solo en el post de la
+        # fecha comercial que está corriendo ('evento' en la config del post).
+        aviso_evento = (render_aviso_entrega(clase='listado-deadline', evento_id=cfg['evento'])
+                        if cfg.get('evento') else '')
         hero = f'''<div class="blog-hero">
   <div class="bc"><a href="/">Inicio</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>{html.escape(cfg['h1'][:42])}…</span></div>
   <span class="badge">Blog · El Gadget</span>
   <h1>{html.escape(cfg['h1'])}</h1>
   <p>{cfg['intro']}</p>
+  {aviso_evento}
   <div class="blog-fecha">Actualizado: {cfg['fecha']}</div>
 </div>'''
         img_hero = ''
@@ -2167,7 +2192,8 @@ def generar_blog(productos: list = None, slug_map: dict = None) -> list:
                    f'<div class="blog-grid" style="margin-top:0;padding:0">{cards_rel}</div></div>')
         cierre = ('<div class="blog-cierre"><a class="btn btn-accent" href="/" '
                   'style="display:inline-block">Ver el catálogo completo →</a></div>')
-        cuerpo = f'{img_hero}<div class="blog-body">{secciones}</div>{faqs}{rel}{cierre}'
+        js_cuenta = JS_CUENTA_REGRESIVA if aviso_evento else ''
+        cuerpo = f'{img_hero}<div class="blog-body">{secciones}</div>{faqs}{rel}{cierre}{js_cuenta}'
         destino = blog_dir / slug
         destino.mkdir(parents=True, exist_ok=True)
         (destino / 'index.html').write_text(

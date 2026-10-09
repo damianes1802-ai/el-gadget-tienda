@@ -214,6 +214,7 @@ BLOG_POSTS = {
         'h1': 'Regalos de Navidad 2026: ideas que llegan a tiempo',
         'meta': 'Ideas de regalos de Navidad 2026 por presupuesto y por destinatario, cuándo es Navidad y Reyes, y cómo comprar online con tiempo para que lleguen. Envío a todo el país.',
         'fecha': '2026-07-13',
+        'evento': 'navidad',  # cuenta regresiva + fecha limite de compra
         'intro': 'La Navidad llega siempre igual: de golpe. Este año es el <strong>viernes 25 de diciembre</strong>, y entre la cena, el arbolito y el amigo invisible de la oficina, la lista de regalos se hace larga. Acá te la simplificamos: ideas por presupuesto y por destinatario, cuándo comprar para que todo llegue a tiempo, y una herramienta gratis para organizar el amigo invisible sin dramas.',
         'secciones': [
             ('¿Cuándo es Navidad y Reyes 2026?',
@@ -314,6 +315,7 @@ BLOG_POSTS = {
         'h1': 'Día del Amigo 2026: cuándo es y cómo celebrarlo',
         'meta': 'El Día del Amigo 2026 es el lunes 20 de julio. Regalos que no fallan, imágenes para saludar por WhatsApp y el sorteo de amigo invisible online gratis, sin registro.',
         'fecha': '2026-07-18',
+        'evento': 'dia-del-amigo',  # cuenta regresiva + fecha limite de compra
         'intro': 'En Argentina, el Día del Amigo se festeja <strong>todos los 20 de julio</strong> — en 2026 cae lunes, así que la juntada se muda al fin de semana o se convierte en la excusa perfecta para arrancar la semana distinto. Acá tenés todo: imágenes para saludar al grupo, ideas de regalos y el plan que nunca falla. Y si con el grupo hacen intercambio de regalos, <strong><a href="/amigo-invisible/">sorteá el amigo invisible online gratis acá</a></strong>: cargás los nombres y cada uno recibe a quién le regala por email, sin registrarse y en 2 minutos.',
         'secciones': [
             ('¿Cuándo es el Día del Amigo y por qué el 20 de julio?',
@@ -343,6 +345,7 @@ BLOG_POSTS = {
         'h1': 'Día de la Madre 2026: es el domingo 18 de octubre. Regalos con stock y envío a todo el país',
         'meta': 'El Día de la Madre 2026 en Argentina es el domingo 18 de octubre. 10 regalos con stock hoy por presupuesto (detalles hasta $15.000, hasta $40.000 y más), imágenes para saludar por WhatsApp y envío a todo el país.',
         'fecha': '2026-09-22',
+        'evento': 'dia-de-la-madre',  # cuenta regresiva + fecha limite de compra
         'intro': '<strong>¿Cuándo es el Día de la Madre 2026 en Argentina? El domingo 18 de octubre</strong> (siempre es el tercer domingo de octubre). Si este año querés llegar con un regalo pensado —y no comprado a las corridas el sábado a la noche—, acá tenés <strong>10 regalos reales con stock hoy, ordenados por presupuesto</strong>, imágenes para saludar por WhatsApp y las ideas por tipo de mamá. Todo con envío a todo el país y cambios hasta 10 días.',
         'secciones': [
             ('¿Cuándo es el Día de la Madre 2026 en Argentina y por qué en octubre?',
@@ -394,6 +397,7 @@ BLOG_POSTS = {
         'h1': 'Detalles para el Día de la Madre: ideas económicas que no parecen de compromiso',
         'meta': 'Detalles para mamá desde $4.000, con stock real y envío a todo el país. Cómo elegir un regalo económico que no parezca comprado a último momento, y hasta cuándo comprarlo.',
         'fecha': '2026-09-27',
+        'evento': 'dia-de-la-madre',  # cuenta regresiva + fecha limite de compra
         'intro': 'Gastar poco no es el problema. El problema es que <strong>se note</strong> que gastaste poco. Acá va cómo elegir un detalle para el <strong>Día de la Madre</strong> (domingo 18 de octubre) que se sienta pensado y no de apuro, con lo que hay en stock hoy y cuánto sale de verdad.',
         'secciones': [
             ('Cómo elegir un detalle que no parezca de compromiso',
@@ -425,6 +429,7 @@ BLOG_POSTS = {
         'h1': 'Feliz Día de la Madre 2026: imágenes y frases para mandar por WhatsApp',
         'meta': 'Diez imágenes de Feliz Día de la Madre 2026 para descargar gratis, sin marca de agua, y frases cortas para copiar y pegar. Incluye imágenes para una amiga que es mamá y una graciosa.',
         'fecha': '2026-09-27',
+        'evento': 'dia-de-la-madre',  # cuenta regresiva + fecha limite de compra
         'intro': 'Diez imágenes de <strong>Feliz Día de la Madre 2026</strong> para mandar por WhatsApp, subir a un estado o imprimir, y una lista de frases cortas para copiar. Son gratis, sin marca de agua y sin registro: tocá <strong>Compartir</strong> para mandarla directo o <strong>Descargar</strong> para guardarla en el celular.',
         'secciones': [
             ('Imágenes de Feliz Día de la Madre para descargar y compartir',
@@ -478,6 +483,7 @@ BLOG_POSTS = {
         'h1': 'Regalos originales para el Día de la Madre: ideas que no va a tener repetidas',
         'meta': 'Regalos originales para el Día de la Madre 2026 con stock real: qué hace que un regalo sea original de verdad, ocho ideas concretas y qué evitar. Envío a todo el país.',
         'fecha': '2026-09-27',
+        'evento': 'dia-de-la-madre',  # cuenta regresiva + fecha limite de compra
         'intro': '"Original" no quiere decir raro. Quiere decir que <strong>no lo tiene</strong> y que se nota que lo elegiste vos. Acá va el criterio para distinguir una cosa de la otra, y ocho regalos del catálogo con stock hoy que cumplen las dos.',
         'secciones': [
             ('Qué hace que un regalo sea original de verdad',
@@ -514,6 +520,7 @@ BLOG_POSTS = {
         'h1': 'Regalos para madres primerizas: ideas útiles para ella, no solo para el bebé',
         'meta': 'Regalos para madres primerizas con stock real: por qué casi todos los regalos terminan siendo para el bebé, qué le sirve de verdad a ella y qué evitar. Envío a todo el país.',
         'fecha': '2026-09-27',
+        'evento': 'dia-de-la-madre',  # cuenta regresiva + fecha limite de compra
         'intro': 'Si es su primer Día de la Madre, va a recibir diez regalos y <strong>nueve van a ser para el bebé</strong>. Acá va la lista corta de lo que le sirve <strong>a ella</strong>, más las cosas para el bebé que realmente se usan y no las que quedan con la etiqueta puesta.',
         'secciones': [
             ('Por qué casi todos los regalos se los llevan al bebé',
