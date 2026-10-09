@@ -254,6 +254,16 @@ zona/partido), `data/sitemap_lastmod.json`, `data/droppers_alertas_estado.json`.
 
 - **Un paso terminado en `|| echo` es un fallo invisible.** Antes de dar por bueno cualquier
   automatismo de este repo, leer el log de la corrida, no el check verde.
+- **Generar un archivo no es publicarlo: `git_push_catalogo()` commitea una LISTA BLANCA de rutas.**
+  El paso 11b regeneraba `pages/google_shopping.xml` todos los días desde el 22-sep, pero la ruta no
+  estaba en esa lista (sí la del feed de Facebook), así que el archivo nuevo se descartaba en cada
+  corrida y Merchant Center siguió leyendo el del 22-sep: stock de 2,5 semanas atrás y sin la campaña
+  del −20% del Día de la Madre. No hay error en ningún log —el paso dice "✅ Feed generado"— y el
+  síntoma se ve solo desde afuera (en GSC, "Merchant listings" cayó de 11 impresiones a 0).
+  Corregido el 2026-10-09. **Si se agrega un generador que escriba en `pages/` o `data/`, agregar su
+  ruta a `rutas` en `00_actualizar_sistema_completo.py` en el mismo commit**, y para verificar que un
+  artefacto se publica de verdad, mirar su fecha en el repo remoto (o el `lastBuildDate` del propio
+  archivo), no la salida del script.
 - **El plan de Render es PAGO y de él depende que existan las órdenes.** El disco persistente
   (`PERSISTENT_DATA_DIR`) no está en el tier gratuito: la cuenta corre en plan **Hobby**. Si el
   cobro falla y Render suspende el workspace, no se cae "solo la web": se cae la API entera
