@@ -937,12 +937,37 @@ def bloque_compartir(codigo: str, intro: str = "Compartilo en un toque:") -> str
     """
 
 
-def enviar_email_activacion_d1(nombre: str, email: str, codigo: str, source: str = None) -> dict:
+def enviar_email_activacion_d1(nombre: str, email: str, codigo: str, source: str = None,
+                               pct_bienvenida: int = None) -> dict:
     """N4 — D+1: Activación del referido — código destacado + textos listos para compartir."""
     nombre_s = _html.escape(nombre)
     codigo_s = _html.escape(codigo)
     env = Config.cargar_env()
     site_url = env.get('SITE_URL', 'https://elgadget.com.ar').rstrip('/')
+
+    # El descuento de bienvenida NO es 50% para todos: la API lo pone en 50 solo
+    # si el registro trajo un `source` de landing, y en 10 en cualquier otro
+    # caso — y la página principal del programa (pages/referidos.html) no manda
+    # source, así que quien se anota ahí tiene 10%. Hasta 2026-10-10 este email
+    # prometía 50% a todos: el referido llegaba al checkout, veía 10% y se iba.
+    # Si no se puede saber el número real, no se promete nada.
+    if pct_bienvenida:
+        pct = int(pct_bienvenida)
+        bloque_primera_compra = f"""
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Y no te olvides: tenés <strong style="color:{INK}">{pct}% OFF</strong> en tu primera compra como referido.
+        Probá un producto, usalo, y después recomendalo con conocimiento real.
+      </p>
+      {_boton(f'Comprar con {pct}% OFF', link_referido(codigo))}
+    """
+    else:
+        bloque_primera_compra = f"""
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Un consejo: probá primero un producto con tu propio código. Recomendar
+        algo que ya usaste funciona mucho mejor que recomendar un catálogo.
+      </p>
+      {_boton('Ver productos', link_referido(codigo))}
+    """
 
     cuerpo = f"""
       <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">¡Hola {nombre_s}!</h2>
@@ -960,11 +985,7 @@ def enviar_email_activacion_d1(nombre: str, email: str, codigo: str, source: str
         <strong style="color:{INK}">se aplica solo</strong> cuando tu amigo llega a pagar.
       </p>
       {bloque_compartir(codigo)}
-      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
-        Y no te olvides: tenés <strong style="color:{INK}">50% OFF</strong> en tu primera compra como referido.
-        Probá un producto, usalo, y después recomendalo con conocimiento real.
-      </p>
-      {_boton('Comprar con 50% OFF', link_referido(codigo))}
+      {bloque_primera_compra}
       {_boton('Ver mi panel', f"{site_url}/mi_cuenta")}
     """
     return _enviar(email, f"Tu código {codigo_s} está listo — compartilo ahora", _layout(cuerpo, marketing=True), is_marketing=True)

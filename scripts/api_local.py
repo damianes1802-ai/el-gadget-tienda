@@ -4739,6 +4739,26 @@ def admin_marcar_pagado_referido(ref_id: int, datos: MarcarPagadoReferido,
 # NURTURING — procesamiento automático de emails de marketing
 # ============================================================================
 
+def _pct_bienvenida(cursor, email: str):
+    """% real del código de bienvenida de ese email, o None si no tiene.
+
+    No es 50 para todos: el registro lo pone en 50 solo cuando viene con un
+    `source` de landing y en 10 en cualquier otro caso, y `source` no se
+    persiste — así que el único lugar donde vive el número real es la fila de
+    `descuentos`. El email de activación lo necesita para no prometer un
+    descuento que el checkout después no aplica.
+    """
+    try:
+        fila = cursor.execute(
+            "SELECT valor FROM descuentos WHERE email_asociado = ? AND codigo LIKE 'BIENVENIDO-%' "
+            "AND activo = 1 ORDER BY id DESC LIMIT 1",
+            ((email or '').lower(),)
+        ).fetchone()
+        return int(fila[0]) if fila and fila[0] else None
+    except Exception:
+        return None
+
+
 def _obtener_productos_top(cursor, limit=5):
     cursor.execute("""
         SELECT p.sku, p.nombre, p.precio_venta, p.imagen_principal, p.url_amigable
@@ -4804,7 +4824,9 @@ def procesar_nurturing(x_admin_password: Optional[str] = Header(None)):
 
             # N4 — D+1 Activación
             if dias >= 1 and not ref.get('nurturing_d1_enviado'):
-                res = enviar_email_activacion_d1(ref['nombre'], ref['email'], ref['codigo'])
+                res = enviar_email_activacion_d1(
+                    ref['nombre'], ref['email'], ref['codigo'],
+                    pct_bienvenida=_pct_bienvenida(cursor, ref['email']))
                 if 'error' not in res:
                     cursor.execute("UPDATE referidos SET nurturing_d1_enviado = 1 WHERE id = ?", (ref['id'],))
                     d1 += 1
