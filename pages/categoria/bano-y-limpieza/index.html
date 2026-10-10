@@ -280,10 +280,21 @@ var _catalogoListo = fetch('/productos.json?v=' + new Date().toISOString().slice
       var p = map[c.dataset.sku];
       if (!p) return;
       if (p.precio_oferta != null && p.precio_oferta < p.precio_venta) {
+        // El HTML estático YA trae <span class="price-old"> cuando hay campaña
+        // (productos.json y las páginas salen de la misma corrida del
+        // generador). Hasta 2026-10-10 esto escribía otro tachado adentro de
+        // .card-price y la card mostraba el precio de lista dos veces:
+        // "$10.500 $10.500 $8.400 -20%". Se reusa el que ya está.
+        var precio = c.querySelector('.card-price');
+        var viejo = c.querySelector('.price-old');
+        if (!viejo) {
+          viejo = document.createElement('span');
+          viejo.className = 'price-old';
+          precio.parentNode.insertBefore(viejo, precio);
+        }
+        viejo.textContent = formatPrice(p.precio_venta);
         var pct = Math.round((1 - p.precio_oferta / p.precio_venta) * 100);
-        c.querySelector('.card-price').innerHTML =
-          '<span style="text-decoration:line-through;color:var(--gray-400);font-size:12.5px;margin-right:6px">' +
-          formatPrice(p.precio_venta) + '</span>' + formatPrice(p.precio_oferta) +
+        precio.innerHTML = formatPrice(p.precio_oferta) +
           ' <span style="color:var(--red);font-size:12px;font-weight:700">-' + pct + '%</span>';
         c.dataset.precio = p.precio_oferta;
       }
