@@ -28,6 +28,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent))
 from utils.config import Config
 from utils.envios import resumen_envios, frases_envio, DEVOLUCION_DIAS
+from utils.legales import FOOTER_LEGAL
 
 CANONICAL_DOMAIN = "https://elgadget.com.ar"
 BRAND = "El Gadget"
@@ -365,11 +366,7 @@ def render(res: dict) -> str:
     </div>
   </div>
   <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados · <a href="privacidad" style="color:inherit;opacity:.8;text-decoration:none">Privacidad</a> · <a href="arrepentimiento" style="color:inherit;opacity:.8;text-decoration:none">Arrepentimiento</a> · <a href="terminos" style="color:inherit;opacity:.8;text-decoration:none">Términos</a></div>
-  <div class="footer-legal">
-    <strong>El Gadget</strong> &middot; Dami&aacute;n Ezequiel S&aacute;nchez &middot; CUIT 20-42396477-5 &middot; Responsable Monotributo<br>
-    Esteban Echeverr&iacute;a 964, Wilde (B1875ATT), Provincia de Buenos Aires, Argentina<br>
-    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/{WHATSAPP_NUM}" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a> &middot; <a href="/envios">Env&iacute;os</a>
-  </div>
+  {FOOTER_LEGAL}
 </footer>
 
 <script src="assets/js/cart.js"></script>

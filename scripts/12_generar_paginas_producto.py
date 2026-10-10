@@ -49,6 +49,7 @@ from utils.campanas import campanas_programadas_vigentes, calcular_precio_oferta
 from utils.envios import (resumen_envios, frases_envio, shipping_details_jsonld,
                           return_policy_jsonld, cargar_zonas, DEVOLUCION_DIAS)
 from utils.fechas_entrega import limites_por_modalidad, fecha_larga
+from utils.legales import FOOTER_LEGAL
 
 logger = get_logger('generar_paginas_producto')
 
@@ -740,6 +741,7 @@ def render_pagina(producto: dict, slug: str, site_url: str, variantes: list, rel
         '__LOGO_SVG__': LOGO_SVG,
         '__WHATSAPP_ICON__': WHATSAPP_ICON,
         '__WHATSAPP_NUM__': WHATSAPP_NUM,
+        '__FOOTER_LEGAL__': FOOTER_LEGAL,
         '__JSONLD__': json.dumps(jsonld, ensure_ascii=False),
         '__BREADCRUMB_CATEGORIA__': html.escape(categoria),
         '__CAT_SLUG__': cat_slug,
@@ -912,11 +914,7 @@ __RELATED__
     </div>
   </div>
   <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
-  <div class="footer-legal">
-    <strong>El Gadget</strong> &middot; Dami&aacute;n Ezequiel S&aacute;nchez &middot; CUIT 20-42396477-5 &middot; Responsable Monotributo<br>
-    Esteban Echeverr&iacute;a 964, Wilde (B1875ATT), Provincia de Buenos Aires, Argentina<br>
-    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a> &middot; <a href="/envios">Env&iacute;os</a>
-  </div>
+  __FOOTER_LEGAL__
 </footer>
 
 <!-- WHATSAPP FLOTANTE -->
@@ -1651,11 +1649,7 @@ document.addEventListener('click', function(e) {{
     </div>
   </div>
   <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
-  <div class="footer-legal">
-    <strong>El Gadget</strong> &middot; Dami&aacute;n Ezequiel S&aacute;nchez &middot; CUIT 20-42396477-5 &middot; Responsable Monotributo<br>
-    Esteban Echeverr&iacute;a 964, Wilde (B1875ATT), Provincia de Buenos Aires, Argentina<br>
-    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a> &middot; <a href="/envios">Env&iacute;os</a>
-  </div>
+  {FOOTER_LEGAL}
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -1856,11 +1850,7 @@ def _shell_blog(titulo: str, meta: str, canonical: str, jsonld: list, hero: str,
     <div class="footer-col"><h4>Ayuda</h4><a href="/faq">Preguntas frecuentes</a><a href="/envios">Envíos</a><a href="/devoluciones">Devoluciones</a><a href="/sobre_nosotros">Sobre nosotros</a></div>
   </div>
   <div class="footer-bottom">© <span id="year"></span> El Gadget · Todos los derechos reservados</div>
-  <div class="footer-legal">
-    <strong>El Gadget</strong> &middot; Dami&aacute;n Ezequiel S&aacute;nchez &middot; CUIT 20-42396477-5 &middot; Responsable Monotributo<br>
-    Esteban Echeverr&iacute;a 964, Wilde (B1875ATT), Provincia de Buenos Aires, Argentina<br>
-    <a href="mailto:tienda@elgadget.com.ar">tienda@elgadget.com.ar</a> &middot; <a href="https://wa.me/5491126228481" target="_blank" rel="noopener">WhatsApp +54 9 11 2622-8481</a> &middot; <a href="/contacto">Contacto</a> &middot; <a href="/envios">Env&iacute;os</a>
-  </div>
+  {FOOTER_LEGAL}
 </footer>
 <div class="toast" id="toast"></div>
 <script src="/assets/js/cart.js"></script>
