@@ -78,3 +78,8 @@ SEO-KEYWORDS/
 # Backups de ordenes/clientes: llevan datos personales y este repo es PUBLICO.
 # Nunca se commitean; viajan solo como artifact CIFRADO de Actions.
 data/backup_*
+
+# Salidas de herramientas manuales de marketing (kit_whatsapp_referidos.py y
+# las que vengan): llevan nombres y telefonos de personas reales y este repo es
+# PUBLICO. Un `git add -A` distraido los publicaria.
+salidas/
