@@ -12,6 +12,7 @@ import base64
 import html as _html
 import sys
 from pathlib import Path
+from urllib.parse import quote as _quote
 
 import requests
 
@@ -23,6 +24,13 @@ logger = get_logger('email_notificaciones')
 
 RESEND_URL = "https://api.resend.com/emails"
 TIENDA_NOMBRE = "El Gadget"
+
+# URLs públicas que viajan DENTRO de un email: constantes fijas, nunca SITE_URL
+# (el secret ENV_FILE del CI trae un SITE_URL viejo y ya publicó links rotos
+# hacia afuera una vez — ver CLAUDE.md). La de la API sirve la placa del
+# referido, que es una imagen pública sin sesión.
+CANONICAL_DOMAIN = "https://elgadget.com.ar"
+API_PUBLICA = "https://el-gadget-tienda.onrender.com"
 
 # ── Paleta de marca (igual a pages/assets/css/style.css) ──
 INK = "#14151A"
@@ -656,6 +664,7 @@ def enviar_email_nurturing_d7(nombre: str, email: str, codigo: str, stats: dict)
           <td style="padding:10px 16px;font-weight:700;color:{ACCENT_DEEP}">{faltan} ventas más</td>
         </tr>
       </table>
+      {bloque_compartir(codigo, 'Arrancá por el tip 1, ahora:')}
       {_boton('Ver productos para recomendar', f"{site_url}/mi_cuenta")}
     """
     return _enviar(email, f"3 tips para maximizar tus comisiones - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
@@ -869,6 +878,65 @@ def enviar_email_invitar_referido(nombre: str, email: str) -> dict:
     return _enviar(email, f"¿Te gustó tu compra? Ganá plata recomendándonos - {TIENDA_NOMBRE}", _layout(cuerpo, marketing=True), is_marketing=True)
 
 
+def link_referido(codigo: str) -> str:
+    """El link que hay que compartir. `?ref=` lo captura cart.js, lo guarda y el
+    checkout aplica el descuento solo: el amigo no tiene que tipear nada."""
+    return f"{CANONICAL_DOMAIN}/?ref={_quote(codigo)}"
+
+
+def bloque_compartir(codigo: str, intro: str = "Compartilo en un toque:") -> str:
+    """Material listo para compartir: botón de WhatsApp con el mensaje ya
+    escrito, la placa para Stories y el texto para copiar.
+
+    POR QUÉ (2026-10-10): los 29 referidos recibieron la secuencia completa
+    (d1/d3/d7/d14/d30, 0 pendientes) y ninguno vendió. Los emails explicaban el
+    programa y daban textos para copiar, pero (a) nunca entregaban la placa
+    —que el endpoint /api/referidos/placa ya generaba—, y (b) los textos pedían
+    que el amigo TIPEARA el código en el checkout, cuando `?ref=` lo aplica
+    solo. Acá se cierran las dos cosas, y el mismo bloque lo usan todos los
+    emails del programa para que no vuelvan a divergir.
+    """
+    codigo_s = _html.escape(codigo)
+    link = link_referido(codigo)
+    mensaje = (f"Te paso mi link de El Gadget: entrás y ya te queda cargado hasta 20% OFF. {link}")
+    wa = f"https://wa.me/?text={_quote(mensaje)}"
+    placa = f"{API_PUBLICA}/api/referidos/placa?codigo={_quote(codigo)}"
+    return f"""
+      <p style="color:{INK};font-weight:700;font-size:15px;margin:26px 0 12px">{_html.escape(intro)}</p>
+      <p style="text-align:center;margin:0 0 10px">
+        <a href="{wa}" style="display:inline-block;background-color:#25D366 !important;color:#FFFFFF !important;
+           padding:14px 28px;text-decoration:none;border-radius:10px;font-weight:700;font-size:15px">
+          Compartir por WhatsApp
+        </a>
+      </p>
+      <p style="color:{GRAY_600};font-size:12.5px;text-align:center;margin:0 0 22px">
+        Se abre WhatsApp con el mensaje escrito. Elegís a quién mandárselo y listo.
+      </p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:20px">
+        <tr>
+          <td style="padding:16px 18px;background:{ACCENT_PALE} !important" align="center">
+            <strong style="color:{INK}">Tu placa para Stories</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin:6px 0 12px">
+              Lista para subir a Instagram o al estado de WhatsApp.
+            </div>
+            <img src="{placa}" alt="Placa con el código {codigo_s}" width="150"
+                 style="width:150px;height:auto;border-radius:10px;display:block;margin:0 auto 12px">
+            <a href="{placa}" style="color:{INK};font-weight:700;font-size:13px">Descargar la placa</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:14px 18px">
+            <strong style="color:{INK}">O copiá y pegá este texto</strong>
+            <div style="color:{GRAY_600};font-size:13px;margin-top:6px;background:{CREAM};padding:10px 12px;border-radius:8px">
+              {_html.escape(mensaje)}
+            </div>
+          </td>
+        </tr>
+      </table>
+    """
+
+
 def enviar_email_activacion_d1(nombre: str, email: str, codigo: str, source: str = None) -> dict:
     """N4 — D+1: Activación del referido — código destacado + textos listos para compartir."""
     nombre_s = _html.escape(nombre)
@@ -888,47 +956,15 @@ def enviar_email_activacion_d1(nombre: str, email: str, codigo: str, source: str
         </span>
       </div>
       <p style="color:{GRAY_600};margin:0 0 22px">
-        Cuanto antes lo compartas, antes cobrás tu primera comisión.
+        No hace falta que nadie lo escriba a mano: con tu link, el descuento
+        <strong style="color:{INK}">se aplica solo</strong> cuando tu amigo llega a pagar.
       </p>
-      <p style="color:{INK};font-weight:700;font-size:15px;margin:0 0 12px">Acá tenés 3 textos listos para copiar y pegar:</p>
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-             style="border:1px solid {GRAY_200};border-radius:12px;overflow:hidden;margin-bottom:20px">
-        <tr>
-          <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200};background:{ACCENT_PALE} !important">
-            <strong style="color:{INK}">Para tu Story o estado de WhatsApp</strong>
-            <div style="color:{GRAY_600};font-size:13px;margin-top:6px;background:{CREAM};padding:10px 12px;border-radius:8px">
-              Les dejo mi código de descuento en El Gadget: <strong>{codigo_s}</strong><br>
-              Hasta 20% OFF en auriculares, luces, gadgets y más.<br>
-              elgadget.com.ar
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:14px 18px;border-bottom:1px solid {GRAY_200}">
-            <strong style="color:{INK}">Para mandarle a un amigo/a</strong>
-            <div style="color:{GRAY_600};font-size:13px;margin-top:6px;background:{CREAM};padding:10px 12px;border-radius:8px">
-              Che, encontré esta tienda El Gadget que tiene cosas re buenas.
-              Si querés comprar algo, usá mi código <strong>{codigo_s}</strong> y te hacen
-              hasta 20% de descuento: elgadget.com.ar
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:14px 18px">
-            <strong style="color:{INK}">Para un grupo de WhatsApp</strong>
-            <div style="color:{GRAY_600};font-size:13px;margin-top:6px;background:{CREAM};padding:10px 12px;border-radius:8px">
-              Les dejo un código de descuento de hasta 20% en El Gadget
-              (tienen auriculares, luces, gadgets y más).
-              Código: <strong>{codigo_s}</strong> en elgadget.com.ar
-            </div>
-          </td>
-        </tr>
-      </table>
+      {bloque_compartir(codigo)}
       <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
         Y no te olvides: tenés <strong style="color:{INK}">50% OFF</strong> en tu primera compra como referido.
         Probá un producto, usalo, y después recomendalo con conocimiento real.
       </p>
-      {_boton('Comprar con 50% OFF', site_url)}
+      {_boton('Comprar con 50% OFF', link_referido(codigo))}
       {_boton('Ver mi panel', f"{site_url}/mi_cuenta")}
     """
     return _enviar(email, f"Tu código {codigo_s} está listo — compartilo ahora", _layout(cuerpo, marketing=True), is_marketing=True)
@@ -1107,17 +1143,13 @@ def enviar_email_ultimo_recordatorio_d30(nombre: str, email: str, codigo: str) -
       </p>
       <p style="color:{GRAY_600};margin:0 0 8px;font-size:13px">
         Si en algún momento querés ganar comisiones recomendando
-        productos de El Gadget, acá te dejamos un texto listo:
+        productos de El Gadget, es un toque:
       </p>
-      <div style="background:{CREAM};border-radius:10px;padding:14px 16px;margin:0 0 22px;font-size:13px;color:{GRAY_600};border:1px solid {GRAY_200}">
-        Les dejo mi código de descuento en El Gadget: <strong style="color:{INK}">{codigo_s}</strong><br>
-        Hasta 20% OFF en auriculares, luces, gadgets y más.<br>
-        elgadget.com.ar
-      </div>
+      {bloque_compartir(codigo, 'Tu material, listo:')}
       <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
         Sin presión. Cuando quieras, estamos.
       </p>
-      {_boton('Ver productos', site_url)}
+      {_boton('Ver productos', link_referido(codigo))}
     """
     return _enviar(email, f"Tu código {codigo_s} sigue activo", _layout(cuerpo, marketing=True), is_marketing=True)
 
