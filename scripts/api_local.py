@@ -39,7 +39,7 @@ import time
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, date
 import requests
 import json
 
@@ -54,6 +54,7 @@ from utils.email_notificaciones import (
     enviar_email_primera_venta, enviar_email_carrito_abandonado, enviar_email_invitar_referido,
     enviar_email_venta_admin,
     enviar_email_activacion_d1, enviar_email_notificacion_venta,
+    enviar_email_reactivacion,
     enviar_email_ascenso_tier, enviar_email_postcompra_50,
     enviar_email_ultimo_recordatorio_d30,
     enviar_email_carrito_abandonado_2, enviar_email_carrito_abandonado_3,
@@ -126,6 +127,12 @@ else:
     MP_WEBHOOK_SECRET = _env.get('MP_WEBHOOK_SECRET_TEST', '')
 SITE_URL = _env.get('SITE_URL', 'http://localhost:5500')
 API_URL = _env.get('API_URL', 'https://el-gadget-tienda.onrender.com')
+
+# % del código de bienvenida que recibe quien se suma al programa de referidos.
+# Si se toca, correr tests/test_envio_bonificado.py: el peor caso (pedido justo
+# en el umbral de envío gratis, GBA1, MP 7,61%) deja de ser rentable pasando
+# del 52%.
+DESCUENTO_BIENVENIDA_REFERIDO = 50
 
 app = FastAPI(
     title="Ecommerce API",
@@ -4130,7 +4137,16 @@ def registro_referido(request: Request, datos: RegistroReferido):
             VALUES (?, ?, ?, ?, ?, ?)
         """, (datos.nombre, datos.email.lower(), datos.telefono, codigo_bienvenida, password_hash, password_salt))
         usuario_id = cursor.lastrowid
-        descuento_valor = 50 if datos.source and 'landing' in datos.source else 10
+        # Todo el que se anota al programa recibe 50% en su primera compra, venga
+        # de una landing de /ganar/ o de /referidos. Antes dependía de `source`, y
+        # como pages/referidos.html no lo manda, quien entraba por la página
+        # principal del programa recibía 10% mientras el email le prometía 50%
+        # (decisión de Damián, 2026-10-10: nivelar todos a 50%).
+        # Es seguro: un código de bienvenida > 10% NO se apila con el del
+        # referido —gana el que más le conviene al cliente, ver "2.3 stacking"
+        # en crear_orden—, así que el techo real sigue siendo 50%, por debajo
+        # del 52% que cubre tests/test_envio_bonificado.py.
+        descuento_valor = DESCUENTO_BIENVENIDA_REFERIDO
         cursor.execute("""
             INSERT OR IGNORE INTO descuentos (nombre, tipo, valor, alcance, codigo, email_asociado, activo, uso_maximo)
             VALUES (?, 'porcentaje', ?, 'todos', ?, ?, 1, 1)
@@ -4715,6 +4731,84 @@ def admin_eliminar_referido(ref_id: int, x_admin_password: Optional[str] = Heade
     return {"ok": True, "mensaje": "Referido eliminado correctamente"}
 
 
+@app.post("/api/admin/referidos/reactivar")
+def admin_reactivar_referidos(simular: bool = True, nivelar: bool = False,
+                              limite: int = 0,
+                              x_admin_password: Optional[str] = Header(None)):
+    """Envío ÚNICO de reactivación a los referidos que nunca vendieron.
+
+    `simular=True` (el default) NO manda nada: devuelve a quiénes les tocaría,
+    con qué % de bienvenida y una vista previa del HTML. Son personas reales y
+    el correo sale de verdad, así que mandar es explícito: `simular=false`.
+
+    `nivelar=True` lleva los códigos de bienvenida existentes a
+    DESCUENTO_BIENVENIDA_REFERIDO antes de armar el email, para que lo que
+    promete el mail sea lo que después cobra el checkout.
+
+    `limite` acota a los N más recientes (0 = todos); sirve para mandarle
+    primero a uno solo y mirar cómo llega.
+    """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+
+    conn = get_db()
+    cursor = conn.cursor()
+    try:
+        filas = cursor.execute(
+            "SELECT id, nombre, email, codigo, creado_at FROM referidos "
+            "WHERE activo = 1 AND (cantidad_ventas IS NULL OR cantidad_ventas = 0) "
+            "ORDER BY creado_at DESC"
+        ).fetchall()
+        destinatarios = [dict(f) for f in filas]
+        if limite and limite > 0:
+            destinatarios = destinatarios[:limite]
+
+        nivelados = 0
+        if nivelar and not simular:
+            for d in destinatarios:
+                r = cursor.execute(
+                    "UPDATE descuentos SET valor = ? WHERE email_asociado = ? "
+                    "AND codigo LIKE 'BIENVENIDO-%' AND activo = 1 AND valor < ?",
+                    (DESCUENTO_BIENVENIDA_REFERIDO, (d['email'] or '').lower(),
+                     DESCUENTO_BIENVENIDA_REFERIDO)
+                )
+                nivelados += r.rowcount or 0
+            conn.commit()
+
+        ocasion = _ocasion_vigente()
+        enviados, errores, preview = 0, [], None
+        for d in destinatarios:
+            pct = (DESCUENTO_BIENVENIDA_REFERIDO if (nivelar and not simular)
+                   else _pct_bienvenida(cursor, d['email']))
+            if simular:
+                if preview is None:
+                    preview = {"para": d['email'], "codigo": d['codigo'], "pct_bienvenida": pct}
+                continue
+            try:
+                res = enviar_email_reactivacion(d['nombre'], d['email'], d['codigo'],
+                                                pct_bienvenida=pct, ocasion=ocasion)
+                if 'error' in res:
+                    errores.append({"email": d['email'], "error": str(res['error'])[:200]})
+                else:
+                    enviados += 1
+            except Exception as e:
+                errores.append({"email": d['email'], "error": str(e)[:200]})
+    finally:
+        conn.close()
+
+    return {
+        "simulado": simular,
+        "destinatarios": len(destinatarios),
+        "detalle": [{"nombre": d['nombre'], "email": d['email'], "codigo": d['codigo'],
+                     "alta": d['creado_at']} for d in destinatarios],
+        "ocasion": ocasion,
+        "preview": preview,
+        "codigos_nivelados": nivelados,
+        "enviados": enviados,
+        "errores": errores,
+    }
+
+
 @app.post("/api/admin/referidos/{ref_id}/marcar-pagado")
 def admin_marcar_pagado_referido(ref_id: int, datos: MarcarPagadoReferido,
                                   x_admin_password: Optional[str] = Header(None)):
@@ -4738,6 +4832,32 @@ def admin_marcar_pagado_referido(ref_id: int, datos: MarcarPagadoReferido,
 # ============================================================================
 # NURTURING — procesamiento automático de emails de marketing
 # ============================================================================
+
+def _ocasion_vigente():
+    """La fecha comercial que está corriendo, como bloque para un email, o None.
+
+    Sale de la MISMA fuente que la home y los listados
+    (utils.bloques_productos.fechas_comerciales_vigentes), así que el referido
+    recibe el link al listado que el sitio está empujando ese día en vez de a
+    la home: una razón concreta para mandar el mensaje hoy.
+    """
+    try:
+        from utils.bloques_productos import fechas_comerciales_vigentes
+        vigentes = [f for f in fechas_comerciales_vigentes() if f.get('entrega')]
+        if not vigentes:
+            return None
+        ev = vigentes[0]
+        dias = (ev['fecha'] - date.today()).days
+        cuando = 'es hoy' if dias == 0 else ('es mañana' if dias == 1 else f'faltan {dias} días')
+        return {
+            'titulo': f"{ev['nombre']}: {cuando}",
+            'texto': ev.get('sub', ''),
+            'cta': 'Mandá este link con tu código →',
+            'path': ev['href'],
+        }
+    except Exception:
+        return None
+
 
 def _pct_bienvenida(cursor, email: str):
     """% real del código de bienvenida de ese email, o None si no tiene.

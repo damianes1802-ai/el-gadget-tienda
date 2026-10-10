@@ -937,6 +937,63 @@ def bloque_compartir(codigo: str, intro: str = "Compartilo en un toque:") -> str
     """
 
 
+def enviar_email_reactivacion(nombre: str, email: str, codigo: str,
+                              pct_bienvenida: int = None, ocasion: dict = None) -> dict:
+    """Envío ÚNICO a los referidos que ya recibieron toda la secuencia y nunca
+    vendieron. No es parte del nurturing automático: lo dispara a mano
+    /api/admin/referidos/reactivar.
+
+    El tono es el que corresponde: no los retamos por no haber vendido, les
+    decimos que les faltó la herramienta —que es la verdad, ver
+    bloque_compartir()— y les damos una razón concreta para hoy.
+    """
+    nombre_s = _html.escape(nombre)
+    env = Config.cargar_env()
+    site_url = env.get('SITE_URL', CANONICAL_DOMAIN).rstrip('/')
+    link = link_referido(codigo)
+
+    bloque_ocasion = ""
+    if ocasion:
+        url = f"{CANONICAL_DOMAIN}{ocasion['path']}?ref={_quote(codigo)}"
+        bloque_ocasion = f"""
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+             style="border:1px solid {ACCENT};border-radius:12px;background:{ACCENT_PALE} !important;margin:0 0 22px">
+        <tr><td style="padding:16px 18px">
+          <strong style="color:{INK}">{_html.escape(ocasion['titulo'])}</strong>
+          <div style="color:{GRAY_600};font-size:13px;margin-top:6px">{_html.escape(ocasion['texto'])}</div>
+          <div style="margin-top:12px"><a href="{url}" style="color:{INK};font-weight:700;font-size:13px">{_html.escape(ocasion['cta'])}</a></div>
+        </td></tr>
+      </table>
+    """
+
+    pct_txt = ""
+    if pct_bienvenida:
+        pct_txt = (f"""
+      <p style="color:{GRAY_600};margin:0 0 22px;font-size:13px">
+        Y sigue en pie tu <strong style="color:{INK}">{int(pct_bienvenida)}% OFF</strong> de bienvenida:
+        probar un producto vos mismo es la forma más fácil de recomendarlo después.
+      </p>""")
+
+    cuerpo = f"""
+      <h2 style="margin:0 0 6px;font-size:22px;color:{INK}">{nombre_s}, te debíamos esto</h2>
+      <p style="color:{GRAY_600};margin:0 0 22px">
+        Cuando te sumaste te mandamos tu código y te dijimos que lo compartieras.
+        Lo que no te dimos fue lo importante: <strong style="color:{INK}">el material
+        listo para mandar</strong>. Va ahora, y con una diferencia que importa —tu
+        link aplica el descuento solo, tu amigo no tiene que escribir ningún código—.
+      </p>
+      {bloque_ocasion}
+      {bloque_compartir(codigo, 'Tu material, listo para usar:')}
+      {pct_txt}
+      {_boton('Ver mi panel', f"{site_url}/mi_cuenta")}
+      <p style="color:{GRAY_600};margin:22px 0 0;font-size:12.5px;text-align:center">
+        Si no te interesa seguir en el programa, respondé este mail y te damos de baja.
+      </p>
+    """
+    return _enviar(email, f"{nombre_s}, te faltaba esto para vender",
+                   _layout(cuerpo, marketing=True), is_marketing=True)
+
+
 def enviar_email_activacion_d1(nombre: str, email: str, codigo: str, source: str = None,
                                pct_bienvenida: int = None) -> dict:
     """N4 — D+1: Activación del referido — código destacado + textos listos para compartir."""
