@@ -279,12 +279,22 @@ function escapeHtmlBasico(str) {
 }
 
 /**
- * Prefijo relativo para enlazar a páginas de la raíz de pages/ (login,
- * mi_cuenta.html, etc.) tanto desde la raíz como desde las páginas de
- * producto, que viven dos niveles más abajo (pages/producto/<slug>/).
+ * Prefijo para enlazar a las páginas de la raíz del sitio (login, mi_cuenta).
+ *
+ * Devuelve '/' a secas: el sitio se sirve desde la raíz del dominio
+ * (elgadget.com.ar, con CNAME) y todo el HTML generado ya enlaza absoluto
+ * (/carrito, /envios, /mi_cuenta).
+ *
+ * Antes calculaba un prefijo relativo y solo contemplaba /producto/, así que
+ * en las otras 57 páginas de dos niveles —13 categorías, 7 colecciones, 21
+ * del blog y 16 landings de /ganar/— el enlace quedaba relativo y caía en un
+ * 404: desde /coleccion/regalos-para-mama/ el botón apuntaba a
+ * /coleccion/regalos-para-mama/mi_cuenta. Rompía justo donde más duele: las
+ * colecciones son el destino de la publicidad y en /ganar/ es donde la gente
+ * se registra como referidor.
  */
 function egRootPath() {
-  return location.pathname.includes('/producto/') ? '../../' : '';
+  return '/';
 }
 
 /**
