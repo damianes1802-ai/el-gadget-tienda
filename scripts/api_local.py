@@ -2547,27 +2547,93 @@ async def mp_webhook(request: Request):
             )
             if mp_res.status_code == 200:
                 pago = mp_res.json()
-                estado_pago = pago.get("status", "")
                 orden_id = pago.get("external_reference")
                 if orden_id:
                     conn = get_db()
-                    conn.execute(
-                        "UPDATE ordenes SET estado_pago = ? WHERE id = ?",
-                        (estado_pago, int(orden_id))
-                    )
-                    # El checkout ya no pide DNI: la factura sale con el documento
-                    # que informa Mercado Pago (payer.identification), si el
-                    # cliente no cargó un CUIT a mano. Se guarda ANTES de facturar.
-                    _guardar_dni_desde_mp(conn, int(orden_id), pago)
-                    conn.commit()
-
-                    if estado_pago == "approved":
-                        procesar_pago_aprobado(conn, int(orden_id))
-
+                    # Misma rutina que usa la conciliación: guarda el estado y el
+                    # id del pago, completa el DNI del pagador y, si está
+                    # aprobado, factura y manda el email.
+                    _aplicar_pago_mp(conn, int(orden_id), pago)
                     conn.close()
     except Exception as e:
         print(f"Webhook error: {e}")
     return {"status": "ok"}
+
+
+def _aplicar_pago_mp(conn: sqlite3.Connection, orden_id: int, pago: dict) -> str:
+    """Aplica a la orden lo que dice Mercado Pago del pago. Misma lógica que el
+    webhook, extraída para poder reusarla desde la conciliación."""
+    estado_pago = pago.get("status", "")
+    conn.execute("UPDATE ordenes SET estado_pago = ?, mercadopago_id = ? WHERE id = ?",
+                 (estado_pago, str(pago.get("id") or ""), orden_id))
+    _guardar_dni_desde_mp(conn, orden_id, pago)
+    conn.commit()
+    if estado_pago == "approved":
+        procesar_pago_aprobado(conn, orden_id)
+    return estado_pago
+
+
+@app.post("/api/admin/pagos/conciliar")
+def admin_conciliar_pagos(horas: int = 72, x_admin_password: Optional[str] = Header(None)):
+    """Le pregunta a Mercado Pago por las órdenes que quedaron sin estado de pago.
+
+    POR QUÉ EXISTE: el webhook de Mercado Pago es la única vía por la que una
+    orden pasa a 'approved', y es un aviso de ida sin reintento garantizado. En
+    Render free el servicio se duerme a los 15 minutos, y despertarlo tarda ~50s;
+    MP corta mucho antes. Resultado comprobado el 2026-10-12 con la orden #16:
+    el cliente pagó $5.650 (pago 182800956851, approved, live), el dinero entró,
+    y la orden quedó en estado_pago NULL para siempre — sin email, sin factura,
+    sin comisión y fuera del CSV de despacho a Droppers, que filtra por
+    estado_pago='approved'. El endpoint del webhook estaba bien: la firma valida
+    y responde 200 a una notificación bien firmada. El aviso nunca llegó.
+
+    Esto invierte la dirección: en vez de esperar que MP nos avise, preguntamos.
+    Es idempotente —vuelve a leer el estado real de MP— y no toca las órdenes ya
+    aprobadas, así que se puede correr cada pocos minutos sin efectos.
+    """
+    if not _es_admin(x_admin_password):
+        raise HTTPException(status_code=401, detail="No autorizado")
+    if not MP_ACCESS_TOKEN:
+        return {"ok": False, "motivo": "Mercado Pago no configurado"}
+
+    conn = get_db()
+    pendientes = conn.execute("""
+        SELECT id FROM ordenes
+        WHERE (estado_pago IS NULL OR estado_pago NOT IN ('approved', 'rejected', 'cancelled', 'refunded'))
+          AND fecha >= datetime('now', ?)
+        ORDER BY id
+    """, (f'-{int(horas)} hours',)).fetchall()
+
+    revisadas, actualizadas, detalle = 0, 0, []
+    for fila in pendientes:
+        orden_id = fila["id"]
+        revisadas += 1
+        try:
+            res = requests.get(
+                "https://api.mercadopago.com/v1/payments/search",
+                params={"external_reference": str(orden_id)},
+                headers={"Authorization": f"Bearer {MP_ACCESS_TOKEN}"},
+                timeout=20,
+            )
+            if res.status_code != 200:
+                detalle.append({"orden": orden_id, "error": f"MP HTTP {res.status_code}"})
+                continue
+            pagos = res.json().get("results") or []
+            # Si hubo varios intentos, manda el aprobado; si no, el último.
+            pago = next((p for p in pagos if p.get("status") == "approved"), pagos[-1] if pagos else None)
+            if not pago:
+                detalle.append({"orden": orden_id, "estado": "sin pagos en MP"})
+                continue
+            estado = _aplicar_pago_mp(conn, orden_id, pago)
+            actualizadas += 1
+            detalle.append({"orden": orden_id, "estado": estado, "pago": pago.get("id")})
+        except Exception as e:
+            detalle.append({"orden": orden_id, "error": str(e)[:120]})
+
+    conn.close()
+    if actualizadas:
+        _cache_invalidar()
+    return {"ok": True, "revisadas": revisadas, "actualizadas": actualizadas, "detalle": detalle}
 
 
 def _guardar_dni_desde_mp(conn: sqlite3.Connection, orden_id: int, pago: dict) -> None:

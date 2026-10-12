@@ -1,0 +1,68 @@
+name: Conciliar pagos de Mercado Pago
+
+# POR QUÉ EXISTE
+# El webhook de Mercado Pago es la única vía por la que una orden pasa a
+# 'approved', y es un aviso de ida: si no llega, no vuelve a intentarse lo
+# suficiente. En Render free el servicio se duerme a los 15 minutos y tarda
+# ~50s en despertar; MP corta mucho antes.
+#
+# Pasó de verdad el 2026-10-12 con la orden #16: el cliente pagó $5.650 (pago
+# 182800956851, approved, live_mode), el dinero entró a la cuenta, y la orden
+# quedó con estado_pago NULL — sin email de confirmación, sin factura, sin
+# comisión al referidor, y fuera del CSV de despacho a Droppers, que filtra por
+# estado_pago='approved'. El endpoint del webhook estaba sano: valida firma y
+# responde 200 a una notificación bien firmada. El aviso nunca llegó.
+#
+# Este workflow invierte la dirección: en vez de esperar que MP avise,
+# preguntamos nosotros. Es idempotente (relee el estado real desde MP y no toca
+# las órdenes ya resueltas), así que correrlo seguido no tiene efectos.
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # cada 15 minutos
+  workflow_dispatch:
+    inputs:
+      horas:
+        description: 'Cuántas horas hacia atrás revisar'
+        required: false
+        default: '72'
+
+jobs:
+  conciliar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruir config/.env desde el secret
+        run: printf '%s' "${{ secrets.ENV_FILE }}" > config/.env
+
+      - name: Conciliar pagos pendientes
+        run: |
+          API_URL=$(grep '^API_URL=' config/.env | cut -d= -f2- || true)
+          API_URL=${API_URL:-https://el-gadget-tienda.onrender.com}
+          ADMIN_PWD=$(grep '^ADMIN_PASSWORD=' config/.env | cut -d= -f2-)
+          HORAS="${{ github.event.inputs.horas || '72' }}"
+
+          # Render free duerme: se lo despierta antes de la llamada real.
+          curl -s --max-time 90 "$API_URL/" > /dev/null || true
+
+          echo "Conciliando pagos de las últimas $HORAS horas..."
+          for intento in 1 2 3; do
+            if curl -sf --max-time 120 -X POST \
+                 "$API_URL/api/admin/pagos/conciliar?horas=$HORAS" \
+                 -H "X-Admin-Password: $ADMIN_PWD" -H "Content-Type: application/json" \
+                 -o respuesta.json; then
+              cat respuesta.json
+              # Que el resultado quede a la vista en el resumen del run y no
+              # enterrado en el log.
+              echo "Conciliación de pagos" >> "$GITHUB_STEP_SUMMARY"
+              echo '```json' >> "$GITHUB_STEP_SUMMARY"
+              cat respuesta.json >> "$GITHUB_STEP_SUMMARY"
+              echo '```' >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            echo "Intento $intento sin respuesta; reintento en 30s..."
+            sleep 30
+          done
+          echo "::error::La conciliación no respondió tras 3 intentos ($API_URL)."
+          exit 1
