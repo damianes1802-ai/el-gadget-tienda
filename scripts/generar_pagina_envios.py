@@ -32,7 +32,7 @@ from utils.legales import FOOTER_LEGAL
 
 CANONICAL_DOMAIN = "https://elgadget.com.ar"
 BRAND = "El Gadget"
-WHATSAPP_NUM = "5491126228481"
+WHATSAPP_NUM = "5491126228477"
 OUTPUT_FILE = Config.BASE_DIR / 'pages' / 'envios.html'
 
 FAVICON = ("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>"

@@ -40,8 +40,8 @@ CUIT = "20-42396477-5"
 CONDICION = "Responsable Monotributo"
 DOMICILIO = "Esteban Echeverr&iacute;a 964, Wilde (B1875ATT), Provincia de Buenos Aires, Argentina"
 EMAIL = "tienda@elgadget.com.ar"
-WHATSAPP_NUM = "5491126228481"
-WHATSAPP_VISIBLE = "+54 9 11 2622-8481"
+WHATSAPP_NUM = "5491126228477"
+WHATSAPP_VISIBLE = "+54 9 11 2622-8477"
 
 # QR de Data Fiscal de ARCA (RG 4004-E). El target `_F960AFIPInfo` es el que
 # exige el organismo para que abra en su ventana.

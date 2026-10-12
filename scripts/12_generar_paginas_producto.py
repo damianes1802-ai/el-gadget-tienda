@@ -75,7 +75,7 @@ METADATA_DIR = Config.PRODUCTOS_DIR
 AGOTADO_DIAS_MAX = 90
 
 BRAND = "El Gadget"
-WHATSAPP_NUM = "5491126228481"
+WHATSAPP_NUM = "5491126228477"
 RELACIONADOS_LIMIT = 4
 CANONICAL_DOMAIN = "https://elgadget.com.ar"  # dominio canónico fijo, no depende de SITE_URL del .env
 
