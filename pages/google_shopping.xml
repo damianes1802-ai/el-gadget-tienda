@@ -4,7 +4,7 @@
     <title>El Gadget</title>
     <link>https://elgadget.com.ar</link>
     <description>Catálogo de productos de El Gadget para Google Merchant Center</description>
-    <lastBuildDate>Wed, 14 Oct 2026 06:34:24 -0300</lastBuildDate>
+    <lastBuildDate>Thu, 15 Oct 2026 06:37:42 -0300</lastBuildDate>
     <item>
       <g:id>505524</g:id>
       <title>Vela Cumpleaños Payaso Sorpresa: ¡Magia y Alegría en Tu Torta!</title>
@@ -1711,33 +1711,6 @@
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:identifier_exists>no</g:identifier_exists>
       <g:google_product_category>Home &amp; Garden &gt; Bathroom Accessories &gt; Soap &amp; Lotion Dispensers</g:google_product_category>
-      <g:product_type>Bazar y Cocina</g:product_type>
-    </item>
-    <item>
-      <g:id>G-TERMOTAPAMADE</g:id>
-      <title>Botella Térmica Acero Inoxidable 400ml Frío y Calor por Horas</title>
-      <description>Llevá tus bebidas preferidas siempre a la temperatura ideal con esta botella térmica de 400ml. Perfecta para el día a día, mantiene el frío y el calor por horas en cualquier momento y lugar. - Ideal para tu porción individual de café, té o agua, compacta para llevarla donde quieras en tu cartera o mochila. - Tapa a rosca con diseño simil madera: un toque de estilo y un cierre seguro para evitar derrames indeseados. - Incluye filtro de malla metálica: disfrutá de infusiones o mate cocido sin restos, con la mejor experiencia de sabor. - Fabricada en acero inoxidable SUS 304 con recubrimiento de PP y base antideslizante de silicona: máxima durabilidad, higiene y estabilidad en cualquier superficie. - Mantiene tus bebidas calientes hasta por 5 horas y frías hasta 10 horas: disfrutá de tu bebida perfecta en todo momento. No importa si vas al trabajo, al gimnasio o simplemente querés disfrutar de tu bebida en casa, esta botella es tu compañera ideal. Olvidate de las bebidas tibias y sumala hoy a tu carrito para disfrutar de la practicidad y el estilo.</description>
-      <link>https://elgadget.com.ar/producto/botella-termica-acero-inoxidable-400ml-frio-y-calor-por-horas-g-termotapamade/</link>
-      <g:image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_001</g:image_link>
-      <g:additional_image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_002</g:additional_image_link>
-      <g:additional_image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_003</g:additional_image_link>
-      <g:additional_image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_004</g:additional_image_link>
-      <g:additional_image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_005</g:additional_image_link>
-      <g:additional_image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_006</g:additional_image_link>
-      <g:additional_image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_007</g:additional_image_link>
-      <g:additional_image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_008</g:additional_image_link>
-      <g:additional_image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_009</g:additional_image_link>
-      <g:additional_image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_010</g:additional_image_link>
-      <g:additional_image_link>https://res.cloudinary.com/deq2ofluf/image/upload/prod_G-TERMOTAPAMADE_011</g:additional_image_link>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:price>37500.00 ARS</g:price>
-      <g:sale_price>30000.00 ARS</g:sale_price>
-      <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
-      <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
-      <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:google_product_category>Home &amp; Garden &gt; Kitchen &amp; Dining &gt; Food &amp; Beverage Carriers &gt; Thermoses</g:google_product_category>
       <g:product_type>Bazar y Cocina</g:product_type>
     </item>
     <item>

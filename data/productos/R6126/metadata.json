@@ -22,7 +22,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-10-14T06:32:59.074603",
+  "fecha_mapeo_categorias": "2026-10-15T06:36:31.869557",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_R6126_001"
   ],
@@ -38,5 +38,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 20000.0,
-  "fecha_calculo_precio": "2026-10-14T06:34:23.389014"
+  "fecha_calculo_precio": "2026-10-15T06:37:41.432563"
 }

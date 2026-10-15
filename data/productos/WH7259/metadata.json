@@ -22,7 +22,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-10-14T06:32:59.068888",
+  "fecha_mapeo_categorias": "2026-10-15T06:36:31.864735",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_WH7259_001"
   ],
@@ -38,6 +38,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 34500.0,
-  "fecha_calculo_precio": "2026-10-14T06:34:23.457628",
+  "fecha_calculo_precio": "2026-10-15T06:37:41.490081",
   "fecha_agotado": "2026-08-23T06:20:06.549335"
 }
