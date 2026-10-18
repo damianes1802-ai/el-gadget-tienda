@@ -37,7 +37,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-malla-lunares.html",
   "droppers_id": 2855,
-  "fecha_scraping": "2026-10-17T06:27:59.883849",
+  "fecha_scraping": "2026-10-18T06:29:35.388100",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -47,7 +47,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-10-17T06:32:41.423437",
+  "fecha_mapeo_categorias": "2026-10-18T06:34:34.565841",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS04A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS04A_002",
@@ -66,5 +66,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 43500.0,
-  "fecha_calculo_precio": "2026-10-17T06:33:30.049985"
+  "fecha_calculo_precio": "2026-10-18T06:35:33.939889"
 }
