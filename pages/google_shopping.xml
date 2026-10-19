@@ -4,7 +4,7 @@
     <title>El Gadget</title>
     <link>https://elgadget.com.ar</link>
     <description>Catálogo de productos de El Gadget para Google Merchant Center</description>
-    <lastBuildDate>Sun, 18 Oct 2026 06:35:35 -0300</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2026 06:34:31 -0300</lastBuildDate>
     <item>
       <g:id>505524</g:id>
       <title>Vela Cumpleaños Payaso Sorpresa: ¡Magia y Alegría en Tu Torta!</title>
@@ -702,7 +702,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>28000.00 ARS</g:price>
-      <g:sale_price>22400.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -722,7 +721,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>14500.00 ARS</g:price>
-      <g:sale_price>11600.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -743,7 +741,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>15000.00 ARS</g:price>
-      <g:sale_price>12000.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -765,7 +762,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>26000.00 ARS</g:price>
-      <g:sale_price>20800.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -808,7 +804,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>16500.00 ARS</g:price>
-      <g:sale_price>13200.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -830,7 +825,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>31000.00 ARS</g:price>
-      <g:sale_price>24800.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -850,7 +844,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>31000.00 ARS</g:price>
-      <g:sale_price>24800.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -870,7 +863,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>31000.00 ARS</g:price>
-      <g:sale_price>24800.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -908,7 +900,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>16000.00 ARS</g:price>
-      <g:sale_price>12800.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -925,7 +916,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>10500.00 ARS</g:price>
-      <g:sale_price>8400.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -961,7 +951,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>17000.00 ARS</g:price>
-      <g:sale_price>13600.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -1392,7 +1381,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>73000.00 ARS</g:price>
-      <g:sale_price>58400.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>0.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -1417,7 +1405,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>36500.00 ARS</g:price>
-      <g:sale_price>29200.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -1619,7 +1606,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>37500.00 ARS</g:price>
-      <g:sale_price>30000.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -1919,8 +1905,7 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>44000.00 ARS</g:price>
-      <g:sale_price>35200.00 ARS</g:sale_price>
-      <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
+      <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>0.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1963,7 +1948,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>23500.00 ARS</g:price>
-      <g:sale_price>18800.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2004,7 +1988,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>34000.00 ARS</g:price>
-      <g:sale_price>27200.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2128,7 +2111,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>57000.00 ARS</g:price>
-      <g:sale_price>45600.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>0.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2151,7 +2133,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>14500.00 ARS</g:price>
-      <g:sale_price>11600.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2215,8 +2196,7 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>47000.00 ARS</g:price>
-      <g:sale_price>37600.00 ARS</g:sale_price>
-      <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
+      <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>0.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:identifier_exists>no</g:identifier_exists>
@@ -2309,7 +2289,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>59500.00 ARS</g:price>
-      <g:sale_price>47600.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>0.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2372,8 +2351,7 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>47000.00 ARS</g:price>
-      <g:sale_price>37600.00 ARS</g:sale_price>
-      <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
+      <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>0.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:identifier_exists>no</g:identifier_exists>
@@ -2720,7 +2698,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>28500.00 ARS</g:price>
-      <g:sale_price>22800.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2737,7 +2714,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>20000.00 ARS</g:price>
-      <g:sale_price>16000.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2754,7 +2730,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>20000.00 ARS</g:price>
-      <g:sale_price>16000.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2834,7 +2809,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>29000.00 ARS</g:price>
-      <g:sale_price>23200.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2870,7 +2844,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>12000.00 ARS</g:price>
-      <g:sale_price>9600.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2891,7 +2864,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>29500.00 ARS</g:price>
-      <g:sale_price>23600.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2915,7 +2887,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>34000.00 ARS</g:price>
-      <g:sale_price>27200.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -2976,7 +2947,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>12000.00 ARS</g:price>
-      <g:sale_price>9600.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>2899.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
@@ -3934,7 +3904,6 @@
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:price>55000.00 ARS</g:price>
-      <g:sale_price>44000.00 ARS</g:sale_price>
       <g:shipping><g:country>AR</g:country><g:region>AR-C</g:region><g:price>0.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>2</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:region>AR-B</g:region><g:price>8350.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>1</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
       <g:shipping><g:country>AR</g:country><g:price>8690.00 ARS</g:price><g:min_handling_time>1</g:min_handling_time><g:max_handling_time>2</g:max_handling_time><g:min_transit_time>2</g:min_transit_time><g:max_transit_time>5</g:max_transit_time></g:shipping>
