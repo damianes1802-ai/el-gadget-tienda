@@ -37,7 +37,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-cherry-vedetina-con-tiras-para-atar.html",
   "droppers_id": 2877,
-  "fecha_scraping": "2026-10-19T06:30:08.346037",
+  "fecha_scraping": "2026-10-20T06:31:29.692617",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -47,7 +47,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-10-19T06:33:16.413216",
+  "fecha_mapeo_categorias": "2026-10-20T06:37:00.819455",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15B_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15B_002",
@@ -66,5 +66,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 43500.0,
-  "fecha_calculo_precio": "2026-10-19T06:34:30.019797"
+  "fecha_calculo_precio": "2026-10-20T06:37:39.171258"
 }
