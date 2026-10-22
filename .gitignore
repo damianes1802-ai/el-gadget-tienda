@@ -3,6 +3,7 @@ config/.env
 config/elevenlabs_backup_code.txt
 config/credentials.json
 config/token.pickle
+config/token.json
 config/sheets_id.txt
 
 # Datos generados (imagenes, reportes, metadata) - muy pesado para git
