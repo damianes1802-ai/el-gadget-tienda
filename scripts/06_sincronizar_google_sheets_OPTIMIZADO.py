@@ -22,6 +22,7 @@ VERSION: 3.0 OPTIMIZADO
 """
 
 import json
+import os
 import pickle
 from pathlib import Path
 from datetime import datetime
@@ -148,20 +149,40 @@ class SincronizadorGoogleSheetsOptimizado:
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
                 print("   Renovando token...")
-                creds.refresh(Request())
-            else:
+                try:
+                    creds.refresh(Request())
+                except Exception as e:
+                    # Un refresh token se muere por varios motivos: lo revocaron,
+                    # la app sigue en modo "Testing" en Google Cloud (ahí vence a
+                    # los 7 días), o pasó medio año sin usarse. Antes esto cortaba
+                    # el script con un invalid_grant y nunca se llegaba al flujo
+                    # interactivo, así que no había forma de recuperarse sin
+                    # borrar el token a mano.
+                    print(f"   ⚠️  El token guardado ya no sirve: {e}")
+                    print("   Hay que autorizar de nuevo.")
+                    creds = None
+
+            if not creds or not creds.valid:
                 if not self.CREDENTIALS_FILE.exists():
                     print(f"❌ No existe: {self.CREDENTIALS_FILE}")
                     print("   Descargá credentials.json de Google Cloud Console")
                     return False
-                
+
+                if not sys.stdin.isatty() and not os.environ.get('FORZAR_LOGIN_GOOGLE'):
+                    # En el CI no hay nadie para abrir un navegador: mejor fallar
+                    # con un mensaje que explique qué hacer que colgarse esperando.
+                    print("❌ El token no sirve y acá no hay navegador para reautorizar.")
+                    print("   Corré este script a mano en la máquina de Damián y")
+                    print("   después subí config/token.json al secret GOOGLE_TOKEN_JSON_B64.")
+                    return False
+
                 print("   Abriendo navegador para autenticación...")
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    str(self.CREDENTIALS_FILE), 
+                    str(self.CREDENTIALS_FILE),
                     self.SCOPES
                 )
                 creds = flow.run_local_server(port=0)
-            
+
             self._guardar_token(creds)
 
         # Crear cliente
