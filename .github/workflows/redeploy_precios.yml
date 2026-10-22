@@ -37,10 +37,16 @@ jobs:
           ENV_FILE: ${{ secrets.ENV_FILE }}
           GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
           GOOGLE_TOKEN_PICKLE_B64: ${{ secrets.GOOGLE_TOKEN_PICKLE_B64 }}
+          GOOGLE_TOKEN_JSON_B64: ${{ secrets.GOOGLE_TOKEN_JSON_B64 }}
           GOOGLE_SHEETS_ID: ${{ secrets.GOOGLE_SHEETS_ID }}
         run: |
           printf '%s' "$ENV_FILE" > config/.env
           printf '%s' "$GOOGLE_CREDENTIALS_JSON" > config/credentials.json
+          # Token de Google: se prefiere el JSON (no depende de la version de
+          # google-auth). El pickle queda como respaldo del secret viejo.
+          if [ -n "$GOOGLE_TOKEN_JSON_B64" ]; then
+            printf '%s' "$GOOGLE_TOKEN_JSON_B64" | base64 -d > config/token.json
+          fi
           printf '%s' "$GOOGLE_TOKEN_PICKLE_B64" | base64 -d > config/token.pickle
           printf '%s\n' "$GOOGLE_SHEETS_ID" > config/sheets_id.txt
 

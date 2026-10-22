@@ -15,7 +15,12 @@ urllib3==2.0.7
 Pillow==10.1.0
 
 # Google Sheets (para módulo de sheets)
-google-auth==2.23.4
+# google-auth NO va clavado a una versión exacta: el token.pickle del secret se
+# grabó con una más nueva y la 2.23.4 no podía deserializarlo ("No module named
+# google.auth._regional_access_boundary_utils"), así que el paso 12 venía
+# fallando todos los días. El piso cubre esa diferencia; el script además ahora
+# guarda el token en JSON, que no depende de la versión de la librería.
+google-auth>=2.40,<3
 google-auth-oauthlib==1.1.0
 google-auth-httplib2==0.1.1
 google-api-python-client==2.108.0

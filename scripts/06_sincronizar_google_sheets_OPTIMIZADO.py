@@ -52,7 +52,16 @@ class SincronizadorGoogleSheetsOptimizado:
     
     # Archivos de configuración
     CREDENTIALS_FILE = Config.CONFIG_DIR / 'credentials.json'
-    TOKEN_FILE = Config.CONFIG_DIR / 'token.pickle'
+    # El token se GUARDA en JSON y se LEE de cualquiera de los dos formatos.
+    # El pickle guarda el objeto Credentials con su ruta de import, así que un
+    # token grabado con una versión de google-auth no se puede leer con otra:
+    # el CI venía fallando todos los días con "No module named
+    # google.auth._regional_access_boundary_utils" porque requirements fijaba
+    # google-auth 2.23.4 y el token se había regrabado con una más nueva.
+    # El JSON es solo refresh_token + client_id + scopes: no depende de la
+    # versión de la librería.
+    TOKEN_FILE = Config.CONFIG_DIR / 'token.json'
+    TOKEN_FILE_LEGACY = Config.CONFIG_DIR / 'token.pickle'
     SHEETS_ID_FILE = Config.CONFIG_DIR / 'sheets_id.txt'
     
     # Nombres de las hojas
@@ -93,17 +102,48 @@ class SincronizadorGoogleSheetsOptimizado:
     # AUTENTICACIÓN GOOGLE
     # ============================================================
     
+    def _cargar_token(self):
+        """Credenciales guardadas, en JSON o en el pickle viejo.
+
+        El pickle se sigue leyendo porque es lo que hay hoy en el secret
+        GOOGLE_TOKEN_PICKLE_B64; si falla por incompatibilidad de versión se
+        avisa claro en vez de reventar con un ModuleNotFoundError críptico.
+        """
+        from google.oauth2.credentials import Credentials
+
+        if self.TOKEN_FILE.exists():
+            try:
+                return Credentials.from_authorized_user_file(str(self.TOKEN_FILE), self.SCOPES)
+            except Exception as e:
+                print(f"   ⚠️  {self.TOKEN_FILE.name} ilegible ({e}); pruebo con el pickle")
+
+        if self.TOKEN_FILE_LEGACY.exists():
+            try:
+                with open(self.TOKEN_FILE_LEGACY, 'rb') as token:
+                    creds = pickle.load(token)
+                print(f"   ℹ️  Token leído del pickle viejo; se reescribe como {self.TOKEN_FILE.name}")
+                self._guardar_token(creds)
+                return creds
+            except ModuleNotFoundError as e:
+                print(f"   ⚠️  El pickle se grabó con otra versión de google-auth ({e}). "
+                      f"Regenerá el token para que quede en JSON.")
+            except Exception as e:
+                print(f"   ⚠️  No se pudo leer el pickle: {e}")
+        return None
+
+    def _guardar_token(self, creds) -> None:
+        """Guarda el token en JSON (portable entre versiones de la librería)."""
+        try:
+            self.TOKEN_FILE.write_text(creds.to_json(), encoding='utf-8')
+        except Exception as e:
+            print(f"   ⚠️  No se pudo guardar {self.TOKEN_FILE.name}: {e}")
+
     def autenticar(self) -> bool:
         """Autentica con Google usando OAuth2"""
         print("🔐 Autenticando con Google...")
         
-        creds = None
-        
-        # Cargar token guardado
-        if self.TOKEN_FILE.exists():
-            with open(self.TOKEN_FILE, 'rb') as token:
-                creds = pickle.load(token)
-        
+        creds = self._cargar_token()
+
         # Si no hay credenciales válidas
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
@@ -122,10 +162,8 @@ class SincronizadorGoogleSheetsOptimizado:
                 )
                 creds = flow.run_local_server(port=0)
             
-            # Guardar token
-            with open(self.TOKEN_FILE, 'wb') as token:
-                pickle.dump(creds, token)
-        
+            self._guardar_token(creds)
+
         # Crear cliente
         self.client = gspread.authorize(creds)
         print("✅ Autenticación exitosa\n")
