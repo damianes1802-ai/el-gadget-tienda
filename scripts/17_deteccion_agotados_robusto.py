@@ -273,6 +273,13 @@ class DetectorAgotadosRobusto:
                 with open(metadata_file, 'r', encoding='utf-8') as f:
                     metadata = json.load(f)
 
+                # Este detector compara contra el listado de Droppers y marca
+                # agotado todo lo que no aparezca ahí. Un producto de otro
+                # proveedor nunca va a estar en Droppers, así que incluirlo
+                # sería darlo de baja por error. Se saltea explícitamente.
+                if (metadata.get('proveedor') or 'droppers') != 'droppers':
+                    continue
+
                 sku = metadata.get('sku', carpeta.name)
                 categoria = metadata.get('categoria_principal') or metadata.get('categoria', '')
                 sin_categoria = metadata.get('categorias_pendientes', False) or not categoria

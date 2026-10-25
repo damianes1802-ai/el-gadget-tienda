@@ -208,6 +208,14 @@ class SincronizadorSQLiteOptimizado:
             cursor.execute("ALTER TABLE productos ADD COLUMN stock_manual INTEGER NOT NULL DEFAULT 0")
         if 'nombre_original' not in columnas:
             cursor.execute("ALTER TABLE productos ADD COLUMN nombre_original TEXT DEFAULT ''")
+        # Hasta octubre de 2026 el catálogo tenía un solo proveedor y todo el
+        # sistema lo daba por sentado. Con un segundo proveedor hace falta saber
+        # de quién es cada producto: define quién despacha, con qué tarifa se
+        # cobra el envío y —sobre todo— contra qué fuente se decide si sigue
+        # disponible. Default 'droppers' para que las filas viejas queden bien.
+        if 'proveedor' not in columnas:
+            cursor.execute("ALTER TABLE productos ADD COLUMN proveedor TEXT NOT NULL DEFAULT 'droppers'")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_productos_proveedor ON productos(proveedor)")
 
         # ÍNDICES para optimizar búsquedas
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_productos_categoria ON productos(categoria)")
@@ -517,10 +525,17 @@ class SincronizadorSQLiteOptimizado:
                     VALUES (?, ?, ?)
                 """, historial_data)
 
-            # Limpiar productos que ya no están disponibles/válidos (agotados, sin precio, descontinuados)
+            # Limpiar productos que ya no están disponibles/válidos (agotados, sin precio, descontinuados).
+            # ACOTADO A DROPPERS: este script reconstruye la tabla desde las
+            # carpetas de metadata, que son las que escribe el scraper de
+            # Droppers. Sin el filtro por proveedor, el DELETE se llevaba
+            # puesto cualquier producto cargado por otra vía (el socio de
+            # asifuedeco, una carga manual) sin dejar rastro ni error.
             skus_sincronizados = [p[0] for p in productos_data]
             placeholders = ','.join('?' * len(skus_sincronizados))
-            cursor.execute(f"DELETE FROM productos WHERE sku NOT IN ({placeholders})", skus_sincronizados)
+            cursor.execute(
+                f"DELETE FROM productos WHERE proveedor = 'droppers' AND sku NOT IN ({placeholders})",
+                skus_sincronizados)
             self.stats['productos_eliminados'] = cursor.rowcount
 
             # COMMIT - Una sola vez
