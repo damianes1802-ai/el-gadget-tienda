@@ -240,6 +240,8 @@ Después agrupar los no ambiguos en rangos y volcarlos a `rangos_por_provincia`.
 | **Precios de PAQ.AR** (Clásico/Expreso, domicilio/sucursal) | MiCorreo exige iniciar sesión para cotizar. El único PDF público de precios ([lista-de-precios-CF-MiCorreo.pdf](https://www.correoargentino.com.ar/MiCorreo/public/files/lista-de-precios-CF-MiCorreo.pdf)) tiene fecha de creación **enero de 2023** y además está armado con imágenes | Dar de alta la cuenta en [micorreo.correoargentino.com.ar](https://micorreo.correoargentino.com.ar) y cotizar; o pedir la lista en sucursal |
 | **Si el alta de MiCorreo es libre** | No creé ninguna cuenta: habría sido actuar a nombre de Damián sobre un servicio real | Lo resuelve el mismo paso de arriba |
 | ~~**Peso máximo de PAQ.AR**~~ | **Resuelto** con el manual de la API (mayo 2026): 1 g a 50.000 g, 200 cm por lado, 300 cm sumados. La ficha web sigue diciendo 25/30 kg y 250/150 cm — ver §8 | Verificar en la primera cotización real antes de vender un paquete de más de 250 cm |
+| ~~**Si el alta de MiCorreo es libre**~~ | **Resuelto**: la cuenta es autogestión y gratuita en `micorreo.correoargentino.com.ar/register`, y Correo publica que *"la integración es gratuita y sólo pagás por cada envío"*. Las credenciales de API, en cambio, las habilita un ejecutivo comercial — ver §8 | — |
+| **Si la API pide cuenta corriente** | Correo lo exige para Shopify y VTEX; de las APIs propias no dice nada | Preguntárselo al ejecutivo comercial cuando conteste |
 | **CP de origen de Así Fue Deco** | Nadie dijo desde qué sucursal despacha el socio, y sin eso no hay alcance que resolver | Preguntarle y cargarlo en `origen.cp` |
 | **Fecha de vigencia de las encomiendas** | Correo no la publica y el Archive no la tiene (WAF) | No se puede cerrar desde afuera. Se mitiga re-chequeando los links |
 | **Zona 1000–1499 = CABA** | El endpoint no da CP para CABA | Inocuo para el alcance. Si alguna vez se quiere exacto, se saca del CPA completo |
@@ -384,6 +386,51 @@ cambios.** Pasos:
 
 Después, `/shipping/import` + `/shipping/tracking` cierran el circuito operativo: la orden se crea
 en MiCorreo sola y el número de seguimiento entra en el email que el sistema ya manda.
+
+### Cómo se consiguen las credenciales
+
+Son **dos trámites distintos** y conviene no mezclarlos:
+
+**1. La cuenta de MiCorreo** — autogestión, gratis, al toque.
+[micorreo.correoargentino.com.ar/register](https://micorreo.correoargentino.com.ar/register).
+Pide DNI o CUIT, rubro (hay uno que es literalmente *Deco y Hogar*), domicilio y CP. Con esta
+cuenta sola ya se puede **cotizar y despachar desde la web**, sin API. De acá sale el
+`customerId` que después necesita `/rates`.
+
+**2. Las credenciales de la API** — no son autogestión. La FAQ oficial de Correo lo dice así:
+
+> *"¿Tengo que registrarme previamente? **Sí.** Nuestros ambientes requieren que cuentes con
+> credenciales para conectar con las API's que **podrás gestionar con un ejecutivo comercial**.
+> Mientras avanzamos con el alta, podés descargarte todos los manuales y comenzar tus desarrollos."*
+
+El canal es el **formulario de integraciones**:
+[correoargentino.com.ar/MiCorreo/public/contact](https://www.correoargentino.com.ar/MiCorreo/public/contact)
+(se llega desde *Integraciones → Primeros pasos*). Campos:
+
+| Campo | Qué va |
+|---|---|
+| Razón social | El Gadget |
+| Nombre y apellido · CUIT/CUIL · email · cód. área · celular | Los de Damián |
+| Sitio web | `https://elgadget.com.ar` |
+| **Motivo del contacto** | Desplegable con tres opciones: *Asesoramiento sobre integración por app.* · *Requiero abrir cuenta MiCorreo.* · *Otros.* → va la **primera** |
+| ¿Sos cliente de MiCorreo? | Sí/No + N° de cliente si ya hay cuenta (por eso conviene hacer el trámite 1 primero) |
+| ¿Sos agencia? | No |
+| Plugin que usás | Dejar vacío, o aclarar que es desarrollo propio |
+
+Hay **reCAPTCHA**, así que el formulario lo manda una persona.
+
+Dos datos de la misma FAQ que cambian el análisis:
+
+- *"**¿Tiene algún costo la integración? No.** La integración es gratuita y sólo pagás por cada
+  envío que realices."* — o sea que no hay cuota fija ni mínimo por tener la API.
+- La página de integraciones aclara que *"si utilizás Shopify o VTEX necesitás tener una cuenta
+  corriente para integrarte"*. No lo dice de las APIs propias, lo cual sugiere que por ahí no hace
+  falta cuenta corriente — pero es una inferencia, no algo que Correo afirme. **Preguntarlo
+  explícitamente** cuando responda el ejecutivo.
+
+También existe [integracion.correoargentino.com.ar](https://integracion.correoargentino.com.ar/login),
+un portal de integración con login propio. Responde, pero no se pudo ver qué hay adentro sin
+credenciales.
 
 ### Mientras tanto, sin esperar las credenciales
 
