@@ -664,3 +664,97 @@ def test_sin_umbral_cargado_no_avisa_al_cambiar_el_modo(cliente):
     insumo = nuevo_insumo(cliente, alerta_cuando_queden=0)
     r = cliente.put(f"/api/insumos/{insumo['id']}", json={"modo_stock": "unidad"})
     assert "avisos" not in r.json()
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# VARIAS PUBLICACIONES PARA EL MISMO ARTÍCULO (caso real del socio)
+# ════════════════════════════════════════════════════════════════════════════
+
+def test_la_api_acepta_varias_publicaciones_para_el_mismo_articulo(cliente):
+    articulo = nuevo_articulo(cliente)
+    for publicacion in ("MLA200000001", "MLA200000002"):
+        r = cliente.post("/api/mapeos", json={
+            "articulo_id": articulo["id"], "canal": "ml", "id_externo": publicacion,
+        })
+        assert r.status_code == 201, r.text
+
+    mapeos = cliente.get("/api/mapeos", params={"articulo_id": articulo["id"]}).json()
+    assert {m["id_externo"] for m in mapeos} == {"MLA200000001", "MLA200000002"}
+    # y el detalle del artículo las muestra las dos
+    assert len(cliente.get(f"/api/articulos/{articulo['id']}").json()["mapeos"]) == 2
+
+
+def test_la_api_rechaza_una_publicacion_hacia_dos_articulos(cliente):
+    uno = nuevo_articulo(cliente, nombre="Borla", sku_elgadget="AFD-20")
+    otro = nuevo_articulo(cliente, nombre="Guirnalda", sku_elgadget="AFD-21")
+    cliente.post("/api/mapeos", json={
+        "articulo_id": uno["id"], "canal": "ml", "id_externo": "MLA1"})
+    r = cliente.post("/api/mapeos", json={
+        "articulo_id": otro["id"], "canal": "ml", "id_externo": "MLA1"})
+    assert r.status_code == 409
+
+
+def test_las_dos_publicaciones_descuentan_por_separado(cliente):
+    insumo = nuevo_insumo(cliente, stock_inicial=5.0)       # 2.000 unidades
+    articulo = nuevo_articulo(cliente)
+    cliente.put(f"/api/articulos/{articulo['id']}/receta",
+                json={"items": [{"insumo_id": insumo["id"], "cantidad": 6}]})
+    for publicacion in ("MLA200000001", "MLA200000002"):
+        cliente.post("/api/mapeos", json={
+            "articulo_id": articulo["id"], "canal": "ml", "id_externo": publicacion})
+
+    for orden, publicacion in (("3000001", "MLA200000001"), ("3000002", "MLA200000002")):
+        r = cliente.post("/api/ventas", json={
+            "canal": "ml", "id_externo": orden,
+            "items": [{"id_externo_item": publicacion, "cantidad": 1}]})
+        assert r.json()["estado"] == "procesada"
+        assert r.json()["ya_estaba_procesada"] is False
+
+    assert cliente.get(f"/api/insumos/{insumo['id']}").json()["stock"]["unidades"] == 1988.0
+    assert cliente.get("/api/auditoria/stock").json()["cuadra"] is True
+
+
+def test_cargar_una_variante_sobre_un_comodin_avisa_quien_gana(cliente):
+    uno = nuevo_articulo(cliente, nombre="Borla", sku_elgadget="AFD-20")
+    otro = nuevo_articulo(cliente, nombre="Guirnalda", sku_elgadget="AFD-21")
+    cliente.post("/api/mapeos", json={
+        "articulo_id": uno["id"], "canal": "ml", "id_externo": "MLA9"})
+
+    r = cliente.post("/api/mapeos", json={
+        "articulo_id": otro["id"], "canal": "ml", "id_externo": "MLA9",
+        "variacion_externa": "BRONCE"})
+
+    assert r.status_code == 201
+    aviso = r.json()["avisos"][0]
+    assert "Borla" in aviso and "BRONCE" in aviso
+
+
+def test_cargar_un_comodin_sobre_variantes_existentes_avisa(cliente):
+    uno = nuevo_articulo(cliente, nombre="Borla", sku_elgadget="AFD-20")
+    otro = nuevo_articulo(cliente, nombre="Guirnalda", sku_elgadget="AFD-21")
+    cliente.post("/api/mapeos", json={
+        "articulo_id": otro["id"], "canal": "ml", "id_externo": "MLA9",
+        "variacion_externa": "BRONCE"})
+
+    r = cliente.post("/api/mapeos", json={
+        "articulo_id": uno["id"], "canal": "ml", "id_externo": "MLA9"})
+
+    assert r.status_code == 201
+    aviso = r.json()["avisos"][0]
+    assert "BRONCE" in aviso and "Guirnalda" in aviso
+
+
+def test_sin_conflicto_no_hay_aviso(cliente):
+    """Varias publicaciones del mismo artículo es el caso normal, no una rareza."""
+    articulo = nuevo_articulo(cliente)
+    cliente.post("/api/mapeos", json={
+        "articulo_id": articulo["id"], "canal": "ml", "id_externo": "MLA1"})
+    r = cliente.post("/api/mapeos", json={
+        "articulo_id": articulo["id"], "canal": "ml", "id_externo": "MLA2"})
+    assert "avisos" not in r.json()
+
+    # tampoco cuando el comodín y la variante van al MISMO artículo
+    r = cliente.post("/api/mapeos", json={
+        "articulo_id": articulo["id"], "canal": "ml", "id_externo": "MLA1",
+        "variacion_externa": "BRONCE"})
+    assert "avisos" not in r.json()

@@ -202,8 +202,28 @@ DELETE /api/mapeos/{id}
 
 `canal` es `ml`, `elgadget` o `empretienda` (`manual` no se mapea: elige el artículo en
 pantalla). `id_externo` es el id de la **publicación** (el `item_id` de ML), no de la orden.
-Una publicación con variantes puede tener una fila por variante; dejar `variacion_externa`
-vacío mapea todas las variantes de esa publicación.
+
+**Varias publicaciones pueden apuntar al mismo artículo**, y es un caso real: el socio
+tiene productos publicados más de una vez en la misma cuenta de ML, con ventas en las dos.
+Lo permite el `UNIQUE (canal, id_externo, variacion_externa)`, que deja `articulo_id`
+afuera a propósito — **si un refactor lo mete ahí, rompe este caso**. La asimetría también
+es deliberada: una publicación **no** puede apuntar a dos artículos, porque una venta no
+sabría cuál descontar (da 409). La idempotencia es por **orden**, así que dos ventas del
+mismo artículo por publicaciones distintas descuentan las dos.
+
+**Precedencia de variantes.** Una publicación con variantes puede tener una fila por
+variante, y dejar `variacion_externa` vacío carga un **comodín** que cubre todas. Cuando
+conviven los dos:
+
+| la venta trae | gana |
+|---|---|
+| una variante con fila propia | **el mapeo específico** |
+| una variante sin fila propia | el comodín |
+| ninguna variante | el comodín |
+| ninguna variante y no hay comodín | nada: `pendiente_mapeo` (no se adivina la variante) |
+
+Cargar un comodín hacia un artículo y una variante hacia otro es legítimo pero confunde,
+así que `POST /api/mapeos` lo devuelve en `avisos` explicando quién gana.
 
 ### Ventas — el motor
 ```

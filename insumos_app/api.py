@@ -1002,6 +1002,53 @@ def listar_mapeos(
     return [dict(f) for f in conn.execute(sql, params).fetchall()]
 
 
+def _avisos_de_precedencia(
+    conn: sqlite3.Connection, canal: str, id_externo: str, variacion: str, articulo_id: int
+) -> List[str]:
+    """Avisa cuando el mapeo que se está cargando convive con otro que lo pisa.
+
+    No bloquea nada: la combinación es legítima y la precedencia está definida
+    (gana el específico). Lo que evita es que alguien cargue un comodín a un
+    artículo y una variante a otro sin darse cuenta de cuál va a ganar — ahora
+    más probable, porque un artículo puede tener varias publicaciones.
+    """
+    avisos: List[str] = []
+
+    def nombre_de(articulo: int) -> str:
+        fila = conn.execute("SELECT nombre FROM articulo WHERE id = ?", (articulo,)).fetchone()
+        return fila["nombre"] if fila else f"artículo {articulo}"
+
+    if variacion:
+        comodin = conn.execute(
+            """SELECT articulo_id FROM mapeo_canal
+                WHERE canal = ? AND id_externo = ? AND variacion_externa = ''""",
+            (canal, id_externo),
+        ).fetchone()
+        if comodin and int(comodin["articulo_id"]) != articulo_id:
+            avisos.append(
+                f"La publicación {id_externo} ya tenía un mapeo sin variante hacia "
+                f"«{nombre_de(int(comodin['articulo_id']))}». Este mapeo específico le gana "
+                f"para la variante «{variacion}»; las demás variantes siguen cayendo al otro."
+            )
+    else:
+        especificos = conn.execute(
+            """SELECT variacion_externa, articulo_id FROM mapeo_canal
+                WHERE canal = ? AND id_externo = ? AND variacion_externa <> ''
+                ORDER BY variacion_externa""",
+            (canal, id_externo),
+        ).fetchall()
+        otros = [f for f in especificos if int(f["articulo_id"]) != articulo_id]
+        if otros:
+            detalle = ", ".join(
+                f"«{f['variacion_externa']}» → «{nombre_de(int(f['articulo_id']))}»" for f in otros
+            )
+            avisos.append(
+                f"La publicación {id_externo} ya tenía mapeos por variante que le ganan a este "
+                f"comodín: {detalle}. El comodín cubre solo las variantes restantes."
+            )
+    return avisos
+
+
 @api.post("/mapeos", status_code=201, tags=["mapeos"])
 def crear_mapeo(
     datos: modelos.MapeoIn, conn: sqlite3.Connection = Depends(conexion)
@@ -1010,6 +1057,18 @@ def crear_mapeo(
 
     Sin esto, una venta de Mercado Libre no sabe a qué artículo corresponde y
     queda en `pendiente_mapeo`.
+
+    VARIAS PUBLICACIONES PUEDEN APUNTAR AL MISMO ARTÍCULO, y es un caso real:
+    el socio tiene productos publicados más de una vez en la misma cuenta de
+    Mercado Libre. Lo permite el UNIQUE `(canal, id_externo, variacion_externa)`,
+    que deja `articulo_id` afuera a propósito. La asimetría también es
+    deliberada: una publicación NO puede apuntar a dos artículos, porque una
+    venta no sabría cuál descontar.
+
+    PRECEDENCIA: un mapeo con variante le gana al comodín (el de
+    `variacion_externa` vacío) para esa variante; las demás variantes caen al
+    comodín. Cargar los dos es legítimo, pero confunde, así que se avisa en la
+    respuesta en vez de dejarlo pasar callado.
     """
     if datos.canal not in db.CANALES_MAPEABLES:
         raise HTTPException(
@@ -1020,20 +1079,22 @@ def crear_mapeo(
             ),
         )
     _obtener(conn, "articulo", datos.articulo_id)
+    id_externo = datos.id_externo.strip()
+    variacion = (datos.variacion_externa or "").strip()
+
+    avisos = _avisos_de_precedencia(conn, datos.canal, id_externo, variacion,
+                                    datos.articulo_id)
 
     cur = conn.execute(
         """INSERT INTO mapeo_canal
                (articulo_id, canal, id_externo, variacion_externa, creado_at)
            VALUES (?, ?, ?, ?, ?)""",
-        (
-            datos.articulo_id,
-            datos.canal,
-            datos.id_externo.strip(),
-            (datos.variacion_externa or "").strip(),
-            db.ahora_iso(),
-        ),
+        (datos.articulo_id, datos.canal, id_externo, variacion, db.ahora_iso()),
     )
-    return dict(_obtener(conn, "mapeo_canal", int(cur.lastrowid)))
+    salida = dict(_obtener(conn, "mapeo_canal", int(cur.lastrowid)))
+    if avisos:
+        salida["avisos"] = avisos
+    return salida
 
 
 @api.delete("/mapeos/{mapeo_id}", tags=["mapeos"])

@@ -6,6 +6,8 @@ Son las cuatro propiedades de las que depende que el stock no mienta, más las
 conversiones de unidad que las sostienen.
 """
 
+import sqlite3
+
 import pytest
 
 from insumos_app.tests.conftest import (
@@ -607,3 +609,130 @@ def test_cambiar_un_peso_unitario_cambia_el_peso_de_envio(conn, taller):
     despues = stock.envio_de_articulo(conn, taller["borla"])["peso_envio_g"]
     assert despues > antes
     assert despues == pytest.approx((6 * 3.0 + 2 * 0.4 + 12.0) * 1.05)
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# VARIAS PUBLICACIONES PARA EL MISMO ARTÍCULO
+#
+# Caso real: el socio tiene el mismo producto publicado más de una vez en la
+# misma cuenta de Mercado Libre, y las dos publicaciones tienen ventas.
+#
+# Funciona porque `articulo_id` quedó FUERA del UNIQUE de `mapeo_canal`, que
+# es una decisión correcta pero implícita: meterlo ahí en un refactor rompería
+# este caso sin que nada se queje. Estos tests la fijan.
+# ════════════════════════════════════════════════════════════════════════════
+
+def test_varias_publicaciones_pueden_apuntar_al_mismo_articulo(conn, taller):
+    crear_mapeo(conn, taller["borla"], "ml", "MLA200000001")
+    crear_mapeo(conn, taller["borla"], "ml", "MLA200000002")
+
+    assert stock.resolver_articulo_id(conn, "ml", "MLA200000001") == taller["borla"]
+    assert stock.resolver_articulo_id(conn, "ml", "MLA200000002") == taller["borla"]
+
+
+def test_una_publicacion_no_puede_apuntar_a_dos_articulos(conn, taller):
+    """La asimetría es a propósito: N publicaciones → 1 artículo sí,
+    1 publicación → N artículos no, porque una venta no sabría cuál descontar."""
+    crear_mapeo(conn, taller["borla"], "ml", "MLA200000003")
+    with pytest.raises(sqlite3.IntegrityError):
+        crear_mapeo(conn, taller["guirnalda"], "ml", "MLA200000003")
+
+
+def test_las_ventas_de_dos_publicaciones_del_mismo_articulo_descuentan_las_dos(conn, taller):
+    """La idempotencia es por ORDEN, no por publicación ni por artículo: dos
+    ventas distintas del mismo artículo no se colapsan en una."""
+    stock.fijar_stock(conn, taller["cairel"], 5.0)   # 2.000 unidades
+    crear_mapeo(conn, taller["borla"], "ml", "MLA200000001")
+    crear_mapeo(conn, taller["borla"], "ml", "MLA200000002")
+
+    primera = stock.procesar_venta(conn, "ml", "3000001",
+                                   [{"id_externo_item": "MLA200000001", "cantidad": 1}])
+    segunda = stock.procesar_venta(conn, "ml", "3000002",
+                                   [{"id_externo_item": "MLA200000002", "cantidad": 1}])
+
+    assert primera["estado"] == "procesada" and primera["ya_estaba_procesada"] is False
+    assert segunda["estado"] == "procesada" and segunda["ya_estaba_procesada"] is False
+    assert primera["articulos"][0]["articulo_id"] == segunda["articulos"][0]["articulo_id"]
+    # 2 ventas × 6 caireles, las dos descontadas
+    assert stock.insumo_por_id(conn, taller["cairel"])["stock_unidades"] == 1988.0
+    assert_libro_mayor_cierra(conn)
+
+
+def test_repetir_la_orden_de_una_de_las_dos_publicaciones_sigue_siendo_idempotente(conn, taller):
+    """Varias publicaciones no debilitan la idempotencia."""
+    stock.fijar_stock(conn, taller["cairel"], 5.0)
+    crear_mapeo(conn, taller["borla"], "ml", "MLA200000001")
+    crear_mapeo(conn, taller["borla"], "ml", "MLA200000002")
+
+    stock.procesar_venta(conn, "ml", "3000001",
+                         [{"id_externo_item": "MLA200000001", "cantidad": 1}])
+    stock.procesar_venta(conn, "ml", "3000002",
+                         [{"id_externo_item": "MLA200000002", "cantidad": 1}])
+    repetida = stock.procesar_venta(conn, "ml", "3000001",
+                                    [{"id_externo_item": "MLA200000001", "cantidad": 1}])
+
+    assert repetida["ya_estaba_procesada"] is True
+    assert stock.insumo_por_id(conn, taller["cairel"])["stock_unidades"] == 1988.0
+
+
+def test_el_libro_mayor_distingue_de_que_publicacion_vino_cada_venta(conn, taller):
+    """Con dos publicaciones del mismo artículo, el rastro sigue siendo la
+    orden: es lo que permite investigar un número que no cierra."""
+    stock.fijar_stock(conn, taller["cairel"], 5.0)
+    crear_mapeo(conn, taller["borla"], "ml", "MLA200000001")
+    crear_mapeo(conn, taller["borla"], "ml", "MLA200000002")
+    stock.procesar_venta(conn, "ml", "3000001",
+                         [{"id_externo_item": "MLA200000001", "cantidad": 1}])
+    stock.procesar_venta(conn, "ml", "3000002",
+                         [{"id_externo_item": "MLA200000002", "cantidad": 1}])
+
+    refs = [f["referencia_externa"] for f in conn.execute(
+        """SELECT referencia_externa FROM movimiento_stock
+            WHERE insumo_id = ? AND tipo = 'venta' ORDER BY id""",
+        (taller["cairel"],)).fetchall()]
+    assert refs == ["3000001", "3000002"]
+
+
+# ── Comodín de variante vs mapeo específico ─────────────────────────────────
+
+def test_el_mapeo_de_una_variante_le_gana_al_comodin(conn, taller):
+    """Semántica "el específico pisa al general". Importa ahora que un artículo
+    puede tener varias publicaciones: es más fácil cargar las dos filas."""
+    crear_mapeo(conn, taller["borla"], "ml", "MLA300000001", "")           # comodín
+    crear_mapeo(conn, taller["guirnalda"], "ml", "MLA300000001", "BRONCE")  # específico
+
+    assert stock.resolver_articulo_id(conn, "ml", "MLA300000001", "BRONCE") == taller["guirnalda"]
+
+
+def test_una_variante_sin_fila_propia_cae_al_comodin(conn, taller):
+    crear_mapeo(conn, taller["borla"], "ml", "MLA300000001", "")
+    crear_mapeo(conn, taller["guirnalda"], "ml", "MLA300000001", "BRONCE")
+
+    assert stock.resolver_articulo_id(conn, "ml", "MLA300000001", "DORADO") == taller["borla"]
+    assert stock.resolver_articulo_id(conn, "ml", "MLA300000001") == taller["borla"]
+
+
+def test_la_venta_de_la_variante_especifica_descuenta_el_articulo_especifico(conn, taller):
+    """La preferencia no es solo de la función de resolución: llega al stock."""
+    stock.fijar_stock(conn, taller["cairel"], 5.0)
+    stock.fijar_stock(conn, taller["cadena"], 2.0)
+    crear_mapeo(conn, taller["borla"], "ml", "MLA300000001", "")
+    crear_mapeo(conn, taller["guirnalda"], "ml", "MLA300000001", "BRONCE")
+
+    resultado = stock.procesar_venta(
+        conn, "ml", "3000010",
+        [{"id_externo_item": "MLA300000001", "variacion_externa": "BRONCE", "cantidad": 1}])
+
+    assert resultado["articulos"][0]["articulo_id"] == taller["guirnalda"]
+    # la guirnalda lleva cadena y la borla no: prueba que descontó la correcta
+    assert stock.insumo_por_id(conn, taller["cadena"])["stock_unidades"] < 1111.0
+
+
+def test_sin_comodin_una_venta_sin_variante_no_resuelve(conn, taller):
+    """No se adivina la variante: queda pendiente de mapeo y se avisa."""
+    crear_mapeo(conn, taller["borla"], "ml", "MLA300000002", "DORADO")
+
+    assert stock.resolver_articulo_id(conn, "ml", "MLA300000002") is None
+    resultado = stock.procesar_venta(conn, "ml", "3000020",
+                                     [{"id_externo_item": "MLA300000002", "cantidad": 1}])
+    assert resultado["estado"] == "pendiente_mapeo"
