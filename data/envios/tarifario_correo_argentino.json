@@ -1,0 +1,201 @@
+{
+  "version": "1.0",
+  "fecha_consulta": "2026-10-26",
+  "moneda": "ARS",
+  "para_que_sirve": "Cotizar lo que cuesta despachar un paquete en una sucursal de Correo Argentino pagando la tarifa publica de mostrador, sin contrato ni cuenta comercial. Lo consume scripts/utils/envio_correo_argentino.py. Las tarifas de Correo cambian seguido: se actualiza ESTE archivo, no el codigo.",
+  "como_verificar": "docs/envio_correo_argentino.md explica de donde sale cada numero y como revalidarlo.",
+
+  "origen": {
+    "cp": null,
+    "localidad": null,
+    "provincia": null,
+    "confirmado": false,
+    "pendiente": "PENDIENTE: falta el CP de la sucursal donde Asi Fue Deco despacha. El alcance (regional vs nacional) se define comparando la provincia de imposicion con la del destinatario, asi que sin este dato no hay cotizacion posible. Cargar el CP aca o pasarlo por parametro en cada llamada."
+  },
+
+  "volumetria": {
+    "divisor": 6000,
+    "unidades": "medidas en cm, resultado en kg",
+    "regla": "Se compara el peso volumetrico con el peso real y se toma el MAYOR de los dos para determinar el rango tarifario.",
+    "formulas": {
+      "rectangular": "(L1 x L2 x L3) / 6000",
+      "triangular": "(L1 x L2 x L3 / 2) / 6000",
+      "cilindrica": "(Diametro x Diametro x Largo) / 6000"
+    },
+    "confirmado": true,
+    "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/encomienda-correo-clasica (seccion 'Como se calcula el precio' + diagrama de calculo volumetrico)"
+  },
+
+  "alcances": {
+    "regional": "El domicilio del destinatario y el de imposicion (origen) estan dentro de la misma provincia.",
+    "nacional": "El domicilio del destinatario y el de imposicion (origen) NO estan dentro de la misma provincia.",
+    "amba_es_una_provincia": {
+      "cp_desde": 1000,
+      "cp_hasta": 1893,
+      "texto_oficial": "El territorio comprendido por la Ciudad Autonoma de Buenos Aires y el Gran Buenos Aires (area metropolitana, codigos postales 1000 a 1893) se considera como una provincia.",
+      "partidos_listados": [
+        "Almirante Brown", "Avellaneda", "Berazategui", "Esteban Echeverria", "Ezeiza",
+        "Florencio Varela", "Hurlingham", "Ituzaingo", "Jose C. Paz", "La Matanza",
+        "Lanus", "Lomas de Zamora", "Malvinas Argentinas", "Merlo", "Moreno", "Moron",
+        "Quilmes", "San Fernando", "San Isidro", "San Martin", "San Miguel", "Tigre",
+        "Tres de Febrero", "Vicente Lopez"
+      ],
+      "inconsistencia_conocida": "Los dos criterios de la pagina oficial no coinciden del todo. Dentro del rango 1000-1893 hay localidades de partidos que NO estan en la lista (Canuelas, Escobar, General Las Heras, General Rodriguez, La Plata, Lobos, Marcos Paz, Pilar, Presidente Peron, San Vicente) y, al reves, Berazategui -que si esta listado- tiene el CP 1894, fuera del rango. El cotizador usa el RANGO DE CP, porque es el unico dato que el checkout tiene a mano. Afecta solo el borde: un envio AMBA -> Pilar puede salir regional aca y nacional en el mostrador. Ver docs/envio_correo_argentino.md."
+    },
+    "territorios_insulares_siempre_nacional": {
+      "aplica": true,
+      "texto_oficial": "Cualquier envio dirigido a los territorios insulares de la Republica Argentina (Malvinas, Georgias del Sur y Sandwich del Sur) debe ser admitido con rango geografico nacional."
+    },
+    "confirmado": true,
+    "fuente": "https://www.correoargentino.com.ar/encomiendas-alcance-regional-y-nacional"
+  },
+
+  "servicios": {
+    "encomienda_clasica": {
+      "nombre": "Encomienda Correo Clasica",
+      "se_despacha_en_mostrador": true,
+      "requiere_cuenta": false,
+      "modalidades": ["domicilio"],
+      "modalidades_nota": "La ficha oficial dice textualmente 'Entrega: en domicilio'. No publica entrega en sucursal para este producto.",
+      "plazo_dias": [3, 6],
+      "plazo_texto": "3 a 6 dias, segun origen y destino",
+      "peso_max_kg": 25,
+      "medidas_max": {
+        "suma_lados_cm": 250,
+        "lado_max_cm": 150,
+        "texto_oficial": "250 sumados, el mayor largo, el mayor ancho y el mayor alto (ninguno debe ser superior a 150)"
+      },
+      "escalones_kg": [1, 5, 10, 15, 20, 25],
+      "precios_confirmados": true,
+      "precios": {
+        "regional": { "1": 19500, "5": 23100, "10": 31100, "15": 38200, "20": 45100, "25": 54200 },
+        "nacional": { "1": 26400, "5": 32000, "10": 45200, "15": 56600, "20": 65800, "25": 80900 }
+      },
+      "vigencia_desde": null,
+      "vigencia_nota": "La pagina oficial no publica fecha de vigencia. Valores leidos el 2026-10-26.",
+      "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/encomienda-correo-clasica"
+    },
+
+    "encomienda_prioritaria": {
+      "nombre": "Encomienda Correo Prioritaria",
+      "se_despacha_en_mostrador": true,
+      "requiere_cuenta": false,
+      "modalidades": ["domicilio"],
+      "modalidades_nota": "La ficha oficial no publica entrega en sucursal para este producto.",
+      "plazo_dias": [1, 3],
+      "plazo_texto": "1 a 3 dias habiles, segun origen y destino",
+      "peso_max_kg": 25,
+      "medidas_max": {
+        "suma_lados_cm": 250,
+        "lado_max_cm": 150,
+        "texto_oficial": "la suma del mayor largo, el mayor ancho y el mayor espesor no puede superar 250 cm, y ninguna de esas dimensiones puede superar 150 cm"
+      },
+      "escalones_kg": [1, 5, 10, 15, 20, 25],
+      "precios_confirmados": true,
+      "precios": {
+        "regional": { "1": 31100, "5": 35500, "10": 47500, "15": 61100, "20": 68900, "25": 81500 },
+        "nacional": { "1": 38900, "5": 53000, "10": 97500, "15": 131200, "20": 163100, "25": 202400 }
+      },
+      "vigencia_desde": null,
+      "vigencia_nota": "La pagina oficial no publica fecha de vigencia. Valores leidos el 2026-10-26.",
+      "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/encomienda-correo-prioritaria"
+    },
+
+    "paqar_clasico": {
+      "nombre": "PAQ.AR Clasico",
+      "se_despacha_en_mostrador": true,
+      "requiere_cuenta": true,
+      "requiere_cuenta_nota": "Se opera con una cuenta en MiCorreo (micorreo.correoargentino.com.ar): se cotiza, se paga y se imprime el rotulo online, y recien ahi se deja el paquete en la sucursal. SIN VERIFICAR si el alta es libre y gratuita o si pasa por un alta comercial: no se creo ninguna cuenta. Correo publicita estas tarifas como preferenciales para venta online, o sea MAS BARATAS que la encomienda de mostrador.",
+      "modalidades": ["domicilio", "sucursal"],
+      "plazo_dias": [2, 5],
+      "plazo_texto": "2 a 5 dias habiles a todo el pais, segun origen y destino. Hasta 1 visita al domicilio; si no hay nadie, queda 5 dias habiles en la sucursal mas cercana.",
+      "peso_max_kg": null,
+      "peso_max_nota": "PENDIENTE: la ficha oficial se contradice (dice 30 kg en un lugar y 25 kg en otro). Confirmar en sucursal o en MiCorreo antes de usarlo.",
+      "medidas_max": {
+        "suma_lados_cm": 250,
+        "lado_max_cm": 150,
+        "texto_oficial": "la suma del mayor largo, el mayor ancho y el mayor alto no puede superar 250 cm, y ningun lado puede superar 150 cm"
+      },
+      "escalones_kg": null,
+      "precios_confirmados": false,
+      "precios": null,
+      "pendiente": "PENDIENTE: no hay tarifario publico. MiCorreo exige iniciar sesion para cotizar y la unica lista de precios que Correo publica como PDF (lista-de-precios-CF-MiCorreo.pdf) es de enero de 2023 y esta armada con imagenes. No se cargaron numeros para no inventar nada. Para completarlo: abrir una cuenta gratuita en MiCorreo y cotizar, o pedir la lista en sucursal.",
+      "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/paqueteria-ecommerce-1"
+    },
+
+    "paqar_expreso": {
+      "nombre": "PAQ.AR Expreso",
+      "se_despacha_en_mostrador": true,
+      "requiere_cuenta": true,
+      "requiere_cuenta_nota": "Igual que PAQ.AR Clasico: cuenta en MiCorreo, con las mismas dudas sobre como se da de alta.",
+      "modalidades": ["domicilio", "sucursal"],
+      "plazo_dias": [1, 3],
+      "plazo_texto": "1 a 3 dias habiles a todo el pais, segun origen y destino. Hasta 2 visitas al domicilio; si no hay nadie, queda 5 dias habiles en la sucursal mas cercana.",
+      "peso_max_kg": null,
+      "peso_max_nota": "PENDIENTE: misma contradiccion que PAQ.AR Clasico (25 o 30 kg).",
+      "medidas_max": {
+        "suma_lados_cm": 250,
+        "lado_max_cm": 150,
+        "texto_oficial": "la suma del mayor largo, el mayor ancho y el mayor alto no puede superar 250 cm, y ningun lado puede superar 150 cm"
+      },
+      "escalones_kg": null,
+      "precios_confirmados": false,
+      "precios": null,
+      "pendiente": "PENDIENTE: mismo motivo que PAQ.AR Clasico. Sin tarifario publico.",
+      "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/paqueteria-ecommerce-1"
+    }
+  },
+
+  "adicionales": {
+    "aplican_a": ["encomienda_clasica", "encomienda_prioritaria"],
+    "confirmados": true,
+    "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/encomienda-correo-clasica",
+    "aviso_de_recibo": { "por_envio": 9300 },
+    "confronte_y_sellado": { "por_envio": 27600 },
+    "valor_declarado": {
+      "tramos": [
+        { "desde": 0.01, "hasta": 20000, "fijo": 600 },
+        { "desde": 20000.01, "hasta": 200000, "porcentaje": 3 }
+      ],
+      "nota": "Opcional. Por encima de $200.000 la pagina no publica tarifa."
+    },
+    "contrareembolso": {
+      "tramos": [
+        { "desde": 0.01, "hasta": 10000, "fijo": 500 },
+        { "desde": 10000.01, "hasta": 150000, "porcentaje": 5 }
+      ],
+      "nota": "No aplica a El Gadget: el cliente ya pago online."
+    }
+  },
+
+  "embalaje_pack_plus": {
+    "que_es": "Cajas y sobres que Correo vende en sucursal (Linea Pack Plus). No es un servicio de envio: es el costo del embalaje, que se suma aparte si el socio no usa su propia caja.",
+    "confirmados": true,
+    "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/linea-pack-plus",
+    "items": [
+      { "nombre": "Caja Correo N1", "medidas_cm": [20, 30, 7], "peso_max_kg": 1, "precio": 1700 },
+      { "nombre": "Caja Correo N2", "medidas_cm": [20, 30, 14], "peso_max_kg": 2, "precio": 2100 },
+      { "nombre": "Caja Correo N3", "medidas_cm": [30, 40, 7], "peso_max_kg": 5, "precio": 2500 },
+      { "nombre": "Caja Correo N4", "medidas_cm": [30, 40, 14], "peso_max_kg": 10, "precio": 4000 },
+      { "nombre": "Caja Correo N5", "medidas_cm": [30, 40, 28], "peso_max_kg": 15, "precio": 7100 },
+      { "nombre": "Caja Correo N6", "medidas_cm": [40, 60, 28], "peso_max_kg": 20, "precio": 9000 },
+      { "nombre": "Caja Triangular", "medidas_cm": [75, 15, 15], "peso_max_kg": 1, "precio": 4200 },
+      { "nombre": "Caja Botella", "medidas_cm": [40, 15.7, 15.7], "peso_max_kg": 1.5, "precio": 13300 },
+      { "nombre": "Sobre Envio", "medidas_cm": [40, 35], "peso_max_kg": 1, "precio": 1000 },
+      { "nombre": "Sobre Protector N1", "medidas_cm": [17, 18], "peso_max_kg": 0.15, "precio": 1200 },
+      { "nombre": "Sobre Protector N2", "medidas_cm": [25, 34], "peso_max_kg": 0.5, "precio": 1700 }
+    ]
+  },
+
+  "api": {
+    "existe": true,
+    "nombre": "API MiCorreo",
+    "base_produccion": "https://api.correoargentino.com.ar/micorreo/v1",
+    "base_qa": "https://apitest.correoargentino.com.ar/micorreo/v1",
+    "endpoint_cotizacion": "POST /rates",
+    "auth": "Basic -> /token devuelve un JWT que se manda como Bearer. Las credenciales se piden a Correo por cada ambiente.",
+    "documentacion": "https://www.correoargentino.com.ar/MiCorreo/public/img/pag/apiMiCorreo.pdf (fechada 08/2022)",
+    "sirve_para_este_caso": false,
+    "nota": "Cotiza PAQ.AR, no la encomienda de mostrador, y necesita credenciales. Queda anotada por si en algun momento conviene abrir la cuenta de MiCorreo: ahi si se podria cotizar online en vez de mantener este JSON a mano."
+  }
+}
