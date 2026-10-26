@@ -106,21 +106,24 @@
       "se_despacha_en_mostrador": true,
       "requiere_cuenta": true,
       "requiere_cuenta_nota": "Se opera con una cuenta en MiCorreo (micorreo.correoargentino.com.ar): se cotiza, se paga y se imprime el rotulo online, y recien ahi se deja el paquete en la sucursal. SIN VERIFICAR si el alta es libre y gratuita o si pasa por un alta comercial: no se creo ninguna cuenta. Correo publicita estas tarifas como preferenciales para venta online, o sea MAS BARATAS que la encomienda de mostrador.",
+      "codigo_api": "CP",
       "modalidades": ["domicilio", "sucursal"],
       "plazo_dias": [2, 5],
       "plazo_texto": "2 a 5 dias habiles a todo el pais, segun origen y destino. Hasta 1 visita al domicilio; si no hay nadie, queda 5 dias habiles en la sucursal mas cercana.",
-      "peso_max_kg": null,
-      "peso_max_nota": "PENDIENTE: la ficha oficial se contradice (dice 30 kg en un lugar y 25 kg en otro). Confirmar en sucursal o en MiCorreo antes de usarlo.",
+      "peso_max_kg": 50,
+      "peso_max_nota": "Del manual API MiCorreo del 2026-05-18: dimensions.weight minimo 1 g, maximo 50.000 g. Esa es la validacion que aplica de verdad al cotizar. La ficha web del servicio se contradice sola (dice 30 kg en un lugar y 25 kg en otro) y la version 2022 del mismo manual decia 25.000 g: el limite se amplio. Confirmar contra la API en la primera cotizacion real.",
       "medidas_max": {
-        "suma_lados_cm": 250,
-        "lado_max_cm": 150,
-        "texto_oficial": "la suma del mayor largo, el mayor ancho y el mayor alto no puede superar 250 cm, y ningun lado puede superar 150 cm"
+        "suma_lados_cm": 300,
+        "lado_max_cm": 200,
+        "texto_oficial": "dimensions.height / width / length maximo 200 cm cada uno; la sumatoria total de los lados maximo 300 cm",
+        "fuente": "Manual API MiCorreo 2026-05-18, endpoint /rates",
+        "conflicto_con_ficha_web": "La ficha web de paqueteria eCommerce todavia publica 250 cm sumados y 150 cm por lado (los mismos topes que la encomienda de mostrador). Se toman los del manual de la API porque es el sistema que acepta o rechaza el envio, pero hay que verificarlo en la primera cotizacion real antes de vender un paquete que pase de 250 cm."
       },
       "escalones_kg": null,
       "precios_confirmados": false,
       "precios": null,
-      "pendiente": "PENDIENTE: no hay tarifario publico. MiCorreo exige iniciar sesion para cotizar y la unica lista de precios que Correo publica como PDF (lista-de-precios-CF-MiCorreo.pdf) es de enero de 2023 y esta armada con imagenes. No se cargaron numeros para no inventar nada. Para completarlo: abrir una cuenta gratuita en MiCorreo y cotizar, o pedir la lista en sucursal.",
-      "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/paqueteria-ecommerce-1"
+      "pendiente": "PENDIENTE: no hay tarifario publico. MiCorreo exige iniciar sesion para cotizar y la unica lista de precios que Correo publica como PDF (lista-de-precios-CF-MiCorreo.pdf) es de enero de 2023 y esta armada con imagenes. El precio se obtiene por API (POST /rates) o cotizando en la web de MiCorreo. No se cargaron numeros para no inventar nada.",
+      "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/paqueteria-ecommerce-1 + Manual API MiCorreo 2026-05-18"
     },
 
     "paqar_expreso": {
@@ -128,21 +131,24 @@
       "se_despacha_en_mostrador": true,
       "requiere_cuenta": true,
       "requiere_cuenta_nota": "Igual que PAQ.AR Clasico: cuenta en MiCorreo, con las mismas dudas sobre como se da de alta.",
+      "codigo_api": "EP",
       "modalidades": ["domicilio", "sucursal"],
       "plazo_dias": [1, 3],
       "plazo_texto": "1 a 3 dias habiles a todo el pais, segun origen y destino. Hasta 2 visitas al domicilio; si no hay nadie, queda 5 dias habiles en la sucursal mas cercana.",
-      "peso_max_kg": null,
-      "peso_max_nota": "PENDIENTE: misma contradiccion que PAQ.AR Clasico (25 o 30 kg).",
+      "peso_max_kg": 50,
+      "peso_max_nota": "Mismos limites que PAQ.AR Clasico: los valida el endpoint /rates, no el producto.",
       "medidas_max": {
-        "suma_lados_cm": 250,
-        "lado_max_cm": 150,
-        "texto_oficial": "la suma del mayor largo, el mayor ancho y el mayor alto no puede superar 250 cm, y ningun lado puede superar 150 cm"
+        "suma_lados_cm": 300,
+        "lado_max_cm": 200,
+        "texto_oficial": "dimensions.height / width / length maximo 200 cm cada uno; la sumatoria total de los lados maximo 300 cm",
+        "fuente": "Manual API MiCorreo 2026-05-18, endpoint /rates",
+        "conflicto_con_ficha_web": "Igual que PAQ.AR Clasico: la ficha web sigue diciendo 250/150."
       },
       "escalones_kg": null,
       "precios_confirmados": false,
       "precios": null,
-      "pendiente": "PENDIENTE: mismo motivo que PAQ.AR Clasico. Sin tarifario publico.",
-      "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/paqueteria-ecommerce-1"
+      "pendiente": "PENDIENTE: mismo motivo que PAQ.AR Clasico. Sin tarifario publico; el precio sale de POST /rates.",
+      "fuente": "https://www.correoargentino.com.ar/servicios/paqueteria/paqueteria-ecommerce-1 + Manual API MiCorreo 2026-05-18"
     }
   },
 
@@ -187,15 +193,48 @@
     ]
   },
 
-  "api": {
-    "existe": true,
-    "nombre": "API MiCorreo",
-    "base_produccion": "https://api.correoargentino.com.ar/micorreo/v1",
-    "base_qa": "https://apitest.correoargentino.com.ar/micorreo/v1",
-    "endpoint_cotizacion": "POST /rates",
-    "auth": "Basic -> /token devuelve un JWT que se manda como Bearer. Las credenciales se piden a Correo por cada ambiente.",
-    "documentacion": "https://www.correoargentino.com.ar/MiCorreo/public/img/pag/apiMiCorreo.pdf (fechada 08/2022)",
-    "sirve_para_este_caso": false,
-    "nota": "Cotiza PAQ.AR, no la encomienda de mostrador, y necesita credenciales. Queda anotada por si en algun momento conviene abrir la cuenta de MiCorreo: ahi si se podria cotizar online en vez de mantener este JSON a mano."
+  "apis": {
+    "nota": "Correo tiene DOS APIs distintas y solo una cotiza. Ninguna de las dos cotiza la encomienda de mostrador: las dos son del mundo PAQ.AR.",
+
+    "micorreo": {
+      "nombre": "API MiCorreo",
+      "cotiza": true,
+      "base_produccion": "https://api.correoargentino.com.ar/micorreo/v1",
+      "base_test": "https://apitest.correoargentino.com.ar/micorreo/v1",
+      "auth": "POST /token con HTTP Basic -> devuelve {token, expires} (JWT). El resto de los endpoints van con Authorization: Bearer. Las credenciales se piden a Correo por cada ambiente.",
+      "endpoints": {
+        "POST /register": "Da de alta un usuario de MiCorreo (consumidor final con DNI, o CUIT). Devuelve customerId.",
+        "POST /users/validate": "email + password -> customerId. Es la forma de obtener el customerId de una cuenta ya existente.",
+        "GET /agencies": "Sucursales de una provincia (codigo, nombre, direccion, horarios, lat/long, si recibe paquetes). Necesario para envio a sucursal.",
+        "POST /rates": "Cotiza UN paquete. customerId + postalCodeOrigin + postalCodeDestination + deliveredType (D/S, opcional) + dimensions{weight en gramos, height, width, length en cm}.",
+        "POST /rates/calculate": "Apilamiento: varios productos con cantidades -> un unico paquete logico con sus dimensiones.",
+        "POST /rates/packages": "Cotiza una orden de varios productos apilando. Con deliveredType en null devuelve las CUATRO combinaciones (CP/EP x D/S) en una sola llamada, cada una con price, deliveryTimeMin y deliveryTimeMax.",
+        "POST /shipping/import": "Importa el envio a MiCorreo (genera la orden). Pide remitente, destinatario y shipping.agency si es a sucursal.",
+        "GET /shipping/tracking": "Seguimiento del envio."
+      },
+      "respuesta_rates": "{customerId, validTo, rates: [{deliveredType, productType, productName, price, deliveryTimeMin, deliveryTimeMax}]}. productType: CP = Correo Argentino Clasico, EP = Correo Argentino Expreso. OJO: la cotizacion tiene vencimiento (validTo).",
+      "aclaracion_origen": "El manual dice: 'La cotizacion toma como origen la sucursal del cliente MiCorreo indicado en customerId'. O sea que el origen real lo define la cuenta, no solo postalCodeOrigin.",
+      "documentacion": "Manual 'Correo Argentino - API MiCorreo', version 2026-05-18, 23 paginas (lo tiene Damian). Hay una version vieja publica de 08/2022 en https://www.correoargentino.com.ar/MiCorreo/public/img/pag/apiMiCorreo.pdf, con limites desactualizados (25 kg / 150 cm) y sin /rates/packages, /rates/calculate ni /shipping/tracking.",
+      "sirve_para_cotizar": true
+    },
+
+    "paqar_v2": {
+      "nombre": "API Paq.ar 2.0 (Plataforma de Integracion)",
+      "cotiza": false,
+      "base_produccion": "https://api.correoargentino.com.ar/paqar/v1/<endpoint>",
+      "base_test": "https://apitest.correoargentino.com.ar/paqar/v1/<endpoint>",
+      "auth": "GET /v1/auth con id de agreement (codigo de acuerdo comercial) + API-Key. Las credenciales se gestionan con el area Comercial de Correo Argentino.",
+      "endpoints": {
+        "GET /v1/auth": "Valida credenciales.",
+        "POST /v1/orders": "Alta de orden o pedido.",
+        "PATCH /v1/orders/{trackingNumber}/cancel": "Cancela una orden.",
+        "POST /v1/labels": "Rotulo de una orden.",
+        "historial": "Consulta el historial de una orden.",
+        "GET /v1/agencies": "Sucursales."
+      },
+      "documentacion": "Manual 'Correo Argentino - Plataforma de Integracion - API 2.0', version 1.2, Abril 2023 (lo tiene Damian).",
+      "sirve_para_cotizar": false,
+      "por_que_no": "No tiene NINGUN endpoint de precio: el manual completo no menciona cotizacion, precio, tarifa ni price. Sirve para operar despues de vender (alta de orden, rotulo, cancelacion, tracking), no para decidir cuanto cobrarle al cliente. Ademas exige un acuerdo comercial, que es justo lo que el socio no tiene."
+    }
   }
 }

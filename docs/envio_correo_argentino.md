@@ -239,7 +239,7 @@ Después agrupar los no ambiguos en rangos y volcarlos a `rangos_por_provincia`.
 |---|---|---|
 | **Precios de PAQ.AR** (Clásico/Expreso, domicilio/sucursal) | MiCorreo exige iniciar sesión para cotizar. El único PDF público de precios ([lista-de-precios-CF-MiCorreo.pdf](https://www.correoargentino.com.ar/MiCorreo/public/files/lista-de-precios-CF-MiCorreo.pdf)) tiene fecha de creación **enero de 2023** y además está armado con imágenes | Dar de alta la cuenta en [micorreo.correoargentino.com.ar](https://micorreo.correoargentino.com.ar) y cotizar; o pedir la lista en sucursal |
 | **Si el alta de MiCorreo es libre** | No creé ninguna cuenta: habría sido actuar a nombre de Damián sobre un servicio real | Lo resuelve el mismo paso de arriba |
-| **Peso máximo de PAQ.AR** | La ficha oficial se contradice sola: dice 30 kg en un lugar y 25 kg en otro | Confirmar al cotizar en MiCorreo |
+| ~~**Peso máximo de PAQ.AR**~~ | **Resuelto** con el manual de la API (mayo 2026): 1 g a 50.000 g, 200 cm por lado, 300 cm sumados. La ficha web sigue diciendo 25/30 kg y 250/150 cm — ver §8 | Verificar en la primera cotización real antes de vender un paquete de más de 250 cm |
 | **CP de origen de Así Fue Deco** | Nadie dijo desde qué sucursal despacha el socio, y sin eso no hay alcance que resolver | Preguntarle y cargarlo en `origen.cp` |
 | **Fecha de vigencia de las encomiendas** | Correo no la publica y el Archive no la tiene (WAF) | No se puede cerrar desde afuera. Se mitiga re-chequeando los links |
 | **Zona 1000–1499 = CABA** | El endpoint no da CP para CABA | Inocuo para el alcance. Si alguna vez se quiere exacto, se saca del CPA completo |
@@ -289,3 +289,105 @@ Errores, todos distinguibles y ninguno devuelve un número a medias:
 | `DatosInvalidos` | Peso o medidas sin sentido, CP mal formado, falta el origen |
 
 Todas heredan de `ErrorCotizacion`.
+
+---
+
+## 8. Cotización automática con PAQ.AR
+
+Correo tiene **dos APIs distintas y sólo una cotiza**. La diferencia es grande, así que conviene
+no confundirlas.
+
+| | **API MiCorreo** | **API Paq.ar 2.0** |
+|---|---|---|
+| ¿Cotiza? | **Sí** — `POST /rates`, `/rates/packages`, `/rates/calculate` | **No.** El manual entero no menciona cotización, precio, tarifa ni `price` |
+| Qué hace | Cotizar, registrar usuarios, listar sucursales, importar el envío, tracking | Alta de orden, cancelar, rótulo, historial, sucursales |
+| Credenciales | Basic → JWT. Se piden a Correo por ambiente (hay Test) | `agreement id` + API-Key, **gestionadas con el área Comercial** |
+| Base | `https://api.correoargentino.com.ar/micorreo/v1` | `https://api.correoargentino.com.ar/paqar/v1/<endpoint>` |
+| Manual | *Correo Argentino – API MiCorreo*, **2026-05-18**, 23 pág. | *Plataforma de Integración – API 2.0*, v1.2, **abril 2023** |
+
+**Para este proyecto va MiCorreo.** Paq.ar 2.0 sirve para *operar* después de vender, no para
+decidir cuánto cobrarle al cliente — y encima pide el acuerdo comercial que el socio no tiene.
+
+> Hay una versión pública vieja del manual de MiCorreo
+> ([08/2022](https://www.correoargentino.com.ar/MiCorreo/public/img/pag/apiMiCorreo.pdf)) con
+> límites desactualizados (25 kg / 150 cm) y sin `/rates/packages`, `/rates/calculate` ni
+> `/shipping/tracking`. Los datos de este documento salen del manual de **mayo 2026**.
+
+### Lo que devuelve `/rates`
+
+```jsonc
+// POST /rates   (Authorization: Bearer <jwt>)
+{ "customerId": "0000550367", "postalCodeOrigin": "1414",
+  "postalCodeDestination": "1425", "deliveredType": null,   // null = las 4 combinaciones
+  "dimensions": { "weight": 2500, "height": 10, "width": 20, "length": 30 } }
+```
+
+```jsonc
+{ "customerId": "...", "validTo": "2026-09-18T02:36:58.088-03:00",
+  "rates": [
+    { "deliveredType": "S", "productType": "CP", "productName": "Correo Argentino Clasico",
+      "price": 59611.21, "deliveryTimeMin": "2", "deliveryTimeMax": "5" },
+    { "deliveredType": "S", "productType": "EP", "productName": "Correo Argentino Expreso",
+      "price": 174928.12, "deliveryTimeMin": "1", "deliveryTimeMax": "3" }
+    // ... y las dos variantes "D"
+  ] }
+```
+
+Tres detalles que importan:
+
+- **`deliveredType: null` trae las cuatro combinaciones** (Clásico/Expreso × domicilio/sucursal)
+  en una sola llamada. `CP` = Clásico, `EP` = Expreso.
+- **Trae el plazo junto con el precio** (`deliveryTimeMin/Max`), así que los días que publica el
+  sitio salen de la misma fuente que el número.
+- **La cotización vence** (`validTo`). No es un precio eterno que se pueda cachear para siempre.
+- Peso en **gramos**, medidas en **cm**, todos enteros. Límites: 1–50.000 g, 200 cm por lado,
+  **300 cm sumados** — bastante más que los 25 kg / 150 / 250 del mostrador. Para deco voluminosa
+  eso puede ser la diferencia entre poder vender o no.
+- `/rates/calculate` **apila** varios productos en un paquete lógico. Es exactamente el problema
+  del carrito con 3 borlas, resuelto del lado de Correo en vez de a ojo.
+
+### Cómo lo construiríamos
+
+**La API no se llama desde el checkout.** Tres razones, todas del proyecto:
+
+1. El sitio es **estático**: las fichas publican costo y plazo pre-generados. No pueden llamar a
+   una API.
+2. El checkout no puede depender de un tercero. Si Correo tarda o se cae, o cobrás mal o perdés
+   la venta.
+3. Ya existe el patrón acá: `10_sincronizar_campanas.py` baja datos de afuera, los escribe al
+   repo y **falla en blando** (si no responde, deja todo como estaba).
+
+Entonces: **un script del pipeline llena el JSON, y el cotizador que ya existe lo lee sin
+cambios.** Pasos:
+
+- **Paso 0 — bloqueante, del lado de Damián.** Pedir a Correo las credenciales de integración de
+  MiCorreo (arrancar por el ambiente Test) y tener la cuenta MiCorreo del socio, de la que sale el
+  `customerId` vía `POST /users/validate`.
+- **Paso 1 — `scripts/utils/micorreo_api.py`.** Cliente de la API: `/token` con caché del JWT
+  (viene con `expires`), reintentos vía `utils/http_panel.py` —regla de la casa: en POST sólo se
+  reintentan errores de conexión—, y `rates()` / `rates_packages()`. Credenciales en `config/.env`
+  (`MICORREO_USER`, `MICORREO_PASSWORD`, `MICORREO_CUSTOMER_ID`) y en el secret `ENV_FILE`. **Nunca
+  en el repo, que es público.**
+- **Paso 2 — un script numerado que sondea y escribe el tarifario.** Las tarifas de paq.ar son por
+  zona × escalón de peso, pero la API cotiza punto a punto. Se descubre la grilla sondeando:
+  (a) dimensiones fijas y un CP por provincia → la cantidad de precios distintos revela las zonas;
+  (b) destino fijo y barrido de peso 1 g → 50.000 g → los escalones; (c) una muestra de control
+  para validar. Sale la misma estructura que ya tiene
+  `tarifario_correo_argentino.json`, con zonas de paq.ar en vez de regional/nacional.
+  Dos cosas que no hay que olvidar: **falla en blando** (si la API no responde, no se toca el
+  JSON — borrar tarifas por un timeout es peor que tenerlas viejas) y **agregar su ruta a la lista
+  blanca de `git_push_catalogo()`** en `00_actualizar_sistema_completo.py`, o el archivo se
+  regenera todos los días y se descarta en silencio, como pasó con el feed de Google Shopping.
+- **Paso 3 — test de deriva.** Re-cotizar N casos de referencia contra la API y avisar si el JSON
+  cacheado se separó más de un X %. Es la red que evita que Damián pague la diferencia durante
+  semanas sin enterarse.
+
+Después, `/shipping/import` + `/shipping/tracking` cierran el circuito operativo: la orden se crea
+en MiCorreo sola y el número de seguimiento entra en el email que el sistema ya manda.
+
+### Mientras tanto, sin esperar las credenciales
+
+Con el socio logueado en la web de MiCorreo se puede cosechar la grilla desde la consola del
+navegador, llamando a los XHR de la propia aplicación — el mismo truco que se usó acá para la base
+de localidades (§4). Eso llena el JSON esta semana y desbloquea la venta. **Cuando lleguen las
+credenciales no hay que tocar el checkout**, porque lee el mismo archivo.
