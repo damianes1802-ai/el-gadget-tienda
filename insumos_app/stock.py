@@ -465,7 +465,15 @@ def procesar_venta(
             "SELECT * FROM venta_procesada WHERE canal = ? AND id_externo = ?",
             (canal, id_externo),
         ).fetchone()
-        if existente is not None and (not forzar or existente["estado"] == "procesada"):
+        # `forzar` solo puede actuar sobre un pendiente. Antes la condición
+        # excluía nada más el estado 'procesada', así que cuando apareció
+        # 'cancelada' el motor habría vuelto a descontar una venta cancelada si
+        # alguien la forzaba. Enumerar los estados PERMITIDOS en vez de los
+        # prohibidos deja la garantía en el motor y no en la disciplina de
+        # quien lo llama.
+        if existente is not None and not (
+            forzar and existente["estado"] in db.ESTADOS_PENDIENTES
+        ):
             return {
                 "canal": canal,
                 "id_externo": id_externo,
@@ -731,5 +739,290 @@ def reprocesar_pendientes(conn: sqlite3.Connection) -> Dict[str, Any]:
     resumen: Dict[str, int] = {}
     for r in resultados:
         resumen[r["estado"]] = resumen.get(r["estado"], 0) + 1
+
+    return {"total": len(resultados), "resumen": resumen, "resultados": resultados}
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# CANCELACIÓN DE VENTAS — RESTITUCIÓN DE STOCK
+#
+# POR QUÉ REVIERTE LOS MOVIMIENTOS Y NO RECALCULA LA RECETA
+#
+# La tentación es volver a calcular el consumo desde la receta y asentarlo en
+# positivo. Está mal: si entre la venta y la cancelación alguien editó la
+# receta del artículo —agregó un cairel, cambió un insumo— se restituiría una
+# cantidad distinta de la que se descontó. El stock quedaría mal EN SILENCIO:
+# ningún error, ningún log, solo un número que no cierra y una diferencia que
+# nadie puede explicar meses después.
+#
+# Por eso la reversa lee `movimiento_stock` por (origen_canal,
+# referencia_externa) y asienta el opuesto exacto de cada movimiento de venta.
+# Es para esto que el libro mayor guarda la referencia de la orden, y es la
+# única forma de que revertir sea exacto por construcción y no por suerte.
+# ════════════════════════════════════════════════════════════════════════════
+
+def movimientos_de_venta(
+    conn: sqlite3.Connection, canal: str, id_externo: str
+) -> List[Dict[str, Any]]:
+    """Los movimientos de consumo que asentó una venta.
+
+    Filtra por `tipo = 'venta'` a propósito: los `devolucion` de una
+    cancelación anterior comparten la referencia, y revertirlos también sería
+    descontar de nuevo lo que ya se había restituido.
+    """
+    filas = conn.execute(
+        """SELECT * FROM movimiento_stock
+            WHERE origen_canal = ? AND referencia_externa = ? AND tipo = 'venta'
+            ORDER BY id""",
+        (canal, id_externo),
+    ).fetchall()
+    return [dict(f) for f in filas]
+
+
+def cancelar_venta(
+    conn: sqlite3.Connection,
+    canal: str,
+    id_externo: str,
+    *,
+    motivo: Optional[str] = None,
+    usuario: Optional[str] = None,
+    registrar_si_no_existe: bool = False,
+) -> Dict[str, Any]:
+    """Cancela una venta y restituye exactamente lo que había descontado.
+
+    Idempotente: una venta ya `cancelada` vuelve sin tocar nada. El estado
+    `cancelada` además la saca de la cola de pendientes para siempre, así que
+    no puede volver a descontar por un reproceso.
+
+    Una venta que nunca descontó (`pendiente_receta`, `pendiente_mapeo`,
+    `ignorada_fecha_corte`) se marca cancelada sin generar movimientos: no hay
+    nada que devolver. `estado_previo` queda guardado para que más adelante se
+    entienda por qué esa cancelación no restituyó nada.
+
+    `registrar_si_no_existe` es para los sincronizadores: una orden cancelada
+    que nunca llegamos a ver se registra igual, y eso PROTEGE el stock. Si
+    quedara sin registro, una consulta de "órdenes nuevas" atrasada podría
+    postear después esa misma orden como venta y descontarla, cuando en el
+    canal ya estaba cancelada. Con la fila presente, la idempotencia la frena.
+    """
+    if canal not in db.CANALES_VENTA:
+        raise ValueError(f"Canal inválido: {canal}. Válidos: {', '.join(db.CANALES_VENTA)}")
+    id_externo = str(id_externo or "").strip()
+    if not id_externo:
+        raise ValueError("Hace falta el id_externo de la venta a cancelar")
+
+    with db.transaccion(conn):
+        fila = conn.execute(
+            "SELECT * FROM venta_procesada WHERE canal = ? AND id_externo = ?",
+            (canal, id_externo),
+        ).fetchone()
+
+        # ── La venta no está registrada ───────────────────────────────────
+        if fila is None:
+            if not registrar_si_no_existe:
+                raise ValueError(
+                    f"No hay ninguna venta registrada como {canal}/{id_externo}. "
+                    "Si viene de un sincronizador y querés dejar constancia de la "
+                    "cancelación igual, usá registrar_si_no_existe."
+                )
+            detalle = (
+                "Cancelación de una orden que este sistema nunca procesó. No había "
+                "nada que restituir; queda registrada para que no se descuente si "
+                "el canal la reporta como venta más tarde."
+            )
+            conn.execute(
+                """INSERT INTO venta_procesada
+                       (canal, id_externo, estado, fecha_venta, fecha_proceso,
+                        items_json, detalle, estado_previo, fecha_cancelacion)
+                   VALUES (?, ?, 'cancelada', NULL, ?, NULL, ?, NULL, ?)""",
+                (canal, id_externo, db.ahora_iso(), detalle, db.ahora_iso()),
+            )
+            return {
+                "canal": canal,
+                "id_externo": id_externo,
+                "estado": "cancelada",
+                "estado_previo": None,
+                "ya_estaba_cancelada": False,
+                "restituyo_stock": False,
+                "movimientos": [],
+                "alertas": [],
+                "avisos": [detalle],
+            }
+
+        # ── Idempotencia ──────────────────────────────────────────────────
+        if fila["estado"] == "cancelada":
+            return {
+                "canal": canal,
+                "id_externo": id_externo,
+                "estado": "cancelada",
+                "estado_previo": fila["estado_previo"],
+                "ya_estaba_cancelada": True,
+                "restituyo_stock": False,
+                "movimientos": [],
+                "alertas": [],
+                "avisos": [
+                    f"La venta {canal}/{id_externo} ya estaba cancelada "
+                    f"(el {fila['fecha_cancelacion']}). No se restituyó nada de nuevo."
+                ],
+            }
+
+        estado_previo = fila["estado"]
+        consumos = movimientos_de_venta(conn, canal, id_externo)
+        avisos: List[str] = []
+
+        # ── La venta nunca descontó: no hay nada que devolver ─────────────
+        if not consumos:
+            detalle = (
+                f"Cancelada. Estaba en estado '{estado_previo}', así que no había "
+                "descontado stock y no hay nada que restituir."
+            )
+            if estado_previo in db.ESTADOS_PENDIENTES:
+                detalle += " Queda fuera de la cola de pendientes."
+            avisos.append(detalle)
+            _marcar_cancelada(conn, canal, id_externo, estado_previo, detalle, motivo)
+            return {
+                "canal": canal,
+                "id_externo": id_externo,
+                "estado": "cancelada",
+                "estado_previo": estado_previo,
+                "ya_estaba_cancelada": False,
+                "restituyo_stock": False,
+                "movimientos": [],
+                "alertas": [],
+                "avisos": avisos,
+            }
+
+        # ── Restitución: el opuesto exacto de cada consumo ────────────────
+        stock_previo: Dict[int, float] = {}
+        movimientos: List[Dict[str, Any]] = []
+        nota = motivo or f"Cancelación de la venta {canal}/{id_externo}"
+
+        for consumo in consumos:
+            insumo_id = int(consumo["insumo_id"])
+            if insumo_id not in stock_previo:
+                stock_previo[insumo_id] = float(
+                    insumo_por_id(conn, insumo_id)["stock_unidades"] or 0.0
+                )
+
+            devuelto = -float(consumo["cantidad_unidades"])
+            movimiento_id = db.registrar_movimiento(
+                conn,
+                insumo_id,
+                devuelto,
+                "devolucion",
+                origen_canal=canal,
+                referencia_externa=id_externo,
+                articulo_id=consumo["articulo_id"],
+                usuario=usuario,
+                nota=nota,
+            )
+            insumo = dict(insumo_por_id(conn, insumo_id))
+            movimientos.append(
+                {
+                    "movimiento_id": movimiento_id,
+                    "revierte_movimiento_id": consumo["id"],
+                    "insumo_id": insumo_id,
+                    "insumo": insumo["nombre"],
+                    "articulo_id": consumo["articulo_id"],
+                    "cantidad_unidades": round(devuelto, 4),
+                    "stock_resultante": calculos.stock_para_pantalla(insumo),
+                }
+            )
+
+        detalle = (
+            f"Cancelada. Se restituyeron {len(movimientos)} movimiento(s), revirtiendo "
+            "exactamente lo que había descontado la venta."
+        )
+        _marcar_cancelada(conn, canal, id_externo, estado_previo, detalle, motivo)
+        alertas = _evaluar_alertas(conn, list(stock_previo), stock_previo)
+
+    return {
+        "canal": canal,
+        "id_externo": id_externo,
+        "estado": "cancelada",
+        "estado_previo": estado_previo,
+        "ya_estaba_cancelada": False,
+        "restituyo_stock": True,
+        "movimientos": movimientos,
+        "alertas": alertas,
+        "avisos": avisos,
+    }
+
+
+def _marcar_cancelada(
+    conn: sqlite3.Connection,
+    canal: str,
+    id_externo: str,
+    estado_previo: str,
+    detalle: str,
+    motivo: Optional[str] = None,
+) -> None:
+    conn.execute(
+        """UPDATE venta_procesada
+              SET estado = 'cancelada', estado_previo = ?,
+                  fecha_cancelacion = ?, detalle = ?
+            WHERE canal = ? AND id_externo = ?""",
+        (
+            estado_previo,
+            db.ahora_iso(),
+            f"{detalle} Motivo: {motivo}" if motivo else detalle,
+            canal,
+            id_externo,
+        ),
+    )
+
+
+def cancelar_lote(
+    conn: sqlite3.Connection,
+    cancelaciones: Sequence[Dict[str, Any]],
+    usuario: Optional[str] = None,
+    registrar_si_no_existe: bool = True,
+) -> Dict[str, Any]:
+    """Cancela varias ventas. Lo que va a usar la sincronización de canales.
+
+    Pensada para un sincronizador que RELEE el estado de órdenes que ya
+    conoce: se le pasa la lista de las que el canal ahora reporta canceladas y
+    se puede volver a pasar la misma lista sin consecuencias. Cada cancelación
+    es independiente: la que falla no arrastra a las demás.
+
+    `registrar_si_no_existe` viene en True acá, al contrario que al cancelar
+    una sola venta: en un lote los ids los pone el canal y no una persona
+    tipeando, así que registrar una orden desconocida protege el stock sin
+    arriesgar una fila fantasma por un error de tipeo.
+    """
+    resultados = []
+    for cancelacion in cancelaciones:
+        try:
+            resultados.append(
+                cancelar_venta(
+                    conn,
+                    cancelacion.get("canal"),
+                    cancelacion.get("id_externo"),
+                    motivo=cancelacion.get("motivo"),
+                    usuario=cancelacion.get("usuario") or usuario,
+                    registrar_si_no_existe=registrar_si_no_existe,
+                )
+            )
+        except (ValueError, sqlite3.Error) as e:
+            resultados.append(
+                {
+                    "canal": cancelacion.get("canal"),
+                    "id_externo": cancelacion.get("id_externo"),
+                    "estado": "error",
+                    "error": str(e),
+                }
+            )
+
+    resumen: Dict[str, int] = {}
+    for r in resultados:
+        if r["estado"] == "error":
+            clave = "error"
+        elif r.get("ya_estaba_cancelada"):
+            clave = "ya_cancelada"
+        elif r.get("restituyo_stock"):
+            clave = "cancelada_con_restitucion"
+        else:
+            clave = "cancelada_sin_stock_que_devolver"
+        resumen[clave] = resumen.get(clave, 0) + 1
 
     return {"total": len(resultados), "resumen": resumen, "resultados": resultados}

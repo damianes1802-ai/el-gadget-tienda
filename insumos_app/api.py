@@ -1187,6 +1187,45 @@ def procesar_lote_endpoint(
     return stock.procesar_lote(conn, ventas, usuario=datos.usuario)
 
 
+@api.post("/ventas/cancelaciones", tags=["ventas"])
+def cancelar_lote_endpoint(
+    datos: modelos.LoteCancelacionesIn, conn: sqlite3.Connection = Depends(conexion)
+) -> Dict[str, Any]:
+    """Cancela varias ventas de una. Para la sincronización de canales.
+
+    PARA QUIEN HAGA EL SINCRONIZADOR DE MERCADO LIBRE: las cancelaciones no
+    llegan consultando "órdenes nuevas". Una orden cambia de estado en el canal
+    DESPUÉS de que la vimos, así que una sincronización que solo mira lo nuevo
+    nunca se va a enterar de una cancelación.
+
+    El patrón que este endpoint espera es releer el estado de las órdenes que
+    ya se conocen:
+
+        1. `GET /api/ventas?canal=ml&estado=procesada&desde=<fecha>` da los
+           `id_externo` que este sistema ya procesó.
+        2. Se consulta el estado actual de esas órdenes en el canal.
+        3. Las que volvieron canceladas se postean acá, todas juntas.
+
+    Se puede repetir con la misma lista sin consecuencias: cada cancelación es
+    idempotente.
+    """
+    cancelaciones = [
+        {
+            "canal": c.canal,
+            "id_externo": c.id_externo,
+            "motivo": c.motivo,
+            "usuario": c.usuario,
+        }
+        for c in datos.cancelaciones
+    ]
+    return stock.cancelar_lote(
+        conn,
+        cancelaciones,
+        usuario=datos.usuario,
+        registrar_si_no_existe=datos.registrar_si_no_existe,
+    )
+
+
 @api.get("/ventas", tags=["ventas"])
 def listar_ventas(
     canal: Optional[str] = None,
@@ -1243,6 +1282,39 @@ def ver_venta(
         (canal, id_externo),
     ).fetchall()
     return {**dict(fila), "movimientos": [dict(m) for m in movimientos]}
+
+
+@api.post("/ventas/{canal}/{id_externo}/cancelar", tags=["ventas"])
+def cancelar_una(
+    canal: str,
+    id_externo: str,
+    datos: Optional[modelos.CancelacionIn] = None,
+    conn: sqlite3.Connection = Depends(conexion),
+) -> Dict[str, Any]:
+    """Cancela una venta y restituye el stock que había descontado.
+
+    **Restituye los movimientos que realmente se hicieron, no recalcula la
+    receta.** Si entre la venta y la cancelación alguien editó la receta del
+    artículo, recalcular devolvería cantidades distintas de las descontadas y
+    el stock quedaría mal sin que nada falle.
+
+    Idempotente: cancelar dos veces no restituye dos veces. Una venta que
+    nunca descontó (pendiente de receta o de mapeo, o anterior a la
+    `fecha_corte`) se marca cancelada sin generar movimientos, y queda fuera
+    de la cola de pendientes para que no pueda descontar más tarde.
+
+    Es también el enganche para El Gadget cuando Mercado Pago reporta un pago
+    reintegrado o anulado.
+    """
+    datos = datos or modelos.CancelacionIn()
+    return stock.cancelar_venta(
+        conn,
+        canal,
+        id_externo,
+        motivo=datos.motivo,
+        usuario=datos.usuario,
+        registrar_si_no_existe=datos.registrar_si_no_existe,
+    )
 
 
 @api.post("/ventas/{canal}/{id_externo}/reprocesar", tags=["ventas"])

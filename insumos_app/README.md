@@ -25,7 +25,7 @@ Tests:
 python -m pytest insumos_app/tests -q
 ```
 
-138 tests, sin tocar ninguna base real: cada uno corre sobre un SQLite temporal. Todos los
+192 tests, sin tocar ninguna base real: cada uno corre sobre un SQLite temporal. Todos los
 datos de ejemplo son inventados — **el repositorio es público y el costo y el stock del
 socio son datos comerciales suyos**.
 
@@ -38,6 +38,23 @@ socio son datos comerciales suyos**.
 
 Se leen de `config/.env` o del entorno del sistema (en Render no hay `config/.env`).
 
+### Migraciones
+
+`db.migrar()` corre en cada arranque de la API y es idempotente. La versión del esquema
+vive en `config.schema_version` y las migraciones están en `db._MIGRACIONES`, indexadas por
+la versión a la que llevan. Una base sin `schema_version` se considera v1.
+
+Esquema actual: **v2** (agregó el estado `cancelada` y las columnas de la cancelación).
+Esa migración tuvo que **reconstruir** `venta_procesada`, porque SQLite no permite alterar
+un CHECK; corre en una transacción explícita, ya que una base a mitad de camino perdería
+el registro de qué ventas se procesaron, y eso significa descontar todo de nuevo en la
+próxima sincronización. `test_cancelaciones.py` levanta una base v1 a mano y verifica que
+las filas sobreviven.
+
+Si agregás una migración: sumala a `_MIGRACIONES`, subí `SCHEMA_VERSION`, actualizá también
+el DDL del `SCHEMA` (para que una base nueva nazca al día) y escribí el test que verifica
+que no se pierden datos.
+
 ---
 
 ## Los módulos
@@ -46,7 +63,7 @@ Se leen de `config/.env` o del entorno del sistema (en Render no hay `config/.en
 |---|---|
 | `db.py` | Esquema SQLite, conexión, transacciones, el libro mayor y la config |
 | `calculos.py` | Funciones **puras**: peso de envío, conversiones de unidad, costos, alertas |
-| `stock.py` | El motor: movimientos, descuento por venta, reproceso de pendientes |
+| `stock.py` | El motor: movimientos, descuento por venta, reproceso de pendientes, cancelación |
 | `modelos.py` | Modelos de entrada de la API |
 | `api.py` | FastAPI. Cáscara delgada: no tiene reglas de negocio propias |
 
@@ -122,7 +139,7 @@ vez.
 
 ## Endpoints
 
-44 en total. `GET /` y `GET /salud` son abiertos; todo `/api/*` pide el header
+46 en total. `GET /` y `GET /salud` son abiertos; todo `/api/*` pide el header
 `X-Insumos-Password` cuando `INSUMOS_PASSWORD` está configurado.
 
 ### Taxonomía
@@ -234,6 +251,8 @@ GET    /api/ventas/pendientes
 POST   /api/ventas/pendientes/reprocesar
 GET    /api/ventas/{canal}/{id_externo}     + los movimientos que generó
 POST   /api/ventas/{canal}/{id_externo}/reprocesar
+POST   /api/ventas/{canal}/{id_externo}/cancelar    restituye el stock
+POST   /api/ventas/cancelaciones            {cancelaciones:[...]} para un sincronizador
 ```
 
 `POST /api/ventas`:
@@ -280,9 +299,47 @@ Respuesta:
 | `pendiente_receta` | falta la receta de algún artículo; **no se descontó nada** |
 | `pendiente_mapeo` | no se pudo resolver el artículo; **no se descontó nada** |
 | `ignorada_fecha_corte` | la venta es anterior a la primera carga de stock |
+| `cancelada` | se canceló; si había descontado, se restituyó |
 
 `recien_cruzado` distingue el insumo que cruzó el umbral **con este movimiento** del que ya
 venía abajo: sin eso, cada venta volvería a avisar por lo mismo y el aviso se vuelve ruido.
+
+### Cancelar una venta y restituir el stock
+
+`POST /api/ventas/ml/3000001/cancelar`, con `{motivo, usuario, registrar_si_no_existe}`
+opcionales. Es también el enganche para El Gadget cuando Mercado Pago reporta un pago
+reintegrado o anulado.
+
+**Revierte los movimientos que realmente se hicieron; no recalcula la receta.** Es la
+decisión central: si entre la venta y la cancelación alguien editó la receta del artículo,
+recalcular restituiría una cantidad distinta de la que se descontó y el stock quedaría mal
+**sin que nada falle**. La reversa lee `movimiento_stock` por `(origen_canal,
+referencia_externa)` y asienta el opuesto exacto de cada consumo, con
+`revierte_movimiento_id` apuntando al original. Para esto el libro mayor guarda la
+referencia de la orden.
+
+- **Idempotente**: cancelar dos veces no restituye dos veces.
+- **Una venta que nunca descontó** (`pendiente_*` o `ignorada_fecha_corte`) se marca
+  cancelada sin movimientos. `estado_previo` queda guardado para que esa cancelación sin
+  restitución se explique sola.
+- **`cancelada` es terminal**: la venta sale de la cola de pendientes y no puede volver a
+  descontar, ni por `reprocesar`, ni por un reenvío de la orden, ni con `forzar`.
+
+`POST /api/ventas/cancelaciones` hace lo mismo en lote. **Para quien haga el
+sincronizador de Mercado Libre: las cancelaciones no llegan consultando "órdenes
+nuevas"** — una orden cambia de estado en el canal *después* de que la vimos. El patrón
+es releer el estado de las órdenes que ya se conocen:
+
+1. `GET /api/ventas?canal=ml&estado=procesada&desde=<fecha>` da los `id_externo` que este
+   sistema ya procesó.
+2. Se consulta el estado actual de esas órdenes en el canal.
+3. Las que volvieron canceladas se postean al lote, que se puede repetir sin consecuencias.
+
+En el lote, `registrar_si_no_existe` viene en **true** (en la cancelación de una sola
+venta viene en false, para que un id mal tipeado no cree una fila fantasma). Registrar una
+orden desconocida **protege el stock**: si una orden se canceló en el canal antes de que
+la viéramos y no quedara registro, una consulta de "órdenes nuevas" atrasada podría
+postearla como venta y descontarla.
 
 ### Movimientos, alertas, config y auditoría
 ```

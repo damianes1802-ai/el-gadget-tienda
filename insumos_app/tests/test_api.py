@@ -758,3 +758,146 @@ def test_sin_conflicto_no_hay_aviso(cliente):
         "articulo_id": articulo["id"], "canal": "ml", "id_externo": "MLA1",
         "variacion_externa": "BRONCE"})
     assert "avisos" not in r.json()
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# CANCELACIONES POR API
+# ════════════════════════════════════════════════════════════════════════════
+
+def test_cancelar_una_venta_restituye_el_stock(cliente):
+    insumo, _ = _taller_por_api(cliente)
+    cliente.post("/api/ventas", json={
+        "canal": "ml", "id_externo": "3000001",
+        "items": [{"id_externo_item": "MLA100000001", "cantidad": 2}]})
+    assert cliente.get(f"/api/insumos/{insumo['id']}").json()["stock"]["unidades"] == 1988.0
+
+    r = cliente.post("/api/ventas/ml/3000001/cancelar",
+                     json={"motivo": "Comprador se arrepintió"})
+
+    assert r.status_code == 200, r.text
+    cuerpo = r.json()
+    assert cuerpo["estado"] == "cancelada"
+    assert cuerpo["estado_previo"] == "procesada"
+    assert cuerpo["restituyo_stock"] is True
+    assert cuerpo["movimientos"][0]["cantidad_unidades"] == 12
+    assert cliente.get(f"/api/insumos/{insumo['id']}").json()["stock"]["unidades"] == 2000.0
+    assert cliente.get("/api/auditoria/stock").json()["cuadra"] is True
+
+
+def test_cancelar_sin_cuerpo_tambien_funciona(cliente):
+    """La pantalla puede no mandar motivo."""
+    _taller_por_api(cliente)
+    cliente.post("/api/ventas", json={
+        "canal": "ml", "id_externo": "3000001",
+        "items": [{"id_externo_item": "MLA100000001", "cantidad": 1}]})
+
+    r = cliente.post("/api/ventas/ml/3000001/cancelar")
+    assert r.status_code == 200
+    assert r.json()["restituyo_stock"] is True
+
+
+def test_cancelar_dos_veces_por_api_no_restituye_dos_veces(cliente):
+    insumo, _ = _taller_por_api(cliente)
+    cliente.post("/api/ventas", json={
+        "canal": "ml", "id_externo": "3000001",
+        "items": [{"id_externo_item": "MLA100000001", "cantidad": 1}]})
+
+    cliente.post("/api/ventas/ml/3000001/cancelar")
+    segunda = cliente.post("/api/ventas/ml/3000001/cancelar").json()
+
+    assert segunda["ya_estaba_cancelada"] is True
+    assert cliente.get(f"/api/insumos/{insumo['id']}").json()["stock"]["unidades"] == 2000.0
+
+
+def test_cancelar_una_venta_inexistente_es_400(cliente):
+    r = cliente.post("/api/ventas/ml/no-existe/cancelar")
+    assert r.status_code == 400
+    assert "No hay ninguna venta registrada" in r.json()["detail"]
+
+
+def test_cancelar_una_desconocida_con_el_flag_la_registra(cliente):
+    r = cliente.post("/api/ventas/ml/2000777/cancelar",
+                     json={"registrar_si_no_existe": True})
+    assert r.status_code == 200
+    assert r.json()["estado"] == "cancelada"
+    assert cliente.get("/api/ventas/ml/2000777").json()["estado"] == "cancelada"
+
+
+def test_la_venta_cancelada_muestra_sus_devoluciones(cliente):
+    _taller_por_api(cliente)
+    cliente.post("/api/ventas", json={
+        "canal": "ml", "id_externo": "3000001",
+        "items": [{"id_externo_item": "MLA100000001", "cantidad": 1}]})
+    cliente.post("/api/ventas/ml/3000001/cancelar")
+
+    detalle = cliente.get("/api/ventas/ml/3000001").json()
+    tipos = [m["tipo"] for m in detalle["movimientos"]]
+    assert tipos == ["venta", "devolucion"]
+    assert detalle["estado"] == "cancelada"
+
+
+def test_el_lote_de_cancelaciones_sirve_a_un_sincronizador(cliente):
+    """El patrón completo: listar lo procesado, releer el canal, postear el lote."""
+    insumo, _ = _taller_por_api(cliente)
+    for orden in ("3000001", "3000002"):
+        cliente.post("/api/ventas", json={
+            "canal": "ml", "id_externo": orden, "fecha_venta": "2026-10-26",
+            "items": [{"id_externo_item": "MLA100000001", "cantidad": 1}]})
+    assert cliente.get(f"/api/insumos/{insumo['id']}").json()["stock"]["unidades"] == 1988.0
+
+    # 1. qué órdenes conoce el sistema
+    procesadas = cliente.get("/api/ventas", params={
+        "canal": "ml", "estado": "procesada", "desde": "2026-10-01"}).json()
+    assert {v["id_externo"] for v in procesadas["ventas"]} == {"3000001", "3000002"}
+
+    # 2. el canal reporta una cancelada → 3. se postea el lote
+    r = cliente.post("/api/ventas/cancelaciones", json={"cancelaciones": [
+        {"canal": "ml", "id_externo": "3000001", "motivo": "Cancelada en ML"}]})
+
+    assert r.json()["resumen"]["cancelada_con_restitucion"] == 1
+    assert cliente.get(f"/api/insumos/{insumo['id']}").json()["stock"]["unidades"] == 1994.0
+
+    # Repetir el lote no cambia nada
+    r = cliente.post("/api/ventas/cancelaciones", json={"cancelaciones": [
+        {"canal": "ml", "id_externo": "3000001"}]})
+    assert r.json()["resumen"]["ya_cancelada"] == 1
+    assert cliente.get(f"/api/insumos/{insumo['id']}").json()["stock"]["unidades"] == 1994.0
+
+
+def test_el_lote_registra_las_desconocidas_por_defecto(cliente):
+    """En un lote los ids los pone el canal, no una persona tipeando."""
+    r = cliente.post("/api/ventas/cancelaciones", json={"cancelaciones": [
+        {"canal": "ml", "id_externo": "2000888"}]})
+    assert r.json()["resumen"]["cancelada_sin_stock_que_devolver"] == 1
+    assert cliente.get("/api/ventas/ml/2000888").json()["estado"] == "cancelada"
+
+
+def test_la_pendiente_cancelada_sale_de_la_cola(cliente):
+    insumo = nuevo_insumo(cliente, stock_inicial=5.0)
+    articulo = nuevo_articulo(cliente)
+    cliente.post("/api/ventas", json={
+        "canal": "manual", "id_externo": "m-1",
+        "items": [{"articulo_id": articulo["id"], "cantidad": 1}]})
+    assert len(cliente.get("/api/ventas/pendientes").json()) == 1
+
+    cliente.post("/api/ventas/manual/m-1/cancelar")
+    assert cliente.get("/api/ventas/pendientes").json() == []
+    assert cliente.get("/salud").json()["ventas_pendientes"] == 0
+
+    # y cargar la receta + reprocesar no la resucita
+    cliente.put(f"/api/articulos/{articulo['id']}/receta",
+                json={"items": [{"insumo_id": insumo["id"], "cantidad": 6}]})
+    r = cliente.post("/api/ventas/pendientes/reprocesar")
+    assert r.json()["total"] == 0
+    assert cliente.get(f"/api/insumos/{insumo['id']}").json()["stock"]["unidades"] == 2000.0
+
+
+def test_las_canceladas_se_pueden_listar(cliente):
+    _taller_por_api(cliente)
+    cliente.post("/api/ventas", json={
+        "canal": "ml", "id_externo": "3000001",
+        "items": [{"id_externo_item": "MLA100000001", "cantidad": 1}]})
+    cliente.post("/api/ventas/ml/3000001/cancelar")
+
+    assert cliente.get("/api/ventas", params={"estado": "cancelada"}).json()["total"] == 1
+    assert cliente.get("/api/ventas", params={"estado": "procesada"}).json()["total"] == 0

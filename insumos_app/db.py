@@ -74,11 +74,21 @@ ESTADOS_VENTA = (
     "pendiente_receta",
     "pendiente_mapeo",
     "ignorada_fecha_corte",
+    "cancelada",
 )
+
+# Los dos estados que una venta puede dejar atrás descontando después. Son los
+# ÚNICOS sobre los que `procesar_venta(forzar=True)` tiene permiso de actuar:
+# así "no descontar dos veces" lo garantiza el motor y no la disciplina de
+# quien lo llama.
+ESTADOS_PENDIENTES = ("pendiente_receta", "pendiente_mapeo")
 
 MARGEN_EMBALAJE_DEFAULT = 1.05
 
-SCHEMA_VERSION = 1
+# 1 → esquema inicial
+# 2 → `venta_procesada` acepta el estado 'cancelada' y guarda `estado_previo` y
+#     `fecha_cancelacion` (restitución de stock por venta cancelada)
+SCHEMA_VERSION = 2
 
 
 def _ruta_inicial() -> Path:
@@ -141,6 +151,41 @@ def transaccion(conn: sqlite3.Connection) -> Iterator[sqlite3.Connection]:
 # ════════════════════════════════════════════════════════════════════════════
 # ESQUEMA
 # ════════════════════════════════════════════════════════════════════════════
+
+def ddl_venta_procesada(tabla: str = "venta_procesada") -> str:
+    """DDL de `venta_procesada`, parametrizada por nombre de tabla.
+
+    Está en una función y no escrita dos veces porque la migración que agregó
+    el estado `cancelada` tiene que reconstruir la tabla (SQLite no permite
+    alterar un CHECK): así el esquema de una base nueva y el de una migrada
+    salen del mismo lugar y no pueden divergir.
+    """
+    return f"""
+-- La idempotencia del descuento. Mercado Libre va a devolver la misma orden
+-- más de una vez (reintentos, ventanas de consulta superpuestas) y sin esta
+-- tabla el stock se descuenta dos veces.
+-- `items_json` guarda los ítems tal como llegaron, para poder reprocesar una
+-- venta que quedó pendiente de receta o de mapeo sin pedirle al canal que la
+-- mande de nuevo.
+-- `estado_previo` sobrevive a la cancelación para que una venta cancelada que
+-- no restituyó nada se explique sola: no descontó porque estaba pendiente.
+CREATE TABLE IF NOT EXISTS {tabla} (
+    canal             TEXT NOT NULL CHECK (canal IN ('ml', 'elgadget', 'empretienda', 'manual')),
+    id_externo        TEXT NOT NULL,
+    estado            TEXT NOT NULL CHECK (estado IN (
+                          'procesada', 'pendiente_receta', 'pendiente_mapeo',
+                          'ignorada_fecha_corte', 'cancelada')),
+    fecha_venta       TEXT,
+    fecha_proceso     TEXT NOT NULL,
+    items_json        TEXT,
+    detalle           TEXT,
+    estado_previo     TEXT,
+    fecha_cancelacion TEXT,
+    PRIMARY KEY (canal, id_externo)
+);"""
+
+
+_DDL_VENTA_PROCESADA = ddl_venta_procesada()
 
 SCHEMA = f"""
 CREATE TABLE IF NOT EXISTS categoria (
@@ -270,24 +315,7 @@ CREATE INDEX IF NOT EXISTS idx_movimiento_insumo ON movimiento_stock(insumo_id);
 CREATE INDEX IF NOT EXISTS idx_movimiento_fecha  ON movimiento_stock(fecha);
 CREATE INDEX IF NOT EXISTS idx_movimiento_ref    ON movimiento_stock(origen_canal, referencia_externa);
 
--- La idempotencia del descuento. Mercado Libre va a devolver la misma orden
--- más de una vez (reintentos, ventanas de consulta superpuestas) y sin esta
--- tabla el stock se descuenta dos veces.
--- `items_json` guarda los ítems tal como llegaron, para poder reprocesar una
--- venta que quedó pendiente de receta o de mapeo sin pedirle al canal que la
--- mande de nuevo.
-CREATE TABLE IF NOT EXISTS venta_procesada (
-    canal         TEXT NOT NULL CHECK (canal IN ('ml', 'elgadget', 'empretienda', 'manual')),
-    id_externo    TEXT NOT NULL,
-    estado        TEXT NOT NULL CHECK (estado IN (
-                      'procesada', 'pendiente_receta',
-                      'pendiente_mapeo', 'ignorada_fecha_corte')),
-    fecha_venta   TEXT,
-    fecha_proceso TEXT NOT NULL,
-    items_json    TEXT,
-    detalle       TEXT,
-    PRIMARY KEY (canal, id_externo)
-);
+{_DDL_VENTA_PROCESADA}
 
 CREATE INDEX IF NOT EXISTS idx_venta_estado ON venta_procesada(estado);
 CREATE INDEX IF NOT EXISTS idx_venta_fecha  ON venta_procesada(fecha_venta);
@@ -312,15 +340,97 @@ def migrar(conn: Optional[sqlite3.Connection] = None) -> None:
         # que es justo el caso de la pantalla de stock abierta mientras entra
         # una venta.
         conn.execute("PRAGMA journal_mode = WAL")
+
+        # Hay que mirar la versión ANTES de correr el SCHEMA: `CREATE TABLE IF
+        # NOT EXISTS` no toca una tabla que ya existe, así que una base vieja
+        # pasaría por acá sin cambios y sin que nada avise.
+        base_nueva = _base_vacia(conn)
+        version = _version_esquema(conn)
+
         conn.executescript(SCHEMA)
 
-        if get_config(conn, "schema_version") is None:
+        if base_nueva:
+            # El SCHEMA ya nace en la última versión: no hay nada que migrar.
             set_config(conn, "schema_version", str(SCHEMA_VERSION))
+        else:
+            # Una base sin `schema_version` es anterior al versionado, o sea v1.
+            desde = version if version is not None else 1
+            if desde < SCHEMA_VERSION:
+                _aplicar_migraciones(conn, desde=desde)
+            set_config(conn, "schema_version", str(SCHEMA_VERSION))
+
         if get_config(conn, "margen_embalaje_default") is None:
             set_config(conn, "margen_embalaje_default", str(MARGEN_EMBALAJE_DEFAULT))
     finally:
         if propia:
             conn.close()
+
+
+def _existe_tabla(conn: sqlite3.Connection, nombre: str) -> bool:
+    return conn.execute(
+        "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = ?", (nombre,)
+    ).fetchone()[0] > 0
+
+
+def _base_vacia(conn: sqlite3.Connection) -> bool:
+    """¿La base todavía no tiene nuestras tablas?"""
+    return not _existe_tabla(conn, "venta_procesada")
+
+
+def _version_esquema(conn: sqlite3.Connection) -> Optional[int]:
+    """Versión del esquema, o None si la base no tiene ni la tabla `config`.
+
+    Se consulta `sqlite_master` primero porque esto corre ANTES de crear el
+    esquema: en una base nueva, leer `config` directamente es un error de
+    "no such table".
+    """
+    if not _existe_tabla(conn, "config"):
+        return None
+    valor = get_config(conn, "schema_version")
+    return int(valor) if valor else None
+
+
+def _aplicar_migraciones(conn: sqlite3.Connection, desde: int) -> None:
+    """Aplica en orden las migraciones que falten."""
+    for version, migracion in sorted(_MIGRACIONES.items()):
+        if version > desde:
+            migracion(conn)
+
+
+def _migracion_2_cancelaciones(conn: sqlite3.Connection) -> None:
+    """Agrega el estado 'cancelada' y las columnas de la cancelación.
+
+    SQLite no permite alterar un CHECK, así que la tabla se reconstruye: se
+    crea con el DDL nuevo, se copian las filas, se tira la vieja y se renombra.
+    `venta_procesada` no tiene claves foráneas apuntándole, así que no hay
+    nada que se rompa al dar la vuelta.
+
+    Va en una transacción explícita: una base que quede a mitad de camino
+    perdería el registro de qué ventas ya se procesaron, y eso significa
+    descontar todo de nuevo en la próxima sincronización.
+    """
+    columnas = {r[1] for r in conn.execute("PRAGMA table_info(venta_procesada)")}
+    if "fecha_cancelacion" in columnas:
+        return  # ya estaba migrada
+
+    conn.executescript(
+        f"""
+        BEGIN IMMEDIATE;
+        {ddl_venta_procesada('venta_procesada_v2')}
+        INSERT INTO venta_procesada_v2
+            (canal, id_externo, estado, fecha_venta, fecha_proceso, items_json, detalle)
+            SELECT canal, id_externo, estado, fecha_venta, fecha_proceso, items_json, detalle
+              FROM venta_procesada;
+        DROP TABLE venta_procesada;
+        ALTER TABLE venta_procesada_v2 RENAME TO venta_procesada;
+        CREATE INDEX IF NOT EXISTS idx_venta_estado ON venta_procesada(estado);
+        CREATE INDEX IF NOT EXISTS idx_venta_fecha  ON venta_procesada(fecha_venta);
+        COMMIT;
+        """
+    )
+
+
+_MIGRACIONES = {2: _migracion_2_cancelaciones}
 
 
 # ════════════════════════════════════════════════════════════════════════════

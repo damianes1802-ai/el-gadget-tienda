@@ -258,6 +258,38 @@ class LoteVentasIn(BaseModel):
     usuario: Optional[str] = None
 
 
+class CancelacionIn(BaseModel):
+    """Cancelación de una venta: restituye lo que había descontado.
+
+    `registrar_si_no_existe` deja constancia de la cancelación de una orden
+    que este sistema nunca procesó. Está en False por defecto para que un id
+    mal tipeado no cree una fila fantasma; un sincronizador, donde el id lo
+    pone el canal, conviene que lo mande en True.
+    """
+    motivo: Optional[str] = None
+    usuario: Optional[str] = None
+    registrar_si_no_existe: bool = False
+
+
+class CancelacionLoteItemIn(BaseModel):
+    canal: str
+    id_externo: str
+    motivo: Optional[str] = None
+    usuario: Optional[str] = None
+
+
+class LoteCancelacionesIn(BaseModel):
+    """Varias cancelaciones de una.
+
+    Para un sincronizador que relee el estado de órdenes que ya conoce: se le
+    pasa la lista de las que el canal ahora reporta canceladas, y la misma
+    lista se puede volver a pasar sin consecuencias.
+    """
+    cancelaciones: List[CancelacionLoteItemIn]
+    usuario: Optional[str] = None
+    registrar_si_no_existe: bool = True
+
+
 # ════════════════════════════════════════════════════════════════════════════
 # CONFIG
 # ════════════════════════════════════════════════════════════════════════════
