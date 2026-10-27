@@ -7,12 +7,50 @@ artículos y recetas; contar inventario; procesar una venta; y leer el peso de
 envío, que es el dato por el que existe el sistema.
 """
 
+from datetime import date, timedelta
+
 import pytest
+
+from insumos_app import db
 
 
 # ════════════════════════════════════════════════════════════════════════════
 # AYUDANTES
 # ════════════════════════════════════════════════════════════════════════════
+
+# ── FECHAS: RELATIVAS AL DÍA, NUNCA ESCRITAS A MANO ──
+#
+# La primera carga de stock fija la `fecha_corte` en el día de HOY, y ninguna
+# venta anterior a esa fecha descuenta. Entonces un `fecha_venta` escrito a
+# mano —"2026-10-26"— cumple la condición el día que se escribe el test y deja
+# de cumplirla al día siguiente, para siempre: la venta empieza a volver como
+# `ignorada_fecha_corte` sin que nadie haya tocado una línea de código.
+#
+# No falla una vez, falla todos los días de ahí en adelante, y una suite que
+# está siempre en rojo deja de leerse: después nadie distingue esos tres tests
+# de una rotura de verdad.
+#
+# Por eso acá la fecha se CALCULA y el nombre de la función dice para qué sirve.
+# Si un test necesita fijar las dos puntas de la comparación (el corte Y la
+# venta), como los de `test_stock.py`, ahí las fechas absolutas están bien: la
+# relación entre ellas es justamente lo que se está probando y no depende del
+# almanaque.
+
+
+def dia_de_venta_que_descuenta() -> str:
+    """Fecha de venta que siempre cae dentro de la ventana que sí descuenta.
+
+    Sale de `db.hoy_iso()`, la misma función con la que el motor fija el
+    corte, así que las dos no pueden discrepar — ni cruzando la medianoche a
+    mitad de corrida.
+    """
+    return db.hoy_iso()
+
+
+def dia_anterior(dias: int) -> str:
+    """Un día del pasado, para los filtros que abren una ventana hacia atrás."""
+    return (date.today() - timedelta(days=dias)).isoformat()
+
 
 def nuevo_insumo(cliente, nombre="Cairel de vidrio 10 mm", **extra):
     cuerpo = {
@@ -444,7 +482,7 @@ def test_procesar_una_venta_descuenta_y_devuelve_los_movimientos(cliente):
     insumo, articulo = _taller_por_api(cliente)
 
     r = cliente.post("/api/ventas", json={
-        "canal": "ml", "id_externo": "2000001", "fecha_venta": "2026-10-26",
+        "canal": "ml", "id_externo": "2000001", "fecha_venta": dia_de_venta_que_descuenta(),
         "items": [{"id_externo_item": "MLA100000001", "cantidad": 2}],
     })
     assert r.status_code == 200
@@ -534,7 +572,7 @@ def test_la_venta_muestra_sus_movimientos(cliente):
 def test_el_listado_de_ventas_filtra(cliente):
     _taller_por_api(cliente)
     cliente.post("/api/ventas", json={
-        "canal": "ml", "id_externo": "2000001", "fecha_venta": "2026-10-26",
+        "canal": "ml", "id_externo": "2000001", "fecha_venta": dia_de_venta_que_descuenta(),
         "items": [{"id_externo_item": "MLA100000001", "cantidad": 1}],
     })
     assert cliente.get("/api/ventas", params={"canal": "ml"}).json()["total"] == 1
@@ -841,13 +879,13 @@ def test_el_lote_de_cancelaciones_sirve_a_un_sincronizador(cliente):
     insumo, _ = _taller_por_api(cliente)
     for orden in ("3000001", "3000002"):
         cliente.post("/api/ventas", json={
-            "canal": "ml", "id_externo": orden, "fecha_venta": "2026-10-26",
+            "canal": "ml", "id_externo": orden, "fecha_venta": dia_de_venta_que_descuenta(),
             "items": [{"id_externo_item": "MLA100000001", "cantidad": 1}]})
     assert cliente.get(f"/api/insumos/{insumo['id']}").json()["stock"]["unidades"] == 1988.0
 
     # 1. qué órdenes conoce el sistema
     procesadas = cliente.get("/api/ventas", params={
-        "canal": "ml", "estado": "procesada", "desde": "2026-10-01"}).json()
+        "canal": "ml", "estado": "procesada", "desde": dia_anterior(30)}).json()
     assert {v["id_externo"] for v in procesadas["ventas"]} == {"3000001", "3000002"}
 
     # 2. el canal reporta una cancelada → 3. se postea el lote
