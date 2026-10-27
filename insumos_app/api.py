@@ -1508,6 +1508,14 @@ def auditar_stock(conn: sqlite3.Connection = Depends(conexion)) -> Dict[str, Any
 
 app.include_router(api)
 
+# La interfaz web (insumos_app/web/) la sirve esta misma app, en /app/. Un solo
+# origen: el front pega a rutas relativas y no hay ninguna URL de API que
+# configurar. El montaje vive en `servir_web.py` para no mezclarlo con los
+# endpoints.
+from insumos_app.servir_web import montar_interfaz  # noqa: E402
+
+montar_interfaz(app)
+
 
 if __name__ == "__main__":
     import uvicorn

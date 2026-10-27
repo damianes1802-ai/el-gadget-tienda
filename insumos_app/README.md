@@ -17,7 +17,19 @@ python -m insumos_app.api
 ```
 
 Desde la raíz del repo. Levanta en `http://localhost:8010`, con las docs interactivas en
-`/docs`. La base se crea sola en `data/insumos.db` (gitignoreada) la primera vez.
+`/docs` y **la interfaz web en `/app/`**. La base se crea sola en `data/insumos.db`
+(gitignoreada) la primera vez.
+
+Para recorrer las pantallas con datos inventados (el repo es público: nada real acá):
+
+```bash
+python -m insumos_app.datos_ejemplo
+```
+
+Carga categorías, insumos de los dos modos de stock —uno en alerta y otro en negativo—,
+artículos con y sin receta, uno que se embala doblado, un artículo con DOS publicaciones de
+Mercado Libre y ventas en los seis estados posibles. Si la base ya tiene insumos no toca
+nada, para no pisar un inventario real.
 
 Tests:
 
@@ -66,6 +78,9 @@ que no se pierden datos.
 | `stock.py` | El motor: movimientos, descuento por venta, reproceso de pendientes, cancelación |
 | `modelos.py` | Modelos de entrada de la API |
 | `api.py` | FastAPI. Cáscara delgada: no tiene reglas de negocio propias |
+| `servir_web.py` | Monta la interfaz de `web/` en `/app/` de esta misma app |
+| `web/` | La interfaz: HTML, CSS y JS a mano, sin framework ni compilación |
+| `datos_ejemplo.py` | Catálogo inventado para probar la interfaz |
 
 Las reglas viven en `calculos.py` y `stock.py` y **no se duplican en la API**, por el mismo
 motivo por el que la lógica de campañas de El Gadget vive en `utils/campanas.py`: la carga
@@ -358,9 +373,54 @@ por acá: van a `POST /api/ventas`, el único camino idempotente.
 
 ---
 
+## La interfaz web
+
+Vive en `insumos_app/web/` y la sirve esta misma app en `/app/`. HTML, CSS y JavaScript a
+mano: sin framework, sin paso de compilación y sin dependencias que instalar. Habla con la
+API por `fetch()` contra rutas relativas, así que **no hay ninguna URL de API que
+configurar** — la trampa que en El Gadget dejó 534 corridas de nurturing en verde sin hacer
+nada y publicó meses de URLs rotas en el feed de Meta.
+
+Nueve pantallas: alertas (la primera que se ve), insumos, stock, artículos, categorías,
+publicaciones, ventas manuales, cancelación de ventas y ajustes.
+
+**Está escrita para un celular en el taller**, no para un escritorio al que después se le
+agrega un `@media`: una columna, botones de 46 px para arriba, teclado decimal en los campos
+numéricos y la lista de insumos buscable sin zoom. El menú lateral de escritorio entra recién
+a los 900 px.
+
+### Tres cosas que la interfaz sostiene y conviene no romper
+
+**La unidad de stock no se puede confundir.** Toda pantalla que pide un número de stock
+muestra un bloque grande, con color propio por modo —azul para kilos, violeta para
+unidades— que dice en qué unidad está pidiendo ese número, y repite la unidad pegada al
+campo. Mientras se escribe se muestra la equivalencia: quien iba a cargar "2" creyendo kilos
+ve *2 kg ≈ 800 unidades* y se da cuenta antes de guardar. Cargar 2 unidades donde iban 2
+kilos no falla, no avisa y no se nota hasta que falta material.
+
+**Los números los calcula el backend, siempre.** El peso de envío se actualiza en vivo
+mientras se edita la receta porque cada cambio se guarda al instante y el endpoint devuelve
+el envío recalculado — no porque la interfaz repita la fórmula. Si el peso se calculara en
+los dos lados, algún día discreparían y el que miente sería el de la pantalla. Las dos únicas
+cuentas que hace el navegador son de presentación y están marcadas como tales en el código
+(`equivalenciaAproximada`, la proyección del saldo).
+
+**Un `0` de peso no se muestra como si fuera un peso.** Cuando el backend devuelve
+`receta_incompleta: true`, el panel no muestra ningún número: muestra que falta la receta.
+
+### Autenticación
+
+Hoy `INSUMOS_PASSWORD` no está configurado y la API responde abierta, así que la interfaz
+entra directo. La pantalla de ingreso ya está hecha y conectada: al arrancar consulta
+`GET /` (abierto) y, si dice que hace falta credencial, la pide y la manda en el header
+`X-Insumos-Password` de cada llamada. **El día que se configure la variable, funciona sin
+tocar una línea** — probado levantando la API con la variable puesta. Un 401 en cualquier
+llamada borra la credencial guardada y vuelve a pedirla.
+
+---
+
 ## Lo que falta (tareas aparte)
 
-- **Interfaz web.** Todo lo que necesita está en los endpoints de arriba.
 - **Integración con Mercado Libre.** La tabla `mapeo_canal` y el punto de entrada están
   listos: la sincronización solo tiene que traer las órdenes desde `fecha_corte` y
   postearlas a `POST /api/ventas/lote`. OAuth contra la cuenta del socio sigue pendiente de

@@ -120,11 +120,22 @@ def conectar(ruta: Optional[Path] = None) -> sqlite3.Connection:
     `foreign_keys` viene apagado por conexión en SQLite y el esquema se apoya
     en las FK (el `ON DELETE CASCADE` de `receta` y `mapeo_canal`), así que se
     enciende acá.
+
+    `check_same_thread=False` NO comparte conexiones entre threads: sigue
+    habiendo una por request. Hace falta porque FastAPI corre la dependencia
+    que la abre (`api.conexion`) y la función del endpoint como dos tareas
+    distintas del threadpool, y con varios pedidos a la vez cada una cae en un
+    worker diferente — entonces sqlite3 rechaza la conexión con
+    "SQLite objects created in a thread can only be used in that same thread"
+    y el endpoint devuelve 500. Las dos corren una después de la otra sobre la
+    misma conexión, nunca a la vez, así que levantar el control es seguro.
+    No lo veían los tests porque `TestClient` hace los pedidos de a uno; se ve
+    apenas dos pantallas (o dos personas) piden algo en paralelo.
     """
     destino = Path(ruta) if ruta else DB_PATH
     destino.parent.mkdir(parents=True, exist_ok=True)
 
-    conn = sqlite3.connect(destino, isolation_level=None)
+    conn = sqlite3.connect(destino, isolation_level=None, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     return conn
