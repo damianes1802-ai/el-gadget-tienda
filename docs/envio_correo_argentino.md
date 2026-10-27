@@ -242,7 +242,7 @@ Después agrupar los no ambiguos en rangos y volcarlos a `rangos_por_provincia`.
 | ~~**Peso máximo de PAQ.AR**~~ | **Resuelto** con el manual de la API (mayo 2026): 1 g a 50.000 g, 200 cm por lado, 300 cm sumados. La ficha web sigue diciendo 25/30 kg y 250/150 cm — ver §8 | Verificar en la primera cotización real antes de vender un paquete de más de 250 cm |
 | ~~**Si el alta de MiCorreo es libre**~~ | **Resuelto**: la cuenta es autogestión y gratuita en `micorreo.correoargentino.com.ar/register`, y Correo publica que *"la integración es gratuita y sólo pagás por cada envío"*. Las credenciales de API, en cambio, las habilita un ejecutivo comercial — ver §8 | — |
 | **Si la API pide cuenta corriente** | Correo lo exige para Shopify y VTEX; de las APIs propias no dice nada | Preguntárselo al ejecutivo comercial cuando conteste |
-| **CP de origen de Así Fue Deco** | Nadie dijo desde qué sucursal despacha el socio, y sin eso no hay alcance que resolver | Preguntarle y cargarlo en `origen.cp` |
+| **CP de origen de Así Fue Deco** | Nadie dijo desde qué sucursal despacha el socio, y sin eso no hay alcance que resolver | Para PAQ.AR **no es un parámetro libre**: es la *sucursal cabecera* asociada a la cuenta de MiCorreo, y sin ella la cuenta directamente no cotiza. Asociarla y anotar su CP — ver [cosecha_tarifario_micorreo.md](cosecha_tarifario_micorreo.md) |
 | **Fecha de vigencia de las encomiendas** | Correo no la publica y el Archive no la tiene (WAF) | No se puede cerrar desde afuera. Se mitiga re-chequeando los links |
 | **Zona 1000–1499 = CABA** | El endpoint no da CP para CABA | Inocuo para el alcance. Si alguna vez se quiere exacto, se saca del CPA completo |
 
@@ -434,7 +434,16 @@ credenciales.
 
 ### Mientras tanto, sin esperar las credenciales
 
-Con el socio logueado en la web de MiCorreo se puede cosechar la grilla desde la consola del
-navegador, llamando a los XHR de la propia aplicación — el mismo truco que se usó acá para la base
-de localidades (§4). Eso llena el JSON esta semana y desbloquea la venta. **Cuando lleguen las
+Con la cuenta de MiCorreo ya abierta se puede cosechar la grilla desde la consola del navegador,
+cotizando desde la sesión propia. El procedimiento completo, para correr una sola vez, está en
+**[cosecha_tarifario_micorreo.md](cosecha_tarifario_micorreo.md)**: son ~285 consultas y unos 10
+minutos, porque la tarifa es una función escalonada de `zona × escalón de peso` y con eso queda
+determinada (barrer los 2.080 CP sería preguntar lo mismo 2.080 veces). **Cuando lleguen las
 credenciales no hay que tocar el checkout**, porque lee el mismo archivo.
+
+> **Dato útil para negociar con Correo**: el manual oficial del plugin de WooCommerce muestra que
+> el modo *"PAQ.AR API MiCorreo"* cotiza con **sólo el usuario y la contraseña de MiCorreo del
+> comerciante**, con un interruptor de *"¿vas a usar el cotizador de Correo Argentino?"*. El modo
+> que exige `Agreement` + `Apikey` es el otro, PAQ.AR API 2.0. O sea que Correo ya le da cotización
+> a un titular de cuenta sin acuerdo comercial cuando entra por un plugin; lo que falta es el
+> equivalente para un desarrollo propio.
