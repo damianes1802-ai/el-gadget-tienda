@@ -20,7 +20,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/lampara-led-de-escritorio-con-ventilador-2.html",
   "droppers_id": 5786,
-  "fecha_scraping": "2026-10-27T06:29:06.076614",
+  "fecha_scraping": "2026-10-28T06:30:13.462999",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Home"
@@ -30,7 +30,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-10-27T06:33:13.270257",
+  "fecha_mapeo_categorias": "2026-10-28T06:37:54.314727",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2150_002",
@@ -54,5 +54,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 73000.0,
-  "fecha_calculo_precio": "2026-10-27T06:34:22.106660"
+  "fecha_calculo_precio": "2026-10-28T06:45:44.943255"
 }
