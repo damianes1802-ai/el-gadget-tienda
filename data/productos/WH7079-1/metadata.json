@@ -19,9 +19,9 @@
   "variantes_internas": [],
   "disponibilidad": "in stock",
   "availability": "in stock",
-  "url_original": "https://droppers.com.ar/jabonera-de-personajes-japoneses.html",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/4933/",
   "droppers_id": 4933,
-  "fecha_scraping": "2026-10-28T06:31:52.351245",
+  "fecha_scraping": "2026-10-29T06:31:46.631414",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -56,5 +56,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 16000.0,
-  "fecha_calculo_precio": "2026-10-28T06:45:45.072073"
+  "fecha_calculo_precio": "2026-10-29T06:36:17.851478"
 }
