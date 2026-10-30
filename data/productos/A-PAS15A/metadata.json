@@ -37,7 +37,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bikini-traje-de-ba-o-lemon-vedetina-con-tiras-para-atar.html",
   "droppers_id": 2873,
-  "fecha_scraping": "2026-10-29T06:30:51.370836",
+  "fecha_scraping": "2026-10-30T06:28:07.678329",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Verano"
@@ -47,7 +47,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-10-29T06:35:30.706885",
+  "fecha_mapeo_categorias": "2026-10-30T06:30:40.769031",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15A_001",
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_A-PAS15A_002",
@@ -66,5 +66,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 43500.0,
-  "fecha_calculo_precio": "2026-10-29T06:36:17.680388"
+  "fecha_calculo_precio": "2026-10-30T06:31:41.359753"
 }
