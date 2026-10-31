@@ -37,10 +37,14 @@ marketing_app/data/backups/
 data/precios/*
 !data/precios/config_precios_v2.json
 
-# Config de zonas de envio (necesaria para el calculo de envios en la API)
+# Config de zonas de envio (necesaria para el calculo de envios en la API) y
+# tarifario de Correo Argentino (proveedores que despachan por correo, no por
+# la logistica de Droppers)
 !data/envios
 data/envios/*
 !data/envios/zonas_envio.json
+!data/envios/tarifario_correo_argentino.json
+!data/envios/cp_provincias_argentina.json
 
 # Metadata de productos (estado del pipeline, necesaria en CI)
 # Se ignoran imagenes/subcarpetas, solo se versiona metadata.json
