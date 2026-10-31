@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<!-- `viewport-fit=cover` + los `env(safe-area-inset-*)` del CSS: sin eso, en
+     un celular con muesca la barra de pestañas queda debajo de la barra del
+     sistema y no se puede tocar. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14151A">
+<meta name="robots" content="noindex, nofollow">
+<title>Insumos · Así Fue Deco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<!-- ══ Arranque ══ -->
+<div id="arranque">
+  <div>
+    <div class="girador"></div>
+    <div class="texto">Conectando con el sistema…</div>
+  </div>
+</div>
+
+<!-- ══ Ingreso ══
+     Hoy `INSUMOS_PASSWORD` no está configurado y la API responde abierta, así
+     que esta pantalla no aparece. Está escrita y conectada para que el día que
+     se configure la variable funcione sin tocar nada: la aplicación pregunta
+     por `GET /` si hace falta credencial. -->
+<div id="ingreso">
+  <div class="ingreso-caja">
+    <div class="ingreso-marca">Insumos y producción<br><span>Así Fue Deco</span></div>
+    <p class="ingreso-bajada">Stock de insumos, recetas y el peso de envío de cada artículo.</p>
+
+    <div id="ingreso-error"></div>
+
+    <div class="campo">
+      <label for="ingreso-clave">Clave de acceso</label>
+      <input type="password" id="ingreso-clave" autocomplete="current-password"
+             enterkeyhint="go" placeholder="La clave del sistema">
+    </div>
+
+    <label class="casilla" style="margin-bottom:16px" id="ingreso-recordar-caja">
+      <input type="checkbox" id="ingreso-recordar" checked>
+      <span class="casilla-texto">
+        <b>Recordar en este dispositivo</b>
+        <span>Dejalo marcado en el celular del taller. Desmarcalo en una máquina compartida.</span>
+      </span>
+    </label>
+
+    <button class="btn btn-grande btn-bloque" id="ingreso-entrar">Entrar</button>
+  </div>
+</div>
+
+<!-- ══ Aplicación ══ -->
+<div class="app">
+
+  <!-- Menú lateral: solo en escritorio -->
+  <aside class="lateral">
+    <div class="lateral-marca">
+      <b>Insumos <span>AFD</span></b>
+      <small>Así Fue Deco</small>
+    </div>
+    <nav class="lateral-nav" id="lateral-nav"></nav>
+    <div class="lateral-pie" id="lateral-pie"></div>
+  </aside>
+
+  <div class="cuerpo">
+    <header class="top">
+      <div class="top-titulo">
+        <h1 id="top-titulo">Alertas</h1>
+        <p id="top-sub">Insumos por debajo del umbral</p>
+      </div>
+      <div class="top-acciones">
+        <button class="icono-btn" id="btn-refrescar" aria-label="Actualizar"></button>
+      </div>
+    </header>
+
+    <main class="vista" id="vista">
+      <div class="limite">
+        <section class="pantalla activa" id="p-alertas"></section>
+        <section class="pantalla" id="p-insumos"></section>
+        <section class="pantalla" id="p-stock"></section>
+        <section class="pantalla" id="p-articulos"></section>
+        <section class="pantalla" id="p-categorias"></section>
+        <section class="pantalla" id="p-publicaciones"></section>
+        <section class="pantalla" id="p-ventas"></section>
+        <section class="pantalla" id="p-cancelaciones"></section>
+        <section class="pantalla" id="p-ajustes"></section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Barra de pestañas: solo en celular. Cuatro pantallas de uso diario y
+       "Más" para el resto; el pulgar llega a todo sin estirarse. -->
+  <nav class="tabbar" id="tabbar"></nav>
+</div>
+
+<div id="hojas"></div>
+<div class="globo" id="globo" role="status" aria-live="polite"></div>
+
+<script src="js/comunes.js"></script>
+<script src="js/api.js"></script>
+<script src="js/alertas.js"></script>
+<script src="js/insumos.js"></script>
+<script src="js/stock.js"></script>
+<script src="js/categorias.js"></script>
+<script src="js/articulos.js"></script>
+<script src="js/publicaciones.js"></script>
+<script src="js/ventas.js"></script>
+<script src="js/cancelaciones.js"></script>
+<script src="js/ajustes.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
