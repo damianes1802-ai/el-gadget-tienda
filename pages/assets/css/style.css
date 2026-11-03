@@ -1308,3 +1308,42 @@ body.pagina-checkout .whatsapp-float { display: none; }
 .pdp-benefits li .ico { font-size: 17px; line-height: 1.3; flex-shrink: 0; }
 .pdp-benefits strong { color: var(--ink); font-weight: 600; }
 .pdp-benefits a { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+
+/* ── TIENDA EN PAUSA (la enciende cart.js con EG_TIENDA_PAUSADA) ──
+   Aviso arriba de todas las páginas + botones de compra apagados. El apagado
+   engancha por id y por el onclick que escribe el generador —y no por una clase
+   que agregue el JS— para que siga valiendo cuando la página vuelve a renderizar
+   sus botones (el checkout rehabilita #btnPagar al validar el formulario). */
+.eg-bar-pausa .eg-pausa-wa {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green-wa); color: #0B2C17; font-weight: 800;
+  font-size: 12.5px; letter-spacing: 0; text-decoration: none;
+  padding: 7px 14px; border-radius: 999px; margin-top: 4px;
+}
+.eg-bar-pausa .eg-pausa-wa:hover { filter: brightness(1.06); }
+
+html[data-eg-pausa] [onclick*="agregarAlCarrito"],
+html[data-eg-pausa] [onclick*="comprarAhora"],
+html[data-eg-pausa] #btnCheckout,
+html[data-eg-pausa] #btnPagar {
+  opacity: .4; filter: grayscale(1);
+  pointer-events: none; cursor: not-allowed;
+}
+
+/* Checkout cerrado: el panel entero se reemplaza por este aviso. */
+.eg-pausa-aviso {
+  grid-column: 1 / -1;
+  max-width: 540px; margin: 2rem auto; text-align: center;
+  background: var(--paper); border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius); box-shadow: var(--shadow); padding: 2rem 1.5rem;
+}
+.eg-pausa-aviso-ico { font-size: 40px; line-height: 1; margin-bottom: 12px; }
+.eg-pausa-aviso h2 { font-size: 20px; margin-bottom: 12px; }
+.eg-pausa-aviso p { font-size: 14px; line-height: 1.6; color: var(--gray-600); margin-bottom: 12px; }
+.eg-pausa-aviso-ctas {
+  display: flex; flex-direction: column; gap: 10px; margin-top: 20px;
+}
+@media (min-width: 560px) {
+  .eg-pausa-aviso-ctas { flex-direction: row; justify-content: center; }
+  .eg-pausa-aviso-ctas .btn { min-width: 210px; }
+}

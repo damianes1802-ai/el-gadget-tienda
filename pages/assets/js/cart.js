@@ -7,6 +7,30 @@ const CARRITO_KEY = 'carrito';
 const EG_API_URL = 'https://el-gadget-tienda.onrender.com';
 const GA4_ID = 'G-D8GWDT1CBS';
 
+/* ── TIENDA EN PAUSA ─────────────────────────────────────────────────────────
+   Interruptor único para cerrar la tienda sin desarmar nada. Mientras esté en
+   true: barra de aviso arriba de todas las páginas, botones de compra apagados
+   y ni una llamada a la API.
+
+   Lo tercero no es un detalle: cuando el servicio de Render está suspendido, el
+   edge contesta 503 y, a las pocas peticiones seguidas desde la misma IP, 429 a
+   todo. Dejar 300 páginas pidiendo precio, stock, ventas y reseñas en cada
+   visita solo acelera eso. Los precios y el stock que se ven son los de la
+   última corrida del pipeline, que es la información correcta igual.
+
+   Los carritos ya guardados NO se borran: cuando se reabre, el cliente los
+   encuentra tal cual.
+
+   PARA REABRIR LA TIENDA: poner EG_TIENDA_PAUSADA en false. Nada más.
+
+   Vive acá porque cart.js es el único archivo que cargan las 300+ páginas y que
+   el pipeline diario no regenera (index.html, fichas, categorías, colecciones y
+   blog se reescriben todas las noches y se pierde cualquier cosa escrita a mano
+   en ellos). */
+const EG_TIENDA_PAUSADA = true;
+const EG_PAUSA_WA = 'https://wa.me/5491126228477?text=' + encodeURIComponent(
+  'Hola! Vi que la tienda está en mantenimiento. Quiero hacer un pedido.');
+
 // GA4 se carga SIEMPRE con Consent Mode v2. La analítica (analytics_storage)
 // está activa por defecto: en Argentina no rige un opt-in tipo GDPR para
 // medición agregada, y sin esto el 60-70% del tráfico que ignora el banner
@@ -227,6 +251,10 @@ function actualizarCarritoUI() {
  * necesite) que internamente llama a esta función de bajo nivel.
  */
 function addCartItem(item) {
+  if (EG_TIENDA_PAUSADA) {
+    showToast('🔧 Estamos en mantenimiento: por ahora no tomamos pedidos online. Escribinos por WhatsApp y lo cerramos a mano.');
+    return;
+  }
   const carrito = getCarrito();
   const MAX_POR_PRODUCTO = 15;
   const existente = carrito.find(i => i.sku === item.sku);
@@ -572,6 +600,9 @@ function registrarProductoVisto() {
  * localStorage.eg_descuento_pendiente tras concretar esa compra.
  */
 function mostrarBannerBienvenida() {
+  // Un "10% OFF en tu primera compra" arriba del aviso de que no se puede
+  // comprar es una contradicción: mientras la tienda está en pausa, no sale.
+  if (EG_TIENDA_PAUSADA) return;
   if (localStorage.getItem('eg_descuento_pendiente') !== '1') return;
   if (localStorage.getItem('eg_ref_code')) return;
   if (document.getElementById('egWelcomeBanner')) return;
@@ -600,6 +631,10 @@ function capturaRefCode() {
     ga4SetUserProps({ referido_por: codigo });
     ga4Event('referral_visit', { ref_code: codigo, page_type: egTipoDePagina() });
   }
+  // La captura del código sí se hace siempre (es localStorage: el referido no
+  // pierde su atribución por pasar durante la pausa); el banner con el
+  // descuento, no, por lo mismo que el de bienvenida.
+  if (EG_TIENDA_PAUSADA) return;
   const code = localStorage.getItem('eg_ref_code');
   if (!code) return;
   if (document.getElementById('egRefBanner') || document.getElementById('egComboBanner')) return;
@@ -748,6 +783,63 @@ function rejectOptionalCookies() {
   }
 }
 
+/* ── Pausa: barra de aviso, botones apagados, checkout cerrado ───────────── */
+
+function egBarraPausa() {
+  if (document.getElementById('egPausaBanner')) return;
+  const barra = document.createElement('div');
+  barra.className = 'eg-bar eg-bar-pausa';
+  barra.id = 'egPausaBanner';
+  barra.setAttribute('role', 'status');
+  barra.innerHTML =
+    '<div class="eg-bar-l1">🔧 Tienda en mantenimiento: <b>no podemos tomar pedidos online</b></div>'
+    + '<div class="eg-bar-l2">Podés ver todo el catálogo igual. Si querés algo, escribinos y lo cerramos a mano.</div>'
+    + '<a class="eg-pausa-wa" href="' + EG_PAUSA_WA + '" target="_blank" rel="noopener">Escribinos por WhatsApp</a>';
+  document.body.insertBefore(barra, document.body.firstChild);
+}
+
+/* El apagado real lo hace el CSS a partir de data-eg-pausa en <html>: engancha
+   por id y por el onclick que escribe el generador, así que sobrevive a que la
+   página vuelva a renderizar sus botones (el checkout rehabilita #btnPagar
+   cuando el formulario valida). Acá solo se agrega lo que el CSS no puede:
+   el estado accesible y el cartel en el botón. */
+function egApagarCompras() {
+  document.documentElement.setAttribute('data-eg-pausa', '1');
+  const SIN_COMPRA = '[onclick*="agregarAlCarrito"], [onclick*="comprarAhora"], #btnCheckout, #btnPagar';
+  document.querySelectorAll(SIN_COMPRA).forEach(el => {
+    el.setAttribute('aria-disabled', 'true');
+    el.setAttribute('tabindex', '-1');
+    el.setAttribute('title', 'Tienda en mantenimiento: por ahora no tomamos pedidos online.');
+    if (el.tagName === 'A') el.removeAttribute('href');
+    if (el.id === 'btnCheckout' || el.id === 'btnPagar') el.textContent = 'Tienda en mantenimiento';
+  });
+}
+
+/* El checkout es la única página donde apagar el botón no alcanza: no tiene
+   sentido dejar a alguien llenando ocho campos de un formulario que no se puede
+   enviar. La llama checkout.html, que carga cart.js antes de su propio script. */
+function egCheckoutEnPausa() {
+  const layout = document.querySelector('.checkout-layout');
+  if (!layout) return;
+  const titulo = document.querySelector('.page-title');
+  if (titulo) titulo.textContent = 'Tienda en mantenimiento';
+  // El sello "Pago 100% seguro" arriba de "no podemos tomar tu pedido" es una
+  // promesa que hoy no se puede cumplir.
+  const sello = document.getElementById('checkoutSeguro');
+  if (sello) sello.style.display = 'none';
+  layout.innerHTML =
+    '<div class="eg-pausa-aviso">'
+    + '<div class="eg-pausa-aviso-ico">🔧</div>'
+    + '<h2>No podemos tomar tu pedido ahora</h2>'
+    + '<p>Estamos haciendo un mantenimiento y por ahora no se pueden procesar pagos online. '
+    + 'Lo que tenías en el carrito quedó guardado: cuando volvamos a abrir, lo encontrás tal cual.</p>'
+    + '<p>Si lo querés comprar ahora, escribinos y lo cerramos a mano.</p>'
+    + '<div class="eg-pausa-aviso-ctas">'
+    + '<a class="btn btn-accent" href="' + EG_PAUSA_WA + '" target="_blank" rel="noopener">Escribinos por WhatsApp</a>'
+    + '<a class="btn btn-outline" href="/">Volver al catálogo</a>'
+    + '</div></div>';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initGA4();
   if (hasConsentCookies()) {
@@ -755,13 +847,21 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     showCookieBanner();
   }
+  if (EG_TIENDA_PAUSADA) {
+    egBarraPausa();
+    egApagarCompras();
+  }
   initItemListTracking();
   initLeadTracking();
   actualizarCarritoUI();
-  initPopupRegistro();
-  initOfertaYStockProducto();
-  initVentasBadge();
-  initResenasProducto();
+  // Todo lo de este bloque sale a buscar algo a la API: con la tienda en pausa
+  // no se llama (ver EG_TIENDA_PAUSADA arriba).
+  if (!EG_TIENDA_PAUSADA) {
+    initPopupRegistro();
+    initOfertaYStockProducto();
+    initVentasBadge();
+    initResenasProducto();
+  }
   registrarProductoVisto();
   mostrarBannerBienvenida();
   capturaRefCode();
@@ -777,7 +877,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const enCheckout = location.pathname.endsWith('checkout') || location.pathname.endsWith('checkout.html');
-  if (enCheckout) {
+  if (enCheckout && !EG_TIENDA_PAUSADA) {
     const c = getCarrito();
     if (c.length) {
       ga4Event('begin_checkout', {

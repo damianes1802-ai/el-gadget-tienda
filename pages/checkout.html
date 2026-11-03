@@ -29,7 +29,7 @@
         <div class="logo-tagline">Tienda online</div>
       </div>
     </a>
-    <span style="display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--green-ok);background:var(--green-pale);padding:8px 14px;border-radius:20px">🔒 Pago 100% seguro</span>
+    <span id="checkoutSeguro" style="display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--green-ok);background:var(--green-pale);padding:8px 14px;border-radius:20px">🔒 Pago 100% seguro</span>
   </div>
 </header>
 
@@ -728,55 +728,65 @@ async function procesarPago() {
   }
 }
 
-document.getElementById('provincia').addEventListener('change', () => {
-  actualizarPartidoVisibility();
-  renderResumen();
-});
-document.getElementById('partido').addEventListener('change', renderResumen);
+/* Tienda en pausa (interruptor EG_TIENDA_PAUSADA en cart.js, que este script
+   carga arriba): se reemplaza el formulario por el aviso y no se arranca nada.
+   Tiene que envolver TODO el arranque, no solo el botón de pagar: acá hay tres
+   llamadas que saldrían a una API caída —tarifario de envíos, validación del
+   código de referido y el descuento de bienvenida— y dos de ellas se disparan
+   solas al cargar la página. */
+if (typeof EG_TIENDA_PAUSADA !== 'undefined' && EG_TIENDA_PAUSADA) {
+  egCheckoutEnPausa();
+} else {
+  document.getElementById('provincia').addEventListener('change', () => {
+    actualizarPartidoVisibility();
+    renderResumen();
+  });
+  document.getElementById('partido').addEventListener('change', renderResumen);
 
-document.getElementById('codigoDescuento').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') { e.preventDefault(); aplicarCodigoDescuento(); }
-});
+  document.getElementById('codigoDescuento').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); aplicarCodigoDescuento(); }
+  });
 
-if (descuentoBienvenidaPendiente) {
-  document.getElementById('bannerBienvenida').style.display = 'block';
-  const emailField = document.getElementById('email');
-  if (!emailField.value.trim()) {
-    const emailRegistrado = localStorage.getItem('eg_email_registrado');
-    if (emailRegistrado) emailField.value = emailRegistrado;
+  if (descuentoBienvenidaPendiente) {
+    document.getElementById('bannerBienvenida').style.display = 'block';
+    const emailField = document.getElementById('email');
+    if (!emailField.value.trim()) {
+      const emailRegistrado = localStorage.getItem('eg_email_registrado');
+      if (emailRegistrado) emailField.value = emailRegistrado;
+    }
+    emailField.addEventListener('blur', aplicarDescuentoBienvenida);
+    aplicarDescuentoBienvenida();
   }
-  emailField.addEventListener('blur', aplicarDescuentoBienvenida);
-  aplicarDescuentoBienvenida();
-}
 
-const _mrToggle = document.getElementById('miniResumenToggle');
-if (_mrToggle) _mrToggle.addEventListener('click', () => {
-  const det = document.getElementById('miniResumenDetalle');
-  const abierto = det.style.display !== 'none';
-  det.style.display = abierto ? 'none' : 'block';
-  _mrToggle.setAttribute('aria-expanded', String(!abierto));
-  _mrToggle.querySelector('.mini-resumen-chevron').textContent = abierto ? '▾ Ver detalle' : '▴ Ocultar';
-});
+  const _mrToggle = document.getElementById('miniResumenToggle');
+  if (_mrToggle) _mrToggle.addEventListener('click', () => {
+    const det = document.getElementById('miniResumenDetalle');
+    const abierto = det.style.display !== 'none';
+    det.style.display = abierto ? 'none' : 'block';
+    _mrToggle.setAttribute('aria-expanded', String(!abierto));
+    _mrToggle.querySelector('.mini-resumen-chevron').textContent = abierto ? '▾ Ver detalle' : '▴ Ocultar';
+  });
 
-cargarZonasEnvio();
+  cargarZonasEnvio();
 
-const _refCode = localStorage.getItem('eg_ref_code');
-if (_refCode && !descuentoAplicado) {
-  const input = document.getElementById('codigoDescuento');
-  if (input && !input.value.trim()) {
-    input.value = _refCode;
-    aplicarCodigoDescuento().then(() => {
-      renderResumen();
-      if (descuentoAplicado) {
-        const rb = document.getElementById('bannerReferido');
-        const rc = document.getElementById('bannerRefCodigo');
-        if (rb) { rb.style.display = 'block'; }
-        if (rc) { rc.textContent = _refCode; }
-        if (descuentoBienvenidaPendiente && codigoBienvenida) {
-          aplicarDescuentoBienvenida().then(() => renderResumen());
+  const _refCode = localStorage.getItem('eg_ref_code');
+  if (_refCode && !descuentoAplicado) {
+    const input = document.getElementById('codigoDescuento');
+    if (input && !input.value.trim()) {
+      input.value = _refCode;
+      aplicarCodigoDescuento().then(() => {
+        renderResumen();
+        if (descuentoAplicado) {
+          const rb = document.getElementById('bannerReferido');
+          const rc = document.getElementById('bannerRefCodigo');
+          if (rb) { rb.style.display = 'block'; }
+          if (rc) { rc.textContent = _refCode; }
+          if (descuentoBienvenidaPendiente && codigoBienvenida) {
+            aplicarDescuentoBienvenida().then(() => renderResumen());
+          }
         }
-      }
-    });
+      });
+    }
   }
 }
 </script>
