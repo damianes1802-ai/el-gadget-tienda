@@ -12,7 +12,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/bordes-de-seguridad-bumper.html",
   "droppers_id": 5279,
-  "fecha_scraping": "2026-11-02T06:31:30.591733",
+  "fecha_scraping": "2026-11-03T06:29:46.446222",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "Home"
@@ -22,7 +22,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-11-02T06:35:52.979138",
+  "fecha_mapeo_categorias": "2026-11-03T06:32:23.982395",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL1088_001"
   ],
@@ -38,5 +38,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 8500.0,
-  "fecha_calculo_precio": "2026-11-02T06:37:03.239565"
+  "fecha_calculo_precio": "2026-11-03T06:33:27.570049"
 }

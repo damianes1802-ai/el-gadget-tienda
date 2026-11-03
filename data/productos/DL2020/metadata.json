@@ -1,0 +1,54 @@
+{
+  "sku": "DL2020",
+  "titulo": "Manopla Masajeador De Mano Corporal Bolillas De Acero",
+  "precio": 4250,
+  "descripcion": "MANOPLA MASAJEADORA CON BOLILLAS DE ACERO INOXIDABLE\nGuante manopla Masajeadora equipada con nueve (9) bolillas de acero inox. de 360º\nGiratoria. Ideal para cuello, espalda, hombro, gluteos, etc.\nEn cualquier momento, viendo television o tomando un bajo.\nFabricado en silicona. Ayuda a quitar su fatiga y reducir la apariencia de la celulitis\nmediante la mejora de la circulacion.\nLa parte trasera de la Articulo esta fabricado con suaves cepillos de PVC.\nCARACTERISTICAS:\n- Material: Metal + silicona.\n- COLORES: SURTIDOS.\n- Medidas: 16 cm. x 14 cm. x 2 cm. Aprox. AJUSTABLE\n- Di¿metro de la bola: 1,5 cm.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/503818_-8-_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/503818_-1-_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/503818_-2-_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/503818_-3-_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/503818_-4-_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/503818_-5-_1_1.png",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/0/503818_-6-_1_1.png"
+  ],
+  "cantidad_imagenes": 7,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5757/",
+  "droppers_id": 5757,
+  "fecha_scraping": "2026-11-03T06:29:26.770647",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Estética y Belleza"
+  ],
+  "categoria_principal": "Estética y Belleza",
+  "categoria": "Estética y Belleza",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-11-03T06:32:23.978626",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687562/prod_DL2020_001.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687563/prod_DL2020_002.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687563/prod_DL2020_003.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687564/prod_DL2020_004.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687565/prod_DL2020_005.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687566/prod_DL2020_006.png",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687566/prod_DL2020_007.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 4250,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 4250,
+    "margen_porcentaje": 160,
+    "precio_con_margen": 11050.0,
+    "precio_final": 11500.0,
+    "ganancia_neta": 7250.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 11500.0,
+  "fecha_calculo_precio": "2026-11-03T06:33:27.618253"
+}

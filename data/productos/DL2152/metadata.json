@@ -1,0 +1,42 @@
+{
+  "sku": "DL2152",
+  "titulo": "Alfombra Absorbente de Diatomita para Mascotas Premium",
+  "precio": 8500,
+  "descripcion": "Alfombra absorbente para mascotas\nMaterial: Diatomita\nMedidas: 40 x 60 cm\n3 diseños. Se envía surtido.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2152.png"
+  ],
+  "cantidad_imagenes": 1,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5790/",
+  "droppers_id": 5790,
+  "fecha_scraping": "2026-11-03T06:28:08.083015",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Accesorios para Mascotas"
+  ],
+  "categoria_principal": "Accesorios para Mascotas",
+  "categoria": "Accesorios para Mascotas",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-11-03T06:32:23.997288",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687575/prod_DL2152_001.png"
+  ],
+  "calculo_precio": {
+    "precio_costo": 8500,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 8500,
+    "margen_porcentaje": 160,
+    "precio_con_margen": 22100.0,
+    "precio_final": 22500.0,
+    "ganancia_neta": 14000.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 22500.0,
+  "fecha_calculo_precio": "2026-11-03T06:33:27.634544"
+}

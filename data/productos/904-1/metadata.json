@@ -5,8 +5,8 @@
   "descripcion": "\"Guantes de lycra\n4 colores.\nSe envían surtidos.\"",
   "imagenes": [],
   "cantidad_imagenes": 0,
-  "disponibilidad": "out of stock",
-  "availability": "out of stock",
+  "disponibilidad": "in stock",
+  "availability": "in stock",
   "url_original": "https://droppers.com.ar/guante-lycra.html",
   "fecha_scraping": "2026-03-16T19:31:24.466652",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
@@ -25,7 +25,7 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 0.0,
-  "fecha_calculo_precio": "2026-11-02T06:37:03.216550",
+  "fecha_calculo_precio": "2026-11-03T06:33:27.537726",
   "categoria_principal": "OFERTAS",
   "categoria": "OFERTAS",
   "categorias_secundarias": [],
@@ -35,6 +35,5 @@
   "total_categorias": 1,
   "fecha_actualizacion_categorias": "2026-03-16T19:49:46.108804",
   "categoria_asignada_automaticamente": true,
-  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers",
-  "fecha_agotado": "2026-06-16T00:50:47.141888"
+  "razon_categoria_ofertas": "Producto disponible sin categoría en Droppers"
 }

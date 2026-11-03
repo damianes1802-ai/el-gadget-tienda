@@ -1,0 +1,60 @@
+{
+  "sku": "DL2186",
+  "titulo": "Máquina De Tejer Profesional 40 Agujas",
+  "precio": 83500,
+  "descripcion": "Descripción:\nEl juego incluye: tabla de tejer, una aguja de tejer doble, 2 agujas de tejer, ajustador elástico y 3 bolas de hilo en 3 colores surtidos.\nOpciones ilimitadas. Con una opción de tejido plano o redondo, puedes crear cualquier cosa, desde sombreros, manoplas y bufandas hasta almohadas y mantas\nTan fácil de montar: simplemente coloca las patas en su lugar, envuelve tu hilo de color deseado en el eje y listo\nPara principiantes y avanzados.\nEste kit es ideal para niños y adultos por igual.\nEs un gran regalo para aficionados al tejer.",
+  "imagenes": [
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/i/dise_o_sin_t_tulo_42__1_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/515627-12-a03b737fd79f75514d16627396960202-640-0_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/515627-21-aec739f699a46ca45016627396959126-640-0_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/515627-31-2511363f957b39eda916627396958561-640-0_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/515627-41-d2fc6464e07caffee916627396961266-640-0_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/515627-51-1fed35f6788233249d16627396961459-640-0_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/515627-61-28481758c2f069153216627396960770-640-0_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/515627-81-5103bac675a72a819a16627396961606-640-0_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/515627-91-428c3f91fdc22a33b116627396961124-640-0_1.jpg",
+    "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/5/1/515627-101-f7c3fac761221cd5b216627396961832-640-0_1.jpg"
+  ],
+  "cantidad_imagenes": 10,
+  "variantes_internas": [],
+  "disponibilidad": "in stock",
+  "availability": "in stock",
+  "url_original": "https://droppers.com.ar/catalog/product/view/id/5763/",
+  "droppers_id": 5763,
+  "fecha_scraping": "2026-11-03T06:28:44.751094",
+  "scrapeado_con": "scraper_maestro_v2_sin_categorias",
+  "todas_las_categorias": [
+    "Home"
+  ],
+  "categoria_principal": "Home",
+  "categoria": "Home",
+  "categorias_secundarias": [],
+  "total_categorias": 1,
+  "categorias_asignadas": true,
+  "fecha_mapeo_categorias": "2026-11-03T06:32:23.979701",
+  "imagenes_cloudinary": [
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687577/prod_DL2186_001.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687578/prod_DL2186_002.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687579/prod_DL2186_003.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687580/prod_DL2186_004.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687581/prod_DL2186_005.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687581/prod_DL2186_006.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687582/prod_DL2186_007.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687583/prod_DL2186_008.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687583/prod_DL2186_009.jpg",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687584/prod_DL2186_010.jpg"
+  ],
+  "calculo_precio": {
+    "precio_costo": 83500,
+    "cargos_fijos": 0,
+    "desglose_cargos": [],
+    "subtotal": 83500,
+    "margen_porcentaje": 160,
+    "precio_con_margen": 217100.0,
+    "precio_final": 217500.0,
+    "ganancia_neta": 134000.0,
+    "perfil_aplicado": "Estándar"
+  },
+  "precio_venta": 217500.0,
+  "fecha_calculo_precio": "2026-11-03T06:33:27.636568"
+}

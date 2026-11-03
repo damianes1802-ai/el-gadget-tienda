@@ -16,7 +16,8 @@
   "disponibilidad": "out of stock",
   "availability": "out of stock",
   "url_original": "https://droppers.com.ar/organizador-estante-esquinero-cocina-especias-frascos-2.html",
-  "fecha_scraping": "2026-08-24T06:26:03.471747",
+  "droppers_id": 5901,
+  "fecha_scraping": "2026-11-03T06:29:22.786584",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "todas_las_categorias": [
     "OFERTAS"
@@ -40,6 +41,6 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 80000.0,
-  "fecha_calculo_precio": "2026-11-02T06:37:03.293224",
+  "fecha_calculo_precio": "2026-11-03T06:33:27.646359",
   "fecha_agotado": "2026-08-25T06:16:28.240155"
 }
