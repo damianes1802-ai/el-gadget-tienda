@@ -31,18 +31,18 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-11-03T06:32:23.979701",
+  "fecha_mapeo_categorias": "2026-11-04T06:35:41.605619",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687577/prod_DL2186_001.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687578/prod_DL2186_002.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687579/prod_DL2186_003.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687580/prod_DL2186_004.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687581/prod_DL2186_005.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687581/prod_DL2186_006.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687582/prod_DL2186_007.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687583/prod_DL2186_008.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687583/prod_DL2186_009.jpg",
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687584/prod_DL2186_010.jpg"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2186_001",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2186_002",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2186_003",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2186_004",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2186_005",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2186_006",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2186_007",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2186_008",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2186_009",
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2186_010"
   ],
   "calculo_precio": {
     "precio_costo": 83500,
@@ -56,5 +56,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 217500.0,
-  "fecha_calculo_precio": "2026-11-03T06:33:27.636568"
+  "fecha_calculo_precio": "2026-11-04T06:37:05.233651"
 }

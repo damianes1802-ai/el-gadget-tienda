@@ -22,9 +22,9 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-11-03T06:32:23.997288",
+  "fecha_mapeo_categorias": "2026-11-04T06:35:41.618307",
   "imagenes_cloudinary": [
-    "https://res.cloudinary.com/deq2ofluf/image/upload/v1793687575/prod_DL2152_001.png"
+    "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2152_001"
   ],
   "calculo_precio": {
     "precio_costo": 8500,
@@ -38,5 +38,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 22500.0,
-  "fecha_calculo_precio": "2026-11-03T06:33:27.634544"
+  "fecha_calculo_precio": "2026-11-04T06:37:05.231567"
 }
