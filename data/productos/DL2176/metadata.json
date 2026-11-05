@@ -22,7 +22,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-11-04T06:35:41.618725",
+  "fecha_mapeo_categorias": "2026-11-05T06:32:06.218698",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2176_001"
   ],
@@ -38,5 +38,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 16000.0,
-  "fecha_calculo_precio": "2026-11-04T06:37:05.232583"
+  "fecha_calculo_precio": "2026-11-05T06:32:56.044827"
 }
