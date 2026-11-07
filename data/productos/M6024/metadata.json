@@ -12,7 +12,7 @@
   "availability": "in stock",
   "url_original": "https://droppers.com.ar/catalog/product/view/id/5098/",
   "droppers_id": 5098,
-  "fecha_scraping": "2026-11-06T06:30:25.884897",
+  "fecha_scraping": "2026-11-07T06:30:05.690460",
   "scrapeado_con": "scraper_maestro_v2_sin_categorias",
   "categorias_pendientes": true,
   "nota": "Categorías se asignarán en FASE 2 con mapear_categorias_post_scraping.py",
@@ -38,5 +38,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 17500.0,
-  "fecha_calculo_precio": "2026-11-06T06:34:44.196261"
+  "fecha_calculo_precio": "2026-11-07T06:35:10.850313"
 }

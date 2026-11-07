@@ -22,7 +22,7 @@
   "categorias_secundarias": [],
   "total_categorias": 1,
   "categorias_asignadas": true,
-  "fecha_mapeo_categorias": "2026-11-06T06:33:34.889551",
+  "fecha_mapeo_categorias": "2026-11-07T06:33:50.483088",
   "imagenes_cloudinary": [
     "https://res.cloudinary.com/deq2ofluf/image/upload/prod_DL2152_001"
   ],
@@ -38,5 +38,5 @@
     "perfil_aplicado": "Estándar"
   },
   "precio_venta": 22500.0,
-  "fecha_calculo_precio": "2026-11-06T06:34:44.141419"
+  "fecha_calculo_precio": "2026-11-07T06:35:10.793454"
 }
